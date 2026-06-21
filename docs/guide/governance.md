@@ -11,8 +11,8 @@ Lives in [`governance/`](https://github.com/Data-Wise/craft/tree/main/governance
 
 Rules written as prose drift and get silently bypassed: archived source paths leave dead symlinks,
 and consumer installs lag the canon version for releases at a time. Governance makes organization a
-property of the system — a single source of truth, machine-checkable rules, and gates that fail
-loudly.
+property of the system — a single source of truth, machine-checkable rules, and a fail-loud audit
+engine designed to be wired into gates (CI / a SessionStart hook; not yet wired in this repo).
 
 ## Components
 
@@ -20,14 +20,15 @@ loudly.
 |---|---|
 | `governance/RULES.yaml` | **Single source of truth** — every rule: `id`, `statement`, `severity`, `gates`, `check`, `waivers`. |
 | `governance/run_rules.py` | Engine. Audits the live environment (exit 1 on any unwaived **error**-severity failure — **fail-closed**: a missing/broken checker on an error rule gates too); `--selftest` meta-validates the checkers. |
-| `governance/render_rules.py` | Generates the human-readable rule block and injects it into any `CLAUDE.md` between markers; `--check` is the **rules-drift** gate. |
+| `governance/render_rules.py` | Generates the human-readable rule block and injects it into any `CLAUDE.md` between markers; `--check` is the **rules-drift** check (intended as a gate — run manually for now; not yet wired). |
 | `governance/checks/` | One small, portable checker per automatable rule. |
 | `governance/fixtures/` | Good + bad layouts so the checkers are themselves tested. |
 
 ## Usage
 
 ```bash
-# Audit the live environment against the rules (gate CI / a SessionStart hook)
+# Audit the live environment against the rules
+# (intended to be wired as a CI step / SessionStart hook — run manually for now; not yet wired in this repo)
 python3 governance/run_rules.py
 
 # Meta-validation: every checker must flag its bad fixture and pass its good one
@@ -40,13 +41,19 @@ python3 governance/render_rules.py --check  ~/.claude/CLAUDE.md   # rules-drift 
 
 ## Severity, posture, gates
 
-- **Severity** — `error` blocks at its gates · `warn` is surfaced · `advisory` is documented only.
+- **Severity** — `error` blocks · `warn` is surfaced · `advisory` is documented only. Severity is the
+  only thing that decides blocking: `run_rules.py` runs **every** active rule and counts unwaived
+  `error`-severity failures, regardless of `gates`.
 - **Posture** — *gentle-ramp*: a new rule starts as `warn` (or `error` + time-boxed waivers) and
   tightens once the environment is clean.
-- **Gates** — each rule names where it fires: `author` (pre-commit) · `ci` (PR) · `release` (dist) ·
-  `install` · `session` (SessionStart hook) · `runtime`. Pick a gate the check can actually run at —
-  e.g. `R01-single-source` fires on `session`, not `ci`, since its canon repos only exist locally;
-  in CI it announces a vacuous skip rather than passing silently.
+- **Gates** — `author` (pre-commit) · `ci` (PR) · `release` (dist) · `install` · `session`
+  (SessionStart hook) · `runtime`. **Gates are advisory metadata**: `render_rules.py` renders them
+  into the human-readable rule block in `CLAUDE.md` to document *where a rule is meant to run*, but
+  the audit engine does **not** read `gates` at runtime — it does not route execution. The intent
+  records a future home for each check (e.g. `R01-single-source` is meant for `session`, not `ci`,
+  since its canon repos only exist locally). When R01 runs in craft CI it announces a vacuous skip —
+  but that skip comes from the checker's own "fewer than 2 canon dirs present" guard in
+  `checks/no_duplicate_canon.py`, not from gate routing.
 
 ## Adding a rule
 

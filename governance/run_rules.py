@@ -4,10 +4,10 @@ run_rules.py — the governance engine. Loads RULES.yaml, runs each rule's check
 applies severity + waivers, and reports. Two modes:
 
   (default)    audit the live environment against the rules; exit 1 on any
-               unwaived error-severity failure (so CI / a SessionStart hook can
-               gate on it). Fail-closed: an error-rule whose checker is missing
-               or unresolvable (state ERROR) blocks too — a broken checker never
-               passes silently.
+               unwaived error-severity failure (intended for CI / a SessionStart
+               hook — not yet wired). Fail-closed: an error-rule whose checker is
+               missing or unresolvable (state ERROR) blocks too — a broken checker
+               never passes silently.
   --selftest   META-VALIDATION (P5): prove each checker works on its own fixtures
                (bad must fail, good must pass), flag error-rules with no automated
                check, and verify every waiver has an owner + a future expiry.

@@ -10,13 +10,20 @@ distributed via the Homebrew tap and/or a local marketplace (scholar, savant, cr
 
 ## The chain (in order)
 
-1. **Land the change on `dev`.** Feature → `dev` PR, CI green (tests + `version-sync --gate`).
+1. **Land the change on `dev`.** Feature → `dev` PR, CI green (tests + the version-sync gate).
 2. **Bump the version** on a release branch. Edit the **authoritative source** (`package.json` for
-   scholar; `.claude-plugin/plugin.json` / repo convention for others), then propagate:
+   scholar; `.claude-plugin/plugin.json` / repo convention for others), then propagate and verify
+   with the plugin's own version-sync tool — **they differ by repo**:
 
    ```bash
+   # scholar — version-sync.js is a propagator with a built-in gate:
    node scripts/version-sync.js          # propagate to README/CLAUDE/plugin.json/mkdocs/docs
    node scripts/version-sync.js --gate   # must report 0 errors
+
+   # craft (and rforge/savant, by their repo's equivalent) — bump-version.sh propagates,
+   # version-sync.sh only *verifies* (it is a checker; there is no --gate):
+   bash scripts/bump-version.sh X.Y.Z    # propagate version + counts across all files
+   bash scripts/version-sync.sh --quiet  # gate: exit 0 = consistent, 1 = drift
    ```
 
    Choose the bump by SemVer: a new skill/command = **minor**; fixes = **patch**.
