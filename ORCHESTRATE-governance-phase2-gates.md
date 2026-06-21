@@ -177,9 +177,12 @@ claude
 
 On session start, paste:
 
-> Read `ORCHESTRATE-governance-phase2-gates.md` and the spec at
-> `docs/specs/SPEC-governance-phase2-gates-2026-06-20.md`. Resolve the two Phase 1 design decisions
-> (private-repo denylist; in-repo marketplace scope), then **run this PR as a dynamic workflow**:
+> Read `ORCHESTRATE-governance-phase2-gates.md`, the spec at
+> `docs/specs/SPEC-governance-phase2-gates-2026-06-20.md`, AND
+> `IMPLEMENTATION-PACKET-pr1.md` (gitignored, on disk in this worktree) — it has **verified,
+> ready-to-apply code** for every file (drafted + adversarially verified by a prep workflow, with the
+> 5 cross-file integration fixes already folded in). Apply the packet rather than redrafting; the two
+> Phase 1 design decisions are already resolved in it. Then **run this PR as a dynamic workflow**:
 > `/craft:orchestrate:drive ORCHESTRATE-governance-phase2-gates.md` (sequential phases with a real
 > verify gate — the best fit here), or `/craft:orchestrate:workflow` if you want the coded
 > parallel/pipeline/verify form. Either dispatches via Task subagents — which is correct **only**
