@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.47.0] — 2026-06-21
+
 ### Added
 
 - **Governance test coverage — live-flow e2e + soak edge cases.** Adds end-to-end tests for the
