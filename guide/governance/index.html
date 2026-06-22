@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.46.0 adds skill-ecosystem governance (policy-as-code under governance/) — an audit engine, a rules-drift check, and portable checkers for skill-location rules.">
+        <meta name="description" content="Full-stack developer toolkit - 113 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.47.0 adds skill-ecosystem governance (policy-as-code under governance/) — an audit engine, a rules-drift check, and portable checkers for skill-location rules.">
       
       
       
@@ -11441,11 +11441,20 @@ audit is surfaced at session open via a <strong>SessionStart hook</strong> (visi
   Quiet by design: silent when clean, mtime-cached (unchanged tree → skip re-audit), and a no-op where
   <code>~/.claude/skills</code> is absent. Install it <strong>globally</strong> by wiring <code>session_hook.py</code> into a <code>SessionStart</code>
   entry in <code>~/.claude/settings.json</code> (see <code>governance/README.md</code>).</li>
+<li><strong>Release pre-flight</strong> (<code>release</code>, <strong>advisory</strong>) — <code>scripts/pre-release-check.sh</code> runs
+  <code>run_rules.py --json</code> and prints any RED finding count, but <strong>never blocks the release</strong> (it doesn't
+  touch the script's error counter). Gentle-ramp: a release surfaces governance drift without being
+  halted by it.</li>
 </ul>
 <p><code>R03-private-marketplace</code> is now automated (<code>checks/no_private_in_public_marketplace.py {marketplace}</code>):
 it fails if a public marketplace manifest lists a plugin sourced from a private/PII repo (denylist,
 no network). Pass <code>--marketplace FILE</code> to point the audit at a specific manifest; the default is the
 in-repo <code>.claude-plugin/marketplace.json</code>.</p>
+<p><code>R04-consume-not-copy</code> is automated as <strong>content drift</strong> (<code>checks/no_drifted_copy.py {target}</code>): a skill
+present on both a consumer surface and a canon repo must have a byte-identical <code>SKILL.md</code> — a divergence
+means the copy was hand-edited rather than consumed via <code>plugin update</code>. This is <strong>distinct from R07</strong>
+(version-pin equality): R04 catches a drifted <em>body</em> even when the version still matches. It gates
+<code>session</code> (the canon repos are local-only; vacuous-skip elsewhere).</p>
 <h2 id="promotion-soak-then-flip-the-gentle-ramp">Promotion: soak-then-flip (the gentle-ramp)<a class="headerlink" href="#promotion-soak-then-flip-the-gentle-ramp" title="Permanent link">&para;</a></h2>
 <p>A rule starts at <code>severity: warn</code> and tightens to <code>error</code> only once its surface has been clean for a
 while — the machinery <strong>recommends</strong>, a human <strong>promotes</strong> (an irreversible tightening stays a
