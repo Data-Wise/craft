@@ -391,6 +391,33 @@ class TestSoakLedger:
         elig = soak.promotion_eligible(str(led), {"R01"}, today="2026-07-01", window_days=14)
         assert elig == []  # R08 not in warn_ids → ignored even though soaked
 
+    def test_record_audit_preserves_first_seen_across_runs(self, tmp_path: Path):
+        """first_seen is the anchor for the soak window — a later audit must NOT
+        reset it, or a long-clean rule would never accrue soak history."""
+        led = tmp_path / "STATE.json"
+        res = [{"id": "R01", "severity": "warn", "state": "PASS"}]
+        soak.record_audit(str(led), res, today="2026-06-01")
+        soak.record_audit(str(led), res, today="2026-06-20")
+        entry = json.loads(led.read_text())["rules"]["R01"]
+        assert entry["first_seen"] == "2026-06-01"  # anchored to the first sighting
+        assert entry["last_seen"] == "2026-06-20"   # refreshed each run
+
+    def test_record_audit_clears_then_restamps_red(self, tmp_path: Path):
+        """A rule that goes RED then clean keeps its last_red at the RED date — the
+        window is measured from when it was last bad, not from the latest audit."""
+        led = tmp_path / "STATE.json"
+        soak.record_audit(str(led), [{"id": "R01", "severity": "warn", "state": "FAIL"}], today="2026-06-10")
+        soak.record_audit(str(led), [{"id": "R01", "severity": "warn", "state": "PASS"}], today="2026-06-20")
+        assert json.loads(led.read_text())["rules"]["R01"]["last_red"] == "2026-06-10"
+
+    def test_load_state_recovers_from_corrupt_ledger(self, tmp_path: Path):
+        """A corrupt/old-schema ledger must degrade to a fresh empty state, never
+        raise — soak is best-effort and can't break the hook that feeds it."""
+        led = tmp_path / "STATE.json"
+        led.write_text("{ not valid json", encoding="utf-8")
+        st = soak.load_state(str(led))
+        assert st["schema"] == soak.SCHEMA and st["rules"] == {}
+
 
 class TestPromoteCheckCLI:
     """`run_rules.py --promote-check` — advisory, always exit 0."""
@@ -416,3 +443,70 @@ class TestCrossRepoWrapper:
                            cwd=str(tmp_path), capture_output=True, text=True, timeout=30)
         assert r.returncode == 0, r.stderr
         assert "SELFTEST" in r.stdout  # the engine actually ran, from a foreign cwd
+
+
+# ---------------------------------------------------------------------------
+# 8. Release pre-flight governance annotation (#184) — advisory, NEVER blocks
+# ---------------------------------------------------------------------------
+
+PRE_RELEASE = PLUGIN_DIR / "scripts" / "pre-release-check.sh"
+
+
+class TestReleaseGuard184:
+    """The governance step in pre-release-check.sh surfaces RED findings but must
+    never gate the release (gentle-ramp). The non-blocking invariant is the whole
+    point — lock it in so a later edit can't silently turn it into a gate."""
+
+    def _governance_block(self) -> str:
+        src = PRE_RELEASE.read_text(encoding="utf-8")
+        assert "Governance (skill-ecosystem)" in src, "advisory block missing"
+        start = src.index("Governance (skill-ecosystem) — ADVISORY")
+        end = src.index("# Summary", start)
+        return src[start:end]
+
+    def test_block_present(self):
+        assert "advisory, non-blocking" in self._governance_block()
+
+    def test_block_never_increments_errors(self):
+        """The advisory block must not touch $ERRORS — that's what keeps it from
+        ever failing the release. If this fires, someone made governance a gate."""
+        block = self._governance_block()
+        assert "ERRORS=" not in block, "governance advisory must not modify $ERRORS"
+        assert "exit 1" not in block, "governance advisory must not exit non-zero"
+
+
+# ---------------------------------------------------------------------------
+# 9. R04 content-drift checker (Phase 1 automation)
+# ---------------------------------------------------------------------------
+
+DRIFT_CHK = CHECKS / "no_drifted_copy.py"
+DRIFT_GOOD = GOV_DIR / "fixtures" / "no-drifted-copy" / "good"
+DRIFT_BAD = GOV_DIR / "fixtures" / "no-drifted-copy" / "bad"
+
+
+class TestDriftedCopyChecker:
+    """R04 automated as content drift: an installed SKILL.md must stay byte-identical
+    to its canon. Distinct from R07 (version-pin) — this catches a hand-edited copy."""
+
+    def test_identical_copy_passes(self):
+        assert _run(DRIFT_CHK, str(DRIFT_GOOD)).returncode == 0
+
+    def test_drifted_copy_is_flagged(self):
+        r = _run(DRIFT_CHK, str(DRIFT_BAD))
+        assert r.returncode == 1 and "drifted copy" in r.stdout
+
+    def test_absent_consumer_skips(self, tmp_path: Path):
+        r = _run(DRIFT_CHK, str(tmp_path / "nope"))
+        assert r.returncode == 0 and "skip" in r.stdout
+
+    def test_no_canon_is_vacuous_not_a_pass(self, tmp_path: Path):
+        """With a consumer present but no canon, the check is vacuous — it must say
+        so out loud (a clean exit that isn't mistaken for enforcement)."""
+        consumer = tmp_path / "consumer"; consumer.mkdir()
+        r = _run(DRIFT_CHK, str(consumer), str(tmp_path / "nocanon"))
+        assert r.returncode == 0 and "vacuous" in r.stdout
+
+    def test_live_env_never_errors(self):
+        """Against the real surface, R04 must be clean or vacuously skip — never a
+        false positive (a noisy WARN would stamp last_red and block soak promotion)."""
+        assert _run(DRIFT_CHK, os.path.expanduser("~/.claude/skills")).returncode == 0
