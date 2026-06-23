@@ -44,7 +44,9 @@ glossary (`CONTEXT.md`) updates.
 | G5 | vs brainstorm | **Generate vs interrogate.** brainstorm = divergent (expands the option space); grill = convergent (attacks a position for gaps/contradictions). Documented in both command headers so users pick correctly. |
 | G6 | Output / handoff | **Decision-ledger spec** → `docs/specs/SPEC-*.md`, then offer handoff to `/plan` tier 4 (plan-orchestrator) → ORCHESTRATE → `/do` seam (per SPEC-B §4). |
 | G7 | Docs-on-the-spot | **Full grill-with-docs** — maintain a live decision ledger AS the interview proceeds, plus ADRs + a `CONTEXT.md` glossary updated on the spot (phased — see §6). |
-| G8 | Orchestrate integration | **orchestrate Step 0.5 Clarify invokes `/craft:grill`** — one interrogation implementation, reused. Reconciles SPEC-orchestrate-clarify. |
+| G8 | Orchestrate integration | **orchestrate Step 0.5 Clarify invokes `/craft:grill --bound 2 --no-capture`** — one interrogation implementation, reused. `--no-capture` prevents the embedded pass from writing a `GRILL-*` spec mid-orchestration (decisions return inline). Reconciles SPEC-orchestrate-clarify. |
+| G9 | Embedded interaction mode | When grill is invoked **embedded** (orchestrate Step 0.5), it runs bounded + no-capture; the host flow's AskUserQuestion rhythm resumes after. Standalone grill keeps the one-at-a-time free-text loop. The mode switch is deliberate and documented so it doesn't read as an unflagged UX seam. |
+| G10 | Progress + halt UX | **Milestone checkpoints** every N branches (default 5; reuse brainstorm's milestone pattern: "keep going / wrap up / show ledger so far") so an unbounded interrogation stays ADHD-friendly. **Halt token** is a distinct sentinel — empty-enter or `/done` — NOT the bare word "stop" (which can be a legitimate answer). |
 
 ## 3. Behavior (the contract)
 

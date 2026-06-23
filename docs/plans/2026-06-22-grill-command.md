@@ -46,37 +46,49 @@ Each wave produces working, testable software on its own. W4 is optional and mus
 **Interfaces:**
 
 - Produces (decision: grill ALWAYS owns its file; never mutates a brainstorm `SPEC-*`):
-  - `resolve_ledger_path(topic, date, specs_dir) -> str` — always `GRILL-<slug>-<date>.md`.
-  - `spec_crosslink(topic, date, specs_dir) -> str | None` — relative filename of an existing brainstorm `SPEC-<slug>-<date>.md` for grill's header forward-link, else None.
-  - `add_backlink(spec_path, grill_filename) -> None` — idempotent one-line back-link into the SPEC (the only touch grill makes to a brainstorm artifact; never rewrites its body).
+  - `resolve_ledger_path(topic, date, specs_dir) -> str` — always `GRILL-<slug>-<date>.md`, with `<slug>` filesystem-sanitized (no path traversal).
+  - `spec_crosslink(topic, specs_dir) -> str | None` — filename of the **latest** brainstorm `SPEC-<slug>-*.md` (glob by slug, newest mtime — not date-coupled) for grill's header forward-link, else None.
+  - `add_backlink(spec_path, grill_filename) -> None` — idempotent, **atomic** one-line back-link into the SPEC (the only touch grill makes to a brainstorm artifact; never rewrites its body).
+  - All file I/O uses `with` + `encoding="utf-8"` and atomic `os.replace` writes (em-dash/arrow glyphs + crash-safety).
 
 - [ ] **Step 1: Write the failing test**
 
 ```python
 # tests/test_grill_ledger.py
-import os, tempfile
-from commands.utils.grill_ledger import resolve_ledger_path, spec_crosslink, add_backlink
+import os, tempfile, time
+from commands.utils.grill_ledger import (
+    resolve_ledger_path, spec_crosslink, add_backlink, _slug)
 
 def test_always_owns_a_grill_file():
     with tempfile.TemporaryDirectory() as d:
         # even when a brainstorm SPEC exists, grill writes its OWN file
-        open(os.path.join(d, "SPEC-auth-2026-06-22.md"), "w").write("# spec\n")
+        open(os.path.join(d, "SPEC-auth-2026-06-22.md"), "w", encoding="utf-8").write("# spec\n")
         assert resolve_ledger_path("auth", "2026-06-22", d) == \
             os.path.join(d, "GRILL-auth-2026-06-22.md")
 
-def test_crosslink_finds_spec_or_none():
-    with tempfile.TemporaryDirectory() as d:
-        assert spec_crosslink("auth", "2026-06-22", d) is None
-        open(os.path.join(d, "SPEC-auth-2026-06-22.md"), "w").write("# spec\n")
-        assert spec_crosslink("auth", "2026-06-22", d) == "SPEC-auth-2026-06-22.md"
+def test_slug_sanitizes_path_and_special_chars():
+    assert _slug("Auth / OAuth!!") == "auth-oauth"
+    assert _slug("../../etc/passwd") == "etc-passwd"      # no traversal
+    assert "/" not in os.path.basename(resolve_ledger_path("a/b", "2026-06-22", "/tmp"))
+    assert _slug("") == "untitled"                        # never empty
 
-def test_backlink_is_idempotent():
+def test_crosslink_finds_latest_across_dates():
+    with tempfile.TemporaryDirectory() as d:
+        open(os.path.join(d, "SPEC-auth-2026-06-20.md"), "w", encoding="utf-8").write("x")
+        time.sleep(0.01)
+        open(os.path.join(d, "SPEC-auth-2026-06-22.md"), "w", encoding="utf-8").write("x")
+        assert spec_crosslink("auth", d) == "SPEC-auth-2026-06-22.md"   # latest, not same-date
+        assert spec_crosslink("missing", d) is None
+
+def test_backlink_is_idempotent_and_atomic():
     with tempfile.TemporaryDirectory() as d:
         spec = os.path.join(d, "SPEC-auth-2026-06-22.md")
-        open(spec, "w").write("# spec\n")
+        open(spec, "w", encoding="utf-8").write("# spec\n")
         add_backlink(spec, "GRILL-auth-2026-06-22.md")
         add_backlink(spec, "GRILL-auth-2026-06-22.md")
-        assert open(spec).read().count("GRILL-auth-2026-06-22.md") == 1
+        # the filename appears twice per backlink line ([text](url)); assert ONE backlink line
+        assert open(spec, encoding="utf-8").read().count("> Interrogated by grill") == 1
+        assert not os.path.exists(spec + ".tmp")          # atomic write cleaned up
 ```
 
 - [ ] **Step 2: Run test to verify it fails**
@@ -91,15 +103,27 @@ Expected: FAIL — `ModuleNotFoundError: commands.utils.grill_ledger`
 """Ledger path + cross-link helpers for /craft:grill.
 
 grill ALWAYS owns GRILL-<slug>-<date>.md and never rewrites a brainstorm SPEC body.
-The only touch to a SPEC is an idempotent one-line back-link.
+The only touch to a SPEC is an idempotent, atomic one-line back-link.
 """
+import glob
 import os
+import re
 
 _BACKLINK = "> Interrogated by grill — see [{name}]({name})\n"
 
 
 def _slug(topic):
-    return topic.strip().lower().replace(" ", "-")
+    """Filesystem-safe slug: lowercase, [a-z0-9] runs → '-', no traversal, capped."""
+    s = re.sub(r"[^a-z0-9]+", "-", str(topic).strip().lower()).strip("-")
+    return (s or "untitled")[:60]
+
+
+def _atomic_write(path, text):
+    """Write via temp + os.replace so a crash never leaves a truncated file."""
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(text)
+    os.replace(tmp, path)
 
 
 def resolve_ledger_path(topic, date, specs_dir):
@@ -107,18 +131,21 @@ def resolve_ledger_path(topic, date, specs_dir):
     return os.path.join(specs_dir, f"GRILL-{_slug(topic)}-{date}.md")
 
 
-def spec_crosslink(topic, date, specs_dir):
-    """Return the SPEC filename to forward-link from grill's header, or None."""
-    name = f"SPEC-{_slug(topic)}-{date}.md"
-    return name if os.path.exists(os.path.join(specs_dir, name)) else None
+def spec_crosslink(topic, specs_dir):
+    """Return the latest brainstorm SPEC filename for this slug (any date), or None."""
+    matches = glob.glob(os.path.join(specs_dir, f"SPEC-{_slug(topic)}-*.md"))
+    if not matches:
+        return None
+    return os.path.basename(max(matches, key=os.path.getmtime))
 
 
 def add_backlink(spec_path, grill_filename):
-    """Insert an idempotent one-line back-link into the SPEC (no body rewrite)."""
-    body = open(spec_path).read()
+    """Insert an idempotent, atomic one-line back-link into the SPEC (no body rewrite)."""
+    with open(spec_path, encoding="utf-8") as f:
+        body = f.read()
     if grill_filename in body:
         return
-    open(spec_path, "w").write(body.rstrip("\n") + "\n\n" + _BACKLINK.format(name=grill_filename))
+    _atomic_write(spec_path, body.rstrip("\n") + "\n\n" + _BACKLINK.format(name=grill_filename))
 ```
 
 - [ ] **Step 4: Run test to verify it passes**
@@ -152,14 +179,23 @@ from commands.utils.grill_ledger import append_decision
 def test_append_decision_creates_section_then_rows():
     with tempfile.TemporaryDirectory() as d:
         p = os.path.join(d, "GRILL-x-2026-06-22.md")
-        open(p, "w").write("# Grill: x\n")
+        open(p, "w", encoding="utf-8").write("# Grill: x\n")
         append_decision(p, "G1", "Form factor", "Standalone command")
         append_decision(p, "G2", "Interaction", "One-at-a-time")
-        body = open(p).read()
+        body = open(p, encoding="utf-8").read()
         assert body.count("## Decision Ledger") == 1
         assert body.count("| # | Branch | Decision |") == 1
         assert "| G1 | Form factor | Standalone command |" in body
         assert "| G2 | Interaction | One-at-a-time |" in body
+
+def test_append_decision_escapes_pipes_and_newlines():
+    with tempfile.TemporaryDirectory() as d:
+        p = os.path.join(d, "GRILL-x-2026-06-22.md")
+        open(p, "w", encoding="utf-8").write("# x\n")
+        append_decision(p, "G1", "Syntax", "use a | b\nform")
+        row = [l for l in open(p, encoding="utf-8").read().splitlines() if l.startswith("| G1")][0]
+        assert r"use a \| b form" in row            # pipe escaped, newline flattened
+        assert row.count("|") - row.count(r"\|") == 4   # 4 UNescaped delimiters → table intact
 ```
 
 - [ ] **Step 2: Run to verify it fails**
@@ -173,14 +209,22 @@ Expected: FAIL — `ImportError: cannot import name 'append_decision'`
 LEDGER_HEADER = "## Decision Ledger\n\n| # | Branch | Decision |\n|---|---|---|\n"
 
 
+def _cell(text):
+    """Escape a value for a markdown table cell (pipe + newline safe)."""
+    return str(text).replace("\\", "\\\\").replace("|", r"\|").replace("\n", " ").strip()
+
+
 def append_decision(path, branch_id, branch, decision):
-    body = open(path).read() if os.path.exists(path) else ""
+    body = ""
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            body = f.read()
     if "## Decision Ledger" not in body:
         if body and not body.endswith("\n"):
             body += "\n"
         body += "\n" + LEDGER_HEADER
-    body += f"| {branch_id} | {branch} | {decision} |\n"
-    open(path, "w").write(body)
+    body += f"| {_cell(branch_id)} | {_cell(branch)} | {_cell(decision)} |\n"
+    _atomic_write(path, body)        # reuse the atomic writer from Task 1
 ```
 
 - [ ] **Step 4: Run to verify it passes**
@@ -249,6 +293,10 @@ arguments:
     description: "Limit interrogation to N decision branches (used by orchestrate Step 0.5 for a quick gate)"
     required: false
     default: null
+  - name: no-capture
+    description: "Skip writing a GRILL spec file; return decisions inline (used by embedded callers like orchestrate Step 0.5)"
+    required: false
+    default: false
 ---
 
 # /craft:grill — Interrogate Before Building
@@ -296,7 +344,8 @@ def test_grill_body_carries_contract():
     assert "one question at a time" in body.lower()
     assert "recommended" in body.lower()                      # recommended-answer rule
     assert "explore the codebase" in body.lower()             # codebase-first
-    assert "stop" in body.lower()                             # halt signal defined
+    assert "/done" in body                                    # distinct halt sentinel (not "stop")
+    assert "milestone" in body.lower()                        # ADHD-friendly progress checkpoints
     assert "bound" in body.lower()                            # bounded pass honored
     # justify the deliberate AskUserQuestion exception so a future audit won't "fix" it:
     assert "one at a time" in body.lower() and "askuserquestion" in body.lower()
@@ -338,8 +387,14 @@ Follow the grill-me directives:
 point — each answer reshapes the next question. This is a deliberate exception to craft's
 AskUserQuestion-batch convention; do not "fix" it to batches.
 
-**Halt:** the user types `stop` at any question → go to Step 4. If `--bound N` was given, stop
+**Halt:** the user enters the sentinel `/done` (or empty-enter) at any question → go to Step 4.
+Do NOT use the bare word "stop" — it can be a legitimate answer. If `--bound N` was given, stop
 after N resolved branches. Otherwise continue until every branch resolves.
+
+**Milestone checkpoints (ADHD-friendly):** every 5 resolved branches, pause with an
+AskUserQuestion: "keep going / wrap up now / show ledger so far" (reuses brainstorm's milestone
+pattern). This is the ONE place embedded AskUserQuestion is allowed inside the otherwise
+free-text loop — for progress, not for the questions themselves.
 
 **After each resolved branch:** append it to the ledger immediately (Step 4 helper) so a
 crash/compaction never loses decisions.
@@ -389,16 +444,19 @@ Expected: FAIL.
 ````markdown
 ### Step 4: Capture (durable, own file, cross-linked)
 
-grill ALWAYS writes its own file; it never rewrites a brainstorm SPEC body:
+**If `--no-capture` (embedded callers like orchestrate Step 0.5):** skip all file writes; return the
+locked decisions inline to the caller. No `GRILL-*` file is created.
+
+Otherwise grill writes its own file and never rewrites a brainstorm SPEC body:
 
 ```python
 from commands.utils.grill_ledger import (
     resolve_ledger_path, spec_crosslink, add_backlink, append_decision)
 path = resolve_ledger_path(topic, date, "docs/specs")        # GRILL-<topic>-<date>.md
-link = spec_crosslink(topic, date, "docs/specs")             # forward-link to a brainstorm SPEC, or None
+link = spec_crosslink(topic, "docs/specs")                   # latest brainstorm SPEC for this slug, or None
 # write GRILL header (include `link` if present), the decision ledger, and an ## Open Questions section
 if link:
-    add_backlink(os.path.join("docs/specs", link), os.path.basename(path))  # idempotent one-liner
+    add_backlink(os.path.join("docs/specs", link), os.path.basename(path))  # idempotent, atomic
 ```
 
 Each resolved branch is appended live via `append_decision` (Task 2). The brainstorm SPEC, if any,
@@ -505,6 +563,7 @@ def test_step_0_5_invokes_bounded_grill():
     cmd = open(os.path.join(CRAFT, "commands", "orchestrate.md")).read()
     assert "Step 0.5" in cmd
     assert "/craft:grill" in cmd and "bound" in cmd
+    assert "--no-capture" in cmd        # embedded grill must not write a spec file
     assert "--no-clarify" in cmd        # suppress path documented
 ```
 
@@ -519,9 +578,10 @@ Expected: FAIL.
 ### Step 0.5: Clarify (default ON)
 
 If the task is underspecified or admits multiple valid interpretations, invoke
-`/craft:grill --bound 2` for a quick bounded interrogation that LOCKS the decisions
-which change the plan — one question at a time, recommended answer per question,
-codebase-first. Then build Step 1 on the locked answers.
+`/craft:grill --bound 2 --no-capture` for a quick bounded interrogation that LOCKS the
+decisions which change the plan — one question at a time, recommended answer per
+question, codebase-first. `--no-capture` keeps it from writing a GRILL spec file mid-
+orchestration; decisions return inline. Then build Step 1 on the locked answers.
 
 SKIP when: `--yes` / `--no-clarify` passed, OR a matching SPEC/ORCHESTRATE/WORKFLOW
 file pins the decisions, OR the task is unambiguous. Fallback if grill unavailable:
@@ -612,12 +672,24 @@ git commit -m "feat(orchestrate): Step 0.5 Clarify via bounded /craft:grill"
 - Review bug #3 (`--bound`) → Task 3 frontmatter + Task 7 ✓
 - Review bug #4 (loop untestable) → handled honestly: structure + util tested, live loop model-executed (documented in Architecture) ✓
 - Review bug #5 (`--yes` defeats interrogation) → **dropped** — grill is always interactive; the bounded orchestrate pass uses `--bound`, not auto-accept ✓
+
+**Full-stack hardening pass (round 2):**
+
+- #1 UTF-8 + `with` on all I/O → Task 1/2 ✓
+- #2 filename sanitization (no path traversal) → `_slug`, Task 1 + test ✓
+- #3 markdown-table pipe/newline escaping → `_cell`, Task 2 + test ✓
+- #4 atomic writes (`_atomic_write` + `os.replace`) → Task 1/2, crash-safety claim now real ✓
+- #5 cross-link decoupled from date (glob latest) → `spec_crosslink(topic, specs_dir)`, Task 1 + test ✓
+- #6 embedded grill side-effect → `--no-capture` arg, Tasks 3/4/7 ✓
+- #7 embedded interaction mode documented → spec G9 ✓
+- #8 milestone UX + `/done` sentinel → spec G10, Task 4 + test ✓
+
 - Orchestrate optimize/refactor → Task 6 ✓
 - Count cascade → Task 10 ✓
 
 **Placeholder scan:** none — every code/test step carries real content; Task 8 (deferrable) uses summarized steps by design and is gated out of the critical path.
 
-**Type consistency:** `resolve_ledger_path(topic, date, specs_dir) -> str`, `spec_crosslink -> str|None`, `add_backlink`, `append_decision` signatures match between Tasks 1–2 (definition) and Task 5 (use). `--bound` named consistently in Tasks 3 and 7. No `--yes` references remain.
+**Type consistency:** `resolve_ledger_path(topic, date, specs_dir) -> str`, `spec_crosslink(topic, specs_dir) -> str|None`, `add_backlink(spec_path, grill_filename)`, `append_decision(path, branch_id, branch, decision)` — signatures match between Tasks 1–2 (definition) and Task 5 (use); Task 5 calls `spec_crosslink(topic, "docs/specs")` (2-arg). Shared helpers `_atomic_write`/`_cell`/`_slug` live in `grill_ledger.py`. `--bound`/`--no-capture` named consistently across Tasks 3/4/7. No `--yes` references remain.
 
 ## Execution Handoff
 
