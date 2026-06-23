@@ -26,6 +26,10 @@ arguments:
     description: "Override execution engine: workflow|fanout (default: fanout). When a WORKFLOW-*.yaml or ORCHESTRATE-*.md is derivable from the task, orchestrate auto-detects it and proposes --engine=workflow with confirm."
     required: false
     default: fanout
+  - name: no-clarify
+    description: "Skip Step 0.5 Clarify (the bounded /craft:grill pre-planning interrogation)"
+    required: false
+    default: false
 ---
 
 # /craft:orchestrate — Launch Orchestrator Mode
@@ -174,6 +178,22 @@ If the user did not specify a mode (`default|debug|optimize|release`), prompt:
 
 If the user specified a mode via argument, skip this step and use that mode.
 
+### Step 0.5: Clarify (default ON)
+
+Before building any plan, assess task ambiguity. If the task is underspecified or admits multiple
+valid interpretations, invoke `/craft:grill --bound 2 --no-capture` for a quick bounded
+interrogation that LOCKS the decisions which change the plan — one question at a time, recommended
+answer per question, codebase-first. `--no-capture` keeps it from writing a `GRILL-*` spec file
+mid-orchestration; the decisions return inline. Then build Step 1 on the locked answers.
+
+SKIP this step when:
+
+- the user passed `--no-clarify` (or `--yes` to auto-proceed), OR
+- a matching `SPEC-*` / `ORCHESTRATE-*` / `WORKFLOW-*` file already pins the decisions, OR
+- the task is unambiguous (single interpretation, clear scope + success criteria).
+
+Fallback if `/craft:grill` is unavailable: 1–2 `AskUserQuestion` rounds, recommended-option-first.
+
 ### Step 1: Task Analysis (show plan FIRST)
 
 Analyze the task and display a numbered plan. Do NOT spawn any agents yet.
@@ -274,163 +294,16 @@ Spawn agents according to the confirmed plan. Show progress after each wave.
 | Agent output | Summary | Verbose (full output) | Summary | Full output + diffs |
 | Auto-proceed | Ask per wave | Ask every step | Ask per wave | Ask every step |
 
-## What It Does
-
-Activates **Orchestrator v2.1** mode which:
-
-1. **Selects mode** — asks if not specified (Step 0)
-2. **Analyzes** your task and shows the plan (Step 1)
-3. **Confirms** before spawning any agents (Step 2)
-4. **Spawns** background subagents to work in parallel
-5. **Monitors** progress with visual status dashboard
-6. **Checkpoints** between waves for review
-7. **Tracks context** usage with token estimation
-8. **Compresses** chat when approaching limits
-9. **Reports** results with ADHD-friendly formatting
-
 ## Examples
 
-### Start Orchestrated Workflow
-
 ```bash
-/craft:orchestrate "add user authentication with OAuth"
-
-## 📋 TASK ANALYSIS
-
-**Request**: Add OAuth authentication
-**Complexity**: complex
-**Mode**: default (2 agents max)
-**Estimated subtasks**: 5
-**Delegation strategy**: hybrid
-
-| # | Task | Agent | Priority | Dependencies |
-|---|------|-------|----------|--------------|
-| 1 | Design auth flow | arch | P0 | none |
-| 2 | Implement backend | code | P0 | 1 |
-| 3 | Create login UI | code | P1 | 1 |
-| 4 | Add tests | test | P1 | 2,3 |
-| 5 | Update docs | doc | P2 | 2 |
-
-Spawning agents...
+/craft:orchestrate "add user authentication with OAuth"   # default mode
+/craft:orchestrate "prep release" release                 # thorough audit
+/craft:orchestrate "refactor data layer" --swarm          # isolated worktrees per agent
+/craft:orchestrate "add auth" --dry-run                    # preview plan, spawn nothing
 ```
 
-### Fast Parallel Mode
-
-```bash
-/craft:orchestrate "add tests for all endpoints" optimize
-
-## 🚀 ORCHESTRATOR v2.1 — OPTIMIZE MODE
-
-**Configuration**:
-- Max parallel agents: 4
-- Compression threshold: 60%
-- Output verbosity: Minimal
-- Strategy: Aggressive parallelization
-
-Spawning 4 test agents in parallel...
-```
-
-### Check Status
-
-```bash
-/craft:orchestrate status
-
-## 🔄 AGENT STATUS
-
-| Agent | Task | Status | Progress | Context |
-|-------|------|--------|----------|---------|
-| main  | orchestrate | 🟢 active | - | 45% |
-| arch-1 | design | ✅ complete | 1/1 | 0% |
-| code-1 | backend | 🟡 running | 3/7 | 18% |
-| code-2 | frontend | 🟡 running | 2/5 | 12% |
-
-**Context Budget**: 67% (~86K tokens) | **Mode**: default
-```
-
-### View Timeline (NEW)
-
-```bash
-/craft:orchestrate timeline
-
-## ⏱️ EXECUTION TIMELINE
-
-TIME     0    1m    2m    3m    4m
-─────────┼─────┼─────┼─────┼─────┤
-arch-1   ██████░░░░░░░░░░░░░░░░░░ ✅ 1.2m
-code-1   ░░░░░░████████████░░░░░ 🟡 2.5m
-code-2   ░░░░░░░░██████░░░░░░░░░ ✅ 1.8m
-─────────┼─────┼─────┼─────┼─────┤
-                         NOW ▲
-
-**ETA**: ~1.5 min remaining
-```
-
-### Context Budget (NEW)
-
-```bash
-/craft:orchestrate budget
-
-## 📊 CONTEXT BUDGET
-
-| Component | Tokens (est) | % of ~128K |
-|-----------|--------------|------------|
-| System prompt | ~3,000 | 2.3% |
-| Conversation | ~15,000 | 11.7% |
-| Agent results | ~8,000 | 6.3% |
-| **Total** | **~26,000** | **20.3%** |
-
-Status: 🟢 Healthy (< 50%)
-```
-
-### Force Compression
-
-```bash
-/craft:orchestrate compress
-
-## ⚠️ CONTEXT COMPRESSION
-
-### Completed (Archived)
-- ✅ Auth design: OAuth 2.0 + PKCE
-- ✅ Backend routes: /auth/*, /callback
-
-### Active (Retained)
-- 🔄 Frontend login component
-- 🔄 Test generation
-
-**New context usage**: ~35%
-```
-
-### Resume Previous Session (NEW)
-
-```bash
-/craft:orchestrate continue
-
-## 🔄 RESUMING PREVIOUS SESSION
-
-**Session**: 2025-12-27-abc123
-**Goal**: Add sensitivity analysis to RMediation
-**Progress**: 60% complete
-
-### Completed
-- ✅ Architecture design
-- ✅ Test stubs created
-
-### In Progress
-- 🔄 Implementation (code-1)
-
-Resuming...
-```
-
-### Abort All Agents
-
-```bash
-/craft:orchestrate abort
-
-## 🛑 ABORTING ALL AGENTS
-
-Stopping: arch-1, code-1, code-2, test-1
-State preserved to: .claude/orchestrator-session.json
-```
+Full worked examples with progress mockups live in the reference doc.
 
 ## Control Commands
 
@@ -440,397 +313,24 @@ During orchestration, say:
 |---------|--------|
 | `status` | Show agent dashboard |
 | `timeline` | Show execution timeline |
-| `budget` | Show context budget |
 | `compress` | Force chat compression now |
-| `mode X` | Switch to mode X |
-| `pause <agent>` | Pause specific agent |
-| `resume all` | Resume paused agents |
 | `abort` | Stop everything, save state |
-| `report` | Detailed progress report |
-| `focus <task>` | Reprioritize |
 | `continue` | Resume previous session |
-| `save` | Force save session state |
-| `history` | List recent sessions |
-| `new` | Start fresh (archive current) |
 | `swarm status` | Show swarm agent worktree status |
 
-## Session Management (NEW in v1.1.0)
+Full control-command catalog (budget, pause/resume, focus, history, …) is in the reference doc.
 
-Sessions persist across disconnects:
+## Swarm Mode (`--swarm`) — summary
 
-```bash
-# Resume previous session
-/craft:orchestrate continue
+`--swarm` runs agents in isolated worktrees with branch convergence (non-overlapping scopes,
+per-agent branch, bottom-up merge + test gate). Full execution flow, configuration, cleanup, and
+the dry-run mockup live in the reference doc.
 
-# Force save current state
-/craft:orchestrate save
+## Reference
 
-# View session history
-/craft:orchestrate history
-
-## 📜 SESSION HISTORY
-
-| # | Date | Goal | Status |
-|---|------|------|--------|
-| 1 | Dec 27 | Add auth to API | complete |
-| 2 | Dec 26 | Fix parsing bug | complete |
-| 3 | Dec 25 | Refactor CLI | abandoned |
-
-# Resume specific session from history
-/craft:orchestrate history 2
-
-# Start fresh (archives current session)
-/craft:orchestrate new
-```
-
-### State File Location
-
-```
-.claude/orchestrator-session.json     # Current session
-.claude/orchestrator-history/         # Archived sessions
-```
-
-### Auto-Save Events
-
-State is automatically saved on:
-
-- Task analysis completion
-- Agent start/complete/fail
-- Decision checkpoints
-- Before compression
-- User says `save` or `abort`
-
-## Worktree Types (v2.21.0)
-
-The orchestrator works with four types of worktrees:
-
-| Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
-|------|-----------|----------|---------------|-------------|
-| **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
-| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
-| **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
-
-### When to Use What
-
-| Scenario | Approach | Why |
-|----------|----------|-----|
-| Quick feature, clear scope | Manual worktree | No orchestration overhead, just isolation |
-| Multi-phase feature from spec | Pipeline worktree | Full traceability from brainstorm through PR |
-| Parallel implementation of isolated tasks | Swarm worktrees | Each agent works in its own directory, no conflicts |
-| Feature spanning multiple repos | Cross-repo pipeline | Same branch name enforced, paired worktrees |
-| Quick task, no isolation needed | No worktree (orchestrator only) | Agent delegation without git overhead |
-
-### Decision Tree
-
-```text
-Need isolated development?
-│
-├─ No → /craft:orchestrate "task" (agents in forked context)
-│
-├─ Yes, single feature
-│  ├─ Have a spec? → /craft:orchestrate:plan SPEC.md (Pipeline)
-│  └─ No spec? → /craft:git:worktree create feature/name (Manual)
-│
-├─ Yes, parallel agents on separate files
-│  └─ /craft:orchestrate --swarm "task" (Swarm)
-│
-└─ Yes, spans multiple repos
-   └─ /craft:orchestrate:plan (auto-detects, Cross-Repo)
-```
-
-## Swarm Mode (--swarm) — NEW
-
-Run agents in isolated git worktrees instead of forked contexts. Each agent gets its own branch and directory, eliminating file conflicts entirely.
-
-### Normal vs Swarm
-
-| Aspect | Normal | Swarm |
-|--------|--------|-------|
-| Agent isolation | Forked context (same dir) | Separate worktrees |
-| File conflicts | Possible (same files) | Impossible (isolated dirs) |
-| Convergence | Agents return results to main | Branches merged into feature branch |
-| PR | User creates manually | Auto-created from merged branch |
-| Use case | Research + small changes | Parallel feature implementation |
-
-### Swarm Execution Flow
-
-```text
-/craft:orchestrate --swarm "implement auth"
-
-Step 1: Parse ORCHESTRATE file for agent assignments
-Step 2: Create base branch: feature/swarm-auth (from dev)
-Step 3: For each agent:
-  └── git worktree add ~/.git-worktrees/<proj>/swarm-<agent> -b swarm-<agent> dev
-Step 4: Launch agents in parallel (each in its worktree)
-Step 5: Wait for all agents to complete
-Step 6: Merge all swarm-* branches into feature/swarm-auth
-Step 7: Run tests in merged branch
-Step 8: Create single PR to dev
-Step 9: Clean up swarm worktrees
-```
-
-### Swarm Branch Naming
-
-```text
-feature/swarm-auth          ← convergence branch
-  ├── swarm-auth-agent1     ← agent 1's working branch
-  ├── swarm-auth-agent2     ← agent 2's working branch
-  └── swarm-auth-agent3     ← agent 3's working branch
-```
-
-### ORCHESTRATE File for Swarm
-
-When `--swarm` is used, the orchestrator reads the ORCHESTRATE file to map agents to phases and file scopes. If no ORCHESTRATE file exists, swarm mode requires one — it cannot auto-generate the agent-to-file mapping.
-
-**Required section in ORCHESTRATE file:**
-
-```markdown
-## Swarm Configuration
-
-| Agent | Worktree | Focus | Files |
-|-------|----------|-------|-------|
-| tests | swarm-tests | Write tests | tests/ |
-| impl | swarm-impl | Implementation | src/ |
-| docs | swarm-docs | Documentation | docs/, README.md |
-```
-
-**How agents use the mapping:**
-
-1. Each agent receives only its assigned file scope
-2. Agents cannot modify files outside their scope (enforced by working directory)
-3. The convergence merge combines all scopes into the feature branch
-
-### Convergence Merge
-
-After all agents complete:
-
-1. Checkout the convergence branch (`feature/swarm-auth`)
-2. Merge each agent branch in wave order:
-
-   ```bash
-   git merge swarm-auth-agent1 --no-edit
-   git merge swarm-auth-agent2 --no-edit
-   git merge swarm-auth-agent3 --no-edit
-   ```
-
-3. If merge conflicts occur:
-   - Stop and report which files conflict
-   - Show the conflicting agents
-   - Ask user to resolve manually
-4. Run full test suite on merged branch
-5. If tests pass, create PR to dev
-
-### Swarm Output
-
-```text
-┌───────────────────────────────────────────────────────────────┐
-│ SWARM MODE — ORCHESTRATOR v2.1                                │
-├───────────────────────────────────────────────────────────────┤
-│ Agents: 3 | Worktrees: 3 | Convergence: feature/swarm-auth   │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│ [1/3] swarm-agent1  ~/.git-worktrees/craft/swarm-agent1       │
-│       Branch: swarm-auth-agent1                               │
-│       Focus: tests/ (Write tests)                             │
-│       Status: ✅ Complete (4 commits)                          │
-│                                                               │
-│ [2/3] swarm-agent2  ~/.git-worktrees/craft/swarm-agent2       │
-│       Branch: swarm-auth-agent2                               │
-│       Focus: src/ (Implementation)                            │
-│       Status: 🟡 Running (2/5 files)                          │
-│                                                               │
-│ [3/3] swarm-agent3  ~/.git-worktrees/craft/swarm-agent3       │
-│       Branch: swarm-auth-agent3                               │
-│       Focus: docs/ (Documentation)                            │
-│       Status: ✅ Complete (2 commits)                          │
-│                                                               │
-├───────────────────────────────────────────────────────────────┤
-│ Convergence: Waiting for agent2                               │
-└───────────────────────────────────────────────────────────────┘
-```
-
-### Swarm Cleanup
-
-After successful convergence and PR creation:
-
-```bash
-# Remove swarm worktrees
-git worktree remove ~/.git-worktrees/<proj>/swarm-agent1
-git worktree remove ~/.git-worktrees/<proj>/swarm-agent2
-git worktree remove ~/.git-worktrees/<proj>/swarm-agent3
-
-# Delete swarm branches
-git branch -d swarm-auth-agent1 swarm-auth-agent2 swarm-auth-agent3
-```
-
-### Combining with Other Flags
-
-- `--swarm --dry-run`: Preview swarm plan without creating worktrees
-- `--swarm optimize`: Use optimize mode within each agent's worktree
-- `--swarm` requires an ORCHESTRATE file (cannot auto-generate swarm config)
-
-### Practical Example: Swarm Dry-Run
-
-```bash
-/craft:orchestrate --swarm --dry-run "implement auth from ORCHESTRATE"
-
-# Output:
-# ┌───────────────────────────────────────────────────────────────┐
-# │ DRY RUN: SWARM MODE                                           │
-# ├───────────────────────────────────────────────────────────────┤
-# │                                                               │
-# │ ORCHESTRATE file: ORCHESTRATE-auth.md                         │
-# │ Swarm Configuration found: 3 agents                           │
-# │                                                               │
-# │ Worktree Creation Plan:                                       │
-# │                                                               │
-# │  Convergence: feature/swarm-auth (from dev)                   │
-# │                                                               │
-# │  Agent 1: tests                                               │
-# │    Worktree: ~/.git-worktrees/craft/swarm-tests               │
-# │    Branch: swarm-auth-tests                                   │
-# │    Scope: tests/ (Write tests)                                │
-# │                                                               │
-# │  Agent 2: impl                                                │
-# │    Worktree: ~/.git-worktrees/craft/swarm-impl                │
-# │    Branch: swarm-auth-impl                                    │
-# │    Scope: src/ (Implementation)                               │
-# │                                                               │
-# │  Agent 3: docs                                                │
-# │    Worktree: ~/.git-worktrees/craft/swarm-docs                │
-# │    Branch: swarm-auth-docs                                    │
-# │    Scope: docs/, README.md (Documentation)                    │
-# │                                                               │
-# │ Merge order: tests → impl → docs                              │
-# │ Post-merge: Run test suite, create PR to dev                  │
-# │                                                               │
-# ├───────────────────────────────────────────────────────────────┤
-# │ Run without --dry-run to execute                              │
-# └───────────────────────────────────────────────────────────────┘
-```
-
-## Context Monitoring
-
-The orchestrator tracks context usage with heuristics:
-
-| Level | Action |
-|-------|--------|
-| < 50% | 🟢 Normal operation |
-| 50-70% | 🟡 Status shown in dashboard |
-| 70-85% | ⚠️ Warning, prepare for compression |
-| > 85% | 🔴 Auto-compress triggered |
-
-### Automatic Triggers
-
-- Exchange count > 20
-- Large agent response (> 3000 tokens)
-- Claude system warning about context
-- User says "getting long"
-
-## Orchestrating Brainstorm Sessions (v2.4.0)
-
-The orchestrator can coordinate complex brainstorming workflows using `/brainstorm` with question control:
-
-### Example: Orchestrate Feature Planning
-
-```bash
-/craft:orchestrate "plan new authentication feature with full context gathering"
-```
-
-The orchestrator will:
-
-1. Launch `/brainstorm d:8 "authentication" -C req,users,scope,success` for context
-2. Spawn `backend-architect` agent to design auth flow
-3. Spawn `frontend-specialist` agent for login UI design
-4. Coordinate test strategy with `test-strategist`
-5. Synthesize all findings into comprehensive plan
-
-### Brainstorm + Orchestration Patterns
-
-```bash
-# Pattern 1: Quick context then implement
-/craft:orchestrate "add payment integration"
-# → Brainstorm q:2 → backend-architect → code implementation
-
-# Pattern 2: Deep context with multiple agents
-/craft:orchestrate "design microservices architecture" optimize
-# → Brainstorm d:8 -C tech,risk,existing → arch-1, arch-2 in parallel
-
-# Pattern 3: Feature with full lifecycle
-/craft:orchestrate "implement user management" release
-# → Brainstorm d:10 -C req,tech,success → arch + code + test + docs agents
-```
-
-### Benefits of Brainstorm Integration
-
-1. **Structured Context** - Question bank ensures comprehensive requirements
-2. **Focused Agents** - Agents receive filtered context based on categories
-3. **Milestone Progress** - Unlimited questions with prompts for complex features
-4. **Spec Capture** - Brainstorm → orchestrator → SPEC.md automatically
-
-## Integration
-
-Works with all craft commands:
-
-- Routes to `/craft:arch:*` for design tasks
-- Routes to `/craft:code:*` for implementation
-- Routes to `/craft:test:*` for testing
-- Routes to `/craft:docs:*` for documentation
-- Routes to `/brainstorm` (v2.4.0) for context gathering
-
-## Performance Tips
-
-### Optimize Agent Selection
-
-| Scenario | Recommended Mode | Agents |
-|----------|------------------|--------|
-| Simple feature | `default` | 2 max |
-| Complex system | `optimize` | 4 parallel |
-| Debugging issue | `debug` | 1 sequential |
-| Pre-release | `release` | 4 + full audit |
-
-### Reduce Context Usage
-
-1. **Use focused categories**: `/brainstorm d:5 -C req,tech`
-2. **Limit question count**: `d:5` instead of `d:20`
-3. **Compress early**: Run `compress` at 60% context
-4. **Archive completed**: Let auto-save handle checkpoints
-
-### Troubleshooting Performance
-
-| Symptom | Solution |
-|---------|----------|
-| Agents timeout | Use `debug` mode (sequential) |
-| Context high | Run `compress` immediately |
-| Slow parallel | Reduce to `default` mode |
-| Lost progress | Run `continue` to resume |
-
-## Token Instrumentation
-
-At run **START**: compute `run_id = <ISO8601-start>-<mode>` (e.g.
-`2026-06-19T14:03:00Z-default`). Create `.craft/orchestrate-runs/` if absent.
-Write `.craft/orchestrate-runs/<run-id>.json` with:
-
-```json
-{
-  "run_id": "<ISO8601-start>-<mode>",
-  "command": "orchestrate",
-  "mode": "<selected-mode>",
-  "engine": "fanout",
-  "agents": [],
-  "max_turns": <max-turns-for-mode>,
-  "cwd": "<absolute-cwd>",
-  "start_ts": "<ISO8601>",
-  "end_ts": null
-}
-```
-
-Update `agents` as each agent is spawned (append its label). At run **END**
-(completion, abort, or error) update `end_ts` with the ISO8601 finish time.
-
-These files are gitignored (`.craft/orchestrate-runs/`). They are consumed by
-`scripts/orchestrate-token-report.py` to attribute token usage per run.
+Mockups (status/timeline/budget/compression), the full control-command catalog, session
+management, worktree types, swarm deep config, performance tips, and token instrumentation:
+[orchestrate-reference.md](../docs/reference/orchestrate-reference.md).
 
 ## See Also
 

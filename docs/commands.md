@@ -5,7 +5,7 @@ Complete reference for all 112 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 113 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 114 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement:** `--refine` on `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, `/craft:arch:plan` sharpens your prompt before the command acts (via the `prompt-refiner` skill).
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -28,6 +28,17 @@ Universal command - AI routes to appropriate workflow.
 ```
 
 **Dry-run:** Preview which commands will be executed and estimated time.
+
+### /craft:grill
+
+Adversarially interrogate a plan, spec, or topic one question at a time — the convergent
+counterpart to brainstorm. Codebase-first, recommended answer per question, durable decision
+ledger. See [command reference](commands/grill.md) and [tutorial](tutorials/TUTORIAL-grill.md).
+
+```bash
+/craft:grill docs/specs/SPEC-auth-2026-06-22.md   # stress-test a spec
+/craft:grill "add OAuth login"                     # skeleton, then grill
+```
 
 ### /craft:orchestrate 🔍
 
@@ -463,7 +474,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 113 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 114 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 
