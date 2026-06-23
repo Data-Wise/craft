@@ -131,13 +131,24 @@ def _normalize_frontmatter(text: str) -> str:
         return text
     start, end = delim_idx[0], delim_idx[1]
     fm_lines = lines[start + 1: end]
-    # Safety: skip if any block scalar or continuation line present
+    # Safety: skip if any block scalar, continuation, blank, comment, or duplicate key present
+    seen_keys: set = set()
     for line in fm_lines:
         stripped = line.rstrip("\n")
         if _BLOCK_SCALAR.search(stripped):
             return text
         if _CONTINUATION.match(stripped):
             return text
+        if stripped == "":
+            return text
+        if stripped.lstrip().startswith("#"):
+            return text
+        m = _SIMPLE_KV.match(stripped)
+        if m:
+            lower_key = m.group(1).lower()
+            if lower_key in seen_keys:
+                return text
+            seen_keys.add(lower_key)
     # Build normalized key -> raw_line mapping (preserve value byte-for-byte)
     kv_pairs = []  # list of (lowered_key, normalized_line)
     for line in fm_lines:
@@ -153,7 +164,6 @@ def _normalize_frontmatter(text: str) -> str:
                 normalized_line = line
             kv_pairs.append((lower_key, normalized_line))
         else:
-            # non-kv line (blank, comment): attach to previous or keep in place
             kv_pairs.append(("", line))
     # Reorder: name, description, when_to_use, then rest in original relative order
     CANONICAL_ORDER = ["name", "description", "when_to_use"]
@@ -167,7 +177,8 @@ def _normalize_frontmatter(text: str) -> str:
     for k, l in kv_pairs:
         if k not in seen:
             ordered.append(l)
-            seen.add(k) if k else None
+            if k:
+                seen.add(k)
     new_fm = "".join(ordered)
     old_fm = "".join(fm_lines)
     if new_fm == old_fm:
@@ -200,12 +211,16 @@ def apply_safe_fixes(root: Path, findings) -> list:
         text = ref.read_text(encoding="utf-8")
         if TOC_RE.search(text):
             continue  # already has TOC (e.g., fix #1 above added it on a prior run)
-        # Insert after first H1 if present, else at top
+        # Determine if a code fence opens before the first H1.
+        # If so, insert TOC at the very top to avoid placing the heading inside a fence.
         h1_match = re.search(r"(?m)^# .+", text)
-        if h1_match:
+        fence_match = re.search(r"(?m)^```", text)
+        if h1_match and (fence_match is None or h1_match.start() <= fence_match.start()):
+            # H1 comes first (or no fence at all): insert after H1
             insert_at = h1_match.end()
             new_text = text[:insert_at] + TOC_STUB + text[insert_at:]
         else:
+            # Fence opens before H1 (or no H1): insert at top
             new_text = TOC_STUB.lstrip("\n") + text
         ref.write_text(new_text, encoding="utf-8")
 
