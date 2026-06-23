@@ -1,7 +1,7 @@
 # /craft:orchestrate — Reference
 
 > Extended reference for `/craft:orchestrate`. The mandatory execution contract (Steps 0–3-N)
-> lives in [`commands/orchestrate.md`](../../commands/orchestrate.md); this doc holds the human-read
+> lives in the [orchestrate command page](../commands/orchestrate.md); this doc holds the human-read
 > reference material split out to keep the command lean.
 
 ---
@@ -413,7 +413,7 @@ git branch -d swarm-auth-agent1 swarm-auth-agent2 swarm-auth-agent3
 # ├───────────────────────────────────────────────────────────────┤
 # │                                                               │
 # │ ORCHESTRATE file: ORCHESTRATE-auth.md                         │
-# │ Swarm Configuration found: 3 agents                           │
+# │ Swarm Configuration found: 8 agents                           │
 # │                                                               │
 # │ Worktree Creation Plan:                                       │
 # │                                                               │
