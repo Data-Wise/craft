@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.47.0 (released 2026-06-19)                       │
+│  Version: 2.48.0 (released 2026-06-19)                       │
 │  Commands: 112 | Agents: 8 | Skills: 39                     │
 │  Documentation: 99% complete | Tests: 142 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.47.0: Documentation Coverage — Tutorial Suite            │
+│  v2.48.0: Documentation Coverage — Tutorial Suite            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -272,6 +272,21 @@ Silently skips when `~/.claude/quota-cache.json` is absent or stale (>900 s).
 **Testing:** 145 new tests added (93 e2e + 52 orch handler), all passing
 
 **Documentation:** 6 new files (3,880 lines), tutorials + guides + reference cards
+
+### /craft:grill `[target]`
+
+**Purpose:** Convergent counterpart to brainstorm — interrogate a plan/spec/topic one question at
+a time to surface gaps before building.
+
+```bash
+/craft:grill docs/specs/SPEC-auth-2026-06-22.md   # stress-test a spec
+/craft:grill "add OAuth login"                     # skeleton, then grill
+/craft:grill --bound 2 --no-capture                # bounded, inline (embedded use)
+```
+
+**How it works:** codebase-first sweep → one-at-a-time loop with a Recommended answer per question
+→ `/done` halt + milestone checkpoints → durable `GRILL-*` decision ledger → handoff to
+`/craft:plan`. Never overwrites a brainstorm `SPEC-*`. Reused by `/craft:orchestrate` Step 0.5.
 
 ## Smart Documentation (17 commands)
 
@@ -1535,7 +1550,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.47.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.48.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary

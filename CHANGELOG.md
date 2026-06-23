@@ -9,7 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [2.48.0] — 2026-06-22
+
+### Added
+
+- **`/craft:grill`** — adversarial one-question-at-a-time interrogation command (ported from `grill-me`). Convergent counterpart to brainstorm: codebase-first sweep, a recommended answer per question, `/done` halt + milestone checkpoints, durable `GRILL-*` decision ledger (never overwrites a brainstorm `SPEC-*`), and `/craft:plan` handoff. Args: `target`, `--bound N`, `--no-capture`. Tutorial + command reference + REFCARD entry added.
+
+### Changed
+
+- **`/craft:orchestrate`** — added **Step 0.5 Clarify** (default ON), which invokes `/craft:grill --bound 2 --no-capture` to lock plan-shaping decisions before building the plan (`--no-clarify` suppresses). Closes the "confirms but never clarifies" gap.
+- **`/craft:orchestrate`** — split the 862-line command into a lean ~340-line contract plus `docs/reference/orchestrate-reference.md` (mockups, session management, worktree types, swarm deep config, performance tips, token instrumentation), reducing per-invocation context.
 
 ## [2.47.0] — 2026-06-21
 
