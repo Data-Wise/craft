@@ -170,7 +170,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.48.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.49.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -194,7 +194,7 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (16)                         TEST (0)                              │
+│ CODE (17)                         TEST (0)                              │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
 │   /craft:code:coverage [mode]      /craft:test:gen                      │
 │   /craft:code:debug                                                     │
@@ -393,7 +393,7 @@ Many commands support modes for different use cases:
 ### `/craft:hub code`
 
 ```
-CODE COMMANDS (16) - Code Quality & Development
+CODE COMMANDS (17) - Code Quality & Development
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
