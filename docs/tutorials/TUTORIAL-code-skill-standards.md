@@ -69,7 +69,7 @@ Emits a JSON array — one object per finding:
 ```json
 [
   {
-    "skill": "release/SKILL.md",
+    "path": "release/SKILL.md",
     "check": "size",
     "severity": "warning",
     "message": "SKILL.md is 1308 lines, exceeds 500 — move detail to references/"
