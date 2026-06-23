@@ -241,4 +241,4 @@ The learning loop is designed to be invisible when nothing interesting happened.
 - [Hub Live Dashboard](hub-live-dashboard.md) — How `/craft:hub` displays learning loop data
 - [Session Wrap-Up Workflow](../cookbook/common/session-wrap-up.md) — Quick recipe
 - [Insights Workflow Tutorial](../tutorials/TUTORIAL-insights-workflow.md) — Deeper friction analysis
-- [/workflow:done Reference](../commands/workflow/done.md) — Full command reference
+- [/workflow:done Reference](../commands/workflow/done.md) — Command reference (the body now lives in the `adhd-workflow` skill; see [ADR-002](../adr/ADR-002-done-command-skill-consolidation.md))

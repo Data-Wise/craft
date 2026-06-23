@@ -20,6 +20,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Reference:** `docs/help/memory-optimization.md`
 - **Tests:** 4 structural assertions in `tests/test_grill_command.py` for Step 1.10.5 and Step 1.12
 
+### Changed
+
+- **`/done` consolidated into the `adhd-workflow` skill (ADR-002).** The full session-completion procedure (including the new Steps 1.10.5 / 1.12) moved to `skills/workflow/adhd-workflow/references/done.md` as the single source of truth. `commands/workflow/done.md` is now a thin shim that routes to it, and `SKILL.md` operation 1 points to the same reference — so the explicit `/craft:workflow:done` slash path and the natural-language path no longer diverge. Prevents the shipped Steps 1.10.5/1.12 from being silently dropped when the deprecated command is deleted at v3.0.0.
+
+### Documentation
+
+- **ADR:** `docs/adr/ADR-002-done-command-skill-consolidation.md` (new `docs/adr/` directory) — records the command↔skill consolidation decision and rejected alternatives.
+- **Grill ledger:** `docs/specs/GRILL-done-command-skill-consolidation-2026-06-23.md` — captures the resolved decision plus deferred v2.49.x open questions.
+
 ## [2.48.0] — 2026-06-22
 
 ### Added

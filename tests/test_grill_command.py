@@ -54,9 +54,22 @@ def test_grill_body_captures_and_hands_off():
 
 
 # ── /done enhancements (v2.49.0) structural tests ─────────────────────────────
+# Canonical body lives in the skill reference (ADR-002); the command is a shim.
 
 def _done_body():
-    return open(os.path.join(CRAFT, "commands", "workflow", "done.md"), encoding="utf-8").read()
+    return open(
+        os.path.join(CRAFT, "skills", "workflow", "adhd-workflow", "references", "done.md"),
+        encoding="utf-8",
+    ).read()
+
+
+def test_done_command_is_shim_routing_to_skill():
+    """commands/workflow/done.md must be a thin shim that routes to the canonical
+    skill reference (ADR-002), not a duplicate of the full body."""
+    shim = open(os.path.join(CRAFT, "commands", "workflow", "done.md"), encoding="utf-8").read()
+    assert "skills/workflow/adhd-workflow/references/done.md" in shim, "shim must point to the reference"
+    assert "ADR-002" in shim, "shim must cite the consolidation ADR"
+    assert len(shim.splitlines()) < 80, "shim should be thin, not a copy of the full body"
 
 
 def test_done_has_settings_sync_step():

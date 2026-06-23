@@ -29,15 +29,23 @@ If multiple intents apply, pick the operation that matches the strongest verb in
 
 Capture progress before context evaporates — typically the highest-leverage moment in an ADHD work session.
 
+> **Canonical procedure:** the full session-completion flow lives in
+> [`references/done.md`](references/done.md) — the single source of truth shared
+> with the `/craft:workflow:done` slash shim. For anything beyond the quick
+> summary below (Settings Sync, Memory Optimize, Insights Capture, Worktree
+> Status, the interactive summary, auto-git), **load `references/done.md` and
+> follow it.** Never reimplement that flow here or in the command shim. See
+> [ADR-002](../../../docs/adr/ADR-002-done-command-skill-consolidation.md).
+
 **Inputs:** `git status`, `git log --since="4 hours ago"`, current `.STATUS` file.
 
-**Steps:**
+**Quick summary (full detail in `references/done.md`):**
 
 1. Gather session activity — uncommitted changes, recent commits, files modified.
 2. Summarize what was accomplished in 3–5 bullets, plain language.
 3. Update `.STATUS` file: "✅ Just Completed", "🎯 Next Action", "🔴 Blockers".
-4. Suggest a conventional-commits message for any uncommitted changes.
-5. Surface follow-ups for the next session (open PRs, failing tests, half-written specs).
+4. Sync CLAUDE.md, audit settings drift, capture + optimize memory, write the insights facet (see reference for the exact steps).
+5. Suggest a conventional-commits message; surface follow-ups (open PRs, failing tests, half-written specs).
 
 **Producer role:** This is the upstream data producer for `/recap`, `/next`, and `/craft:hub` — make `.STATUS` writes accurate and complete.
 
