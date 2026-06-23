@@ -1,7 +1,7 @@
 # SPEC — `/craft:orchestrate` Clarify Step + Optimization Refactor
 
 > **Repo:** `~/projects/dev-tools/craft` · **Branch:** `dev` · **Date:** 2026-06-22
-> **Status:** Design. Implementation requires a worktree (changes command behavior).
+> **Status:** ✅ SHIPPED — v2.48.0 (PR #201 → dev, PR #202 → main, 2026-06-23). Step 0.5 Clarify + lean split both complete.
 > **Source:** review of `commands/orchestrate.md` (842 lines) during the planning-refactor pass.
 
 ---

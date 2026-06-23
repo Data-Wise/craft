@@ -2,6 +2,8 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+**Status:** ✅ SHIPPED — v2.48.0 (PR #201 → dev 2727c576, PR #202 → main 4dea8ac8, 2026-06-23). W1–W3 + W5 complete. W4 (ADR + CONTEXT.md glossary) deferred as fast-follow.
+
 **Goal:** Add `/craft:grill` — a standalone one-question-at-a-time interrogation command that stress-tests a spec/plan or bare topic, walking the design tree with a recommended answer per question, codebase-first, capturing a durable decision-ledger spec that feeds the `/plan → /do` pipeline.
 
 **Architecture:** A markdown command (`commands/grill.md`) carrying the interrogation contract, backed by one Python util (`commands/utils/grill_ledger.py`) for collision-safe output-filename resolution + decision-ledger append. The interactive loop itself is model-executed (not Python); its *structure* and the *util* are the testable surfaces. Orchestrate's Step 0.5 reuses grill via a bounded pass.
