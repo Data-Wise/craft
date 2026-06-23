@@ -224,3 +224,9 @@ Spec: docs/specs/SPEC-insights-improvements-v2.33-2026-02-27.md
   upstream delegate/disable, drift-guard, all-4-lens, public-release bar).
 - Spec: docs/specs/SPEC-planning-refactor-2026-06-22.md
 - Next: execute A1-A8 (craft-only, ~60-90 min).
+
+## Surfaces (v2.49.0)
+
+| plugin | code | desktop | released | drift |
+|--------|------|---------|----------|-------|
+| craft | 2.48.0 | manual | 2.49.0 | yes |
