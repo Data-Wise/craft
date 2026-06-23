@@ -40,7 +40,7 @@ is absent. (`grep` confirms: orchestrate has confirm gates, no clarify gate.)
 |---|---|---|
 | O1 | Clarify default | **ON by default.** Suppress with `--yes` / `--no-clarify`, or auto-skip when the task is unambiguous or spec/ORCHESTRATE-derived. |
 | O2 | Placement | New **Step 0.5: Clarify**, between mode-select (Step 0) and task-analysis (Step 1). Clarify BEFORE the plan exists. |
-| O3 | Form | 1–2 `AskUserQuestion` rounds, ≤4 questions each, **recommended-option-first**, each surfacing a real gap/assumption/ambiguity (not busywork). |
+| O3 | Form | **Invoke `/craft:grill`** as the interrogation impl (one interrogation engine, reused — SPEC-grill-command / G8). For a quick ambiguity gate, grill runs in a short bounded pass (≤2 branches) rather than full deep interrogation; the lighter AskUserQuestion batch remains the fallback when grill is unavailable. |
 | O4 | Trigger test | Fire Clarify when the task has multiple valid interpretations, missing scope/constraints, or undefined success criteria. Skip when a matching SPEC/ORCHESTRATE/WORKFLOW file already pins the decisions. |
 | O5 | Refactor | Move reference + mockups to `commands/orchestrate/docs/orchestrate-reference.md`; keep the lean contract in `orchestrate.md`. |
 
@@ -50,9 +50,10 @@ is absent. (`grep` confirms: orchestrate has confirm gates, no clarify gate.)
 ### Step 0.5: Clarify (default ON)
 
 Before building any plan, assess task ambiguity. If the task is underspecified or
-admits multiple valid interpretations, run 1–2 AskUserQuestion rounds to LOCK the
-decisions that change the plan — recommended option first, each question targeting a
-real gap. Then build Step 1 on the locked answers.
+admits multiple valid interpretations, invoke /craft:grill in a bounded pass to LOCK
+the decisions that change the plan — one question at a time, recommended answer per
+question, codebase-first. Then build Step 1 on the locked answers. (Fallback when
+grill is unavailable: 1–2 AskUserQuestion rounds, recommended-option-first.)
 
 SKIP this step when:
   - the user passed --yes or --no-clarify, OR
