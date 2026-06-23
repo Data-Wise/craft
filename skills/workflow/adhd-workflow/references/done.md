@@ -14,6 +14,36 @@ forgotten. Follow these steps when the user wraps up a session (via the
 `adhd-workflow` skill's natural-language match or the `/craft:workflow:done`
 slash shim).
 
+## Table of Contents
+
+- [Purpose](#purpose)
+- [When invoked](#when-invoked)
+  - [Step 1: Gather Session Activity](#step-1-gather-session-activity)
+  - [Step 1.5: Check for Completed Specs](#step-15-check-for-completed-specs)
+  - [Step 1.6: Check Documentation Health](#step-16-check-documentation-health)
+  - [Step 1.7: CLAUDE.md Staleness Check](#step-17-claudemd-staleness-check)
+  - [Step 1.8: .STATUS Auto-Refresh](#step-18-status-auto-refresh)
+  - [Step 1.9: Doc Drift Detection](#step-19-doc-drift-detection)
+  - [Step 1.10: CLAUDE.md Auto-Sync](#step-110-claudemd-auto-sync)
+  - [Step 1.10.5: Claude Settings Sync](#step-1105-claude-settings-sync)
+  - [Step 1.11: Memory Capture](#step-111-memory-capture)
+  - [Step 1.12: Memory Optimize](#step-112-memory-optimize)
+  - [Step 1.13: Insights Capture](#step-113-insights-capture)
+  - [Step 1.14: Worktree Status Summary](#step-114-worktree-status-summary)
+  - [Step 2: Interactive Session Summary](#step-2-interactive-session-summary)
+  - [Step 3: Handle User Choice](#step-3-handle-user-choice)
+- [Special Cases](#special-cases)
+- [ADHD-Optimized Behaviors](#adhd-optimized-behaviors)
+- [Integration with Other Commands](#integration-with-other-commands)
+- [Output Formats](#output-formats)
+- [Error Handling](#error-handling)
+- [Examples](#examples)
+- [Related Commands](#related-commands)
+- [Shell Integration](#shell-integration)
+- [Success Criteria](#success-criteria)
+
+---
+
 ## Purpose
 
 The "end session" procedure:

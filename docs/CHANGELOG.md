@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`/craft:code:skill-standards`** — batch scanner that audits every `skills/**/SKILL.md` against a vendored copy of Anthropic's authoring standards. Flags missing/`non-kebab` `name` and missing `description` (errors); over-long `description` (>1536 chars combined with `when_to_use`), unrecognized frontmatter keys, oversized `SKILL.md` (>500 lines), reference files >300 lines lacking a Table of Contents, rot-prone version tags in reference headers, and second-person framing in references (warnings). Score `100 − errors*5 − warnings*2`; exit `0` clean / `1` warnings / `2` errors; `--json`/`--markdown` output. `--fix` (opt-in) applies only safe mechanical fixes — strips version tags, normalizes frontmatter key casing/order, inserts TOC stubs — and **never rewrites descriptions or prose**. `--refresh-standards` rewrites the vendored doc's provenance block. Deep work delegated to `skill-creator` and `plugin-dev:skill-reviewer`. Report-only by default; standalone (not CI-gating).
+- **`docs/reference/SKILL-STANDARDS.md`** — vendored canonical skill-authoring checklist (synthesized from Anthropic's docs + the installed `skill-creator` guide) for offline, deterministic auditing; provenance refreshed via `--refresh-standards`.
+- **Tutorial:** `docs/tutorials/TUTORIAL-code-skill-standards.md`
+
+### Changed
+
+- **Skill compliance pass (driven by `/craft:code:skill-standards`)** — split three oversized skills into `references/` via progressive disclosure, content preserved: `docs/openapi-spec-generation` (1030→195 lines), `ci` (686→268), `docs/changelog-automation` (554→149). Score 98/100; the `release` skill (1308 lines) remains a known oversized warning, deferred to a careful, separately-reviewed split (its first automated split was lossy and was reverted).
+
 ## [2.48.0] — 2026-06-22
 
 ### Added

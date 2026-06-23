@@ -875,7 +875,8 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:code:deps-audit` | ----- | Security vulnerability scan |
 | `/craft:code:ci-local`       | ----- | Run CI checks locally       |
 | `/craft:code:ci-fix`         | ----- | Diagnose and fix CI failures |
-| `/craft:code:fewer-prompts`  | ----- | Install read-only Bash allowlist (--dry-run, --global, --reset) |
+| `/craft:code:fewer-prompts`    | ----- | Install read-only Bash allowlist (--dry-run, --global, --reset) |
+| `/craft:code:skill-standards`  | ----- | Audit plugin skills against Anthropic Skill Standards (--fix, --json, --refresh-standards) |
 
 **Test Commands:**
 
@@ -1696,6 +1697,7 @@ Comprehensive guides and references:
 | `/craft:code:refactor` | Refactoring guidance — improve code structure without changing behavior |
 | `/craft:code:release` | Guide through the package/project release process |
 | `/craft:code:release-watch` | Track Claude Code + Desktop releases and identify plugin-relevant changes |
+| `/craft:code:skill-standards` | Audit plugin skills against Anthropic Skill Standards — checks description length, trigger presence, example count (--fix, --json, --refresh-standards) |
 | `/craft:code:test-gen` | Generate comprehensive test cases for code |
 
 ### Documentation Commands
