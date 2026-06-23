@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`/craft:code:skill-standards`** — new command that audits Claude Code plugin skills against the Anthropic Skill Standards. Reports missing fields (description, trigger, examples), oversized descriptions (>200 chars), missing examples, and flags `trigger` fields for freshness. Supports `--fix` (strips version tags), `--json` (machine-readable output), and `--refresh-standards` (re-fetches the canonical standards doc). Exits non-zero when fixable issues remain.
+- **`docs/reference/SKILL-STANDARDS.md`** — vendored canonical Anthropic Skill Standards reference for offline auditing; refreshed via `--refresh-standards`.
+- **Tutorial:** `docs/tutorials/TUTORIAL-skill-standards.md`
+
 ## [2.48.0] — 2026-06-22
 
 ### Added

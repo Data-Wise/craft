@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`/craft:code:skill-standards`** — new command that audits Claude Code plugin skills against the Anthropic Skill Standards. Reports missing fields (description, trigger, examples), oversized descriptions (>200 chars), missing examples, and flags `trigger` fields for freshness. Supports `--fix` (strips version tags), `--json` (machine-readable output), and `--refresh-standards` (re-fetches the canonical standards doc). Exits non-zero when fixable issues remain.
+- **`docs/reference/SKILL-STANDARDS.md`** — vendored canonical Anthropic Skill Standards reference for offline auditing; refreshed via `--refresh-standards`.
+- **Tutorial:** `docs/tutorials/TUTORIAL-skill-standards.md`
+
 - **`/done` Step 1.10.5: Claude Settings Sync** — detects drift between global `~/.claude/settings.json` allowlist and project `.claude/settings.json`; surfaces `~/.claude/rules/*.md` files modified since the last session. Read-only: never auto-applies. Silent when nothing to report.
 - **`/done` Step 1.12: Memory Optimize** — audits `~/.claude/projects/<hash>/memory/` for orphaned files (not indexed), ghost entries (index points to missing file), stale project memories (>90 days), and duplicate suspects (>80% description overlap). Interactive: offers index rebuild with atomic rename + entry-count sanity check. Silent when clean.
 - **`/done` Step 1.11 enhancement** — orphan pre-check runs after memory capture; flags index drift > 2 entries as a warning that routes to Step 1.12.
