@@ -204,3 +204,12 @@ Spec: docs/specs/SPEC-insights-improvements-v2.33-2026-02-27.md
 - himalaya-mcp release automation: version bump + changelog scripts
 - Coaching mode (tool input modification — Phase 3 of guard design)
 - Language detection for multi-lang projects
+
+## Session Recap — 2026-06-22 — Planning Asset Audit
+- Audited ~20 planning assets: craft / superpowers / user-level / official.
+- Findings: C1 project-planner<->plan-orchestrator trigger collision (HIGH);
+  C2 superpowers brainstorming HARD-GATE preempts craft pipeline (CRITICAL).
+- Decisions D1-D12 locked (craft canonical, /plan dispatcher + tightened skills,
+  upstream delegate/disable, drift-guard, all-4-lens, public-release bar).
+- Spec: docs/specs/SPEC-planning-refactor-2026-06-22.md
+- Next: execute A1-A8 (craft-only, ~60-90 min).
