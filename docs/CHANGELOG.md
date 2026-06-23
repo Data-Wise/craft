@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Skill compliance pass (driven by `/craft:code:skill-standards`)** — split three oversized skills into `references/` via progressive disclosure, content preserved: `docs/openapi-spec-generation` (1030→195 lines), `ci` (686→268), `docs/changelog-automation` (554→149). Score 98/100; the `release` skill (1308 lines) remains a known oversized warning, deferred to a careful, separately-reviewed split (its first automated split was lossy and was reverted).
+- **Skill compliance pass (driven by `/craft:code:skill-standards`)** — split four oversized skills into `references/` via progressive disclosure: `release` (1308→282 lines), `docs/openapi-spec-generation` (1030→195), `ci` (686→268), `docs/changelog-automation` (554→149). `release` was re-split under a line-level loss gate (0 lines missing) after an initial lossy automated attempt was caught and reverted. craft's 39 skills now score **100/100** against the standards.
 
 ## [2.48.0] — 2026-06-22
 

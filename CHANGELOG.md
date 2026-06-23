@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - **`/done` consolidated into the `adhd-workflow` skill (ADR-002).** The full session-completion procedure (including the new Steps 1.10.5 / 1.12) moved to `skills/workflow/adhd-workflow/references/done.md` as the single source of truth. `commands/workflow/done.md` is now a thin shim that routes to it, and `SKILL.md` operation 1 points to the same reference — so the explicit `/craft:workflow:done` slash path and the natural-language path no longer diverge. Prevents the shipped Steps 1.10.5/1.12 from being silently dropped when the deprecated command is deleted at v3.0.0.
-- **Skill compliance pass (driven by `/craft:code:skill-standards`)** — split three oversized skills into `references/` via progressive disclosure, content preserved: `docs/openapi-spec-generation` (1030→195 lines), `ci` (686→268), `docs/changelog-automation` (554→149). Score 98/100; the `release` skill (1308 lines) remains a known oversized warning, deferred to a careful, separately-reviewed split (its first automated split was lossy and was reverted).
+- **Skill compliance pass (driven by `/craft:code:skill-standards`)** — split four oversized skills into `references/` via progressive disclosure: `release` (1308→282 lines), `docs/openapi-spec-generation` (1030→195), `ci` (686→268), `docs/changelog-automation` (554→149). `release` was re-split under a line-level loss gate (0 lines missing) after an initial lossy automated attempt was caught and reverted. craft's 39 skills now score **100/100** against the standards.
 
 ### Documentation
 
