@@ -90,3 +90,12 @@ def test_fix_strips_version_tags_only(tmp_path):
     txt = ref.read_text()
     assert "(NEW in v2.49.0)" not in txt          # version tag stripped
     assert "You are an assistant." in txt          # prose NOT auto-rewritten
+
+def test_refresh_standards_updates_provenance(tmp_path, monkeypatch):
+    doc = tmp_path / "SKILL-STANDARDS.md"
+    doc.write_text("<!-- PROVENANCE\nsynced: 1970-01-01\n-->\n# Standards\nrules…\n")
+    monkeypatch.setattr(ssa, "STANDARDS_DOC", doc)
+    assert ssa.refresh_standards() == 0
+    body = doc.read_text()
+    assert "synced: 1970-01-01" not in body      # date bumped
+    assert "# Standards" in body                  # prose preserved

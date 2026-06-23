@@ -2,7 +2,7 @@
 Mirrors scripts/command-audit.sh: scan -> checks -> score -> exit 0/1/2.
 Reuses commands/_discovery.py:parse_yaml_frontmatter.
 """
-import os, sys, re, json, argparse
+import os, sys, re, json, argparse, datetime
 from pathlib import Path
 from collections import namedtuple
 
@@ -11,6 +11,7 @@ sys.path.insert(0, str(REPO / "commands"))
 from _discovery import parse_yaml_frontmatter  # noqa: E402
 
 SKILLS_DIR = REPO / "skills"
+STANDARDS_DOC = REPO / "docs" / "reference" / "SKILL-STANDARDS.md"
 DESC_MAX = 1536          # description (+ when_to_use) combined char cap
 SKILL_MAX_LINES = 500    # SKILL.md soft ceiling
 REF_TOC_LINES = 300      # reference files larger than this need a TOC
@@ -127,7 +128,16 @@ def apply_safe_fixes(root: Path, findings) -> list:
             ref.write_text(fixed + ("\n" if text.endswith("\n") else ""), encoding="utf-8")
     return audit_all(root)  # residual findings after fixes
 
-def refresh_standards():               # filled in Task 7
+def refresh_standards() -> int:
+    if not STANDARDS_DOC.exists():
+        print(f"missing {STANDARDS_DOC}"); return 2
+    today = datetime.date.today().isoformat()
+    text = STANDARDS_DOC.read_text(encoding="utf-8")
+    new_block = (f"<!-- PROVENANCE\nsynced: {today}\n"
+                 f"sources: https://code.claude.com/docs/en/skills.md ; installed skill-creator guide\n-->")
+    text = re.sub(r"<!-- PROVENANCE.*?-->", new_block, text, count=1, flags=re.DOTALL)
+    STANDARDS_DOC.write_text(text, encoding="utf-8")
+    print(f"provenance refreshed: {today} (prose synthesis is a manual/model step)")
     return 0
 
 def main(argv=None) -> int:
