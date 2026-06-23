@@ -1,0 +1,342 @@
+# Changelog Tool Configurations
+
+## Table of Contents
+
+- [Method 1: Conventional Changelog (Node.js)](#method-1-conventional-changelog-nodejs)
+- [Method 2: standard-version Configuration](#method-2-standard-version-configuration)
+- [Method 3: semantic-release (Full Automation)](#method-3-semantic-release-full-automation)
+- [Method 4: GitHub Actions Workflow](#method-4-github-actions-workflow)
+- [Method 5: git-cliff (Rust-based, Fast)](#method-5-git-cliff-rust-based-fast)
+- [Method 6: Python (commitizen)](#method-6-python-commitizen)
+
+## Method 1: Conventional Changelog (Node.js)
+
+```bash
+# Install tools
+npm install -D @commitlint/cli @commitlint/config-conventional
+npm install -D husky
+npm install -D standard-version
+# or
+npm install -D semantic-release
+
+# Setup commitlint
+cat > commitlint.config.js << 'EOF'
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore',
+        'ci',
+        'build',
+        'revert',
+      ],
+    ],
+    'subject-case': [2, 'never', ['start-case', 'pascal-case', 'upper-case']],
+    'subject-max-length': [2, 'always', 72],
+  },
+};
+EOF
+
+# Setup husky
+npx husky init
+echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
+```
+
+## Method 2: standard-version Configuration
+
+```javascript
+// .versionrc.js
+module.exports = {
+  types: [
+    { type: 'feat', section: 'Features' },
+    { type: 'fix', section: 'Bug Fixes' },
+    { type: 'perf', section: 'Performance Improvements' },
+    { type: 'revert', section: 'Reverts' },
+    { type: 'docs', section: 'Documentation', hidden: true },
+    { type: 'style', section: 'Styles', hidden: true },
+    { type: 'chore', section: 'Miscellaneous', hidden: true },
+    { type: 'refactor', section: 'Code Refactoring', hidden: true },
+    { type: 'test', section: 'Tests', hidden: true },
+    { type: 'build', section: 'Build System', hidden: true },
+    { type: 'ci', section: 'CI/CD', hidden: true },
+  ],
+  commitUrlFormat: '{{host}}/{{owner}}/{{repository}}/commit/{{hash}}',
+  compareUrlFormat: '{{host}}/{{owner}}/{{repository}}/compare/{{previousTag}}...{{currentTag}}',
+  issueUrlFormat: '{{host}}/{{owner}}/{{repository}}/issues/{{id}}',
+  userUrlFormat: '{{host}}/{{user}}',
+  releaseCommitMessageFormat: 'chore(release): {{currentTag}}',
+  scripts: {
+    prebump: 'echo "Running prebump"',
+    postbump: 'echo "Running postbump"',
+    prechangelog: 'echo "Running prechangelog"',
+    postchangelog: 'echo "Running postchangelog"',
+  },
+};
+```
+
+```json
+// package.json scripts
+{
+  "scripts": {
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major",
+    "release:patch": "standard-version --release-as patch",
+    "release:dry": "standard-version --dry-run"
+  }
+}
+```
+
+## Method 3: semantic-release (Full Automation)
+
+```javascript
+// release.config.js
+module.exports = {
+  branches: [
+    'main',
+    { name: 'beta', prerelease: true },
+    { name: 'alpha', prerelease: true },
+  ],
+  plugins: [
+    '@semantic-release/commit-analyzer',
+    '@semantic-release/release-notes-generator',
+    [
+      '@semantic-release/changelog',
+      {
+        changelogFile: 'CHANGELOG.md',
+      },
+    ],
+    [
+      '@semantic-release/npm',
+      {
+        npmPublish: true,
+      },
+    ],
+    [
+      '@semantic-release/github',
+      {
+        assets: ['dist/**/*.js', 'dist/**/*.css'],
+      },
+    ],
+    [
+      '@semantic-release/git',
+      {
+        assets: ['CHANGELOG.md', 'package.json'],
+        message: 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
+      },
+    ],
+  ],
+};
+```
+
+## Method 4: GitHub Actions Workflow
+
+```yaml
+# .github/workflows/release.yml
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'Release type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
+
+  # Alternative: manual release with standard-version
+  manual-release:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version and generate changelog
+        run: npx standard-version --release-as ${{ inputs.release_type }}
+
+      - name: Push changes
+        run: git push --follow-tags origin main
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          body_path: RELEASE_NOTES.md
+          generate_release_notes: true
+```
+
+## Method 5: git-cliff (Rust-based, Fast)
+
+```toml
+# cliff.toml
+[changelog]
+header = """
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+"""
+body = """
+{% if version %}\
+    ## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+{% else %}\
+    ## [Unreleased]
+{% endif %}\
+{% for group, commits in commits | group_by(attribute="group") %}
+    ### {{ group | upper_first }}
+    {% for commit in commits %}
+        - {% if commit.scope %}**{{ commit.scope }}:** {% endif %}\
+            {{ commit.message | upper_first }}\
+            {% if commit.github.pr_number %} ([#{{ commit.github.pr_number }}](https://github.com/owner/repo/pull/{{ commit.github.pr_number }})){% endif %}\
+    {% endfor %}
+{% endfor %}
+"""
+footer = """
+{% for release in releases -%}
+    {% if release.version -%}
+        {% if release.previous.version -%}
+            [{{ release.version | trim_start_matches(pat="v") }}]: \
+                https://github.com/owner/repo/compare/{{ release.previous.version }}...{{ release.version }}
+        {% endif -%}
+    {% else -%}
+        [unreleased]: https://github.com/owner/repo/compare/{{ release.previous.version }}...HEAD
+    {% endif -%}
+{% endfor %}
+"""
+trim = true
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+split_commits = false
+commit_parsers = [
+    { message = "^feat", group = "Features" },
+    { message = "^fix", group = "Bug Fixes" },
+    { message = "^doc", group = "Documentation" },
+    { message = "^perf", group = "Performance" },
+    { message = "^refactor", group = "Refactoring" },
+    { message = "^style", group = "Styling" },
+    { message = "^test", group = "Testing" },
+    { message = "^chore\\(release\\)", skip = true },
+    { message = "^chore", group = "Miscellaneous" },
+]
+filter_commits = false
+tag_pattern = "v[0-9]*"
+skip_tags = ""
+ignore_tags = ""
+topo_order = false
+sort_commits = "oldest"
+
+[github]
+owner = "owner"
+repo = "repo"
+```
+
+```bash
+# Generate changelog
+git cliff -o CHANGELOG.md
+
+# Generate for specific range
+git cliff v1.0.0..v2.0.0 -o RELEASE_NOTES.md
+
+# Preview without writing
+git cliff --unreleased --dry-run
+```
+
+## Method 6: Python (commitizen)
+
+```toml
+# pyproject.toml
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "1.0.0"
+version_files = [
+    "pyproject.toml:version",
+    "src/__init__.py:__version__",
+]
+tag_format = "v$version"
+update_changelog_on_bump = true
+changelog_incremental = true
+changelog_start_rev = "v0.1.0"
+
+[tool.commitizen.customize]
+message_template = "{{change_type}}{% if scope %}({{scope}}){% endif %}: {{message}}"
+schema = "<type>(<scope>): <subject>"
+schema_pattern = "^(feat|fix|docs|style|refactor|perf|test|chore)(\\(\\w+\\))?:\\s.*"
+bump_pattern = "^(feat|fix|perf|refactor)"
+bump_map = {"feat" = "MINOR", "fix" = "PATCH", "perf" = "PATCH", "refactor" = "PATCH"}
+```
+
+```bash
+# Install
+pip install commitizen
+
+# Create commit interactively
+cz commit
+
+# Bump version and update changelog
+cz bump --changelog
+
+# Check commits
+cz check --rev-range HEAD~5..HEAD
+```
