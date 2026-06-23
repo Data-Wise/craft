@@ -114,8 +114,18 @@ def _emit(findings, mode, root):
         print(f"\nScore: {score(findings)}/100  ({sum(1 for x in findings if x.severity=='error')} errors, "
               f"{sum(1 for x in findings if x.severity=='warning')} warnings)")
 
-def apply_safe_fixes(root, findings):  # filled in Task 6
-    return findings
+def apply_safe_fixes(root: Path, findings) -> list:
+    for ref in {Path(f.path) for f in findings if f.category == "hygiene"}:
+        if ref.name == "SKILL.md":
+            continue
+        text = ref.read_text(encoding="utf-8")
+        fixed = "\n".join(
+            re.sub(r"\s*\((?:NEW(?:!| in)? v[\d.]+|Phase \d+)\)", "", line) if line.lstrip().startswith("#") else line
+            for line in text.splitlines()
+        )
+        if fixed != text:
+            ref.write_text(fixed + ("\n" if text.endswith("\n") else ""), encoding="utf-8")
+    return audit_all(root)  # residual findings after fixes
 
 def refresh_standards():               # filled in Task 7
     return 0

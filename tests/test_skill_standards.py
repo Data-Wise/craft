@@ -80,3 +80,13 @@ def test_main_exit_0_when_clean(tmp_path):
     d = tmp_path / "skills" / "good"; d.mkdir(parents=True)
     (d / "SKILL.md").write_text("---\nname: good\ndescription: A clean skill.\n---\n# Good\n")
     assert ssa.main(["--root", str(tmp_path / "skills"), "--json"]) == 0
+
+def test_fix_strips_version_tags_only(tmp_path):
+    d = tmp_path / "skills" / "demo" / "references"; d.mkdir(parents=True)
+    (d.parent / "SKILL.md").write_text("---\nname: demo\ndescription: A skill.\n---\n# Demo\n")
+    ref = d / "r.md"
+    ref.write_text("## Step 1 (NEW in v2.49.0)\nYou are an assistant.\n")
+    ssa.apply_safe_fixes(tmp_path / "skills", ssa.audit_all(tmp_path / "skills"))
+    txt = ref.read_text()
+    assert "(NEW in v2.49.0)" not in txt          # version tag stripped
+    assert "You are an assistant." in txt          # prose NOT auto-rewritten
