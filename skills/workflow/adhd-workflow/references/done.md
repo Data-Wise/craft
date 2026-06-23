@@ -7,20 +7,23 @@ Do not duplicate this content into the command shim — edit it here.
 See docs/adr/ADR-002-done-command-skill-consolidation.md for the rationale.
 -->
 
-# /done - Session Completion & Context Capture
+# Session Completion & Context Capture (the `/done` procedure)
 
-You are an ADHD-friendly session completion assistant. Help users capture their progress before they forget.
+The ADHD-friendly session-completion flow: capture progress before it is
+forgotten. Follow these steps when the user wraps up a session (via the
+`adhd-workflow` skill's natural-language match or the `/craft:workflow:done`
+slash shim).
 
 ## Purpose
 
-Critical "end session" command that:
+The "end session" procedure:
 
 - Captures what was accomplished (before forgetting)
-- Updates .STATUS file automatically
-- Suggests git commit with generated message
-- Preserves context for next session
+- Updates the `.STATUS` file automatically
+- Suggests a git commit with a generated message
+- Preserves context for the next session
 
-**ADHD Insight:** Most context loss happens at session boundaries. This command prevents that.
+**ADHD Insight:** Most context loss happens at session boundaries. This flow prevents that.
 
 ---
 
@@ -51,7 +54,7 @@ Analyze what happened this session:
    - Read current "🎯 Next Action"
    - Check "🔴 Blockers"
 
-### Step 1.5: Check for Completed Specs (NEW! v1.1.0)
+### Step 1.5: Check for Completed Specs
 
 Check if any specs were being implemented this session:
 
@@ -70,7 +73,7 @@ done
 
 If implementing specs found, offer archival in summary (Step 2).
 
-### Step 1.6: Check Documentation Health (Phase 1)
+### Step 1.6: Check Documentation Health
 
 Run documentation detectors to identify gaps and staleness:
 
@@ -184,7 +187,7 @@ today=$(date +%Y-%m-%d)
 
 **Note:** Full .STATUS rewrite happens in Step 3 (Option A). This step only refreshes the timestamp and branch metadata.
 
-### Step 1.9: Doc Drift Detection (NEW in v2.22.0)
+### Step 1.9: Doc Drift Detection
 
 Check if files changed this session have documentation that may need updating:
 
@@ -222,7 +225,7 @@ done
 - If no drift: show green checkmark, proceed normally
 - Skippable with `SKIP_DOC_DRIFT=1` environment variable
 
-### Step 1.10: CLAUDE.md Auto-Sync (NEW in v2.31.0)
+### Step 1.10: CLAUDE.md Auto-Sync
 
 Automatically sync CLAUDE.md counts and version before committing:
 
@@ -259,7 +262,7 @@ fi
 
 If nothing changed, omit the SYNCED section entirely.
 
-### Step 1.10.5: Claude Settings Sync (NEW in v2.49.0)
+### Step 1.10.5: Claude Settings Sync
 
 Detect drift between global and project-level Claude settings, and flag rules files updated since the last session.
 
@@ -308,7 +311,7 @@ updated_rules = [f.name for f in rules_dir.glob('*.md') if f.stat().st_mtime > s
 - If no drift and no updated rules: silent (zero output)
 - Stores drift count for display in Step 2 summary
 
-### Step 1.11: Memory Capture (NEW in v2.31.0)
+### Step 1.11: Memory Capture
 
 Scan the session for learnings worth persisting to MEMORY.md:
 
@@ -398,7 +401,7 @@ if [ -n "$memory_dir" ] && [ -f "$memory_dir/MEMORY.md" ]; then
 fi
 ```
 
-### Step 1.12: Memory Optimize (NEW in v2.49.0)
+### Step 1.12: Memory Optimize
 
 Audit and optionally rebuild the memory index for this project. Triggered automatically if Step 1.11 orphan pre-check detected drift; also runs unconditionally unless opted out.
 
@@ -481,7 +484,7 @@ shutil.move(str(tmp), str(memory_dir / 'MEMORY.md'))
 
 **Feeds into Step 2 summary:** orphan/ghost counts appear as "🧹 MEMORY AUDIT" line.
 
-### Step 1.13: Insights Capture (NEW in v2.31.0)
+### Step 1.13: Insights Capture
 
 Analyze the session for friction signals and write a facet JSON file:
 
@@ -549,7 +552,7 @@ find ~/.claude/usage-data/facets/ -name "session-*.json" -mtime +90 -delete 2>/d
 
 **If fewer than 3 friction events:** Silent (no output in summary). Facet is still written for aggregate analysis.
 
-### Step 1.14: Worktree Status Summary (NEW in v2.31.0)
+### Step 1.14: Worktree Status Summary
 
 Detect if the session is in a git worktree and gather worktree context:
 
@@ -747,7 +750,7 @@ Present findings and ask user to confirm/edit:
    └─────────────────────────────────────────────────────────────┘
    ```
 
-#### Step 3.5: Auto-Git (NEW in v2.31.0)
+#### Step 3.5: Auto-Git
 
 After Option A completes (summary confirmed, .STATUS updated), automatically commit and push:
 
@@ -1182,7 +1185,7 @@ work <project>     # Start session → auto-runs /workflow:recap
 finish [message]   # End session → runs /workflow:done + commits
 ```
 
-The `finish` alias can delegate to this command for the capture part.
+The `finish` alias can delegate to this procedure for the capture part.
 
 ---
 
