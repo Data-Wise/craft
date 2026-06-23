@@ -1,7 +1,7 @@
 # /craft:orchestrate — Reference
 
 > Extended reference for `/craft:orchestrate`. The mandatory execution contract (Steps 0–3-N)
-> lives in [`commands/orchestrate.md`](../../orchestrate.md); this doc holds the human-read
+> lives in [`commands/orchestrate.md`](../../commands/orchestrate.md); this doc holds the human-read
 > reference material split out to keep the command lean.
 
 ---

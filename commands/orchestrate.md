@@ -294,6 +294,32 @@ Spawn agents according to the confirmed plan. Show progress after each wave.
 | Agent output | Summary | Verbose (full output) | Summary | Full output + diffs |
 | Auto-proceed | Ask per wave | Ask every step | Ask per wave | Ask every step |
 
+## Examples
+
+```bash
+/craft:orchestrate "add user authentication with OAuth"   # default mode
+/craft:orchestrate "prep release" release                 # thorough audit
+/craft:orchestrate "refactor data layer" --swarm          # isolated worktrees per agent
+/craft:orchestrate "add auth" --dry-run                    # preview plan, spawn nothing
+```
+
+Full worked examples with progress mockups live in the reference doc.
+
+## Control Commands
+
+During orchestration, say:
+
+| Command | Action |
+|---------|--------|
+| `status` | Show agent dashboard |
+| `timeline` | Show execution timeline |
+| `compress` | Force chat compression now |
+| `abort` | Stop everything, save state |
+| `continue` | Resume previous session |
+| `swarm status` | Show swarm agent worktree status |
+
+Full control-command catalog (budget, pause/resume, focus, history, …) is in the reference doc.
+
 ## Swarm Mode (`--swarm`) — summary
 
 `--swarm` runs agents in isolated worktrees with branch convergence (non-overlapping scopes,
@@ -302,9 +328,9 @@ the dry-run mockup live in the reference doc.
 
 ## Reference
 
-Mockups (status/timeline/budget/compression), control commands, session management, worktree
-types, swarm deep config, performance tips, and token instrumentation:
-[orchestrate-reference.md](orchestrate/docs/orchestrate-reference.md).
+Mockups (status/timeline/budget/compression), the full control-command catalog, session
+management, worktree types, swarm deep config, performance tips, and token instrumentation:
+[orchestrate-reference.md](../docs/reference/orchestrate-reference.md).
 
 ## See Also
 

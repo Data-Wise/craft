@@ -4,7 +4,7 @@ import os
 
 CRAFT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CMD = os.path.join(CRAFT, "commands", "orchestrate.md")
-REF = os.path.join(CRAFT, "commands", "orchestrate", "docs", "orchestrate-reference.md")
+REF = os.path.join(CRAFT, "docs", "reference", "orchestrate-reference.md")
 
 
 def _cmd():
