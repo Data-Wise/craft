@@ -15,7 +15,9 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📂 Active Worktrees:
 
-None.
+| Branch | Path | Purpose |
+|--------|------|---------|
+| `feature/grill-command` | `~/.git-worktrees/craft/feature-grill-command` | Implement `/craft:grill` (plan `docs/plans/2026-06-22-grill-command.md`, W1→W5) + orchestrate refactor. Created 2026-06-22 from dev `a09dc737`. |
 
 _Recent (merged + worktree removed 2026-06-21): `feature/governance-test-coverage` (PR #197, live-flow e2e + soak edge cases → dev)._
 
