@@ -2,6 +2,18 @@
 
 Full OpenAPI 3.1 YAML for a User Management API — paths, components, schemas, parameters, responses, examples, and security schemes.
 
+## Table of Contents
+
+The single YAML document below is organized in this order:
+
+- **info** — title, description, authentication & rate-limiting notes, contact, license
+- **servers** — production and staging base URLs
+- **paths** — user management endpoints (list, create, get, update, delete)
+- **components / schemas** — User, request/response bodies, error models
+- **components / parameters** — reusable path and query parameters
+- **components / responses** — shared response definitions
+- **components / securitySchemes** — Bearer token auth
+
 ```yaml
 openapi: 3.1.0
 info:
