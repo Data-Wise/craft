@@ -1,6 +1,6 @@
 ---
 name: adhd-workflow
-description: This skill should be used when the user asks to "wrap up the session", "what should I work on next", "I'm stuck", "help me focus", "where did I leave off", "review this spec", "rewrite my prompt", or mentions session boundaries, decision paralysis, blockers, context restoration, single-task focus, spec review, or prompt refinement. Provides ADHD-friendly session and task workflow support for craft users — capturing context at session end, restoring it at session start, prioritizing next action, focusing on one task, getting unstuck, reviewing specs, and refining vague prompts.
+description: ADHD-friendly session and task workflow for craft users — captures context at session end, restores it at session start, picks the next task, breaks through blockers, holds focus on one task, reviews a craft spec, or refines a vague craft prompt. Use when wrapping up or resuming a coding session, when deciding what to work on next, when stuck or in decision paralysis, when focusing on a single craft task, or when reviewing/refining a craft spec or prompt. The full intent-to-operation map is in the "When to Use" table below.
 ---
 
 # ADHD Workflow Skill
