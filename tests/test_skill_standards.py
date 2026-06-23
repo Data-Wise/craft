@@ -31,3 +31,35 @@ def test_check_frontmatter_unknown_key_is_warning(tmp_path):
 def test_check_frontmatter_overlong_description_is_warning(tmp_path):
     findings = ssa.check_frontmatter({"name": "demo", "description": "z" * 1600}, tmp_path / "SKILL.md")
     assert any("1536" in f.message for f in findings)
+
+def _mkskill(tmp_path, body_lines, refs=None):
+    d = tmp_path / "skills" / "demo"
+    (d / "references").mkdir(parents=True)
+    (d / "SKILL.md").write_text("---\nname: demo\ndescription: x\n---\n" + "\n".join(["line"] * body_lines))
+    for fname, lines, has_toc in (refs or []):
+        toc = "## Table of Contents\n" if has_toc else ""
+        (d / "references" / fname).write_text(toc + "\n".join(["x"] * lines))
+    return d / "SKILL.md"
+
+def test_check_size_flags_oversized_skill_md(tmp_path):
+    sk = _mkskill(tmp_path, body_lines=600)
+    assert any("500" in f.message for f in ssa.check_size(sk))
+
+def test_check_size_flags_large_reference_without_toc(tmp_path):
+    sk = _mkskill(tmp_path, body_lines=10, refs=[("big.md", 400, False)])
+    assert any("big.md" in f.message and "table of contents" in f.message.lower() for f in ssa.check_size(sk))
+
+def test_check_size_passes_large_reference_with_toc(tmp_path):
+    sk = _mkskill(tmp_path, body_lines=10, refs=[("big.md", 400, True)])
+    assert not any("big.md" in f.message for f in ssa.check_size(sk))
+
+def test_hygiene_flags_version_tags(tmp_path):
+    sk = _mkskill(tmp_path, 10, refs=[("r.md", 20, True)])
+    (sk.parent / "references" / "r.md").write_text("## Step 1 (NEW in v2.49.0)\nbody\n")
+    assert any("version tag" in f.message.lower() for f in ssa.check_reference_hygiene(sk))
+
+def test_hygiene_flags_second_person_framing(tmp_path):
+    sk = _mkskill(tmp_path, 10, refs=[("r.md", 20, True)])
+    (sk.parent / "references" / "r.md").write_text("You are an assistant. Do the thing.\n")
+    assert any(f.severity == "warning" and "second-person" in f.message.lower()
+               for f in ssa.check_reference_hygiene(sk))

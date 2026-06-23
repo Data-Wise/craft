@@ -48,3 +48,37 @@ def check_frontmatter(fm: dict, path: Path) -> list:
         if key not in VALID_SKILL_KEYS:
             out.append(Finding("warning", "frontmatter", path, f"unrecognized frontmatter key '{key}'"))
     return out
+
+def check_size(skill_md: Path) -> list:
+    out = []
+    n = len(skill_md.read_text(encoding="utf-8").splitlines())
+    if n > SKILL_MAX_LINES:
+        out.append(Finding("warning", "size", skill_md,
+                           f"SKILL.md is {n} lines, exceeds {SKILL_MAX_LINES} — move detail to references/"))
+    refs = skill_md.parent / "references"
+    if refs.is_dir():
+        for ref in sorted(refs.glob("*.md")):
+            text = ref.read_text(encoding="utf-8")
+            if len(text.splitlines()) > REF_TOC_LINES and not re.search(r"(?im)^#{1,3}\s+table of contents", text):
+                out.append(Finding("warning", "size", ref,
+                                   f"{ref.name} > {REF_TOC_LINES} lines and has no table of contents"))
+    return out
+
+VERSION_TAG = re.compile(r"\((?:NEW(?:!| in)? v\d|Phase \d)", re.I)
+SECOND_PERSON = re.compile(r"(?im)^\s*you are\b")
+
+def check_reference_hygiene(skill_md: Path) -> list:
+    out = []
+    refs = skill_md.parent / "references"
+    if not refs.is_dir():
+        return out
+    for ref in sorted(refs.glob("*.md")):
+        text = ref.read_text(encoding="utf-8")
+        for line in text.splitlines():
+            if line.lstrip().startswith("#") and VERSION_TAG.search(line):
+                out.append(Finding("warning", "hygiene", ref,
+                                   f"rot-prone version tag in header: {line.strip()[:60]}"))
+        if SECOND_PERSON.search(text):
+            out.append(Finding("warning", "hygiene", ref,
+                               "second-person command framing ('You are…') — prefer timeless reference prose"))
+    return out
