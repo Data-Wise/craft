@@ -14,12 +14,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 114 commands, 8 AI agents, and 39 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 115 commands, 8 AI agents, and 39 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 114 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 115 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -70,7 +70,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 112 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 115 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -116,7 +116,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 112 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 115 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -187,7 +187,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 112 commands organized
+    All 115 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](skills-agents.md)**
 
@@ -199,7 +199,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 112 commands
+    Complete documentation for all 115 commands
 
 </div>
 
