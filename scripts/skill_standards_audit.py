@@ -27,3 +27,24 @@ Finding = namedtuple("Finding", "severity category path message")  # severity: "
 
 def load_frontmatter(skill_md: Path) -> dict:
     return parse_yaml_frontmatter(skill_md.read_text(encoding="utf-8"))
+
+KEBAB = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+
+def check_frontmatter(fm: dict, path: Path) -> list:
+    out = []
+    name = fm.get("name", "")
+    if not name:
+        out.append(Finding("error", "frontmatter", path, "missing required 'name'"))
+    elif not KEBAB.match(name):
+        out.append(Finding("error", "frontmatter", path, f"name '{name}' is not kebab-case"))
+    desc = fm.get("description", "")
+    if not desc:
+        out.append(Finding("error", "frontmatter", path, "missing 'description'"))
+    combined = len(desc) + len(fm.get("when_to_use", ""))
+    if combined > DESC_MAX:
+        out.append(Finding("warning", "frontmatter", path,
+                           f"description(+when_to_use) is {combined} chars, exceeds {DESC_MAX}"))
+    for key in fm:
+        if key not in VALID_SKILL_KEYS:
+            out.append(Finding("warning", "frontmatter", path, f"unrecognized frontmatter key '{key}'"))
+    return out
