@@ -115,7 +115,68 @@ def _emit(findings, mode, root):
         print(f"\nScore: {score(findings)}/100  ({sum(1 for x in findings if x.severity=='error')} errors, "
               f"{sum(1 for x in findings if x.severity=='warning')} warnings)")
 
+TOC_STUB = "\n## Table of Contents\n\n<!-- Sections in this reference; keep in sync. -->\n"
+TOC_RE = re.compile(r"(?im)^#{1,3}\s+table of contents")
+_SIMPLE_KV = re.compile(r"^([A-Za-z][A-Za-z0-9_-]*):\s")
+_BLOCK_SCALAR = re.compile(r":\s*[|>]\s*$")
+_CONTINUATION = re.compile(r"^(\s+\S|-\s)")
+
+
+def _normalize_frontmatter(text: str) -> str:
+    """Lowercase and reorder frontmatter keys in SKILL.md; skip complex blocks."""
+    lines = text.splitlines(keepends=True)
+    # find first and second '---' delimiters
+    delim_idx = [i for i, l in enumerate(lines) if l.strip() == "---"]
+    if len(delim_idx) < 2:
+        return text
+    start, end = delim_idx[0], delim_idx[1]
+    fm_lines = lines[start + 1: end]
+    # Safety: skip if any block scalar or continuation line present
+    for line in fm_lines:
+        stripped = line.rstrip("\n")
+        if _BLOCK_SCALAR.search(stripped):
+            return text
+        if _CONTINUATION.match(stripped):
+            return text
+    # Build normalized key -> raw_line mapping (preserve value byte-for-byte)
+    kv_pairs = []  # list of (lowered_key, normalized_line)
+    for line in fm_lines:
+        stripped = line.rstrip("\n")
+        m = _SIMPLE_KV.match(stripped)
+        if m:
+            raw_key = m.group(1)
+            lower_key = raw_key.lower()
+            if lower_key in VALID_SKILL_KEYS:
+                # lowercase key, preserve everything after (including ": value")
+                normalized_line = lower_key + stripped[len(raw_key):] + "\n"
+            else:
+                normalized_line = line
+            kv_pairs.append((lower_key, normalized_line))
+        else:
+            # non-kv line (blank, comment): attach to previous or keep in place
+            kv_pairs.append(("", line))
+    # Reorder: name, description, when_to_use, then rest in original relative order
+    CANONICAL_ORDER = ["name", "description", "when_to_use"]
+    ordered = []
+    seen = set()
+    for key in CANONICAL_ORDER:
+        for k, l in kv_pairs:
+            if k == key and k not in seen:
+                ordered.append(l)
+                seen.add(k)
+    for k, l in kv_pairs:
+        if k not in seen:
+            ordered.append(l)
+            seen.add(k) if k else None
+    new_fm = "".join(ordered)
+    old_fm = "".join(fm_lines)
+    if new_fm == old_fm:
+        return text
+    return "".join(lines[:start + 1]) + new_fm + "".join(lines[end:])
+
+
 def apply_safe_fixes(root: Path, findings) -> list:
+    # Fix #1: strip version tags from reference headers (hygiene findings)
     for ref in {Path(f.path) for f in findings if f.category == "hygiene"}:
         if ref.name == "SKILL.md":
             continue
@@ -126,6 +187,35 @@ def apply_safe_fixes(root: Path, findings) -> list:
         )
         if fixed != text:
             ref.write_text(fixed + ("\n" if text.endswith("\n") else ""), encoding="utf-8")
+
+    # Fix #3: insert TOC stub in oversized reference files lacking a TOC
+    for f in findings:
+        if f.category != "size":
+            continue
+        ref = Path(f.path)
+        if ref.name == "SKILL.md" or "table of contents" not in f.message.lower():
+            continue
+        if not ref.suffix == ".md" or "references" not in ref.parts:
+            continue
+        text = ref.read_text(encoding="utf-8")
+        if TOC_RE.search(text):
+            continue  # already has TOC (e.g., fix #1 above added it on a prior run)
+        # Insert after first H1 if present, else at top
+        h1_match = re.search(r"(?m)^# .+", text)
+        if h1_match:
+            insert_at = h1_match.end()
+            new_text = text[:insert_at] + TOC_STUB + text[insert_at:]
+        else:
+            new_text = TOC_STUB.lstrip("\n") + text
+        ref.write_text(new_text, encoding="utf-8")
+
+    # Fix #2: normalize frontmatter keys in SKILL.md files (blanket pass)
+    for skill_md in root.rglob("SKILL.md"):
+        text = skill_md.read_text(encoding="utf-8")
+        fixed = _normalize_frontmatter(text)
+        if fixed != text:
+            skill_md.write_text(fixed, encoding="utf-8")
+
     return audit_all(root)  # residual findings after fixes
 
 def refresh_standards() -> int:

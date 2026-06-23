@@ -7,7 +7,7 @@ arguments:
     required: false
     default: terminal
   - name: fix
-    description: Auto-fix safe issues (strips rot-prone version tags from reference headers)
+    description: "Auto-fix safe mechanical issues: strip rot-prone version tags from reference headers, normalize frontmatter key casing and order in SKILL.md files, insert TOC stubs in oversized reference files. Never rewrites descriptions or prose."
     required: false
     default: false
     alias: --fix
@@ -71,8 +71,13 @@ python3 scripts/skill_standards_audit.py --markdown > /tmp/skill-audit.md
 python3 scripts/skill_standards_audit.py --fix
 ```
 
-`--fix` strips rot-prone version tags from `references/*.md` headers only.
-It never rewrites `description` or other prose.
+`--fix` applies three safe mechanical fixes:
+
+1. **Version-tag strip** — removes rot-prone tags like `(NEW in v2.x)` from `references/*.md` section headers.
+2. **Frontmatter key normalization** — lowercases any key that case-insensitively matches a valid key (e.g. `Description:` → `description:`), then reorders keys into canonical order (`name`, `description`, `when_to_use`, then the rest). Skips any SKILL.md whose frontmatter contains block scalars or multi-line values.
+3. **TOC stub insertion** — for any `references/*.md` file over 300 lines that has no table of contents, inserts a `## Table of Contents` stub immediately after the first H1, or at the top if no H1 is present.
+
+It never rewrites `description` values, prose, or other content.
 
 **Step 3 — Fix description findings**
 
@@ -112,15 +117,17 @@ synthesize the delta).
 
 ## Auto-Fix Mode
 
-When `--fix` is passed, the script will:
+When `--fix` is passed, the script applies three safe mechanical fixes:
 
-- Strip version tags from `references/*.md` section headers (e.g. `(NEW in v2.49.0)`)
+- **Version-tag strip** — removes `(NEW in v2.x)` / `(Phase N)` from `references/*.md` section headers
+- **Frontmatter key normalization** — lowercases miscased keys (e.g. `Description:` → `description:`); reorders into canonical order (`name`, `description`, `when_to_use`, then rest); skips files with block scalars or multi-line values
+- **TOC stub insertion** — inserts `## Table of Contents` stub in `references/*.md` files over 300 lines that lack one
 
 It will **not** auto-fix:
 
 - Description voice or value issues → use `skill-creator run_loop.py`
 - Second-person framing in references → edit manually or use `skill-creator`
-- Size issues → manually split content into `references/`
+- Size issues (splitting content) → manually split content into `references/`
 
 ## Health Score
 

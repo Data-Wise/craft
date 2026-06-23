@@ -1,5 +1,5 @@
 """Tests for skill_standards_audit.py scanner."""
-import os, sys
+import os, sys, re
 from pathlib import Path
 CRAFT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(CRAFT / "scripts"))
@@ -90,6 +90,61 @@ def test_fix_strips_version_tags_only(tmp_path):
     txt = ref.read_text()
     assert "(NEW in v2.49.0)" not in txt          # version tag stripped
     assert "You are an assistant." in txt          # prose NOT auto-rewritten
+
+def test_fix_inserts_toc_stub_in_oversized_reference(tmp_path):
+    d = tmp_path / "skills" / "demo"; (d / "references").mkdir(parents=True)
+    (d / "SKILL.md").write_text("---\nname: demo\ndescription: A skill.\n---\n# Demo\n")
+    ref = d / "references" / "big.md"
+    # 350 lines, no TOC, starts with an H1
+    ref.write_text("# Big Reference\n" + "\n".join(["content line"] * 349))
+    # Confirm audit sees the finding before fix
+    findings = ssa.audit_all(tmp_path / "skills")
+    assert any("big.md" in f.message and "table of contents" in f.message.lower() for f in findings)
+    # Apply fix
+    residual = ssa.apply_safe_fixes(tmp_path / "skills", findings)
+    txt = ref.read_text()
+    # TOC stub was inserted
+    assert re.search(r"(?im)^#{1,3}\s+table of contents", txt), "TOC stub not found in file"
+    # Re-audit should produce no size finding for big.md
+    assert not any("big.md" in f.message and "table of contents" in f.message.lower() for f in residual)
+
+
+def test_fix_normalizes_frontmatter_order_and_casing(tmp_path):
+    d = tmp_path / "skills" / "demo"; d.mkdir(parents=True)
+    # description before name, miscased key "Description:"
+    (d / "SKILL.md").write_text(
+        "---\nDescription: A skill about things.\nname: demo\n---\n# Demo\n"
+    )
+    ssa.apply_safe_fixes(tmp_path / "skills", ssa.audit_all(tmp_path / "skills"))
+    txt = (d / "SKILL.md").read_text()
+    lines = txt.splitlines()
+    fm_lines = lines[lines.index("---") + 1: lines.index("---", 1)]
+    keys = [l.split(":")[0] for l in fm_lines if ":" in l]
+    assert keys[0] == "name", f"name should come first, got {keys}"
+    assert keys[1] == "description", f"description should come second, got {keys}"
+    # key lowercased
+    assert "Description:" not in txt
+    assert "description:" in txt
+
+
+def test_fix_preserves_description_value(tmp_path):
+    d = tmp_path / "skills" / "demo"; d.mkdir(parents=True)
+    desc_value = "A skill about things."
+    (d / "SKILL.md").write_text(
+        f"---\nDescription: {desc_value}\nname: demo\n---\n# Demo\n"
+    )
+    ssa.apply_safe_fixes(tmp_path / "skills", ssa.audit_all(tmp_path / "skills"))
+    txt = (d / "SKILL.md").read_text()
+    assert desc_value in txt, "description value must be byte-identical after fix"
+
+
+def test_fix_skips_block_scalar_frontmatter(tmp_path):
+    d = tmp_path / "skills" / "demo"; d.mkdir(parents=True)
+    original = "---\nname: demo\ndescription: |\n  A multiline\n  description here.\n---\n# Demo\n"
+    (d / "SKILL.md").write_text(original)
+    ssa.apply_safe_fixes(tmp_path / "skills", ssa.audit_all(tmp_path / "skills"))
+    assert (d / "SKILL.md").read_text() == original, "block scalar file must be left byte-identical"
+
 
 def test_refresh_standards_updates_provenance(tmp_path, monkeypatch):
     doc = tmp_path / "SKILL-STANDARDS.md"
