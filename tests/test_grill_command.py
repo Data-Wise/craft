@@ -26,3 +26,28 @@ def test_grill_passes_command_audit():
     combined = (r.stdout + r.stderr).lower()
     assert not any("error" in line and "grill" in line
                    for line in combined.splitlines()), combined
+
+
+def _grill_body():
+    return open(os.path.join(CRAFT, "commands", "grill.md"), encoding="utf-8").read()
+
+
+def test_grill_body_carries_contract():
+    body = _grill_body()
+    low = body.lower()
+    assert "one question at a time" in low                     # core directive
+    assert "recommended" in low                                # recommended-answer rule
+    assert "explore the codebase" in low                       # codebase-first
+    assert "/done" in body                                     # distinct halt sentinel (not "stop")
+    assert "milestone" in low                                  # ADHD-friendly progress checkpoints
+    assert "bound" in low                                      # bounded pass honored
+    # justify the deliberate AskUserQuestion exception so a future audit won't "fix" it:
+    assert ("one at a time" in low or "one-at-a-time" in low) and "askuserquestion" in low
+
+
+def test_grill_body_captures_and_hands_off():
+    body = _grill_body()
+    assert "grill_ledger" in body                              # uses the util, not ad-hoc writes
+    assert "resolve_ledger_path" in body
+    assert "no-capture" in body.lower()                        # embedded-caller suppression
+    assert "/craft:plan" in body or "plan-orchestrator" in body  # handoff to the spine
