@@ -4,7 +4,7 @@ import tempfile
 import time
 
 from commands.utils.grill_ledger import (
-    resolve_ledger_path, spec_crosslink, add_backlink, _slug)
+    resolve_ledger_path, spec_crosslink, add_backlink, append_decision, _slug)
 
 
 def test_always_owns_a_grill_file():
@@ -40,3 +40,26 @@ def test_backlink_is_idempotent_and_atomic():
         # the filename appears twice per backlink line ([text](url)); assert ONE backlink line
         assert open(spec, encoding="utf-8").read().count("> Interrogated by grill") == 1
         assert not os.path.exists(spec + ".tmp")              # atomic write cleaned up
+
+
+def test_append_decision_creates_section_then_rows():
+    with tempfile.TemporaryDirectory() as d:
+        p = os.path.join(d, "GRILL-x-2026-06-22.md")
+        open(p, "w", encoding="utf-8").write("# Grill: x\n")
+        append_decision(p, "G1", "Form factor", "Standalone command")
+        append_decision(p, "G2", "Interaction", "One-at-a-time")
+        body = open(p, encoding="utf-8").read()
+        assert body.count("## Decision Ledger") == 1
+        assert body.count("| # | Branch | Decision |") == 1
+        assert "| G1 | Form factor | Standalone command |" in body
+        assert "| G2 | Interaction | One-at-a-time |" in body
+
+
+def test_append_decision_escapes_pipes_and_newlines():
+    with tempfile.TemporaryDirectory() as d:
+        p = os.path.join(d, "GRILL-x-2026-06-22.md")
+        open(p, "w", encoding="utf-8").write("# x\n")
+        append_decision(p, "G1", "Syntax", "use a | b\nform")
+        row = [l for l in open(p, encoding="utf-8").read().splitlines() if l.startswith("| G1")][0]
+        assert r"use a \| b form" in row                  # pipe escaped, newline flattened
+        assert row.count("|") - row.count(r"\|") == 4     # 4 UNescaped delimiters -> table intact

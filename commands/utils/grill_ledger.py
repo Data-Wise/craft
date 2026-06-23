@@ -44,3 +44,25 @@ def add_backlink(spec_path, grill_filename):
     if grill_filename in body:
         return
     _atomic_write(spec_path, body.rstrip("\n") + "\n\n" + _BACKLINK.format(name=grill_filename))
+
+
+LEDGER_HEADER = "## Decision Ledger\n\n| # | Branch | Decision |\n|---|---|---|\n"
+
+
+def _cell(text):
+    """Escape a value for a markdown table cell (pipe + newline safe)."""
+    return str(text).replace("\\", "\\\\").replace("|", r"\|").replace("\n", " ").strip()
+
+
+def append_decision(path, branch_id, branch, decision):
+    """Append a decision row to the ## Decision Ledger, creating the section if absent."""
+    body = ""
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            body = f.read()
+    if "## Decision Ledger" not in body:
+        if body and not body.endswith("\n"):
+            body += "\n"
+        body += "\n" + LEDGER_HEADER
+    body += f"| {_cell(branch_id)} | {_cell(branch)} | {_cell(decision)} |\n"
+    _atomic_write(path, body)
