@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`/done` Step 1.10.5: Claude Settings Sync** — detects drift between global `~/.claude/settings.json` allowlist and project `.claude/settings.json`; surfaces `~/.claude/rules/*.md` files modified since the last session. Read-only: never auto-applies. Silent when nothing to report.
+- **`/done` Step 1.12: Memory Optimize** — audits `~/.claude/projects/<hash>/memory/` for orphaned files (not indexed), ghost entries (index points to missing file), stale project memories (>90 days), and duplicate suspects (>80% description overlap). Interactive: offers index rebuild with atomic rename + entry-count sanity check. Silent when clean.
+- **`/done` Step 1.11 enhancement** — orphan pre-check runs after memory capture; flags index drift > 2 entries as a warning that routes to Step 1.12.
+- **Tutorial:** `docs/tutorials/TUTORIAL-done-optimization.md`
+- **Reference:** `docs/help/memory-optimization.md`
+- **Tests:** 4 structural assertions in `tests/test_grill_command.py` for Step 1.10.5 and Step 1.12
+
 ## [2.48.0] — 2026-06-22
 
 ### Added

@@ -51,3 +51,45 @@ def test_grill_body_captures_and_hands_off():
     assert "resolve_ledger_path" in body
     assert "no-capture" in body.lower()                        # embedded-caller suppression
     assert "/craft:plan" in body or "plan-orchestrator" in body  # handoff to the spine
+
+
+# ── /done enhancements (v2.49.0) structural tests ─────────────────────────────
+
+def _done_body():
+    return open(os.path.join(CRAFT, "commands", "workflow", "done.md"), encoding="utf-8").read()
+
+
+def test_done_has_settings_sync_step():
+    """Step 1.10.5 (Claude Settings Sync) must be present in done.md."""
+    body = _done_body()
+    assert "Step 1.10.5" in body, "Settings Sync step missing"
+    low = body.lower()
+    assert "settings sync" in low or "settings check" in low, "Settings Sync label missing"
+
+
+def test_done_has_memory_optimize_step():
+    """Step 1.12 (Memory Optimize) must be present in done.md."""
+    body = _done_body()
+    assert "Step 1.12" in body, "Memory Optimize step missing"
+    low = body.lower()
+    assert "memory optimize" in low or "memory audit" in low, "Memory Optimize label missing"
+
+
+def test_done_memory_optimize_covers_key_behaviors():
+    """Step 1.12 must document: orphan, ghost, stale, duplicate detection."""
+    body = _done_body()
+    low = body.lower()
+    for keyword in ("orphan", "ghost", "stale", "duplicate"):
+        assert keyword in low, f"Memory Optimize missing '{keyword}' behavior"
+
+
+def test_done_settings_sync_is_readonly():
+    """Settings Sync step must declare read-only intent (no auto-write)."""
+    body = _done_body()
+    # Find the section between "Step 1.10.5" and the next "### Step"
+    start = body.find("Step 1.10.5")
+    end = body.find("### Step 1.11", start)
+    section = body[start:end].lower() if end > start else body[start:start + 800].lower()
+    assert "read-only" in section or "report only" in section or "never log" in section, (
+        "Settings Sync must declare its read-only intent"
+    )

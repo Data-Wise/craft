@@ -169,6 +169,8 @@ nav:
       - Orchestrate Drive Help: help/orchestrate-drive.md
       - Orchestrate Workflow Tutorial: tutorials/TUTORIAL-orchestrate-workflow.md
       - Orchestrate Workflow Help: help/orchestrate-workflow.md
+      - Done Optimization Tutorial: tutorials/TUTORIAL-done-optimization.md
+      - Memory Optimization Reference: help/memory-optimization.md
       - Mermaid Authoring Guide: guide/mermaid-authoring.md
       - Mermaid Troubleshooting: guide/mermaid-troubleshooting.md
       - Testing:

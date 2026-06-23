@@ -257,6 +257,55 @@ fi
 
 If nothing changed, omit the SYNCED section entirely.
 
+### Step 1.10.5: Claude Settings Sync (NEW in v2.49.0)
+
+Detect drift between global and project-level Claude settings, and flag rules files updated since the last session.
+
+**Opt-out:** Set `SKIP_SETTINGS_SYNC=1` to skip this step.
+
+**What to check:**
+
+1. **Allowlist drift** — compare `~/.claude/settings.json` `permissions.allow[]` vs. project `.claude/settings.json` (if it exists). Count entries in global but missing from project.
+
+2. **Rules staleness** — find `~/.claude/rules/*.md` files modified more recently than `.STATUS` (proxy for "since last session"). List which rules changed.
+
+```python
+# Example detection logic (Python for portability)
+import json, pathlib, re
+
+global_settings = pathlib.Path.home() / '.claude/settings.json'
+project_settings = pathlib.Path('.claude/settings.json')
+
+if global_settings.exists():
+    global_allow = set(json.loads(global_settings.read_text()).get('permissions', {}).get('allow', []))
+    if project_settings.exists():
+        project_allow = set(json.loads(project_settings.read_text()).get('permissions', {}).get('allow', []))
+        missing_from_project = global_allow - project_allow  # drift count
+    else:
+        missing_from_project = set()  # no project settings — skip allowlist check
+
+# Rules staleness check
+rules_dir = pathlib.Path.home() / '.claude/rules'
+status_mtime = pathlib.Path('.STATUS').stat().st_mtime if pathlib.Path('.STATUS').exists() else 0
+updated_rules = [f.name for f in rules_dir.glob('*.md') if f.stat().st_mtime > status_mtime]
+```
+
+**Output (only if drift or updated rules found):**
+
+```
+⚙️  SETTINGS CHECK:
+  Allowlist: 3 entries in global not in project settings
+  Rules updated since last session: response-style.md, no-unrequested-branch-switch.md
+  → Run /craft:docs:claude-md:sync to pull in updated rules
+```
+
+**Key behaviors:**
+
+- Never log full settings.json content — log key counts only (entries may contain tokens)
+- Skips gracefully if no project `.claude/settings.json` (not all projects have one)
+- If no drift and no updated rules: silent (zero output)
+- Stores drift count for display in Step 2 summary
+
 ### Step 1.11: Memory Capture (NEW in v2.31.0)
 
 Scan the session for learnings worth persisting to MEMORY.md:
@@ -325,6 +374,110 @@ fi
 ```
 
 **If no learnings detected:** Skip silently (zero output, zero overhead).
+
+**Orphan pre-check (always runs, even if no learnings captured):**
+
+After any memory writes (or even if none were made), quickly compare file count vs. index entry count. If significantly out of sync, flag it so Step 1.12 runs its audit:
+
+```bash
+# Derive memory dir from CWD (same logic as session-facet.sh)
+cwd_encoded=$(pwd | sed 's|^/||' | sed 's|/|_|g')
+memory_base="$HOME/.claude/projects"
+memory_dir=$(find "$memory_base" -maxdepth 2 -name "MEMORY.md" 2>/dev/null \
+    | grep -m1 "$cwd_encoded" | xargs dirname 2>/dev/null)
+
+if [ -n "$memory_dir" ] && [ -f "$memory_dir/MEMORY.md" ]; then
+    file_count=$(find "$memory_dir" -name "*.md" ! -name "MEMORY.md" 2>/dev/null | wc -l | tr -d ' ')
+    index_count=$(grep -c '^\- \[' "$memory_dir/MEMORY.md" 2>/dev/null || echo 0)
+    count_delta=$((file_count - index_count))
+    if [ "$count_delta" -gt 2 ] || [ "$count_delta" -lt -2 ]; then
+        echo "⚠️  Memory index drift: $file_count files vs $index_count index entries → Step 1.12 will audit"
+    fi
+fi
+```
+
+### Step 1.12: Memory Optimize (NEW in v2.49.0)
+
+Audit and optionally rebuild the memory index for this project. Triggered automatically if Step 1.11 orphan pre-check detected drift; also runs unconditionally unless opted out.
+
+**Opt-out:** Set `SKIP_MEMORY_OPTIMIZE=1` to skip this step.
+
+**Resolve the memory directory:**
+
+```python
+import pathlib, subprocess, re
+
+# Derive project key from CWD (mirrors session-facet.sh logic)
+cwd = pathlib.Path.cwd()
+cwd_encoded = str(cwd).lstrip('/').replace('/', '_')
+memory_base = pathlib.Path.home() / '.claude/projects'
+
+# Find the matching memory dir (fuzzy match on trailing CWD segment)
+memory_dir = None
+for candidate in memory_base.glob('*/memory'):
+    if candidate.parent.name.endswith(cwd_encoded[-30:]) or cwd_encoded[-30:] in candidate.parent.name:
+        memory_dir = candidate
+        break
+
+if not memory_dir or not (memory_dir / 'MEMORY.md').exists():
+    exit(0)  # No memory dir for this project — skip silently
+```
+
+**Audit checks:**
+
+1. **Index audit** — Compare filenames in dir vs. link targets in MEMORY.md
+   - Orphaned files (in dir, not referenced in index) → list them
+   - Ghost entries (referenced in index, file missing) → list them
+
+2. **Frontmatter validation** — Every `.md` must have `name:`, `description:`, `metadata.type:` fields
+   - Flag files missing any field; do NOT auto-fix
+
+3. **Staleness check** — `metadata.type: project` entries older than 90 days
+   - Compare file mtime to now; flag as "may be stale"
+
+4. **Duplicate suspects** — Files whose `description:` values share > 80% word overlap (Jaccard)
+   - List pairs for manual review; never auto-merge
+
+**Output format:**
+
+```
+🧹 MEMORY AUDIT (N files, N index entries):
+  Orphans: N  (files in dir, missing from index)
+  Ghosts:  N  (index entries pointing to missing files)
+  Stale:   N  (type=project, >90 days since last edit)
+  Dupes:   N  suspected pairs
+
+  A) Rebuild index + remove ghosts  (Recommended if orphans > 0)
+  B) Report only
+  C) Skip
+```
+
+**If no issues found (0 orphans, 0 ghosts, 0 stale, 0 dupes):** Skip silently.
+
+**Index rebuild (Option A only):**
+
+- Write updated MEMORY.md to a temp file first; validate it has expected entry count; then atomic rename
+- Sort entries by type: `feedback` → `user` → `project` → `reference`
+- Remove ghost entries (missing files)
+- Add orphan files to index: auto-generate one-line entry from frontmatter `description:` field
+- Never auto-delete orphan files — only index them
+- Never auto-fix frontmatter — flag files with missing fields for manual review
+
+```python
+# Safe atomic rebuild (never in-place sed)
+import tempfile, os, shutil
+
+tmp = memory_dir / 'MEMORY.md.tmp'
+tmp.write_text(rebuilt_content)
+# Validate entry count before committing
+entry_count_after = rebuilt_content.count('\n- [')
+if abs(entry_count_after - expected_entries) > 3:
+    tmp.unlink()
+    raise RuntimeError(f"Entry count sanity check failed: {entry_count_after} vs expected {expected_entries}")
+shutil.move(str(tmp), str(memory_dir / 'MEMORY.md'))
+```
+
+**Feeds into Step 2 summary:** orphan/ghost counts appear as "🧹 MEMORY AUDIT" line.
 
 ### Step 1.13: Insights Capture (NEW in v2.31.0)
 
@@ -476,8 +629,17 @@ Present findings and ask user to confirm/edit:
 │ SYNCED: [if CLAUDE.md counts changed — omit if no changes]  │
 │    • CLAUDE.md: commands 106→107, tests 109→112             │
 │                                                             │
+│ ⚙️  SETTINGS: [if drift found — omit if none]               │
+│    • 3 allowlist entries in global missing from project     │
+│    • 2 rules files modified since last session              │
+│    → Run /craft:docs:claude-md:sync to pull in updates      │
+│                                                             │
 │ 🧠 MEMORY: [if learnings captured — omit if none]            │
 │    • Saved 2 learnings to MEMORY.md                          │
+│                                                               │
+│ 🧹 MEMORY AUDIT: [if issues found — omit if clean]           │
+│    • 3 orphans, 1 ghost, 2 stale, 0 duplicate suspects      │
+│    → Interactive rebuild prompt follows this summary        │
 │                                                               │
 │ ⚠️  FRICTION: [if 3+ events — omit if fewer]                  │
 │    • wrong_approach (2), buggy_code (1), tool_limitation (1) │
