@@ -1,7 +1,7 @@
 # SPEC — `/craft:grill` Command (ported from `grill-me`)
 
 > **Repo:** `~/projects/dev-tools/craft` · **Branch:** `dev` · **Date:** 2026-06-22
-> **Status:** Design (captured from `/craft:workflow:brainstorm -d -s`). Implementation needs a worktree.
+> **Status:** ✅ SHIPPED — v2.48.0 (PR #201 → dev, PR #202 → main, 2026-06-23). All waves complete (W1–W3, W5). W4 fast-follow (ADR + CONTEXT.md glossary) deferred.
 > **Origin:** ports mattpocock's `/grill-me` + `grill-with-docs` (Claude Code marketplace), adapted to craft.
 > **Pairs with:** SPEC-B (planning-refactor — grill is the "interrogate" step in the `/plan` spine) ·
 > SPEC-orchestrate-clarify-refactor (orchestrate Step 0.5 invokes `/craft:grill`).

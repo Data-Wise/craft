@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 114 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.48.0 adds skill-ecosystem governance (policy-as-code under governance/) — an audit engine, a rules-drift check, and portable checkers for skill-location rules."
+site_description: "Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.49.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -158,6 +158,7 @@ nav:
       - CI Monitoring Architecture: architecture/ci-monitoring.md
       - Version Sync Architecture: architecture/version-sync.md
       - Mermaid Pipeline Architecture: architecture/mermaid-validation-pipeline.md
+      - "ADR-002: Done Command/Skill Consolidation": adr/ADR-002-done-command-skill-consolidation.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
@@ -169,6 +170,8 @@ nav:
       - Orchestrate Drive Help: help/orchestrate-drive.md
       - Orchestrate Workflow Tutorial: tutorials/TUTORIAL-orchestrate-workflow.md
       - Orchestrate Workflow Help: help/orchestrate-workflow.md
+      - Done Optimization Tutorial: tutorials/TUTORIAL-done-optimization.md
+      - Memory Optimization Reference: help/memory-optimization.md
       - Mermaid Authoring Guide: guide/mermaid-authoring.md
       - Mermaid Troubleshooting: guide/mermaid-troubleshooting.md
       - Testing:
@@ -212,6 +215,7 @@ nav:
       - code:fewer-prompts Tutorial: tutorials/TUTORIAL-code-fewer-prompts.md
       - code:lint Tutorial: tutorials/TUTORIAL-code-lint.md
       - code:release-watch Tutorial: tutorials/TUTORIAL-code-release-watch.md
+      - code:skill-standards Tutorial: tutorials/TUTORIAL-code-skill-standards.md
       - dist:homebrew Tutorial: tutorials/TUTORIAL-dist-homebrew.md
       - docs:changelog Tutorial: tutorials/TUTORIAL-docs-changelog.md
       - docs:check-links Tutorial: tutorials/TUTORIAL-docs-check-links.md
@@ -321,6 +325,7 @@ nav:
       - /craft:code:docs-check: commands/code/docs-check.md
       - /craft:code:refactor: commands/code/refactor.md
       - /craft:code:release: commands/code/release.md
+      - /craft:code:skill-standards: commands/code/skill-standards.md
       - /craft:code:test-gen: commands/code/test-gen.md
       - /craft:dist:homebrew: commands/dist/homebrew.md
       - /craft:orchestrate:drive: commands/orchestrate/drive.md
@@ -411,6 +416,7 @@ nav:
       - Command Examples: reference/COMMAND-EXAMPLES.md
       - Command Parameters: reference/COMMAND-PARAMETERS.md
       - Error Scenarios: reference/ERROR-SCENARIOS.md
+      - Skill Standards Reference: reference/SKILL-STANDARDS.md
     - GIF Recording & Documentation:
       - GIF Recording Workflow (2026): GIF-RECORDING-WORKFLOW-2026.md
       - GIF Regeneration Guide: GIF-REGENERATION-GUIDE.md

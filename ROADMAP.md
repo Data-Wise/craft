@@ -532,6 +532,10 @@ secrets:
 - Agent result caching (reuse recent analysis)
 - Cross-session agent continuity
 
+### Skill Quality
+
+- **Skill Standards Auditor** — 📋 SPEC'D (2026-06-23, approved). `/craft:code:skill-standards` scans `skills/**/SKILL.md` against a vendored `docs/reference/SKILL-STANDARDS.md` (synthesized from Anthropic's standards + the installed `skill-creator` guide); report-only by default, `--fix` for safe mechanical fixes (strip rot-prone version tags, normalize frontmatter, TOC stubs), `--refresh-standards` to re-vendor the standards doc. Exit 0/1/2, mirrors `command-audit.sh`. Delegates deep work: `skill-creator` (description/eval optimization), `plugin-dev:skill-reviewer` (qualitative). Distinct from `governance/` (location/privacy) — this is authoring quality. See `docs/specs/SPEC-skill-standards-auditor-2026-06-23.md`.
+
 ---
 
 ## Contributing

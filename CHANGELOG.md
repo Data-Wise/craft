@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.49.0] — 2026-06-23
+
+### Added
+
+- **`/craft:code:skill-standards`** — batch scanner that audits every `skills/**/SKILL.md` against a vendored copy of Anthropic's authoring standards. Flags missing/`non-kebab` `name` and missing `description` (errors); over-long `description` (>1536 chars combined with `when_to_use`), unrecognized frontmatter keys, oversized `SKILL.md` (>500 lines), reference files >300 lines lacking a Table of Contents, rot-prone version tags in reference headers, and second-person framing in references (warnings). Score `100 − errors*5 − warnings*2`; exit `0` clean / `1` warnings / `2` errors; `--json`/`--markdown` output. `--fix` (opt-in) applies only safe mechanical fixes — strips version tags, normalizes frontmatter key casing/order, inserts TOC stubs — and **never rewrites descriptions or prose**. `--refresh-standards` rewrites the vendored doc's provenance block. Deep work (description tuning, qualitative review) is delegated to `skill-creator` and `plugin-dev:skill-reviewer`, not reimplemented. Report-only by default; standalone (not CI-gating).
+- **`docs/reference/SKILL-STANDARDS.md`** — vendored canonical skill-authoring checklist (synthesized from Anthropic's docs + the installed `skill-creator` guide) for offline, deterministic auditing; provenance refreshed via `--refresh-standards`.
+- **Tutorial:** `docs/tutorials/TUTORIAL-code-skill-standards.md`
+
+- **`/done` Step 1.10.5: Claude Settings Sync** — detects drift between global `~/.claude/settings.json` allowlist and project `.claude/settings.json`; surfaces `~/.claude/rules/*.md` files modified since the last session. Read-only: never auto-applies. Silent when nothing to report.
+- **`/done` Step 1.12: Memory Optimize** — audits `~/.claude/projects/<hash>/memory/` for orphaned files (not indexed), ghost entries (index points to missing file), stale project memories (>90 days), and duplicate suspects (>80% description overlap). Interactive: offers index rebuild with atomic rename + entry-count sanity check. Silent when clean.
+- **`/done` Step 1.11 enhancement** — orphan pre-check runs after memory capture; flags index drift > 2 entries as a warning that routes to Step 1.12.
+- **Tutorial:** `docs/tutorials/TUTORIAL-done-optimization.md`
+- **Reference:** `docs/help/memory-optimization.md`
+- **Tests:** 4 structural assertions in `tests/test_grill_command.py` for Step 1.10.5 and Step 1.12
+
+### Changed
+
+- **`/done` consolidated into the `adhd-workflow` skill (ADR-002).** The full session-completion procedure (including the new Steps 1.10.5 / 1.12) moved to `skills/workflow/adhd-workflow/references/done.md` as the single source of truth. `commands/workflow/done.md` is now a thin shim that routes to it, and `SKILL.md` operation 1 points to the same reference — so the explicit `/craft:workflow:done` slash path and the natural-language path no longer diverge. Prevents the shipped Steps 1.10.5/1.12 from being silently dropped when the deprecated command is deleted at v3.0.0.
+- **Skill compliance pass (driven by `/craft:code:skill-standards`)** — split four oversized skills into `references/` via progressive disclosure: `release` (1308→282 lines), `docs/openapi-spec-generation` (1030→195), `ci` (686→268), `docs/changelog-automation` (554→149). `release` was re-split under a line-level loss gate (0 lines missing) after an initial lossy automated attempt was caught and reverted. craft's 39 skills now score **100/100** against the standards.
+
+### Documentation
+
+- **ADR:** `docs/adr/ADR-002-done-command-skill-consolidation.md` (new `docs/adr/` directory) — records the command↔skill consolidation decision and rejected alternatives.
+- **Grill ledger:** `docs/specs/GRILL-done-command-skill-consolidation-2026-06-23.md` — captures the resolved decision plus deferred v2.49.x open questions.
+
 ## [2.48.0] — 2026-06-22
 
 ### Added

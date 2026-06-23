@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.48.0 (released 2026-06-19)                       │
+│  Version: 2.49.0 (released 2026-06-19)                       │
 │  Commands: 112 | Agents: 8 | Skills: 39                     │
 │  Documentation: 99% complete | Tests: 142 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.48.0: Documentation Coverage — Tutorial Suite            │
+│  v2.49.0: Documentation Coverage — Tutorial Suite            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -875,7 +875,8 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:code:deps-audit` | ----- | Security vulnerability scan |
 | `/craft:code:ci-local`       | ----- | Run CI checks locally       |
 | `/craft:code:ci-fix`         | ----- | Diagnose and fix CI failures |
-| `/craft:code:fewer-prompts`  | ----- | Install read-only Bash allowlist (--dry-run, --global, --reset) |
+| `/craft:code:fewer-prompts`    | ----- | Install read-only Bash allowlist (--dry-run, --global, --reset) |
+| `/craft:code:skill-standards`  | ----- | Audit plugin skills against Anthropic Skill Standards (--fix, --json, --refresh-standards) |
 
 **Test Commands:**
 
@@ -1550,7 +1551,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.48.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.49.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary
@@ -1696,6 +1697,7 @@ Comprehensive guides and references:
 | `/craft:code:refactor` | Refactoring guidance — improve code structure without changing behavior |
 | `/craft:code:release` | Guide through the package/project release process |
 | `/craft:code:release-watch` | Track Claude Code + Desktop releases and identify plugin-relevant changes |
+| `/craft:code:skill-standards` | Audit plugin skills against Anthropic Skill Standards — checks description length, trigger presence, example count (--fix, --json, --refresh-standards) |
 | `/craft:code:test-gen` | Generate comprehensive test cases for code |
 
 ### Documentation Commands

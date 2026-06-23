@@ -85,6 +85,17 @@ def _read_file(filepath: str) -> str:
         return f.read()
 
 
+def _read_skill_union(skill_md_path: str) -> str:
+    """Read SKILL.md + all references/*.md concatenated (progressive disclosure)."""
+    parts = [_read_file(skill_md_path)]
+    refs_dir = os.path.join(os.path.dirname(skill_md_path), "references")
+    if os.path.isdir(refs_dir):
+        for fname in sorted(os.listdir(refs_dir)):
+            if fname.endswith(".md"):
+                parts.append(_read_file(os.path.join(refs_dir, fname)))
+    return "\n".join(parts)
+
+
 # ============================================================================
 # Group 1: New Skills — Guard Audit
 # ============================================================================
@@ -205,42 +216,42 @@ class TestReleaseAutonomousMode(unittest.TestCase):
 
     def test_autonomous_section_exists(self):
         """SKILL.md has an Autonomous Mode section."""
-        content = _read_file(RELEASE_SKILL)
+        content = _read_skill_union(RELEASE_SKILL)
         self.assertIn("Autonomous Mode", content)
 
     def test_autonomous_argument_documented(self):
         """--autonomous argument is in the arguments table."""
-        content = _read_file(RELEASE_SKILL)
+        content = _read_skill_union(RELEASE_SKILL)
         self.assertIn("--autonomous", content)
 
     def test_auto_alias_documented(self):
         """--auto alias is documented."""
-        content = _read_file(RELEASE_SKILL)
+        content = _read_skill_union(RELEASE_SKILL)
         self.assertIn("--auto", content)
 
     def test_autonomous_safety_checks(self):
         """Autonomous mode has safety checks section."""
-        content = _read_file(RELEASE_SKILL)
+        content = _read_skill_union(RELEASE_SKILL)
         self.assertIn("Autonomous Safety Checks", content)
 
     def test_autonomous_version_detection(self):
         """Autonomous mode documents version auto-detection."""
-        content = _read_file(RELEASE_SKILL)
+        content = _read_skill_union(RELEASE_SKILL)
         self.assertIn("Autonomous Version Detection", content)
 
     def test_autonomous_error_recovery(self):
         """Autonomous mode has error recovery section."""
-        content = _read_file(RELEASE_SKILL)
+        content = _read_skill_union(RELEASE_SKILL)
         self.assertIn("Autonomous Error Recovery", content)
 
     def test_autonomous_admin_override(self):
         """Autonomous mode documents --admin override for branch protection."""
-        content = _read_file(RELEASE_SKILL)
+        content = _read_skill_union(RELEASE_SKILL)
         self.assertIn("Admin Override", content)
 
     def test_dry_run_still_works(self):
         """Dry-run section still exists (not clobbered by autonomous)."""
-        content = _read_file(RELEASE_SKILL)
+        content = _read_skill_union(RELEASE_SKILL)
         self.assertIn("## Dry-Run Mode", content)
 
 

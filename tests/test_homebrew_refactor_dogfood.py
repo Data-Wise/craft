@@ -321,11 +321,18 @@ class TestReleaseSkillStep10(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.content = _read_file(RELEASE_SKILL)
-        # Extract Step 10 section
+        # Read SKILL.md + references/homebrew.md (progressive disclosure)
+        # Step 10 detail lives in the reference file; combine both for assertions.
+        skill_content = _read_file(RELEASE_SKILL)
+        homebrew_ref = CRAFT_ROOT / "skills" / "release" / "references" / "homebrew.md"
+        homebrew_content = _read_file(homebrew_ref) if homebrew_ref.exists() else ""
+        cls.content = skill_content + "\n" + homebrew_content
+        # Extract Step 10 stub from SKILL.md for ordering assertions,
+        # then append the full homebrew reference so detail assertions pass.
         match = re.search(r"(### Step 10.*?)(?=### Step 11|## Output Format)",
-                         cls.content, re.DOTALL)
-        cls.step10 = match.group(1) if match else ""
+                         skill_content, re.DOTALL)
+        step10_stub = match.group(1) if match else ""
+        cls.step10 = step10_stub + "\n" + homebrew_content
 
     def test_step10_exists(self):
         """Step 10 section exists in SKILL.md."""

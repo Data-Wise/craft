@@ -1,11 +1,11 @@
 # Craft Commands Reference
 
-Complete reference for all 112 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
+Complete reference for all 115 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
 
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 114 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 115 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement:** `--refine` on `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, `/craft:arch:plan` sharpens your prompt before the command acts (via the `prompt-refiner` skill).
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -474,7 +474,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 114 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 115 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 
