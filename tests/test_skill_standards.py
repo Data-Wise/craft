@@ -99,3 +99,4 @@ def test_refresh_standards_updates_provenance(tmp_path, monkeypatch):
     body = doc.read_text()
     assert "synced: 1970-01-01" not in body      # date bumped
     assert "# Standards" in body                  # prose preserved
+    assert "https://code.claude.com" in body      # sources line written
