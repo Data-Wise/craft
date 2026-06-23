@@ -82,3 +82,62 @@ def check_reference_hygiene(skill_md: Path) -> list:
             out.append(Finding("warning", "hygiene", ref,
                                "second-person command framing ('You are…') — prefer timeless reference prose"))
     return out
+
+def audit_skill(skill_md: Path) -> list:
+    fm = load_frontmatter(skill_md)
+    return (check_frontmatter(fm, skill_md)
+            + check_size(skill_md)
+            + check_reference_hygiene(skill_md))
+
+def audit_all(root: Path) -> list:
+    out = []
+    for skill_md in sorted(root.rglob("SKILL.md")):
+        out.extend(audit_skill(skill_md))
+    return out
+
+def score(findings) -> int:
+    e = sum(1 for f in findings if f.severity == "error")
+    w = sum(1 for f in findings if f.severity == "warning")
+    return max(0, 100 - e * 5 - w * 2)
+
+def _emit(findings, mode, root):
+    if mode == "json":
+        print(json.dumps([{"severity": f.severity, "category": f.category,
+                            "path": str(f.path), "message": f.message} for f in findings], indent=2))
+    elif mode == "markdown":
+        for f in findings:
+            print(f"- **{f.severity}** `{f.path}` [{f.category}] — {f.message}")
+    else:  # terminal
+        for f in findings:
+            icon = "🔴" if f.severity == "error" else "🟡"
+            print(f"  {icon} [{f.category}] {Path(f.path).relative_to(root) if root in Path(f.path).parents else f.path}: {f.message}")
+        print(f"\nScore: {score(findings)}/100  ({sum(1 for x in findings if x.severity=='error')} errors, "
+              f"{sum(1 for x in findings if x.severity=='warning')} warnings)")
+
+def apply_safe_fixes(root, findings):  # filled in Task 6
+    return findings
+
+def refresh_standards():               # filled in Task 7
+    return 0
+
+def main(argv=None) -> int:
+    p = argparse.ArgumentParser(description="Audit SKILL.md files against Anthropic standards")
+    p.add_argument("--root", default=str(SKILLS_DIR))
+    p.add_argument("--json", action="store_const", const="json", dest="mode")
+    p.add_argument("--markdown", action="store_const", const="markdown", dest="mode")
+    p.add_argument("--fix", action="store_true")
+    p.add_argument("--refresh-standards", action="store_true")
+    args = p.parse_args(argv)
+    root = Path(args.root)
+    if args.refresh_standards:
+        return refresh_standards()
+    findings = audit_all(root)
+    if args.fix:
+        findings = apply_safe_fixes(root, findings)
+    _emit(findings, args.mode or "terminal", root)
+    if any(f.severity == "error" for f in findings):
+        return 2
+    return 1 if findings else 0
+
+if __name__ == "__main__":
+    raise SystemExit(main())

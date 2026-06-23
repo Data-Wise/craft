@@ -63,3 +63,20 @@ def test_hygiene_flags_second_person_framing(tmp_path):
     (sk.parent / "references" / "r.md").write_text("You are an assistant. Do the thing.\n")
     assert any(f.severity == "warning" and "second-person" in f.message.lower()
                for f in ssa.check_reference_hygiene(sk))
+
+def test_score_formula_matches_command_audit():
+    f = [ssa.Finding("error","c",Path("a"),"m"), ssa.Finding("warning","c",Path("a"),"m")]
+    assert ssa.score(f) == 100 - 5 - 2
+
+def test_main_exit_2_on_error(tmp_path, capsys):
+    # a skill missing name => error => exit 2
+    d = tmp_path / "skills" / "bad"; d.mkdir(parents=True)
+    (d / "SKILL.md").write_text("---\ndescription: x\n---\n# b\n")
+    rc = ssa.main(["--root", str(tmp_path / "skills"), "--json"])
+    assert rc == 2
+    assert "frontmatter" in capsys.readouterr().out
+
+def test_main_exit_0_when_clean(tmp_path):
+    d = tmp_path / "skills" / "good"; d.mkdir(parents=True)
+    (d / "SKILL.md").write_text("---\nname: good\ndescription: A clean skill.\n---\n# Good\n")
+    assert ssa.main(["--root", str(tmp_path / "skills"), "--json"]) == 0
