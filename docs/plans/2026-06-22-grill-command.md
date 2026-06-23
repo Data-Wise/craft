@@ -45,28 +45,38 @@ Each wave produces working, testable software on its own. W4 is optional and mus
 
 **Interfaces:**
 
-- Produces: `resolve_ledger_path(topic: str, date: str, specs_dir: str) -> tuple[str, str]` returning `(path, mode)` where `mode ∈ {"create", "append"}`. If a brainstorm `SPEC-<topic>-<date>.md` already exists, grill APPENDS to it (mode="append"); otherwise it creates `GRILL-<topic>-<date>.md` (mode="create"). Fixes the confirmed brainstorm/grill collision.
+- Produces (decision: grill ALWAYS owns its file; never mutates a brainstorm `SPEC-*`):
+  - `resolve_ledger_path(topic, date, specs_dir) -> str` — always `GRILL-<slug>-<date>.md`.
+  - `spec_crosslink(topic, date, specs_dir) -> str | None` — relative filename of an existing brainstorm `SPEC-<slug>-<date>.md` for grill's header forward-link, else None.
+  - `add_backlink(spec_path, grill_filename) -> None` — idempotent one-line back-link into the SPEC (the only touch grill makes to a brainstorm artifact; never rewrites its body).
 
 - [ ] **Step 1: Write the failing test**
 
 ```python
 # tests/test_grill_ledger.py
 import os, tempfile
-from commands.utils.grill_ledger import resolve_ledger_path
+from commands.utils.grill_ledger import resolve_ledger_path, spec_crosslink, add_backlink
 
-def test_creates_grill_prefixed_file_when_no_spec_exists():
+def test_always_owns_a_grill_file():
     with tempfile.TemporaryDirectory() as d:
-        path, mode = resolve_ledger_path("auth", "2026-06-22", d)
-        assert path == os.path.join(d, "GRILL-auth-2026-06-22.md")
-        assert mode == "create"
+        # even when a brainstorm SPEC exists, grill writes its OWN file
+        open(os.path.join(d, "SPEC-auth-2026-06-22.md"), "w").write("# spec\n")
+        assert resolve_ledger_path("auth", "2026-06-22", d) == \
+            os.path.join(d, "GRILL-auth-2026-06-22.md")
 
-def test_appends_to_existing_brainstorm_spec():
+def test_crosslink_finds_spec_or_none():
+    with tempfile.TemporaryDirectory() as d:
+        assert spec_crosslink("auth", "2026-06-22", d) is None
+        open(os.path.join(d, "SPEC-auth-2026-06-22.md"), "w").write("# spec\n")
+        assert spec_crosslink("auth", "2026-06-22", d) == "SPEC-auth-2026-06-22.md"
+
+def test_backlink_is_idempotent():
     with tempfile.TemporaryDirectory() as d:
         spec = os.path.join(d, "SPEC-auth-2026-06-22.md")
         open(spec, "w").write("# spec\n")
-        path, mode = resolve_ledger_path("auth", "2026-06-22", d)
-        assert path == spec
-        assert mode == "append"
+        add_backlink(spec, "GRILL-auth-2026-06-22.md")
+        add_backlink(spec, "GRILL-auth-2026-06-22.md")
+        assert open(spec).read().count("GRILL-auth-2026-06-22.md") == 1
 ```
 
 - [ ] **Step 2: Run test to verify it fails**
@@ -78,26 +88,43 @@ Expected: FAIL — `ModuleNotFoundError: commands.utils.grill_ledger`
 
 ```python
 # commands/utils/grill_ledger.py
-"""Collision-safe ledger path resolution for /craft:grill.
+"""Ledger path + cross-link helpers for /craft:grill.
 
-brainstorm writes docs/specs/SPEC-<topic>-<date>.md; grill must not clobber it.
+grill ALWAYS owns GRILL-<slug>-<date>.md and never rewrites a brainstorm SPEC body.
+The only touch to a SPEC is an idempotent one-line back-link.
 """
 import os
 
+_BACKLINK = "> Interrogated by grill — see [{name}]({name})\n"
+
+
+def _slug(topic):
+    return topic.strip().lower().replace(" ", "-")
+
 
 def resolve_ledger_path(topic, date, specs_dir):
-    """Return (path, mode). Append to a brainstorm SPEC if present, else create a GRILL file."""
-    slug = topic.strip().lower().replace(" ", "-")
-    spec = os.path.join(specs_dir, f"SPEC-{slug}-{date}.md")
-    if os.path.exists(spec):
-        return spec, "append"
-    return os.path.join(specs_dir, f"GRILL-{slug}-{date}.md"), "create"
+    """Always return grill's own file path; never the brainstorm SPEC."""
+    return os.path.join(specs_dir, f"GRILL-{_slug(topic)}-{date}.md")
+
+
+def spec_crosslink(topic, date, specs_dir):
+    """Return the SPEC filename to forward-link from grill's header, or None."""
+    name = f"SPEC-{_slug(topic)}-{date}.md"
+    return name if os.path.exists(os.path.join(specs_dir, name)) else None
+
+
+def add_backlink(spec_path, grill_filename):
+    """Insert an idempotent one-line back-link into the SPEC (no body rewrite)."""
+    body = open(spec_path).read()
+    if grill_filename in body:
+        return
+    open(spec_path, "w").write(body.rstrip("\n") + "\n\n" + _BACKLINK.format(name=grill_filename))
 ```
 
 - [ ] **Step 4: Run test to verify it passes**
 
 Run: `python3 -m pytest tests/test_grill_ledger.py -v`
-Expected: PASS (2 passed)
+Expected: PASS (3 passed)
 
 - [ ] **Step 5: Commit**
 
@@ -195,12 +222,13 @@ def test_grill_command_exists_and_has_frontmatter():
     assert "name: bound" in head, "missing --bound arg (orchestrate Step 0.5 needs it)"
 
 def test_grill_passes_command_audit():
-    r = subprocess.run([sys.executable, "scripts/command-audit.sh".replace("scripts/","scripts/")],
-                       cwd=CRAFT, capture_output=True, text=True)
-    # audit is a bash script; invoke via bash
+    # command-audit.sh is a bash script; invoke via bash from the repo root
     r = subprocess.run(["bash", os.path.join(CRAFT, "scripts", "command-audit.sh")],
                        cwd=CRAFT, capture_output=True, text=True)
-    assert "grill" not in r.stdout or "ERROR" not in r.stdout.upper()
+    combined = (r.stdout + r.stderr).lower()
+    # no audit ERROR line should mention grill
+    assert not any("error" in line and "grill" in line
+                   for line in combined.splitlines()), combined
 ```
 
 - [ ] **Step 2: Run to verify it fails**
@@ -221,11 +249,6 @@ arguments:
     description: "Limit interrogation to N decision branches (used by orchestrate Step 0.5 for a quick gate)"
     required: false
     default: null
-  - name: yes
-    description: "Auto-accept recommended answers — only for re-running a settled artifact"
-    required: false
-    default: false
-    alias: -y
 ---
 
 # /craft:grill — Interrogate Before Building
@@ -315,8 +338,8 @@ Follow the grill-me directives:
 point — each answer reshapes the next question. This is a deliberate exception to craft's
 AskUserQuestion-batch convention; do not "fix" it to batches.
 
-**Halt:** the user types `stop` (or `--stop` was passed) → go to Step 4. If `--bound N` was
-given, stop after N resolved branches. Otherwise continue until every branch resolves.
+**Halt:** the user types `stop` at any question → go to Step 4. If `--bound N` was given, stop
+after N resolved branches. Otherwise continue until every branch resolves.
 
 **After each resolved branch:** append it to the ledger immediately (Step 4 helper) so a
 crash/compaction never loses decisions.
@@ -364,18 +387,22 @@ Expected: FAIL.
 - [ ] **Step 3: Write minimal implementation**
 
 ````markdown
-### Step 4: Capture (durable, collision-safe)
+### Step 4: Capture (durable, own file, cross-linked)
 
-Resolve the output path with `commands/utils/grill_ledger.py`:
+grill ALWAYS writes its own file; it never rewrites a brainstorm SPEC body:
 
 ```python
-from commands.utils.grill_ledger import resolve_ledger_path, append_decision
-path, mode = resolve_ledger_path(topic, date, "docs/specs")
-# mode "append" → add to an existing brainstorm SPEC; "create" → new GRILL-<topic>-<date>.md
+from commands.utils.grill_ledger import (
+    resolve_ledger_path, spec_crosslink, add_backlink, append_decision)
+path = resolve_ledger_path(topic, date, "docs/specs")        # GRILL-<topic>-<date>.md
+link = spec_crosslink(topic, date, "docs/specs")             # forward-link to a brainstorm SPEC, or None
+# write GRILL header (include `link` if present), the decision ledger, and an ## Open Questions section
+if link:
+    add_backlink(os.path.join("docs/specs", link), os.path.basename(path))  # idempotent one-liner
 ```
 
-Write the locked-decision ledger + an `## Open Questions` section. Never clobber a brainstorm
-SPEC — append to it.
+Each resolved branch is appended live via `append_decision` (Task 2). The brainstorm SPEC, if any,
+is only ever touched by the single idempotent back-link.
 
 ### Step 5: Handoff
 
@@ -580,22 +607,20 @@ git commit -m "feat(orchestrate): Step 0.5 Clarify via bounded /craft:grill"
 - G6 decision-ledger spec → `/plan` handoff → Tasks 1–2, 5 ✓
 - G7 grill-with-docs → Task 8 (deferrable W4) ✓
 - G8 orchestrate Step 0.5 invokes grill → Task 7 ✓
-- Review bug #1 (filename collision) → Task 1 ✓
-- Review bug #2 (stop signal) → Task 4 (`--stop`/`stop`) ✓
+- Review bug #1 (filename collision) → Task 1: grill owns `GRILL-*`, never mutates the brainstorm SPEC; idempotent back-link only ✓
+- Review bug #2 (stop signal) → Task 4 (`stop` token + `--bound`) ✓
 - Review bug #3 (`--bound`) → Task 3 frontmatter + Task 7 ✓
 - Review bug #4 (loop untestable) → handled honestly: structure + util tested, live loop model-executed (documented in Architecture) ✓
+- Review bug #5 (`--yes` defeats interrogation) → **dropped** — grill is always interactive; the bounded orchestrate pass uses `--bound`, not auto-accept ✓
 - Orchestrate optimize/refactor → Task 6 ✓
 - Count cascade → Task 10 ✓
 
 **Placeholder scan:** none — every code/test step carries real content; Task 8 (deferrable) uses summarized steps by design and is gated out of the critical path.
 
-**Type consistency:** `resolve_ledger_path` / `append_decision` signatures match between Tasks 1–2 (definition) and Task 5 (use). `--bound` named consistently in Tasks 3 and 7.
+**Type consistency:** `resolve_ledger_path(topic, date, specs_dir) -> str`, `spec_crosslink -> str|None`, `add_backlink`, `append_decision` signatures match between Tasks 1–2 (definition) and Task 5 (use). `--bound` named consistently in Tasks 3 and 7. No `--yes` references remain.
 
 ## Execution Handoff
 
 Implementation is code → requires a `feature/*` worktree (never on `dev`). Per workflow rules I will not create one unprompted.
 
-Two execution options once a worktree exists:
-
-1. **Subagent-Driven (recommended)** — fresh subagent per task, two-stage review between tasks.
-2. **Inline Execution** — batch tasks in one session with checkpoints (`superpowers:executing-plans`).
+**Chosen execution model: subagent-driven, sequential** (`superpowers:subagent-driven-development`) — fresh subagent per task, two-stage review between tasks, in task order. Rationale: `grill.md` is a shared file across Tasks 3–5 and the count cascade (Task 10) must run last, so swarm parallelism's convergence overhead isn't worth it at ~10 small tasks. Run waves in order; W4 (grill-with-docs) is optional and gated out of the critical path.
