@@ -33,6 +33,10 @@ When `--dry-run` or `-n` is passed, execute **only** Step 1 (version detection),
 
 **Risk Level:** HIGH (modifies git history, creates PRs, publishes releases)
 
+### Dry-Run Output
+
+After detecting the current and next version, display:
+
 ```text
 ┌─────────────────────────────────────────────────────────────┐
 │ /release --dry-run                                          │
@@ -64,7 +68,13 @@ When `--dry-run` or `-n` is passed, execute **only** Step 1 (version detection),
 └─────────────────────────────────────────────────────────────┘
 ```
 
-Guarantees: no commits, tags, pushes, PRs, GitHub releases, or docs deploys. Exit code 0.
+### Dry-Run Guarantees
+
+- No commits, tags, or pushes
+- No PRs created or merged
+- No GitHub releases published
+- No docs deployed
+- Exit code 0
 
 ## Autonomous Mode (--autonomous)
 
@@ -79,20 +89,79 @@ When `--autonomous` or `--auto` is passed, the release pipeline runs without use
 | Step 8-13 (release, deploy, verify) | Same | Same (deterministic) |
 | Errors | Stop and report | Retry once (step-level), then abort with report |
 
-Before starting, `--autonomous` validates: clean working tree, on `dev` branch, no existing release PR open. Fail = abort, no retry.
+### Autonomous Safety Checks
 
-**Safety note:** `--autonomous` auto-uses `--admin` to bypass branch protection if needed. Only use when CI has already passed. For unattended preview, use `--autonomous --dry-run` first.
+Before starting, `--autonomous` validates:
 
-Version detection, admin override logic, and the abort report format are in
-**`references/autonomous-mode.md`**.
+- Working tree is clean (no uncommitted changes)
+- Current branch is `dev`
+- No existing release PR is open
 
-Combining flags: `--autonomous --dry-run` shows what autonomous mode WOULD do without executing.
+If any check fails, abort with a clear error message. No retries on safety checks.
+
+### Autonomous Version Detection
+
+```bash
+# Analyze commits since last release
+commits=$(git log $(git describe --tags --abbrev=0 2>/dev/null || echo HEAD~10)..HEAD --oneline)
+
+# Determine version bump
+if echo "$commits" | grep -qi "breaking\|BREAKING"; then
+    bump="major"
+elif echo "$commits" | grep -q "^.*feat:"; then
+    bump="minor"
+else
+    bump="patch"
+fi
+
+# Show decision (but don't ask)
+echo "Auto-detected version bump: $bump (from $(echo "$commits" | wc -l | tr -d ' ') commits)"
+```
+
+### Autonomous Admin Override
+
+> **WARNING:** This auto-uses `--admin` to bypass branch protection, which skips required status checks. Only use `--autonomous` when CI has already passed on the PR. For safer unattended releases, use `--autonomous --dry-run` first to preview the plan.
+
+When branch protection blocks the merge in Step 7:
+
+1. Log: "**WARNING:** Branch protection blocking merge. Using --admin override."
+2. Run: `gh pr merge <number> --merge --admin`
+3. Continue pipeline
+
+### Autonomous Error Recovery
+
+On any step failure:
+
+1. Log the error with full output
+2. Retry the step once
+3. If retry fails, abort with full error report:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ /release --autonomous ABORTED                                │
+├─────────────────────────────────────────────────────────────┤
+│ Failed at: Step 7 (Merge Release PR)                        │
+│ Error: Branch protection rules not met                      │
+│ Retry: Attempted 1 retry, still failing                     │
+│ Completed: Steps 1-6                                        │
+│ Rollback: PR #71 still open, no release created             │
+├─────────────────────────────────────────────────────────────┤
+│ Manual fix needed. Resume with: /release (interactive)       │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Combining Flags
+
+- `--autonomous --dry-run`: Shows what autonomous mode WOULD do, without executing
+- `--autonomous` alone: Full pipeline with no prompts
 
 ## Release Pipeline
 
 Execute these steps in order. Stop and report if any step fails.
 
 ### Step 1: Determine Version
+
+Detect current version and determine the next version:
 
 ```bash
 # Detect version (check in priority order, use first match)
@@ -101,9 +170,15 @@ cat package.json 2>/dev/null | python3 -c "import json,sys; print(json.load(sys.
 git describe --tags --abbrev=0 2>/dev/null || echo "unknown"
 ```
 
-Analyze commits since last release to suggest: **patch** (`fix:`/`chore:` only), **minor** (any `feat:`), **major** (breaking changes or user-specified). Ask user to confirm before proceeding.
+If the user specified a version, use it. Otherwise, analyze commits since last release to suggest:
 
-**Autonomous mode:** Skips confirmation. Uses auto-detected version and shows the decision in output.
+- **patch** (x.y.Z): only `fix:` and `chore:` commits
+- **minor** (x.Y.0): any `feat:` commits
+- **major** (X.0.0): any breaking changes or user-specified
+
+Ask the user to confirm the version before proceeding.
+
+**Autonomous mode:** Skips this confirmation. Uses auto-detected version and shows the decision in output.
 
 ### Step 2: Pre-Flight Checks
 
@@ -111,44 +186,75 @@ Run two complementary validations. **Both must pass** before proceeding.
 
 #### 2a: Full CI Mirror (`/craft:check --for release`)
 
+Run the full test suite, lint, and validation — the same checks CI runs:
+
 ```bash
 /craft:check --for release
 ```
 
-Runs: full pytest (unit + integration + e2e), strict lint, security audit, docs validation, 90% coverage threshold.
+This runs: full pytest (unit + integration + e2e), strict lint, security audit, docs validation, and 90% coverage threshold. Catches test failures that would break CI after push.
 
 #### 2b: Release Metadata (`pre-release-check.sh`)
 
+Run release-specific consistency checks:
+
 ```bash
-./scripts/pre-release-check.sh <version>   # Craft plugin projects
+# Craft plugin projects
+./scripts/pre-release-check.sh <version>
+
 # General projects — skip (covered by 2a)
 ```
 
-Checks: version consistency across files, command/skill/agent count accuracy, CLAUDE.md and README version refs, clean working tree.
+This checks: version consistency across files, command/skill/agent count accuracy, CLAUDE.md version refs, README.md and docs/index.md version refs, clean working tree.
 
 #### 2c: Marketplace Validation (if applicable)
 
-If `.claude-plugin/marketplace.json` exists, validate with `claude plugin validate .` and verify version parity with `plugin.json`. Skip if `marketplace.json` doesn't exist.
+If `.claude-plugin/marketplace.json` exists, validate marketplace distribution:
+
+```bash
+# Run Claude plugin validator
+claude plugin validate .
+
+# Check version consistency
+MARKETPLACE_VERSION=$(python3 -c "import json; print(json.load(open('.claude-plugin/marketplace.json'))['metadata']['version'])")
+PLUGIN_VERSION=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+if [ "$MARKETPLACE_VERSION" != "$PLUGIN_VERSION" ]; then
+    echo "ERROR: marketplace.json version ($MARKETPLACE_VERSION) != plugin.json ($PLUGIN_VERSION)"
+    exit 1
+fi
+```
+
+Skip this step if marketplace.json doesn't exist (not all projects use marketplace distribution).
 
 #### If Pre-Flight Fails
 
-Fix issues and re-run from 2a. Common fixes: test failure → fix code; version mismatch → update `plugin.json`/`package.json`; uncommitted changes → commit or stash.
+Fix issues and re-run from 2a. Common fixes:
+
+- Test failure: fix the test or the code it validates
+- Version mismatch: update plugin.json/package.json
+- CLAUDE.md version refs: update version string
+- Uncommitted changes: commit or stash
 
 ### Step 3: Version Bump
 
-For **Craft plugin projects**:
+For **Craft plugin projects**, use the automated bump script:
 
 ```bash
-./scripts/bump-version.sh <version> --dry-run  # preview
-./scripts/bump-version.sh <version>             # apply (13 files)
-./scripts/bump-version.sh --verify             # confirm
+# Preview what will change
+./scripts/bump-version.sh <version> --dry-run
+
+# Apply version bump + count sync across all 13 files
+./scripts/bump-version.sh <version>
+
+# Verify consistency
+./scripts/bump-version.sh --verify
 ```
 
-For **other project types**, update manually: Python (`pyproject.toml`, `__init__.py`, `README.md`), Node (`package.json`, `package-lock.json`, `README.md`), R package (`DESCRIPTION`, `NEWS.md`, `README.md`).
+This atomically updates 13 files: `plugin.json`, `marketplace.json`, `package.json`, `CLAUDE.md`, `README.md`, `docs/index.md`, `docs/REFCARD.md`, `mkdocs.yml`, `.STATUS`, `docs/DEPENDENCY-ARCHITECTURE.md`, `docs/reference/configuration.md`, `commands/hub.md`, `docs/commands/hub.md`.
 
 ### Step 3b: Semantic Doc Updates
 
-After `bump-version.sh` handles mechanical version substitution, update these files with **release-specific content** (title, summary, changelog entry):
+After `bump-version.sh` handles mechanical version substitution, update these files with **release-specific content** (title, summary, changelog entry). The release title comes from Step 1.
 
 | File | What to Update |
 |------|---------------|
@@ -157,14 +263,27 @@ After `bump-version.sh` handles mechanical version substitution, update these fi
 | `README.md` | Update release title line (if present) |
 | `docs/index.md` | Update `!!! info` box title and description text |
 | `docs/REFCARD.md` | Update summary line ~11 title text (after the version) |
-| `mkdocs.yml` | Update `site_description` tagline after "adds" |
+| `mkdocs.yml` | Update `site_description` tagline after "adds" to describe new release |
 | `commands/hub.md` | Update version in banner template, test count, skill count |
 | `docs/commands/hub.md` | Same updates as `commands/hub.md` (published copy) |
 
-**Verification:**
+**Key distinction:** Step 3 handles mechanical `X.Y.Z` substitution. Step 3b handles semantic content that requires the release title and human judgment.
+
+For **other project types**, update manually:
+
+| Project Type | Files to Update |
+|-------------|-----------------|
+| Python | `pyproject.toml`, `__init__.py`, `README.md` |
+| Node | `package.json`, `package-lock.json`, `README.md` |
+| R package | `DESCRIPTION`, `NEWS.md`, `README.md` |
+
+**Verification** (run after bump):
 
 ```bash
+# Verify automated files (13 files)
 ./scripts/bump-version.sh --verify
+
+# Sweep for stale refs in long-tail files (comments, CI, examples, brainstorms)
 grep -rn "OLD_VERSION\|OLD_CMD_COUNT commands\|OLD_SKILL_COUNT skills" \
   --include="*.md" --include="*.sh" --include="*.yml" --include="*.py" \
   | grep -v CHANGELOG | grep -v archive/ | grep -v node_modules/
@@ -184,19 +303,28 @@ Use specific file adds — never `git add -A` or `git add .` for release commits
 
 ### Step 5: Create Release PR
 
+Create PR from dev to main:
+
 ```bash
 gh pr create --base main --head dev \
   --title "Release: v<version> — <title>" \
   --body "<release-notes>"
 ```
 
-**Critical rules for PR body:** Avoid literal destructive git commands (branch guard hooks scan PR creation commands). Use descriptive language instead. Include a test plan checklist with results.
+**Critical rules for PR body:**
+
+- Avoid literal destructive git commands in the body text (branch guard hooks scan PR creation commands)
+- Use descriptive language instead:
+  - DO: "Blocks dangerous git operations that discard changes"
+  - DON'T: Include the actual command strings that branch guard detects
+- Include a test plan checklist with results
 
 ### Step 6: Monitor CI on PR (MANDATORY)
 
-**Do NOT skip this step.** Poll CI before merging:
+**Do NOT skip this step.** After the PR is created, poll CI before merging:
 
 ```bash
+# Poll until CI completes (max 5 min)
 for i in $(seq 1 10); do
     STATUS=$(gh run list --branch dev --limit 1 --json status,conclusion --jq '.[0].status + " " + (.[0].conclusion // "pending")')
     echo "[Poll $i] $STATUS"
@@ -206,13 +334,16 @@ for i in $(seq 1 10); do
     elif [[ "$STATUS" == "completed failure" ]]; then
         echo "❌ CI failed — diagnose before merging"
         gh run view $(gh run list --branch dev --limit 1 --json databaseId --jq '.[0].databaseId') --log-failed 2>&1 | tail -20
+        # Ask user before proceeding
         break
     fi
     sleep 30
 done
 ```
 
-If CI fails: fix on dev, push, wait for new run to pass. Only use `--admin` as last resort after user confirmation.
+**If CI fails:** Diagnose the failure, fix on dev, push, and wait for the new run to pass. Only use `--admin` merge as a last resort after user confirmation.
+
+**If CI takes too long (>5 min):** Ask user whether to wait or merge with `--admin`.
 
 ### Step 7: Merge Release PR
 
@@ -224,19 +355,73 @@ gh pr merge <number> --merge
 
 If branch protection blocks the merge, use `--admin` only after user confirmation.
 
-**Autonomous mode:** Auto-uses `--admin` if blocked. Logs a **WARNING** for audit trail.
+**Autonomous mode:** Auto-uses `--admin` if blocked. Logs a **WARNING** for audit trail. See "Autonomous Admin Override" section for safety details.
 
 ### Step 6.5: CI Monitoring (NEW in v2.22.0)
 
-After creating the PR (Step 5) but before merging (Step 7), use the enhanced CI monitoring script for auto-fix capabilities:
+After creating the PR (Step 5) but before merging (Step 7), monitor CI status and auto-fix safe failures.
+
+**Script:** `scripts/ci-monitor.sh`
 
 ```bash
+# Poll CI status for the release PR
 bash scripts/ci-monitor.sh <pr-number>
 ```
 
-Polls every 30s, auto-fixes `version_mismatch`/`lint_failure`/`changelog_format` failures, asks before fixing `test_failure`/`security_audit`/`build_failure`. Max 3 retry cycles.
+**Behavior:**
 
-Full configuration options, output format, and autonomous-mode behavior: **`references/ci-monitoring.md`**
+1. Poll `gh run list` every 30s (configurable via `.claude/release-config.json`)
+2. On **success**: proceed to Step 7 (merge)
+3. On **failure**: diagnose, categorize, and attempt fix
+4. Max 3 retry cycles before reporting to user
+
+**Auto-fix categories** (applied without asking):
+
+| Category | Fix Strategy |
+|----------|-------------|
+| `version_mismatch` | Run `scripts/version-sync.sh --fix`, update files, commit + push |
+| `lint_failure` | Run linter with `--fix` flag, commit + push |
+| `changelog_format` | Reformat CHANGELOG entries, commit + push |
+
+**Ask-before-fix categories** (require user approval):
+
+| Category | Why |
+|----------|-----|
+| `test_failure` | May indicate real bugs, not just formatting |
+| `security_audit` | Vulnerability fixes need careful review |
+| `build_failure` | Root cause may be complex |
+
+**Configuration:** `.claude/release-config.json`
+
+```json
+{
+    "ci_timeout": 600,
+    "ci_max_retries": 3,
+    "ci_poll_interval": 30,
+    "ci_auto_fix_categories": ["version_mismatch", "lint_failure", "changelog_format"],
+    "ci_ask_before_fix": ["test_failure", "security_audit", "build_failure"]
+}
+```
+
+**Output format:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 6.5: CI Monitoring                                     │
+├─────────────────────────────────────────────────────────────┤
+│ Polling CI status for PR #85...                             │
+│                                                             │
+│ [Poll 1] ⏳ In progress (30s elapsed)                       │
+│ [Poll 2] ⏳ In progress (60s elapsed)                       │
+│ [Poll 3] ✅ All checks passed (90s elapsed)                  │
+│                                                             │
+│ Proceeding to Step 7: Merge PR                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Autonomous mode:** Auto-fixes are applied without prompts. Ask-before-fix categories abort with a report.
+
+**Timeout:** If CI doesn't complete within `ci_timeout` seconds, report to user and ask whether to wait longer or merge with `--admin`.
 
 ### Step 8: Create GitHub Release
 
@@ -248,11 +433,16 @@ gh release create v<version> --target main \
   --notes "<release-notes>"
 ```
 
-Generate release notes from `git log <last-tag>..HEAD --oneline`. Include: highlights section, changes by type, test count, link to full changelog comparison.
+Generate release notes by analyzing commits since last release (`git log <last-tag>..HEAD --oneline`). Include:
+
+- Highlights section with key features
+- List of changes grouped by type
+- Test count and stats
+- Link to full changelog comparison
 
 ### Step 9: Post-Release (if applicable)
 
-If the project has a docs site (`mkdocs.yml`, `_quarto.yml`, or `docs/`):
+If the project has a docs site (check for `mkdocs.yml`, `_quarto.yml`, or `docs/` directory):
 
 ```bash
 mkdocs gh-deploy  # or /craft:site:deploy
@@ -260,21 +450,513 @@ mkdocs gh-deploy  # or /craft:site:deploy
 
 ### Step 10: Update Homebrew Tap (if applicable)
 
-If the project has a Homebrew formula or cask in `data-wise/tap`, update it with the new version.
+If the project has a Homebrew formula or cask in the `data-wise/tap`, update it with the new version.
 
-Detect distribution type (formula vs cask) from `.craft/homebrew.json`, `src-tauri/tauri.conf.json`, or git remote — full detection script: **`references/homebrew.md`**
+#### Distribution Type Detection
+
+Determine whether this is a Formula (CLI tool) or Cask (desktop app) release:
+
+```bash
+# 1. Explicit config (highest priority)
+if [ -f ".craft/homebrew.json" ]; then
+    DIST_TYPE=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json')).get('type', 'formula'))")
+    FORMULA_NAME=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['formula_name'])")
+    TAP=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['tap'])")
+
+# 2. Tauri project auto-detection
+elif [ -f "src-tauri/tauri.conf.json" ]; then
+    DIST_TYPE="cask"
+    FORMULA_NAME=$(python3 -c "import json; c=json.load(open('src-tauri/tauri.conf.json')); print(c.get('productName', c.get('package', {}).get('productName', 'unknown')).lower())")
+    TAP="data-wise/tap"
+
+# 3. Git remote mapping (formula default)
+elif git remote get-url origin &>/dev/null; then
+    DIST_TYPE="formula"
+    REPO_NAME=$(git remote get-url origin | sed 's/\.git$//' | sed 's|.*/||' | tr '[:upper:]' '[:lower:]')
+    FORMULA_NAME="$REPO_NAME"
+    TAP="data-wise/tap"
+
+# 4. Basename fallback (formula default)
+else
+    DIST_TYPE="formula"
+    FORMULA_NAME=$(basename "$PWD" | tr '[:upper:]' '[:lower:]')
+    TAP="data-wise/tap"
+fi
+
+# Route to appropriate step
+if [ "$DIST_TYPE" = "cask" ]; then
+    echo "Detected: Cask distribution (desktop app) → Step 10b"
+    # Proceed to Step 10b (Cask release pipeline)
+else
+    echo "Detected: Formula distribution (CLI tool) → Step 10a"
+    # Proceed to Step 10a (existing formula update)
+fi
+```
 
 #### Step 10a: Update Formula (existing behavior)
 
-Update SHA256 + version in `.rb` file, syntax-check with `ruby -c`, commit, push tap. Skip if no local tap (CI workflow handles it).
+For CLI tools distributed as Homebrew Formulas. This is the existing formula update path, unchanged.
 
-Full tap update script and formula name lookup chain: **`references/homebrew.md`**
+##### Formula Name Lookup Chain
+
+Determine the formula name using this priority order:
+
+1. **Config file** — `.craft/homebrew.json` (most reliable)
+2. **Git remote** — extract repo name from `origin` URL
+3. **Directory basename** — fallback (least reliable)
+
+#### `.craft/homebrew.json` Config Format
+
+```json
+{
+  "formula_name": "craft",
+  "tap": "data-wise/tap",
+  "source_type": "github"
+}
+```
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `formula_name` | Yes | Name of the Homebrew formula (e.g., `craft`, `aiterm`) |
+| `tap` | Yes | Tap in `org/name` format (e.g., `data-wise/tap`) |
+| `source_type` | No | `github` (default) or `pypi` |
+
+#### Tap Update Script
+
+```bash
+# Locate tap directory
+TAP_ORG=$(echo "$TAP" | cut -d/ -f1)
+TAP_NAME=$(echo "$TAP" | cut -d/ -f2)
+TAP_LOCAL="$HOME/projects/dev-tools/homebrew-${TAP_NAME}"
+TAP_BREW="$(brew --repository 2>/dev/null)/Library/Taps/${TAP_ORG}/homebrew-${TAP_NAME}"
+
+if [ -d "$TAP_LOCAL" ]; then
+    TAP_DIR="$TAP_LOCAL"
+    cd "$TAP_DIR" && git pull
+elif [ -d "$TAP_BREW" ]; then
+    TAP_DIR="$TAP_BREW"
+    cd "$TAP_DIR" && git pull
+else
+    echo "No local tap found — skip tap update (CI workflow handles this)"
+fi
+
+if [ -n "$TAP_DIR" ]; then
+    FORMULA="$TAP_DIR/Formula/${FORMULA_NAME}.rb"
+    if [ -f "$FORMULA" ]; then
+        # Calculate SHA256 from GitHub release tarball
+        REPO=$(git remote get-url origin | sed 's/\.git$//' | sed 's|https://github.com/||')
+        SHA256=$(curl -sL --retry 3 --retry-delay 2 "https://github.com/${REPO}/archive/refs/tags/v${VERSION}.tar.gz" | shasum -a 256 | cut -d' ' -f1)
+
+        # Validate SHA256 is not empty
+        if [ -z "$SHA256" ] || [ ${#SHA256} -ne 64 ]; then
+            echo "ERROR: SHA256 calculation failed. Got: '$SHA256'"
+            exit 1
+        fi
+
+        # Update version and sha256 in formula
+        sed -i '' "s|/archive/refs/tags/v[0-9.]*\.tar\.gz|/archive/refs/tags/v${VERSION}.tar.gz|" "$FORMULA"
+        sed -i '' "s/sha256 \"[a-f0-9]*\"/sha256 \"${SHA256}\"/" "$FORMULA"
+
+        # Syntax check before committing
+        ruby -c "$FORMULA" || { echo "ERROR: Formula has syntax errors after update"; exit 1; }
+
+        # Commit and push
+        cd "$TAP_DIR"
+        git add "Formula/${FORMULA_NAME}.rb"
+        git commit -m "${FORMULA_NAME}: update to v${VERSION}"
+        git push
+        echo "Homebrew tap updated: ${FORMULA_NAME} v${VERSION}"
+    fi
+fi
+```
+
+Skip if no local tap exists — the GitHub Actions workflow (`homebrew-release.yml`) handles tap updates automatically on release trigger.
+
+#### Verify Homebrew Release Workflow
+
+After the GitHub release is created, verify the `homebrew-release` workflow succeeded:
+
+```bash
+# Wait for workflow to trigger
+sleep 30
+
+# Check homebrew-release workflow status
+gh run list --repo Data-Wise/craft --workflow=homebrew-release.yml --limit 1 \
+  --json status,conclusion --jq '.[0]'
+```
+
+If the workflow failed, check with `/craft:ci:status` for diagnosis.
 
 #### Step 10b: Desktop App Cask Release (Tauri)
 
-8-substep pipeline: build multi-arch DMGs → verify architectures → compute SHA256 from local artifacts → upload to GitHub release → update cask file → push tap with conflict resolution.
+For desktop apps distributed as Homebrew Casks. Triggered when detection finds `src-tauri/tauri.conf.json` or `.craft/homebrew.json` has `"type": "cask"`.
 
-Full implementation for all 8 substeps and conflict resolution strategy: **`references/homebrew.md`**
+**Overview:** Build multi-arch DMGs → upload to GitHub release → compute SHA256 from local artifacts → update cask file → push tap.
+
+**Progress display:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Step 10b: Desktop App Release (Tauri)                        │
+├─────────────────────────────────────────────────────────────┤
+│  [1/8] Detecting project type ............ Tauri (Scribe)   │
+│  [2/8] Checking build environment ........ 6/6 passed       │
+│  [3/8] Building aarch64 (native) ......... DONE (2m 14s)    │
+│  [4/8] Building x86_64 (cross-compile) ... DONE (4m 31s)    │
+│  [5/8] Verifying architectures ........... PASSED            │
+│  [6/8] Computing SHA256 .................. DONE              │
+│  [7/8] Uploading to GitHub release ....... DONE              │
+│  [8/8] Updating cask + pushing tap ....... DONE              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+##### 10b-1: Read Project Config
+
+```bash
+# Read from tauri.conf.json
+TAURI_CONF="src-tauri/tauri.conf.json"
+PRODUCT_NAME=$(python3 -c "import json; c=json.load(open('$TAURI_CONF')); print(c.get('productName', c.get('package', {}).get('productName', 'unknown')))")
+VERSION=$(python3 -c "import json; c=json.load(open('$TAURI_CONF')); print(c.get('version', 'unknown'))")
+IDENTIFIER=$(python3 -c "import json; c=json.load(open('$TAURI_CONF')); print(c.get('identifier', c.get('tauri', {}).get('bundle', {}).get('identifier', 'unknown')))")
+
+# Override from .craft/homebrew.json if present
+if [ -f ".craft/homebrew.json" ]; then
+    FORMULA_NAME=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['formula_name'])")
+    TAP=$(python3 -c "import json; print(json.load(open('.craft/homebrew.json'))['tap'])")
+    # Read cask-specific overrides
+    CASK_CONFIG=$(python3 -c "import json; print(json.dumps(json.load(open('.craft/homebrew.json')).get('cask', {})))")
+else
+    FORMULA_NAME=$(echo "$PRODUCT_NAME" | tr '[:upper:]' '[:lower:]')
+    TAP="data-wise/tap"
+fi
+```
+
+##### 10b-2: Build Environment Validation
+
+```bash
+ERRORS=0
+
+# Check Rust targets
+NATIVE_TARGET="aarch64-apple-darwin"
+CROSS_TARGET="x86_64-apple-darwin"
+for TARGET in "$NATIVE_TARGET" "$CROSS_TARGET"; do
+    if ! rustup target list --installed | grep -q "$TARGET"; then
+        echo "MISSING: Rust target $TARGET"
+        echo "  Fix: rustup target add $TARGET"
+        echo "  Or:  Install now and continue? (y/n)"
+        ERRORS=$((ERRORS + 1))
+    fi
+done
+
+# Check Tauri CLI
+if ! npx tauri --version &>/dev/null 2>&1 && ! command -v cargo-tauri &>/dev/null; then
+    echo "MISSING: Tauri CLI (fix: cargo install tauri-cli)"
+    ERRORS=$((ERRORS + 1))
+fi
+
+# Check Node.js + node_modules
+if ! command -v node &>/dev/null; then
+    echo "MISSING: Node.js (fix: brew install node)"
+    ERRORS=$((ERRORS + 1))
+fi
+if [ ! -d "node_modules" ]; then
+    echo "MISSING: node_modules (fix: npm install)"
+    ERRORS=$((ERRORS + 1))
+fi
+
+# Check Xcode SDK
+if ! xcrun --show-sdk-path &>/dev/null 2>&1; then
+    echo "MISSING: Xcode SDK (fix: xcode-select --install)"
+    ERRORS=$((ERRORS + 1))
+fi
+
+# Check disk space (>= 2GB free)
+FREE_KB=$(df -k . | tail -1 | awk '{print $4}')
+if [ "$FREE_KB" -lt 2097152 ]; then
+    echo "WARNING: Less than 2GB free disk space"
+    ERRORS=$((ERRORS + 1))
+fi
+
+if [ "$ERRORS" -gt 0 ]; then
+    echo "ERROR: $ERRORS pre-build checks failed. Fix and retry."
+    exit 1
+fi
+```
+
+##### 10b-3: Multi-Architecture Build (Serial)
+
+Build native architecture first (fast, catches errors early), then cross-compile:
+
+```bash
+# Build 1: Native arch (aarch64 on Apple Silicon)
+echo "[3/8] Building aarch64 (native)..."
+BUILD_START=$(date +%s)
+npx tauri build --target "$NATIVE_TARGET"
+BUILD_END=$(date +%s)
+echo "  DONE ($((BUILD_END - BUILD_START))s)"
+
+# Locate DMG (primary path with fallback)
+DMG_ARM="src-tauri/target/$NATIVE_TARGET/release/bundle/dmg/${PRODUCT_NAME}_${VERSION}_aarch64.dmg"
+if [ ! -f "$DMG_ARM" ]; then
+    DMG_ARM=$(find "src-tauri/target/$NATIVE_TARGET/release/bundle" -name "*.dmg" -type f | head -1)
+fi
+if [ ! -f "$DMG_ARM" ]; then
+    echo "ERROR: ARM DMG not found after build"
+    exit 1
+fi
+
+# Build 2: Cross-compile (x86_64)
+echo "[4/8] Building x86_64 (cross-compile)..."
+BUILD_START=$(date +%s)
+npx tauri build --target "$CROSS_TARGET"
+BUILD_END=$(date +%s)
+echo "  DONE ($((BUILD_END - BUILD_START))s)"
+
+# Locate DMG
+DMG_INTEL="src-tauri/target/$CROSS_TARGET/release/bundle/dmg/${PRODUCT_NAME}_${VERSION}_x64.dmg"
+if [ ! -f "$DMG_INTEL" ]; then
+    DMG_INTEL=$(find "src-tauri/target/$CROSS_TARGET/release/bundle" -name "*.dmg" -type f | head -1)
+fi
+if [ ! -f "$DMG_INTEL" ]; then
+    echo "ERROR: Intel DMG not found after build"
+    exit 1
+fi
+```
+
+##### 10b-4: Architecture Verification
+
+Verify each DMG contains the correct architecture binary:
+
+```bash
+echo "[5/8] Verifying architectures..."
+verify_arch() {
+    local DMG_PATH="$1"
+    local EXPECTED="$2"
+    local MOUNT_POINT="/Volumes/${PRODUCT_NAME}_verify_$$"
+
+    hdiutil attach "$DMG_PATH" -nobrowse -quiet -mountpoint "$MOUNT_POINT"
+    BINARY=$(find "$MOUNT_POINT" -name "$PRODUCT_NAME" -type f -perm +111 | head -1)
+    ARCH=$(file "$BINARY" | grep -oE 'arm64|x86_64')
+    hdiutil detach "$MOUNT_POINT" -quiet
+
+    if [ "$ARCH" != "$EXPECTED" ]; then
+        echo "ERROR: DMG contains $ARCH binary, expected $EXPECTED"
+        return 1
+    fi
+    echo "  ✓ $DMG_PATH → $ARCH"
+}
+
+verify_arch "$DMG_ARM" "arm64"
+verify_arch "$DMG_INTEL" "x86_64"
+```
+
+##### 10b-5: SHA256 Computation (Local Artifacts)
+
+Compute SHA256 from local build artifacts — no network involved:
+
+```bash
+echo "[6/8] Computing SHA256..."
+SHA256_ARM=$(shasum -a 256 "$DMG_ARM" | cut -d' ' -f1)
+SHA256_INTEL=$(shasum -a 256 "$DMG_INTEL" | cut -d' ' -f1)
+
+# Validate both are 64-char hex strings
+for SHA in "$SHA256_ARM" "$SHA256_INTEL"; do
+    if [ -z "$SHA" ] || [ ${#SHA} -ne 64 ]; then
+        echo "ERROR: SHA256 calculation failed. Got: '$SHA'"
+        exit 1
+    fi
+done
+
+echo "  ARM:   $SHA256_ARM"
+echo "  Intel: $SHA256_INTEL"
+```
+
+**Key design decision:** Computing SHA256 from local artifacts eliminates the race condition where GitHub CDN hasn't propagated uploaded assets yet. This was the root cause of tap conflicts during earlier Scribe releases.
+
+##### 10b-6: Asset Upload to GitHub Release
+
+```bash
+echo "[7/8] Uploading to GitHub release..."
+REPO=$(git remote get-url origin | sed 's/\.git$//' | sed 's|https://github.com/||')
+
+# Upload DMGs (--clobber handles re-uploads)
+gh release upload "v${VERSION}" "$DMG_ARM" "$DMG_INTEL" --clobber
+
+# Generate and upload CHECKSUMS.txt (use temp file to avoid polluting project root)
+CHECKSUMS_TMP=$(mktemp)
+echo "${SHA256_ARM}  ${PRODUCT_NAME}_${VERSION}_aarch64.dmg" > "$CHECKSUMS_TMP"
+echo "${SHA256_INTEL}  ${PRODUCT_NAME}_${VERSION}_x64.dmg" >> "$CHECKSUMS_TMP"
+gh release upload "v${VERSION}" "$CHECKSUMS_TMP#CHECKSUMS.txt" --clobber
+rm -f "$CHECKSUMS_TMP"
+
+# Verify upload (check URLs return 200)
+for ARCH in "aarch64" "x64"; do
+    URL="https://github.com/${REPO}/releases/download/v${VERSION}/${PRODUCT_NAME}_${VERSION}_${ARCH}.dmg"
+    STATUS=$(curl -sI -o /dev/null -w "%{http_code}" -L "$URL")
+    if [ "$STATUS" != "200" ]; then
+        echo "WARNING: Asset URL returned $STATUS (CDN may need propagation time)"
+    fi
+done
+```
+
+##### 10b-7: Cask File Update
+
+Update the cask file with new version, SHA256 hashes, and content:
+
+```bash
+echo "[8/8] Updating cask + pushing tap..."
+
+# Locate tap directory
+TAP_ORG=$(echo "$TAP" | cut -d/ -f1)
+TAP_NAME=$(echo "$TAP" | cut -d/ -f2)
+TAP_LOCAL="$HOME/projects/dev-tools/homebrew-${TAP_NAME}"
+TAP_BREW="$(brew --repository 2>/dev/null)/Library/Taps/${TAP_ORG}/homebrew-${TAP_NAME}"
+
+if [ -d "$TAP_LOCAL" ]; then
+    TAP_DIR="$TAP_LOCAL"
+elif [ -d "$TAP_BREW" ]; then
+    TAP_DIR="$TAP_BREW"
+else
+    echo "No local tap found — skip tap update (CI workflow handles this)"
+    # Skip to Step 11
+fi
+
+CASK_FILE="$TAP_DIR/Casks/${FORMULA_NAME}.rb"
+
+if [ -f "$CASK_FILE" ]; then
+    # --- Zone 1: Update version and SHA256 ---
+
+    # Update version field
+    sed -i '' 's/version ".*"/version "'"$VERSION"'"/' "$CASK_FILE"
+
+    # Update SHA256 in architecture blocks (regex targets block structure)
+    python3 -c "
+import re, sys
+content = open(sys.argv[1]).read()
+content = re.sub(
+    r'(on_arm do\s+sha256 \")[a-f0-9]{64}(\")',
+    r'\g<1>$SHA256_ARM\2', content)
+content = re.sub(
+    r'(on_intel do\s+sha256 \")[a-f0-9]{64}(\")',
+    r'\g<1>$SHA256_INTEL\2', content)
+open(sys.argv[1], 'w').write(content)
+" "$CASK_FILE"
+
+    # --- Zone 2: Migrate hardcoded version strings to #{version} ---
+    sed -i '' "s/What's New in v[0-9.]*:/What's New in v#{version}:/" "$CASK_FILE"
+    sed -i '' "s/New in v[0-9.]*:/New in v#{version}:/" "$CASK_FILE"
+
+    # --- Zone 3: Dynamic content (postflight/caveats bullets) ---
+    # During /release, auto-generate from CHANGELOG with preview
+
+    # Extract changelog items for this version
+    CHANGELOG_ITEMS=$(awk -v ver="$VERSION" '
+        /^## / { if (found) exit; if ($0 ~ ver) found=1; next }
+        found && /^- / { sub(/^- /, ""); print }
+    ' CHANGELOG.md)
+
+    TEST_COUNT=$(echo "$CHANGELOG_ITEMS" | grep -oE '[0-9,]+ tests? passing' | head -1)
+
+    # Generate postflight bullets (max 5 items)
+    POSTFLIGHT_LINES=""
+    COUNT=0
+    while IFS= read -r ITEM; do
+        [ -z "$ITEM" ] && continue
+        [ $COUNT -ge 5 ] && break
+        POSTFLIGHT_LINES="${POSTFLIGHT_LINES}    ohai \"  - ${ITEM}\"\n"
+        COUNT=$((COUNT + 1))
+    done <<< "$CHANGELOG_ITEMS"
+    if [ -n "$TEST_COUNT" ]; then
+        POSTFLIGHT_LINES="${POSTFLIGHT_LINES}    ohai \"  - ${TEST_COUNT}\"\n"
+    fi
+
+    # Generate caveats bullets (all items)
+    CAVEATS_LINES=""
+    while IFS= read -r ITEM; do
+        [ -z "$ITEM" ] && continue
+        CAVEATS_LINES="${CAVEATS_LINES}    - ${ITEM}\n"
+    done <<< "$CHANGELOG_ITEMS"
+    if [ -n "$TEST_COUNT" ]; then
+        CAVEATS_LINES="${CAVEATS_LINES}    - ${TEST_COUNT}\n"
+    fi
+
+    # Show preview and ask for confirmation
+    echo ""
+    echo "Content preview:"
+    echo "  postflight \"What's New in v${VERSION}:\""
+    echo "$POSTFLIGHT_LINES" | head -6
+    echo "  caveats \"New in v${VERSION}:\""
+    echo "$CAVEATS_LINES" | head -10
+    echo ""
+    echo "Options: (1) Yes - write to cask  (2) Edit  (3) Skip"
+
+    # Apply content update using Python regex replacement
+    python3 -c "
+import re, sys
+
+content = open(sys.argv[1]).read()
+postflight = sys.argv[2]
+caveats = sys.argv[3]
+
+# Replace postflight bullets (between What's New and next empty ohai)
+content = re.sub(
+    r'(ohai \"What.s New in v[^\"]*:\"\n)(.*?)(    ohai \"\"\n    ohai \"(?:Quick Start|Report))',
+    r'\1' + postflight + r'\3',
+    content, flags=re.DOTALL)
+
+# Replace caveats bullets (between New in and Features:/Report)
+content = re.sub(
+    r'(New in v[^\n]*:\n)(.*?)(\n\s*(?:Features:|Report))',
+    r'\1' + caveats + r'\3',
+    content, flags=re.DOTALL)
+
+open(sys.argv[1], 'w').write(content)
+" "$CASK_FILE" "$POSTFLIGHT_LINES" "$CAVEATS_LINES"
+
+    echo "  ✓ Content: postflight + caveats updated from CHANGELOG"
+
+    # --- Validate ---
+    ruby -c "$CASK_FILE" || { echo "ERROR: Cask has syntax errors after update"; exit 1; }
+    echo "  ✓ Version: updated to $VERSION"
+    echo "  ✓ SHA256 (on_arm): updated"
+    echo "  ✓ SHA256 (on_intel): updated"
+    echo "  ✓ ruby -c: PASSED"
+
+else
+    echo "Cask file not found at $CASK_FILE"
+    echo "Generate a new cask with: /craft:dist:homebrew cask"
+    # Skip tap push if no cask file exists
+fi
+```
+
+##### 10b-8: Tap Push with Conflict Resolution
+
+```bash
+if [ -n "$TAP_DIR" ] && [ -f "$CASK_FILE" ]; then
+    cd "$TAP_DIR"
+
+    # Pull latest with rebase (avoid merge commits in tap)
+    git pull --rebase origin main || {
+        echo "Rebase conflict — resolving with ours (fresh SHA256 wins)"
+        git checkout --ours "Casks/${FORMULA_NAME}.rb"
+        git add "Casks/${FORMULA_NAME}.rb"
+        GIT_EDITOR=true git rebase --continue
+    }
+
+    # Commit and push
+    git add "Casks/${FORMULA_NAME}.rb"
+    git commit -m "${FORMULA_NAME}: update to v${VERSION}"
+    git push origin main || {
+        echo "Push failed — retrying after pull"
+        git pull --rebase origin main
+        git push origin main
+    }
+
+    echo "  ✓ Tap push: ${TAP}/${FORMULA_NAME} v${VERSION}"
+fi
+```
+
+> **Conflict resolution strategy:** "Ours" always wins because the local cask has freshly computed SHA256 hashes from local build artifacts. Any remote SHA256 values are stale by definition.
 
 **Skip to Step 11 after Step 10b completes.**
 
@@ -290,63 +972,244 @@ git push  # sync origin/dev
 After merge, verify CI passes on main. This catches issues like missing CI dependencies.
 
 ```bash
+# Wait for CI to start on main
 sleep 10
+
+# Poll CI on main
 gh run list --branch main --limit 1 --json status,conclusion,databaseId \
   --jq '.[0] | .status + " " + (.conclusion // "pending") + " (run " + (.databaseId|tostring) + ")"'
-gh run view <run-id> --log-failed 2>&1 | tail -30  # if failed
+
+# If failed, check logs
+gh run view <run-id> --log-failed 2>&1 | tail -30
 ```
 
-**If CI fails on main:** This is critical — fix immediately on dev, then merge to main (patch release if needed).
+**If CI fails on main:** This is critical — the release tag points to broken code. Fix immediately on dev, then merge to main (patch release if needed).
 
 ### Step 13: Verify Downstream Workflows (MANDATORY)
 
-After CI passes on main, verify all downstream workflows and artifacts:
+After CI passes on main, verify all downstream workflows and artifacts are correct. This catches silent failures in deploy pipelines, Homebrew distribution, and badge rendering.
 
-- **13a** — docs deploy workflow (`docs.yml`) succeeded
-- **13b** — homebrew-release workflow succeeded
-- **13c** — live site shows new version
-- **13d** — formula in tap has correct version + SHA256
-- **13e** — CI badge shows "passing"
-- **13f** — cask version + SHA256 match (Tauri projects only)
+#### 13a: Deploy Documentation Workflow
 
-Full verification commands for each check: **`references/downstream-verification.md`**
+```bash
+# Check the latest docs deploy workflow run
+gh run list --workflow=docs.yml --limit 1 \
+  --json status,conclusion,createdAt --jq '.[0]'
+```
+
+If `conclusion` is not `success`, check logs with `gh run view <id> --log-failed`.
+
+#### 13b: Homebrew Release Workflow
+
+```bash
+# Check the latest homebrew-release workflow run
+gh run list --workflow=homebrew-release.yml --limit 1 \
+  --json status,conclusion,createdAt --jq '.[0]'
+```
+
+If `conclusion` is not `success`, check with `/craft:ci:status` for diagnosis.
+
+#### 13c: Live Site Version
+
+```bash
+# Verify the live docs site shows the new version
+curl -sL https://data-wise.github.io/craft/ | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+'
+```
+
+Compare the extracted version string against the release version. If stale, the docs workflow may have failed silently.
+
+#### 13d: Formula Content Verification
+
+```bash
+# Fetch formula from the tap repo and verify version + SHA
+gh api repos/Data-Wise/homebrew-tap/contents/Formula/craft.rb \
+  --jq '.content' | base64 -D | grep -E '(version|sha256|desc)'
+
+# Also verify via brew info
+brew info data-wise/tap/craft
+```
+
+Confirm: version matches release, SHA256 is non-empty and 64 chars, description is present.
+
+#### 13e: Badge Validation
+
+```bash
+# Fetch the main CI badge and check for "passing"
+curl -sL "https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg" | grep -q "passing" \
+  && echo "Badge: PASSING" || echo "Badge: NOT PASSING"
+```
+
+If the badge does not show "passing", CI may still be running or may have failed. Wait and re-check.
+
+#### 13f: Cask Verification (Tauri projects only)
+
+If Step 10b was executed (desktop app release), verify the cask was updated correctly:
+
+```bash
+# Refresh tap data
+brew update
+
+# Verify cask version matches release
+CASK_VERSION=$(brew info --cask "$TAP/$FORMULA_NAME" 2>/dev/null | head -1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+if [ "$CASK_VERSION" = "$VERSION" ]; then
+    echo "Cask version: CORRECT ($CASK_VERSION)"
+else
+    echo "Cask version: MISMATCH (expected $VERSION, got $CASK_VERSION)"
+fi
+
+# Verify SHA256 in cask file matches what we computed
+CASK_FILE_CONTENT=$(gh api "repos/${TAP_ORG}/homebrew-${TAP_NAME}/contents/Casks/${FORMULA_NAME}.rb" \
+  --jq '.content' | base64 -D)
+
+# Check ARM SHA256
+if echo "$CASK_FILE_CONTENT" | grep -q "$SHA256_ARM"; then
+    echo "SHA256 (ARM): CORRECT"
+else
+    echo "SHA256 (ARM): MISMATCH — cask may have stale hash"
+fi
+
+# Check Intel SHA256
+if echo "$CASK_FILE_CONTENT" | grep -q "$SHA256_INTEL"; then
+    echo "SHA256 (Intel): CORRECT"
+else
+    echo "SHA256 (Intel): MISMATCH — cask may have stale hash"
+fi
+
+# Report install command for manual verification
+echo ""
+echo "Manual verification:"
+echo "  brew install --cask $TAP/$FORMULA_NAME"
+echo "  brew upgrade --cask $TAP/$FORMULA_NAME"
+```
+
+**What this catches:**
+
+- Tap push failed silently (version mismatch)
+- SHA256 was overwritten by a conflicting push (hash mismatch)
+- `brew update` cache issues (stale version)
 
 ### Step 13.4: Doc Coverage Gate (MANDATORY)
+
+Before sweeping for drift, verify all commands shipped in this release have their doc surfaces. This check is performed by `pre-release-check.sh` (Task 5 above already wired it in). If you skipped `pre-release-check.sh`, run manually:
 
 ```bash
 bash scripts/doc-coverage-check.sh
 ```
 
 **Blocking:** Missing REFCARD rows or mkdocs nav entries → fix before continuing.
-**Warning:** Missing tutorials → add before next release, does not block.
+**Warning:** Missing tutorials (commands with `arguments:`) → add tutorial before next release but does not block.
 
-Full fix procedure: **`references/downstream-verification.md`**
+If gaps found, fix them:
+
+1. Add missing REFCARD rows: `bash scripts/refcard-gen.sh --category <cat>`  (copy rows to docs/REFCARD.md)
+2. Add missing nav entries to `mkdocs.yml`
+3. Re-run `bash scripts/doc-coverage-check.sh` until exit 0
+
+```bash
+git add docs/REFCARD.md mkdocs.yml
+git commit -m "docs: add doc surfaces for newly shipped commands"
+```
 
 ### Step 13.5: Post-Release Sweep (RECOMMENDED)
 
+After downstream verification passes, run the post-release sweep to catch Tier 2+ drift — secondary version references, stale counts, and content staleness that `bump-version.sh` doesn't manage.
+
 ```bash
+# Normal mode: auto-fix mechanical items, commit if changes made
 ./scripts/post-release-sweep.sh --fix
-git add -u && git commit -m "chore: fix post-release drift detected by sweep" && git push
+# If fixes were applied:
+git add -u && git commit -m "chore: fix post-release drift detected by sweep"
+git push
 ```
 
-Catches Tier 2+ drift: secondary version refs, stale counts, content staleness that `bump-version.sh` misses. Tier table and dry-run option: **`references/downstream-verification.md`**
+**Dry-run mode:** Run report-only (no changes):
+
+```bash
+./scripts/post-release-sweep.sh
+```
+
+**Autonomous mode:** Same as normal mode — auto-fix is safe for mechanical items (version string replacements in secondary docs).
+
+**What it catches:**
+
+| Tier | Scope | Fix Mode |
+|------|-------|----------|
+| 1 | Core files (via `bump-version.sh --verify`) | Auto |
+| 2 | Secondary docs (REFCARD-RELEASE, guides, etc.) | Auto (`--fix`) |
+| 2 | Stale test/command counts in docs | Manual review |
+| 3 | Content staleness (CHANGELOG vs index.md) | Manual review |
+
+If `--fix` makes changes, commit them before completing the release.
 
 ### Step 13.6: Verify Surfaces (multi-surface version assert)
 
-Auto-runs when `.claude-plugin/plugin.json` is present. Asserts one version across: `marketplace.json`, git tag, tap formula, brew-installed, Code-registered, aggregator. Desktop/Cowork → WARN only.
+After the sweep, assert that **one version reached every surface craft controls** and print a
+per-surface report. This is the gate that stops Code / Homebrew / marketplace / git-tag from
+silently disagreeing — and prints the honest one-time manual step for Desktop/Cowork.
 
-Bypass with `--skip-surfaces` for non-plugin releases. Full script and surface table: **`references/downstream-verification.md`**
+**Trigger (D1):** auto-runs whenever `.claude-plugin/plugin.json` is present. The only escape is
+`--skip-surfaces` (e.g. a non-plugin release, or a deliberate partial publish).
+
+```bash
+# Auto-runs when this repo ships a plugin; --skip-surfaces bypasses.
+if [[ -f .claude-plugin/plugin.json && "$SKIP_SURFACES" != true ]]; then
+  NAME=$(python3 -c "import json;print(json.load(open('.claude-plugin/plugin.json'))['name'])")
+  VER=$(python3 -c "import json;print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+
+  # If the Data-Wise aggregator marketplace is checked out, keep this plugin's
+  # entry in sync (D5) BEFORE verifying — then verify it as the 'aggregator' leg.
+  AGG="${DATA_WISE_AGGREGATOR_FILE:-}"        # path to aggregator marketplace.json, if available
+  if [[ -n "$AGG" && -f "$AGG" ]]; then
+    ./scripts/aggregator-sync.sh --file "$AGG" --plugin "$NAME" --version "$VER"
+    # (commit/push the aggregator repo separately — it's a different repo.)
+  fi
+
+  ./scripts/verify-surfaces.sh --write-status \
+    --aggregator Data-Wise/claude-plugins \
+    ${AGG:+--aggregator-file "$AGG"}
+fi
+```
+
+**Behavior (D2):**
+
+| Surface | Source | On disagreement |
+|---------|--------|-----------------|
+| marketplace.json | `.claude-plugin/marketplace.json` | **BLOCK** |
+| git tag | `git tag vX.Y.Z` | **BLOCK** |
+| tap formula | `Formula/<name>.rb` url | **BLOCK** |
+| brew-installed | `brew list --versions <name>` | **BLOCK** |
+| Code-registered | `~/.claude/plugins/installed_plugins.json` | **BLOCK** |
+| aggregator (D5) | Data-Wise aggregator `marketplace.json` entry (via `--aggregator-file`) | **BLOCK** (only when configured) |
+| Desktop/Cowork | manual `claude plugin marketplace add` | **WARN** (one-time, not auto-verifiable) |
+
+A surface whose source is **absent/unreadable** (no brew, no local tap checkout) is reported
+`⚠️ not verified` and does **not** block — only a *present-but-mismatched* craft-controlled
+surface fails the release (exit 1). `--write-status` records the result in the `.STATUS` surfaces
+matrix.
+
+If it **BLOCKS**, the version did not land uniformly — fix the lagging surface (commonly: `git pull`
+a stale tap checkout, re-run the homebrew workflow, or `claude plugin update <name>@local-plugins`
+for Code — note the **marketplace-qualified** name; the bare name errors "not found") and re-run
+before completing the release.
 
 ### Step 13.7: Prune Version Cache (maintenance)
 
+Claude Code never garbage-collects old plugin versions under
+`~/.claude/plugins/cache/local-plugins/<name>/<version>/`, so they accumulate. After a successful
+release, prune them — keeping **current + 2 most recent** per plugin (D7). Always dry-run first;
+the prune step reports every directory it removes (never a silent delete).
+
 ```bash
-./scripts/cache-prune.sh            # dry-run
-./scripts/cache-prune.sh --prune    # remove old version dirs
+./scripts/cache-prune.sh            # dry-run: report what would be removed
+./scripts/cache-prune.sh --prune    # actually remove old version dirs
 ```
 
-Keeps current + 2 most recent per plugin. Never blocks release (exit 0 always). Full docs: **`references/downstream-verification.md`**
+Maintenance only — never blocks the release (exit 0 always). Distinct from `claude plugin prune`,
+which GCs unused *dependency* plugins rather than the per-version cache.
 
 ## Output Format
+
+Display progress using box-drawing:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -382,14 +1245,64 @@ Keeps current + 2 most recent per plugin. Never blocks release (exit 0 always). 
 
 ### Step 10b Error Recovery (Desktop App)
 
-Full error-to-substep recovery table (missing Rust target, build failures, SHA256 validation, gh release upload, cask syntax, tap push conflicts): **`references/homebrew.md`**
+| Error | Substep | Recovery |
+|-------|---------|----------|
+| Missing Rust target | 10b-2 | `rustup target add <target>` (offer auto-install) |
+| Missing Tauri CLI | 10b-2 | `cargo install tauri-cli` or `npm install @tauri-apps/cli` |
+| Build fails (native) | 10b-3 | Check `src-tauri/` for Rust compilation errors |
+| Build fails (cross-compile) | 10b-3 | Verify Xcode SDK, check for platform-specific code |
+| DMG not found after build | 10b-3 | Run fallback search: `find src-tauri/target -name "*.dmg"` |
+| Architecture mismatch | 10b-4 | Wrong build target used — rebuild with correct `--target` |
+| SHA256 validation fails | 10b-5 | DMG file corrupt — rebuild |
+| `gh release upload` fails | 10b-6 | Check `gh auth status`, verify release exists |
+| Cask syntax error | 10b-7 | Check `ruby -c` output, fix regex replacement |
+| Tap push conflict | 10b-8 | Auto-resolved with "ours" strategy, retry once |
+| Tap push auth failure | 10b-8 | Check git credentials for tap repo |
+| Cask version mismatch (13f) | 13f | Re-run `brew update`, check tap repo directly |
+| SHA256 mismatch (13f) | 13f | Conflicting push overwrote cask — re-push from local |
+
+### Dry-Run Support
+
+When `/release --dry-run` detects a Tauri project, the Step 10 line expands:
+
+```text
+│ 10. ✓ Update Homebrew Cask (desktop app detected)           │
+│      10b-1. Read tauri.conf.json (Scribe, v1.21.0)          │
+│      10b-2. Validate build environment (6 checks)            │
+│      10b-3. Build aarch64 (native)                           │
+│      10b-4. Build x86_64 (cross-compile)                     │
+│      10b-5. Compute SHA256 from local DMGs                   │
+│      10b-6. Upload DMGs to GitHub release                    │
+│      10b-7. Update Casks/scribe.rb (version + SHA256 +       │
+│             content from CHANGELOG)                          │
+│      10b-8. Push tap (data-wise/tap)                         │
+```
+
+`/craft:dist:homebrew cask --dry-run` shows what would change without building or writing:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ /craft:dist:homebrew cask --dry-run                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Cask: scribe (Casks/scribe.rb)                             │
+│  Tap:  data-wise/tap                                        │
+│                                                             │
+│  Changes:                                                   │
+│    version:     1.20.0 -> 1.21.0                            │
+│    sha256 ARM:  440b3b83... -> (will compute from build)    │
+│    sha256 x64:  2bdf8914... -> (will compute from build)    │
+│    postflight:  Updated (3 items from CHANGELOG)            │
+│    caveats:     Updated (version + "New in" section)        │
+│    desc:        (unchanged)                                 │
+│    static:      (unchanged)                                 │
+│                                                             │
+│  No changes were made. Run without --dry-run to execute.    │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## Additional Resources
 
 ### Reference Files
 
 - **`references/release-checklist.md`** — Detailed per-project-type checklists and edge cases
-- **`references/homebrew.md`** — Full Step 10 implementation: distribution detection, 10a formula script, 10b Tauri cask pipeline (8 substeps), error table, dry-run format
-- **`references/ci-monitoring.md`** — Step 6.5 CI monitoring: config, auto-fix categories, output format
-- **`references/downstream-verification.md`** — Steps 13–13.7: all verification commands, doc coverage gate, post-release sweep, surface assertion, version cache pruning
-- **`references/autonomous-mode.md`** — Autonomous mode: version detection code, admin override details, abort report format
