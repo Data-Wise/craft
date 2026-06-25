@@ -1168,6 +1168,25 @@ npm test
 /craft:dist:curl-install        # Generate curl installer
 ```
 
+**Homebrew release gates (plugin formula):**
+
+| Gate | Script | Severity |
+|------|--------|----------|
+| Caveats freshness | `scripts/verify_caveats.py` | Advisory (`HOMEBREW_GATE_STRICT=1` → blocking) |
+| post_install structure | `scripts/post_install_check.py` | Advisory (`HOMEBREW_GATE_STRICT=1` → blocking) |
+| Aggregator sync | `scripts/aggregator-sync.sh` | **BLOCKING** (always) |
+
+```bash
+# Run all gates (Steps 10b/10c/10d)
+python3 scripts/verify_caveats.py "$FORMULA" CHANGELOG.md "$VERSION" ${HOMEBREW_GATE_STRICT:+--strict}
+python3 scripts/post_install_check.py "$FORMULA" ${HOMEBREW_GATE_STRICT:+--strict}
+bash scripts/aggregator-sync.sh || exit 1
+
+# After publish: Cowork/Desktop update (marketplace cache FIRST)
+claude plugin marketplace update local-plugins
+claude plugin update <name>@local-plugins
+```
+
 ## Orchestrator (Enhanced v2.1, v2.5.0, v2.9.0)
 
 **Main Commands:**
