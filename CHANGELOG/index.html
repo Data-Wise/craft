@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.50.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.51.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
       
       
       
@@ -2275,6 +2275,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../adr/ADR-003-release-drift-advisory-not-hard-gate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-003: Release Drift Advisory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
@@ -2706,10 +2734,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_50" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_51" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_50" id="__nav_2_4_50_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_51" id="__nav_2_4_51_label" tabindex="0">
             
   
   
@@ -2727,8 +2755,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_50_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_50">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_51_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_51">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2904,10 +2932,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_52" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_53" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_52" id="__nav_2_4_52_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_53" id="__nav_2_4_53_label" tabindex="0">
             
   
   
@@ -2925,8 +2953,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_52_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_52">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_53_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_53">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -9008,15 +9036,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#2500-2026-06-25" class="md-nav__link">
+  <a href="#2510-2026-06-25" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.50.0] — 2026-06-25
+        [2.51.0] — 2026-06-25
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.50.0] — 2026-06-25">
+    <nav class="md-nav" aria-label="[2.51.0] — 2026-06-25">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9031,7 +9059,57 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2500-2026-06-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.50.0] — 2026-06-25
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.50.0] — 2026-06-25">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -9056,45 +9134,6 @@
   </a>
   
     <nav class="md-nav" aria-label="[2.49.0] — 2026-06-23">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2480-2026-06-22" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        [2.48.0] — 2026-06-22
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[2.48.0] — 2026-06-22">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9125,6 +9164,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2480-2026-06-22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.48.0] — 2026-06-22
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.48.0] — 2026-06-22">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2470-2026-06-21" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9137,7 +9215,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_3" class="md-nav__link">
+  <a href="#added_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -9165,7 +9243,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_4" class="md-nav__link">
+  <a href="#added_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -9193,7 +9271,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_5" class="md-nav__link">
+  <a href="#added_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -9221,7 +9299,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_6" class="md-nav__link">
+  <a href="#added_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -9246,45 +9324,6 @@
   </a>
   
     <nav class="md-nav" aria-label="[2.43.0] — 2026-06-20">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2420-2026-06-19" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        [2.42.0] — 2026-06-19
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[2.42.0] — 2026-06-19">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9315,15 +9354,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2411-2026-06-19" class="md-nav__link">
+  <a href="#2420-2026-06-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.41.1] — 2026-06-19
+        [2.42.0] — 2026-06-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.41.1] — 2026-06-19">
+    <nav class="md-nav" aria-label="[2.42.0] — 2026-06-19">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9354,15 +9393,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2410-2026-06-19" class="md-nav__link">
+  <a href="#2411-2026-06-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.41.0] — 2026-06-19
+        [2.41.1] — 2026-06-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.41.0] — 2026-06-19">
+    <nav class="md-nav" aria-label="[2.41.1] — 2026-06-19">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9377,7 +9416,46 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_2" class="md-nav__link">
+  <a href="#fixed_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2410-2026-06-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.41.0] — 2026-06-19
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.41.0] — 2026-06-19">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -9416,7 +9494,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed_4" class="md-nav__link">
+  <a href="#fixed_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -9444,7 +9522,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed_5" class="md-nav__link">
+  <a href="#fixed_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -9494,7 +9572,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_3" class="md-nav__link">
+  <a href="#changed_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -9519,45 +9597,6 @@
   </a>
   
     <nav class="md-nav" aria-label="[2.37.0] — 2026-06-13">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2360-2026-06-13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        [2.36.0] — 2026-06-13
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[2.36.0] — 2026-06-13">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9588,6 +9627,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2360-2026-06-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.36.0] — 2026-06-13
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.36.0] — 2026-06-13">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2350-2026-06-03" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9600,7 +9678,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_13" class="md-nav__link">
+  <a href="#added_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -9683,7 +9761,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_4" class="md-nav__link">
+  <a href="#changed_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -9722,7 +9800,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_14" class="md-nav__link">
+  <a href="#added_15" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -9733,7 +9811,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_8" class="md-nav__link">
+  <a href="#fixed_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -9744,7 +9822,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_5" class="md-nav__link">
+  <a href="#changed_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -9783,7 +9861,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed_9" class="md-nav__link">
+  <a href="#fixed_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -9794,7 +9872,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_6" class="md-nav__link">
+  <a href="#changed_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -9822,7 +9900,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_15" class="md-nav__link">
+  <a href="#added_16" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -9833,7 +9911,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_7" class="md-nav__link">
+  <a href="#changed_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -9844,7 +9922,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_10" class="md-nav__link">
+  <a href="#fixed_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -9872,7 +9950,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_16" class="md-nav__link">
+  <a href="#added_17" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -9897,45 +9975,6 @@
   </a>
   
     <nav class="md-nav" aria-label="[2.30.0] — 2026-02-26">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_17" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2290-2026-02-26" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        [2.29.0] — 2026-02-26
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[2.29.0] — 2026-02-26">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9966,15 +10005,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2280-2026-02-25" class="md-nav__link">
+  <a href="#2290-2026-02-26" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.28.0] — 2026-02-25
+        [2.29.0] — 2026-02-26
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.28.0] — 2026-02-25">
+    <nav class="md-nav" aria-label="[2.29.0] — 2026-02-26">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9989,10 +10028,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_8" class="md-nav__link">
+  <a href="#fixed_13" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Changed
+        Fixed
       
     </span>
   </a>
@@ -10005,15 +10044,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2270-2026-02-21" class="md-nav__link">
+  <a href="#2280-2026-02-25" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.27.0] — 2026-02-21
+        [2.28.0] — 2026-02-25
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.27.0] — 2026-02-21">
+    <nav class="md-nav" aria-label="[2.28.0] — 2026-02-25">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -10044,22 +10083,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2231-2026-02-19" class="md-nav__link">
+  <a href="#2270-2026-02-21" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.23.1] - 2026-02-19
+        [2.27.0] — 2026-02-21
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.23.1] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.27.0] — 2026-02-21">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed_13" class="md-nav__link">
+  <a href="#added_21" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fixed
+        Added
       
     </span>
   </a>
@@ -10083,27 +10122,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2230-2026-02-19" class="md-nav__link">
+  <a href="#2231-2026-02-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.23.0] - 2026-02-19
+        [2.23.1] - 2026-02-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.23.0] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.23.1] - 2026-02-19">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_21" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#fixed_14" class="md-nav__link">
@@ -10133,16 +10161,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2222-2026-02-19" class="md-nav__link">
+  <a href="#2230-2026-02-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.22.2] - 2026-02-19
+        [2.23.0] - 2026-02-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.22.2] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.23.0] - 2026-02-19">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#fixed_15" class="md-nav__link">
@@ -10156,10 +10195,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_22" class="md-nav__link">
+  <a href="#changed_12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Added
+        Changed
       
     </span>
   </a>
@@ -10172,15 +10211,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2221-2026-02-19" class="md-nav__link">
+  <a href="#2222-2026-02-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.22.1] - 2026-02-19
+        [2.22.2] - 2026-02-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.22.1] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.22.2] - 2026-02-19">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -10211,16 +10250,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2220-2026-02-19" class="md-nav__link">
+  <a href="#2221-2026-02-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.22.0] - 2026-02-19
+        [2.22.1] - 2026-02-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.22.0] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.22.1] - 2026-02-19">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#added_24" class="md-nav__link">
@@ -10233,8 +10283,36 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2220-2026-02-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.22.0] - 2026-02-19
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.22.0] - 2026-02-19">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
-  <a href="#changed_12" class="md-nav__link">
+  <a href="#added_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_13" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10245,7 +10323,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_17" class="md-nav__link">
+  <a href="#fixed_18" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -10345,7 +10423,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_13" class="md-nav__link">
+  <a href="#changed_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10578,7 +10656,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_25" class="md-nav__link">
+  <a href="#added_26" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -10606,7 +10684,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_14" class="md-nav__link">
+  <a href="#changed_15" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10667,7 +10745,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#changed_15" class="md-nav__link">
+  <a href="#changed_16" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10695,7 +10773,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_26" class="md-nav__link">
+  <a href="#added_27" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -10751,7 +10829,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_27" class="md-nav__link">
+  <a href="#added_28" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -10807,7 +10885,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_28" class="md-nav__link">
+  <a href="#added_29" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -10835,7 +10913,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_16" class="md-nav__link">
+  <a href="#changed_17" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -10885,7 +10963,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_29" class="md-nav__link">
+  <a href="#added_30" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -11018,7 +11096,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_30" class="md-nav__link">
+  <a href="#added_31" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -11057,7 +11135,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_31" class="md-nav__link">
+  <a href="#added_32" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -11068,7 +11146,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_17" class="md-nav__link">
+  <a href="#changed_18" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -13584,15 +13662,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#2500-2026-06-25" class="md-nav__link">
+  <a href="#2510-2026-06-25" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.50.0] — 2026-06-25
+        [2.51.0] — 2026-06-25
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.50.0] — 2026-06-25">
+    <nav class="md-nav" aria-label="[2.51.0] — 2026-06-25">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -13607,7 +13685,57 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2500-2026-06-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.50.0] — 2026-06-25
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.50.0] — 2026-06-25">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -13632,45 +13760,6 @@
   </a>
   
     <nav class="md-nav" aria-label="[2.49.0] — 2026-06-23">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#changed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Changed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2480-2026-06-22" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        [2.48.0] — 2026-06-22
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[2.48.0] — 2026-06-22">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -13701,6 +13790,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2480-2026-06-22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.48.0] — 2026-06-22
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.48.0] — 2026-06-22">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2470-2026-06-21" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -13713,7 +13841,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_3" class="md-nav__link">
+  <a href="#added_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -13741,7 +13869,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_4" class="md-nav__link">
+  <a href="#added_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -13769,7 +13897,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_5" class="md-nav__link">
+  <a href="#added_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -13797,7 +13925,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_6" class="md-nav__link">
+  <a href="#added_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -13822,45 +13950,6 @@
   </a>
   
     <nav class="md-nav" aria-label="[2.43.0] — 2026-06-20">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2420-2026-06-19" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        [2.42.0] — 2026-06-19
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[2.42.0] — 2026-06-19">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -13891,15 +13980,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2411-2026-06-19" class="md-nav__link">
+  <a href="#2420-2026-06-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.41.1] — 2026-06-19
+        [2.42.0] — 2026-06-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.41.1] — 2026-06-19">
+    <nav class="md-nav" aria-label="[2.42.0] — 2026-06-19">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -13930,15 +14019,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2410-2026-06-19" class="md-nav__link">
+  <a href="#2411-2026-06-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.41.0] — 2026-06-19
+        [2.41.1] — 2026-06-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.41.0] — 2026-06-19">
+    <nav class="md-nav" aria-label="[2.41.1] — 2026-06-19">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -13953,7 +14042,46 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_2" class="md-nav__link">
+  <a href="#fixed_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2410-2026-06-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.41.0] — 2026-06-19
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.41.0] — 2026-06-19">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -13992,7 +14120,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed_4" class="md-nav__link">
+  <a href="#fixed_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -14020,7 +14148,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed_5" class="md-nav__link">
+  <a href="#fixed_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -14070,7 +14198,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_3" class="md-nav__link">
+  <a href="#changed_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -14095,45 +14223,6 @@
   </a>
   
     <nav class="md-nav" aria-label="[2.37.0] — 2026-06-13">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2360-2026-06-13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        [2.36.0] — 2026-06-13
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[2.36.0] — 2026-06-13">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -14164,6 +14253,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#2360-2026-06-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.36.0] — 2026-06-13
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.36.0] — 2026-06-13">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#2350-2026-06-03" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -14176,7 +14304,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_13" class="md-nav__link">
+  <a href="#added_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -14259,7 +14387,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_4" class="md-nav__link">
+  <a href="#changed_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -14298,7 +14426,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_14" class="md-nav__link">
+  <a href="#added_15" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -14309,7 +14437,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_8" class="md-nav__link">
+  <a href="#fixed_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -14320,7 +14448,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_5" class="md-nav__link">
+  <a href="#changed_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -14359,7 +14487,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed_9" class="md-nav__link">
+  <a href="#fixed_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -14370,7 +14498,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_6" class="md-nav__link">
+  <a href="#changed_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -14398,7 +14526,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_15" class="md-nav__link">
+  <a href="#added_16" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -14409,7 +14537,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_7" class="md-nav__link">
+  <a href="#changed_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -14420,7 +14548,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_10" class="md-nav__link">
+  <a href="#fixed_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -14448,7 +14576,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_16" class="md-nav__link">
+  <a href="#added_17" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -14473,45 +14601,6 @@
   </a>
   
     <nav class="md-nav" aria-label="[2.30.0] — 2026-02-26">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_17" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fixed_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Fixed
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2290-2026-02-26" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        [2.29.0] — 2026-02-26
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="[2.29.0] — 2026-02-26">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -14542,15 +14631,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2280-2026-02-25" class="md-nav__link">
+  <a href="#2290-2026-02-26" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.28.0] — 2026-02-25
+        [2.29.0] — 2026-02-26
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.28.0] — 2026-02-25">
+    <nav class="md-nav" aria-label="[2.29.0] — 2026-02-26">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -14565,10 +14654,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_8" class="md-nav__link">
+  <a href="#fixed_13" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Changed
+        Fixed
       
     </span>
   </a>
@@ -14581,15 +14670,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2270-2026-02-21" class="md-nav__link">
+  <a href="#2280-2026-02-25" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.27.0] — 2026-02-21
+        [2.28.0] — 2026-02-25
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.27.0] — 2026-02-21">
+    <nav class="md-nav" aria-label="[2.28.0] — 2026-02-25">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -14620,22 +14709,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2231-2026-02-19" class="md-nav__link">
+  <a href="#2270-2026-02-21" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.23.1] - 2026-02-19
+        [2.27.0] — 2026-02-21
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.23.1] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.27.0] — 2026-02-21">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fixed_13" class="md-nav__link">
+  <a href="#added_21" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fixed
+        Added
       
     </span>
   </a>
@@ -14659,27 +14748,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2230-2026-02-19" class="md-nav__link">
+  <a href="#2231-2026-02-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.23.0] - 2026-02-19
+        [2.23.1] - 2026-02-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.23.0] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.23.1] - 2026-02-19">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#added_21" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Added
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#fixed_14" class="md-nav__link">
@@ -14709,16 +14787,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2222-2026-02-19" class="md-nav__link">
+  <a href="#2230-2026-02-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.22.2] - 2026-02-19
+        [2.23.0] - 2026-02-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.22.2] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.23.0] - 2026-02-19">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#fixed_15" class="md-nav__link">
@@ -14732,10 +14821,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_22" class="md-nav__link">
+  <a href="#changed_12" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Added
+        Changed
       
     </span>
   </a>
@@ -14748,15 +14837,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2221-2026-02-19" class="md-nav__link">
+  <a href="#2222-2026-02-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.22.1] - 2026-02-19
+        [2.22.2] - 2026-02-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.22.1] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.22.2] - 2026-02-19">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -14787,16 +14876,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2220-2026-02-19" class="md-nav__link">
+  <a href="#2221-2026-02-19" class="md-nav__link">
     <span class="md-ellipsis">
       
-        [2.22.0] - 2026-02-19
+        [2.22.1] - 2026-02-19
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="[2.22.0] - 2026-02-19">
+    <nav class="md-nav" aria-label="[2.22.1] - 2026-02-19">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#added_24" class="md-nav__link">
@@ -14809,8 +14909,36 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2220-2026-02-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [2.22.0] - 2026-02-19
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[2.22.0] - 2026-02-19">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
-  <a href="#changed_12" class="md-nav__link">
+  <a href="#added_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changed_13" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -14821,7 +14949,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_17" class="md-nav__link">
+  <a href="#fixed_18" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -14921,7 +15049,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_13" class="md-nav__link">
+  <a href="#changed_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -15154,7 +15282,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_25" class="md-nav__link">
+  <a href="#added_26" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -15182,7 +15310,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_14" class="md-nav__link">
+  <a href="#changed_15" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -15243,7 +15371,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#changed_15" class="md-nav__link">
+  <a href="#changed_16" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -15271,7 +15399,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_26" class="md-nav__link">
+  <a href="#added_27" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -15327,7 +15455,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_27" class="md-nav__link">
+  <a href="#added_28" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -15383,7 +15511,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_28" class="md-nav__link">
+  <a href="#added_29" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -15411,7 +15539,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_16" class="md-nav__link">
+  <a href="#changed_17" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -15461,7 +15589,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#added_29" class="md-nav__link">
+  <a href="#added_30" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -15594,7 +15722,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_30" class="md-nav__link">
+  <a href="#added_31" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -15633,7 +15761,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_31" class="md-nav__link">
+  <a href="#added_32" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -15644,7 +15772,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#changed_17" class="md-nav__link">
+  <a href="#changed_18" class="md-nav__link">
     <span class="md-ellipsis">
       
         Changed
@@ -15711,8 +15839,23 @@
 <p>The format is based on <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <hr />
-<h2 id="2500-2026-06-25">[2.50.0] — 2026-06-25<a class="headerlink" href="#2500-2026-06-25" title="Permanent link">&para;</a></h2>
+<h2 id="2510-2026-06-25">[2.51.0] — 2026-06-25<a class="headerlink" href="#2510-2026-06-25" title="Permanent link">&para;</a></h2>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>R09 <code>status-not-drift</code> governance check</strong> (#205) — <code>governance/checks/status_drift.py</code> (<code>severity: warn</code>) extends the data-not-prose thesis to <code>.STATUS</code>: it audits the <code>version:</code> field against the manifest source-of-truth and any <code>vX.Y.Z</code> marked SHIPPED/tagged against the real git tag. It deliberately ignores the prose body to stay false-positive-resistant. Driven by a <code>good</code>/<code>bad</code> fixture pair for <code>--selftest</code>; fires LIVE in <code>scripts/pre-release-check.sh</code> (the shared skills-surface audit vacuous-skips it, so it never becomes a dead rule). <code>RULES.yaml</code> + the governance guide document it.</li>
+<li><strong>ADR-003</strong> (#205) — <code>docs/adr/ADR-003-release-drift-advisory-not-hard-gate.md</code>: records the decision to keep release-drift detection advisory (not a hard gate) plus the P7 freeze marker.</li>
+</ul>
+<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>/craft:check</code> skill-standards validator graduated to a release-tier gate</strong> — the v2.50.0 advisory validator now <strong>blocks at the release tier</strong> (<code>CRAFT_MODE=release</code>) while staying advisory below it (gentle-ramp: visible everywhere, enforced only at the release boundary).</li>
+</ul>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Latent <code>CRAFT_MODE</code> no-op in <code>/craft:check</code></strong> — <code>check.md</code> is LLM-prose with no env-setting orchestrator, so <code>--for release</code> never actually exported the gating variable and the release-tier gate (and the version check that shares the binding) silently never fired. Added an explicit "Mode binding REQUIRED" section that exports <code>CRAFT_MODE</code>. Also corrected a mislabeled audit exit code (<code>2</code> = error-findings, not "engine error").</li>
+</ul>
+<hr />
+<h2 id="2500-2026-06-25">[2.50.0] — 2026-06-25<a class="headerlink" href="#2500-2026-06-25" title="Permanent link">&para;</a></h2>
+<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:check</code> skill-standards validator</strong> — advisory hot-reload validator (<code>.claude-plugin/skills/validation/skill-standards-check.md</code>) that audits every <code>skills/**/SKILL.md</code> via <code>scripts/skill_standards_audit.py</code>. Surfaces any skill scoring below 100/100 as a warning but never fails the check run (advisory; graduation to a blocking gate follows the governance warn→error soak path).</li>
 <li><strong>Homebrew distribution gates</strong> (closes #200, #199) — <code>scripts/verify_caveats.py</code> (caveats-staleness gate; advisory by default, strict via <code>HOMEBREW_GATE_STRICT=1</code>) and <code>scripts/post_install_check.py</code> (structural <code>post_install</code> check + opt-in sandbox), wired into <code>/release</code> as Steps 10b/10c (advisory) and 10d (<strong>blocking</strong> aggregator-sync + Cowork <code>@local-plugins</code> verification). Tutorial: <code>docs/tutorials/TUTORIAL-homebrew-gates.md</code>.</li>
@@ -15720,34 +15863,34 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>ADR-001</strong> (closes #171) — documents the <code>Workflow()</code>-tool vs <code>feature/*</code> worktree branch model (<code>docs/adr/ADR-001-workflow-branch-guard.md</code>).</li>
 <li>e2e + dogfood coverage for the above — 14 tests across <code>tests/test_plugin_e2e.py</code> and <code>tests/test_plugin_dogfood.py</code>, each pinning a locked sprint decision (advisory vs blocking gates, <code>SessionEnd</code> not <code>SessionStop</code>, no Check 5, <code>GateReport</code> single-source).</li>
 </ul>
-<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Corrected the false "Session facets are collected automatically" claim in <code>commands/workflow/insights.md</code> (the SessionEnd hook now makes it true once installed).</li>
 </ul>
 <hr />
 <h2 id="2490-2026-06-23">[2.49.0] — 2026-06-23<a class="headerlink" href="#2490-2026-06-23" title="Permanent link">&para;</a></h2>
-<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
+<h3 id="added_2">Added<a class="headerlink" href="#added_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:code:skill-standards</code></strong> — batch scanner that audits every <code>skills/**/SKILL.md</code> against a vendored copy of Anthropic's authoring standards. Flags missing/<code>non-kebab</code> <code>name</code> and missing <code>description</code> (errors); over-long <code>description</code> (&gt;1536 chars combined with <code>when_to_use</code>), unrecognized frontmatter keys, oversized <code>SKILL.md</code> (&gt;500 lines), reference files &gt;300 lines lacking a Table of Contents, rot-prone version tags in reference headers, and second-person framing in references (warnings). Score <code>100 − errors*5 − warnings*2</code>; exit <code>0</code> clean / <code>1</code> warnings / <code>2</code> errors; <code>--json</code>/<code>--markdown</code> output. <code>--fix</code> (opt-in) applies only safe mechanical fixes — strips version tags, normalizes frontmatter key casing/order, inserts TOC stubs — and <strong>never rewrites descriptions or prose</strong>. <code>--refresh-standards</code> rewrites the vendored doc's provenance block. Deep work delegated to <code>skill-creator</code> and <code>plugin-dev:skill-reviewer</code>. Report-only by default; standalone (not CI-gating).</li>
 <li><strong><code>docs/reference/SKILL-STANDARDS.md</code></strong> — vendored canonical skill-authoring checklist (synthesized from Anthropic's docs + the installed <code>skill-creator</code> guide) for offline, deterministic auditing; provenance refreshed via <code>--refresh-standards</code>.</li>
 <li><strong>Tutorial:</strong> <code>docs/tutorials/TUTORIAL-code-skill-standards.md</code></li>
 </ul>
-<h3 id="changed">Changed<a class="headerlink" href="#changed" title="Permanent link">&para;</a></h3>
+<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Skill compliance pass (driven by <code>/craft:code:skill-standards</code>)</strong> — split four oversized skills into <code>references/</code> via progressive disclosure: <code>release</code> (1308→282 lines), <code>docs/openapi-spec-generation</code> (1030→195), <code>ci</code> (686→268), <code>docs/changelog-automation</code> (554→149). <code>release</code> was re-split under a line-level loss gate (0 lines missing) after an initial lossy automated attempt was caught and reverted. craft's 39 skills now score <strong>100/100</strong> against the standards.</li>
 </ul>
 <h2 id="2480-2026-06-22">[2.48.0] — 2026-06-22<a class="headerlink" href="#2480-2026-06-22" title="Permanent link">&para;</a></h2>
-<h3 id="added_2">Added<a class="headerlink" href="#added_2" title="Permanent link">&para;</a></h3>
+<h3 id="added_3">Added<a class="headerlink" href="#added_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:grill</code></strong> — adversarial one-question-at-a-time interrogation command (ported from <code>grill-me</code>). Convergent counterpart to brainstorm: codebase-first sweep, a recommended answer per question, <code>/done</code> halt + milestone checkpoints, durable <code>GRILL-*</code> decision ledger (never overwrites a brainstorm <code>SPEC-*</code>), and <code>/craft:plan</code> handoff. Args: <code>target</code>, <code>--bound N</code>, <code>--no-capture</code>. Tutorial + command reference + REFCARD entry added.</li>
 </ul>
-<h3 id="changed_1">Changed<a class="headerlink" href="#changed_1" title="Permanent link">&para;</a></h3>
+<h3 id="changed_2">Changed<a class="headerlink" href="#changed_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:orchestrate</code></strong> — added <strong>Step 0.5 Clarify</strong> (default ON), which invokes <code>/craft:grill --bound 2 --no-capture</code> to lock plan-shaping decisions before building the plan (<code>--no-clarify</code> suppresses). Closes the "confirms but never clarifies" gap.</li>
 <li><strong><code>/craft:orchestrate</code></strong> — split the 862-line command into a lean ~340-line contract plus <code>docs/reference/orchestrate-reference.md</code> (mockups, session management, worktree types, swarm deep config, performance tips, token instrumentation), reducing per-invocation context.</li>
 </ul>
 <h2 id="2470-2026-06-21">[2.47.0] — 2026-06-21<a class="headerlink" href="#2470-2026-06-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_3">Added<a class="headerlink" href="#added_3" title="Permanent link">&para;</a></h3>
+<h3 id="added_4">Added<a class="headerlink" href="#added_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Governance test coverage — live-flow e2e + soak edge cases.</strong> Adds end-to-end tests for the
   pipelines wired this session: the soak lifecycle (SessionStart hook writes the ledger → <code>--promote-check</code>
@@ -15765,7 +15908,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   drift without being halted by it. A dogfood guard test locks in the non-blocking invariant.</li>
 </ul>
 <h2 id="2460-2026-06-21">[2.46.0] — 2026-06-21<a class="headerlink" href="#2460-2026-06-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_4">Added<a class="headerlink" href="#added_4" title="Permanent link">&para;</a></h3>
+<h3 id="added_5">Added<a class="headerlink" href="#added_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Governance Phase 2 (PR #3) — soak-then-flip promotion + cross-repo wrapper.</strong></li>
 <li><code>run_rules.py --promote-check</code> (with <code>--window</code>, default 14d, and <code>--state</code>) lists <code>warn</code> rules that
@@ -15778,7 +15921,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>8 dogfood tests (soak gating, promote-check CLI, run.sh portability). R04 still deferred.</li>
 </ul>
 <h2 id="2450-2026-06-21">[2.45.0] — 2026-06-21<a class="headerlink" href="#2450-2026-06-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_5">Added<a class="headerlink" href="#added_5" title="Permanent link">&para;</a></h3>
+<h3 id="added_6">Added<a class="headerlink" href="#added_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Governance Phase 2 (PR #2) — SessionStart visibility hook.</strong> <code>governance/session_hook.py</code> audits the
   live <code>~/.claude/skills</code> tree at session open and injects a compact RED-only summary into context (e.g.
@@ -15788,7 +15931,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   cross-repo wrapper are deferred to PR #3.</li>
 </ul>
 <h2 id="2440-2026-06-21">[2.44.0] — 2026-06-21<a class="headerlink" href="#2440-2026-06-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_6">Added<a class="headerlink" href="#added_6" title="Permanent link">&para;</a></h3>
+<h3 id="added_7">Added<a class="headerlink" href="#added_7" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Governance Phase 2 (PR #1) — enforced gates + R03 automation.</strong></li>
 <li><code>R03-private-marketplace</code> graduates from <code>manual</code> to a <code>script</code> check:
@@ -15804,7 +15947,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
     <code>audit()</code> + <code>selftest()</code> and adds <code>--marketplace</code>.</li>
 </ul>
 <h2 id="2430-2026-06-20">[2.43.0] — 2026-06-20<a class="headerlink" href="#2430-2026-06-20" title="Permanent link">&para;</a></h2>
-<h3 id="added_7">Added<a class="headerlink" href="#added_7" title="Permanent link">&para;</a></h3>
+<h3 id="added_8">Added<a class="headerlink" href="#added_8" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Skill-ecosystem governance (Phase 0)</strong> — policy-as-code under <code>governance/</code>: <code>RULES.yaml</code>
   (single source of truth for the 8 skill-location rules), <code>run_rules.py</code> (audit engine +
@@ -15816,7 +15959,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   rules-drift gate) and <code>tests/test_governance_dogfood.py</code> (selftest, fixture audits, fail-closed
   gating, recursive symlink detection), plus a <code>governance</code> pytest marker.</li>
 </ul>
-<h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_2">Fixed<a class="headerlink" href="#fixed_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Governance engine fails closed</strong> — an <code>error</code>-severity rule whose checker is missing or
   unresolvable (state <code>ERROR</code>) now gates the audit (exit 1) instead of passing silently.</li>
@@ -15829,7 +15972,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   to UTF-8.</li>
 </ul>
 <h2 id="2420-2026-06-19">[2.42.0] — 2026-06-19<a class="headerlink" href="#2420-2026-06-19" title="Permanent link">&para;</a></h2>
-<h3 id="added_8">Added<a class="headerlink" href="#added_8" title="Permanent link">&para;</a></h3>
+<h3 id="added_9">Added<a class="headerlink" href="#added_9" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>/craft:code:fewer-prompts</code> — one-shot command that installs a curated read-only Bash allowlist
   into <code>.claude/settings.json</code>, eliminating permission prompts for <code>git status/log/diff</code>, <code>grep</code>,
@@ -15837,27 +15980,27 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   <code>--global</code> (writes to <code>~/.claude/settings.json</code>), and <code>--reset</code> (removes only craft-managed
   entries, leaving user entries untouched via <code>craft_allowlist</code> tracking key).</li>
 </ul>
-<h3 id="fixed_2">Fixed<a class="headerlink" href="#fixed_2" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_3">Fixed<a class="headerlink" href="#fixed_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Stale link in CHANGELOG</strong> — historical v2.41.1 entry used markdown link syntax referencing
   <code>TUTORIAL-do.md</code> and <code>smart-routing-tutorial.md</code> as rendered links, causing <code>test_no_broken_links</code>
   to flag them. Rewrote as plain text references.</li>
 </ul>
 <h2 id="2411-2026-06-19">[2.41.1] — 2026-06-19<a class="headerlink" href="#2411-2026-06-19" title="Permanent link">&para;</a></h2>
-<h3 id="added_9">Added<a class="headerlink" href="#added_9" title="Permanent link">&para;</a></h3>
+<h3 id="added_10">Added<a class="headerlink" href="#added_10" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>25 tutorial stub files</strong> — Comprehensive tutorial coverage for all Phase 8 commands across
   <code>/craft:check</code>, <code>/craft:code:*</code>, <code>/craft:ci:*</code>, <code>/craft:dist:*</code>, <code>/craft:docs:*</code>,
   <code>/craft:git:*</code>, <code>/craft:plan:*</code>, <code>/craft:site:*</code>, <code>/craft:test:*</code>, and workflow commands.
   Tutorial nav entries added to <code>mkdocs.yml</code> for full site integration.</li>
 </ul>
-<h3 id="fixed_3">Fixed<a class="headerlink" href="#fixed_3" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_4">Fixed<a class="headerlink" href="#fixed_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Broken link in <code>TUTORIAL-smart-help.md</code></strong> — Corrected stale link from <code>TUTORIAL-do.md</code>
   to <code>smart-routing-tutorial.md</code> (linked file was renamed in v2.30.0).</li>
 </ul>
 <h2 id="2410-2026-06-19">[2.41.0] — 2026-06-19<a class="headerlink" href="#2410-2026-06-19" title="Permanent link">&para;</a></h2>
-<h3 id="added_10">Added<a class="headerlink" href="#added_10" title="Permanent link">&para;</a></h3>
+<h3 id="added_11">Added<a class="headerlink" href="#added_11" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>/craft:quota</strong> — pre-flight quota gate with SAFE/TIGHT/DEFER advisory, stale-refusing (cache
   expires after 900 s); silently skips when <code>~/.claude/quota-cache.json</code> is absent or stale.</li>
@@ -15874,7 +16017,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>/craft:check quota validator</strong> — opt-in quota pre-flight appended after all mandatory checks;
   silently skips when cache absent or stale; advisory only, never blocks.</li>
 </ul>
-<h3 id="changed_2">Changed<a class="headerlink" href="#changed_2" title="Permanent link">&para;</a></h3>
+<h3 id="changed_3">Changed<a class="headerlink" href="#changed_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>post-release-sweep.sh --surfaces</code> now verifies the aggregator leg</strong> — it passes
   <code>--aggregator-file dist/data-wise-marketplace.json</code> to <code>verify-surfaces.sh</code> when present, so a
@@ -15894,7 +16037,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   Re-run with fresh-session pairs or with Lever B prompt-trim to resolve the ordering confound.</li>
 </ul>
 <h2 id="2382-2026-06-15">[2.38.2] — 2026-06-15<a class="headerlink" href="#2382-2026-06-15" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_4">Fixed<a class="headerlink" href="#fixed_4" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_5">Fixed<a class="headerlink" href="#fixed_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>verify-surfaces.sh</code> no longer silently passes a corrupt craft-controlled surface</strong> — a
   present-but-unparseable <code>marketplace.json</code>/aggregator file was indistinguishable from "absent"
@@ -15910,7 +16053,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   custom <code>.claude/branch-guard.json</code> is authoritative (must list <code>draft</code>/<code>dev</code> to protect them).</li>
 </ul>
 <h2 id="2381-2026-06-15">[2.38.1] — 2026-06-15<a class="headerlink" href="#2381-2026-06-15" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_5">Fixed<a class="headerlink" href="#fixed_5" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_6">Fixed<a class="headerlink" href="#fixed_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>main CI was red after v2.38.0</strong> — <code>test_branch_guard_dogfood.py::TestRealPayloadFormats</code>
   asserted the hook <em>allows</em> Edit/Write of an existing <code>.md</code>, which only holds off <code>main</code>. PR #159
@@ -15954,7 +16097,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>CI now runs the branch-guard suites</strong> — <code>ci.yml</code> installs the hook, then runs the pytest +
   bash suites (99 unit + 30 e2e), so branch-guard behavior is CI-validated, not local-only (#159).</li>
 </ul>
-<h3 id="changed_3">Changed<a class="headerlink" href="#changed_3" title="Permanent link">&para;</a></h3>
+<h3 id="changed_4">Changed<a class="headerlink" href="#changed_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>scripts/branch-guard.sh</code> — consolidated <code>dev</code>/<code>draft</code> presence detection into a single probe
   restricted to <code>refs/heads/*</code> (no duplicate <code>cd</code>, no same-named-tag false match) (#160).</li>
@@ -15962,7 +16105,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   the surfaces check as part of the sweep.</li>
 </ul>
 <h2 id="2370-2026-06-13">[2.37.0] — 2026-06-13<a class="headerlink" href="#2370-2026-06-13" title="Permanent link">&para;</a></h2>
-<h3 id="added_11">Added<a class="headerlink" href="#added_11" title="Permanent link">&para;</a></h3>
+<h3 id="added_12">Added<a class="headerlink" href="#added_12" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p><strong>Test &amp; discovery hygiene</strong> — a <code>strict-markers</code> guard test
@@ -16017,13 +16160,13 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
   proves the tripwire fires on drift and stays silent on historical counts
   (isolated-tree, never touches the real source).</li>
 </ul>
-<h3 id="fixed_6">Fixed<a class="headerlink" href="#fixed_6" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_7">Fixed<a class="headerlink" href="#fixed_7" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Categorical drift corrected by the new sweep: hub <code>TEST (3→2)</code> and
   <code>ORCHESTRATE (5→4)</code>, and REFCARD <code>Skills (38→39 total)</code>.</li>
 </ul>
 <h2 id="2360-2026-06-13">[2.36.0] — 2026-06-13<a class="headerlink" href="#2360-2026-06-13" title="Permanent link">&para;</a></h2>
-<h3 id="added_12">Added<a class="headerlink" href="#added_12" title="Permanent link">&para;</a></h3>
+<h3 id="added_13">Added<a class="headerlink" href="#added_13" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:orchestrate:workflow</code></strong> — a third orchestration mode that executes a
   coded, fixed-control-flow program (<code>parallel</code>/<code>pipeline</code>/<code>loop</code>/<code>verify</code>) with
@@ -16039,7 +16182,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
     plus tutorial, command/help/refcard/cookbook docs.</li>
 <li>Counts: 109→110 commands, 38→39 skills.</li>
 </ul>
-<h3 id="fixed_7">Fixed<a class="headerlink" href="#fixed_7" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_8">Fixed<a class="headerlink" href="#fixed_8" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>pytest --strict-markers</code> no longer aborts the entire Craft CI run when the <code>mermaid</code>/<code>mermaid_mcp</code> marker-provider plugin fails to install. Both markers are now registered in <code>pyproject.toml</code>, so collection of <code>tests/test_mermaid_*.py</code> is deterministic regardless of plugin availability — previously a flaky plugin install promoted an unknown-mark warning into a hard collection error that red-listed all of CI.</li>
 <li>Homebrew cask generator now emits the canonical bare-symbol form <code>depends_on macos: :codename</code> instead of the deprecated string-comparison form <code>depends_on macos: "&gt;= :codename"</code> that current Homebrew warns against (root cause of the reintroduced deprecation in generated casks; cf. Data-Wise/homebrew-tap#112).</li>
@@ -16048,7 +16191,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>tests/test_plugin_dogfood.py::test_on_expected_branch_type</code> now accepts <code>fix/*</code> branches (previously only <code>main</code>/<code>dev</code>/<code>feature/*</code>, so it failed on <code>fix/*</code> worktree branches).</li>
 </ul>
 <h2 id="2350-2026-06-03">[2.35.0] — 2026-06-03<a class="headerlink" href="#2350-2026-06-03" title="Permanent link">&para;</a></h2>
-<h3 id="added_13">Added<a class="headerlink" href="#added_13" title="Permanent link">&para;</a></h3>
+<h3 id="added_14">Added<a class="headerlink" href="#added_14" title="Permanent link">&para;</a></h3>
 <ul>
 <li>/craft:orchestrate:drive — spec-driven autonomous implementation loop (native /goal + drive-engine skill + real verify gate).</li>
 <li>--refine flag on brainstorm/do/orchestrate/plan:feature/arch:plan — refines the prompt via the new prompt-refiner skill before acting.</li>
@@ -16095,7 +16238,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong><code>scripts/deprecate-batch1-commands.py</code></strong> — idempotent deprecation script</li>
 <li><strong>Migration plan + spec</strong> committed (<code>docs/migration-plan.md</code> v3, <code>docs/specs/SPEC-commands-to-skills-migration-2026-05-13.md</code> v2)</li>
 </ul>
-<h3 id="changed_4">Changed<a class="headerlink" href="#changed_4" title="Permanent link">&para;</a></h3>
+<h3 id="changed_5">Changed<a class="headerlink" href="#changed_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Tier-2 doc counts</strong> synced 26 → 28 skills across 8 files</li>
 <li><strong><code>scripts/bump-version.sh</code></strong> SKILL_COUNT uses <code>find skills -name SKILL.md</code> only (was over-counting supporting files)</li>
@@ -16109,7 +16252,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <hr />
 <h2 id="2330-2026-05-11">[2.33.0] — 2026-05-11<a class="headerlink" href="#2330-2026-05-11" title="Permanent link">&para;</a></h2>
 <p><strong>Theme:</strong> Safety hardening — hard_deny tier + defensive facet parsing + drift cleanup</p>
-<h3 id="added_14">Added<a class="headerlink" href="#added_14" title="Permanent link">&para;</a></h3>
+<h3 id="added_15">Added<a class="headerlink" href="#added_15" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Hard_deny tier on top of branch-guard</strong> — adds an unconditional third layer of branch protection enforced by the Claude Code auto-mode classifier <em>before</em> any tool runs. Blocks four catastrophic operations regardless of <code>.claude/allow-once</code>, <code>/craft:git:unprotect</code>, or user intent: force-push to <code>main</code>/<code>master</code>, recursive deletion of <code>.git</code>, <code>gh repo delete</code>, and recursive deletion of <code>~/.claude</code>. Inherits <code>"$defaults"</code> so Claude Code's built-in protections stack rather than replace. Prose-rule schema (not regex) — verified against Claude Code auto-mode docs during Phase 0.</li>
 <li><strong><code>scripts/hard-deny-rules.json</code></strong> — canonical prose rule catalog with 4 hard_deny entries plus 4 deliberately-not-promoted carryover entries with rationale per pattern. Locked by <code>tests/test_hard_deny_catalog.py</code> (7 contract tests).</li>
@@ -16118,7 +16261,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong><code>commands/workflow/insights.md</code> Defensive Parsing Contract</strong> — explicit subsection documenting the exception set and warning format required of every facet-reader.</li>
 <li><strong><code>/craft:check --version</code> validator</strong> (v2.33.0 Increment 1) — new hot-reload validator wraps <code>scripts/bump-version.sh --verify</code> and presents per-tier consistency status. Auto-included by <code>--for pr</code> / <code>--for release</code>; mode-aware (release exits 1 on drift). Catches drift before release.</li>
 </ul>
-<h3 id="fixed_8">Fixed<a class="headerlink" href="#fixed_8" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_9">Fixed<a class="headerlink" href="#fixed_9" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Crash-on-malformed-facet in <code>/craft:hub</code></strong> — <code>commands/hub.md</code> Step 1.7 caught only <code>(JSONDecodeError, KeyError)</code> and silently continued. Widened to <code>(JSONDecodeError, KeyError, TypeError, FileNotFoundError, UnicodeDecodeError, OSError)</code> and now logs a <code>warning: skipping malformed facet &lt;path&gt;: &lt;ErrType&gt;: &lt;msg&gt;</code> line to stderr. Ports the Claude Code v2.1.136 defensive-parsing pattern.</li>
 <li><strong>Crash-on-malformed-facet in <code>/craft:do</code></strong> — <code>commands/do.md</code> Step 1.5 had no <code>try/except</code> at all and would have crashed every <code>/craft:do</code> invocation on the first corrupt facet. Hardened to the same defensive contract.</li>
@@ -16127,7 +16270,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong><code>badge_syncer</code> dual-row + docs-shields false positives</strong> (<a href="https://github.com/Data-Wise/craft/issues/127">#127</a>) — syncer rewrote <code>?branch=main</code> → <code>?branch=dev</code> on <code>**main:**</code>-labeled rows, and classified shields.io <code>/badge/docs-</code> URLs as CUSTOM (causing duplicate Documentation badges). Fix: <code>Badge.branch_label</code> field extracted from <code>**main:**</code> prose prefix or <code>| **main** |</code> table cells; classifier adds <code>/badge/docs-</code> rule. 4 phantom mismatches → 0.</li>
 <li><strong>Insights spec env-var → stdin contract drift</strong> (<a href="https://github.com/Data-Wise/craft/issues/126">#126</a>) — SPEC-insights-driven-improvements-2026-02-14.md still showed the deprecated <code>CLAUDE_TOOL_NAME</code> env-var contract. Updated to stdin JSON with inline <code>Note (2026-05-10, corrected in PR #125)</code> footnote. Orphan e2e test case also fixed.</li>
 </ul>
-<h3 id="changed_5">Changed<a class="headerlink" href="#changed_5" title="Permanent link">&para;</a></h3>
+<h3 id="changed_6">Changed<a class="headerlink" href="#changed_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>commands/git/unprotect.md</code></strong> — new Key Behavior #5 making the hard_deny semantics explicit: <code>/craft:git:unprotect</code> does <strong>not</strong> bypass hard_deny.</li>
 <li><strong><code>docs/architecture.md</code></strong> — section 5 "Defense-in-Depth" extended from two layers to three.</li>
@@ -16141,11 +16284,11 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <hr />
 <h2 id="2321-2026-05-10">[2.32.1] — 2026-05-10<a class="headerlink" href="#2321-2026-05-10" title="Permanent link">&para;</a></h2>
 <p><strong>Theme:</strong> Infrastructure — durable Homebrew release auth</p>
-<h3 id="fixed_9">Fixed<a class="headerlink" href="#fixed_9" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_10">Fixed<a class="headerlink" href="#fixed_10" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>homebrew-release.yml</code> PAT auth failure</strong> (<a href="https://github.com/Data-Wise/craft/issues/129">#129</a>) — the <code>update-homebrew</code> job depended on <code>HOMEBREW_TAP_GITHUB_TOKEN</code>, a fine-grained PAT that expired ~10 weeks after creation. v2.32.0's release surfaced the auth failure (<code>fatal: could not read Username for github.com</code>). Migrated to GitHub App auth via <code>actions/create-github-app-token@v1</code> using existing <code>APP_ID</code> + <code>APP_PRIVATE_KEY</code> secrets. App tokens are minted per-run, scoped to <code>homebrew-tap</code> only, and never expire on a calendar.</li>
 </ul>
-<h3 id="changed_6">Changed<a class="headerlink" href="#changed_6" title="Permanent link">&para;</a></h3>
+<h3 id="changed_7">Changed<a class="headerlink" href="#changed_7" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>homebrew-release.yml</code></strong> — <code>update-homebrew</code> job now runs inline (replaces the <code>workflow_call</code> to <code>Data-Wise/homebrew-tap/.github/workflows/update-formula.yml@main</code>). Always uses the canonical <code>manifest.json</code> + <code>generate.py</code> pattern, eliminating the manifest drift risk where CI would patch <code>.rb</code> files via sed without updating the manifest. Removed the unused <code>auto_merge</code> workflow_dispatch input. Deleted the stale <code>HOMEBREW_TAP_GITHUB_TOKEN</code> secret from craft.</li>
 <li><strong><code>commands/dist/homebrew.md</code></strong> — updated example workflow snippet and Step 4 setup guide to recommend GitHub App auth (durable, no calendar expiration) instead of PAT (90-day rotation).</li>
@@ -16155,7 +16298,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <hr />
 <h2 id="2320-2026-05-09">[2.32.0] — 2026-05-09<a class="headerlink" href="#2320-2026-05-09" title="Permanent link">&para;</a></h2>
 <p><strong>Theme:</strong> GitHub-side branch protection + hook contract fix</p>
-<h3 id="added_15">Added<a class="headerlink" href="#added_15" title="Permanent link">&para;</a></h3>
+<h3 id="added_16">Added<a class="headerlink" href="#added_16" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:git:protect-baseline</code></strong> — New git subcommand applies craft's standard GitHub-side branch protection (PR required with 0 reviews, no force-push, no delete) to any repo via the GitHub REST API</li>
 <li>Repeatable <code>--check NAME</code> flag handles status check names containing commas (e.g. <code>test (ubuntu-latest, 3.12)</code>)</li>
@@ -16167,7 +16310,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Tutorial</strong> — Step-by-step "Protect a new repo with craft" (<code>docs/tutorials/TUTORIAL-protect-new-repo.md</code>)</li>
 <li><strong>Architecture doc</strong> — New section on local-hook + GitHub-side defense-in-depth</li>
 </ul>
-<h3 id="changed_7">Changed<a class="headerlink" href="#changed_7" title="Permanent link">&para;</a></h3>
+<h3 id="changed_8">Changed<a class="headerlink" href="#changed_8" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>REFCARD-BRANCH-GUARD</strong> updated with GitHub-side companion section and split commands table (local hook vs GitHub-side)</li>
 <li>Cross-references added to <code>/craft:git:protect</code>, <code>/craft:git:unprotect</code> so users discover the GitHub-side companion</li>
@@ -16175,7 +16318,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong><code>scripts/protect-baseline.sh</code> polish</strong> — default-branch detection now surfaces real <code>gh</code> API errors (was swallowed by <code>2&gt;/dev/null</code>); APPLY uses exit-code success detection instead of brittle <code>grep '"url"'</code>; REMOVE checks DELETE exit code symmetrically (was unconditionally printing success on failure)</li>
 <li><strong>Tutorial</strong> clarification — Step 4 now warns that craft's local hook fires before reaching GitHub's rejection, with <code>/craft:git:unprotect maintenance</code> workaround</li>
 </ul>
-<h3 id="fixed_10">Fixed<a class="headerlink" href="#fixed_10" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_11">Fixed<a class="headerlink" href="#fixed_11" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>macOS portability</strong> in <code>protect-baseline.sh</code> — <code>--help</code> dispatcher used <code>head -n -2</code> (GNU-only) which errored on BSD/macOS with <code>illegal line count: -2</code>. Replaced with portable <code>awk</code></li>
 <li><strong><code>protect-baseline.sh --show</code> output</strong> — moved human-readable <code>Repo:</code>/<code>Branch:</code> headers to stderr so stdout is JSON-only; the documented <code>--show | jq</code> pattern in the cookbook and refcard now works as written</li>
@@ -16185,7 +16328,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 <hr />
 <h2 id="2310-2026-02-26">[2.31.0] — 2026-02-26<a class="headerlink" href="#2310-2026-02-26" title="Permanent link">&para;</a></h2>
-<h3 id="added_16">Added<a class="headerlink" href="#added_16" title="Permanent link">&para;</a></h3>
+<h3 id="added_17">Added<a class="headerlink" href="#added_17" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/workflow:done</code> learning loop</strong> — Memory capture (Step 1.11), insights capture (Step 1.13), auto-git (Step 3.5), CLAUDE.md sync (Step 1.10), worktree status (Step 1.14)</li>
 <li><strong><code>/craft:do</code> memory-aware routing</strong> — Memory lookup (Step 1.0), insights check (Step 1.5), worktree detection (Step 0.5), pipeline suggestion (Step 2.5), spec auto-load (Step 2.6)</li>
@@ -16196,7 +16339,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 <hr />
 <h2 id="2300-2026-02-26">[2.30.0] — 2026-02-26<a class="headerlink" href="#2300-2026-02-26" title="Permanent link">&para;</a></h2>
-<h3 id="added_17">Added<a class="headerlink" href="#added_17" title="Permanent link">&para;</a></h3>
+<h3 id="added_18">Added<a class="headerlink" href="#added_18" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Unified release-watch v2</strong> — Track both Claude Code CLI and Claude Desktop releases in a single command</li>
 <li><code>--product</code> flag (all/code/desktop) replaces separate tools</li>
@@ -16211,13 +16354,13 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Pinned <code>markdownlint-cli2</code> (0.14.0) and <code>markdown-link-check</code> (3.12.2) as exact-version devDependencies to eliminate CI flakiness from npm registry 403 errors</li>
 <li>Committed <code>package-lock.json</code> and switched CI to <code>npm ci</code> with npm cache</li>
 </ul>
-<h3 id="fixed_11">Fixed<a class="headerlink" href="#fixed_11" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_12">Fixed<a class="headerlink" href="#fixed_12" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>bump-version.sh</code> sed delimiter collision on hub.md count updates (line 353: <code>|</code> → <code>#</code>)</li>
 </ul>
 <hr />
 <h2 id="2290-2026-02-26">[2.29.0] — 2026-02-26<a class="headerlink" href="#2290-2026-02-26" title="Permanent link">&para;</a></h2>
-<h3 id="added_18">Added<a class="headerlink" href="#added_18" title="Permanent link">&para;</a></h3>
+<h3 id="added_19">Added<a class="headerlink" href="#added_19" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>17 new docs help pages</strong> — Complete help coverage for all <code>/craft:docs:*</code> sub-commands</li>
 <li>Simple: api, help, quickstart, nav-update, prompt, site</li>
@@ -16228,13 +16371,13 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Complete reference table in docs hub page (<code>docs/commands/docs.md</code>)</li>
 <li>Updated commands.md with full 22-command docs reference table</li>
 </ul>
-<h3 id="fixed_12">Fixed<a class="headerlink" href="#fixed_12" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_13">Fixed<a class="headerlink" href="#fixed_13" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Branch guard false positives on <code>--force-with-lease</code> for feature branches (#113)</li>
 </ul>
 <hr />
 <h2 id="2280-2026-02-25">[2.28.0] — 2026-02-25<a class="headerlink" href="#2280-2026-02-25" title="Permanent link">&para;</a></h2>
-<h3 id="added_19">Added<a class="headerlink" href="#added_19" title="Permanent link">&para;</a></h3>
+<h3 id="added_20">Added<a class="headerlink" href="#added_20" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Docs staleness detection</strong> (<code>scripts/docs-staleness-check.sh</code>) — 4-phase documentation quality checks</li>
 <li>Phase 6: Nav completeness (mkdocs.yml vs docs files)</li>
@@ -16268,7 +16411,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Step 13f: Cask verification (version + SHA256 cross-check after tap push)</li>
 <li>Desktop Release Guide at <code>docs/guide/desktop-release.md</code></li>
 </ul>
-<h3 id="changed_8">Changed<a class="headerlink" href="#changed_8" title="Permanent link">&para;</a></h3>
+<h3 id="changed_9">Changed<a class="headerlink" href="#changed_9" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>/craft:dist:homebrew</code> now supports 7 subcommands (added <code>cask</code>)</li>
 <li><code>/craft:dist:homebrew audit</code> auto-detects formula vs cask</li>
@@ -16282,7 +16425,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 <hr />
 <h2 id="2270-2026-02-21">[2.27.0] — 2026-02-21<a class="headerlink" href="#2270-2026-02-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_20">Added<a class="headerlink" href="#added_20" title="Permanent link">&para;</a></h3>
+<h3 id="added_21">Added<a class="headerlink" href="#added_21" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>GitHub Actions concurrency groups</strong> and docs deploy retry logic</li>
 <li><strong>Dual main+dev CI badge layout</strong> in README.md and docs/index.md</li>
@@ -16299,7 +16442,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Mermaid Authoring Guide</strong> at <code>docs/guide/mermaid-authoring.md</code></li>
 <li><strong>Mermaid test suite</strong> — unit, e2e, and dogfood tests for validation pipeline</li>
 </ul>
-<h3 id="changed_9">Changed<a class="headerlink" href="#changed_9" title="Permanent link">&para;</a></h3>
+<h3 id="changed_10">Changed<a class="headerlink" href="#changed_10" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>/craft:docs:check</code> Phase 5 now includes Mermaid Validation with health score</li>
 <li><code>mermaid-linter</code> skill updated with MCP validation and health score sections</li>
@@ -16308,31 +16451,31 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 <hr />
 <h2 id="2231-2026-02-19">[2.23.1] - 2026-02-19<a class="headerlink" href="#2231-2026-02-19" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_13">Fixed<a class="headerlink" href="#fixed_13" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_14">Fixed<a class="headerlink" href="#fixed_14" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Correct skill count in hub (24→25)</li>
 <li>Stale release taglines in index and REFCARD</li>
 </ul>
-<h3 id="changed_10">Changed<a class="headerlink" href="#changed_10" title="Permanent link">&para;</a></h3>
+<h3 id="changed_11">Changed<a class="headerlink" href="#changed_11" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Updated .STATUS for v2.23.1 release session</li>
 </ul>
 <hr />
 <h2 id="2230-2026-02-19">[2.23.0] - 2026-02-19<a class="headerlink" href="#2230-2026-02-19" title="Permanent link">&para;</a></h2>
-<h3 id="added_21">Added<a class="headerlink" href="#added_21" title="Permanent link">&para;</a></h3>
+<h3 id="added_22">Added<a class="headerlink" href="#added_22" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>bump-version.sh</strong> — extended to cover 4 additional doc files (11 total), with <code>FILE_COUNT</code> variable replacing hardcoded values</li>
 <li><strong>Comprehensive bump-version test suite</strong> — 45 tests covering version replacement, file discovery, and edge cases</li>
 <li><strong>CI status dashboard</strong> and release pipeline improvements</li>
 <li>REFCARD-CHECK and REFCARD-INSIGHTS added to mkdocs nav</li>
 </ul>
-<h3 id="fixed_14">Fixed<a class="headerlink" href="#fixed_14" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_15">Fixed<a class="headerlink" href="#fixed_15" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Hardcoded file count replaced with <code>FILE_COUNT</code> variable in bump-version.sh</li>
 <li>ORCHESTRATE files no longer gitignored — tracked on feature branches as intended</li>
 <li>Code review issues in bump-version scripts</li>
 </ul>
-<h3 id="changed_11">Changed<a class="headerlink" href="#changed_11" title="Permanent link">&para;</a></h3>
+<h3 id="changed_12">Changed<a class="headerlink" href="#changed_12" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Hub command rewritten with all features through v2.23.0</li>
 <li>CLAUDE.md layered architecture section expanded in refcard</li>
@@ -16340,26 +16483,26 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 <hr />
 <h2 id="2222-2026-02-19">[2.22.2] - 2026-02-19<a class="headerlink" href="#2222-2026-02-19" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_15">Fixed<a class="headerlink" href="#fixed_15" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_16">Fixed<a class="headerlink" href="#fixed_16" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Stale pages: config, dependency arch, choose-path, doc-quality docs</li>
 <li>Stale version/count refs across site</li>
 <li>CLAUDE.md synced — fixed stale ORCHESTRATE ref, updated spec/test counts</li>
 </ul>
-<h3 id="added_22">Added<a class="headerlink" href="#added_22" title="Permanent link">&para;</a></h3>
+<h3 id="added_23">Added<a class="headerlink" href="#added_23" title="Permanent link">&para;</a></h3>
 <ul>
 <li>bump-version reference card, CI status command page, version-sync Layer 4</li>
 <li>Updated REFCARD and A-Z reference with new features</li>
 </ul>
 <hr />
 <h2 id="2221-2026-02-19">[2.22.1] - 2026-02-19<a class="headerlink" href="#2221-2026-02-19" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_16">Fixed<a class="headerlink" href="#fixed_16" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_17">Fixed<a class="headerlink" href="#fixed_17" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Dogfood test assertions for branch guard verbosity</li>
 <li>Strengthened release skill with mandatory CI monitoring and version checklist</li>
 <li>Added jinja2 to CI deps, bumped marketplace.json to v2.22.0</li>
 </ul>
-<h3 id="added_23">Added<a class="headerlink" href="#added_23" title="Permanent link">&para;</a></h3>
+<h3 id="added_24">Added<a class="headerlink" href="#added_24" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Rebuilt tutorial index, updated REFCARD tables, added insights refcard</li>
 <li>Synced documentation gaps found by /craft:docs:sync</li>
@@ -16367,17 +16510,17 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 <hr />
 <h2 id="2220-2026-02-19">[2.22.0] - 2026-02-19<a class="headerlink" href="#2220-2026-02-19" title="Permanent link">&para;</a></h2>
-<h3 id="added_24">Added<a class="headerlink" href="#added_24" title="Permanent link">&para;</a></h3>
+<h3 id="added_25">Added<a class="headerlink" href="#added_25" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Insights-driven friction prevention</strong> (PR #84) — 6 new scripts for session friction detection, pattern tracking, and prevention recommendations</li>
 <li><strong>Unified test system</strong> (PR #82) — consolidated 7 test commands into 3 (<code>test:run</code>, <code>test:cli-gen</code>, <code>test:cli-run</code>), added Jinja2 template engine with 27 templates across 4 project types, pytest markers (25 markers), and 865-line test generator</li>
 </ul>
-<h3 id="changed_12">Changed<a class="headerlink" href="#changed_12" title="Permanent link">&para;</a></h3>
+<h3 id="changed_13">Changed<a class="headerlink" href="#changed_13" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>CLAUDE.md layered instruction system</strong> (PR #83) — extracted verbose reference material to <code>~/.claude/reference/</code> and <code>.claude/reference/</code>, reducing global CLAUDE.md from 206→85 lines and project CLAUDE.md from 162→82 lines</li>
 <li>Command count: 111→107 (removed 7 deprecated test commands, added 3 unified)</li>
 </ul>
-<h3 id="fixed_17">Fixed<a class="headerlink" href="#fixed_17" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_18">Fixed<a class="headerlink" href="#fixed_18" title="Permanent link">&para;</a></h3>
 <ul>
 <li>52 command files missing YAML frontmatter metadata</li>
 <li>3 duplicate nav entries in mkdocs.yml</li>
@@ -16478,7 +16621,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Test plan: <code>TEST-PLAN-COMPREHENSIVE.md</code> (800+ lines)</li>
 <li>60+ test scenarios</li>
 </ul>
-<h3 id="changed_13">Changed<a class="headerlink" href="#changed_13" title="Permanent link">&para;</a></h3>
+<h3 id="changed_14">Changed<a class="headerlink" href="#changed_14" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Command count: 100 → 105 (+5 claude-md commands)</li>
 <li>Test count: 770 → 847 (+77 tests)</li>
@@ -16631,7 +16774,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <h3 id="major-feature-hub-v20-smart-command-discovery">🎉 Major Feature: Hub v2.0 - Smart Command Discovery<a class="headerlink" href="#major-feature-hub-v20-smart-command-discovery" title="Permanent link">&para;</a></h3>
 <p><strong>Impact:</strong> Zero maintenance, 100% accuracy, ADHD-friendly navigation</p>
 <p>A complete rewrite of the command hub with auto-detection engine, 3-layer progressive disclosure, and zero-maintenance command discovery.</p>
-<h3 id="added_25">Added<a class="headerlink" href="#added_25" title="Permanent link">&para;</a></h3>
+<h3 id="added_26">Added<a class="headerlink" href="#added_26" title="Permanent link">&para;</a></h3>
 <h4 id="hub-v20-implementation-featurehub-v2">Hub v2.0 Implementation (feature/hub-v2)<a class="headerlink" href="#hub-v20-implementation-featurehub-v2" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Auto-Detection Engine (Phase 1):</strong></li>
@@ -16708,7 +16851,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>tests/demo_layer2.py</code> - Category view demonstrations</li>
 <li><code>tests/demo_layer3.py</code> - Command detail demonstrations</li>
 </ul>
-<h3 id="changed_14">Changed<a class="headerlink" href="#changed_14" title="Permanent link">&para;</a></h3>
+<h3 id="changed_15">Changed<a class="headerlink" href="#changed_15" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Hub command (<code>commands/hub.md</code>):</strong></li>
 <li>Added Step 0: Load command data from discovery engine</li>
@@ -16770,7 +16913,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><strong>Performance:</strong> 94% faster than target (&lt;2ms cached)</li>
 </ul>
 <h2 id="unreleased-v1231">[Unreleased] - v1.23.1<a class="headerlink" href="#unreleased-v1231" title="Permanent link">&para;</a></h2>
-<h3 id="changed_15">Changed<a class="headerlink" href="#changed_15" title="Permanent link">&para;</a></h3>
+<h3 id="changed_16">Changed<a class="headerlink" href="#changed_16" title="Permanent link">&para;</a></h3>
 <h4 id="gif-recording-method-asciinema-as-default">GIF Recording Method: asciinema as Default<a class="headerlink" href="#gif-recording-method-asciinema-as-default" title="Permanent link">&para;</a></h4>
 <p><strong>Impact:</strong> Improved accuracy and quality of workflow GIF demonstrations</p>
 <p>Changed the default GIF recording method from VHS (scripted simulations) to asciinema (real terminal recordings) for better accuracy when documenting Claude Code plugin commands.</p>
@@ -16818,7 +16961,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 <p><strong>Rationale:</strong> asciinema records REAL output for all command types, while VHS requires manual simulation. This ensures GIFs show actual Claude Code plugin behavior instead of approximations.</p>
 <p><strong>Migration:</strong> Existing VHS tapes remain functional. Use asciinema for new GIFs or when accuracy is critical.</p>
-<h3 id="added_26">Added<a class="headerlink" href="#added_26" title="Permanent link">&para;</a></h3>
+<h3 id="added_27">Added<a class="headerlink" href="#added_27" title="Permanent link">&para;</a></h3>
 <h4 id="documentation-navigation-organization">Documentation Navigation &amp; Organization<a class="headerlink" href="#documentation-navigation-organization" title="Permanent link">&para;</a></h4>
 <p><strong>Impact:</strong> Enhanced discoverability, reduced broken link warnings, better content organization</p>
 <p>Comprehensive documentation navigation improvements including spec file organization, command reference standardization, and working document archival.</p>
@@ -16913,7 +17056,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>✅ 17 new comprehensive tests</li>
 </ul>
 <h2 id="unreleased-v1230">[Unreleased] - v1.23.0<a class="headerlink" href="#unreleased-v1230" title="Permanent link">&para;</a></h2>
-<h3 id="added_27">Added<a class="headerlink" href="#added_27" title="Permanent link">&para;</a></h3>
+<h3 id="added_28">Added<a class="headerlink" href="#added_28" title="Permanent link">&para;</a></h3>
 <h4 id="documentation-link-validation-enhancement">Documentation Link Validation Enhancement<a class="headerlink" href="#documentation-link-validation-enhancement" title="Permanent link">&para;</a></h4>
 <p><strong>Impact:</strong> 100% reduction in CI false positives (30 → 0), zero manual filtering</p>
 <p>A comprehensive <code>.linkcheck-ignore</code> parser system that distinguishes between critical and expected broken links in documentation, eliminating CI noise while maintaining strict validation for genuine issues.</p>
@@ -16974,7 +17117,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <h3 id="major-feature-teaching-workflow-system">🎉 Major Feature: Teaching Workflow System<a class="headerlink" href="#major-feature-teaching-workflow-system" title="Permanent link">&para;</a></h3>
 <p><strong>Impact:</strong> 80% time reduction (15 min → 3 min), zero production bugs</p>
 <p>A comprehensive teaching workflow system for course website management with preview-before-publish workflow, content validation, and semester tracking.</p>
-<h3 id="added_28">Added<a class="headerlink" href="#added_28" title="Permanent link">&para;</a></h3>
+<h3 id="added_29">Added<a class="headerlink" href="#added_29" title="Permanent link">&para;</a></h3>
 <h4 id="core-teaching-workflow-pr-12">Core Teaching Workflow (PR #12)<a class="headerlink" href="#core-teaching-workflow-pr-12" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Commands (5 new/enhanced):</strong></li>
@@ -17049,7 +17192,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li>Validation settings (strict mode, date checking, link validation)</li>
 <li>Publishing automation (nav updates, changelog, backups)</li>
 </ul>
-<h3 id="changed_16">Changed<a class="headerlink" href="#changed_16" title="Permanent link">&para;</a></h3>
+<h3 id="changed_17">Changed<a class="headerlink" href="#changed_17" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Enhanced <code>/craft:site:build</code> with teaching mode awareness</li>
 <li>Enhanced <code>/craft:git:status</code> with deployment context display</li>
@@ -17068,7 +17211,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <p><strong>Target:</strong> 47 commands (52% coverage)
 <strong>Achieved:</strong> 27 commands (57% coverage)
 <strong>Status:</strong> ✅ Target exceeded by 5%</p>
-<h3 id="added_29">Added<a class="headerlink" href="#added_29" title="Permanent link">&para;</a></h3>
+<h3 id="added_30">Added<a class="headerlink" href="#added_30" title="Permanent link">&para;</a></h3>
 <h4 id="phase-1-infrastructure-git-commands-pr-6">Phase 1: Infrastructure + Git Commands (PR #6)<a class="headerlink" href="#phase-1-infrastructure-git-commands-pr-6" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Infrastructure:</strong></li>
@@ -17238,7 +17381,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 <hr />
 <h2 id="1190-2026-01-08">[1.19.0] - 2026-01-08<a class="headerlink" href="#1190-2026-01-08" title="Permanent link">&para;</a></h2>
-<h3 id="added_30">Added<a class="headerlink" href="#added_30" title="Permanent link">&para;</a></h3>
+<h3 id="added_31">Added<a class="headerlink" href="#added_31" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>/craft:git:init</code> command for repository initialization</li>
 <li>Interactive 9-step wizard</li>
@@ -17256,7 +17399,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 </ul>
 <hr />
 <h2 id="1170-2025-12-xx">[1.17.0] - 2025-12-XX<a class="headerlink" href="#1170-2025-12-xx" title="Permanent link">&para;</a></h2>
-<h3 id="added_31">Added<a class="headerlink" href="#added_31" title="Permanent link">&para;</a></h3>
+<h3 id="added_32">Added<a class="headerlink" href="#added_32" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Workflow automation integration (12 commands)</li>
 <li><code>/brainstorm</code> - Smart brainstorming with delegation</li>
@@ -17264,7 +17407,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li><code>/stuck</code> - Guided problem solving</li>
 <li>Background task monitoring</li>
 </ul>
-<h3 id="changed_17">Changed<a class="headerlink" href="#changed_17" title="Permanent link">&para;</a></h3>
+<h3 id="changed_18">Changed<a class="headerlink" href="#changed_18" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Migrated workflow commands from standalone plugin</li>
 <li>Updated command count: 90 total (78 craft + 12 workflow)</li>
