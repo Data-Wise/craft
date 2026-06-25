@@ -47,6 +47,20 @@ a `SessionStart` entry to `~/.claude/settings.json`:
 ] } ] } }
 ```
 
+**SessionStart coordination (#205 item 4).** `session_hook.py` and the index writer
+`~/.claude/scripts/skills-audit.py --write-index` do **not** conflict — they have distinct jobs:
+
+| Component | Writes `SKILLS-INDEX.md`? | Role |
+|-----------|--------------------------|------|
+| `skills-audit.py --write-index` (in `settings.json`) | **yes** — sole writer | regenerates the index each session |
+| `governance/session_hook.py` | no — **reads** it | runs the audit + feeds the soak ledger |
+
+So **keep the `skills-audit.py --write-index` line** — removing it would leave nothing writing the
+index. Wiring `session_hook.py` globally remains **deferred** (a deliberate, separate step; until then
+it is not installed and there is no double-write to reconcile). The earlier worry that the hook would
+*supersede* the index writer was based on a misread of what `session_hook.py` writes — it writes
+nothing but the soak ledger.
+
 **Fail-closed:** an `error` rule whose checker is missing or unresolvable (state `ERROR`) gates the
 build too — a broken checker never passes silently. Only `error`-severity rules block; `warn` rules
 in `ERROR`/`FAIL` are surfaced but never gate.

@@ -21,7 +21,7 @@ This skill is broader than its siblings — understand the seams:
 
 | Skill | Concern | Does NOT cover |
 |---|---|---|
-| **preflight-check** (this) | Cross-cutting validators: lint, tests, types, version sync, stale refs, link integrity, hook conflicts, CLAUDE.md health, docs staleness, badge URLs, formula desc | Detection logic, release orchestration, guard rule editing |
+| **preflight-check** (this) | Cross-cutting validators: lint, tests, types, version sync, stale refs, link integrity, hook conflicts, CLAUDE.md health, docs staleness, badge URLs, formula desc, skill standards (release-gated) | Detection logic, release orchestration, guard rule editing |
 | `project-detector` (`skills/ci/`) | Detect project type / build tool / test framework to recommend a CI template | Validation orchestration. It answers "what kind of project is this?" not "is it ready?" |
 | `release` (`skills/release/`) | The full release pipeline (version bump → PR → merge → GitHub release → Homebrew → verify). Calls this skill internally for its Step 2 pre-flight gate | Standalone commit/PR validation |
 | `guard-audit` (`skills/guard-audit/`) | Tune `branch-guard.sh` rules via `.claude/branch-guard.json` to reduce false positives | Running checks. It edits guard config, doesn't validate the project |

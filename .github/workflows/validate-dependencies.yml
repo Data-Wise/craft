@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install jq (for JSON parsing)
         run: sudo apt-get update && sudo apt-get install -y jq
@@ -92,7 +92,7 @@ jobs:
 
       - name: Upload dependency reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: dependency-reports
           path: |

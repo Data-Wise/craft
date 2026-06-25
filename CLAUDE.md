@@ -8,7 +8,7 @@
 
 > `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (6 commands)
 
-**Current Version:** v2.50.0 | **Tests:** 142 passing (36 unit + 23 e2e + 29 dogfood + 55 homebrew)
+**Current Version:** v2.51.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
