@@ -152,6 +152,7 @@ nav:
       - Homebrew Setup Tutorial: tutorials/TUTORIAL-homebrew-setup.md
       - Homebrew Gates Tutorial: tutorials/TUTORIAL-homebrew-gates.md
       - Insights-Driven Workflow: tutorials/TUTORIAL-insights-workflow.md
+      - Insights Hook Setup: tutorials/TUTORIAL-insights-setup.md
       - Insights Improvements Guide: guide/insights-improvements-guide.md
       - Learning Loop & Session Completion: guide/learning-loop-session-completion.md
       - Hub Live Dashboard: guide/hub-live-dashboard.md
