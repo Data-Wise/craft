@@ -1,5 +1,7 @@
 # v2.49.x Issues Sprint Implementation Plan
 
+**Status:** ✅ SHIPPED — v2.50.0 (PRs #206/#207/#208 → dev, #209 dev→main, tag v2.50.0, 2026-06-25). Issues #200/#199/#183/#171 closed; advisory skill-standards validator wired into `/craft:check`. Checkboxes below left un-ticked at ship time (tracked via .STATUS milestone instead).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Close GitHub issues #200, #199, #183, #171 and wire the skill-standards auditor into `/craft:check`, shipped as one coordinated `v2.49.1` release.

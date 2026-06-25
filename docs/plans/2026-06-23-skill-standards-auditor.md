@@ -1,5 +1,7 @@
 # Skill Standards Auditor Implementation Plan
 
+**Status:** ✅ SHIPPED — `/craft:code:skill-standards` command landed v2.49.0 (PR #203); advisory validator in `/craft:check` v2.50.0; graduated to release-tier gate v2.51.0 (PR #212). Checkboxes below left un-ticked at ship time (tracked via .STATUS). NOTE: `SPEC-skill-standards-auditor-2026-06-23.md` still reads "not implemented" — that status line is stale; the command is live.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build `/craft:code:skill-standards` — a batch scanner that audits every `skills/**/SKILL.md` against a vendored copy of Anthropic's authoring standards, reports gaps, and applies only safe mechanical fixes.
