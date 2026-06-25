@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.49.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.50.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -219,7 +219,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **112** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.49.0 — Skill-Ecosystem Governance"
+!!! info "Latest: v2.50.0 — Skill-Ecosystem Governance"
     Policy-as-code under `governance/`: `RULES.yaml` holds the 8 skill-location rules as the single source of truth, `run_rules.py` audits them (with `--selftest` meta-validation), and `render_rules.py` generates the `CLAUDE.md` rule block with a `--check` drift gate. See the [governance guide](guide/governance.md) and the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
