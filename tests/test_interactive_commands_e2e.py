@@ -22,3 +22,14 @@ def test_grill_interaction_model_inverted():
     assert "AskUserQuestion" in text, "grill must document AskUserQuestion-per-branch"
     assert "consequence" in text.lower(), "grill must require a per-option consequence"
     assert "Recommended" in text, "grill must keep Recommended-first"
+
+
+def test_grill_declares_refine():
+    text = (PLUGIN_DIR / "commands/grill.md").read_text(encoding="utf-8")
+    assert "- name: refine" in text
+
+
+def test_grill_refine_path_rule():
+    text = (PLUGIN_DIR / "commands/grill.md").read_text(encoding="utf-8")
+    assert "skip" in text.lower() and "path" in text.lower(), \
+        "grill must document: skip refine when arg is a path"

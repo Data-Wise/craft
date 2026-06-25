@@ -15,6 +15,9 @@ arguments:
   - name: yes
     description: "Non-interactive: auto-accept every Recommended answer, emit zero AskUserQuestion prompts (alias --non-interactive)"
     required: false
+  - name: refine
+    description: "Refine the topic via prompt-refiner BEFORE grilling. Default-ON for a quoted/bare topic; SKIPPED when the argument is a path (a spec/plan file — nothing to refine). --no-refine to disable."
+    required: false
 ---
 
 # /craft:grill — Interrogate Before Building
@@ -35,6 +38,8 @@ resolved, then capture the locked decisions as a durable ledger that feeds `/cra
 - **Empty** → detect from `.STATUS`, branch name, and recent commits; confirm the target before grilling.
 
 ### Step 2: Codebase-first sweep (read-then-confirm)
+
+When the argument is a quoted/bare topic, run prompt-refiner on it first (default-on; `--no-refine` skips). When the argument is a path, skip refine entirely.
 
 Before asking anything, read repo evidence (`.STATUS`, `git log`, `docs/specs/*`, `commands/`,
 `~/.claude/settings.json` when relevant) and PRE-ANSWER every branch you can. Each pre-answer
