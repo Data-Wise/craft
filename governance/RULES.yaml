@@ -121,3 +121,17 @@ rules:
       cmd: "checks/no_broken_symlinks.py {target}"
       fixtures: { good: fixtures/no-broken-symlinks/good, bad: fixtures/no-broken-symlinks/bad }
     waivers: []
+
+  - id: R09-status-not-drift
+    statement: ".STATUS load-bearing claims (version field, SHIPPED/tagged versions) must match git/manifest reality, not hand-stamped prose."
+    rationale: "Generated/audited beats hand-stamped — the same thesis that renders CLAUDE.md from this file. .STATUS is the next artifact to drift (a stale `version:` or a SHIPPED claim whose tag is mis-placed misroutes the next session). NOTE: the live skills audit ({target} = ~/.claude/skills) has no .STATUS, so R09 vacuous-skips there; selftest validates the checker via fixtures, and the release gate fires it directly against the repo root (scripts/pre-release-check.sh, advisory)."
+    severity: warn
+    owner: stat-wise
+    status: active
+    added: 2026-06-25
+    gates: [release]
+    check:
+      kind: script
+      cmd: "checks/status_drift.py {target}"
+      fixtures: { good: fixtures/status-not-drift/good, bad: fixtures/status-not-drift/bad }
+    waivers: []

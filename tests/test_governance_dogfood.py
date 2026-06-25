@@ -410,6 +410,25 @@ class TestSoakLedger:
         soak.record_audit(str(led), [{"id": "R01", "severity": "warn", "state": "PASS"}], today="2026-06-20")
         assert json.loads(led.read_text())["rules"]["R01"]["last_red"] == "2026-06-10"
 
+    def test_promotion_not_poisoned_by_repeated_clean_audits(self, tmp_path: Path):
+        """#205 soak-poison: a warn rule that SHOULD promote must not get stuck in
+        warn by the act of being audited. Repeated clean audits must neither reset
+        first_seen (restarting the window) nor restamp last_red (re-opening it).
+        End-to-end complement to the per-field invariants above."""
+        led = tmp_path / "STATE.json"
+        # Seen since Jun 1; went RED once on Jun 5; clean every day thereafter.
+        soak.record_audit(str(led), [{"id": "R01", "severity": "warn", "state": "PASS"}], today="2026-06-01")
+        soak.record_audit(str(led), [{"id": "R01", "severity": "warn", "state": "FAIL"}], today="2026-06-05")
+        for day in range(6, 26):  # Jun 6..25, all clean
+            soak.record_audit(str(led), [{"id": "R01", "severity": "warn", "state": "PASS"}],
+                              today="2026-06-%02d" % day)
+        entry = json.loads(led.read_text())["rules"]["R01"]
+        assert entry["first_seen"] == "2026-06-01"   # window anchor never poisoned
+        assert entry["last_red"] == "2026-06-05"     # clean audits never re-opened the window
+        # 24d history, last_red 20d ago (> 14) → eligible despite all the auditing.
+        elig = soak.promotion_eligible(str(led), {"R01"}, today="2026-06-25", window_days=14)
+        assert [e["id"] for e in elig] == ["R01"], "repeated clean audits poisoned promotion"
+
     def test_load_state_recovers_from_corrupt_ledger(self, tmp_path: Path):
         """A corrupt/old-schema ledger must degrade to a fresh empty state, never
         raise — soak is best-effort and can't break the hook that feeds it."""
@@ -473,6 +492,15 @@ class TestReleaseGuard184:
         block = self._governance_block()
         assert "ERRORS=" not in block, "governance advisory must not modify $ERRORS"
         assert "exit 1" not in block, "governance advisory must not exit non-zero"
+
+    def test_status_drift_fires_against_repo_root_advisory(self):
+        """R09 (#205): the shared skills audit vacuous-skips .STATUS, so the release
+        gate must invoke status_drift.py directly against the repo root — advisory,
+        never blocking. Without this the rule is dead in production."""
+        block = self._governance_block()
+        assert "status_drift.py" in block, "R09 .STATUS drift call missing at release"
+        # advisory: the direct call must not be allowed to fail the release.
+        assert "|| true" in block, "status_drift release call must be advisory (|| true)"
 
 
 # ---------------------------------------------------------------------------
