@@ -17,6 +17,8 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Purpose |
 |--------|------|---------|
+_Recent (all 3 merged to dev + worktrees removed 2026-06-24): v2.49.x issues sprint — `feature/skill-standards-check` (PR #206, advisory validator in /craft:check), `feature/homebrew-dist-gates` (PR #207, verify-caveats + post_install gates + blocking aggregator-sync, #200/#199), `feature/insights-session-hook` (PR #208, SessionEnd facet hook + installer, #183). Built via craft:grill (10 decisions) → superpowers writing-plans (4 tracks) → 2 dynamic Workflows (impl+verify). ADR-001 + #171 shipped in Track 0. NOTE: #206 squash folded in unpushed local-dev commits; #207/#208 rebased onto origin/dev to untangle phantom conflicts. Remote branches deleted._
+
 _Recent (merged + worktree removed 2026-06-22): `feature/grill-command` (PR #201, `/craft:grill` command + orchestrate Step 0.5 + lean split + count cascade 113→114 → dev)._
 
 _Recent (merged + worktree removed 2026-06-21): `feature/governance-test-coverage` (PR #197, live-flow e2e + soak edge cases → dev)._
