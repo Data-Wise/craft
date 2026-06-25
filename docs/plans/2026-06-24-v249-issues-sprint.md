@@ -261,7 +261,7 @@ dependencies:
 
 Audit every `skills/**/SKILL.md` against the vendored Anthropic skill standards
 (`docs/reference/SKILL-STANDARDS.md`) via `scripts/skill_standards_audit.py`.
-**Advisory only**: it surfaces sub-100 skills as warnings but never fails
+**Advisory only**: it surfaces any skill scoring below 100/100 as a warning but never fails
 `/craft:check`. Graduation to a blocking gate follows the governance warn→error
 soak path once the ecosystem stays clean.
 
