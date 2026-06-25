@@ -3,7 +3,11 @@ description: Feature Planning
 category: plan
 arguments:
   - name: refine
-    description: Refine the prompt via the prompt-refiner skill before acting
+    description: "Runs the prompt-refiner by default; pass --no-refine to skip"
+    required: false
+    default: true
+  - name: no-refine
+    description: Skip the prompt-refiner (opt out of the default refinement step)
     required: false
     default: false
 deprecated: true
@@ -20,9 +24,12 @@ Plan and scope new features with structured breakdown.
 /craft:plan:feature <feature_description>
 ```
 
-## --refine (prompt pre-processing)
+## --refine / --no-refine (prompt pre-processing)
 
-When `--refine` is set, do NOT act on the raw argument. First invoke the
+Runs the prompt-refiner **by default** to pre-process your input. Pass `--no-refine` to skip.
+Under `--yes`, the refiner auto-accepts (no Accept/Edit prompt).
+
+Do NOT act on the raw argument. First invoke the
 `prompt-refiner` skill with the argument and project context. Follow that
 skill's canonical flow (before/after → Accept/Edit/Use-original; `--yes`
 or auto mode auto-accepts). Then proceed using the prompt the skill
