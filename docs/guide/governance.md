@@ -91,6 +91,14 @@ means the copy was hand-edited rather than consumed via `plugin update`. This is
 (version-pin equality): R04 catches a drifted *body* even when the version still matches. It gates
 `session` (the canon repos are local-only; vacuous-skip elsewhere).
 
+`R09-status-not-drift` (`checks/status_drift.py {target}`, `severity: warn`) extends the data-not-prose
+thesis to `.STATUS` — the next-most load-bearing artifact still hand-stamped per PR. It checks the two
+claims that mislead a future session if wrong: the `version:` field vs the manifest source-of-truth, and
+any `vX.Y.Z` marked SHIPPED/tagged vs the real git tag. Because the shared live audit targets the skills
+surface (no `.STATUS`), R09 **vacuous-skips there**; `--selftest` validates the checker via fixtures, and
+`scripts/pre-release-check.sh` fires it directly against the repo root (advisory, never blocks). It
+deliberately checks only those two claims, not the prose body, to stay false-positive-resistant.
+
 ## Promotion: soak-then-flip (the gentle-ramp)
 
 A rule starts at `severity: warn` and tightens to `error` only once its surface has been clean for a
