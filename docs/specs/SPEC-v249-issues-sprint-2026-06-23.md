@@ -4,6 +4,7 @@
 **Date:** 2026-06-23  
 **Author:** brainstorm session (max depth, 10 expert Qs, 2 background agents)  
 **Target release:** v2.49.x (one coordinated release)
+**Grill ledger:** [GRILL-v249-issues-sprint-2026-06-23.md](GRILL-v249-issues-sprint-2026-06-23.md) — 10 sequencing/implementation decisions locked (2026-06-24)
 
 ---
 

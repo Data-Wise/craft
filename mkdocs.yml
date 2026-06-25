@@ -158,6 +158,7 @@ nav:
       - CI Monitoring Architecture: architecture/ci-monitoring.md
       - Version Sync Architecture: architecture/version-sync.md
       - Mermaid Pipeline Architecture: architecture/mermaid-validation-pipeline.md
+      - "ADR-001: Workflow vs Worktree": adr/ADR-001-workflow-branch-guard.md
       - "ADR-002: Done Command/Skill Consolidation": adr/ADR-002-done-command-skill-consolidation.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
