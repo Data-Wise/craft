@@ -10,13 +10,14 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Head     | Base | Status                                                              |
 |--------|----------|------|---------------------------------------------------------------------|
-| main   | 4dea8ac8 | —    | Production (v2.48.0 tagged, PR #202 merged 2026-06-23, main CI GREEN) |
-| dev    | 9b803adb | main | Released to main as v2.48.0 (--admin phantom check); tap synced |
+| main   | 463aa365 | —    | Production (v2.50.0 tagged 2026-06-25, PR #209 merged --admin, main CI GREEN) |
+| dev    | 7f6df416 | main | Ahead of main by 1: #138 node20→node24 CI bump (`Closes #138` fires at next release); pushed |
 
 📂 Active Worktrees:
 
 | Branch | Path | Purpose |
 |--------|------|---------|
+| `feature/check-skill-standards-gate` | `~/.git-worktrees/craft/feature-check-skill-standards-gate` | skill-standards **release-tier gate** in `/craft:check` (commit `6f19147c`, 77 e2e+dogfood green, unmerged) |
 _Recent (all 3 merged to dev + worktrees removed 2026-06-24): v2.49.x issues sprint — `feature/skill-standards-check` (PR #206, advisory validator in /craft:check), `feature/homebrew-dist-gates` (PR #207, verify-caveats + post_install gates + blocking aggregator-sync, #200/#199), `feature/insights-session-hook` (PR #208, SessionEnd facet hook + installer, #183). Built via craft:grill (10 decisions) → superpowers writing-plans (4 tracks) → 2 dynamic Workflows (impl+verify). ADR-001 + #171 shipped in Track 0. NOTE: #206 squash folded in unpushed local-dev commits; #207/#208 rebased onto origin/dev to untangle phantom conflicts. Remote branches deleted._
 
 _Recent (merged + worktree removed 2026-06-22): `feature/grill-command` (PR #201, `/craft:grill` command + orchestrate Step 0.5 + lean split + count cascade 113→114 → dev)._
@@ -26,10 +27,11 @@ _Recent (merged + worktree removed 2026-06-21): `feature/governance-test-coverag
 _Prior (all merged + worktrees removed 2026-06-21): `feature/governance-184-release-guard` (PR #196, R04 content-drift automation + #184 release advisory → dev); `feature/governance-phase2-soak` (PR #194, soak-then-flip + cross-repo `run.sh` → dev); `feature/flaky-perf-xfail` (PR #193, xfail timing test); `feature/governance-phase2-hook` (PR #190, SessionStart hook → dev), `feature/cleanup-stray-orchestrate` (PR #191, removed leaked ORCHESTRATE), `feature/governance-phase2-gates` (PR #188, v2.44.0). Local branch refs left dangling (squash-merge + branch-guard blocks `-D`) — harmless._
 
 > **🎯 Next Action (next session):**
-> A) **v2.49.x issues sprint** (`docs/specs/SPEC-v249-issues-sprint-2026-06-23.md`, APPROVED, not started): PR A homebrew dist-gates (#200 verify-caveats + post-install, #199 Cowork/Desktop), PR B insights SessionStop facet hook (#183), ADR-001 workflow-vs-worktree (#171). Open grill questions in `GRILL-done-command-skill-consolidation-2026-06-23.md` (verify_caveats signature; SessionStop-vs-Stop hook name; PR-B hook ships outside repo). ⚡ (Recommended)
-> B) **Wire `/craft:code:skill-standards` into `/craft:check`** pre-flight (shipped standalone/non-gating; gate once legacy skills are clean — they're 100/100 now).
-> C) **`--swarm=2` spec:** `SPEC-orchestrate-swarm-2level-2026-06-18` — worktree pending.
-> D) **PAT→App migration:** himalaya-mcp + nexus-cli (#130).
+> _Done since this block: v2.49.x sprint SHIPPED as **v2.50.0**; #138 node20→node24 CI bump on dev (`7f6df416`, auto-closes at next release); skill-standards **release-tier gate** wired into `/craft:check` on `feature/check-skill-standards-gate` (`6f19147c`, 77 tests green, UNMERGED) — also fixed a latent `CRAFT_MODE`-binding no-op that backstopped version-check._
+> A) **#205 governance retro** (opened 2026-06-25): `.STATUS`-as-data, pin soak-poison with a test, **hard-gate-vs-advisory ADR**, hook reconciliation. ⚡ (Recommended — freshest, and the ADR directly extends the gate just shipped.)
+> B) **#184 dist private/public + post-release pin-refresh** — release/marketplace commands need public-vs-private plugin support; needs a design/grill pass first.
+> C) **`--swarm=2` impl:** `SPEC-orchestrate-swarm-2level-2026-06-18` (APPROVED) — worktree pending.
+> D) **PAT→App migration:** himalaya-mcp + nexus-cli (#130) — external dep (user must configure `APP_ID`/`APP_PRIVATE_KEY`).
 
 _Prior: `feature/multi-surface-release` MERGED → dev `3814525d` (PR #161 squash, 2026-06-15, CI green) — all 5 phases (verify-surfaces engine, cache-prune, aggregator marketplace craft-side, docs; rforge drift fix ops). Full suite 1769 passed. ORCHESTRATE removed at merge (`a75dea82`); worktree removed; local branch `feature/multi-surface-release` left dangling (squash + unpushed rebase → `-d` refuses, `-D` guard-blocked — harmless). **Cross-repo aggregator DONE: `Data-Wise/claude-plugins#3` MERGED → main `45ab799d`** (2026-06-15) — `marketplace.json` listing craft/scholar/rforge/himalaya-mcp now live; `claude plugin marketplace add Data-Wise/claude-plugins` surfaces all. Q6 resolved to reuse claude-plugins. `feature/branch-guard-cleanup` MERGED → dev `772efcc7` (PR #160 squash, 2026-06-15, CI green) — #158/#159 review follow-up: consolidated dev/draft detection (single probe, `refs/heads/*`), test-header note + e2e re-indent; worktree + branches removed. `feature/ci-triage` MERGED → dev `a1812afb` (PR #154 squash, 2026-06-14, CI green) — item #5; first real test of #7+#2 (auto-swept CI subtotal, tripwire caught stale refs). `feature/pr2-drift-tripwire` MERGED → dev `f00f5872` (PR #153 squash, 2026-06-14, CI green) — completes the #7→#2 chain (subtotals synced + CI tripwire). `feature/pr7-bump-subtotals` MERGED → dev `91a82271` (PR #152 squash, 2026-06-13; CI caught a real BSD-sed-no-ops-on-GNU bug, fixed with a `sedi()` wrapper). `feature/pr1a-test-hygiene` MERGED → dev `813855f2` (PR #151 squash, 2026-06-13, CI green); worktree + local + remote branch all removed. `fix/mermaid-markers` MERGED → dev `d21a1e4a` (PR #149 squash); `feature/workflow-engine` MERGED → dev `caadd8db` (PR #148 squash) — worktrees + branches removed. `feature/orchestrate-drive`, `feature/refine-flag`, `fix/version-sync-pipefail` merged 2026-06-03 (PRs #143–#145)._
 
