@@ -20,3 +20,12 @@ def test_yes_cascade_documented():
     refiner = (PLUGIN_DIR / "skills/workflow/prompt-refiner/SKILL.md").read_text(encoding="utf-8").lower()
     assert "auto" in refiner and ("--yes" in refiner or "auto-accept" in refiner), \
         "prompt-refiner must document an auto-accept path for --yes"
+
+
+def test_orchestrate_clarify_model():
+    text = (PLUGIN_DIR / "commands/orchestrate.md").read_text(encoding="utf-8")
+    assert "Step 0.5" in text
+    lo = text.lower()
+    assert "askuserquestion" in lo and "consequence" in lo, \
+        "orchestrate Step 0.5 must adopt the structured model"
+    assert "--yes" in text, "orchestrate clarify must honor --yes"

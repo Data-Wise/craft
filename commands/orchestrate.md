@@ -192,13 +192,29 @@ interrogation that LOCKS the decisions which change the plan — one question at
 answer per question, codebase-first. `--no-capture` keeps it from writing a `GRILL-*` spec file
 mid-orchestration; the decisions return inline. Then build Step 1 on the locked answers.
 
+**`--yes` propagation:** when `--yes` is set, pass it through to the embedded grill call
+(`/craft:grill --bound 2 --no-capture --yes`). Grill auto-picks every Recommended answer and emits
+zero AskUserQuestion prompts — the full clarify pass runs headlessly with no user interaction.
+
 SKIP this step when:
 
 - the user passed `--no-clarify` (or `--yes` to auto-proceed), OR
 - a matching `SPEC-*` / `ORCHESTRATE-*` / `WORKFLOW-*` file already pins the decisions, OR
 - the task is unambiguous (single interpretation, clear scope + success criteria).
 
-Fallback if `/craft:grill` is unavailable: 1–2 `AskUserQuestion` rounds, recommended-option-first.
+Fallback if `/craft:grill` is unavailable: use `AskUserQuestion` per decision branch,
+Recommended-first. Each option must include a one-line consequence (what changes in the plan if
+this branch is chosen), so the user can make an informed pick without needing further back-and-forth.
+Example structure:
+
+```
+Question: [decision that affects the plan]
+1. [Option A] (Recommended) — consequence: [how the plan changes]
+2. [Option B] — consequence: [how the plan changes]
+```
+
+When `--yes` is set in fallback mode, auto-select every Recommended option and skip all
+AskUserQuestion prompts — headless orchestrate asks nothing.
 
 ### Step 1: Task Analysis (show plan FIRST)
 
