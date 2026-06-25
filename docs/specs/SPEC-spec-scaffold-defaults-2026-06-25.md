@@ -26,6 +26,7 @@ spec — with `--no-tests` / `--no-docs` opt-outs — generalizing the refine-de
 | **D6** | **Docs lifecycle split** | "Auto-update docs" = (a) spec-time: emit section + pre-derive boxes, **read-only**; (b) impl/post-merge: real edits via existing `/craft:docs:update --post-merge` + `docs-staleness-check.sh --fix`, **diff-confirm gated** (only `--yes`/headless skips). The spec wires (b) as a checklist item; it never edits docs for not-yet-written code at spec-time. |
 | **D7** | **Scope guard against count-cascade drift** | Auto-docs owns *semantic* docs only (CHANGELOG `[Unreleased]` ×2 mirror, guide/refcard/tutorial prose). The *mechanical* count cascade (`bump-version.sh` 13 files, `(N craft)` subtotal, badges, version refs) stays release-time. They never write the same lines. |
 | **D8** | **No new testing agent** | craft ships no `testing-specialist` agent; use skills only (`test-strategist`, `test-generator`) + superpowers TDD. Avoids the ~30-file count cascade a new agent triggers. |
+| **D9** | **Review resolutions (2026-06-25)** | (a) **grill** scaffolds tests/docs on a TOPIC arg, SKIPS on a PATH arg (mirrors refine path-vs-topic). (b) Both templates live in ONE shared `skills/workflow/brainstorm-insights/references/scaffold-templates.md`; all producers point to it (no per-command copies). (c) **Sequencing:** implement the sibling interactive-commands spec FIRST (establishes `--yes` + default-on/`--no-*` plumbing + refine-on-grill); this spec reuses that foundation. |
 
 ## 3. Dimension 1 — test-plan scaffold (`--no-tests`)
 
@@ -78,7 +79,7 @@ One checklist item per **contract or behavior**, never per function.
 
 ### 4.1 Generated "Documentation" section
 
-Canonical template = the existing block at `commands/workflow/brainstorm.md:403-411` — **lift it verbatim** (don't author a competitor), promote to `skills/workflow/brainstorm-insights/references/doc-section-template.md`, reference from each producer. Structure (checklist, N/A-mark unaffected): tutorial · help + command-ref pages · refcard entry · hub/smart-help discovery · website nav + `skills-agents.md` row · CHANGELOG `[Unreleased]` + bumps.
+Canonical template = the existing block at `commands/workflow/brainstorm.md:403-411` — **lift it verbatim** (don't author a competitor), promote into the shared `skills/workflow/brainstorm-insights/references/scaffold-templates.md` (D9b — same file as the test-plan template), reference from each producer. Structure (checklist, N/A-mark unaffected): tutorial · help + command-ref pages · refcard entry · hub/smart-help discovery · website nav + `skills-agents.md` row · CHANGELOG `[Unreleased]` + bumps.
 
 **Deriving WHICH docs:** reuse craft's existing scorer (`commands/docs/sync.md:233` / `update.md:744` — new command +1 refcard, new module +3 guide, new hook +3 mermaid, multi-step +3 tutorial, threshold ≥3). Feed the spec's stated change-shape to the same scorer to pre-check boxes. **No new rubric.**
 
@@ -139,15 +140,22 @@ Two tiers (this is itself a flag + skill-logic change → e2e + dogfood; the doc
 - **Non-goal v1:** auto-running the impl-time doc edits without confirm (gated always, except headless `--yes`).
 - **Non-goal v1:** default-on for `arch:plan`/`spec-review` (opt-in only).
 
-## 8. Open questions (resolve at implementation)
+## 8. Open questions
 
-1. Shared reference vs per-command duplication for the test-plan template — lean a single `references/` doc both the skills and the non-deprecated commands (grill, arch:plan) point to.
-2. Does `grill` (convergent, often path-arg) emit a *test* scaffold, or only when its target is a topic/feature? Lean: same path-vs-topic rule as its refine (D6 sibling spec) — scaffold for topic, skip for path.
-3. Exact name of the impl-time count-exclusion guard (`--no-changelog` exists; may need `--semantic-only`).
+**Resolved at interactive review (2026-06-25):**
+
+1. ✅ **Template home** → a SINGLE shared reference doc (`skills/workflow/brainstorm-insights/references/scaffold-templates.md`) holding BOTH the test-plan and docs-section templates; all 5 commands + 2 skills point to it. One source of truth (see D9).
+2. ✅ **grill scaffold scope** → topic-only: grill emits test/docs scaffolds when its arg is a quoted/bare TOPIC (authoring mode); SKIPS on a path arg. Mirrors grill's refine path-vs-topic rule (sibling D6). (see D9)
+3. ✅ **Doc-edit gating** → confirm-always; only `--yes`/headless skips the prompt; never auto-commits (confirms D6).
+4. ✅ **Anti-boilerplate** → low-confidence test items are EMITTED with a `# TODO(author): delete if not contract-bearing` marker (human prunes); nothing silently dropped (confirms §3.3).
+
+**Still open (implementation detail):**
+
+5. Exact name of the impl-time count-exclusion guard (`--no-changelog` exists; may need `--semantic-only`).
 
 ---
 
 ## Handoff
 
 `/craft:plan` (tier 4) → `ORCHESTRATE-spec-scaffold-defaults.md` → worktree → TDD per §5.
-Sequence after / alongside the sibling interactive-commands spec (shared `--yes` + default-on plumbing).
+**Sequencing (D9c):** implement the sibling interactive-commands spec FIRST; this spec builds on its `--yes` + default-on/`--no-*` plumbing.
