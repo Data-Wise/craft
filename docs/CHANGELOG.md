@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.51.0] — 2026-06-25
+
+### Added
+
+- **R09 `status-not-drift` governance check** (#205) — `governance/checks/status_drift.py` (`severity: warn`) extends the data-not-prose thesis to `.STATUS`: it audits the `version:` field against the manifest source-of-truth and any `vX.Y.Z` marked SHIPPED/tagged against the real git tag. It deliberately ignores the prose body to stay false-positive-resistant. Driven by a `good`/`bad` fixture pair for `--selftest`; fires LIVE in `scripts/pre-release-check.sh` (the shared skills-surface audit vacuous-skips it, so it never becomes a dead rule). `RULES.yaml` + the governance guide document it.
+- **ADR-003** (#205) — `docs/adr/ADR-003-release-drift-advisory-not-hard-gate.md`: records the decision to keep release-drift detection advisory (not a hard gate) plus the P7 freeze marker.
+
+### Changed
+
+- **`/craft:check` skill-standards validator graduated to a release-tier gate** — the v2.50.0 advisory validator now **blocks at the release tier** (`CRAFT_MODE=release`) while staying advisory below it (gentle-ramp: visible everywhere, enforced only at the release boundary).
+
+### Fixed
+
+- **Latent `CRAFT_MODE` no-op in `/craft:check`** — `check.md` is LLM-prose with no env-setting orchestrator, so `--for release` never actually exported the gating variable and the release-tier gate (and the version check that shares the binding) silently never fired. Added an explicit "Mode binding REQUIRED" section that exports `CRAFT_MODE`. Also corrected a mislabeled audit exit code (`2` = error-findings, not "engine error").
+
+---
+
 ## [2.50.0] — 2026-06-25
 
 ### Added
