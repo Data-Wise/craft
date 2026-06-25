@@ -11,14 +11,16 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 | Branch | Head     | Base | Status                                                              |
 |--------|----------|------|---------------------------------------------------------------------|
 | main   | 463aa365 | —    | Production (v2.50.0 tagged 2026-06-25, PR #209 merged --admin, main CI GREEN) |
-| dev    | 7f6df416 | main | Ahead of main by 1: #138 node20→node24 CI bump (`Closes #138` fires at next release); pushed |
+| dev    | d483484f | main | Ahead of main by 3: #138 node24 CI bump + #211 (#205 retro: R09+ADR-003) + #212 (skill-standards release gate); all auto-close at next release; pushed |
 
 📂 Active Worktrees:
 
 | Branch | Path | Purpose |
 |--------|------|---------|
-| `feature/check-skill-standards-gate` | `~/.git-worktrees/craft/feature-check-skill-standards-gate` | skill-standards **release-tier gate** in `/craft:check` (commit `6f19147c`, 77 e2e+dogfood green, unmerged) |
-| `feature/governance-retro-205` | `~/.git-worktrees/craft/feature-governance-retro-205` | #205 retro: R09 status-drift check + soak-poison test + ADR-003 + hook note (`cb80c8b7`, 49 governance+status_drift green, unmerged) |
+| _(none active)_ | — | Both 2026-06-25 branches MERGED to dev (see below); worktrees not yet removed |
+
+_Recent (both MERGED to dev 2026-06-25, conflict-free squash, no `--admin`; remote branches deleted; worktrees at `~/.git-worktrees/craft/feature-check-skill-standards-gate` + `feature-governance-retro-205` still present pending removal): `feature/governance-retro-205` (PR #211 → dev `51327ffc`, #205 retro R09 status-drift + ADR-003 D1–D4) + `feature/check-skill-standards-gate` (PR #212 → dev `d483484f`, skill-standards release-tier gate + CRAFT_MODE no-op fix). Verified mergeable via `merge-tree --write-tree` despite branches being behind dev — the `--stat` looked like `.STATUS`/`CLAUDE.md`/`governance.md` conflicts but the branches authored ZERO changes there (behind ≠ changed); dev's R09 doc `57af82a8` not clobbered. Both branches had been pushed first (gate branch was local-only — would have been a data-loss risk)._
+
 _Recent (all 3 merged to dev + worktrees removed 2026-06-24): v2.49.x issues sprint — `feature/skill-standards-check` (PR #206, advisory validator in /craft:check), `feature/homebrew-dist-gates` (PR #207, verify-caveats + post_install gates + blocking aggregator-sync, #200/#199), `feature/insights-session-hook` (PR #208, SessionEnd facet hook + installer, #183). Built via craft:grill (10 decisions) → superpowers writing-plans (4 tracks) → 2 dynamic Workflows (impl+verify). ADR-001 + #171 shipped in Track 0. NOTE: #206 squash folded in unpushed local-dev commits; #207/#208 rebased onto origin/dev to untangle phantom conflicts. Remote branches deleted._
 
 _Recent (merged + worktree removed 2026-06-22): `feature/grill-command` (PR #201, `/craft:grill` command + orchestrate Step 0.5 + lean split + count cascade 113→114 → dev)._
@@ -28,8 +30,8 @@ _Recent (merged + worktree removed 2026-06-21): `feature/governance-test-coverag
 _Prior (all merged + worktrees removed 2026-06-21): `feature/governance-184-release-guard` (PR #196, R04 content-drift automation + #184 release advisory → dev); `feature/governance-phase2-soak` (PR #194, soak-then-flip + cross-repo `run.sh` → dev); `feature/flaky-perf-xfail` (PR #193, xfail timing test); `feature/governance-phase2-hook` (PR #190, SessionStart hook → dev), `feature/cleanup-stray-orchestrate` (PR #191, removed leaked ORCHESTRATE), `feature/governance-phase2-gates` (PR #188, v2.44.0). Local branch refs left dangling (squash-merge + branch-guard blocks `-D`) — harmless._
 
 > **🎯 Next Action (next session):**
-> _Done since this block: v2.49.x sprint SHIPPED as **v2.50.0**; #138 node20→node24 CI bump on dev (`7f6df416`, auto-closes at next release); skill-standards **release-tier gate** wired into `/craft:check` on `feature/check-skill-standards-gate` (`6f19147c`, 77 tests green, UNMERGED) — also fixed a latent `CRAFT_MODE`-binding no-op that backstopped version-check._
-> A) **#205 governance retro** (opened 2026-06-25): `.STATUS`-as-data, pin soak-poison with a test, **hard-gate-vs-advisory ADR**, hook reconciliation. ⚡ (Recommended — freshest, and the ADR directly extends the gate just shipped.)
+> _Done since this block: v2.49.x sprint SHIPPED as **v2.50.0**; #138 node24 CI bump + **#205 retro MERGED** (PR #211, R09 status-drift check + ADR-003) + **skill-standards release gate MERGED** (PR #212) — all 3 on dev, ahead of main by 3, auto-close at next release. #205 stays OPEN until the dev→main release (merged into dev, not the default branch — same as #138)._
+> A) **Cut the dev→main release** (Recommended — dev is 3 ahead with 2 shipped features + a CI bump; releasing closes #205/#138 and lands R09+the gate on main). Run `/release` (MINOR — 2 `feat:` squashes). Optionally remove the 2 stale worktrees first.
 > B) **#184 dist private/public + post-release pin-refresh** — release/marketplace commands need public-vs-private plugin support; needs a design/grill pass first.
 > C) **`--swarm=2` impl:** `SPEC-orchestrate-swarm-2level-2026-06-18` (APPROVED) — worktree pending.
 > D) **PAT→App migration:** himalaya-mcp + nexus-cli (#130) — external dep (user must configure `APP_ID`/`APP_PRIVATE_KEY`).
