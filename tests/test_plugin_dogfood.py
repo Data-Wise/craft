@@ -558,5 +558,140 @@ class TestBumpVersionSubtotals:
         )
 
 
+# ============================================================================
+# v2.49.x sprint — Skill-Standards Validator (Track 1, dogfood)
+# ============================================================================
+class TestSkillStandardsValidatorDogfood:
+    """craft runs its own skill-standards auditor against its own skills tree."""
+
+    VALIDATOR = PLUGIN_DIR / ".claude-plugin" / "skills" / "validation" / "skill-standards-check.md"
+    AUDIT = SCRIPTS_DIR / "skill_standards_audit.py"
+
+    def test_audit_runs_clean_on_own_skills(self):
+        """craft's own skills are compliant -> audit exits 0 with a score line."""
+        result = subprocess.run(
+            ["python3", str(self.AUDIT), "--root", "skills"],
+            capture_output=True, text=True, timeout=60, cwd=str(PLUGIN_DIR),
+        )
+        assert result.returncode == 0, f"own-skills audit not clean:\n{result.stdout}{result.stderr}"
+        assert "100/100" in result.stdout or "Score" in result.stdout
+
+    def test_validator_skill_is_hotreload_fork(self):
+        text = self.VALIDATOR.read_text()
+        assert "hot_reload: true" in text
+        assert "context: fork" in text
+        assert "category: validation" in text
+
+    def test_validator_impl_is_advisory_always_exits_zero(self, tmp_path):
+        """The embedded bash impl must NEVER exit non-zero (D3 advisory), even on a bad skill."""
+        m = re.search(r"## Implementation\s+```bash\n(.*?)```", self.VALIDATOR.read_text(), re.S)
+        assert m, "validator has no bash Implementation block"
+        bad = tmp_path / "skills" / "bad"
+        bad.mkdir(parents=True)
+        (bad / "SKILL.md").write_text("# no frontmatter at all\n")
+        script = tmp_path / "run.sh"
+        script.write_text(m.group(1))
+        env = {**os.environ, "SKILL_STANDARDS_ROOT": str(tmp_path / "skills"),
+               "CRAFT_ROOT": str(PLUGIN_DIR)}
+        r = subprocess.run(["bash", str(script)], capture_output=True, text=True,
+                           env=env, timeout=60)
+        assert r.returncode == 0, f"advisory validator must exit 0, got {r.returncode}"
+
+
+# ============================================================================
+# v2.49.x sprint — Homebrew dist-gates (Track A, dogfood)
+# ============================================================================
+class TestHomebrewGatesDogfood:
+    """craft's verify_caveats / post_install gates run on synthesized formulae."""
+
+    def test_verify_caveats_advisory_by_default(self, tmp_path):
+        """A stale formula returns findings but exit 0 unless --strict (D4 advisory)."""
+        formula = tmp_path / "f.rb"
+        formula.write_text(
+            "class F < Formula\n  def caveats\n    <<~EOS\n      New in v1.0.0:\n"
+            "      # --- dynamic bullets ---\n      - old\n      # --- end dynamic bullets ---\n"
+            "    EOS\n  end\nend\n"
+        )
+        changelog = tmp_path / "CHANGELOG.md"
+        changelog.write_text("## [2.0.0]\n- new thing\n")
+        advisory = subprocess.run(
+            ["python3", str(SCRIPTS_DIR / "verify_caveats.py"), str(formula),
+             str(changelog), "2.0.0"],
+            capture_output=True, text=True, timeout=30, cwd=str(PLUGIN_DIR),
+        )
+        assert advisory.returncode == 0, "default mode must be advisory (exit 0)"
+        strict = subprocess.run(
+            ["python3", str(SCRIPTS_DIR / "verify_caveats.py"), str(formula),
+             str(changelog), "2.0.0", "--strict"],
+            capture_output=True, text=True, timeout=30, cwd=str(PLUGIN_DIR),
+        )
+        assert strict.returncode == 1, "--strict must escalate stale caveats to exit 1"
+
+    def test_post_install_flags_wrong_update_ordering(self, tmp_path):
+        """post_install gate catches 'plugin update' before 'marketplace update' (the v2.49.0 bug)."""
+        good = tmp_path / "good.rb"
+        good.write_text(
+            'class G < Formula\n  def post_install\n    begin\n'
+            '      system "claude", "plugin", "marketplace", "update", "local-plugins"\n'
+            '      system "claude", "plugin", "update", "g@local-plugins"\n'
+            '      (libexec/"x").install "y"\n    rescue => e\n      opoo e.message\n    end\n  end\nend\n'
+        )
+        r_good = subprocess.run(
+            ["python3", str(SCRIPTS_DIR / "post_install_check.py"), str(good)],
+            capture_output=True, text=True, timeout=30, cwd=str(PLUGIN_DIR),
+        )
+        assert r_good.returncode == 0, f"correct ordering should pass:\n{r_good.stdout}"
+        bad = tmp_path / "bad.rb"
+        bad.write_text(good.read_text().replace(
+            'system "claude", "plugin", "marketplace", "update", "local-plugins"\n'
+            '      system "claude", "plugin", "update", "g@local-plugins"',
+            'system "claude", "plugin", "update", "g@local-plugins"\n'
+            '      system "claude", "plugin", "marketplace", "update", "local-plugins"'))
+        r_bad = subprocess.run(
+            ["python3", str(SCRIPTS_DIR / "post_install_check.py"), str(bad), "--strict"],
+            capture_output=True, text=True, timeout=30, cwd=str(PLUGIN_DIR),
+        )
+        assert r_bad.returncode == 1, "--strict must block wrong update ordering"
+
+
+# ============================================================================
+# v2.49.x sprint — SessionEnd insights facet hook (Track B, dogfood)
+# ============================================================================
+class TestSessionFacetHookDogfood:
+    """craft's own SessionEnd hook + installer run end-to-end against a temp HOME."""
+
+    HOOK = PLUGIN_DIR / "hooks" / "session-facet.sh"
+    INSTALLER = SCRIPTS_DIR / "install-session-facet.sh"
+
+    def test_hook_writes_one_facet_per_session(self, tmp_path):
+        import json as _json
+        env = {**os.environ, "HOME": str(tmp_path)}
+        stdin = _json.dumps({"cwd": str(tmp_path), "session_id": "dogfood-sess"})
+        for _ in range(2):  # second SessionEnd for same session must be a no-op (D5 dedup)
+            r = subprocess.run(["bash", str(self.HOOK)], input=stdin,
+                               capture_output=True, text=True, env=env, timeout=30)
+            assert r.returncode == 0, f"hook must exit 0: {r.stderr}"
+        facets = list((tmp_path / ".claude" / "usage-data" / "facets").glob("session-*.json"))
+        assert len(facets) == 1, "exactly one facet per session id (per-session dedup, not per-day)"
+        data = _json.loads(facets[0].read_text())
+        assert data["session_id"] == "dogfood-sess"
+        assert data["auto_collected"] is True
+
+    def test_installer_registers_sessionend_idempotently(self, tmp_path):
+        import json as _json
+        (tmp_path / ".claude" / "hooks").mkdir(parents=True)
+        settings = tmp_path / ".claude" / "settings.json"
+        settings.write_text('{"hooks":{}}')
+        env = {**os.environ, "HOME": str(tmp_path)}
+        for _ in range(2):  # idempotent on re-run
+            subprocess.run(["bash", str(self.INSTALLER)], capture_output=True,
+                           text=True, env=env, timeout=30, check=True)
+        s = _json.loads(settings.read_text())
+        se = _json.dumps(s["hooks"].get("SessionEnd", []))
+        assert "session-facet.sh" in se, "installer must register the SessionEnd hook"
+        assert se.count("session-facet.sh") == 1, "registration must be idempotent"
+        assert (tmp_path / ".claude" / "hooks" / "session-facet.sh").exists()
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
