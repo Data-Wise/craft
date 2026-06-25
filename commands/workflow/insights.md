@@ -59,7 +59,7 @@ If no data found, show:
 ```text
 No insights data found.
 
-Session facets are collected automatically during Claude Code sessions.
+Session facets are written when you run \`/craft:workflow:done\`. Once the SessionEnd facet hook (issue #183) is installed, a lower-fidelity skeleton facet is also written automatically at the end of every session — see the insights setup tutorial.
 Check back after a few sessions, or verify data at:
   ~/.claude/usage-data/facets/
 ```
