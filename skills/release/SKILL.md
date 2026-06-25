@@ -58,6 +58,9 @@ After detecting the current and next version, display:
 │  9. ✓ Deploy docs site (mkdocs gh-deploy)                   │
 │ 10. ✓ Update Homebrew tap (formula or cask)                 │
 │      (10b if Tauri: build → upload → SHA256 → cask → tap)   │
+│      (10b verify_caveats.py — advisory caveats gate)         │
+│      (10c post_install_check.py — advisory structural gate)  │
+│      (10d aggregator-sync.sh — BLOCKING, exit 1 on failure)  │
 │ 11. ✓ Sync dev with main                                    │
 │ 12. ✓ Verify CI on main                                     │
 │ 13. ✓ Verify downstream (docs, brew, badges, cask)          │

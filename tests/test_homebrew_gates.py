@@ -77,3 +77,18 @@ def test_structural_flags_update_before_marketplace_refresh(tmp_path):
     rep = check_post_install(str(f))
     assert not rep.ok
     assert any("marketplace update" in x for x in rep.findings)
+
+# Task A.3: wiring smoke tests
+import pathlib
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+
+def test_release_path_documents_blocking_aggregator_and_advisory_gates():
+    hb = (ROOT / "commands/dist/homebrew.md").read_text()
+    assert "verify_caveats.py" in hb and "Step 10b" in hb
+    assert "post_install_check.py" in hb and "Step 10c" in hb
+    assert "aggregator-sync" in hb and ("exit 1" in hb or "BLOCKING" in hb)
+    assert "@local-plugins" in hb and "Step 10d" in hb
+
+def test_caveats_gate_is_advisory_by_default_strict_via_env():
+    hb = (ROOT / "commands/dist/homebrew.md").read_text()
+    assert "HOMEBREW_GATE_STRICT" in hb
