@@ -333,6 +333,20 @@ else
     echo -e "${YELLOW}  - governance engine not found — skipping advisory audit${NC}"
 fi
 
+# R09 (#205): .STATUS drift. The shared live audit targets the skills surface
+# (no .STATUS), so R09 vacuous-skips there — check the repo root directly here.
+# Advisory: surfaces drift in release output, never blocks (gentle-ramp, like #184).
+STATUS_DRIFT="$PLUGIN_DIR/governance/checks/status_drift.py"
+if [ -f "$STATUS_DRIFT" ] && [ -f "$PLUGIN_DIR/.STATUS" ]; then
+    SD_OUT="$(python3 "$STATUS_DRIFT" "$PLUGIN_DIR" 2>&1 || true)"
+    if printf '%s' "$SD_OUT" | grep -q "drift:"; then
+        echo -e "${YELLOW}  ⚠ .STATUS drift (R09) — ADVISORY, not blocking:${NC}"
+        printf '%s\n' "$SD_OUT" | sed 's/^/    /'
+    else
+        echo -e "${GREEN}  ✓ .STATUS: version + release claims match git/manifest${NC}"
+    fi
+fi
+
 # --------------------------------------------------------------------------
 # Summary
 # --------------------------------------------------------------------------
