@@ -1623,6 +1623,44 @@ For full generator documentation, see:
 
 ---
 
+## Release Gates (Plugin Formula)
+
+Advisory gates run before pushing the tap formula; the aggregator-sync gate is BLOCKING.
+
+Set `HOMEBREW_GATE_STRICT=1` to promote advisory caveats/post_install gates to blocking (useful
+for local-release runs where you want hard failures on staleness).
+
+### Step 10b: Verify caveats freshness (advisory; strict via env)
+
+```bash
+python3 scripts/verify_caveats.py "$FORMULA" CHANGELOG.md "$VERSION" \
+  ${HOMEBREW_GATE_STRICT:+--strict} --name "$PLUGIN_NAME"
+# Tap-absent leg: if "$FORMULA" is not locally checked out, warn and continue
+# (ubuntu CI has no local tap) — never block on absence.
+```
+
+### Step 10c: Verify post_install structure (advisory; strict via env)
+
+```bash
+python3 scripts/post_install_check.py "$FORMULA" \
+  ${HOMEBREW_GATE_STRICT:+--strict}
+# Add --sandbox only on a macOS-local release host for higher fidelity.
+```
+
+### Step 10d: Cowork/Desktop verification (BLOCKING aggregator-sync)
+
+```bash
+# BLOCKING (D4): a stale aggregator ships silent wrong-version installs.
+bash scripts/aggregator-sync.sh || { echo "❌ aggregator-sync failed — release blocked"; exit 1; }
+
+echo "Verify on Cowork/Desktop after publish:"
+echo "  claude plugin marketplace update local-plugins"
+echo "  claude plugin update $(jq -r .name .claude-plugin/plugin.json)@local-plugins"
+echo "  Expected version: $(jq -r .version .claude-plugin/plugin.json)"
+```
+
+---
+
 ## Tips
 
 - Always run `audit` before creating releases
