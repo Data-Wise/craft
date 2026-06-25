@@ -32,3 +32,20 @@ def test_exits_zero_without_jq_or_git(tmp_path, monkeypatch):
     monkeypatch.setenv("PATH", "/usr/bin:/bin")  # minimal; hook must self-fallback
     r = _run({"cwd": "/nonexistent", "session_id": "x"}, tmp_path)
     assert r.returncode == 0
+
+# --- Task B.2 installer test (appended) ---
+import shutil
+
+INSTALLER = pathlib.Path(__file__).resolve().parent.parent / "scripts/install-session-facet.sh"
+
+def test_installer_registers_sessionend_idempotently(tmp_path):
+    home = tmp_path; (home / ".claude/hooks").mkdir(parents=True)
+    (home / ".claude/settings.json").write_text('{"hooks":{}}')
+    env = {**os.environ, "HOME": str(home)}
+    for _ in range(2):  # run twice — must stay idempotent
+        subprocess.run(["bash", str(INSTALLER)], capture_output=True, text=True, env=env, check=True)
+    settings = json.loads((home / ".claude/settings.json").read_text())
+    se = json.dumps(settings["hooks"].get("SessionEnd", []))
+    assert "session-facet.sh" in se
+    assert se.count("session-facet.sh") == 1  # idempotent
+    assert (home / ".claude/hooks/session-facet.sh").exists()
