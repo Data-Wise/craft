@@ -61,6 +61,9 @@ or auto mode auto-accepts). Then proceed using the prompt the skill
 returns. On no-argument interactive commands, refine AFTER the topic is
 captured.
 
+`--yes` cascades: the prompt-refiner auto-accepts AND the interactive loop is suppressed —
+one flag, fully headless.
+
 ## Dry-Run Mode
 
 Preview the orchestration plan without spawning any agents:

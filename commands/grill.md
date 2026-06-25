@@ -57,7 +57,8 @@ preserves decision-tree fidelity). For EACH question:
 
 Each answer reshapes the next question. **Halt** on `/done` or empty-enter. `--bound N` stops after
 N branches. `--yes` / `--non-interactive`: emit ZERO AskUserQuestion calls — auto-pick every
-Recommended, log each pick, and proceed straight to capture.
+Recommended, log each pick, and proceed straight to capture. `--yes` cascades: the
+prompt-refiner auto-accepts AND the interactive loop is suppressed — one flag, fully headless.
 
 **Milestone checkpoints (ADHD-friendly):** every 5 resolved branches, pause with an
 AskUserQuestion: "keep going / wrap up now / show ledger so far" (reuses brainstorm's milestone
