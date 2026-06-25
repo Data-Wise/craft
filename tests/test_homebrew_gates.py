@@ -48,3 +48,32 @@ def test_no_dynamic_markers_falls_back_to_version_check_only(tmp_path):
     c = tmp_path / "CHANGELOG.md"; c.write_text(CHANGELOG)
     rep = verify_caveats(str(f), str(c), "2.49.0")
     assert rep.ok  # version string present, no marker zone to diff
+
+# Task A.2: post_install_check tests
+from post_install_check import check_post_install
+
+GOOD_PI = '''class Foo < Formula
+  def post_install
+    begin
+      system "claude", "plugin", "marketplace", "update", "local-plugins"
+      system "claude", "plugin", "update", "foo@local-plugins"
+      (libexec/"x").install "y"
+    rescue => e
+      opoo e.message
+    end
+  end
+end
+'''
+BAD_ORDER_PI = GOOD_PI.replace(
+  'system "claude", "plugin", "marketplace", "update", "local-plugins"\n      system "claude", "plugin", "update", "foo@local-plugins"',
+  'system "claude", "plugin", "update", "foo@local-plugins"\n      system "claude", "plugin", "marketplace", "update", "local-plugins"')
+
+def test_structural_pass_on_correct_ordering(tmp_path):
+    f = tmp_path / "g.rb"; f.write_text(GOOD_PI)
+    assert check_post_install(str(f)).ok
+
+def test_structural_flags_update_before_marketplace_refresh(tmp_path):
+    f = tmp_path / "b.rb"; f.write_text(BAD_ORDER_PI)
+    rep = check_post_install(str(f))
+    assert not rep.ok
+    assert any("marketplace update" in x for x in rep.findings)
