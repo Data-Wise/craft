@@ -587,6 +587,21 @@ bash scripts/claude-md-health.sh           # Full check
 bash scripts/claude-md-health.sh --quiet   # Exit code only
 ```
 
+## Skill Standards Validation (NEW in v2.51.0)
+
+Audits every `skills/**/SKILL.md` against the vendored Anthropic skill standards (frontmatter completeness, size limits, naming hygiene, version-tag cleanliness) — the same rules `/craft:code:skill-standards` enforces.
+
+Routes to the hot-reload validator at `.claude-plugin/skills/validation/skill-standards-check.md`, which wraps `scripts/skill_standards_audit.py`.
+
+**When it runs:** `--for pr` and `--for release`
+
+**Severity:** graduated gate — **advisory (warn-only) below release**, **blocking at the release tier** (`--for release` / `CRAFT_MODE=release`). The ecosystem graduated past the warn→error soak at 39/39 skills @ 100/100; the release gate keeps drift from re-entering. A missing audit script or standards doc degrades to advisory so a tooling fault never red-lists a release.
+
+```bash
+CRAFT_MODE=release bash .claude-plugin/skills/validation/skill-standards-check.md   # gate
+python3 scripts/skill_standards_audit.py --root skills                              # raw audit
+```
+
 ## Documentation Checks
 
 **Conditional checking** - Runs only when needed:
@@ -718,6 +733,7 @@ The `--for` flag adjusts which checks run based on what you're preparing for:
 | Instruction health | Counts only | Full check | Full check | Full + auto-fix |
 | Badge URLs | Skip | Skip | Validate both branches | Validate both branches |
 | Formula desc | Skip | Skip | Check counts match | Skip |
+| Skill standards | Skip | Advisory | Blocking gate | Skip |
 | Doc surfaces | Advisory (new cmds) | Skip | Skip | Skip |
 
 When `--for` is specified, the Step 0 preview shows this context:
@@ -748,8 +764,19 @@ Pre-flight Check Plan:
 
 1. **Scan for validators**: `/craft:check` scans `.claude-plugin/skills/validation/*.md`
 2. **Parse frontmatter**: Detects validators with `hot_reload: true` flag
-3. **Execute in fork**: Runs each validator in isolated context
-4. **Aggregate results**: Combines all validator outputs
+3. **Execute in fork**: Runs each validator in isolated context, **exporting `CRAFT_MODE` set to the resolved execution mode** (see binding below)
+4. **Aggregate results**: Combines all validator outputs; any validator that exits non-zero blocks the check
+
+#### Mode binding (REQUIRED — validators gate on `CRAFT_MODE`)
+
+Validators receive their tier **only** through the `CRAFT_MODE` environment variable — there is no separate `--for` signal inside a validator. When executing the hot-reload validators, resolve `CRAFT_MODE` from the active context and **export it on each validator invocation**:
+
+| Active context | Exported `CRAFT_MODE` | Effect on release-gated validators (version-check, skill-standards) |
+|----------------|-----------------------|----------------------------------------------------------------------|
+| `--for commit`, `--for pr`, default | `default` (or the explicit mode arg) | advisory / warn-only |
+| `--for release`, `--for deploy`, `release` mode | `release` | **blocking** — validator propagates its exit code |
+
+Concretely: `/craft:check --for release` MUST invoke each validator as `CRAFT_MODE=release bash <validator>.md`. Omitting this export silently downgrades every release-tier gate to advisory.
 
 ### Built-in Validators
 

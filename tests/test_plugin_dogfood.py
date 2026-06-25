@@ -582,20 +582,73 @@ class TestSkillStandardsValidatorDogfood:
         assert "context: fork" in text
         assert "category: validation" in text
 
-    def test_validator_impl_is_advisory_always_exits_zero(self, tmp_path):
-        """The embedded bash impl must NEVER exit non-zero (D3 advisory), even on a bad skill."""
+    def _impl(self):
         m = re.search(r"## Implementation\s+```bash\n(.*?)```", self.VALIDATOR.read_text(), re.S)
         assert m, "validator has no bash Implementation block"
-        bad = tmp_path / "skills" / "bad"
-        bad.mkdir(parents=True)
-        (bad / "SKILL.md").write_text("# no frontmatter at all\n")
+        return m.group(1)
+
+    def _run(self, tmp_path, *, mode, skill_body, audit_root=None):
+        """Run the embedded bash impl against a synthesized skills tree at a given mode."""
+        skill = tmp_path / "skills" / "s"
+        skill.mkdir(parents=True)
+        (skill / "SKILL.md").write_text(skill_body)
         script = tmp_path / "run.sh"
-        script.write_text(m.group(1))
-        env = {**os.environ, "SKILL_STANDARDS_ROOT": str(tmp_path / "skills"),
-               "CRAFT_ROOT": str(PLUGIN_DIR)}
+        script.write_text(self._impl())
+        env = {**os.environ,
+               "SKILL_STANDARDS_ROOT": str(audit_root or (tmp_path / "skills")),
+               "CRAFT_ROOT": str(PLUGIN_DIR),
+               "CRAFT_MODE": mode}
+        return subprocess.run(["bash", str(script)], capture_output=True, text=True,
+                              env=env, timeout=60)
+
+    BAD = "# no frontmatter at all\n"
+
+    def test_advisory_below_release_even_with_findings(self, tmp_path):
+        """In commit/pr/default/thorough modes a non-compliant skill must NOT block (warn-only soak)."""
+        for mode in ("default", "debug", "thorough"):
+            r = self._run(tmp_path / mode, mode=mode, skill_body=self.BAD)
+            assert r.returncode == 0, f"mode={mode} must stay advisory (exit 0), got {r.returncode}"
+
+    def test_blocks_on_findings_in_release_mode(self, tmp_path):
+        """Graduated gate: CRAFT_MODE=release + a non-compliant skill must block (non-zero)."""
+        r = self._run(tmp_path, mode="release", skill_body=self.BAD)
+        assert r.returncode != 0, f"release mode must block on findings, got exit {r.returncode}\n{r.stdout}"
+
+    def test_clean_skills_pass_in_release_mode(self, tmp_path):
+        """A compliant skills tree must pass the release gate (no false-positive block).
+
+        Points audit_root at craft's own (clean, 100/100) skills tree, so the synthesized
+        skill_body is unused here — pass a benign placeholder to make that explicit.
+        """
+        r = self._run(tmp_path, mode="release", skill_body="# placeholder (unused)\n",
+                      audit_root=str(PLUGIN_DIR / "skills"))
+        assert r.returncode == 0, f"clean skills must pass release gate, got exit {r.returncode}\n{r.stdout}"
+
+    def test_check_md_documents_release_mode_binding(self):
+        """The gate is a no-op unless /craft:check exports CRAFT_MODE=release for validators.
+
+        /craft:check is LLM-interpreted prose, so the binding instruction in check.md IS the
+        contract. Guard it against silent removal (which would downgrade the gate to advisory).
+        """
+        text = (PLUGIN_DIR / "commands" / "check.md").read_text()
+        assert "CRAFT_MODE=release" in text, "check.md must show the release-mode export"
+        assert re.search(r"--for release.*CRAFT_MODE=release", text, re.S), (
+            "check.md must bind --for release -> CRAFT_MODE=release for validators"
+        )
+
+    def test_engine_error_is_non_fatal_in_release(self, tmp_path):
+        """If the audit script is missing, the gate must degrade to advisory (exit 0), not red-list a release."""
+        impl = self._impl()
+        script = tmp_path / "run.sh"
+        script.write_text(impl)
+        env = {**os.environ,
+               "SKILL_STANDARDS_ROOT": str(tmp_path / "skills"),
+               "CRAFT_ROOT": str(tmp_path),  # no plugin.json/scripts here -> audit not found
+               "CRAFT_MODE": "release"}
+        (tmp_path / "skills").mkdir()
         r = subprocess.run(["bash", str(script)], capture_output=True, text=True,
                            env=env, timeout=60)
-        assert r.returncode == 0, f"advisory validator must exit 0, got {r.returncode}"
+        assert r.returncode == 0, f"missing-audit must be non-fatal, got exit {r.returncode}\n{r.stdout}"
 
 
 # ============================================================================
