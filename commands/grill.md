@@ -43,25 +43,20 @@ can override.
 
 ### Step 3: The grill loop (deliberate, one question at a time)
 
-Follow the grill-me directives:
+Ask **one question per AskUserQuestion call** (NOT 4-question batches — one branch at a time
+preserves decision-tree fidelity). For EACH question:
 
-> Interview the user relentlessly about every aspect until shared understanding. Walk each branch
-> of the design tree, resolving dependencies one-by-one. For EACH question provide a
-> **Recommended:** answer. Ask **one question at a time**. If a question can be answered by
-> exploring the codebase, explore the codebase instead.
+- option[0] is the **Recommended** answer, labelled and reasoned;
+- EVERY option carries a one-line **consequence** of choosing it;
+- the implicit "Other" free-text path stays open for answers off the menu.
 
-**Why one-at-a-time free-text and NOT AskUserQuestion batches:** decision-tree fidelity is the
-point — each answer reshapes the next question. This is a deliberate exception to craft's
-AskUserQuestion-batch convention; do not "fix" it to batches.
-
-**Halt:** the user enters the sentinel `/done` (or empty-enter) at any question → go to Step 4.
-Do NOT use the bare word "stop" — it can be a legitimate answer. If `--bound N` was given, stop
-after N resolved branches. Otherwise continue until every branch resolves.
+Each answer reshapes the next question. **Halt** on `/done` or empty-enter. `--bound N` stops after
+N branches. `--yes` / `--non-interactive`: emit ZERO AskUserQuestion calls — auto-pick every
+Recommended, log each pick, and proceed straight to capture.
 
 **Milestone checkpoints (ADHD-friendly):** every 5 resolved branches, pause with an
 AskUserQuestion: "keep going / wrap up now / show ledger so far" (reuses brainstorm's milestone
-pattern). This is the ONE place embedded AskUserQuestion is allowed inside the otherwise
-free-text loop — for progress, not for the questions themselves.
+pattern).
 
 **After each resolved branch:** append it to the ledger immediately (Step 4 helper) so a
 crash/compaction never loses decisions.
