@@ -30,6 +30,9 @@ arguments:
     description: "Skip Step 0.5 Clarify (the bounded /craft:grill pre-planning interrogation)"
     required: false
     default: false
+  - name: yes
+    description: "Non-interactive: auto-accept every Recommended answer, emit zero AskUserQuestion prompts (alias --non-interactive)"
+    required: false
 ---
 
 # /craft:orchestrate — Launch Orchestrator Mode

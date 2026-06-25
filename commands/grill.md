@@ -12,6 +12,9 @@ arguments:
     description: "Skip writing a GRILL spec file; return decisions inline (used by embedded callers like orchestrate Step 0.5)"
     required: false
     default: false
+  - name: yes
+    description: "Non-interactive: auto-accept every Recommended answer, emit zero AskUserQuestion prompts (alias --non-interactive)"
+    required: false
 ---
 
 # /craft:grill — Interrogate Before Building
