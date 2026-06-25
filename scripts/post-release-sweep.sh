@@ -371,6 +371,44 @@ if [[ "$RUN_SURFACES" == true ]] && [[ -f ".claude-plugin/plugin.json" ]]; then
 fi
 
 # ---------------------------------------------------------------------------
+# Phase 4.6: Caveats staleness (advisory — sweep never blocks on this)
+# Checks that the tap formula's caveats header and managed bullets match the
+# current CHANGELOG version. Off when no tap formula is locally checked out
+# (CI runners without the tap don't fail — per spec risk #1).
+# ---------------------------------------------------------------------------
+CAVEATS_ISSUES=0
+if [[ -f ".claude-plugin/plugin.json" ]] && [[ -f "CHANGELOG.md" ]]; then
+    PLUGIN_NAME=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['name'])" 2>/dev/null || echo "")
+    TAP_FORMULA="${HOME}/Library/Caches/Homebrew/homebrew-tap/Formula/${PLUGIN_NAME}.rb"
+    if [[ -z "$PLUGIN_NAME" ]]; then
+        : # skip — can't resolve formula path without name
+    elif [[ -f "$TAP_FORMULA" ]]; then
+        if [[ "$JSON_MODE" != true ]]; then
+            echo ""
+            echo -e "${CYAN}Phase 4.6: Caveats freshness (advisory)${NC}"
+        fi
+        CAVEATS_OUTPUT=$(python3 "$SCRIPT_DIR/verify_caveats.py" "$TAP_FORMULA" CHANGELOG.md "$CHECK_VERSION" 2>&1) || true
+        if echo "$CAVEATS_OUTPUT" | grep -q "⚠️"; then
+            CAVEATS_ISSUES=1
+            add_finding "3" "tap formula caveats" "caveats may be stale for v${CHECK_VERSION} — run Step 10b to verify" "manual"
+            if [[ "$JSON_MODE" != true ]]; then
+                echo -e "  ${YELLOW}ADVISORY${NC} — caveats staleness detected (run Step 10b to verify)"
+                echo "$CAVEATS_OUTPUT" | sed 's/^/    /'
+            fi
+        else
+            if [[ "$JSON_MODE" != true ]]; then
+                echo -e "  ${GREEN}OK${NC} — caveats current for v${CHECK_VERSION}"
+            fi
+        fi
+    else
+        if [[ "$JSON_MODE" != true ]]; then
+            echo ""
+            echo -e "${CYAN}Phase 4.6: Caveats freshness${NC} — tap formula not locally present, skipping (CI-safe)"
+        fi
+    fi
+fi
+
+# ---------------------------------------------------------------------------
 # Phase 5: Summary
 # ---------------------------------------------------------------------------
 TOTAL_ISSUES=$((TIER1_ISSUES + TIER2_ISSUES + TIER3_ISSUES + SURFACES_ISSUES))

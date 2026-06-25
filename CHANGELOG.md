@@ -9,6 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.50.0] — 2026-06-25
+
+### Added
+
+- **`/craft:check` skill-standards validator** — advisory hot-reload validator (`.claude-plugin/skills/validation/skill-standards-check.md`) that audits every `skills/**/SKILL.md` via `scripts/skill_standards_audit.py`. Surfaces any skill scoring below 100/100 as a warning but never fails the check run (advisory; graduation to a blocking gate follows the governance warn→error soak path).
+- **Homebrew distribution gates** (closes #200, #199) — `scripts/verify_caveats.py` (caveats-staleness gate; advisory by default, strict via `HOMEBREW_GATE_STRICT=1`) and `scripts/post_install_check.py` (structural `post_install` check + opt-in sandbox), wired into `/release` as Steps 10b/10c (advisory) and 10d (**blocking** aggregator-sync + Cowork `@local-plugins` verification). Tutorial: `docs/tutorials/TUTORIAL-homebrew-gates.md`.
+- **SessionEnd insights facet hook** (closes #183) — `hooks/session-facet.sh` writes a low-fidelity facet at every session end (per-session-id dedup with `/done`), plus `scripts/install-session-facet.sh` (idempotent installer registering the `SessionEnd` hook in `settings.json`). Fixes the zero-baseline problem where facets only wrote on `/craft:workflow:done`. Tutorial: `docs/tutorials/TUTORIAL-insights-setup.md`.
+- **ADR-001** (closes #171) — documents the `Workflow()`-tool vs `feature/*` worktree branch model (`docs/adr/ADR-001-workflow-branch-guard.md`).
+- e2e + dogfood coverage for the above — 14 tests across `tests/test_plugin_e2e.py` and `tests/test_plugin_dogfood.py`, each pinning a locked sprint decision (advisory vs blocking gates, `SessionEnd` not `SessionStop`, no Check 5, `GateReport` single-source).
+
+### Fixed
+
+- Corrected the false "Session facets are collected automatically" claim in `commands/workflow/insights.md` (the SessionEnd hook now makes it true once installed).
+
+---
+
 ## [2.49.0] — 2026-06-23
 
 ### Added

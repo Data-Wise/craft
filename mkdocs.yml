@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.49.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
+site_description: "Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.50.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -150,7 +150,9 @@ nav:
       - Orchestrator Modes Compared: tutorials/orchestrator-modes-compared.md
       - Release Pipeline Tutorial: tutorials/TUTORIAL-release-pipeline.md
       - Homebrew Setup Tutorial: tutorials/TUTORIAL-homebrew-setup.md
+      - Homebrew Gates Tutorial: tutorials/TUTORIAL-homebrew-gates.md
       - Insights-Driven Workflow: tutorials/TUTORIAL-insights-workflow.md
+      - Insights Hook Setup: tutorials/TUTORIAL-insights-setup.md
       - Insights Improvements Guide: guide/insights-improvements-guide.md
       - Learning Loop & Session Completion: guide/learning-loop-session-completion.md
       - Hub Live Dashboard: guide/hub-live-dashboard.md
@@ -158,6 +160,7 @@ nav:
       - CI Monitoring Architecture: architecture/ci-monitoring.md
       - Version Sync Architecture: architecture/version-sync.md
       - Mermaid Pipeline Architecture: architecture/mermaid-validation-pipeline.md
+      - "ADR-001: Workflow vs Worktree": adr/ADR-001-workflow-branch-guard.md
       - "ADR-002: Done Command/Skill Consolidation": adr/ADR-002-done-command-skill-consolidation.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md

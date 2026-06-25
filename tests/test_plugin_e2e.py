@@ -470,5 +470,62 @@ class TestScriptSyntax:
         assert not missing, f"Scripts missing shebang: {missing}"
 
 
+# ============================================================================
+# v2.49.x sprint — structural integrity of the new artifacts
+# ============================================================================
+class TestV249SprintArtifacts:
+    """Structural checks for the skill-standards validator, homebrew gates, and SessionEnd hook."""
+
+    def test_skill_standards_validator_registered_hotreload(self):
+        v = PLUGIN_DIR / ".claude-plugin" / "skills" / "validation" / "skill-standards-check.md"
+        assert v.exists(), "skill-standards validator missing"
+        fm = _extract_frontmatter(v)
+        assert fm.get("hot_reload") is True, "validator must be hot_reload: true for /craft:check discovery"
+        assert fm.get("context") == "fork"
+        assert fm.get("category") == "validation"
+
+    def test_new_gate_scripts_are_valid_python(self):
+        import py_compile
+        for name in ("verify_caveats.py", "post_install_check.py"):
+            script = PLUGIN_DIR / "scripts" / name
+            assert script.exists(), f"{name} missing"
+            py_compile.compile(str(script), doraise=True)
+
+    def test_post_install_check_imports_gatereport_from_verify_caveats(self):
+        """D8: single GateReport definition shared, not duplicated."""
+        text = (PLUGIN_DIR / "scripts" / "post_install_check.py").read_text()
+        assert "from verify_caveats import" in text and "GateReport" in text
+
+    def test_verify_caveats_has_no_check5(self):
+        """D4/D8: Check 5 (plugin-version match, #184) was deliberately excluded."""
+        text = (PLUGIN_DIR / "scripts" / "verify_caveats.py").read_text()
+        assert "check_plugin_version" not in text
+        assert "run_all_gates" not in text
+
+    def test_session_facet_hook_valid_bash_and_sessionend_semantics(self):
+        hook = PLUGIN_DIR / "hooks" / "session-facet.sh"
+        assert hook.exists(), "session-facet.sh missing"
+        import subprocess
+        syntax = subprocess.run(["bash", "-n", str(hook)], capture_output=True, text=True)
+        assert syntax.returncode == 0, f"session-facet.sh has bash syntax errors: {syntax.stderr}"
+        text = hook.read_text()
+        # D5: per-session-id dedup, NOT a per-day 'session-$TODAY-*' skip
+        assert "session_id" in text.lower()
+        assert "SESSION_ID" in text
+
+    def test_installer_registers_sessionend_event(self):
+        """D5: the installer must wire the 'SessionEnd' event (NOT 'SessionStop'/'Stop')."""
+        text = (PLUGIN_DIR / "scripts" / "install-session-facet.sh").read_text()
+        assert "SessionEnd" in text
+        assert "SessionStop" not in text
+
+    def test_adr_001_exists_with_required_sections(self):
+        adr = PLUGIN_DIR / "docs" / "adr" / "ADR-001-workflow-branch-guard.md"
+        assert adr.exists(), "ADR-001 missing"
+        text = adr.read_text()
+        for section in ("## Context", "## Decision", "## Consequences", "#171"):
+            assert section in text, f"ADR-001 missing {section}"
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
