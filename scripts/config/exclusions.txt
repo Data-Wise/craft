@@ -18,6 +18,7 @@ docs/CHANGELOG.md
 # Directory exclusions (working artifacts or excluded from mkdocs site)
 # ---------------------------------------------------------------------------
 docs/specs/
+docs/plans/
 docs/demos/
 docs/archive/
 docs/brainstorm/
