@@ -6,6 +6,12 @@ arguments:
     description: Refine the prompt via the prompt-refiner skill before acting
     required: false
     default: false
+  - name: tests
+    description: "Opt in to emitting a test-plan section (off by default here)"
+    required: false
+  - name: docs
+    description: "Opt in to emitting a Documentation section (off by default here)"
+    required: false
 ---
 
 # Architecture Planning

@@ -9,6 +9,12 @@ arguments:
   - name: action
     description: "Action: list|show|review|approve|archive (default: review)"
     required: false
+  - name: tests
+    description: "Opt in to emitting a test-plan section (off by default here)"
+    required: false
+  - name: docs
+    description: "Opt in to emitting a Documentation section (off by default here)"
+    required: false
 deprecated: true
 replaced-by: "skills/workflow/adhd-workflow/"
 ---

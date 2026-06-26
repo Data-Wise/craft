@@ -10,6 +10,12 @@ arguments:
     description: Skip the prompt-refiner (opt out of the default refinement step)
     required: false
     default: false
+  - name: no-tests
+    description: "Skip the auto-emitted test-plan section (on by default)"
+    required: false
+  - name: no-docs
+    description: "Skip the auto-emitted Documentation section (on by default)"
+    required: false
 deprecated: true
 replaced-by: "skills/orchestration/plan-orchestrator/"
 ---
