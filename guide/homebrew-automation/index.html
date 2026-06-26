@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.52.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 116 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.53.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -2310,6 +2310,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../adr/ADR-004-release-surface-registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-004: Release Surface Registry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
@@ -2741,10 +2769,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_51" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_52" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_51" id="__nav_2_4_51_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_52" id="__nav_2_4_52_label" tabindex="0">
             
   
   
@@ -2762,8 +2790,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_51_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_51">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_52_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_52">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2939,10 +2967,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_53" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_54" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_53" id="__nav_2_4_53_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_54" id="__nav_2_4_54_label" tabindex="0">
             
   
   
@@ -2960,8 +2988,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_53_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_53">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_54_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_54">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4484,6 +4512,34 @@
     
   
     dist:homebrew Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-dist-surfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dist:surfaces Tutorial
   
 
     
@@ -7688,6 +7744,34 @@
     
   
     /craft:dist:homebrew
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/dist/surfaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:dist:surfaces
   
 
     
@@ -12777,7 +12861,7 @@
 <h2 id="formula-description-consistency-check-8">Formula Description Consistency (Check 8)<a class="headerlink" href="#formula-description-consistency-check-8" title="Permanent link">&para;</a></h2>
 <p>The <code>pre-release-check.sh</code> script includes <strong>Check 8: Homebrew formula desc consistency</strong>, which validates that the <code>desc</code> field in your Homebrew formula stays in sync with the actual command counts in the project.</p>
 <h3 id="what-it-checks">What It Checks<a class="headerlink" href="#what-it-checks" title="Permanent link">&para;</a></h3>
-<p>The check extracts the command count from the formula's <code>desc</code> string (e.g., <code>"Full-stack developer toolkit for Claude Code with 115 commands"</code>) and compares it against the actual count detected by <code>validate-counts.sh</code>. If they differ, a warning is raised.</p>
+<p>The check extracts the command count from the formula's <code>desc</code> string (e.g., <code>"Full-stack developer toolkit for Claude Code with 116 commands"</code>) and compares it against the actual count detected by <code>validate-counts.sh</code>. If they differ, a warning is raised.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Run Check 8 standalone</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>./scripts/pre-release-check.sh<span class="w"> </span>v2.32.1
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># Look for: [8/8] Homebrew formula desc consistency</span>
@@ -12793,7 +12877,7 @@
 <p>When adding new commands to the plugin, update the formula description to reflect the new count:</p>
 <div class="language-ruby highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># In your formula .rb file</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Craft</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Formula</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="n">desc</span><span class="w"> </span><span class="s2">&quot;Full-stack developer toolkit for Claude Code with 115 commands&quot;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="n">desc</span><span class="w"> </span><span class="s2">&quot;Full-stack developer toolkit for Claude Code with 116 commands&quot;</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="c1">#                                                      ^^^ update this</span>
 </span></code></pre></div>
 <p>The release pipeline will warn you if this number drifts. To fix:</p>

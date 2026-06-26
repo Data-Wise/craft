@@ -133,6 +133,10 @@
          <lastmod>2026-06-26</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/adr/ADR-004-release-surface-registry/</loc>
+         <lastmod>2026-06-26</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/api/DISCOVERY-API/</loc>
          <lastmod>2026-06-26</lastmod>
     </url>
@@ -350,6 +354,10 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/commands/dist/homebrew/</loc>
+         <lastmod>2026-06-26</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/commands/dist/surfaces/</loc>
          <lastmod>2026-06-26</lastmod>
     </url>
     <url>
@@ -1214,6 +1222,10 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/tutorials/TUTORIAL-dist-homebrew/</loc>
+         <lastmod>2026-06-26</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/tutorials/TUTORIAL-dist-surfaces/</loc>
          <lastmod>2026-06-26</lastmod>
     </url>
     <url>
