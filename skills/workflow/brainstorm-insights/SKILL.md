@@ -195,6 +195,10 @@ Unselected tiers print as `N/A — <reason>` (never empty stubs).
 - Scaffold templates live in `references/scaffold-templates.md`; point to that file — do not duplicate templates inline.
 - For the **grill operation**: emit a test-plan scaffold only when called with a TOPIC arg; skip on a PATH arg (path targets existing code that already has tests).
 
+### `--yes` non-suppression
+
+`--yes` auto-accepts prompts only; the test-plan and Documentation sections are CONTENT and are still emitted under `--yes`. Only `--no-tests`/`--no-docs` remove them.
+
 ### Opt-out
 
 `--no-tests` suppresses the entire test-plan section. Default is **on**.

@@ -18,3 +18,11 @@ def test_docs_section_documented(rel):
     t = (PLUGIN_DIR / rel).read_text(encoding="utf-8").lower()
     assert "documentation" in t and "no-docs" in t and "scorer" in t, \
         f"{rel} must document the docs-section emission + scorer reuse + --no-docs"
+
+@pytest.mark.parametrize("rel", SKILLS)
+def test_yes_nonsuppression_and_cascade_exclusion(rel):
+    t = (PLUGIN_DIR / rel).read_text(encoding="utf-8").lower()
+    assert "yes" in t and "content" in t, \
+        f"{rel} must state --yes does NOT suppress sections (they are content)"
+    assert "count" in t and ("exclud" in t or "never" in t), \
+        f"{rel} must state the count-cascade exclusion"

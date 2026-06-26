@@ -171,6 +171,10 @@ Unselected tiers print as `N/A — <reason>` (never empty stubs).
 - Each stub carries `# TODO(author): delete if not contract-bearing` until the author confirms the contract.
 - Scaffold templates live in `references/scaffold-templates.md`; point to that file — do not duplicate templates inline.
 
+### `--yes` non-suppression
+
+`--yes` auto-accepts prompts only; the test-plan and Documentation sections are CONTENT and are still emitted under `--yes`. Only `--no-tests`/`--no-docs` remove them.
+
 ### Opt-out
 
 `--no-tests` suppresses the entire test-plan section. Default is **on**.
