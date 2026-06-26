@@ -27,6 +27,12 @@ arguments:
   - name: orch-mode
     description: "Orchestration mode: default|debug|optimize|release (v2.5.0)"
     required: false
+  - name: no-tests
+    description: "Skip the auto-emitted test-plan section (on by default)"
+    required: false
+  - name: no-docs
+    description: "Skip the auto-emitted Documentation section (on by default)"
+    required: false
   - name: refine
     description: "Runs the prompt-refiner by default; pass --no-refine to skip"
     required: false

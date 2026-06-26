@@ -288,6 +288,9 @@ a time to surface gaps before building.
 → `/done` halt + milestone checkpoints → durable `GRILL-*` decision ledger → handoff to
 `/craft:plan`. Never overwrites a brainstorm `SPEC-*`. Reused by `/craft:orchestrate` Step 0.5.
 
+**Scaffold defaults (v2.52.0):** emits a tier-inferred test plan + Documentation section by default.
+Use `--no-tests` or `--no-docs` to suppress either.
+
 ## Smart Documentation (17 commands)
 
 ### Core Documentation Commands
@@ -1578,6 +1581,9 @@ graph LR
 #   Insights capture: writes facet JSON for friction analysis (SKIP_INSIGHTS=1)
 #   SKIP_GIT_SYNC=1 / SKIP_CLAUDE_MD_SYNC=1 to opt out
 ```
+
+**Scaffold defaults (v2.52.0):** emits a tier-inferred test plan + Documentation section by default.
+Use `--no-tests` or `--no-docs` to suppress either.
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 

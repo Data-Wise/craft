@@ -18,6 +18,12 @@ arguments:
   - name: refine
     description: "Refine the topic via prompt-refiner BEFORE grilling. Default-ON for a quoted/bare topic; SKIPPED when the argument is a path (a spec/plan file — nothing to refine). --no-refine to disable."
     required: false
+  - name: no-tests
+    description: "Skip the auto-emitted test-plan section (on by default)"
+    required: false
+  - name: no-docs
+    description: "Skip the auto-emitted Documentation section (on by default)"
+    required: false
 ---
 
 # /craft:grill — Interrogate Before Building
