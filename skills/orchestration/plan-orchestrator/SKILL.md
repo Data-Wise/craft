@@ -175,6 +175,31 @@ Unselected tiers print as `N/A — <reason>` (never empty stubs).
 
 `--no-tests` suppresses the entire test-plan section. Default is **on**.
 
+## Documentation scaffolding (default-on)
+
+When this skill emits an ORCHESTRATE artifact, it also emits a Documentation section **by default**. Pass `--no-docs` to suppress the section.
+
+### Which docs to emit
+
+Derive which documentation artifacts are needed by running the existing doc-scorer rubric from `commands/docs/sync.md` (threshold ≥3). Do **not** invent a new rubric — reuse the scorer as the single source of truth.
+
+For each doc type the scorer evaluates (guide, refcard, tutorial, demo, mermaid, api), pre-check (`[x]`) boxes that meet the threshold, and mark the rest `N/A — score <N>`. The template for the Documentation section lives in `references/scaffold-templates.md`.
+
+### Lifecycle split
+
+| Phase | Action |
+|-------|--------|
+| **Spec-time** | Read-only emit + pre-derive: render the Documentation section with pre-checked boxes. No file edits. |
+| **Impl/post-merge** | Real edits via `/craft:docs:update --post-merge`. Diff-confirm gated before applying. |
+
+### Count-cascade exclusion
+
+Auto-docs emission touches **only semantic docs** — CHANGELOG `[Unreleased]` ×2 mirror, guide/refcard/tutorial prose. It **never** touches version or count lines. Version/count updates stay in `bump-version.sh`.
+
+### Opt-out
+
+`--no-docs` suppresses the entire Documentation section. Default is **on**.
+
 ## Common Pitfalls
 
 - **Writing ORCHESTRATE to the main repo** — always worktree root.
