@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [2.52.0] — 2026-06-25
+
 ### Added
 
 - `brainstorm`/`plan:feature`/`grill` emit a tier-inferred test plan + a doc-scorer Documentation section by default (`--no-tests`/`--no-docs` to opt out); `arch:plan`/`spec-review` opt-in via `--tests`/`--docs`.
