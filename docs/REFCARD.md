@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.52.0 (released 2026-06-19)                       │
+│  Version: 2.53.0 (released 2026-06-19)                       │
 │  Commands: 112 | Agents: 8 | Skills: 39                     │
 │  Documentation: 99% complete | Tests: 142 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.52.0: Documentation Coverage — Tutorial Suite            │
+│  v2.53.0: Documentation Coverage — Tutorial Suite            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -1152,7 +1152,7 @@ npm test
 /craft:ci:validate              # Validate existing CI
 ```
 
-## Distribution Commands (4 commands)
+## Distribution Commands (5 commands)
 
 | Command                        | Description                            |
 | ------------------------------ | -------------------------------------- |
@@ -1160,6 +1160,7 @@ npm test
 | `/craft:dist:homebrew`         | Generate Homebrew formula              |
 | `/craft:dist:pypi`             | Package for PyPI                       |
 | `/craft:dist:curl-install`     | Generate curl installer                |
+| `/craft:dist:surfaces`         | Read-only view of surface registry + version matrix |
 
 **Quick examples:**
 
@@ -1169,6 +1170,8 @@ npm test
 /craft:dist:homebrew            # Generate Homebrew formula
 /craft:dist:pypi                # Package for PyPI
 /craft:dist:curl-install        # Generate curl installer
+/craft:dist:surfaces            # View surface registry + gate states
+/craft:dist:surfaces --json     # Raw registry JSON
 ```
 
 **Homebrew release gates (plugin formula):**
@@ -1573,7 +1576,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.52.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.53.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary

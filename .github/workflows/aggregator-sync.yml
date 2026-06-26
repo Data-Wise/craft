@@ -1,0 +1,120 @@
+name: Aggregator Sync
+
+# MANUAL PRE-SHIP GATE — must be satisfied before this workflow is production-ready:
+#   The GitHub App installed on Data-Wise/claude-plugins must have:
+#     - contents: write        (to push the version bump commit)
+#     - pull_requests: write   (to open the sync PR)
+#     - admin/bypass on main   (gh pr merge --admin requires bypass permission)
+#   This cannot be verified from code. Confirm in the GitHub App settings before
+#   enabling this workflow for the first time.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  aggregator-sync:
+    name: Sync craft version into Data-Wise/claude-plugins aggregator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/}"
+          VERSION="${VERSION#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Syncing aggregator for craft v${VERSION}"
+
+      - name: Checkout craft (for scripts/aggregator-sync.sh)
+        uses: actions/checkout@v5
+        with:
+          path: craft
+
+      - name: Mint GitHub App token (for cross-repo access to claude-plugins)
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: Data-Wise
+          repositories: claude-plugins
+
+      - name: Checkout Data-Wise/claude-plugins
+        uses: actions/checkout@v5
+        with:
+          repository: Data-Wise/claude-plugins
+          token: ${{ steps.app-token.outputs.token }}
+          path: claude-plugins
+
+      - name: Run aggregator-sync.sh (--check first for no-op short-circuit)
+        id: sync-check
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          AGG_FILE="claude-plugins/.claude-plugin/marketplace.json"
+
+          # Check whether the entry would actually change before doing any git work.
+          CHECK_OUT=$(bash craft/scripts/aggregator-sync.sh \
+            --file "$AGG_FILE" --plugin craft --version "$VERSION" --check 2>&1)
+          echo "$CHECK_OUT"
+          if echo "$CHECK_OUT" | grep -q "^\[current\]"; then
+            echo "no-op=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "no-op=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Short-circuit on no-op
+        if: steps.sync-check.outputs.no-op == 'true'
+        run: |
+          echo "Aggregator already current — nothing to do."
+
+      - name: Write version bump to aggregator
+        if: steps.sync-check.outputs.no-op != 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          AGG_FILE="claude-plugins/.claude-plugin/marketplace.json"
+          bash craft/scripts/aggregator-sync.sh \
+            --file "$AGG_FILE" --plugin craft --version "$VERSION"
+
+      - name: Open PR and merge — FAIL LOUD if not merged
+        if: steps.sync-check.outputs.no-op != 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          BRANCH="automated/craft-v${VERSION}"
+
+          cd claude-plugins
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add .claude-plugin/marketplace.json
+          git commit -m "chore(aggregator): bump craft to v${VERSION}"
+          git push origin "$BRANCH"
+
+          PR_URL=$(gh pr create \
+            --repo Data-Wise/claude-plugins \
+            --base main \
+            --head "$BRANCH" \
+            --title "chore(aggregator): bump craft to v${VERSION}" \
+            --body "Automated version sync from craft release v${VERSION}.")
+
+          echo "PR opened: $PR_URL"
+
+          # Merge via --admin (Data-Wise/claude-plugins main is PR-required with 0 reviews).
+          gh pr merge --admin --squash "$PR_URL"
+
+          # FAIL LOUD: verify the PR actually merged — exit 1 if it did not.
+          # This prevents the #218 silent-no-op pattern where merge exits 0 but
+          # the PR stays open (e.g. queued, or auto-merge-enabled without merging).
+          MERGED_STATE=$(gh pr view "$PR_URL" --json state -q .state)
+          echo "PR state after merge attempt: $MERGED_STATE"
+          if [[ "$MERGED_STATE" != "MERGED" ]]; then
+            echo "ERROR: PR opened but did not merge (state=$MERGED_STATE). Failing loud." >&2
+            exit 1
+          fi
+          echo "Aggregator sync complete — craft v${VERSION} merged into claude-plugins."

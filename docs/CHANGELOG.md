@@ -11,6 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.53.0] — 2026-06-26
+
+### Added
+
+- **Multi-surface-aware release** — declarative surface registry (`scripts/surfaces/registry.json`) propagates craft releases to all registered surfaces (Code, Cowork, Desktop).
+- **Aggregator CI propagation** — `aggregator-sync.yml` workflow fires on `release: published`, opens and auto-merges a PR in the Data-Wise aggregator marketplace (fail-loud on unmerged PR; craft#218).
+- **Cowork verify leg** — release pipeline generates a Cowork report and queues a surface-update remind (WARN-only; non-blocking).
+- **`/craft:dist:surfaces`** — read-only view of the full plugin × surface × version matrix with gate states; exit 1 if any BLOCK surface is misaligned.
+
+### Fixed
+
+- `docs-staleness-check`: exclude `docs/plans/` directory from count-consistency scan (historical TDD baseline notes, same treatment as `docs/specs/`).
+
+---
+
 ## [2.52.0] — 2026-06-25
 
 ### Added
