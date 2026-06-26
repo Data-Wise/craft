@@ -102,7 +102,7 @@ Expected output when all surfaces are aligned:
 │ Surfaces checked: 3 (2 BLOCK, 1 WARN)                        │
 ├──────────────────────────────────────────────────────────────┤
 │ Code    ............... 2.53.0  BLOCK  ✓ aligned             │
-│ Cowork  ............... 2.53.0  BLOCK  ✓ aligned             │
+│ Cowork  ............... 2.53.0  WARN   ✓ aligned             │
 │ Desktop ............... 2.53.0  WARN   ✓ aligned             │
 ├──────────────────────────────────────────────────────────────┤
 │ Gate: PASSED — all BLOCK surfaces aligned                    │

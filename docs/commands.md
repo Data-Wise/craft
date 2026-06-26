@@ -1,6 +1,6 @@
 # Craft Commands Reference
 
-Complete reference for all 115 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
+Complete reference for all 116 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
 
 ## Quick Reference
 

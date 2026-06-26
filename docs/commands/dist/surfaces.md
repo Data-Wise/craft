@@ -37,7 +37,7 @@ A release is "fully shipped" when all BLOCK surfaces report the expected version
 │ Surfaces checked: 3 (2 BLOCK, 1 WARN)                        │
 ├──────────────────────────────────────────────────────────────┤
 │ Code    ............... 2.52.0  BLOCK  ✓ aligned             │
-│ Cowork  ............... 2.52.0  BLOCK  ✓ aligned             │
+│ Cowork  ............... 2.52.0  WARN   ✓ aligned             │
 │ Desktop ............... 2.52.0  WARN   ✓ aligned             │
 ├──────────────────────────────────────────────────────────────┤
 │ Gate: PASSED — all BLOCK surfaces aligned                    │
