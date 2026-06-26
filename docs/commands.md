@@ -5,7 +5,7 @@ Complete reference for all 115 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 115 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 116 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement (default-on):** `/brainstorm`, `/craft:do`, `/craft:plan:feature`, `/craft:grill` run the `prompt-refiner` skill automatically before acting. Use `--no-refine` to skip; pass `--yes` to auto-accept the refined prompt without a confirm step.
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -203,6 +203,17 @@ Generate curl-based installation scripts for GitHub releases.
 ```
 
 **Generates:** install.sh with release detection, platform support
+
+### /craft:dist:surfaces
+
+Read-only view of the multi-surface release registry — verify gate states and inspect the plugin × surface version matrix.
+
+```bash
+/craft:dist:surfaces           # verify + full matrix
+/craft:dist:surfaces --json    # raw registry.json
+```
+
+**Shows:** Code / Cowork / Desktop surface gate states; exits 1 on BLOCK mismatch
 
 ## Documentation Commands (docs/)
 
@@ -474,7 +485,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 115 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 116 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 

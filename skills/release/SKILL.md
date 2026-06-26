@@ -25,7 +25,7 @@ Orchestrate end-to-end releases with pre-flight validation, version bumping, PR 
 |----------|-------|-------------|---------|
 | `--dry-run` | `-n` | Preview release plan without executing | `false` |
 | `--autonomous` | `--auto` | Run without user prompts, auto-resolve where possible | `false` |
-| `--skip-surfaces` | — | Skip Step 13.6 multi-surface version assertion | `false` |
+| `--skip-surfaces` | — | Skip Step 13.6 surface registry phase (propagation + verify) | `false` |
 
 ## Dry-Run Mode
 
@@ -60,7 +60,7 @@ After detecting the current and next version, display:
 │      (10b if Tauri: build → upload → SHA256 → cask → tap)   │
 │      (10b verify_caveats.py — advisory caveats gate)         │
 │      (10c post_install_check.py — advisory structural gate)  │
-│      (10d aggregator-sync.sh — BLOCKING, exit 1 on failure)  │
+│      (10d aggregator-sync.yml CI action — BLOCKING on unmerged PR)  │
 │ 11. ✓ Sync dev with main                                    │
 │ 12. ✓ Verify CI on main                                     │
 │ 13. ✓ Verify downstream (docs, brew, badges, cask)          │
@@ -223,12 +223,45 @@ Fix with `refcard-gen.sh` and `mkdocs.yml` edits. Full guidance in downstream-ve
 `./scripts/post-release-sweep.sh --fix` — catches Tier 2+ version drift not managed by
 bump-version.sh. Commit any changes. Full tier table in downstream-verification.md.
 
-### Step 13.6: Verify Surfaces (multi-surface version assert)
+### Step 13.6: Surface Registry Phase
 
-Auto-runs when `.claude-plugin/plugin.json` is present. Checks marketplace.json, git tag, tap
-formula, brew-installed, Code-registered, and aggregator surfaces. BLOCKs on mismatches;
-WARNs for Desktop/Cowork (manual only). Bypass with `--skip-surfaces`. Full script and surface
-table in downstream-verification.md.
+Auto-runs when `.claude-plugin/plugin.json` is present. Propagates the release across the
+surface registry and asserts ONE version across every registered surface.
+
+**Registry-driven propagation (runs before verify):**
+
+1. **Aggregator CI action** — the `aggregator-sync.yml` workflow fires on `release: published`
+   and opens + auto-merges a PR in `Data-Wise/claude-plugins`. If the PR is not merged within
+   the timeout the action exits 1 (fail-loud: blocking — craft#218 Q2 gate).
+2. **Advisory pins** — `brew upgrade craft` and `claude plugin update craft@local-plugins`
+   are emitted as one-time advisory reminders (WARN; not blocking).
+3. **Cowork surface** — a Cowork report is generated and a remind is queued (WARN; manual
+   `claude plugin marketplace add`; non-blocking).
+
+**Pre-ship gate (manual, before release):** verify the GitHub App has `contents: write` and
+`pull-requests: write` permissions on `Data-Wise/claude-plugins`. Without these permissions the
+aggregator CI action cannot open or merge PRs and will fail at runtime.
+
+**Surface matrix:**
+
+| Surface | Gate | Propagation |
+|---------|------|-------------|
+| git-tag | BLOCK | `gh release create` (existing) |
+| marketplace.json | BLOCK | `bump-version.sh` (existing) |
+| tap formula | BLOCK | `homebrew-release` workflow |
+| brew-installed | WARN | advisory `brew upgrade` reminder |
+| Code-registered | WARN | advisory `plugin update` reminder |
+| aggregator | BLOCK | `aggregator-sync.yml` CI action (auto-merge PR) |
+| Cowork | WARN | Cowork report + remind (manual store) |
+| Desktop | INFO | DXT store; report only |
+
+**Verify half (retained from prior behavior):** After propagation, `scripts/verify-surfaces.sh`
+asserts each BLOCK surface has landed the expected version. Injectable overrides (`SURFACES_*`
+env vars) allow surface verification in test/CI without live machine state. Bypass the entire
+step with `--skip-surfaces` (e.g. a non-plugin release or deliberate partial publish).
+
+Full implementation — trigger condition, aggregator snippet, BLOCK/WARN table, and absent-leg
+handling — is in [`references/downstream-verification.md`](references/downstream-verification.md).
 
 ### Step 13.7: Prune Version Cache (maintenance)
 

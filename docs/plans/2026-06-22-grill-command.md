@@ -17,7 +17,7 @@
 - No `execSync`; use `execFileSync`. Python utils: stdlib only, POSIX-portable (BSD/GNU sed parity not relevant here; no shelling out needed).
 - Adding ONE command triggers the ~30-file count cascade: ~14 bump-version files + `plugin.json (N craft)` subtotal (manual) + ~29 doc refs + Phase 8 doc entry. (memory: adding-a-command-cascades-30-file-count-bump)
 - Frontmatter list-value descriptions containing a colon must be quoted (command-audit uses real YAML).
-- Current version baseline: v2.47.0; counts 113 / 39 / 8 → grill makes it 115 commands.
+- Current version baseline: v2.47.0; counts 113 / 39 / 8 → grill makes it 116 commands.
 - TDD: failing test → run-fail → minimal impl → run-pass → commit. DRY, YAGNI, frequent commits.
 
 ---

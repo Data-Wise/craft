@@ -1152,7 +1152,7 @@ npm test
 /craft:ci:validate              # Validate existing CI
 ```
 
-## Distribution Commands (4 commands)
+## Distribution Commands (5 commands)
 
 | Command                        | Description                            |
 | ------------------------------ | -------------------------------------- |
@@ -1160,6 +1160,7 @@ npm test
 | `/craft:dist:homebrew`         | Generate Homebrew formula              |
 | `/craft:dist:pypi`             | Package for PyPI                       |
 | `/craft:dist:curl-install`     | Generate curl installer                |
+| `/craft:dist:surfaces`         | Read-only view of surface registry + version matrix |
 
 **Quick examples:**
 
@@ -1169,6 +1170,8 @@ npm test
 /craft:dist:homebrew            # Generate Homebrew formula
 /craft:dist:pypi                # Package for PyPI
 /craft:dist:curl-install        # Generate curl installer
+/craft:dist:surfaces            # View surface registry + gate states
+/craft:dist:surfaces --json     # Raw registry JSON
 ```
 
 **Homebrew release gates (plugin formula):**

@@ -8,7 +8,7 @@ post-release sweep, surface assertion, and version cache pruning.
 - [Step 13: Verify Downstream Workflows](#step-13-verify-downstream-workflows-mandatory)
 - [Step 13.4: Doc Coverage Gate](#step-134-doc-coverage-gate-mandatory)
 - [Step 13.5: Post-Release Sweep](#step-135-post-release-sweep-recommended)
-- [Step 13.6: Verify Surfaces](#step-136-verify-surfaces-multi-surface-version-assert)
+- [Step 13.6: Surface Registry Phase](#step-136-surface-registry-phase)
 - [Step 13.7: Prune Version Cache](#step-137-prune-version-cache-maintenance)
 
 ## Step 13: Verify Downstream Workflows (MANDATORY)
@@ -167,14 +167,55 @@ git push
 
 If `--fix` makes changes, commit them before completing the release.
 
-## Step 13.6: Verify Surfaces (multi-surface version assert)
+## Step 13.6: Surface Registry Phase
 
-After the sweep, assert that **one version reached every surface craft controls** and print a
-per-surface report. This is the gate that stops Code / Homebrew / marketplace / git-tag from
-silently disagreeing — and prints the honest one-time manual step for Desktop/Cowork.
+After the sweep, propagate the release through the surface registry and assert that ONE version
+landed on every registered surface. The registry (`scripts/surfaces/registry.json`) is the
+source of truth for which surfaces exist and what gate they carry.
 
-**Trigger (D1):** auto-runs whenever `.claude-plugin/plugin.json` is present. The only escape is
-`--skip-surfaces` (e.g. a non-plugin release, or a deliberate partial publish).
+### Registry-driven propagation
+
+**Step 13.6a — Aggregator CI action (BLOCK gate, craft#218):**
+
+The `aggregator-sync.yml` GitHub Actions workflow fires automatically on `release: published`.
+It:
+
+1. Opens a version-bump PR in `Data-Wise/claude-plugins` (the aggregator marketplace repo)
+2. Merges the PR with `gh pr merge --admin --squash`
+3. Verifies `state == "MERGED"` — if not merged, exits 1 (fail-loud)
+
+If the workflow fails: check `gh run list --workflow=aggregator-sync.yml` and verify the GitHub
+App has `contents: write` and `pull-requests: write` on `Data-Wise/claude-plugins`.
+
+**Step 13.6b — Advisory pins (WARN only, non-blocking):**
+
+After a successful release, the pipeline emits reminder output for manual-only surfaces:
+
+```
+⚠️  Advisory: brew upgrade craft  (brew-installed surface)
+⚠️  Advisory: claude plugin update craft@local-plugins  (Code-registered surface)
+```
+
+These are informational — they are recorded in the `.STATUS` surfaces matrix via
+`--write-status` but do NOT block completion.
+
+**Step 13.6c — Cowork surface (WARN only, non-blocking):**
+
+The Cowork surface tracks craft via its own plugin registry (separate GUI store). The pipeline
+generates a Cowork report and queues a remind. A mismatch here is WARN only — the Cowork store
+requires a manual `claude plugin marketplace add` update outside the automated pipeline.
+
+**Pre-ship gate (manual, one-time per App setup):**
+
+Before shipping any release that uses the aggregator CI action, verify:
+
+- The GitHub App is installed on `Data-Wise/claude-plugins`
+- The App has `contents: write` and `pull-requests: write` permissions
+- The `APP_ID` and `APP_PRIVATE_KEY` secrets are set in the source repo
+
+Run this check once; App permissions persist until explicitly changed.
+
+### Verify half (run after propagation)
 
 ```bash
 # Auto-runs when this repo ships a plugin; --skip-surfaces bypasses.
@@ -182,41 +223,34 @@ if [[ -f .claude-plugin/plugin.json && "$SKIP_SURFACES" != true ]]; then
   NAME=$(python3 -c "import json;print(json.load(open('.claude-plugin/plugin.json'))['name'])")
   VER=$(python3 -c "import json;print(json.load(open('.claude-plugin/plugin.json'))['version'])")
 
-  # If the Data-Wise aggregator marketplace is checked out, keep this plugin's
-  # entry in sync (D5) BEFORE verifying — then verify it as the 'aggregator' leg.
-  AGG="${DATA_WISE_AGGREGATOR_FILE:-}"        # path to aggregator marketplace.json, if available
-  if [[ -n "$AGG" && -f "$AGG" ]]; then
-    ./scripts/aggregator-sync.sh --file "$AGG" --plugin "$NAME" --version "$VER"
-    # (commit/push the aggregator repo separately — it's a different repo.)
-  fi
-
+  # Aggregator sync happens via the CI action (aggregator-sync.yml) on release: published.
+  # If running verify manually post-release, you may pass an aggregator file to check the leg:
+  AGG="${DATA_WISE_AGGREGATOR_FILE:-}"
   ./scripts/verify-surfaces.sh --write-status \
     --aggregator Data-Wise/claude-plugins \
     ${AGG:+--aggregator-file "$AGG"}
 fi
 ```
 
-**Behavior (D2):**
+**Surface matrix — gate levels and verify behavior:**
 
-| Surface | Source | On disagreement |
-|---------|--------|-----------------|
-| marketplace.json | `.claude-plugin/marketplace.json` | **BLOCK** |
-| git tag | `git tag vX.Y.Z` | **BLOCK** |
-| tap formula | `Formula/<name>.rb` url | **BLOCK** |
-| brew-installed | `brew list --versions <name>` | **BLOCK** |
-| Code-registered | `~/.claude/plugins/installed_plugins.json` | **BLOCK** |
-| aggregator (D5) | Data-Wise aggregator `marketplace.json` entry (via `--aggregator-file`) | **BLOCK** (only when configured) |
-| Desktop/Cowork | manual `claude plugin marketplace add` | **WARN** (one-time, not auto-verifiable) |
+| Surface | Gate | Source | On mismatch | Injectable override |
+|---------|------|--------|-------------|---------------------|
+| marketplace.json | BLOCK | `.claude-plugin/marketplace.json` | exit 1 | — |
+| git tag | BLOCK | `git describe` | exit 1 | `SURFACES_GIT_TAG` |
+| tap formula | BLOCK | `Formula/<name>.rb` | exit 1 | `SURFACES_TAP_FORMULA` |
+| brew-installed | WARN | `brew list --versions <name>` | warn only | `SURFACES_BREW_VERSION` |
+| Code-registered | WARN | `~/.claude/plugins/installed_plugins.json` | warn only | `SURFACES_INSTALLED_PLUGINS` |
+| aggregator | BLOCK | aggregator `marketplace.json` entry | exit 1 | `--aggregator-file` |
+| Cowork | WARN | `cowork_plugins/` store | warn only | `SURFACES_COWORK_STORE` |
+| Desktop | INFO | DXT store | info only | — |
 
-A surface whose source is **absent/unreadable** (no brew, no local tap checkout) is reported
-`⚠️ not verified` and does **not** block — only a *present-but-mismatched* craft-controlled
-surface fails the release (exit 1). `--write-status` records the result in the `.STATUS` surfaces
-matrix.
+An **absent/unreadable** source is `⚠️ not verified` — it does NOT block. Only a
+**present-but-mismatched** craft-controlled BLOCK surface fails the release (exit 1).
 
-If it **BLOCKS**, the version did not land uniformly — fix the lagging surface (commonly: `git pull`
-a stale tap checkout, re-run the homebrew workflow, or `claude plugin update <name>@local-plugins`
-for Code — note the **marketplace-qualified** name; the bare name errors "not found") and re-run
-before completing the release.
+**Bypass:** `--skip-surfaces` skips the entire Step 13.6 (e.g. a non-plugin release or
+deliberate partial publish). The `/craft:dist:surfaces` command provides a read-only view of
+the registry and current gate states at any time.
 
 ## Step 13.7: Prune Version Cache (maintenance)
 
