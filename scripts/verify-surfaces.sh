@@ -25,6 +25,7 @@
 #   SURFACES_BREW_VERSION      override `brew list --versions <name>`
 #   SURFACES_INSTALLED_PLUGINS path to installed_plugins.json
 #   SURFACES_REPO_DIR          repo root holding .claude-plugin/ (default: $PWD)
+#   SURFACES_COWORK_STORE      path to a cowork_plugins/ dir (overrides live glob)
 #
 # Usage:
 #   ./scripts/verify-surfaces.sh            # human report (default)
@@ -180,7 +181,52 @@ AGG_FILE="${SURFACES_AGGREGATOR_FILE:-$AGGREGATOR_FILE}"
 resolve_aggregator() {
     [[ -f "$AGG_FILE" ]] || return 0   # configured-but-missing -> absent (warn)
     json_corrupt "$AGG_FILE" && { echo "__CORRUPT__"; return 0; }
-    json_get "$AGG_FILE" "next((p.get('version') for p in d.get('plugins',[]) if p.get('name')=='${PLUGIN_NAME}'), '')"
+    # Name-match assertion (#67): if the file has plugins but none carry the
+    # expected plugin name, emit a sentinel so the leg BLOCKS rather than going
+    # silently "absent". A wrong name in the aggregator is as bad as wrong version.
+    python3 - "$AGG_FILE" "${PLUGIN_NAME}" <<'PYEOF'
+import json, sys
+f, pname = sys.argv[1], sys.argv[2]
+d = json.load(open(f))
+plugins = d.get('plugins', [])
+entry = next((p for p in plugins if p.get('name') == pname), None)
+if entry is None and plugins:
+    # File has plugins but none match our name — name mismatch
+    print('__NAME_MISMATCH__')
+elif entry is not None:
+    print(entry.get('version', ''))
+# else: no plugins at all → empty → absent (warn)
+PYEOF
+}
+
+# Cowork store: read from SURFACES_COWORK_STORE (injectable override) or glob the
+# live Cowork session path. Returns the installed version for this plugin, or
+# empty if the store is absent/unreadable. This is WARN-only (never blocks).
+resolve_cowork() {
+    local store_dir="${SURFACES_COWORK_STORE:-}"
+    if [[ -z "$store_dir" ]]; then
+        # Live Cowork store: find first matching session directory
+        local base="$HOME/Library/Application Support/Claude/local-agent-mode-sessions"
+        # Use find with explicit path so we don't fail if the glob matches nothing
+        local found
+        found=$(find "$base" -maxdepth 4 -name "installed_plugins.json" \
+            -path "*/cowork_plugins/*" 2>/dev/null | head -1)
+        [[ -n "$found" ]] && store_dir="$(dirname "$found")"
+    fi
+    [[ -d "$store_dir" ]] || return 0   # no store → absent (warn)
+    local installed_file="$store_dir/installed_plugins.json"
+    [[ -f "$installed_file" ]] || return 0
+    # Shape: { "plugins": { "<plugin>@<mkt>": [ {"version": "X"} ] } }
+    python3 - "$installed_file" "${PLUGIN_NAME}" <<'PYEOF' 2>/dev/null
+import json, sys
+f, pname = sys.argv[1], sys.argv[2]
+d = json.load(open(f))
+plugins = d.get('plugins', {})
+for key, entries in plugins.items():
+    if key.split('@')[0] == pname and entries:
+        print(entries[0].get('version', ''))
+        sys.exit(0)
+PYEOF
 }
 
 # ---------------------------------------------------------------------------
@@ -196,6 +242,9 @@ add_leg() {
     if [[ "$version" == "__CORRUPT__" ]]; then
         # Present but unparseable on a craft-controlled surface — block, never warn.
         state="corrupt"; BLOCK=1; version="(unparseable)"
+    elif [[ "$version" == "__NAME_MISMATCH__" ]]; then
+        # Aggregator has plugins but none match our plugin name — block.
+        state="name-mismatch"; BLOCK=1; version="(wrong name)"
     elif [[ -z "$version" ]]; then
         state="absent"
     elif [[ "$version" == "$SOT_VERSION" ]]; then
@@ -206,22 +255,44 @@ add_leg() {
     LEG_LABEL+=("$label"); LEG_VERSION+=("$version"); LEG_STATE+=("$state")
 }
 
+# add_warn_leg — identical display to add_leg but NEVER sets BLOCK=1.
+# Use for surfaces that are informational/manual (e.g. Cowork).
+add_warn_leg() {
+    local label="$1" version="$2"
+    local state
+    if [[ "$version" == "__CORRUPT__" ]]; then
+        state="corrupt-warn"; version="(unparseable)"
+    elif [[ -z "$version" ]]; then
+        state="absent"
+    elif [[ "$version" == "$SOT_VERSION" ]]; then
+        state="ok"
+    else
+        state="warn"   # mismatch — but WARN only, never BLOCK
+    fi
+    LEG_LABEL+=("$label"); LEG_VERSION+=("$version"); LEG_STATE+=("$state")
+}
+
 add_leg "marketplace"     "$(resolve_marketplace)"
 add_leg "git tag"         "$(resolve_git_tag)"
 add_leg "tap formula"     "$(resolve_tap_formula)"
 add_leg "brew-installed"  "$(resolve_brew)"
 add_leg "Code-registered" "$(resolve_code_registered)"
 [[ -n "$AGG_FILE" ]] && add_leg "aggregator" "$(resolve_aggregator)"
+# Cowork: WARN-only leg (manual surface, separate GUI store).
+add_warn_leg "cowork" "$(resolve_cowork)"
 
 # ---------------------------------------------------------------------------
 # Render
 # ---------------------------------------------------------------------------
 glyph_for() {
     case "$1" in
-        ok)       printf '%b' "${GREEN}[OK]${NC}" ;;
-        mismatch) printf '%b' "${RED}[X ]${NC}" ;;
-        corrupt)  printf '%b' "${RED}[!X]${NC}" ;;
-        absent)   printf '%b' "${YELLOW}[!]${NC}" ;;
+        ok)           printf '%b' "${GREEN}[OK]${NC}" ;;
+        mismatch)     printf '%b' "${RED}[X ]${NC}" ;;
+        corrupt)      printf '%b' "${RED}[!X]${NC}" ;;
+        name-mismatch) printf '%b' "${RED}[X ]${NC}" ;;
+        absent)       printf '%b' "${YELLOW}[!]${NC}" ;;
+        warn)         printf '%b' "${YELLOW}[!]${NC}" ;;
+        corrupt-warn) printf '%b' "${YELLOW}[!]${NC}" ;;
     esac
 }
 
@@ -246,10 +317,13 @@ else
     for i in "${!LEG_LABEL[@]}"; do
         local_ver="${LEG_VERSION[$i]:-—}"
         case "${LEG_STATE[$i]}" in
-            ok)       note="" ;;
-            mismatch) note="  <- MISMATCH (blocks release)" ;;
-            corrupt)  note="  <- CORRUPT JSON (blocks release)" ;;
-            absent)   note="  (unreadable — not verified)"; local_ver="N/A" ;;
+            ok)           note="" ;;
+            mismatch)     note="  <- MISMATCH (blocks release)" ;;
+            corrupt)      note="  <- CORRUPT JSON (blocks release)" ;;
+            name-mismatch) note="  <- NAME MISMATCH (blocks release)" ;;
+            absent)       note="  (unreadable — not verified)"; local_ver="N/A" ;;
+            warn)         note="  (warn only — manual surface)" ;;
+            corrupt-warn) note="  (unparseable — warn only)"; local_ver="N/A" ;;
         esac
         printf '  %b %-16s %s%s\n' "$(glyph_for "${LEG_STATE[$i]}")" "${LEG_LABEL[$i]}" "$local_ver" "$note"
     done

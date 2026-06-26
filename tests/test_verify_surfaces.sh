@@ -111,6 +111,7 @@ run_verify() {
            SURFACES_TAP_FORMULA="${SURFACES_TAP_FORMULA-$SANDBOX/craft.rb}" \
            SURFACES_BREW_VERSION="${SURFACES_BREW_VERSION-$SBX_VERSION}" \
            SURFACES_INSTALLED_PLUGINS="${SURFACES_INSTALLED_PLUGINS-$SANDBOX/installed_plugins.json}" \
+           SURFACES_COWORK_STORE="${SURFACES_COWORK_STORE-/nonexistent/cowork_store}" \
            bash "$VERIFY_SCRIPT" "$@" 2>&1 )
 }
 
@@ -329,6 +330,108 @@ test_corrupt_marketplace_blocks() {
     destroy_sandbox
 }
 
+test_cowork_mismatch_is_warn_only() {
+    echo -e "${T_BLUE}[TEST]${T_NC} COWORK: Cowork mismatch -> WARN only, never blocks (exit 0)"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    # Cowork store: wrong version but all BLOCK legs aligned.
+    local cowork_dir="$SANDBOX/cowork_plugins"
+    mkdir -p "$cowork_dir"
+    cat > "$cowork_dir/known_marketplaces.json" <<'JSON'
+{ "my-mkt": { "source": { "source": "github", "repo": "Data-Wise/craft" } } }
+JSON
+    cat > "$cowork_dir/installed_plugins.json" <<JSON
+{ "plugins": { "craft@my-mkt": [ { "version": "2.36.0" } ] } }
+JSON
+
+    local exit_code=0 output
+    output=$(SURFACES_COWORK_STORE="$cowork_dir" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Cowork mismatch must NOT block (exit 0)"
+    assert_contains "$stripped" "cowork" "Report lists the cowork leg"
+    assert_contains "$stripped" "ALIGNED" "Summary still ALIGNED (cowork is warn-only)"
+
+    destroy_sandbox
+}
+
+test_cowork_absent_is_warn_not_block() {
+    echo -e "${T_BLUE}[TEST]${T_NC} COWORK: absent cowork store -> warn, not block"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local exit_code=0 output
+    output=$(SURFACES_COWORK_STORE="$SANDBOX/no-such-cowork-store" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Absent cowork store does not block"
+    assert_contains "$stripped" "ALIGNED" "Summary ALIGNED with absent cowork"
+
+    destroy_sandbox
+}
+
+test_aggregator_name_mismatch_blocks() {
+    echo -e "${T_BLUE}[TEST]${T_NC} AGGREGATOR NAME: aggregator entry with wrong name -> BLOCK"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+    cat > "$SANDBOX/aggregator.json" <<'JSON'
+{ "name": "data-wise", "plugins": [ { "name": "WRONG-NAME", "version": "2.37.0" } ] }
+JSON
+    local exit_code=0 output
+    output=$(SURFACES_AGGREGATOR_FILE="$SANDBOX/aggregator.json" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "1" "$exit_code" "Aggregator name mismatch blocks (exit 1)"
+    assert_contains "$stripped" "BLOCKED" "Summary BLOCKED on aggregator name mismatch"
+
+    destroy_sandbox
+}
+
+test_aggregator_correct_name_and_version_passes() {
+    echo -e "${T_BLUE}[TEST]${T_NC} AGGREGATOR NAME: correct name + version -> exit 0"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+    cat > "$SANDBOX/aggregator.json" <<'JSON'
+{ "name": "data-wise", "plugins": [ { "name": "craft", "version": "2.37.0" } ] }
+JSON
+    local exit_code=0 output
+    output=$(SURFACES_AGGREGATOR_FILE="$SANDBOX/aggregator.json" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Correct aggregator name + version exits 0"
+    assert_contains "$stripped" "ALIGNED" "Summary ALIGNED on correct name + version"
+
+    destroy_sandbox
+}
+
+test_cowork_glob_maxdepth() {
+    echo -e "${T_BLUE}[TEST]${T_NC} COWORK GLOB: live glob finds file at depth 4 (/*/*/cowork_plugins/installed_plugins.json)"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    # Build the nested structure under a fake HOME to exercise the real find path
+    local fake_home="$SANDBOX/fake_home"
+    local sessions_dir="$fake_home/Library/Application Support/Claude/local-agent-mode-sessions"
+    local cowork_dir="$sessions_dir/session-a/subdir-b/cowork_plugins"
+    mkdir -p "$cowork_dir"
+    cat > "$cowork_dir/installed_plugins.json" <<JSON
+{ "plugins": { "craft@test-mkt": [ { "version": "2.37.0" } ] } }
+JSON
+
+    # Run WITHOUT SURFACES_COWORK_STORE so the glob path is exercised.
+    # Override HOME to point at our fixture tree; unset SURFACES_COWORK_STORE.
+    local exit_code=0 output
+    output=$( cd "$SANDBOX" \
+        && SURFACES_GIT_TAG="v2.37.0" \
+           SURFACES_TAP_FORMULA="$SANDBOX/craft.rb" \
+           SURFACES_BREW_VERSION="2.37.0" \
+           SURFACES_INSTALLED_PLUGINS="$SANDBOX/installed_plugins.json" \
+           HOME="$fake_home" \
+           bash "$VERIFY_SCRIPT" 2>&1 ) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Cowork glob at depth 4 exits 0"
+    assert_contains "$stripped" "cowork" "Cowork leg appears in report (glob found it)"
+
+    destroy_sandbox
+}
+
 print_summary() {
     echo ""
     echo -e "${T_BLUE}═══════════════════════════════════════════${T_NC}"
@@ -352,6 +455,12 @@ main() {
     test_git_tag_leg_detects_lagging_tag
     test_corrupt_marketplace_blocks
     test_json_mode
+    # Task 2 additions
+    test_cowork_mismatch_is_warn_only
+    test_cowork_absent_is_warn_not_block
+    test_aggregator_name_mismatch_blocks
+    test_aggregator_correct_name_and_version_passes
+    test_cowork_glob_maxdepth
     print_summary
     [ "$FAILED_TESTS" -gt 0 ] && exit 1 || exit 0
 }
