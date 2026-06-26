@@ -6,7 +6,7 @@ Complete reference for all 115 Craft commands organized by category. Craft provi
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
 **Dry-Run Support:** 27 of 115 commands support `--dry-run` / `-n` preview mode
-**Prompt Refinement:** `--refine` on `/brainstorm`, `/craft:do`, `/craft:orchestrate`, `/craft:plan:feature`, `/craft:arch:plan` sharpens your prompt before the command acts (via the `prompt-refiner` skill).
+**Prompt Refinement (default-on):** `/brainstorm`, `/craft:do`, `/craft:plan:feature`, `/craft:grill` run the `prompt-refiner` skill automatically before acting. Use `--no-refine` to skip; pass `--yes` to auto-accept the refined prompt without a confirm step.
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
 Use `/craft:hub` to discover all available commands interactively.

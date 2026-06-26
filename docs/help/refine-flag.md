@@ -40,7 +40,8 @@ then confirm, and the command proceeds on the prompt you chose.
 Reach for `--refine` whenever your prompt is vague, terse, or missing the
 context a command needs to do good work — e.g. `"add auth"`,
 `"make it faster"`, `"clean up the docs"`. If your prompt is already specific,
-skip the flag and run the command directly.
+you can skip refinement by passing `--no-refine` (on default-on commands) or
+simply omitting the `--refine` flag (on opt-in commands).
 
 ## The Accept / Edit / Use-original flow
 
@@ -59,14 +60,23 @@ refinement.
 
 ## Which commands support it
 
-`--refine` is available on these five commands:
+`--refine` is declared on **7 commands** in two modes:
+
+**Default-ON** — refine runs automatically; pass `--no-refine` to skip:
 
 | Command | Purpose |
 |---|---|
 | `/craft:workflow:brainstorm` | Brainstorm on a refined topic |
 | `/craft:do` | Route a refined task |
-| `/craft:orchestrate` | Orchestrate a refined goal |
 | `/craft:plan:feature` | Plan a refined feature |
+| `/craft:grill` | Refine the topic before interrogating |
+
+**Opt-in** — refine is off by default; add `--refine` to enable:
+
+| Command | Purpose |
+|---|---|
+| `/craft:orchestrate` | Orchestrate a refined goal |
+| `/craft:orchestrate:workflow` | Workflow-orchestrate a refined goal |
 | `/craft:arch:plan` | Architecture plan from a refined prompt |
 
 ## See also
