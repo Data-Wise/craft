@@ -161,7 +161,10 @@ class TestAggregatorSyncWorkflowFailLoud:
         """Must verify the PR actually merged — not just that the merge command ran."""
         assert AGGREGATOR_WORKFLOW.exists(), "workflow file missing"
         text = _workflow_text()
-        # Workflow must check PR state or contain explicit fail-loud logic
-        assert "MERGED" in text or "state" in text.lower(), (
-            "aggregator-sync.yml must verify PR merged state (fail-loud contract)"
+        # Workflow must contain BOTH: the merged-state comparison AND the fail-loud exit 1.
+        # The vacuous "or 'state' in text" was removed — "state" appears everywhere.
+        # These two substrings together gate the exact fail-loud block that craft#218 introduced.
+        assert '"MERGED"' in text and "exit 1" in text, (
+            "aggregator-sync.yml must contain the fail-loud block: "
+            "'MERGED' state comparison AND 'exit 1' (craft#218 regression guard)"
         )
