@@ -30,3 +30,14 @@ def test_scaffold_flag_scope():
     assert no_docs == DEFAULT_ON, f"no-docs scope drift: {no_docs ^ DEFAULT_ON}"
     assert opt_tests == OPT_IN, f"opt-in tests scope drift: {opt_tests ^ OPT_IN}"
     assert opt_docs == OPT_IN, f"opt-in docs scope drift: {opt_docs ^ OPT_IN}"
+
+
+def test_logic_lives_in_skills_not_deprecated_commands():
+    # the deprecated commands must POINT to the skill, not embed the tier-inference table
+    for rel in ["commands/workflow/brainstorm.md", "commands/plan/feature.md"]:
+        t = (PLUGIN_DIR / rel).read_text(encoding="utf-8").lower()
+        assert "brainstorm-insights" in t or "plan-orchestrator" in t, \
+            f"{rel} must point to its skill"
+        # tier-inference table belongs in the skill, not the deprecated command body
+        assert "count-cascade dogfood" not in t, \
+            f"{rel} must NOT embed the tier table (deprecation trap)"
