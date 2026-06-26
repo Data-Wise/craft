@@ -170,7 +170,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.52.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.53.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -222,7 +222,7 @@ Display template:
 │   /craft:git:clean                 /workflow:spec-review               │
 │   /craft:git:git-recap                 /craft:insights                     │
 │   /craft:git:status                                                     │
-│   /craft:git:protect             DIST (4)                               │
+│   /craft:git:protect             DIST (5)                               │
 │   /craft:git:unprotect             /craft:dist:marketplace             │
 │                                    /craft:dist:homebrew                 │
 │ SITE (16)                          /craft:dist:curl-install             │
@@ -589,7 +589,7 @@ Command                  | Description
 ### `/craft:hub dist`
 
 ```
-DIST COMMANDS (4) - Distribution & Packaging
+DIST COMMANDS (5) - Distribution & Packaging
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description
 ─────────────────────────┼────────────────────────────────────────────
