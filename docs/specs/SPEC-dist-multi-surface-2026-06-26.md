@@ -1,6 +1,6 @@
 # SPEC: Multi-surface plugin distribution — `/craft:dist:surfaces` + Cowork verify-surfaces leg
 
-**Status:** brainstorm-captured (design) · **Date:** 2026-06-26 · **Driver:** v2.52.0 release + Cowork/Desktop install session
+**Status:** SUBSUMED by [SPEC-release-multisurface-2026-06-26.md](SPEC-release-multisurface-2026-06-26.md) (2026-06-26) — the release-revamp made the surface *registry* the core; this spec's `/craft:dist:surfaces` command (D1), Cowork verify leg (D2), name-match (D3), and dist-extras reference (D4) are folded in there as registry views/steps. Kept for the standalone framing; implement via the umbrella spec.
 **Source:** `/craft:workflow:brainstorm` (deep) — learnings from the 2026-06-26 session
 **Related issues:** [craft#218](https://github.com/Data-Wise/craft/issues/218) (aggregator-sync no-op), [craft#184](https://github.com/Data-Wise/craft/issues/184) (dist public/private + pin-refresh), [himalaya-mcp#67](https://github.com/Data-Wise/himalaya-mcp/issues/67) (plugin-name mismatch)
 
