@@ -1,4 +1,4 @@
-"""Dogfood / E2E tests for verify-surfaces.sh — Task 2 additions.
+"""Dogfood / E2E tests for verify-surfaces.sh (Task 2) and aggregator-sync.sh --check (Task 4).
 
 These tests use injected fixture stores (SURFACES_* env vars) so no live
 machine state is required. They validate the exit-code contract:
@@ -18,9 +18,10 @@ import tempfile
 
 import pytest
 
-# Absolute path to the script under test — works from any CWD.
+# Absolute path to the scripts under test — works from any CWD.
 _WORKTREE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VERIFY_SCRIPT = os.path.join(_WORKTREE, "scripts", "verify-surfaces.sh")
+AGGREGATOR_SYNC = os.path.join(_WORKTREE, "scripts", "aggregator-sync.sh")
 
 
 # ---------------------------------------------------------------------------
@@ -198,4 +199,84 @@ def test_aggregator_name_mismatch_blocks_mutate_and_revert():
         exit_code_reverted, output_reverted = _run_verify(tmp, base_env)
         assert exit_code_reverted == 0, (
             f"Correct name in aggregator must exit 0, got {exit_code_reverted}:\n{output_reverted}"
+        )
+
+
+# ---------------------------------------------------------------------------
+# Task 4: aggregator-sync.sh --check mode dogfood tests
+# ---------------------------------------------------------------------------
+
+def _make_aggregator_fixture(tmp_dir: str, plugin: str, version: str) -> str:
+    """Write a minimal aggregator marketplace.json; return its path."""
+    path = os.path.join(tmp_dir, "aggregator.json")
+    with open(path, "w") as f:
+        json.dump({
+            "name": "data-wise",
+            "plugins": [{"name": plugin, "version": version}],
+        }, f, indent=2)
+    return path
+
+
+def _run_aggregator_sync(file: str, plugin: str, version: str, extra_args: list | None = None) -> tuple[int, str]:
+    """Run aggregator-sync.sh --check; return (exit_code, combined_output)."""
+    cmd = ["bash", AGGREGATOR_SYNC, "--file", file, "--plugin", plugin, "--version", version] + (extra_args or [])
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+    output = re.sub(r'\033\[[0-9;]*m', '', result.stdout + result.stderr)
+    return result.returncode, output
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_aggregator_sync_check_stale_reports_would_change():
+    """--check on a STALE aggregator entry reports [would-change] and exits 0.
+
+    The propagate --check leg in surfaces.sh delegates to aggregator-sync.sh --check.
+    A stale entry (old != new version) must report [would-change], never write the file.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        agg_file = _make_aggregator_fixture(tmp, "craft", "2.36.0")
+        mtime_before = os.path.getmtime(agg_file)
+
+        exit_code, output = _run_aggregator_sync(agg_file, "craft", "2.37.0", ["--check"])
+
+        assert exit_code == 0, (
+            f"--check on stale entry must exit 0 (not write), got {exit_code}:\n{output}"
+        )
+        assert "[would-change]" in output, (
+            f"--check on stale entry must report [would-change]; got:\n{output}"
+        )
+        assert "2.36.0" in output and "2.37.0" in output, (
+            f"--check report must show old -> new versions; got:\n{output}"
+        )
+        # File must NOT be modified — --check is dry-run
+        mtime_after = os.path.getmtime(agg_file)
+        assert mtime_before == mtime_after, (
+            "--check must not modify the aggregator file (dry-run violation)"
+        )
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_aggregator_sync_check_current_reports_no_op():
+    """--check on a CURRENT aggregator entry reports [current] and exits 0.
+
+    When the aggregator already has the target version, --check must confirm
+    no-op without writing. This is the short-circuit path the CI workflow uses.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        agg_file = _make_aggregator_fixture(tmp, "craft", "2.37.0")
+        mtime_before = os.path.getmtime(agg_file)
+
+        exit_code, output = _run_aggregator_sync(agg_file, "craft", "2.37.0", ["--check"])
+
+        assert exit_code == 0, (
+            f"--check on current entry must exit 0, got {exit_code}:\n{output}"
+        )
+        assert "[current]" in output, (
+            f"--check on current entry must report [current]; got:\n{output}"
+        )
+        # File must NOT be modified
+        mtime_after = os.path.getmtime(agg_file)
+        assert mtime_before == mtime_after, (
+            "--check on current entry must not touch the file"
         )

@@ -80,3 +80,88 @@ class TestSurfacesArguments:
         assert "owner" in names, (
             f"surfaces.md arguments block missing 'owner'; found: {names}"
         )
+
+
+# ---------------------------------------------------------------------------
+# Task 4: aggregator-sync.yml workflow assertions
+# ---------------------------------------------------------------------------
+
+AGGREGATOR_WORKFLOW = PLUGIN_DIR / ".github" / "workflows" / "aggregator-sync.yml"
+
+
+def _workflow_text() -> str:
+    return AGGREGATOR_WORKFLOW.read_text()
+
+
+def _workflow_yaml() -> dict:
+    return yaml.safe_load(_workflow_text())
+
+
+class TestAggregatorSyncWorkflowExists:
+    """The aggregator-sync.yml workflow file must exist and be valid YAML."""
+
+    def test_file_exists(self):
+        assert AGGREGATOR_WORKFLOW.exists(), (
+            f"aggregator-sync.yml not found at {AGGREGATOR_WORKFLOW}"
+        )
+
+    def test_valid_yaml(self):
+        assert AGGREGATOR_WORKFLOW.exists(), "workflow file missing (see test_file_exists)"
+        data = _workflow_yaml()
+        assert isinstance(data, dict), "aggregator-sync.yml is not a valid YAML mapping"
+
+
+class TestAggregatorSyncWorkflowTrigger:
+    """Workflow must trigger on release: published (not push, not dispatch)."""
+
+    def test_triggers_on_release_published(self):
+        assert AGGREGATOR_WORKFLOW.exists(), "workflow file missing"
+        data = _workflow_yaml()
+        on = data.get("on") or data.get(True)  # 'on' parsed as True in PyYAML
+        assert on is not None, "workflow missing 'on:' trigger block"
+        release = on.get("release") if isinstance(on, dict) else None
+        assert release is not None, (
+            f"workflow 'on:' block must contain 'release:' trigger; found: {list(on.keys()) if isinstance(on, dict) else on}"
+        )
+        types = release.get("types", []) if isinstance(release, dict) else []
+        assert "published" in types, (
+            f"workflow release trigger must include 'published'; found types: {types}"
+        )
+
+
+class TestAggregatorSyncWorkflowSecrets:
+    """Workflow must reference APP_ID and APP_PRIVATE_KEY secrets for GitHub App auth."""
+
+    def test_references_app_id_secret(self):
+        assert AGGREGATOR_WORKFLOW.exists(), "workflow file missing"
+        text = _workflow_text()
+        assert "APP_ID" in text, (
+            "aggregator-sync.yml must reference secrets.APP_ID for GitHub App auth"
+        )
+
+    def test_references_app_private_key_secret(self):
+        assert AGGREGATOR_WORKFLOW.exists(), "workflow file missing"
+        text = _workflow_text()
+        assert "APP_PRIVATE_KEY" in text, (
+            "aggregator-sync.yml must reference secrets.APP_PRIVATE_KEY for GitHub App auth"
+        )
+
+
+class TestAggregatorSyncWorkflowFailLoud:
+    """Workflow must fail loud: non-zero exit if PR opens but does not merge."""
+
+    def test_contains_admin_merge(self):
+        assert AGGREGATOR_WORKFLOW.exists(), "workflow file missing"
+        text = _workflow_text()
+        assert "--admin" in text, (
+            "aggregator-sync.yml must use 'gh pr merge --admin' to bypass branch protection"
+        )
+
+    def test_verifies_merged_state(self):
+        """Must verify the PR actually merged — not just that the merge command ran."""
+        assert AGGREGATOR_WORKFLOW.exists(), "workflow file missing"
+        text = _workflow_text()
+        # Workflow must check PR state or contain explicit fail-loud logic
+        assert "MERGED" in text or "state" in text.lower(), (
+            "aggregator-sync.yml must verify PR merged state (fail-loud contract)"
+        )
