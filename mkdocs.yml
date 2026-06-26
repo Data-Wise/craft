@@ -163,6 +163,7 @@ nav:
       - "ADR-001: Workflow vs Worktree": adr/ADR-001-workflow-branch-guard.md
       - "ADR-002: Done Command/Skill Consolidation": adr/ADR-002-done-command-skill-consolidation.md
       - "ADR-003: Release Drift Advisory": adr/ADR-003-release-drift-advisory-not-hard-gate.md
+      - "ADR-004: Release Surface Registry": adr/ADR-004-release-surface-registry.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
@@ -221,6 +222,7 @@ nav:
       - code:release-watch Tutorial: tutorials/TUTORIAL-code-release-watch.md
       - code:skill-standards Tutorial: tutorials/TUTORIAL-code-skill-standards.md
       - dist:homebrew Tutorial: tutorials/TUTORIAL-dist-homebrew.md
+      - dist:surfaces Tutorial: tutorials/TUTORIAL-dist-surfaces.md
       - docs:changelog Tutorial: tutorials/TUTORIAL-docs-changelog.md
       - docs:check-links Tutorial: tutorials/TUTORIAL-docs-check-links.md
       - docs:check Tutorial: tutorials/TUTORIAL-docs-check.md
@@ -332,6 +334,7 @@ nav:
       - /craft:code:skill-standards: commands/code/skill-standards.md
       - /craft:code:test-gen: commands/code/test-gen.md
       - /craft:dist:homebrew: commands/dist/homebrew.md
+      - /craft:dist:surfaces: commands/dist/surfaces.md
       - /craft:orchestrate:drive: commands/orchestrate/drive.md
       - /craft:orchestrate:resume: commands/orchestrate/resume.md
       - /craft:orchestrate:workflow: commands/orchestrate/workflow.md

@@ -158,6 +158,73 @@ that users add with `claude plugin marketplace add <owner>/<repo>`.
 - [ ] `claude plugin marketplace add <test-path>` succeeds locally
 - [ ] Plugin loads after install (`claude plugin list` shows it)
 
+## Cowork & Desktop surfaces
+
+The craft plugin ships to three independent surfaces. This section covers the Cowork and Desktop
+surfaces — the Code surface (Claude Code CLI) is handled by the Homebrew and marketplace channels
+above.
+
+### The 3-surface model
+
+| Surface | Runtime | Distribution channel | Gate |
+|---------|---------|----------------------|------|
+| **Code** | Claude Code CLI | Homebrew tap + GitHub marketplace | BLOCK |
+| **Cowork** | Cowork platform | Cowork plugin registry (skills-first) | WARN |
+| **Desktop** | Claude Desktop app | Desktop plugin store (DXT) | INFO |
+
+A release is "fully shipped" when all BLOCK-gated surfaces report the expected version.
+WARN surfaces (Cowork, brew-installed, Code-registered) are surfaced in the report but do not
+gate the automated pipeline.
+
+> **Registry vs. user model:** The `registry.json` tracks 8 surfaces; the user-facing "3-surface"
+> view collapses them. Code aggregates git-tag, marketplace, tap, brew, code-registered, and
+> aggregator; Cowork maps to the cowork surface (WARN); Desktop maps to desktop-ext (INFO).
+
+### Code surface
+
+Distributed via two channels (both BLOCK-gated):
+
+- **Homebrew tap** (`data-wise/tap`) — `brew install data-wise/tap/craft`
+- **GitHub marketplace** — `claude plugin marketplace add Data-Wise/craft`
+
+The `aggregator-sync.yml` CI action keeps the Data-Wise aggregator marketplace in sync on every
+`release: published` event (auto-merge PR, fail-loud on failure).
+
+### Cowork surface
+
+Cowork ships a skills-first subset of craft. The surface tracks craft via a separate GUI plugin
+registry. Key behaviors:
+
+- **Skills-first**: Cowork consumes `skills/` and `commands/` but may present them differently
+  than Claude Code CLI.
+- **Personal vs Org marketplace**: Cowork supports both personal and org-level marketplaces.
+  The craft plugin is published under the Data-Wise org marketplace.
+- **Install path**: `claude plugin marketplace add data-wise/craft` (Cowork variant) — the exact
+  path is marketplace-specific and may differ from the Code CLI install command.
+- **Manual update**: There is no automated propagation from the release pipeline to the Cowork
+  store. After a release, the Cowork surface requires a manual store update. The pipeline emits
+  a WARN with the Cowork report and a remind.
+
+### Desktop surface
+
+The Claude Desktop app ships plugins via its own DXT plugin store. Key behaviors:
+
+- **DXT format**: Desktop plugins use the `.dxt` format (different from the Code CLI plugin format).
+- **INFO only**: The Desktop surface is informational in the registry — no automated verify or
+  block gate. The pipeline reports it but does not attempt automated verification.
+- **Manual gate**: Before shipping, verify manually that the Desktop store version matches the
+  release version.
+
+### Surface registry
+
+The `scripts/surfaces/registry.json` file is the source of truth for all surfaces. Use
+`/craft:dist:surfaces` to view the full surface matrix and current gate states.
+
+```bash
+/craft:dist:surfaces              # verify + full human matrix
+/craft:dist:surfaces --json       # machine JSON matrix (live data)
+```
+
 ## Integration
 
 Use with:

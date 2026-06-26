@@ -1,0 +1,62 @@
+{
+  "version": "1.0",
+  "description": "Declarative surface registry for the craft release pipeline",
+  "surfaces": [
+    {
+      "name": "git-tag",
+      "detect": "git describe --tags --exact-match HEAD 2>/dev/null",
+      "propagate": "gh release create (existing release workflow)",
+      "verify": "== plugin.json version",
+      "gate": "BLOCK"
+    },
+    {
+      "name": "marketplace",
+      "detect": "cat .claude-plugin/marketplace.json | jq -r '.version'",
+      "propagate": "bump-version.sh (existing)",
+      "verify": "== plugin.json version",
+      "gate": "BLOCK"
+    },
+    {
+      "name": "tap",
+      "detect": "grep 'version' Formula/craft.rb | head -1",
+      "propagate": "homebrew-release workflow (existing)",
+      "verify": "== plugin.json version",
+      "gate": "BLOCK"
+    },
+    {
+      "name": "brew",
+      "detect": "brew list --versions craft 2>/dev/null | awk '{print $2}'",
+      "propagate": "brew upgrade craft (advisory post-release)",
+      "verify": "== plugin.json version",
+      "gate": "WARN"
+    },
+    {
+      "name": "code-registered",
+      "detect": "jq -r '.[] | select(.name==\"craft\") | .version' ~/.claude/installed_plugins.json 2>/dev/null",
+      "propagate": "marketplace-update then plugin-update (advisory)",
+      "verify": "== plugin.json version",
+      "gate": "WARN"
+    },
+    {
+      "name": "aggregator",
+      "detect": "jq -r '.[] | select(.name==\"craft\") | .version' <aggregator-marketplace.json>",
+      "propagate": "CI action aggregator-sync.yml (D2)",
+      "verify": "== version AND name == source-declared name",
+      "gate": "BLOCK"
+    },
+    {
+      "name": "cowork",
+      "detect": "glob cowork_plugins/known_marketplaces.json + installed_plugins.json",
+      "propagate": "manual (separate GUI store)",
+      "verify": "report only",
+      "gate": "WARN"
+    },
+    {
+      "name": "desktop-ext",
+      "detect": "cat extensions-installations.json 2>/dev/null",
+      "propagate": "N/A (DXT store)",
+      "verify": "N/A",
+      "gate": "INFO"
+    }
+  ]
+}
