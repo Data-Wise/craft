@@ -17,7 +17,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Purpose |
 |--------|------|---------|
-| _(none active)_ | — | interactive-commands MERGED to dev (see below); worktree removed |
+| `feature/spec-scaffold-defaults` | `~/.git-worktrees/craft/feature-spec-scaffold-defaults` | Plan 2 of 2: default-on test-plan + docs scaffolding for brainstorm/plan:feature/grill (SPEC-spec-scaffold-defaults). Subagent-driven TDD, /goal-driven to completion. |
 
 _Recent (MERGED to dev 2026-06-25, squash `3c3446d6`, all CI green, worktree removed + local branch deleted): `feature/interactive-commands` (PR [#215](https://github.com/Data-Wise/craft/pull/215), Plan 1 of 2) — grill/orchestrate AskUserQuestion model + `--yes` non-interactive flag; refine default-on for brainstorm/do/plan:feature/grill (opt-in for orchestrate/orchestrate:workflow/arch:plan), refine scope 6→7; `--yes` cascade; orchestrate Step 0.5 structured model. 13 new e2e/dogfood tests + bumped test_refine_flag_scope; full suite 1948 green. Built subagent-driven (7 tasks, per-task + opus whole-branch review). Pushed dev BEFORE merge to avoid the unpushed-base squash-fold footgun. **NEXT: Plan 2 (scaffold-defaults) — `docs/plans/2026-06-25-spec-scaffold-defaults.md`, depends on this `--yes`/default-on plumbing.**_
 
