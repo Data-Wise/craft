@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.51.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.52.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
       
       
       
@@ -11496,7 +11496,8 @@
 
 
 <h1 id="recipe-refine-a-prompt-before-running">Recipe: Refine a prompt before running<a class="headerlink" href="#recipe-refine-a-prompt-before-running" title="Permanent link">&para;</a></h1>
-<p>Add --refine to any of: brainstorm, do, orchestrate, plan:feature, arch:plan.</p>
+<p><strong>Default-ON</strong> (pass <code>--no-refine</code> to skip): brainstorm, do, plan:feature, grill.</p>
+<p><strong>Opt-in</strong> (add <code>--refine</code> to enable): orchestrate, orchestrate:workflow, arch:plan.</p>
 <ol>
 <li><code>/craft:do --refine "make the CLI faster"</code></li>
 <li>Review the Original → Refined box.</li>

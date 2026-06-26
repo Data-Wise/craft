@@ -11696,7 +11696,8 @@ then confirm, and the command proceeds on the prompt you chose.</p>
 <p>Reach for <code>--refine</code> whenever your prompt is vague, terse, or missing the
 context a command needs to do good work — e.g. <code>"add auth"</code>,
 <code>"make it faster"</code>, <code>"clean up the docs"</code>. If your prompt is already specific,
-skip the flag and run the command directly.</p>
+you can skip refinement by passing <code>--no-refine</code> (on default-on commands) or
+simply omitting the <code>--refine</code> flag (on opt-in commands).</p>
 <h2 id="the-accept-edit-use-original-flow">The Accept / Edit / Use-original flow<a class="headerlink" href="#the-accept-edit-use-original-flow" title="Permanent link">&para;</a></h2>
 <p>After the before/after box appears you choose one of:</p>
 <ul>
@@ -11710,7 +11711,8 @@ skip the flag and run the command directly.</p>
 the prompt entirely. Use it for scripted or hands-off runs where you trust the
 refinement.</p>
 <h2 id="which-commands-support-it">Which commands support it<a class="headerlink" href="#which-commands-support-it" title="Permanent link">&para;</a></h2>
-<p><code>--refine</code> is available on these five commands:</p>
+<p><code>--refine</code> is declared on <strong>7 commands</strong> in two modes:</p>
+<p><strong>Default-ON</strong> — refine runs automatically; pass <code>--no-refine</code> to skip:</p>
 <table>
 <thead>
 <tr>
@@ -11728,12 +11730,31 @@ refinement.</p>
 <td>Route a refined task</td>
 </tr>
 <tr>
+<td><code>/craft:plan:feature</code></td>
+<td>Plan a refined feature</td>
+</tr>
+<tr>
+<td><code>/craft:grill</code></td>
+<td>Refine the topic before interrogating</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Opt-in</strong> — refine is off by default; add <code>--refine</code> to enable:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td><code>/craft:orchestrate</code></td>
 <td>Orchestrate a refined goal</td>
 </tr>
 <tr>
-<td><code>/craft:plan:feature</code></td>
-<td>Plan a refined feature</td>
+<td><code>/craft:orchestrate:workflow</code></td>
+<td>Workflow-orchestrate a refined goal</td>
 </tr>
 <tr>
 <td><code>/craft:arch:plan</code></td>

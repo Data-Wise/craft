@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.51.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.52.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
       
       
       
@@ -13105,7 +13105,7 @@
 <h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
 <p><strong>Smart Commands:</strong> <code>/craft:do</code>, <code>/craft:check</code>, <code>/craft:help</code>, <code>/craft:hub</code>
 <strong>Dry-Run Support:</strong> 27 of 115 commands support <code>--dry-run</code> / <code>-n</code> preview mode
-<strong>Prompt Refinement:</strong> <code>--refine</code> on <code>/brainstorm</code>, <code>/craft:do</code>, <code>/craft:orchestrate</code>, <code>/craft:plan:feature</code>, <code>/craft:arch:plan</code> sharpens your prompt before the command acts (via the <code>prompt-refiner</code> skill).
+<strong>Prompt Refinement (default-on):</strong> <code>/brainstorm</code>, <code>/craft:do</code>, <code>/craft:plan:feature</code>, <code>/craft:grill</code> run the <code>prompt-refiner</code> skill automatically before acting. Use <code>--no-refine</code> to skip; pass <code>--yes</code> to auto-accept the refined prompt without a confirm step.
 <strong>17 Categories:</strong> arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow</p>
 <p>Use <code>/craft:hub</code> to discover all available commands interactively.</p>
 <div class="admonition tip">

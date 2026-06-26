@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.51.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.52.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
       
       
       
@@ -12733,11 +12733,11 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  CRAFT PLUGIN QUICK REFERENCE                               │
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.51.0 (released 2026-06-19)                       │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.52.0 (released 2026-06-19)                       │
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 112 | Agents: 8 | Skills: 39                     │
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Documentation: 99% complete | Tests: 142 passing            │
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  Docs: https://data-wise.github.io/craft/                   │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.51.0: Documentation Coverage — Tutorial Suite            │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.52.0: Documentation Coverage — Tutorial Suite            │
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>└─────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permanent link">&para;</a></h2>
@@ -13000,6 +13000,8 @@ a time to surface gaps before building.</p>
 <p><strong>How it works:</strong> codebase-first sweep → one-at-a-time loop with a Recommended answer per question
 → <code>/done</code> halt + milestone checkpoints → durable <code>GRILL-*</code> decision ledger → handoff to
 <code>/craft:plan</code>. Never overwrites a brainstorm <code>SPEC-*</code>. Reused by <code>/craft:orchestrate</code> Step 0.5.</p>
+<p><strong>Scaffold defaults (v2.52.0):</strong> emits a tier-inferred test plan + Documentation section by default.
+Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 <h2 id="smart-documentation-17-commands">Smart Documentation (17 commands)<a class="headerlink" href="#smart-documentation-17-commands" title="Permanent link">&para;</a></h2>
 <h3 id="core-documentation-commands">Core Documentation Commands<a class="headerlink" href="#core-documentation-commands" title="Permanent link">&para;</a></h3>
 <h4 id="craftdocslint">/craft:docs:lint<a class="headerlink" href="#craftdocslint" title="Permanent link">&para;</a></h4>
@@ -14628,7 +14630,7 @@ a time to surface gaps before building.</p>
 </span><span id="__span-47-21"><a id="__codelineno-47-21" name="__codelineno-47-21" href="#__codelineno-47-21"></a><span class="c1"># NEW in v2.22.0: Doc drift detection</span>
 </span><span id="__span-47-22"><a id="__codelineno-47-22" name="__codelineno-47-22" href="#__codelineno-47-22"></a><span class="c1">#   Cross-references changed files against docs</span>
 </span><span id="__span-47-23"><a id="__codelineno-47-23" name="__codelineno-47-23" href="#__codelineno-47-23"></a><span class="c1">#   Offers to run /craft:docs:sync if drift found</span>
-</span><span id="__span-47-24"><a id="__codelineno-47-24" name="__codelineno-47-24" href="#__codelineno-47-24"></a><span class="c1"># NEW in v2.51.0: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
+</span><span id="__span-47-24"><a id="__codelineno-47-24" name="__codelineno-47-24" href="#__codelineno-47-24"></a><span class="c1"># NEW in v2.52.0: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
 </span><span id="__span-47-25"><a id="__codelineno-47-25" name="__codelineno-47-25" href="#__codelineno-47-25"></a><span class="c1">#   Option A auto-commits + pushes (skip on main, never force-push)</span>
 </span><span id="__span-47-26"><a id="__codelineno-47-26" name="__codelineno-47-26" href="#__codelineno-47-26"></a><span class="c1">#   CLAUDE.md counts synced silently before commit</span>
 </span><span id="__span-47-27"><a id="__codelineno-47-27" name="__codelineno-47-27" href="#__codelineno-47-27"></a><span class="c1">#   Worktree branch ahead/behind shown in summary</span>
@@ -14636,6 +14638,8 @@ a time to surface gaps before building.</p>
 </span><span id="__span-47-29"><a id="__codelineno-47-29" name="__codelineno-47-29" href="#__codelineno-47-29"></a><span class="c1">#   Insights capture: writes facet JSON for friction analysis (SKIP_INSIGHTS=1)</span>
 </span><span id="__span-47-30"><a id="__codelineno-47-30" name="__codelineno-47-30" href="#__codelineno-47-30"></a><span class="c1">#   SKIP_GIT_SYNC=1 / SKIP_CLAUDE_MD_SYNC=1 to opt out</span>
 </span></code></pre></div>
+<p><strong>Scaffold defaults (v2.52.0):</strong> emits a tier-inferred test plan + Documentation section by default.
+Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 <p><strong>See:</strong> <a href="../commands/workflow/brainstorm/">Brainstorm Documentation</a> for complete guide</p>
 <h2 id="skills-39-total">Skills (39 total)<a class="headerlink" href="#skills-39-total" title="Permanent link">&para;</a></h2>
 <p>Auto-triggered expertise:</p>
