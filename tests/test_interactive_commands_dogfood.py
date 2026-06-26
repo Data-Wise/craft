@@ -16,10 +16,11 @@ def test_refine_default_on_documented(rel):
 
 def test_yes_cascade_documented():
     grill = (PLUGIN_DIR / "commands/grill.md").read_text(encoding="utf-8").lower()
-    assert "zero askuserquestion" in grill or "auto-pick every recommended" in grill
+    assert "cascade" in grill, \
+        "grill must document that --yes cascades (auto-picks Recommended)"
     refiner = (PLUGIN_DIR / "skills/workflow/prompt-refiner/SKILL.md").read_text(encoding="utf-8").lower()
-    assert "auto" in refiner and ("--yes" in refiner or "auto-accept" in refiner), \
-        "prompt-refiner must document an auto-accept path for --yes"
+    assert "cascade" in refiner, \
+        "prompt-refiner must document the --yes cascade auto-accept path"
 
 
 def test_orchestrate_clarify_model():

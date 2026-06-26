@@ -30,6 +30,6 @@ def test_grill_declares_refine():
 
 
 def test_grill_refine_path_rule():
-    text = (PLUGIN_DIR / "commands/grill.md").read_text(encoding="utf-8")
-    assert "skip" in text.lower() and "path" in text.lower(), \
-        "grill must document: skip refine when arg is a path"
+    text = (PLUGIN_DIR / "commands/grill.md").read_text(encoding="utf-8").lower()
+    assert "skip refine entirely" in text, \
+        "grill must document: skip refine entirely when arg is a path"

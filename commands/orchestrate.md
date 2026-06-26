@@ -198,7 +198,7 @@ zero AskUserQuestion prompts — the full clarify pass runs headlessly with no u
 
 SKIP this step when:
 
-- the user passed `--no-clarify` (or `--yes` to auto-proceed), OR
+- the user passed `--no-clarify`, OR
 - a matching `SPEC-*` / `ORCHESTRATE-*` / `WORKFLOW-*` file already pins the decisions, OR
 - the task is unambiguous (single interpretation, clear scope + success criteria).
 
