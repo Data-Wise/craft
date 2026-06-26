@@ -41,15 +41,14 @@ resolved, then capture the locked decisions as a durable ledger that feeds `/cra
 
 When the argument is a quoted/bare topic, run prompt-refiner on it first (default-on; `--no-refine` skips). When the argument is a path, skip refine entirely.
 
-Before asking anything, read repo evidence (`.STATUS`, `git log`, `docs/specs/*`, `commands/`,
-`~/.claude/settings.json` when relevant) and PRE-ANSWER every branch you can. Each pre-answer
+Before asking anything, explore the codebase — read repo evidence (`.STATUS`, `git log`, `docs/specs/*`, `commands/`,
+`~/.claude/settings.json` when relevant) — and PRE-ANSWER every branch you can. Each pre-answer
 becomes the **Recommended:** line on its question — shown, never silently skipped, so the user
 can override.
 
 ### Step 3: The grill loop (deliberate, one question at a time)
 
-Ask **one question per AskUserQuestion call** (NOT 4-question batches — one branch at a time
-preserves decision-tree fidelity). For EACH question:
+Ask **one question per AskUserQuestion call** — one-at-a-time fidelity is the point; each answer reshapes the next question. This is a deliberate exception to craft's AskUserQuestion-batch convention (NOT 4-question batches). For EACH question:
 
 - option[0] is the **Recommended** answer, labelled and reasoned;
 - EVERY option carries a one-line **consequence** of choosing it;

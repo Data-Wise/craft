@@ -29,7 +29,7 @@ All commands support flexible scoping (MVP/full/enterprise) and multiple output 
 
 Break down features into actionable tasks with estimates, dependencies, and acceptance criteria.
 
-> **`--refine` flag:** Add `--refine` to sharpen your prompt via the `prompt-refiner` skill before acting. See [the --refine flag guide](../help/refine-flag.md).
+> **Prompt refinement is on by default** — the `prompt-refiner` skill sharpens your prompt before acting. Use `--no-refine` to opt out. See [the --refine flag guide](../help/refine-flag.md).
 
 ### Quick Start
 

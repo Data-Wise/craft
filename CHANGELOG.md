@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Changed
+
+- grill/orchestrate now ask questions via structured options (Recommended-first + consequences); add `--yes` for non-interactive runs.
+- `brainstorm`, `do`, `plan:feature`, `grill` run the prompt-refiner by default (`--no-refine` to opt out).
+
+---
+
 ## [2.51.0] — 2026-06-25
 
 ### Added

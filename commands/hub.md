@@ -654,13 +654,13 @@ Full catalog with trigger phrases: **[Skills & Agents](../docs/skills-agents.md)
 | Documentation | 8 | doc-classifier, mermaid-linter, changelog-automation, openapi-spec |
 | Distribution | 6 | homebrew-formula/workflow/multi-formula/setup, pypi, marketplace |
 | Orchestration | 4 | **drive-engine** (NEW), plan-orchestrator, task-analyzer, session-state |
-| Workflow | 4 | **prompt-refiner** (NEW — `--refine`), adhd-workflow, brainstorm-insights |
+| Workflow | 4 | **prompt-refiner** (default-on for brainstorm/do/orchestrate/plan; `--no-refine` to skip), adhd-workflow, brainstorm-insights |
 | Design | 3 | backend / frontend / devops designers |
 | Code · Testing · Guard&Insights | 2 each | lint/refactor, test-strategist/generator, guard-audit/insights-apply |
 | Architecture · Check · CI · Dev · Modes · Planning · Release | 1 each | architecture, preflight-check, project-detector, git-workflow, mode-controller, project-planner, release |
 
 > Newest: `drive-engine` (powers `/craft:orchestrate:drive`) and `prompt-refiner`
-> (powers the `--refine` flag, replacing the deprecated `/refine`).
+> (runs **by default** on brainstorm/do/orchestrate/plan; `--no-refine` to skip, `--yes` to auto-accept).
 
 ## Agents (8 Specialized)
 
