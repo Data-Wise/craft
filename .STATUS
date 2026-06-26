@@ -17,7 +17,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 | Branch | Path | Purpose |
 |--------|------|---------|
-| `feature/interactive-commands` | `~/.git-worktrees/craft/feature-interactive-commands` | Plan 1 of 2: grill/orchestrate interactive model + `--yes` + refine default-on (SPEC-interactive-commands). Subagent-driven TDD. Plan 2 (scaffold-defaults) follows after merge. |
+| `feature/interactive-commands` | `~/.git-worktrees/craft/feature-interactive-commands` | Plan 1 of 2: grill/orchestrate interactive model + `--yes` + refine default-on (SPEC-interactive-commands). **PR [#215](https://github.com/Data-Wise/craft/pull/215) → dev OPEN** (9 commits, suite 1948 green). Plan 2 (scaffold-defaults) follows after merge. |
 
 _Recent (both MERGED to dev 2026-06-25, conflict-free squash, no `--admin`; remote branches deleted; worktrees removed 2026-06-25; local branch refs left dangling — squash-merge + branch-guard blocks `-D`, harmless): `feature/governance-retro-205` (PR #211 → dev `51327ffc`, #205 retro R09 status-drift + ADR-003 D1–D4) + `feature/check-skill-standards-gate` (PR #212 → dev `d483484f`, skill-standards release-tier gate + CRAFT_MODE no-op fix). Verified mergeable via `merge-tree --write-tree` despite branches being behind dev — the `--stat` looked like `.STATUS`/`CLAUDE.md`/`governance.md` conflicts but the branches authored ZERO changes there (behind ≠ changed); dev's R09 doc `57af82a8` not clobbered. Both branches had been pushed first (gate branch was local-only — would have been a data-loss risk)._
 
