@@ -22,6 +22,7 @@ import pytest
 _WORKTREE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VERIFY_SCRIPT = os.path.join(_WORKTREE, "scripts", "verify-surfaces.sh")
 AGGREGATOR_SYNC = os.path.join(_WORKTREE, "scripts", "aggregator-sync.sh")
+SURFACES_SCRIPT = os.path.join(_WORKTREE, "scripts", "surfaces.sh")
 
 
 # ---------------------------------------------------------------------------
@@ -279,4 +280,192 @@ def test_aggregator_sync_check_current_reports_no_op():
         mtime_after = os.path.getmtime(agg_file)
         assert mtime_before == mtime_after, (
             "--check on current entry must not touch the file"
+        )
+
+
+# ---------------------------------------------------------------------------
+# Task 5: advisory propagate for brew + code-registered surfaces
+# ---------------------------------------------------------------------------
+
+def _run_propagate(
+    surface: str,
+    sandbox_dir: str,
+    env_overrides: dict,
+    extra_args: list | None = None,
+) -> tuple[int, str]:
+    """Run surfaces.sh --propagate <surface>; return (exit_code, combined_output)."""
+    env = os.environ.copy()
+    env["SURFACES_REPO_DIR"] = sandbox_dir
+    env.update(env_overrides)
+    cmd = ["bash", SURFACES_SCRIPT, "--propagate", surface] + (extra_args or [])
+    result = subprocess.run(
+        cmd,
+        capture_output=True,
+        text=True,
+        env=env,
+        timeout=30,
+    )
+    output = re.sub(r'\033\[[0-9;]*m', '', result.stdout + result.stderr)
+    return result.returncode, output
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_brew_propagate_exits_0_when_brew_missing():
+    """Advisory brew propagate exits 0 even when the brew binary is absent.
+
+    The brew surface is WARN-gated. A missing brew binary must NEVER flip the
+    exit code to 1. This is the primary advisory contract.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        _make_plugin_sandbox(tmp, "2.37.0")
+
+        exit_code, output = _run_propagate(
+            "brew",
+            tmp,
+            {"SURFACES_BREW_CMD": "/nonexistent-brew"},
+        )
+
+        assert exit_code == 0, (
+            f"Advisory brew propagate must exit 0 when brew is absent, got {exit_code}:\n{output}"
+        )
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_brew_propagate_prints_recovery_command_when_missing():
+    """Advisory brew propagate prints the canonical brew recovery command when absent.
+
+    The printed command must use 'brew' (canonical name), not the injected mock
+    path — the user needs a command they can actually run.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        _make_plugin_sandbox(tmp, "2.37.0")
+
+        exit_code, output = _run_propagate(
+            "brew",
+            tmp,
+            {"SURFACES_BREW_CMD": "/nonexistent-brew"},
+        )
+
+        assert exit_code == 0, f"Must still exit 0:\n{output}"
+        assert "brew upgrade" in output, (
+            f"Recovery output must contain 'brew upgrade'; got:\n{output}"
+        )
+        assert "data-wise/tap/craft" in output, (
+            f"Recovery output must reference the tap formula; got:\n{output}"
+        )
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_brew_propagate_check_flag_prints_without_executing():
+    """--check on brew propagate prints the would-run command and exits 0, no brew called."""
+    with tempfile.TemporaryDirectory() as tmp:
+        _make_plugin_sandbox(tmp, "2.37.0")
+
+        # Even with a real brew (if present), --check must not call it.
+        # Use a sentinel that exits non-zero if called, to prove it wasn't invoked.
+        sentinel = os.path.join(tmp, "fake-brew")
+        with open(sentinel, "w") as f:
+            f.write("#!/bin/sh\necho 'SENTINEL_CALLED' >&2; exit 1\n")
+        os.chmod(sentinel, 0o755)
+
+        exit_code, output = _run_propagate(
+            "brew",
+            tmp,
+            {"SURFACES_BREW_CMD": sentinel},
+            extra_args=["--check"],
+        )
+
+        assert exit_code == 0, f"--check must exit 0, got {exit_code}:\n{output}"
+        assert "SENTINEL_CALLED" not in output, (
+            "--check must not actually invoke the brew binary"
+        )
+        assert "brew upgrade" in output or "would" in output.lower() or "[check]" in output, (
+            f"--check must describe what would run; got:\n{output}"
+        )
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_code_registered_propagate_exits_0_when_claude_missing():
+    """Advisory code-registered propagate exits 0 even when the claude binary is absent.
+
+    The code-registered surface is WARN-gated. A missing claude binary must
+    NEVER flip the exit code to 1.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        _make_plugin_sandbox(tmp, "2.37.0")
+
+        exit_code, output = _run_propagate(
+            "code-registered",
+            tmp,
+            {"SURFACES_CLAUDE_CMD": "/nonexistent-claude"},
+        )
+
+        assert exit_code == 0, (
+            f"Advisory code-registered propagate must exit 0 when claude is absent, got {exit_code}:\n{output}"
+        )
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_code_registered_propagate_prints_both_recovery_commands():
+    """Advisory code-registered propagate prints BOTH recovery commands when claude is absent.
+
+    marketplace update must appear BEFORE plugin update in the output,
+    matching the critical ordering constraint from the post-install memory.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        _make_plugin_sandbox(tmp, "2.37.0")
+
+        exit_code, output = _run_propagate(
+            "code-registered",
+            tmp,
+            {"SURFACES_CLAUDE_CMD": "/nonexistent-claude"},
+        )
+
+        assert exit_code == 0, f"Must still exit 0:\n{output}"
+        assert "marketplace update" in output or "plugin marketplace update" in output, (
+            f"Recovery output must contain marketplace update command; got:\n{output}"
+        )
+        assert "plugin update" in output, (
+            f"Recovery output must contain plugin update command; got:\n{output}"
+        )
+        # Order check: marketplace update must appear before plugin update
+        mkt_pos = output.find("marketplace update")
+        if mkt_pos == -1:
+            mkt_pos = output.find("plugin marketplace update")
+        plugin_pos = output.find("plugin update")
+        assert mkt_pos < plugin_pos, (
+            f"marketplace update must appear before plugin update in recovery output:\n{output}"
+        )
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_code_registered_propagate_check_flag_prints_without_executing():
+    """--check on code-registered propagate prints the would-run commands and exits 0."""
+    with tempfile.TemporaryDirectory() as tmp:
+        _make_plugin_sandbox(tmp, "2.37.0")
+
+        sentinel = os.path.join(tmp, "fake-claude")
+        with open(sentinel, "w") as f:
+            f.write("#!/bin/sh\necho 'SENTINEL_CALLED' >&2; exit 1\n")
+        os.chmod(sentinel, 0o755)
+
+        exit_code, output = _run_propagate(
+            "code-registered",
+            tmp,
+            {"SURFACES_CLAUDE_CMD": sentinel},
+            extra_args=["--check"],
+        )
+
+        assert exit_code == 0, f"--check must exit 0, got {exit_code}:\n{output}"
+        assert "SENTINEL_CALLED" not in output, (
+            "--check must not actually invoke the claude binary"
+        )
+        assert "marketplace" in output.lower() or "plugin update" in output or "[check]" in output, (
+            f"--check must describe what would run; got:\n{output}"
         )
