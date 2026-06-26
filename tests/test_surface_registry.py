@@ -133,6 +133,8 @@ def _run_verify(sandbox_dir: str, env_overrides: dict, extra_args: list[str] | N
     """Run verify-surfaces.sh in sandbox_dir with env_overrides; return (exit_code, stripped_output)."""
     env = os.environ.copy()
     env["SURFACES_REPO_DIR"] = sandbox_dir
+    # Prevent live cowork-store glob from touching the real machine state.
+    env.setdefault("SURFACES_COWORK_STORE", "/nonexistent/cowork_store")
     env.update(env_overrides)
     result = subprocess.run(
         ["bash", str(VERIFY_SCRIPT)] + (extra_args or []),

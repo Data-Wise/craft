@@ -74,6 +74,8 @@ def _run_verify(sandbox_dir: str, env_overrides: dict, extra_args: list | None =
     """Run verify-surfaces.sh in sandbox_dir; return (exit_code, cleaned_output)."""
     env = os.environ.copy()
     env["SURFACES_REPO_DIR"] = sandbox_dir
+    # Prevent live cowork-store glob from touching the real machine state.
+    env.setdefault("SURFACES_COWORK_STORE", "/nonexistent/cowork_store")
     env.update(env_overrides)
     result = subprocess.run(
         ["bash", VERIFY_SCRIPT] + (extra_args or []),
@@ -200,6 +202,116 @@ def test_aggregator_name_mismatch_blocks_mutate_and_revert():
         exit_code_reverted, output_reverted = _run_verify(tmp, base_env)
         assert exit_code_reverted == 0, (
             f"Correct name in aggregator must exit 0, got {exit_code_reverted}:\n{output_reverted}"
+        )
+
+
+# ---------------------------------------------------------------------------
+# FIX 4: surfaces.sh --report execute tests (real matrix, not null skeleton)
+# ---------------------------------------------------------------------------
+
+def _run_report(sandbox_dir: str, env_overrides: dict, extra_args: list | None = None) -> tuple[int, str]:
+    """Run surfaces.sh --report in sandbox_dir; return (exit_code, combined_output)."""
+    env = os.environ.copy()
+    env["SURFACES_REPO_DIR"] = sandbox_dir
+    env.setdefault("SURFACES_COWORK_STORE", "/nonexistent/cowork_store")
+    env.update(env_overrides)
+    cmd = ["bash", SURFACES_SCRIPT, "--report"] + (extra_args or [])
+    result = subprocess.run(cmd, capture_output=True, text=True, env=env, timeout=30)
+    output = re.sub(r'\033\[[0-9;]*m', '', result.stdout + result.stderr)
+    return result.returncode, output
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_report_produces_real_matrix_not_null():
+    """surfaces.sh --report must emit a real surface matrix with version + state rows.
+
+    This is the primary regression guard for FIX 1: the matrix must NOT be a null
+    skeleton. At least one surface row must appear with a real version string or a
+    known state label (✓/✗/—/!). The word 'null' must not appear in the output.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        _make_plugin_sandbox(tmp, "2.37.0")
+        installed = _make_installed_plugins(tmp, "2.37.0")
+        cowork_store = _make_cowork_store(tmp, "2.37.0")
+        agg_file = os.path.join(tmp, "aggregator.json")
+        with open(agg_file, "w") as f:
+            json.dump({
+                "name": "data-wise",
+                "plugins": [{"name": "craft", "version": "2.37.0"}],
+            }, f)
+
+        exit_code, output = _run_report(tmp, {
+            "SURFACES_GIT_TAG": "v2.37.0",
+            "SURFACES_TAP_FORMULA": "/nonexistent/craft.rb",
+            "SURFACES_BREW_VERSION": "2.37.0",
+            "SURFACES_INSTALLED_PLUGINS": installed,
+            "SURFACES_COWORK_STORE": cowork_store,
+            "SURFACES_AGGREGATOR_FILE": agg_file,
+        })
+
+        # Matrix should render (exit 0 when all BLOCK legs aligned).
+        assert exit_code == 0, (
+            f"--report with aligned surfaces must exit 0, got {exit_code}:\n{output}"
+        )
+        # Real version must appear in the output.
+        assert "2.37.0" in output, (
+            f"--report must include the actual version '2.37.0'; got:\n{output}"
+        )
+        # The null-skeleton sentinel must NOT appear.
+        assert "null" not in output.lower(), (
+            f"--report must not emit null skeleton; got:\n{output}"
+        )
+        # At least one state label must appear.
+        has_state = any(lbl in output for lbl in ("✓", "✗", "aligned", "MISMATCH", "absent"))
+        assert has_state, (
+            f"--report must include at least one state label (✓/✗/aligned/MISMATCH); got:\n{output}"
+        )
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_report_json_flag_produces_valid_json():
+    """surfaces.sh --report --json must produce valid JSON with surface rows.
+
+    Machine-readable output must parse cleanly and include at least one surface
+    entry with a 'name' and 'version' field.
+    """
+    with tempfile.TemporaryDirectory() as tmp:
+        _make_plugin_sandbox(tmp, "2.37.0")
+        installed = _make_installed_plugins(tmp, "2.37.0")
+        cowork_store = _make_cowork_store(tmp, "2.37.0")
+
+        exit_code, output = _run_report(tmp, {
+            "SURFACES_GIT_TAG": "v2.37.0",
+            "SURFACES_TAP_FORMULA": "/nonexistent/craft.rb",
+            "SURFACES_BREW_VERSION": "2.37.0",
+            "SURFACES_INSTALLED_PLUGINS": installed,
+            "SURFACES_COWORK_STORE": cowork_store,
+        }, extra_args=["--json"])
+
+        # Must exit 0 (all BLOCK legs aligned).
+        assert exit_code == 0, (
+            f"--report --json with aligned surfaces must exit 0, got {exit_code}:\n{output}"
+        )
+        # Must be valid JSON.
+        try:
+            data = json.loads(output)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"--report --json output is not valid JSON: {e}\nOutput:\n{output}")
+
+        # Must include surface rows with real data.
+        surfaces = data.get("surfaces", [])
+        assert len(surfaces) > 0, (
+            f"--report --json must include at least one surface row; got: {data}"
+        )
+        for row in surfaces:
+            assert "name" in row, f"Each surface row must have 'name'; got: {row}"
+            assert "version" in row, f"Each surface row must have 'version'; got: {row}"
+        # Version must appear in at least one row.
+        versions = [r.get("version", "") for r in surfaces]
+        assert "2.37.0" in versions or any(v for v in versions if v and v != "—"), (
+            f"At least one surface must have a real version; got versions: {versions}"
         )
 
 

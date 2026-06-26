@@ -62,7 +62,7 @@ class TestSurfacesFrontmatter:
 
 
 class TestSurfacesArguments:
-    """Arguments block must declare --json and --owner."""
+    """Arguments block must declare --json (--owner was removed: no per-surface owner field)."""
 
     def _arg_names(self) -> list[str]:
         fm = _parse_frontmatter(SURFACES_CMD)
@@ -75,10 +75,11 @@ class TestSurfacesArguments:
             f"surfaces.md arguments block missing 'json'; found: {names}"
         )
 
-    def test_declares_owner_argument(self):
+    def test_does_not_declare_owner_argument(self):
+        """--owner was dropped: registry.json has no per-surface owner field."""
         names = self._arg_names()
-        assert "owner" in names, (
-            f"surfaces.md arguments block missing 'owner'; found: {names}"
+        assert "owner" not in names, (
+            f"surfaces.md should NOT declare 'owner' (dropped — no registry substrate); found: {names}"
         )
 
 

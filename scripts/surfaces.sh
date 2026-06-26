@@ -5,12 +5,13 @@
 # to scripts/surfaces/registry.py. Does NOT re-implement resolver logic.
 #
 # Usage:
-#   surfaces.sh --verify    Run verify-surfaces.sh (wrapped, exit code preserved)
-#   surfaces.sh --report    Emit the full surface matrix via registry.py
-#   surfaces.sh --json      Dump the raw registry.json
+#   surfaces.sh --verify         Run verify-surfaces.sh (wrapped, exit code preserved)
+#   surfaces.sh --report         Emit the full surface matrix (human-readable)
+#   surfaces.sh --report --json  Emit the surface matrix as machine JSON
+#   surfaces.sh --json           Dump the raw registry.json
 #   surfaces.sh --propagate [aggregator|brew|code-registered] [--check] [--file PATH]
-#   surfaces.sh --list      List surface names from registry
-#   surfaces.sh --help      Show this help
+#   surfaces.sh --list           List surface names from registry
+#   surfaces.sh --help           Show this help
 #
 # SURFACES_* injectable overrides (passed through to verify-surfaces.sh):
 #   SURFACES_GIT_TAG, SURFACES_TAP_FORMULA, SURFACES_BREW_VERSION,
@@ -41,7 +42,35 @@ cmd_verify() {
 }
 
 cmd_report() {
-  python3 "${REGISTRY_PY}" report
+  local json_out=false
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --json) json_out=true ;;
+      *) echo "surfaces.sh --report: unknown argument '$1'" >&2; exit 2 ;;
+    esac
+    shift
+  done
+
+  # Run verify-surfaces.sh --json and capture output + exit code separately.
+  # set -e is active; use || true to prevent early abort on exit 1 (BLOCK mismatch).
+  local verify_json
+  local verify_rc=0
+  verify_json=$(bash "${VERIFY_SCRIPT}" --json 2>/dev/null) || verify_rc=$?
+
+  # Fall back to inapplicable marker if verify produced no output.
+  if [[ -z "${verify_json}" ]]; then
+    verify_json='{"applicable":false}'
+  fi
+
+  # Render the matrix via registry.py (reads verify JSON from stdin).
+  if [[ "${json_out}" == "true" ]]; then
+    python3 "${REGISTRY_PY}" report-live --json <<< "${verify_json}"
+  else
+    python3 "${REGISTRY_PY}" report-live <<< "${verify_json}"
+  fi
+
+  # Preserve the verify exit code so --report mirrors --verify gate semantics.
+  exit "${verify_rc}"
 }
 
 cmd_json() {

@@ -11,7 +11,7 @@
 [![Version](https://img.shields.io/badge/version-2.52.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 > **v2.36.0 — Deterministic Workflow Engine** 🚀
-> **116 commands** | **39 skills** | **8 agents** | **1638 tests passing**
+> **116 commands** | **39 skills** | **8 agents** | **1994 tests passing**
 > New `/craft:orchestrate:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orchestrate`), drive (`:drive`), and workflow (`:workflow`).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.

@@ -5,17 +5,15 @@ Read-only view of the multi-surface release registry — verify gate states and 
 ## Usage
 
 ```bash
-/craft:dist:surfaces              # verify + full matrix (default)
-/craft:dist:surfaces --json       # dump raw registry.json
-/craft:dist:surfaces --owner Data-Wise  # filter by plugin owner
+/craft:dist:surfaces              # verify + full human matrix (default)
+/craft:dist:surfaces --json       # machine JSON matrix (live versions + states)
 ```
 
 ## Arguments
 
 | Argument | Description |
 |----------|-------------|
-| `--json` | Dump the raw registry.json instead of the formatted report |
-| `--owner OWNER` | Filter by plugin owner (case-insensitive substring match) |
+| `--json` | Emit the surface matrix as machine JSON (live data, not raw registry schema) |
 
 ## The 3-Surface Model
 
@@ -26,6 +24,9 @@ Read-only view of the multi-surface release registry — verify gate states and 
 | **Desktop** | Claude Desktop | INFO | Manual (DXT store; report only) |
 
 A release is "fully shipped" when all BLOCK surfaces report the expected version.
+
+> The user-facing "3-surface" model collapses the 8 entries in `registry.json`:
+> Code = {git-tag, marketplace, tap, brew, code-registered, aggregator}; Cowork = cowork; Desktop = desktop-ext.
 
 ## Output
 
@@ -38,7 +39,6 @@ A release is "fully shipped" when all BLOCK surfaces report the expected version
 ├──────────────────────────────────────────────────────────────┤
 │ Code    ............... 2.52.0  BLOCK  ✓ aligned             │
 │ Cowork  ............... 2.52.0  WARN   ✓ aligned             │
-│ Desktop ............... 2.52.0  WARN   ✓ aligned             │
 ├──────────────────────────────────────────────────────────────┤
 │ Gate: PASSED — all BLOCK surfaces aligned                    │
 └──────────────────────────────────────────────────────────────┘

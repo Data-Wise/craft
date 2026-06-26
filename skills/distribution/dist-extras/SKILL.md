@@ -176,6 +176,10 @@ A release is "fully shipped" when all BLOCK-gated surfaces report the expected v
 WARN surfaces (Cowork, brew-installed, Code-registered) are surfaced in the report but do not
 gate the automated pipeline.
 
+> **Registry vs. user model:** The `registry.json` tracks 8 surfaces; the user-facing "3-surface"
+> view collapses them. Code aggregates git-tag, marketplace, tap, brew, code-registered, and
+> aggregator; Cowork maps to the cowork surface (WARN); Desktop maps to desktop-ext (INFO).
+
 ### Code surface
 
 Distributed via two channels (both BLOCK-gated):
@@ -217,9 +221,8 @@ The `scripts/surfaces/registry.json` file is the source of truth for all surface
 `/craft:dist:surfaces` to view the full surface matrix and current gate states.
 
 ```bash
-/craft:dist:surfaces              # verify + full matrix
-/craft:dist:surfaces --json       # raw registry.json
-/craft:dist:surfaces --owner Data-Wise   # filter by owner
+/craft:dist:surfaces              # verify + full human matrix
+/craft:dist:surfaces --json       # machine JSON matrix (live data)
 ```
 
 ## Integration
