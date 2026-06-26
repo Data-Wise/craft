@@ -32,7 +32,7 @@
 
 Analyzes your natural language task description and automatically routes to the right craft commands. No need to remember which commands to use - just describe what you want to do.
 
-> **`--refine` flag:** Add `--refine` to sharpen your prompt via the `prompt-refiner` skill before acting. See [the --refine flag guide](../help/refine-flag.md).
+> **Prompt refinement is on by default** — the `prompt-refiner` skill sharpens your prompt before acting. Use `--no-refine` to opt out. See [the --refine flag guide](../help/refine-flag.md).
 
 **Use cases:**
 

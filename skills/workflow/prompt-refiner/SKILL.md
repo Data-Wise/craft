@@ -36,7 +36,9 @@ arch:plan, or standalone ("refine and print").
    Use original. On **Edit**, present the refined text and take the
    user's edited version **inline** (no $EDITOR). With `--yes` or auto
    mode, skip the picker and auto-accept, printing
-   `refined (auto-accepted)`.
+   `refined (auto-accepted)`. This is the `--yes` cascade: one flag
+   both auto-accepts the prompt-refiner AND suppresses the caller's
+   interactive loop — fully headless.
 5. **Return** the chosen prompt string to the caller.
 
 ## Constraints

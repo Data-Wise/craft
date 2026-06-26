@@ -27,8 +27,18 @@ arguments:
   - name: orch-mode
     description: "Orchestration mode: default|debug|optimize|release (v2.5.0)"
     required: false
+  - name: no-tests
+    description: "Skip the auto-emitted test-plan section (on by default)"
+    required: false
+  - name: no-docs
+    description: "Skip the auto-emitted Documentation section (on by default)"
+    required: false
   - name: refine
-    description: Refine the prompt via the prompt-refiner skill before acting
+    description: "Runs the prompt-refiner by default; pass --no-refine to skip"
+    required: false
+    default: true
+  - name: no-refine
+    description: Skip the prompt-refiner (opt out of the default refinement step)
     required: false
     default: false
 deprecated: true
@@ -45,9 +55,12 @@ ADHD-friendly brainstorming with smart mode detection, time budgets, agent deleg
 /brainstorm [depth:count] [focus] [action] [-C|--categories "cat1,cat2"] "topic"
 ```
 
-## --refine (prompt pre-processing)
+## --refine / --no-refine (prompt pre-processing)
 
-When `--refine` is set, do NOT act on the raw argument. First invoke the
+Runs the prompt-refiner **by default** to pre-process your input. Pass `--no-refine` to skip.
+Under `--yes`, the refiner auto-accepts (no Accept/Edit prompt).
+
+Do NOT act on the raw argument. First invoke the
 `prompt-refiner` skill with the argument and project context. Follow that
 skill's canonical flow (before/after → Accept/Edit/Use-original; `--yes`
 or auto mode auto-accepts). Then proceed using the prompt the skill

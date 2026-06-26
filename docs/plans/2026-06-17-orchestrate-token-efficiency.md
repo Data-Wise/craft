@@ -1,5 +1,7 @@
 # Orchestrate Token-Efficiency Implementation Plan
 
+**Status:** ✅ SHIPPED — Phase 0 + Phase Q (#177) and Tasks 7,9–16 (#178) across v2.40.0/v2.41.0; Lever A floor-trim (Task 8) shipped via `789cc59c`/`ff33c7fc`. All phases landed. Checkboxes below left un-ticked at ship time (tracked via .STATUS). Residual context-floor hygiene tracked separately in `SPEC-context-floor-hygiene-2026-06-17.md` (draft).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Reduce orchestrate token usage by instrumenting it, trimming the inherited context floor, and making craft's deterministic `:workflow` mode the default (where derivable) behind a measured, estimation-based parity gate.

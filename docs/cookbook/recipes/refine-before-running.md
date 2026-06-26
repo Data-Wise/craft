@@ -1,6 +1,8 @@
 # Recipe: Refine a prompt before running
 
-Add --refine to any of: brainstorm, do, orchestrate, plan:feature, arch:plan.
+**Default-ON** (pass `--no-refine` to skip): brainstorm, do, plan:feature, grill.
+
+**Opt-in** (add `--refine` to enable): orchestrate, orchestrate:workflow, arch:plan.
 
 1. `/craft:do --refine "make the CLI faster"`
 2. Review the Original → Refined box.

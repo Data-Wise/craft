@@ -147,6 +147,63 @@ Scan spec for paths under `~/projects/dev-tools/<other>/`. If detected:
 | `/craft:orchestrate` | Launches orchestrator after plan exists. |
 | `/craft:docs:sync` | Refreshes roadmap docs on `--update`. |
 
+## Test-plan scaffolding (default-on)
+
+When this skill emits an ORCHESTRATE artifact, it also emits a test-plan scaffold **by default**. Pass `--no-tests` to suppress the section.
+
+### Tier-inference rule
+
+Infer tiers from the shape of the artifact/change being planned:
+
+| Change shape | Tiers to emit |
+|---|---|
+| Flag / frontmatter / prose only | `e2e` + `dogfood` |
+| + new parser or script | + `unit` |
+| + cross-command data flow | + `integration` |
+| + external dependency change | + `dependency` |
+| + new command / skill / agent | + `count-cascade` dogfood |
+
+Unselected tiers print as `N/A — <reason>` (never empty stubs).
+
+### Emission rules
+
+- Emit test stubs **red-first** (failing placeholder, not passing no-op).
+- Each stub carries `# TODO(author): delete if not contract-bearing` until the author confirms the contract.
+- Scaffold templates live in `references/scaffold-templates.md`; point to that file — do not duplicate templates inline.
+
+### `--yes` non-suppression
+
+`--yes` auto-accepts prompts only; the test-plan and Documentation sections are CONTENT and are still emitted under `--yes`. Only `--no-tests`/`--no-docs` remove them.
+
+### Opt-out
+
+`--no-tests` suppresses the entire test-plan section. Default is **on**.
+
+## Documentation scaffolding (default-on)
+
+When this skill emits an ORCHESTRATE artifact, it also emits a Documentation section **by default**. Pass `--no-docs` to suppress the section.
+
+### Which docs to emit
+
+Derive which documentation artifacts are needed by running the existing doc-scorer rubric from `commands/docs/sync.md` (threshold ≥3). Do **not** invent a new rubric — reuse the scorer as the single source of truth.
+
+For each doc type the scorer evaluates (guide, refcard, demo, mermaid), pre-check (`[x]`) boxes that meet the threshold, and mark the rest `N/A — score <N>`. The template for the Documentation section lives in `references/scaffold-templates.md`.
+
+### Lifecycle split
+
+| Phase | Action |
+|-------|--------|
+| **Spec-time** | Read-only emit + pre-derive: render the Documentation section with pre-checked boxes. No file edits. |
+| **Impl/post-merge** | Real edits via `/craft:docs:update --post-merge`. Diff-confirm gated before applying. |
+
+### Count-cascade exclusion
+
+Auto-docs emission touches **only semantic docs** — CHANGELOG `[Unreleased]` ×2 mirror, guide/refcard/tutorial prose. It **never** touches version or count lines. Version/count updates stay in `bump-version.sh`.
+
+### Opt-out
+
+`--no-docs` suppresses the entire Documentation section. Default is **on**.
+
 ## Common Pitfalls
 
 - **Writing ORCHESTRATE to the main repo** — always worktree root.

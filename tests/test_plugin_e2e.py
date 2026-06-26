@@ -151,7 +151,7 @@ class TestCommandFrontmatter:
         assert triage.exists(), f"Missing command file: {triage}"
 
     def test_refine_flag_scope(self):
-        """The --refine flag must be DECLARED in exactly the 6 sanctioned commands.
+        """The --refine flag must be DECLARED in exactly the 7 sanctioned commands.
 
         Keys on the frontmatter argument declaration (``- name: refine``), not a
         substring of ``--refine`` — so prose mentions (e.g. the deprecated
@@ -166,6 +166,7 @@ class TestCommandFrontmatter:
             "commands/plan/feature.md",
             "commands/arch/plan.md",
             "commands/orchestrate/workflow.md",  # FR6: --refine parity (workflow-engine)
+            "commands/grill.md",  # Task 3: refine default-on for topic, skip on path
         }
         declarers = set()
         for cmd in _find_all_commands():
