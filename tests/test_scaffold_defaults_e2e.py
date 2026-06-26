@@ -39,5 +39,7 @@ def test_logic_lives_in_skills_not_deprecated_commands():
         assert "brainstorm-insights" in t or "plan-orchestrator" in t, \
             f"{rel} must point to its skill"
         # tier-inference table belongs in the skill, not the deprecated command body
-        assert "count-cascade dogfood" not in t, \
+        # "Change shape" is a distinctive header from the tier table in both skills;
+        # a verbatim paste of that table into a deprecated command body would trip this guard.
+        assert "change shape" not in t, \
             f"{rel} must NOT embed the tier table (deprecation trap)"
