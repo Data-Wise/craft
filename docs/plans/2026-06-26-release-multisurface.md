@@ -1,5 +1,7 @@
 # Multi-surface-aware Release Implementation Plan
 
+> **STATUS: COMPLETE** — Shipped as v2.53.0 (PR #219 → dev, PR #220 → main `bd9e8ceb`, 2026-06-26). Aggregator-sync end-to-end confirmed: Data-Wise/claude-plugins#10 auto-merged in 14s. Closes craft#218, craft#184.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Refactor `/release` to propagate to every plugin surface via a declarative surface registry (not just verify some) — closing craft#218 (aggregator no-op), craft#184 (pin lag), and himalaya-mcp#67 (name mismatch) as the durable fix.
