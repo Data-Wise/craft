@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `brainstorm`/`plan:feature`/`grill` emit a tier-inferred test plan + a doc-scorer Documentation section by default (`--no-tests`/`--no-docs` to opt out); `arch:plan`/`spec-review` opt-in via `--tests`/`--docs`.
+
 ### Changed
 
 - grill/orchestrate now ask questions via structured options (Recommended-first + consequences); add `--yes` for non-interactive runs.
