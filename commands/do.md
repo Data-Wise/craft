@@ -25,6 +25,10 @@ arguments:
     description: Skip the prompt-refiner (opt out of the default refinement step)
     required: false
     default: false
+  - name: brief
+    description: After execution, append 3-line action block (Next step / Watch out for / Connects to)
+    required: false
+    default: false
 ---
 
 # /craft:do - Universal Command
@@ -564,6 +568,7 @@ When complexity score ≥ 4, `/craft:do` delegates to specialized agents:
 ├─────────────────────────────────────────────────────┤
 │ ✓ Task setup complete                              │
 ╰─────────────────────────────────────────────────────╯
+💡 /craft:workflow:brief --plan to plan next steps.
 ```
 
 ## Integration
@@ -980,6 +985,20 @@ Task(
 3. Ask user if they want to proceed with implementation
 4. If yes, execute next steps
 5. If no, save plan for later
+```
+
+### Step 5.5: Brief Appendix (--brief flag)
+
+If `--brief` was passed, after result synthesis append the 3-line action block directly below the result summary. Follow the output constraints in `commands/workflow/brief.md` Step 3. Do NOT trigger the `--plan` phase — block only.
+
+Output format when `--brief` is active:
+
+```
+[normal do result summary]
+
+Next step:     [executable action]
+Watch out for: [condition → mitigation]
+Connects to:   [exact artifact or —]
 ```
 
 ### Step 6: Fallback to Command Routing
