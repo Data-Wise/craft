@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 116 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.53.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
+site_description: "Full-stack developer toolkit - 117 commands, 8 agents, 39 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.54.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -298,6 +298,7 @@ nav:
       - /craft:docs:workflow: commands/docs/workflow.md
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
+      - /craft:workflow:brief: commands/workflow/brief.md
       - /craft:workflow:insights: commands/workflow/insights.md
       - /workflow:done: commands/workflow/done.md
       - /craft:arch:analyze: commands/arch/analyze.md

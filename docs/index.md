@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.53.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.54.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -14,12 +14,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 116 commands, 8 AI agents, and 39 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 117 commands, 8 AI agents, and 39 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 116 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 117 commands, 8 agents, 39 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -219,7 +219,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 | **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
 | **Total**          | **112** | **Complete development workflow coverage**                                                                                |
 
-!!! info "Latest: v2.53.0 — Skill-Ecosystem Governance"
+!!! info "Latest: v2.54.0 — Skill-Ecosystem Governance"
     Policy-as-code under `governance/`: `RULES.yaml` holds the 8 skill-location rules as the single source of truth, `run_rules.py` audits them (with `--selftest` meta-validation), and `render_rules.py` generates the `CLAUDE.md` rule block with a `--check` drift gate. See the [governance guide](guide/governance.md) and the [full changelog](CHANGELOG.md) for all releases.
 
 ## Links
