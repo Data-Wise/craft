@@ -104,7 +104,7 @@ claude
 
 ```
 Craft v1.17.0 loaded
-116 commands available
+117 commands available
 ```
 
 ### Using in Claude Code CLI
@@ -531,7 +531,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 **For plugin development and contributions:**
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
-- 📖 **[Commands Reference](docs/commands.md)** - All 116 commands documented
+- 📖 **[Commands Reference](docs/commands.md)** - All 117 commands documented
 - 📖 **[Skills & Agents](docs/skills-agents.md)** - 39 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
