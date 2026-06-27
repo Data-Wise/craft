@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [2.54.0] — 2026-06-27
+
+### Added
+
+- **`/craft:workflow:brief`** — 3-line action block generator (`Next step / Watch out for / Connects to`) for end-of-session context capture; optional flags `--plan`, `--verbose`, `--show-context`; `--brief` flag added to `/craft:do` to append the block to task output.
+
+---
+
 ## [2.53.0] — 2026-06-26
 
 ### Added
