@@ -20,6 +20,9 @@ mkdir -p "$FACETS" "$MARKERS"
 # Dedup (D5 + grill open-question fallback): this session already captured?
 [ -f "$MARKERS/$SESSION_ID.faceted" ] && exit 0
 ls "$FACETS"/session-"$SESSION_ID".json >/dev/null 2>&1 && exit 0
+# D5 content scan: catches /done's timestamp-named facets (different filename scheme)
+grep -rl "\"session_id\": \"$SESSION_ID\"" "$FACETS" >/dev/null 2>&1 \
+    && touch "$MARKERS/$SESSION_ID.faceted" && exit 0
 
 PROJECT="$(basename "$CWD" 2>/dev/null || echo unknown)"
 BRANCH="$(git -C "$CWD" branch --show-current 2>/dev/null || echo "")"
