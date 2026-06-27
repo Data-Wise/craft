@@ -1,6 +1,6 @@
 ---
 name: dist-extras
-description: This skill should be used when the user asks to "publish to PyPI", "generate an install script", "curl install", "publish to Claude Code marketplace", "create marketplace.json", "PyPI trusted publishing", or needs help with non-Homebrew distribution channels (PyPI, curl-based installers, Claude Code marketplace). Covers Python package publishing, GitHub-release curl installers, and Claude Code plugin marketplace listings.
+description: This skill should be used when the user asks to "publish to PyPI", "generate an install script", "curl install", "publish to Claude Code marketplace", "create marketplace.json", "PyPI trusted publishing", "private plugin", "plugin drift", "pin refresh", or needs help with non-Homebrew distribution channels (PyPI, curl-based installers, Claude Code marketplace). Covers Python package publishing, GitHub-release curl installers, Claude Code plugin marketplace listings (public and private), post-release pin-refresh, and drift detection.
 category: distribution
 ---
 
@@ -158,6 +158,92 @@ that users add with `claude plugin marketplace add <owner>/<repo>`.
 - [ ] `claude plugin marketplace add <test-path>` succeeds locally
 - [ ] Plugin loads after install (`claude plugin list` shows it)
 
+### Public vs private plugin mode
+
+By default `dist:marketplace` targets a **public** shared marketplace. Private plugins
+(closed-source, PII-carrying) must **never** appear there.
+
+**Auto-detect:** `gh repo view --json visibility -q .visibility` returns `PUBLIC` or `PRIVATE`.
+When the repo is `PRIVATE`, behave as if `--private` were passed — no flag required.
+
+**`--private` behaviour (or auto-detected private repo):**
+
+Scaffold a **self-marketplace** inside the plugin's own repo rather than the shared public one:
+
+```
+.claude-plugin/marketplace.json   ← single-plugin manifest; source: "./"
+```
+
+Minimal self-marketplace shape:
+
+```json
+{
+  "name": "{plugin-name}-marketplace",
+  "owner": { "name": "...", "email": "..." },
+  "plugins": [{
+    "name": "{plugin-name}",
+    "source": { "source": "./", "path": "." },
+    "description": "...",
+    "version": "..."
+  }]
+}
+```
+
+Emit the private install recipe to stdout after scaffolding:
+
+```bash
+claude plugin marketplace add <owner>/<repo>
+claude plugin install <plugin-name>@<owner>/<repo>
+```
+
+**Hard guard:** If repo is `PRIVATE` and `publish` targets a public marketplace, abort:
+
+```
+ERROR: Repository is PRIVATE. Cannot publish to public marketplace.
+       Use --private (or let auto-detect run) to scaffold a self-marketplace instead.
+```
+
+**Public repo (default):** behaviour unchanged — appends plugin entry to the shared
+`marketplace.json` and pushes.
+
+### Post-release pin refresh (drift prevention)
+
+After tagging/releasing, **installed Claude Code pins do not auto-update**. Without an explicit
+refresh, every local installation silently stays on the old version.
+
+**Always emit these two commands at the end of a release:**
+
+```bash
+claude plugin marketplace update <marketplace-name>   # pull latest manifest
+claude plugin update <plugin-name>@<marketplace>      # bump local pin
+```
+
+For private self-marketplaces, `<marketplace-name>` is `<owner>/<repo>`.
+
+**Drift doctor** (`dist:marketplace validate --drift`):
+
+Compares the canonical source version in `plugin.json` against the installed pin in
+`~/.claude/installed_plugins.json` and warns on any mismatch.
+
+```bash
+plugin_version=$(jq -r .version .claude-plugin/plugin.json)
+installed_pin=$(jq -r --arg name "<plugin-name>" \
+    '.plugins | to_entries[] | select(.value.name == $name) | .value.version' \
+    ~/.claude/installed_plugins.json 2>/dev/null)
+
+if [ "$plugin_version" != "$installed_pin" ]; then
+  echo "WARN: source $plugin_version vs pin $installed_pin"
+  echo "  Fix: claude plugin marketplace update <mkt>"
+  echo "       claude plugin update <name>@<mkt>"
+fi
+```
+
+Embed this drift check in:
+
+- `dist:marketplace validate` output (add `--drift` flag)
+- Release pipeline Step 13.6 advisory WARN block
+- Any `fix-local-plugins.sh`-style maintenance scripts (generalize rather than per-plugin)
+
 ## Cowork & Desktop surfaces
 
 The craft plugin ships to three independent surfaces. This section covers the Cowork and Desktop
@@ -205,6 +291,17 @@ registry. Key behaviors:
   store. After a release, the Cowork surface requires a manual store update. The pipeline emits
   a WARN with the Cowork report and a remind.
 
+#### Private plugin install on Cowork
+
+For plugins not in the public marketplace (git-gated, private repo):
+
+1. Cowork clones the repo directly — the runtime needs read access (GitHub PAT or SSH key
+   configured in the Cowork environment).
+2. Install command: `claude plugin marketplace add <owner>/<private-repo>`, then
+   `claude plugin install <name>@<owner>/<private-repo>`.
+3. Post-release refresh is manual: include the add+install recipe in the pipeline WARN block
+   for the Cowork surface entry.
+
 ### Desktop surface
 
 The Claude Desktop app ships plugins via its own DXT plugin store. Key behaviors:
@@ -214,6 +311,10 @@ The Claude Desktop app ships plugins via its own DXT plugin store. Key behaviors
   block gate. The pipeline reports it but does not attempt automated verification.
 - **Manual gate**: Before shipping, verify manually that the Desktop store version matches the
   release version.
+- **Private plugin on Desktop**: No native private-repo install path exists. Workaround: clone
+  the repo locally and sideload from the filesystem if the Desktop app supports local plugin
+  paths; otherwise, request a DXT store listing (gated by Anthropic). Emit an INFO note in the
+  release pipeline for plugins with a Desktop surface entry.
 
 ### Surface registry
 
