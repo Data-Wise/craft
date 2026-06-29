@@ -299,7 +299,6 @@ nav:
       - /craft:docs:workflow: commands/docs/workflow.md
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
-      - /craft:workflow:brief: commands/workflow/brief.md
       - /craft:workflow:insights: commands/workflow/insights.md
       - /workflow:done: commands/workflow/done.md
       - /craft:arch:analyze: commands/arch/analyze.md

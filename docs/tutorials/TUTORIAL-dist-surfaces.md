@@ -125,6 +125,6 @@ Expected output when all surfaces are aligned:
 ## Reference
 
 - [`/craft:dist:surfaces`](../commands/dist/surfaces.md) — read-only surface registry view
-- [`scripts/surfaces/registry.json`](../../scripts/surfaces/registry.json) — source of truth
-- [`skills/release/references/downstream-verification.md`](../../skills/release/references/downstream-verification.md) — Step 13.6 implementation
+- `scripts/surfaces/registry.json` — source of truth
+- `skills/release/references/downstream-verification.md` — Step 13.6 implementation
 - [`docs/adr/ADR-004-release-surface-registry.md`](../adr/ADR-004-release-surface-registry.md) — architecture decision
