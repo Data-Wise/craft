@@ -132,6 +132,7 @@ nav:
       - Formatting Migration Tutorial: tutorials/TUTORIAL-formatting-migration.md
       - Badge Management: guide/badge-management.md
       - Badge Workflow Tutorial: tutorials/TUTORIAL-badge-workflow.md
+      - Headless Recipes: guide/headless-recipes.md
       - Interactive Commands: guide/interactive-commands.md
       - Check Command Mastery: guide/check-command-mastery.md
       - Worktree Advanced Patterns: guide/worktree-advanced-patterns.md

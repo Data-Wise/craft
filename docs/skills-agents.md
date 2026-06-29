@@ -1,10 +1,10 @@
 # Craft Skills & Agents
 
-> **TL;DR**: 39 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
+> **TL;DR**: 40 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
 
-Craft includes 39 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 40 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (39 total)
+## Skills (40 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -77,6 +77,12 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | guard-audit | Analyze branch-guard.sh rules and propose config changes to reduce false positives | `skills/guard-audit/SKILL.md` |
 | insights-apply | Extract suggestions from insights report and apply them to global CLAUDE.md via sync pipeline | `skills/insights-apply/SKILL.md` |
+
+### Hooks (1)
+
+| Name | Description | Path |
+|------|-------------|------|
+| hooks | Common PostToolUse/PreToolUse hook templates for quality gates. Provides ready-to-install JSON blocks for MkDocs strict mode, linting, and other automated checks, with setup instructions for each. | `skills/hooks/SKILL.md` |
 
 ### Modes (1)
 
