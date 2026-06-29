@@ -12,7 +12,7 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 | Branch | Head     | Base | Status                                                              |
 |--------|----------|------|---------------------------------------------------------------------|
 | main   | 81fab3f4 | —    | Production (v2.54.0 tagged 2026-06-27, PR #229 merged, main CI GREEN) |
-| dev    | d01dd1e8 | main | Active — install gap fix (d01dd1e8): deploy lib/git-utils.sh to ~/.claude/lib/; squash-merge tests; CHANGELOG [Unreleased] updated. 2026-06-29 |
+| dev    | 1c244a32 | main | Active — docs wrap (1c244a32): CHANGELOG [Unreleased] + .STATUS updated for d01dd1e8 install gap fix + #228 quality gates. 2026-06-29 |
 
 📂 Active Worktrees:
 
