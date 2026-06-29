@@ -67,7 +67,28 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 3. Register in settings.json (requires jq)
+# 3. Install lib/git-utils.sh to ~/.claude/lib/
+# ---------------------------------------------------------------------------
+LIB_SRC="${REPO_ROOT}/lib/git-utils.sh"
+LIB_DIR="${HOME}/.claude/lib"
+LIB_DEST="${LIB_DIR}/git-utils.sh"
+
+if [[ ! -f "$LIB_SRC" ]]; then
+  warn "lib/git-utils.sh not found in repo — squash-merge detection unavailable"
+else
+  mkdir -p "$LIB_DIR"
+  if [[ -L "$LIB_DEST" ]]; then
+    ok "git-utils.sh already symlinked: $(readlink "$LIB_DEST")"
+  elif [[ -f "$LIB_DEST" ]] && diff -q "$LIB_SRC" "$LIB_DEST" &>/dev/null; then
+    ok "git-utils.sh already up to date"
+  else
+    cp "$LIB_SRC" "$LIB_DEST"
+    ok "git-utils.sh installed to ${LIB_DIR}/"
+  fi
+fi
+
+# ---------------------------------------------------------------------------
+# 4. Register in settings.json (requires jq)
 # ---------------------------------------------------------------------------
 if ! command -v jq &>/dev/null; then
   warn "jq not found — skipping settings.json registration"
