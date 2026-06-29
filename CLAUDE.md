@@ -84,3 +84,25 @@ Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
 | Stale worktree | `git worktree remove <path> --force` |
 | Plugin not loading | Check `.claude-plugin/plugin.json` — no unrecognized keys (strict schema) |
 | Command not found | Verify file in `commands/` with valid frontmatter |
+
+## Project Structure
+
+| Directory | Purpose |
+|-----------|---------|
+| `commands/` | 117 commands (auto-discovered, one `.md` per command) |
+| `skills/` | 39 skills (`SKILL.md` pattern) |
+| `agents/` | 8 agent definitions |
+| `tests/` | Unit, e2e, dogfood, and integration test suites |
+| `scripts/` | Release, validation, and maintenance scripts |
+| `utils/` | Python utilities (`claude_md_sync`, `validate-counts`, etc.) |
+| `.claude-plugin/` | Plugin manifest + hot-reload validators |
+
+## Testing
+
+| Tier | Command | Scope |
+|------|---------|-------|
+| Unit | `python3 -m pytest tests/test_craft_plugin.py` | Core plugin logic |
+| E2E | `python3 -m pytest tests/test_plugin_e2e.py` | End-to-end command flows |
+| Dogfood | `python3 -m pytest tests/test_plugin_dogfood.py` | Self-usage patterns |
+| Full | `python3 -m pytest tests/` | All tiers |
+| Tiered | `/craft:test <unit\|e2e\|dogfood>` | Via craft command |
