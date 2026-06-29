@@ -516,7 +516,7 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
   if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
     # Squash-merge check: if all commits are already in the integration branch,
     # the branch is safe to force-delete without confirmation.
-    _DEL_BRANCH="$(echo "$COMMAND" | grep -oP '(?<=git branch -D )[^\s;|&]+' 2>/dev/null || true)"
+    _DEL_BRANCH="$(echo "$COMMAND" | sed -n 's/.*git branch -D \([^[:space:];|&]*\).*/\1/p' 2>/dev/null || true)"
     if [[ -n "$_DEL_BRANCH" ]] && command -v is_squash_merged &>/dev/null; then
       _SQUASH_STATUS="$(cd "$CWD" 2>/dev/null && is_squash_merged "${INTEGRATION_BRANCH:-dev}" "$_DEL_BRANCH" 2>/dev/null || echo "UNKNOWN")"
       if [[ "$_SQUASH_STATUS" == "SAFE" ]]; then
