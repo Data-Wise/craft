@@ -6,7 +6,14 @@ set -euo pipefail
 # Reads JSON from stdin: { tool_name, tool_input: { file_path, command, ... }, cwd }
 # Exits 0 = allow, 2 = block (message on stderr)
 # Requires: jq (preferred), python3 (fallback), or grep/sed (last resort)
-#
+
+# ---------------------------------------------------------------------------
+# 0. Load shared git utilities (resolve symlink to find real script location)
+# ---------------------------------------------------------------------------
+_SCRIPT_REAL="$(realpath "${BASH_SOURCE[0]}" 2>/dev/null || readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")"
+_CRAFT_LIB="$(dirname "$_SCRIPT_REAL")/../lib"
+[[ -f "${_CRAFT_LIB}/git-utils.sh" ]] && source "${_CRAFT_LIB}/git-utils.sh"
+
 # Protection levels:
 #   block-all       — Hard block everything (main)
 #   smart           — 3-tier: LOW (note) + MEDIUM (confirm) + HIGH (block) (dev / research draft)
@@ -507,6 +514,17 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
 
   # git branch -D — MEDIUM risk everywhere (deletes unmerged branches)
   if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
+    # Squash-merge check: if all commits are already in the integration branch,
+    # the branch is safe to force-delete without confirmation.
+    _DEL_BRANCH="$(echo "$COMMAND" | sed -n 's/.*git branch -D \([^[:space:];|&]*\).*/\1/p' 2>/dev/null || true)"
+    if [[ -n "$_DEL_BRANCH" ]] && command -v is_squash_merged &>/dev/null; then
+      _SQUASH_STATUS="$(cd "$CWD" 2>/dev/null && is_squash_merged "${INTEGRATION_BRANCH:-dev}" "$_DEL_BRANCH" 2>/dev/null || echo "UNKNOWN")"
+      if [[ "$_SQUASH_STATUS" == "SAFE" ]]; then
+        # All commits already in base — squash-merge confirmed, allow force-delete
+        printf '\n\033[33m[branch-guard]\033[0m Squash-merge confirmed for \033[1m%s\033[0m — allowing force-delete\n' "$_DEL_BRANCH" >&2
+        exit 0
+      fi
+    fi
     _confirm "branch_delete" \
       "git branch -D (force delete)" \
       "Force-deletes branch even if not merged — commits may be lost" \

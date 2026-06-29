@@ -80,4 +80,4 @@ classification. Watch forwards the hard cases to triage so you never guess at
 
 - [`/craft:ci:status`](../commands/ci/status.md) — cross-repo CI dashboard + `--post-release` verification
 - [Recipe: Triage a red PR](../cookbook/recipes/triage-a-red-pr.md)
-- [`--admin` merge criteria](../../CLAUDE.md) — only when the failure is unrelated to the diff
+- `--admin` merge criteria — only when the failure is unrelated to the diff

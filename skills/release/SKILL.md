@@ -49,13 +49,15 @@ After detecting the current and next version, display:
 │  1. ✓ /craft:check --for release (full CI mirror)            │
 │  2. ✓ Run pre-release-check.sh v2.18.0 (metadata)           │
 │  3. ✓ Bump version in plugin.json, CLAUDE.md                │
+│  3b. ✓ /craft:docs:update --post-merge (semantic doc sync)  │
+│  3b.5 ✓ docs-staleness-check.sh --non-interactive (gate)   │
 │  4. ✓ Commit: "chore: bump version to v2.18.0 for release"  │
 │  5. ✓ Push to dev                                           │
 │  6. ✓ Create PR: dev → main                                 │
 │  6.5 ✓ CI monitoring (poll → diagnose → fix → retry)        │
 │  7. ✓ Merge PR (--merge, NO --delete-branch)                │
 │  8. ✓ Create GitHub release v2.18.0 on main                 │
-│  9. ✓ Deploy docs site (mkdocs gh-deploy)                   │
+│  9. ✓ mkdocs build --strict && mkdocs gh-deploy              │
 │ 10. ✓ Update Homebrew tap (formula or cask)                 │
 │      (10b if Tauri: build → upload → SHA256 → cask → tap)   │
 │      (10b verify_caveats.py — advisory caveats gate)         │
@@ -124,9 +126,22 @@ For Python / Node / R projects, update manifest files manually.
 
 ### Step 3b: Semantic Doc Updates
 
-Update CHANGELOG.md, VERSION-HISTORY.md, README.md, docs/index.md, docs/REFCARD.md,
+```bash
+/craft:docs:update --post-merge
+```
+
+Updates CHANGELOG.md, VERSION-HISTORY.md, README.md, docs/index.md, docs/REFCARD.md,
 mkdocs.yml, commands/hub.md, and docs/commands/hub.md with release-specific content.
 Full table of what to update is in pipeline-steps.md.
+
+### Step 3b.5: Staleness Gate
+
+```bash
+./scripts/docs-staleness-check.sh --non-interactive
+```
+
+RED findings block; YELLOW findings warn but allow proceed. Fix any RED before Step 4.
+Run `./scripts/docs-staleness-check.sh --fix` to auto-resolve mechanical staleness.
 
 ### Step 4: Commit & Push
 
@@ -185,8 +200,11 @@ Include highlights, grouped changes, test count, and changelog comparison link.
 If docs site exists (`mkdocs.yml`, `_quarto.yml`, or `docs/`):
 
 ```bash
-mkdocs gh-deploy  # or /craft:site:deploy
+mkdocs build --strict && mkdocs gh-deploy  # or /craft:site:deploy
 ```
+
+`mkdocs build --strict` fails on broken links and Jinja errors. Fix before deploying — a
+broken deploy is harder to roll back than a local build failure.
 
 ### Step 10: Update Homebrew Tap (if applicable)
 
@@ -212,6 +230,15 @@ broken code. Full polling commands in pipeline-steps.md.
 Verify docs deploy, homebrew-release workflow, live site version, formula content, CI badge,
 and (if 10b ran) cask SHA256. Full scripts for 13a–13f are in
 [`references/downstream-verification.md`](references/downstream-verification.md).
+
+**Live-site version check (run after docs deploy):**
+
+```bash
+curl -s https://data-wise.github.io/craft/ | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1
+```
+
+Must match the just-released version. If stale, wait 60s and retry (GitHub Pages CDN lag);
+if still wrong after 3 retries, redeploy with `mkdocs gh-deploy`.
 
 ### Step 13.4: Doc Coverage Gate (MANDATORY)
 

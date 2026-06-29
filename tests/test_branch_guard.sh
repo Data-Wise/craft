@@ -1334,6 +1334,49 @@ run_test \
     "$(json_write "$REPO_TOCTOU/src/new2.py" "$REPO_TOCTOU")" \
     "$REPO_TOCTOU"
 
+# ============================================================================
+# Group 20: Squash-merge branch cleanup bypass
+# ============================================================================
+
+echo ""
+echo -e "${T_BLUE}--- Group 20: Squash-merge bypass for git branch -D ---${T_NC}"
+
+REPO_SQ20=$(init_repo)
+(
+    cd "$REPO_SQ20"
+    git checkout dev --quiet 2>/dev/null
+    git checkout -b "feature/sq-merged" --quiet 2>/dev/null
+    echo "feature work" > feature.txt
+    git add feature.txt
+    git commit -m "feat: feature work" --quiet
+    git checkout dev --quiet 2>/dev/null
+    git merge --squash "feature/sq-merged" --quiet
+    git commit -m "squash: feature work" --quiet
+)
+
+run_test \
+    "test_git_branch_delete_squash_merged_ALLOWED" \
+    0 \
+    "$(json_bash "git branch -D feature/sq-merged" "$REPO_SQ20")" \
+    "$REPO_SQ20"
+
+REPO_UNM20=$(init_repo)
+(
+    cd "$REPO_UNM20"
+    git checkout dev --quiet 2>/dev/null
+    git checkout -b "feature/not-merged" --quiet 2>/dev/null
+    echo "unmerged work" > work.txt
+    git add work.txt
+    git commit -m "feat: unmerged work" --quiet
+    git checkout dev --quiet 2>/dev/null
+)
+
+run_test \
+    "test_git_branch_delete_unmerged_BLOCKED" \
+    2 \
+    "$(json_bash "git branch -D feature/not-merged" "$REPO_UNM20")" \
+    "$REPO_UNM20"
+
 echo ""
 
 # ============================================================================

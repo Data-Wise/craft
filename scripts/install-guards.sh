@@ -74,6 +74,27 @@ install_hook "branch-guard.sh"
 install_hook "no-switch-guard.sh"
 
 # ---------------------------------------------------------------------------
+# 1b. Copy lib/git-utils.sh to ~/.claude/lib/ (needed by branch-guard squash-merge detection)
+# ---------------------------------------------------------------------------
+LIB_SRC="${REPO_ROOT}/lib/git-utils.sh"
+LIB_DIR="${HOME}/.claude/lib"
+LIB_DEST="${LIB_DIR}/git-utils.sh"
+
+if [[ ! -f "$LIB_SRC" ]]; then
+  warn "lib/git-utils.sh not found — squash-merge detection unavailable"
+else
+  mkdir -p "$LIB_DIR"
+  if [[ -L "$LIB_DEST" ]]; then
+    ok "git-utils.sh already symlinked"
+  elif [[ -f "$LIB_DEST" ]] && diff -q "$LIB_SRC" "$LIB_DEST" &>/dev/null; then
+    ok "git-utils.sh already up to date"
+  else
+    cp "$LIB_SRC" "$LIB_DEST"
+    ok "git-utils.sh installed to ${LIB_DIR}/"
+  fi
+fi
+
+# ---------------------------------------------------------------------------
 # 2. Register in settings.json (requires jq)
 # ---------------------------------------------------------------------------
 if ! command -v jq &>/dev/null; then

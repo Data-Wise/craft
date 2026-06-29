@@ -82,13 +82,15 @@ Remove merged feature branches that no longer have work in progress.
 
 **Steps:**
 
-1. List branches merged into the integration branch (`dev` or `main`).
+1. Detect merged branches using a two-pass approach:
+   - **Pass 1 — `git branch --merged`**: catches normal fast-forward and merge-commit merges.
+   - **Pass 2 — `is_squash_merged` (from `lib/git-utils.sh`)**: catches squash-merged branches that `--merged` misses. Uses `git cherry` (exact patch-ID match) with a tree-diff fallback for multi-commit squashes.
 2. Skip protected branches and the current branch.
 3. Skip branches with uncommitted changes or unpushed commits.
 4. **ORCHESTRATE check:** warn if any `ORCHESTRATE-*.md` files remain on `dev` — they're working artifacts and should have been deleted by the `worktree finish` step.
-5. Preview deletions in `--dry-run`; confirm interactively before executing.
+5. Preview deletions in `--dry-run`; badge squash-merged branches as `(squash-merged, safe to delete)` so the user can distinguish them from normal merged branches. Confirm interactively before executing.
 
-**Never** run `git branch -D` without explicit confirmation.
+**Never** run `git branch -D` without explicit confirmation on branches that `is_squash_merged` returns `NOT_MERGED` or `UNKNOWN`.
 
 ### 5. Worktree Management
 

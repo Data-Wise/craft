@@ -22,6 +22,17 @@ def test_no_double_write_for_same_session(tmp_path):
     facets = list((tmp_path / ".claude/usage-data/facets").glob("session-*.json"))
     assert len(facets) == 1  # second SessionEnd for same session is a no-op
 
+def test_no_double_write_when_done_wrote_first(tmp_path):
+    # Simulate /done writing a timestamp-named facet (its filename scheme)
+    facets_dir = tmp_path / ".claude/usage-data/facets"
+    facets_dir.mkdir(parents=True)
+    (facets_dir / "session-20260627-143012.json").write_text(
+        '{"session_id": "abc123", "outcome": "completed", "auto_collected": false}'
+    )
+    _run({"cwd": str(tmp_path), "session_id": "abc123"}, tmp_path)
+    facets = list(facets_dir.glob("session-*.json"))
+    assert len(facets) == 1, "hook must not write a duplicate when /done already wrote a timestamp-named facet"
+
 def test_distinct_sessions_each_get_a_facet_same_day(tmp_path):
     _run({"cwd": str(tmp_path), "session_id": "s1"}, tmp_path)
     _run({"cwd": str(tmp_path), "session_id": "s2"}, tmp_path)

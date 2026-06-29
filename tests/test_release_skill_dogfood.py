@@ -266,5 +266,75 @@ class TestTriggerPhrases(unittest.TestCase):
         self.assertGreater(len(self.description), 50)
 
 
+class TestPipelineSteps(unittest.TestCase):
+    """Assert new pipeline steps (3b, 3b.5, 9, 13) are present and ordered."""
+
+    @classmethod
+    def setUpClass(cls):
+        with open(SKILL_FILE, encoding="utf-8") as fh:
+            cls.content = fh.read()
+
+    # ── Step 3b ──────────────────────────────────────────────────────────────
+
+    def test_step_3b_heading_present(self):
+        self.assertIn("Step 3b: Semantic Doc Updates", self.content)
+
+    def test_step_3b_post_merge_command_present(self):
+        self.assertIn("/craft:docs:update --post-merge", self.content)
+
+    def test_step_3b_in_dry_run_table(self):
+        self.assertIn("3b.", self.content)
+
+    # ── Step 3b.5 ─────────────────────────────────────────────────────────────
+
+    def test_step_3b5_heading_present(self):
+        self.assertIn("Step 3b.5: Staleness Gate", self.content)
+
+    def test_step_3b5_command_present(self):
+        self.assertIn("docs-staleness-check.sh --non-interactive", self.content)
+
+    def test_step_3b5_red_findings_block(self):
+        self.assertIn("RED findings block", self.content)
+
+    def test_step_3b5_in_dry_run_table(self):
+        self.assertIn("3b.5", self.content)
+
+    # ── Step 9 ────────────────────────────────────────────────────────────────
+
+    def test_step_9_heading_present(self):
+        idx = self.content.find("### Step 9:")
+        self.assertGreater(idx, -1, "### Step 9: heading not found")
+
+    def test_step_9_strict_and_deploy_combined(self):
+        self.assertIn("mkdocs build --strict && mkdocs gh-deploy", self.content)
+
+    def test_step_9_broken_deploy_warning(self):
+        self.assertIn("broken deploy", self.content)
+
+    # ── Step 13 (live-site check) ─────────────────────────────────────────────
+
+    def test_step_13_live_site_check_present(self):
+        self.assertIn("data-wise.github.io/craft", self.content)
+
+    def test_step_13_curl_command_present(self):
+        self.assertIn("curl -s", self.content)
+
+    # ── Ordering ──────────────────────────────────────────────────────────────
+
+    def test_step_3b_before_step_4(self):
+        idx_3b = self.content.find("Step 3b:")
+        idx_4 = self.content.find("### Step 4:")
+        self.assertGreater(idx_3b, -1, "Step 3b not found")
+        self.assertGreater(idx_4, -1, "Step 4 not found")
+        self.assertLess(idx_3b, idx_4, "Step 3b must appear before Step 4")
+
+    def test_step_9_before_step_10(self):
+        idx_9 = self.content.find("### Step 9:")
+        idx_10 = self.content.find("### Step 10:")
+        self.assertGreater(idx_9, -1, "Step 9 not found")
+        self.assertGreater(idx_10, -1, "Step 10 not found")
+        self.assertLess(idx_9, idx_10, "Step 9 must appear before Step 10")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

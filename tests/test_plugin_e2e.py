@@ -178,6 +178,19 @@ class TestCommandFrontmatter:
             f"  missing:    {sorted(expected - declarers)}"
         )
 
+    def test_brief_board_flag_declared(self):
+        """--board argument declared in workflow/brief.md frontmatter."""
+        brief = PLUGIN_DIR / "commands/workflow/brief.md"
+        fm = _extract_frontmatter(brief)
+        arg_names = [a.get("name") for a in fm.get("arguments", [])]
+        assert "board" in arg_names, "--board argument not declared in brief.md frontmatter"
+
+    def test_brief_board_steps_present(self):
+        """workflow/brief.md contains Step 1.5 and Step 3.5 for --board."""
+        text = (PLUGIN_DIR / "commands/workflow/brief.md").read_text(encoding="utf-8")
+        assert "Step 1.5" in text, "Step 1.5 (owner inference) missing from brief.md"
+        assert "Step 3.5" in text, "Step 3.5 (board rendering) missing from brief.md"
+
 
 # ============================================================================
 # 3. Skill Registration Integrity
