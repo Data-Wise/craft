@@ -14,6 +14,10 @@ arguments:
     description: Show which context sources would be used before generating
     required: false
     default: false
+  - name: board
+    description: Show ownership/state table (who owns what, what state) above the 3-line block
+    required: false
+    default: false
 ---
 
 # /craft:workflow:brief
@@ -36,6 +40,9 @@ Connects to:   [exact artifact — branch, package, file, PR, or —]
 | `--plan` | Block + propose approach + 2–3 questions + mini-plan |
 | `--verbose` | Expand each line with 1–2 sentences of context |
 | `--show-context` | Display context sources before generating |
+| `--board` | Ownership/state table above the 3-line block |
+| `--board --plan` | Board + 3-line block + planning expansion |
+| `--board --verbose` | Board + verbose-expanded 3-line block |
 
 ## When invoked
 
@@ -63,6 +70,34 @@ Read sources in priority order. Stop at the first source that gives enough signa
    ls ORCHESTRATE-*.md 2>/dev/null | head -1
    gh pr list --author @me --state open --limit 3 2>/dev/null
    ```
+
+### Step 1.5: If `--board` flag — infer owner/state rows
+
+Read two sources already fetched in Step 1:
+
+**Source A: ORCHESTRATE-*.md** (if present) — parse numbered list items and classify each:
+
+| Pattern in item text | Owner | State |
+|---|---|---|
+| "auto", "agent will", "runs automatically", or git/CI shell commands | Me | 🟢 AUTO |
+| "wait for CI", "checks", "pending", or `gh pr` with no user action needed | External | ⏳ WAITING |
+| "merge", "approve", "decide", "review", "confirm", "choose" | You | 🔵 YOUR CALL |
+| "blocked", "waiting on [external]" | You | 🔴 BLOCKED |
+| Leading `✅` | — | ✅ DONE — omit unless `--verbose` |
+
+**Source B: Open PRs** — `gh pr list --author @me --state open --json number,title,statusCheckRollup`
+
+- PR with CI in progress / pending → owner: **External**, state: ⏳ WAITING
+- PR with CI passed, not yet merged → owner: **You**, state: 🔵 YOUR CALL
+
+**Leader line derivation** (`🎯 RIGHT NOW:`)
+
+Pick the first item from: 🔵 YOUR CALL → ⏳ WAITING → 🟢 AUTO.
+If no items found: `🎯 RIGHT NOW: nothing tracked`.
+
+**Row cap:** 6 rows maximum. If more: `… (N more)`.
+
+---
 
 ### Step 2: If `--show-context` flag
 
@@ -184,6 +219,32 @@ the probmed repo                              ← project, not artifact
 
 ---
 
+### Step 3.5: If `--board` flag — render board above the 3-line block
+
+Output BEFORE the 3-line block:
+
+```text
+🎯 RIGHT NOW: [leader item from Step 1.5]
+
+Who       | What                               | State
+----------|------------------------------------|----------
+Me        | [ORCHESTRATE step — short label]   | 🟢 AUTO
+External  | PR #N — [title, max 40 chars]      | ⏳ WAITING
+You       | [decision or merge action]         | 🔵 YOUR CALL
+```
+
+Empty fallback (no ORCHESTRATE, no open PRs):
+
+```text
+🎯 RIGHT NOW: nothing tracked
+
+(No ORCHESTRATE file found and no open PRs. Add an ORCHESTRATE-*.md or open a PR to populate this board.)
+```
+
+Then proceed to output the 3-line block (Step 4).
+
+---
+
 ### Step 4: Output the block
 
 **Default (no flags):**
@@ -245,6 +306,8 @@ Key risk:  [condition → mitigation]
 ```
 
 ## Integration
+
+**With `--board`:** Reads ORCHESTRATE-*.md step list and open PRs to build an ownership table. The table appears above the 3-line block. Use when you need a quick status scan: who owns what, what's blocking, what requires your decision right now.
 
 **With `/craft:do --brief`:** `do` executes the task, then appends the 3-line block. No `--plan` phase. Block only.
 
