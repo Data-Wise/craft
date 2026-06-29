@@ -6291,34 +6291,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../commands/workflow/brief.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:workflow:brief
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../commands/workflow/insights/" class="md-nav__link">
         
   
@@ -11908,7 +11880,7 @@ The three independent items (#1, #3, #4) float — any order, parallel-safe.</p>
 <ol>
 <li>Read the existing frontmatter of commands/orchestrate/workflow.md (already done — confirmed no related_commands, tutorial_file, or tags keys exist)</li>
 <li>Add to the frontmatter block in commands/orchestrate/workflow.md: <code>related_commands: [orchestrate, orchestrate:drive]</code>, <code>tutorial_file: docs/cookbook/recipes/run-a-coded-workflow.md</code>, <code>tags: [workflow, orchestration, parallel, fan-out, yaml]</code> — insert between the last argument block and the closing <code>---</code></li>
-<li>Extend the '## See Also' section prose in commands/orchestrate/workflow.md to add two cookbook recipe bullet lines: '- <a href="../../docs/cookbook/recipes/run-a-coded-workflow.md">Run a coded workflow</a> — cookbook: write a WORKFLOW-*.yaml, dry-run preview, execute, resume' and '- <a href="../../docs/cookbook/recipes/fan-a-workflow-across-files.md">Fan a workflow across files</a> — cookbook: list → parallel-per-file → gate → summarize pattern'</li>
+<li>Extend the '## See Also' section prose in commands/orchestrate/workflow.md to add two cookbook recipe bullet lines: '- Run a coded workflow — cookbook: write a WORKFLOW-*.yaml, dry-run preview, execute, resume' and '- Fan a workflow across files — cookbook: list → parallel-per-file → gate → summarize pattern'</li>
 <li>Verify command-audit.sh still passes: both <code>related_commands</code> and <code>tutorial_file</code> are already in VALID_FIELDS (scripts/command-audit.sh line 22) — no change needed</li>
 <li>Delete commands/_cache.json (gitignored) to force discovery regeneration on next run, or run <code>python3 commands/_discovery.py</code> to verify the new frontmatter parses without warnings</li>
 <li>Add one targeted test assertion in tests/test_hub_e2e_focused.py (or a new test in tests/test_craft_plugin.py) asserting that <code>get_command_detail('orchestrate:workflow')</code> returns a record with <code>related_commands</code> containing 'orchestrate' and 'orchestrate:drive', and <code>tutorial_file</code> set to the recipe path</li>
