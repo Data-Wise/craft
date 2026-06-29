@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`skills/hooks/SKILL.md`** — new hooks skill with ready-to-install PostToolUse/PreToolUse templates (MkDocs `--strict` gate, security scanner). Skills +1 → 40 total.
+- **`docs/guide/headless-recipes.md`** — three `claude -p` headless mode recipes (version reconcile, count audit, post-release doc sweep) plus a GitHub Actions snippet. Added to mkdocs.yml nav.
+
+### Fixed
+
+- **`scripts/install-branch-guard.sh` deployment gap** — the installer now copies `lib/git-utils.sh` to `~/.claude/lib/` in addition to `scripts/branch-guard.sh` to `~/.claude/hooks/`. Flat-copy installs previously left `git-utils.sh` absent, causing `is_squash_merged` to be undefined and every `git branch -D` to fall through to the confirm prompt even on squash-merged branches. Symlink (dev) installs were unaffected.
+- **`skills/dev/git/SKILL.md` Operation 4** — updated branch cleanup steps to document the two-pass squash-merge detection strategy (`git cherry` + tree-diff fallback) and badge squash-merged branches as `(squash-merged, safe to delete)` in dry-run output.
+
 ---
 
 ## [2.54.0] — 2026-06-27
