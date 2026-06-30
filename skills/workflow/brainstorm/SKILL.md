@@ -60,6 +60,39 @@ If the user wants more, they ask; don't build a state machine for it.
    8 categories × 2 questions = 16 base questions, plus 6 project-type
    extensions (auto-detected via `utils/claude_md_detector.py`). Use
    `AskUserQuestion`.
+
+### Category override (`-C` / `--categories`)
+
+Default category selection is focus-driven (see table below). Override with
+`-C <list>` / `--categories <list>` (comma-separated, matching `commands/workflow/brainstorm.md`
+frontmatter):
+
+| Category | Covers |
+|---|---|
+| `req` | requirements |
+| `users` | target users / audience |
+| `scope` | what's in / out of scope |
+| `tech` | technical approach, stack |
+| `timeline` | sequencing, milestones |
+| `risks` | risks, edge cases, failure modes |
+| `existing` | existing code/patterns to reuse or replace |
+| `success` | success criteria, how to know it's done |
+| `all` | every category above (default when `-C` omitted at `deep`) |
+
+Default categories by focus:
+
+| Focus | Default categories |
+|---|---|
+| `feat` | req, users, scope, success |
+| `arch` | tech, risks, existing, scope |
+| `api` | tech, req, success |
+| `ux` | users, scope, success |
+| `ops` | tech, risks, timeline |
+| (auto/unset) | req, users, tech, success |
+
+Example: `/brainstorm "caching" -C tech,risks` limits expert questions to the technical and
+risk categories regardless of focus.
+
 5. **One follow-up offer.** After the questions: "Anything else to add, or
    ready to generate?" — single yes/no-shaped prompt, not a menu of depth
    switches.
