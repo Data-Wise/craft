@@ -29,7 +29,7 @@
 | [Create custom subagents](https://code.claude.com/docs/en/sub-agents) | Subagents exist specifically to keep exploration/logs *out* of main context — but each one pays its own re-read cost. You can pin `model:` per subagent in frontmatter. |
 | [Orchestrate subagents at scale with dynamic workflows](https://code.claude.com/docs/en/workflows) | Explicit warning: dynamic workflows "**can consume substantially more tokens** than a typical Claude Code session" — recommended only for small, well-scoped tasks first. This directly contradicts the idea that "ultra code" saves tokens. |
 | [Explore the context window](https://code.claude.com/docs/en/context-window) | Startup breakdown (illustrative): system prompt ~4,200 tok, auto-memory ~680 tok, env info ~280 tok, **MCP tool names ~120 tok (deferred — full schemas load only on first use)**. Confirms tool *definitions* are cheap until used; what's expensive is large always-loaded text (CLAUDE.md, agent system prompts). |
-| [Extend Claude with skills](https://code.claude.com/docs/en/skills) | **Custom commands have been merged into skills.** `.claude/commands/*.md` and `skills/*/SKILL.md` both work the same way: only name+description load at startup; the body loads only when invoked. This means craft's 117 commands and 40 skills are *not* the primary startup cost — they're already lazy. |
+| [Extend Claude with skills](https://code.claude.com/docs/en/skills) | **Custom commands have been merged into skills.** `.claude/commands/*.md` and `skills/*/SKILL.md` both work the same way: only name+description load at startup; the body loads only when invoked. This means craft's 117 commands and 42 skills are *not* the primary startup cost — they're already lazy. |
 | [How Claude remembers your project (CLAUDE.md)](https://code.claude.com/docs/en/memory) | CLAUDE.md is loaded **in full, every session, regardless of length** — no lazy loading, no eviction. Target <200 lines. Auto-memory `MEMORY.md` caps at 200 lines/25KB. This is a second, independent lever from the agent issue. |
 
 ### Community sources (cross-checked against official docs, not taken at face value)
@@ -52,7 +52,7 @@ In my first pass I said "dump dynamic workflows" without sourcing it directly �
 
 Inspected `/Users/dt/projects/dev-tools/craft` directly:
 
-- `.claude-plugin/plugin.json`: 117 commands + 40 skills + **8 agents** bundled as one plugin.
+- `.claude-plugin/plugin.json`: 117 commands + 42 skills + **8 agents** bundled as one plugin.
 - `agents/orchestrator.md`: 298 lines.
 - `agents/orchestrator-v2.md`: **1,473 lines** — this is the structural problem. Per the skills doc, commands/skills lazy-load; agent *system prompts* do not have an equivalent on-demand mechanism documented — the full file is the subagent's system prompt every time it's spawned.
 - 6 commands directly reference `subagent`/`Task(` spawning — these are your fan-out entry points.

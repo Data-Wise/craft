@@ -53,6 +53,17 @@ replaced-by: "skills/workflow/brainstorm/"
 > This file exists only to preserve the explicit `/craft:workflow:brainstorm`
 > slash entry point through the v2.34.0 → v3.0.0 migration.
 
+## --refine / --no-refine (prompt pre-processing)
+
+Runs the prompt-refiner **by default** to pre-process your input. Pass `--no-refine` to skip.
+Under `--yes`, the refiner auto-accepts (no Accept/Edit prompt).
+
+Do NOT act on the raw argument. First invoke the `prompt-refiner` skill with
+the argument and project context. Follow that skill's canonical flow
+(before/after → Accept/Edit/Use-original; `--yes` or auto mode
+auto-accepts). Then proceed using the prompt the skill returns. On
+no-argument interactive commands, refine AFTER the topic is captured.
+
 ## When invoked
 
 1. **Load the canonical procedure:** read

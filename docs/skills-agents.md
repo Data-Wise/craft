@@ -1,10 +1,10 @@
 # Craft Skills & Agents
 
-> **TL;DR**: 40 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
+> **TL;DR**: 42 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
 
-Craft includes 40 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 42 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (40 total)
+## Skills (42 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -98,6 +98,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 | plan-orchestrator | Produce concrete planning artifacts (ORCHESTRATE files, feature breakdowns, sprint backlogs, roadmaps) from specs | `skills/orchestration/plan-orchestrator/SKILL.md` |
 | session-state | Manages orchestrator session state persistence — save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
 | task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer/SKILL.md` |
+| orchestrator-resilience | Reference templates for orchestrator-v2 agent error handling (retry/backoff, circuit breaker, escalation) and execution timeline display — loaded on agent failure or `timeline` request, not on the happy path | `skills/orchestrator-resilience/SKILL.md` |
 | workflow-engine | Reusable execution body behind `/craft:orchestrate:workflow` — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents under a run-wide semaphore, structurally gate every output, and run a first-class verify gate | `skills/orchestration/workflow-engine/SKILL.md` |
 
 ### Planning (1)
@@ -124,7 +125,8 @@ Skills automatically activate based on conversation context, providing just-in-t
 | Name | Description | Path |
 |------|-------------|------|
 | adhd-workflow | Session and task workflow support — done/recap/next/focus/stuck/spec-review/refine for ADHD-friendly flow | `skills/workflow/adhd-workflow/SKILL.md` |
-| brainstorm-insights | Generate BRAINSTORM/SPEC documents from project context, and INSIGHTS reports from session facet history | `skills/workflow/brainstorm-insights/SKILL.md` |
+| brainstorm | Generate BRAINSTORM/SPEC documents from topic + project/git context (2 decision points: depth+focus, one follow-up); deep multi-agent work hands off to `--orch` | `skills/workflow/brainstorm/SKILL.md` |
+| brainstorm-insights | Aggregate session facet history into a friction/goals report (directory name kept for path stability; ideation moved to the `brainstorm` skill above) | `skills/workflow/brainstorm-insights/SKILL.md` |
 | background-task-manager | Manage already-launched background tasks — status inspection, output retrieval, cancellation | `skills/workflow/task-management/SKILL.md` |
 | prompt-refiner | Refine a vague request into a sharp prompt using project context (before/after + Accept/Edit/Use-original) — the engine behind the `--refine` flag; replaces the deprecated `/refine` | `skills/workflow/prompt-refiner/SKILL.md` |
 

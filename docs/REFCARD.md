@@ -5,7 +5,7 @@
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
 │  Version: 2.55.0 (released 2026-06-19)                       │
-│  Commands: 112 | Agents: 8 | Skills: 39                     │
+│  Commands: 112 | Agents: 8 | Skills: 42                     │
 │  Documentation: 99% complete | Tests: 142 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
 │  v2.55.0: Documentation Coverage — Tutorial Suite            │
@@ -1600,7 +1600,7 @@ Use `--no-tests` or `--no-docs` to suppress either.
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
-## Skills (40 total)
+## Skills (42 total)
 
 Auto-triggered expertise:
 

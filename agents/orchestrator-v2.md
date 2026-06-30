@@ -917,9 +917,10 @@ When compressing agent output:
 ## BEHAVIOR 9: Timeline View (NEW in v2.1)
 
 When user says `timeline`, load the `orchestrator-resilience` skill for the
-visual timeline template (ASCII gantt-style progress bars per agent) and render
-it with current agent state. Supports `timeline`, `timeline live` (auto-refresh
-every 30s), and `timeline zoom <duration>` (focus on a recent window).
+visual timeline template (renders a `## ⏱️ EXECUTION TIMELINE` block — ASCII
+gantt-style progress bars per agent, plus an ETA estimate) and render it with
+current agent state. Supports `timeline`, `timeline live` (auto-refresh every
+30s), and `timeline zoom <duration>` (focus on a recent window).
 
 ---
 

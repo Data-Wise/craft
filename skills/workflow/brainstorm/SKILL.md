@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: This skill should be used when the user asks to "brainstorm", "explore ideas", "design a feature", "draft a spec", "capture a spec", or mentions ideation, requirements gathering, spec capture, or brainstorming depth/focus modes. Generates BRAINSTORM/SPEC documents from project + conversation context. Replaces the deprecated /craft:workflow:brainstorm command. For session-facet analysis ("friction report", "what patterns am I hitting"), use the brainstorm-insights skill instead.
+description: This skill should be used when the user asks to "brainstorm", "explore ideas", "design a feature", "draft a spec", "capture a spec", or mentions ideation, requirements gathering, spec capture, or brainstorming depth/focus modes. Generates BRAINSTORM/SPEC documents from project + conversation context. Replaces the deprecated /craft:workflow:brainstorm command. For session-facet friction or pattern analysis across past sessions, use the brainstorm-insights skill instead.
 ---
 
 # Brainstorm
