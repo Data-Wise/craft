@@ -22,6 +22,8 @@ VALID_SKILL_KEYS = {
     "model", "effort", "argument-hint", "arguments", "shell", "hooks", "license",
     # craft-local markers tolerated on skills:
     "category", "deprecated", "replaced-by",
+    # savant-plugin extension key:
+    "metadata",
 }
 
 Finding = namedtuple("Finding", "severity category path message")  # severity: "error"|"warning"
