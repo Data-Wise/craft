@@ -598,7 +598,7 @@ Full catalog with trigger phrases: **[Skills & Agents](../skills-agents.md)**.
 | Documentation | 8 | doc-classifier, mermaid-linter, changelog-automation, openapi-spec |
 | Distribution | 6 | homebrew-formula/workflow/multi-formula/setup, pypi, marketplace |
 | Orchestration | 4 | **drive-engine** (NEW), plan-orchestrator, task-analyzer, session-state |
-| Workflow | 7 | **prompt-refiner** (NEW — `--refine`), adhd-workflow, **brainstorm**, **brainstorm-insights** (split from brainstorm) |
+| Workflow | 5 | **prompt-refiner** (NEW — `--refine`), adhd-workflow, **brainstorm**, **brainstorm-insights** (split from brainstorm), task-management |
 | Design | 3 | backend / frontend / devops designers |
 | Code · Testing · Guard&Insights | 2 each | lint/refactor, test-strategist/generator, guard-audit/insights-apply |
 | Architecture · Check · CI · Dev · Modes · Planning · Release | 1 each | architecture, preflight-check, project-detector, git-workflow, mode-controller, project-planner, release |
