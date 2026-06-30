@@ -94,6 +94,16 @@ count (0/2/6) is never skipped. Skipping silently is a known regression
 pattern. The depth/focus *menu* may be skipped when args supply them — the
 questions themselves may not.
 
+## Removed: Per-Invocation Question-Count Override
+
+The pre-redesign version supported colon notation (`d:5`, `m:12`, `q:0`) to override the
+per-depth expert-question count on a single invocation. This is intentionally not carried
+forward — the fixed per-depth counts (0/2/6) are part of the same two-decision-point
+simplification described above ("Going Deeper"); a per-call override reintroduces the kind of
+escape-hatch menu this redesign removed. If a specific topic genuinely needs more than 6
+expert questions, run `/brainstorm` at `deep`, then use the "anything else before I generate
+this?" follow-up offer (Flow step 5) to add more — don't request a count override.
+
 ## Outputs
 
 - `BRAINSTORM-<topic>-<date>.md` (always — even when also saving a spec).
