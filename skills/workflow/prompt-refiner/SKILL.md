@@ -51,3 +51,10 @@ arch:plan, or standalone ("refine and print").
 
 Invoked with no downstream command, stop after step 3–4 and print the
 refined prompt — this preserves the deprecated `/refine` behavior.
+
+## Optional: explain mode
+
+If the user passes `--explain` or asks "why" after seeing the refined
+prompt, add a one-line rationale per change under "Changed:" (e.g.
+"directive > question — clearer instructions get better results").
+Skip by default; only triggered on request to keep the standard flow lean.
