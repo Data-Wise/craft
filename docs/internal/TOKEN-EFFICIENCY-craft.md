@@ -1,7 +1,7 @@
 # Token Efficiency: What We Did to Craft
 
 What changed on `feature/token-usage-reduction` ([PR #232](https://github.com/Data-Wise/craft/pull/232)), why, and the measured before/after. This is the implementation record; the methodology and decision framework behind it live in
-[`docs/specs/SPEC-token-efficiency-research-2026-06-30.md`](../specs/SPEC-token-efficiency-research-2026-06-30.md).
+`docs/specs/SPEC-token-efficiency-research-2026-06-30.md` (in the repo; specs aren't published to this site, see `mkdocs.yml`'s `exclude_docs`).
 
 ## The problem
 

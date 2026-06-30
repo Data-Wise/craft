@@ -1608,6 +1608,7 @@ Auto-triggered expertise:
 | ------------------------- | --------------------------------------------------- |
 | `drive-engine`            | `/craft:orchestrate:drive` — dispatch + real verify gate (NEW) |
 | `prompt-refiner`          | the `--refine` flag — sharpen a prompt before running (NEW) |
+| `command-skill-token-efficiency` | writing/resizing a command, skill, or agent file — command-vs-skill split guidance + line-ratio check (NEW) |
 | `release`                 | "release", "ship it", version publishing (CI monitoring in v2.22.0) |
 | `guard-audit`             | "audit guard", "review branch protection" (v2.18.0) |
 | `insights-apply`          | "apply insights", "update rules from insights" (v2.18.0) |

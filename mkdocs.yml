@@ -222,6 +222,7 @@ nav:
       - code:lint Tutorial: tutorials/TUTORIAL-code-lint.md
       - code:release-watch Tutorial: tutorials/TUTORIAL-code-release-watch.md
       - code:skill-standards Tutorial: tutorials/TUTORIAL-code-skill-standards.md
+      - command-skill-token-efficiency Tutorial: tutorials/TUTORIAL-command-skill-token-efficiency.md
       - dist:homebrew Tutorial: tutorials/TUTORIAL-dist-homebrew.md
       - dist:surfaces Tutorial: tutorials/TUTORIAL-dist-surfaces.md
       - docs:changelog Tutorial: tutorials/TUTORIAL-docs-changelog.md
