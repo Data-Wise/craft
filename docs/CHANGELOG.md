@@ -268,6 +268,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   materiality floor. **Decision: NO-FLIP — `--engine=fanout` remains the default.**
   Re-run with fresh-session pairs or with Lever B prompt-trim to resolve the ordering confound.
 
+## [2.40.0] — 2026-06-19
+
+### Added
+
+- **Guard Suite — `/craft:git:guard` + registry toggle (#174)** — promotes `no-switch-guard`
+  (harm-tiered switch/worktree/restore gating) into `scripts/`; adds a `~/.claude/guards.json`
+  registry with per-guard enable/disable + auto-expiring mute (ADHD-friendly toggle UX);
+  a `/craft:git:guard` command (list/status/explain/test/enable/disable/profiles); a
+  `guard-consistency` validator; and `install-guards.sh` (installs both guards). Reconciles
+  destructive-restore ownership to `no-switch-guard` and softens branch-guard's `rm -rf .git` /
+  `reset --hard` from hard-block to confirm. **Catastrophic ops (`rm -rf .git`, `branch -D`)
+  remain non-muteable.** 111 commands.
+
+## [2.39.0] — 2026-06-19
+
+### Added
+
+- **Doc-coverage enforcement for all commands** — every craft command now has its required
+  documentation surfaces enforced. New `scripts/doc-coverage-check.sh` blocks on a missing
+  `docs/REFCARD.md` row or `mkdocs.yml` nav entry and warns (advisory) when a command with
+  `arguments:` lacks a tutorial; new `scripts/refcard-gen.sh` generates REFCARD rows; a Phase 8
+  extension to `docs-staleness-check.sh` surfaces gaps; a blocking pre-release gate
+  (`pre-release-check.sh` Step 13.4); and `/craft:check` shows a commit-context advisory for
+  newly-staged commands. (#172)
+
+### Changed
+
+- **`post-release-sweep.sh --surfaces` now verifies the aggregator leg** — it passes
+  `--aggregator-file dist/data-wise-marketplace.json` to `verify-surfaces.sh` when present, so a
+  stale craft pin in the shipped aggregator copy blocks like any other craft-controlled surface.
+  Closes the one cross-surface gap the multi-surface releases had to bump manually each time.
+
 ## [2.38.2] — 2026-06-15
 
 ### Fixed
