@@ -1,25 +1,24 @@
-# craft: Flat-Command Ownership Spec (Model A adoption)
+# craft: Flat-Command Ownership Spec (Model A **owner**)
 
 **Date:** 2026-06-29
 **Status:** Planning
-**Branch:** `.md` edits to existing files are dev-OK. Recommend batching into
-`feature/flat-command-ownership` for coherence with the broader rollout.
+**Branch:** `feature/flat-command-ownership` — creating `contracts/hub.md` is a new file;
+branch-guard BLOCKS new files on dev.
 **Initiative:** Flat-Command Ownership — distinct from `SPEC-refactor-namespace-2026-06-29.md`
-**Owner spec:** `opencode-resources/docs/specs/SPEC-flat-command-ownership-2026-06-29.md`
 
 ---
 
 ## Context
 
-This spec makes craft an **adopter** of Model A flat-command ownership. The owner spec
-(opencode-resources) defines the `hub` behavioral contract; this spec seeds that contract into
-craft's `hub.md` and records the multi-colon namespacing risk flagged during the CC audit.
+craft **owns** the `hub` behavioral contract under Model A. The contract lives in
+`craft/contracts/hub.md`; adopters (savant, scholar) copy the header and implement locally.
+opencode-resources hosts the drift check (`check-drift.js` 6th check reads craft's contract).
 
 **craft's flat-command reality (relevant to this initiative):**
 
 | Command | Type | Status |
 |---|---|---|
-| `hub` | True flat command (`commands/hub.md`) | Adopt contract header (this spec) |
+| `hub` | True flat command (`commands/hub.md`) | Own contract + carry header (this spec) |
 | `check`, `do`, `grill`, `quota`, etc. | Craft-specific flat commands | No shared contract — domain-specific |
 | `git:worktree` (namespace.json key) | Undocumented multi-colon pattern | Flag as risk (Task 3) |
 
@@ -27,14 +26,63 @@ craft's `hub.md` and records the multi-colon namespacing risk flagged during the
 
 ## Tasks
 
-### Task 1 — Adopt the hub contract header
+### Task 1 — Create `contracts/hub.md`
+
+Create `contracts/hub.md` in the craft repo root. Content:
+
+```markdown
+# CONTRACT: hub v1.0
+
+**Governs:** `hub` flat command across CC plugins
+**Owner:** craft
+**Adopters:** craft, savant, scholar  |  **Opt-outs:** rforge (no hub command)
+
+## Required sections
+
+Every implementing plugin's `hub.md` MUST contain these four sections (any order):
+
+1. **Quick Start** — 2-4 line summary of the plugin's purpose and the 1-2 commands to run first
+2. **Command Map** — table or structured list of all commands (name | purpose | when to use)
+3. **When to Use Each** — disambiguation guidance; which command for which situation
+4. **Recommended Next Step** — single suggested action to take after reading
+
+## Output format
+
+- Table + prose mix
+- Max 500 tokens total output
+- Lead with Quick Start, end with Recommended Next Step
+
+## Contract header (copy verbatim into implementing files)
+
+Each plugin's `hub.md` opens with this header, version bumped when this contract changes:
+
+    <!-- CONTRACT: hub v1.0 — craft/contracts/hub.md
+         Required sections: Quick Start, Command Map, When to Use Each, Recommended Next Step
+         Output format: table + prose, max 500 tokens
+    -->
+
+## Drift detection
+
+    grep -r "CONTRACT: hub" ~/projects/dev-tools/*/commands/
+    grep -r "CONTRACT: hub" ~/projects/dev-tools/*/src/plugin-api/commands/
+
+Any file referencing a version older than v1.0 needs updating.
+
+## Changelog
+
+| Version | Date | Change |
+|---|---|---|
+| v1.0 | 2026-06-29 | Initial contract — 4 required sections, 500-token cap |
+```
+
+### Task 2 — Seed the contract header into `commands/hub.md`
 
 File: `commands/hub.md`
 
 Add the following comment header as the **first lines** of the file (before any `#` heading):
 
 ```markdown
-<!-- CONTRACT: hub v1.0 — opencode-resources/contracts/hub.md
+<!-- CONTRACT: hub v1.0 — craft/contracts/hub.md
      Required sections: Quick Start, Command Map, When to Use Each, Recommended Next Step
      Output format: table + prose, max 500 tokens
 -->
@@ -47,9 +95,7 @@ Then verify the file already contains (or add if missing) the four required sect
 3. When to Use Each
 4. Recommended Next Step
 
-The content stays craft-specific — the contract governs structure, not content.
-
-### Task 2 — Bundled doc-edit: namespace spec Impl-Note #5
+### Task 3 — Bundled doc-edit: namespace spec Impl-Note #5
 
 File: `docs/specs/SPEC-refactor-namespace-2026-06-29.md`
 
@@ -90,6 +136,9 @@ git diff commands/hub.md
 
 ## Cross-references
 
-- Owner spec: `opencode-resources/docs/specs/SPEC-flat-command-ownership-2026-06-29.md`
+- Adopter specs: `savant/docs/specs/SPEC-flat-command-ownership-2026-06-29.md`,
+  `scholar/docs/specs/SPEC-flat-command-ownership-2026-06-29.md`
+- Drift check host: `opencode-resources/docs/specs/SPEC-flat-command-ownership-2026-06-29.md`
+  (check-drift.js 6th check reads `craft/contracts/hub.md`)
 - Research audit: `~/.claude/plans/twinkly-inventing-mango.md`
 - Namespace refactor (separate initiative): `docs/specs/SPEC-refactor-namespace-2026-06-29.md`
