@@ -5,7 +5,7 @@ description: This skill should be used when the user is writing, editing, resizi
 
 # Command/Skill Token Efficiency
 
-Helps decide where content belongs when authoring or resizing a craft command, skill, or agent file, and runs the quantitative check that backs the decision up. Grew out of `feature/token-usage-reduction` ([PR #232](https://github.com/Data-Wise/craft/pull/232)), which found and fixed real, measured token cost in `/refine` (630→42 lines), `/brainstorm` (528→112 lines), and `orchestrator-v2.md` (1473→1212 lines) — a 48% reduction in the always-loaded orchestration path. Full research and methodology: `docs/specs/SPEC-token-efficiency-research-2026-06-30.md`.
+Helps decide where content belongs when authoring or resizing a craft command, skill, or agent file, and runs the quantitative check that backs the decision up. Grew out of `feature/token-usage-reduction` ([PR #232](https://github.com/Data-Wise/craft/pull/232)), which measured a 48% reduction in always-loaded *line count* across `/refine` (630→42 lines), `/brainstorm` (528→112 lines), and `orchestrator-v2.md` (1473→1212 lines). Line count and token count correlate but aren't identical — real `/usage` validation of the token-usage hypothesis is a separate, not-yet-completed step (see "Further reading" below). Full research and methodology: `docs/specs/SPEC-token-efficiency-research-2026-06-30.md`.
 
 ## Why this matters
 
