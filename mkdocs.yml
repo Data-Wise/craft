@@ -479,6 +479,7 @@ nav:
       - Test Conventions: internal/TEST-CONVENTIONS.md
       - Python Conventions: internal/PYTHON-CONVENTIONS.md
       - Command & Spec Conventions: internal/COMMAND-SPEC-CONVENTIONS.md
+      - Session Grounding Prompt: internal/GROUNDING-craft.md
 
   # 8. QUICK REFERENCE CARD - Printable reference
   - 📋 Quick Reference Card: REFCARD.md

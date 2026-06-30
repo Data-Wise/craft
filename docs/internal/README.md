@@ -12,6 +12,7 @@ These capture patterns that are implicit in the codebase — the "how we do thin
 | [TEST-CONVENTIONS.md](TEST-CONVENTIONS.md) | `_check_*` + `test_*` wrapper pattern, CheckResult contract, pytest rules |
 | [PYTHON-CONVENTIONS.md](PYTHON-CONVENTIONS.md) | Dataclass style, walrus operator chains, import patterns, naming |
 | [COMMAND-SPEC-CONVENTIONS.md](COMMAND-SPEC-CONVENTIONS.md) | Command frontmatter, spec file format, script/skill/agent naming |
+| [GROUNDING-craft.md](GROUNDING-craft.md) | Paste-at-session-start prompt — branch workflow, .STATUS/specs convention, verification scripts, sandbox git quirks, response-format preferences |
 
 ## What's NOT here
 
