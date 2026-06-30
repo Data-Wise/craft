@@ -482,16 +482,24 @@ Context scan (Step 1.7) adds ~1-2s overhead.
 
 ## Agent Delegation (Max Mode)
 
-| Focus | Agents Launched |
-|-------|-----------------|
-| feat | product-strategist |
-| arch | backend-architect, database-architect |
-| ux | ux-ui-designer |
-| api | backend-architect, security-specialist |
-| ui | frontend-specialist, performance-engineer |
-| ops | devops-engineer |
+**Use ONLY real Claude Code subagent types** (`general-purpose`, `Explore`, `Plan`,
+`Bash`) — fictional type names (e.g. `backend-architect`) silently fall back to
+`general-purpose` with no model pin, per the warning in `agents/orchestrator-v2.md`
+BEHAVIOR 2. Always set `model` explicitly in the Task() call; never let it inherit
+the caller's tier.
 
-Launch in background (non-blocking), synthesize after completion.
+| Focus | Subagent Calls (type / model / role) |
+|-------|----------------------------------------|
+| feat | `Plan` / `sonnet` — product/feature strategy and scope |
+| arch | `Plan` / `sonnet` — system design; `Explore` / `haiku` — survey existing architecture patterns |
+| ux | `Plan` / `sonnet` — UX/UI design reasoning |
+| api | `Plan` / `sonnet` — API/backend design; `Explore` / `haiku` — security pattern research |
+| ui | `Plan` / `sonnet` — frontend/component design; `Explore` / `haiku` — performance pattern research |
+| ops | `Plan` / `sonnet` — CI/CD and infra planning |
+
+Each call's `description` should still name the role (e.g. "API design", "security
+review") for readability in status output — only `subagent_type` and `model` need
+to be real values. Launch in background (non-blocking), synthesize after completion.
 
 ## Question Bank Summary
 
