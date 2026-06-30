@@ -91,7 +91,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | mode-controller | Manages craft plugin execution modes (default, debug, optimize, release) | `skills/modes/SKILL.md` |
 
-### Orchestration (6)
+### Orchestration (5)
 
 | Name | Description | Path |
 |------|-------------|------|
@@ -99,8 +99,16 @@ Skills automatically activate based on conversation context, providing just-in-t
 | plan-orchestrator | Produce concrete planning artifacts (ORCHESTRATE files, feature breakdowns, sprint backlogs, roadmaps) from specs | `skills/orchestration/plan-orchestrator/SKILL.md` |
 | session-state | Manages orchestrator session state persistence — save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
 | task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer/SKILL.md` |
-| orchestrator-resilience | Reference templates for orchestrator-v2 agent error handling (retry/backoff, circuit breaker, escalation) and execution timeline display — loaded on agent failure or `timeline` request, not on the happy path | `skills/orchestrator-resilience/SKILL.md` |
 | workflow-engine | Reusable execution body behind `/craft:orchestrate:workflow` — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents under a run-wide semaphore, structurally gate every output, and run a first-class verify gate | `skills/orchestration/workflow-engine/SKILL.md` |
+
+*`orchestrator-resilience` is orchestration-related but lives at the top-level
+`skills/orchestrator-resilience/SKILL.md`, not under `skills/orchestration/` — it is not counted in
+the `(5)` subtotal above (which `bump-version.sh` derives from the `skills/orchestration/`
+directory), but is cataloged here for discoverability:*
+
+| Name | Description | Path |
+|------|-------------|------|
+| orchestrator-resilience | Reference templates for orchestrator-v2 agent error handling (retry/backoff, circuit breaker, escalation) and execution timeline display — loaded on agent failure or `timeline` request, not on the happy path | `skills/orchestrator-resilience/SKILL.md` |
 
 ### Planning (1)
 
