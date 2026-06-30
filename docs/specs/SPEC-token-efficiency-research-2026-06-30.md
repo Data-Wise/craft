@@ -93,7 +93,7 @@ Reasoning:
 
 **What I'd scope out of it, deliberately:** model-routing decisions (that's a narrower, separate concern — arguably a few sentences in `docs/internal/COMMAND-SPEC-CONVENTIONS.md` rather than a whole skill) and the count-of-record drift problem (that's a tooling/CI gap, not an authoring-time judgment call — better solved by SPEC §4.2's consolidation than by a skill nudging a human to remember to check 14 files by hand).
 
-**Net recommendation:** one skill — call it something like `command-skill-authoring-efficiency` or fold it into an existing authoring-adjacent skill if one already covers command/skill scaffolding — scoped narrowly to "you're about to write or resize a command/skill/agent file, here's the checklist." Not built this round per your direction; this section is the case for it, for you to act on separately.
+**Net recommendation:** one skill, scoped narrowly to "you're about to write or resize a command/skill/agent file, here's the checklist." **Built**: `skills/code/command-skill-token-efficiency/SKILL.md` — auto-triggers on command/skill/agent authoring, documents the procedure-vs-invocation-specific classification from §3, and wraps the extended `scripts/audit-deprecated-commands.py --pair <file_a> <file_b>` mode (added alongside the skill) as its quantitative check. No existing skill overlapped (checked first), so this is new, not a fold-in.
 
 ## 8. Open questions
 

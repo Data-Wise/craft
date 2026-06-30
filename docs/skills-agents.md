@@ -1,10 +1,10 @@
 # Craft Skills & Agents
 
-> **TL;DR**: 42 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
+> **TL;DR**: 43 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
 
-Craft includes 42 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 43 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (42 total)
+## Skills (43 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -26,12 +26,13 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | project-detector | Smart detection of project types, build tools, and CI requirements | `skills/ci/SKILL.md` |
 
-### Code (2)
+### Code (3)
 
 | Name | Description | Path |
 |------|-------------|------|
 | sync-features | Chain command-audit, release-watch, and desktop-watch into a prioritized action plan | `skills/code/SKILL.md` |
 | demonstration-builder | Designs progressive runnable code examples for tutorials, vignettes, presentations, and documentation | `skills/code/demonstration-builder/SKILL.md` |
+| command-skill-token-efficiency | Checks where content belongs (command vs. skill) when authoring/resizing command, skill, or agent files, and runs the quantitative line-ratio check | `skills/code/command-skill-token-efficiency/SKILL.md` |
 
 ### Design (3)
 

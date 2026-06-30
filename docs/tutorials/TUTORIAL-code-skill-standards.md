@@ -23,7 +23,7 @@ Scans every `skills/**/SKILL.md` against the vendored standards in
 ```
 Skill Standards Audit
 ──────────────────────────────
-Scanning 42 skills...
+Scanning 43 skills...
 
   🔴 [missing-field] workflow/brainstorm/SKILL.md: missing required field 'description'
   🟡 [overlong-desc] code/lint/SKILL.md: description is 247 chars (limit 200)

@@ -87,3 +87,7 @@ This branch addresses always-loaded prompt bulk and model routing. It does **not
 - **Count-of-record drift tooling** — the skill-count drift this branch found (40 documented vs. 42 actual) was fixed by hand across 14+ files; there's still no single check that would have caught it automatically before this session ran the full doc-staleness sweep.
 
 See the SPEC's §4 (Candidate next steps) for the prioritized list.
+
+## Standing tooling: the authoring-time skill
+
+The methodology in this doc — classify content as command-specific vs. skill-procedure, extract rather than delete, verify with the full suite — is now codified as a craft skill: `skills/code/command-skill-token-efficiency/SKILL.md`. It auto-triggers when writing or resizing a command/skill/agent file, and wraps `scripts/audit-deprecated-commands.py --pair <file_a> <file_b>` as its quantitative check. See `docs/specs/SPEC-token-efficiency-research-2026-06-30.md` §7 for the reasoning behind scoping it this narrowly (and why a broader "devops token-saving" skill wasn't built).

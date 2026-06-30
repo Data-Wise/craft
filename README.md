@@ -11,7 +11,7 @@
 [![Version](https://img.shields.io/badge/version-2.55.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 > **v2.36.0 — Deterministic Workflow Engine** 🚀
-> **117 commands** | **42 skills** | **8 agents** | **1994 tests passing**
+> **117 commands** | **43 skills** | **8 agents** | **1994 tests passing**
 > New `/craft:orchestrate:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orchestrate`), drive (`:drive`), and workflow (`:workflow`).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
@@ -150,7 +150,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 117 commands, 8 agents, 42 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 117 commands, 8 agents, 43 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -532,7 +532,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
 - 📖 **[Commands Reference](docs/commands.md)** - All 117 commands documented
-- 📖 **[Skills & Agents](docs/skills-agents.md)** - 42 skills, 8 agents
+- 📖 **[Skills & Agents](docs/skills-agents.md)** - 43 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards
