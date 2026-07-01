@@ -14,6 +14,8 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 | main   | 43beb7b3 | —    | Production (**v2.56.0 tagged 2026-07-01**, PR #234 merged, main CI GREEN, docs site + Homebrew tap confirmed live) |
 | dev    | 43beb7b3 | main | Synced with main post-release (fast-forwarded, no drift). 2026-07-01 |
 
+📌 Next action (held, not yet started): `/craft:orchestrate:plan` against `docs/specs/GRILL-plan-orchestrator-dispatch-mode-2026-07-01.md` (synthesize SPEC from the ledger's 10 branches — no paired SPEC file exists) to plan the `orchestrate-dispatch` mode. **User to review the grill ledger/synthesized spec first before this runs.** Refined prompt captured in session 2026-07-01 (prompt-refiner applied manually — skill not invocable via Skill tool this session, known discovery gap).
+
 📂 Active Worktrees:
 
 | Branch | Path | Purpose |
