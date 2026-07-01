@@ -28,72 +28,24 @@ arguments:
 
 # /craft:grill — Interrogate Before Building
 
-Convergent counterpart to `/craft:workflow:brainstorm`. brainstorm is **divergent** — it
-GENERATES options and expands the space. grill is **convergent** — it INTERROGATES a position
-to find gaps, contradictions, and unresolved dependencies before you implement.
+> **This command is a thin shim.** The canonical behavior lives in the
+> [`grill` skill](../skills/workflow/grill/SKILL.md). This file preserves the
+> explicit `/craft:grill` slash entry point and owns the argument surface.
 
-Use grill to stress-test a spec/plan (or a bare topic) until every branch of the design tree is
-resolved, then capture the locked decisions as a durable ledger that feeds `/craft:plan` → `/do`.
+Convergent counterpart to `/craft:workflow:brainstorm`: brainstorm is **divergent** (generates
+options); grill is **convergent** (interrogates a position to find gaps, contradictions, and
+unresolved dependencies before you implement).
 
 ## When Invoked
 
-### Step 1: Resolve the target
+1. **Load the canonical procedure:** read
+   [`skills/workflow/grill/SKILL.md`](../skills/workflow/grill/SKILL.md) and follow it exactly —
+   resolve target, codebase-first pre-answer sweep, select attack angles, the deliberate
+   one-question-at-a-time grill loop (Recommended-first + per-option consequence), milestone
+   checkpoints, durable `GRILL-*.md` capture via `commands/utils/grill_ledger.py`, and the
+   one-directional handoff into `/craft:plan`.
+2. **Do not reimplement here.** Any change to grill behavior must be made in the skill, never
+   duplicated into this shim.
 
-- **Path argument** → load that artifact (spec/plan/ORCHESTRATE/diff) and interrogate it.
-- **Quoted topic** → sketch a 3–5 bullet skeleton, show it, then interrogate the skeleton.
-- **Empty** → detect from `.STATUS`, branch name, and recent commits; confirm the target before grilling.
-
-### Step 2: Codebase-first sweep (read-then-confirm)
-
-When the argument is a quoted/bare topic, run prompt-refiner on it first (default-on; `--no-refine` skips). When the argument is a path, skip refine entirely.
-
-Before asking anything, explore the codebase — read repo evidence (`.STATUS`, `git log`, `docs/specs/*`, `commands/`,
-`~/.claude/settings.json` when relevant) — and PRE-ANSWER every branch you can. Each pre-answer
-becomes the **Recommended:** line on its question — shown, never silently skipped, so the user
-can override.
-
-### Step 3: The grill loop (deliberate, one question at a time)
-
-Ask **one question per AskUserQuestion call** — one-at-a-time fidelity is the point; each answer reshapes the next question. This is a deliberate exception to craft's AskUserQuestion-batch convention (NOT 4-question batches). For EACH question:
-
-- option[0] is the **Recommended** answer, labelled and reasoned;
-- EVERY option carries a one-line **consequence** of choosing it;
-- the implicit "Other" free-text path stays open for answers off the menu.
-
-Each answer reshapes the next question. **Halt** on `/done` or empty-enter. `--bound N` stops after
-N branches. `--yes` / `--non-interactive`: emit ZERO AskUserQuestion calls — auto-pick every
-Recommended, log each pick, and proceed straight to capture. `--yes` cascades: the
-prompt-refiner auto-accepts AND the interactive loop is suppressed — one flag, fully headless.
-
-**Milestone checkpoints (ADHD-friendly):** every 5 resolved branches, pause with an
-AskUserQuestion: "keep going / wrap up now / show ledger so far" (reuses brainstorm's milestone
-pattern).
-
-**After each resolved branch:** append it to the ledger immediately (Step 4 helper) so a
-crash/compaction never loses decisions.
-
-### Step 4: Capture (durable, own file, cross-linked)
-
-**If `--no-capture`** (embedded callers like orchestrate Step 0.5): skip all file writes; return
-the locked decisions inline to the caller. No `GRILL-*` file is created.
-
-Otherwise grill writes its own file and never rewrites a brainstorm SPEC body:
-
-```python
-from commands.utils.grill_ledger import (
-    resolve_ledger_path, spec_crosslink, add_backlink, append_decision)
-path = resolve_ledger_path(topic, date, "docs/specs")   # GRILL-<topic>-<date>.md
-link = spec_crosslink(topic, "docs/specs")              # latest brainstorm SPEC for this slug, or None
-# write the GRILL header (include `link` if present), the decision ledger, and an ## Open Questions section
-if link:
-    add_backlink(os.path.join("docs/specs", link), os.path.basename(path))  # idempotent, atomic
-```
-
-Each resolved branch is appended live via `append_decision`. The brainstorm SPEC, if any, is only
-ever touched by the single idempotent back-link.
-
-### Step 5: Handoff
-
-Offer (one-directional into the planning spine):
-`/craft:plan` tier 4 (plan-orchestrator) → `ORCHESTRATE-*.md` → `/craft:do` / `/craft:orchestrate`.
-grill never executes — it interrogates and hands the locked artifact forward.
+The flags above (`--bound`, `--no-capture`, `--yes`/`--non-interactive`, `--refine`/`--no-refine`,
+`--no-tests`/`--no-docs`) are parsed here and passed through to the skill.
