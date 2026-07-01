@@ -30,26 +30,20 @@
 
 **Goal:** a reusable `--before <glob> / --after <glob>` token-count comparator, generalized from the disposable namespace probe.
 
-**Prereqs (in order):**
+**Status: ✅ DONE (2026-07-01)** — implemented inline from the dev session, targeting the worktree at `~/.git-worktrees/craft/feature-token-probe-script` via absolute paths (branch-guard is worktree-path-aware; no session switch needed).
 
-1. `uv tool install tiktoken` **or** `python3 -m pip install tiktoken` — confirmed NOT installed as of 2026-07-01 (`import tiktoken` → ModuleNotFoundError). Needed for Step 1.5's sanity check only; the script can be *written* without it.
-2. Feature branch: `feature/token-probe-script` (new file → guard blocks it on `dev`).
+**Prereqs (completed):**
 
-**Sub-steps:**
+1. ~~`uv tool install tiktoken`~~ → installed via `python3 -m pip install tiktoken` (confirmed working, cl100k_base loads).
+2. ~~Feature branch~~ → `feature/token-probe-script` created from `dev` @ `e3f33298`.
 
-1. Read `docs/plans/2026-06-30-namespace-token-probe.md` in full — recover its comparison logic (synthetic before/after fixture generation, `tiktoken` cl100k_base counting, printed diff).
-2. Write `scripts/token-probe.py`:
-   - CLI: `--before <glob>`, `--after <glob>`, optional `--encoding` (default `cl100k_base`).
-   - Sum token counts across each glob's files; print before, after, delta, and percent.
-   - Module docstring MUST carry the caveat: cl100k_base ≠ Claude's real tokenizer — this is a *relative* comparison tool, not an exact Claude token count.
-   - Follow the arg-parsing idiom of `scripts/audit-deprecated-commands.py` (sibling script, same dir).
-3. `--help` usage example in the docstring/argparse epilog.
-4. **Index it:** `audit-deprecated-commands.py` is currently NOT listed in `docs/REFCARD.md` or `docs/reference/*` (verified 2026-07-01) — so there is no existing pattern row to mirror. Add a short entry for BOTH scripts under whatever "scripts" surface exists, or skip indexing and note it — don't invent a table that isn't there.
-5. **Sanity check:** run against a real before/after pair and confirm it approximately reproduces the original **68.3%** namespace-refactor figure.
+**What shipped:** `scripts/token-probe.py` — `--before <glob>`, `--after <glob>`, `--encoding` (default `cl100k_base`), `--json`. Handles brace-expansion (`{a,b,c}`) since `glob.glob` doesn't natively support it. Module docstring carries the cl100k_base-vs-Claude-tokenizer caveat, restated in the runtime output footer. Mirrors `audit-deprecated-commands.py`'s docstring/argparse/exit-code idiom.
 
-**Done when:** `python3 scripts/token-probe.py --before <glob> --after <glob>` runs standalone, no hardcoded fixtures, and the sanity check lands near 68.3%.
+**Indexing decision:** confirmed (again) no general scripts index exists in `docs/REFCARD.md` or `docs/reference/*` — the one scripts table in REFCARD.md is scoped specifically to `/craft:check`'s friction-detection scripts, not a general index. Per the plan's own instruction, **not inventing a table** — left un-indexed.
 
-**Verify:** `python3 -m pytest tests/ -q` stays green (new script shouldn't touch existing tests; add a smoke test if a `tests/test_scripts_*.py` convention exists).
+**Sanity check result (honest, not a clean match):** ran against real current `commands/docs/*.md` frontmatter (the 10 files the namespace spec names) vs. a synthetic consolidated block reconstructed from the same description the original spec used (no consolidated file exists in the repo — Workstream B was never implemented). Got **58.4% reduction** (185→77 tokens) on a minimal name/description/category-only extraction, vs. the original's recorded **68.3%** (243→77). Same direction, same order of magnitude, but not an exact reproduction — because the *original disposable fixture files were deleted per their own cleanup step* (Task 5 of the namespace-probe plan), so this run necessarily uses freshly-extracted current file content rather than the exact preserved 2026-06-30 text, and the underlying command descriptions may have drifted since. This is a data-availability limitation, not a bug in the new script — a first full-frontmatter-inclusive attempt (all fields, not just name/description/category) gave 92.0%, confirming the tool is sensitive to what's actually included in each snapshot, as expected.
+
+**Verify:** ✅ Full suite run in the worktree: **2037 passed, 7 failed, 13 errors, 37 skipped**. All 20 failures/errors independently reproduced identically on `dev` itself (`test_docs_staleness.py::TestJsonOutput` × 13, `test_cache_prune.py` × 1, `test_count_drift_tripwire.py` × 4, `test_plugin_dogfood.py::TestSkillStandardsValidatorDogfood` × 2) — all trace to `python3` resolving to Xcode's bundled 3.9 in subprocess calls (`dict | None` union-type syntax needs 3.10+), an environment issue unrelated to this change. None reference `token-probe.py`. **No regression introduced.**
 
 ---
 
