@@ -10,10 +10,11 @@
 
 ## Context
 
-The v2.34.0 → v3.0.0 migration deprecated seven `commands/workflow/*.md` commands in favor of the `adhd-workflow` skill:
+The v2.34.0 → v3.0.0 migration deprecated six `commands/workflow/*.md` commands in favor of the `adhd-workflow` skill:
 
 ```
-/done /recap /next /focus /stuck /spec-review /refine  →  skills/workflow/adhd-workflow/
+/done /recap /next /focus /stuck /spec-review  →  skills/workflow/adhd-workflow/
+/refine  →  skills/workflow/prompt-refiner/  (separate consolidation, see SPEC-refine-flag-2026-06-03.md)
 ```
 
 Each command was marked `deprecated: true, replaced-by: "skills/workflow/adhd-workflow/"`. Both entry paths function during the deprecation cycle: the explicit `/craft:workflow:*` slash commands still load, and the skill auto-fires on natural-language match.
@@ -46,7 +47,7 @@ Both entry paths — slash command and natural-language match — now resolve to
 - **Positive:** one source of truth; new `/done` behavior (Settings Sync, Memory Optimize) survives the v3.0.0 command purge; the slash UX is preserved; the change matches an existing craft pattern (`skills/release/references/`).
 - **Positive:** `references/done.md` is excluded from skill counts (validate-counts keys on `SKILL.md` only) and is not a command — no count cascade.
 - **Cost:** editors must know to edit `references/done.md`, not the shim. Mitigated by an HTML comment header in the reference and explicit "do not reimplement here" notices in both the shim and `SKILL.md`.
-- **Follow-up (not in scope here):** the other six deprecated commands (`/recap`, `/next`, `/focus`, `/stuck`, `/spec-review`, `/refine`) have the same latent divergence if any grows rich detail. They are currently thin enough that the summary suffices; revisit per-command if one accrues a detailed body.
+- **Follow-up (not in scope here):** the other five deprecated `adhd-workflow` commands (`/recap`, `/next`, `/focus`, `/stuck`, `/spec-review`) have the same latent divergence if any grows rich detail. They are currently thin enough that the summary suffices; revisit per-command if one accrues a detailed body. (`/refine` is a separate consolidation into `prompt-refiner`, not `adhd-workflow` — see the corrected routing above.)
 
 ## Verification
 

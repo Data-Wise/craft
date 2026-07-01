@@ -1,98 +1,39 @@
 ---
 name: brainstorm-insights
-description: This skill should be used when the user asks to "brainstorm", "explore ideas", "design a feature", "draft a spec", "capture a spec", "generate insights", "session insights", "friction report", "what patterns am I hitting", "analyze my sessions", or mentions ideation, requirements gathering, spec capture, brainstorming depth/focus modes, or aggregating session facets into a friction/goals report. Generates two kinds of artifacts from upstream signals — BRAINSTORM/SPEC documents (from project + conversation context) and INSIGHTS reports (from session facet history).
+description: This skill should be used when the user asks "what's my friction", "session insights", "friction report", "what patterns am I hitting", "analyze my sessions", "generate insights report", "aggregate facets", or "show CLAUDE.md suggestions". Aggregates session facet history into a friction/goals report. Formerly bundled with the brainstorm skill (ideation); split out because the two operations share no input or output. Directory name kept as brainstorm-insights for path stability — tests and commands/workflow/insights.md reference it.
 ---
 
-# Brainstorm & Insights Generation
+# Brainstorm Insights
 
-Two generators bundled under one workflow skill. Both transform diffuse upstream signal — conversation, project state, session facets — into a concrete artifact the user (or downstream skill) can act on.
+Aggregate session facet data into a friction/goals report. Pure analysis —
+reads `~/.claude/usage-data/facets/*.json`, writes a report. Never touches
+CLAUDE.md (that's `insights-apply`'s job) and never generates BRAINSTORM/SPEC
+documents (that's the `brainstorm` skill's job — see "Split history" below).
 
-| Operation | Input | Output Artifact |
-|-----------|-------|-----------------|
-| **Brainstorm** | Topic + project/git context | `BRAINSTORM-<topic>-<date>.md` or `docs/specs/SPEC-<topic>-<date>.md` |
-| **Insights** | `~/.claude/usage-data/facets/*.json` | Terminal report, `report.html`, or JSON; includes `claude_md_additions` |
+## Split history
+
+This skill used to bundle two unrelated operations: ideation (topic +
+project/git context → `BRAINSTORM-*.md` / `SPEC-*.md`) and session-facet
+friction analysis (`~/.claude/usage-data/facets/*.json` → friction/goals
+report). They shared no input and no output, so ideation moved to its own
+`skills/workflow/brainstorm/`. This directory kept the `brainstorm-insights`
+name rather than renaming to `session-insights`, to avoid a path break for
+existing references (`commands/workflow/insights.md`, the dogfood/e2e
+scaffold-default tests, `insights-apply`, and `references/scaffold-templates.md`
+which is shared with `orchestrate`). Only the Insights operation remains here.
 
 ## Boundary With Adjacent Skills
 
-This skill is the **generation** end of an insights lifecycle. It does **not** mutate CLAUDE.md, settings, or specs.
+| Skill | Role |
+|-------|------|
+| **brainstorm-insights** (this) | Aggregates session facet history into a friction/goals report |
+| `insights-apply` | Reads INSIGHTS report, writes suggestions into `~/.claude/CLAUDE.md` via sync pipeline |
+| `brainstorm` | Generates BRAINSTORM/SPEC documents from topic + context — unrelated input/output, was previously bundled here |
+| `adhd-workflow` | Produces the facet data this skill consumes; also session boundary ops (done, recap, next, focus, stuck, spec-review) |
 
-| Skill | Role | Lifecycle Phase |
-|-------|------|-----------------|
-| **brainstorm-insights** (this) | Generates BRAINSTORM/SPEC and INSIGHTS report | **Produce** |
-| `insights-apply` | Reads INSIGHTS report, writes suggestions into `~/.claude/CLAUDE.md` via sync pipeline | **Consume / apply** |
-| `adhd-workflow` | Session boundary ops (done, recap, next, focus, stuck, spec-review, refine) | **Operate** on existing artifacts |
-| `project-planner` | Project-scope planning, estimation, roadmaps | **Plan** after spec exists |
+Chain: `adhd-workflow` (done) → facets → `brainstorm-insights` (this) → report → `insights-apply` → updated CLAUDE.md.
 
-Typical chain: `brainstorm-insights` → SPEC → `project-planner` (breakdown) → `adhd-workflow` (spec-review/done). Independently: `brainstorm-insights` → INSIGHTS report → `insights-apply` → updated CLAUDE.md.
-
-If the user wants to *apply* insight suggestions to CLAUDE.md, hand off to `insights-apply`. This skill stops at the report.
-
-## When to Use
-
-Activate when the prompt matches one of the two operations:
-
-| User intent | Operation |
-|-------------|-----------|
-| "brainstorm X", "explore ideas for X", "design Y", "draft a spec for Z" | Brainstorm |
-| "save this as a spec", "capture this as SPEC.md" | Brainstorm (save action) |
-| "what's my friction", "session insights", "where am I getting stuck repeatedly", "patterns in my sessions" | Insights |
-| "generate insights report", "aggregate facets", "show CLAUDE.md suggestions" | Insights |
-
-If ambiguous, ask one clarifying question: "Brainstorm a new idea, or analyze your past sessions?"
-
----
-
-## Operation 1: Brainstorm
-
-ADHD-friendly ideation with depth budgets, focus modes, and optional spec capture.
-
-### Inputs
-
-- **Topic** — explicit argument, or inferred from conversation / `.STATUS` / git branch / recent commits.
-- **Depth** (default | quick | deep | max) — controls question count and agent delegation.
-- **Focus** (feat | arch | ux | api | ui | ops) — shapes output sections.
-- **Action** (optional `save`) — capture as `SPEC-<topic>-<date>.md`.
-
-### Depth Budgets
-
-| Depth | Time | Expert Questions | Agents |
-|-------|------|------------------|--------|
-| quick | < 1 min | 0 + "ask more?" | None |
-| default | < 5 min | 2 + "ask more?" | None |
-| deep | < 10 min | 8 | None |
-| max | < 30 min | 8 + milestones | 2 per focus |
-
-### Flow
-
-1. **Parse args / detect topic.** If no topic, scan conversation, `.STATUS`, git branch, recent commits. 1 topic → use it; 2–4 → AskUserQuestion; 0 or 5+ → ask free-form.
-2. **Pick depth + focus.** If not provided, present AskUserQuestion menus. Never skip these silently.
-3. **Context scan.** Check for existing SPEC or prior brainstorm on the topic, project type, `.STATUS` version, recent test failures. Pre-fill answers where the project state already answers a question; insert dynamic questions where state suggests one (e.g., "Tests failing — address first?").
-4. **Insights pre-load.** If `~/.claude/usage-data/facets/` has sessions matching the project/topic, surface top friction patterns inline ("Previous sessions: 8x wrong CWD") so they become input to the brainstorm. This is the only place this skill *reads* insights data — it does not regenerate the report here.
-5. **Expert questions.** Per-depth count. Use AskUserQuestion. Always offer "ask more?" / "switch depth" escape hatches after the planned count, even at quick (0 questions).
-6. **Generate output.** Focus-specific sections (user stories for `feat`, Mermaid diagram for `arch`, API endpoints for `api`, etc.). Save to `BRAINSTORM-<topic>-<date>.md`.
-7. **Spec capture (action=save, or prompted for feat/arch/api).** Ask user-story + acceptance criteria, render full SPEC template, write to `docs/specs/SPEC-<topic>-<date>.md`. If insights had friction patterns, auto-add a "Known Risks" section sourced from them.
-8. **Orchestration handoff (optional, post-spec).** Offer to generate ORCHESTRATE file + worktree via `plan-orchestrator` skill / `/craft:orchestrate:plan`.
-
-### Mandatory Interactive Steps
-
-Even when all arguments are provided, the following are **never skipped**:
-
-- The expert-question count for the selected depth (0 / 2 / 8).
-- The "ask more?" escape-hatch prompt after questions.
-
-Skipping these is a known regression pattern — the depth/focus *menus* may be skipped when args provide them, but interactive expert questions cannot be.
-
-### Outputs
-
-- `BRAINSTORM-<topic>-<date>.md` (always — even when also saving spec).
-- `docs/specs/SPEC-<topic>-<date>.md` (when `save` action selected).
-- Terminal summary with paths and suggested next commands.
-
----
-
-## Operation 2: Insights
-
-Aggregate session facet data into a friction/goals report.
+If the user wants to *apply* insight suggestions to CLAUDE.md, hand off to `insights-apply`. This skill stops at the report. If the user wants to brainstorm a new idea or capture a spec, hand off to `brainstorm`.
 
 ### Inputs
 
@@ -140,39 +81,33 @@ If `~/.claude/usage-data/facets/` is empty or missing, print a short note explai
 
 ---
 
-## Cross-Operation Data Flow
+## Data Flow
 
 ```text
-adhd-workflow (done) ──► facets/*.json ──► [Insights op] ──► report + claude_md_additions
-                                                                    │
-                                                                    ▼
-                                                            insights-apply skill
-                                                                    │
-                                                                    ▼
-                                                            ~/.claude/CLAUDE.md
-
-conversation + .STATUS + git ──► [Brainstorm op] ──► BRAINSTORM.md + (optional) SPEC.md
-                                          ▲                              │
-                                          │                              ▼
-                                  insights pre-load              plan-orchestrator skill
+adhd-workflow (done) ──► facets/*.json ──► brainstorm-insights (this) ──► report + claude_md_additions
+                                                                                  │
+                                                                                  ▼
+                                                                          insights-apply skill
+                                                                                  │
+                                                                                  ▼
+                                                                          ~/.claude/CLAUDE.md
 ```
-
-Brainstorm *reads* facets only as inline context (Step 4); it does not generate the report. The Insights operation is the dedicated generator.
-
----
 
 ## Integration
 
-Replaces during v2.34.0 → v3.0.0 migration:
+Replaces during v2.34.0 → v3.0.0 migration: `/craft:insights` (formerly
+`/craft:workflow:insights`). The command path continues to work during the
+deprecation cycle.
 
-- `/craft:workflow:brainstorm` → Operation 1
-- `/craft:insights` (formerly `/craft:workflow:insights`) → Operation 2
+## Test-plan scaffolding (default-on, shared template reference)
 
-Both command paths continue to work during the deprecation cycle.
-
-## Test-plan scaffolding (default-on)
-
-When this skill emits a BRAINSTORM or SPEC artifact, it also emits a test-plan scaffold **by default**. Pass `--no-tests` to suppress the section.
+This skill's friction reports are not themselves BRAINSTORM/SPEC artifacts,
+but it shares the test-plan and Documentation scaffolding contract with the
+`brainstorm` skill and `orchestrate`, since downstream consumers
+(`plan-orchestrator`) read both this skill's friction map and brainstorm's
+scaffolded test plans together. When a SPEC consuming this skill's friction
+data is generated (by `brainstorm`), a test-plan scaffold is emitted **by
+default**. Pass `--no-tests` to suppress the section.
 
 ### Tier-inference rule
 
@@ -192,8 +127,7 @@ Unselected tiers print as `N/A — <reason>` (never empty stubs).
 
 - Emit test stubs **red-first** (failing placeholder, not passing no-op).
 - Each stub carries `# TODO(author): delete if not contract-bearing` until the author confirms the contract.
-- Scaffold templates live in `references/scaffold-templates.md`; point to that file — do not duplicate templates inline.
-- For the **grill operation**: emit a test-plan scaffold only when called with a TOPIC arg; skip on a PATH arg (path targets existing code that already has tests).
+- Scaffold templates live in `references/scaffold-templates.md` (this directory) — shared with `brainstorm` and `orchestrate`; point to that file, do not duplicate templates inline.
 
 ### `--yes` non-suppression
 
@@ -230,7 +164,7 @@ Auto-docs emission touches **only semantic docs** — CHANGELOG `[Unreleased]` �
 
 ## Related Skills
 
-- `insights-apply` — Consume Insights output; write suggestions to CLAUDE.md. **Do not duplicate that logic here.**
-- `adhd-workflow` — Produces the facet data this skill consumes; also handles `spec-review` after spec capture.
-- `project-planner` — Project-scope breakdown after a SPEC is captured.
-- `plan-orchestrator` (Batch 2 sibling) — Generates ORCHESTRATE file + worktree from a SPEC.
+- `insights-apply` — consumes this skill's report, writes suggestions to CLAUDE.md. **Do not duplicate that logic here.**
+- `adhd-workflow` — produces the facet data this skill consumes.
+- `brainstorm` — unrelated operation; was previously bundled with this skill, now separate at `skills/workflow/brainstorm/`.
+- `plan-orchestrator` — consumes friction data from this skill alongside brainstorm-generated specs.

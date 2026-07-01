@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 117 commands, 8 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.55.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
+site_description: "Full-stack developer toolkit - 117 commands, 8 agents, 43 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.55.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -222,6 +222,7 @@ nav:
       - code:lint Tutorial: tutorials/TUTORIAL-code-lint.md
       - code:release-watch Tutorial: tutorials/TUTORIAL-code-release-watch.md
       - code:skill-standards Tutorial: tutorials/TUTORIAL-code-skill-standards.md
+      - command-skill-token-efficiency Tutorial: tutorials/TUTORIAL-command-skill-token-efficiency.md
       - dist:homebrew Tutorial: tutorials/TUTORIAL-dist-homebrew.md
       - dist:surfaces Tutorial: tutorials/TUTORIAL-dist-surfaces.md
       - docs:changelog Tutorial: tutorials/TUTORIAL-docs-changelog.md
@@ -479,6 +480,8 @@ nav:
       - Test Conventions: internal/TEST-CONVENTIONS.md
       - Python Conventions: internal/PYTHON-CONVENTIONS.md
       - Command & Spec Conventions: internal/COMMAND-SPEC-CONVENTIONS.md
+      - Session Grounding Prompt: internal/GROUNDING-craft.md
+      - Token Efficiency: internal/TOKEN-EFFICIENCY-craft.md
 
   # 8. QUICK REFERENCE CARD - Printable reference
   - 📋 Quick Reference Card: REFCARD.md
