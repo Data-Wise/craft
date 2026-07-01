@@ -37,7 +37,7 @@ concurrency).
 |-------|-----------|----------|--------|--------|
 | 1 | Add `orchestrate-dispatch` output value + confirm-gate + self-containment prompt shape | High | Low-Med | ✅ done |
 | 2 | Concurrency cap (scoped) + failure/hang detection + confirmed-failure disposition | High | Med | ✅ done |
-| 3 | Resumability + `.STATUS` auto-write scoping | Medium | Low | ☐ not started |
+| 3 | Resumability + `.STATUS` auto-write scoping | Medium | Low | ✅ done |
 | 4 | Documentation & Discoverability | Medium | Low | ☐ not started |
 
 ---
@@ -121,11 +121,11 @@ examples (not just prose).
 **Scope:** the two remaining behaviors that make `orchestrate-dispatch` safe to re-invoke and
 safe to track without manual busywork.
 
-- [ ] 3.1 Document resumability (SPEC §3.8): re-dispatching against the SAME ORCHESTRATE file
+- [x] 3.1 Document resumability (SPEC §3.8): re-dispatching against the SAME ORCHESTRATE file
       detects already-checked `- [ ] 1.1`-style phases (via the Phase Overview status column,
       branch 5's own tracking) and instructs the new agent to start from the first unchecked
       phase, never restart from Phase 1.
-- [ ] 3.2 Document `.STATUS` auto-write scoping (SPEC §3.12): auto-write only the factual fields
+- [x] 3.2 Document `.STATUS` auto-write scoping (SPEC §3.12): auto-write only the factual fields
       (branch, path, PR link once opened) at dispatch time. The narrative/purpose prose column
       stays manual — do not attempt to auto-generate it.
 

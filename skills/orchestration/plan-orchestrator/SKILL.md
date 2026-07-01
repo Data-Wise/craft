@@ -127,6 +127,21 @@ above), never auto-delete the worktree or branch — leave both in place for ins
 was dispatched, what was observed, that it's paused pending manual inspection — not narrative
 guesswork about the cause).
 
+**Resumability:** re-dispatching against the SAME ORCHESTRATE file must be idempotent. Before
+dispatch, read the file's Phase Overview status column and per-phase checkboxes (the same
+tracking this mode already requires agents to maintain). If any phases are already checked, the
+new dispatch's self-containment prompt still stays exactly "read `ORCHESTRATE-<topic>.md` in full,
+then execute it" — resumption is driven by the file's own content (an agent reading a file with
+Phase 1 fully checked off naturally continues from the first unchecked phase), not by a modified
+or parameterized prompt. Never restart from Phase 1 on a resume; never invent a second tracking
+mechanism alongside the checkboxes.
+
+**`.STATUS` auto-write scoping:** at dispatch time, auto-write only the factual fields to the
+Active Worktrees entry — branch name, worktree path, and PR link once one is opened. All of that
+data already exists at dispatch time; no new logic is needed to produce it. The narrative/purpose
+prose column stays manual — do not attempt to auto-generate it (auto-generated prose reads worse
+than hand-written, per this skill's own `.STATUS` history).
+
 ### 2. Feature Plan (`plan:feature`)
 
 **Trigger:** "plan feature", "break down", "scope this feature".
