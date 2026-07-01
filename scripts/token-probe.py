@@ -15,6 +15,8 @@ tokenizer but is not it -- Claude uses a different vocabulary. cl100k_base is
 a real, consistent tokenizer, good enough for a *relative* comparison between
 two layouts. Do not report its output as an exact Claude token count.
 
+Requires tiktoken: pip install "craft[tools]" (or: pip install tiktoken)
+
 Usage:
     python3 scripts/token-probe.py --before <glob> --after <glob> [--encoding cl100k_base] [--json]
 
@@ -34,24 +36,27 @@ Exit codes:
 """
 import argparse
 import glob
+import os
 import sys
 
 
 def _resolve(pattern):
     """Glob a pattern; brace-expansion ({a,b,c}) isn't supported by glob.glob,
     so fall back to Python's braceexpand-free behavior -- if the pattern
-    contains braces and glob finds nothing, expand it manually."""
+    contains braces and glob finds nothing, expand it manually. Directory
+    matches are excluded -- a glob that resolves to a directory (rather than
+    files inside it) isn't a valid token-count input, and letting one through
+    would let count_tokens() silently skip it and report a bogus zero-token
+    side rather than an error."""
     matches = sorted(glob.glob(pattern, recursive=True))
-    if matches:
-        return matches
-    if "{" in pattern and "}" in pattern:
+    if not matches and "{" in pattern and "}" in pattern:
         prefix, rest = pattern.split("{", 1)
         options, suffix = rest.split("}", 1)
         expanded = []
         for opt in options.split(","):
             expanded.extend(_resolve(prefix + opt + suffix))
-        return sorted(set(expanded))
-    return matches
+        matches = sorted(set(expanded))
+    return [m for m in matches if os.path.isfile(m)]
 
 
 def count_tokens(paths, encoding_name):
@@ -63,7 +68,7 @@ def count_tokens(paths, encoding_name):
     for p in paths:
         try:
             text = open(p, encoding="utf-8").read()
-        except OSError as e:
+        except (OSError, UnicodeDecodeError) as e:
             print(f"! could not read {p}: {e}", file=sys.stderr)
             continue
         n = len(enc.encode(text))
