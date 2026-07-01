@@ -15,9 +15,10 @@ def test_refine_default_on_documented(rel):
 
 
 def test_yes_cascade_documented():
-    grill = (PLUGIN_DIR / "commands/grill.md").read_text(encoding="utf-8").lower()
+    # grill's contract moved to the skill (thin-command/fat-skill, ADR-002)
+    grill = (PLUGIN_DIR / "skills/workflow/grill/SKILL.md").read_text(encoding="utf-8").lower()
     assert "cascade" in grill, \
-        "grill must document that --yes cascades (auto-picks Recommended)"
+        "grill skill must document that --yes cascades (auto-picks Recommended)"
     refiner = (PLUGIN_DIR / "skills/workflow/prompt-refiner/SKILL.md").read_text(encoding="utf-8").lower()
     assert "cascade" in refiner, \
         "prompt-refiner must document the --yes cascade auto-accept path"
