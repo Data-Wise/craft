@@ -3,13 +3,14 @@
 > **Branch:** `feature/orchestrate-dispatch-mode`
 > **Base:** `dev`
 > **Worktree:** `~/.git-worktrees/craft/feature-orchestrate-dispatch-mode`
-> **Spec:** [`docs/specs/SPEC-orchestrate-dispatch-mode-2026-07-01.md`](../specs/SPEC-orchestrate-dispatch-mode-2026-07-01.md)
+> **Spec:** `docs/specs/SPEC-orchestrate-dispatch-mode-2026-07-01.md` — **not committed to this
+> worktree** (only the GRILL below and this ORCHESTRATE file were). See the Phase 1 note below.
 > **Grill (decisions locked):** [`docs/specs/GRILL-plan-orchestrator-dispatch-mode-2026-07-01.md`](../specs/GRILL-plan-orchestrator-dispatch-mode-2026-07-01.md) — 15 branches, 0 open questions
 > **Version Target:** next minor (no count-cascade expected — flag enum value, not a new command/skill/agent)
 
 > **This file is self-contained.** An implementer (a fresh session or a background agent) should
-> be able to execute it by reading only this file + the two linked docs above. It does not depend
-> on the conversation that produced it.
+> be able to execute it by reading only this file + the GRILL doc linked above (the SPEC was not
+> committed — see the Phase 1 note). It does not depend on the conversation that produced it.
 
 ---
 
@@ -38,7 +39,7 @@ concurrency).
 | 1 | Add `orchestrate-dispatch` output value + confirm-gate + self-containment prompt shape | High | Low-Med | ✅ done |
 | 2 | Concurrency cap (scoped) + failure/hang detection + confirmed-failure disposition | High | Med | ✅ done |
 | 3 | Resumability + `.STATUS` auto-write scoping | Medium | Low | ✅ done |
-| 4 | Documentation & Discoverability | Medium | Low | ☐ not started |
+| 4 | Documentation & Discoverability | Medium | Low | ✅ done |
 
 ---
 
@@ -141,23 +142,26 @@ a sample entry.
 
 ## Phase 4 — Documentation & Discoverability (REQUIRED — final phase)
 
-- [ ] 4.1 Update `docs/guide/pipeline-orchestrate-guide.md` (already documents Mode 1) with a new
+- [x] 4.1 Update `docs/guide/pipeline-orchestrate-guide.md` (already documents Mode 1) with a new
       subsection: `orchestrate-dispatch` vs. the existing STOP-new-session mode — when to use
       which, with the token/attention-cost tradeoff from the grill's "Prior research" section.
-- [ ] 4.2 Help + command reference pages: update `commands/orchestrate/plan.md`'s own doc examples
+- [x] 4.2 Help + command reference pages: update `commands/orchestrate/plan.md`'s own doc examples
       to show the third `--output orchestrate-dispatch` value.
-- [ ] 4.3 REFCARD — check `docs/reference/orchestrate-reference.md` / `docs/REFCARD.md` for an
-      `output` value table; add the third value if present.
-- [ ] 4.4 Help hub / discovery — verify `/craft:hub` and `commands/smart-help.md` don't need a new
-      entry (no new command — should be N/A, confirm and mark explicitly rather than skip silently).
-- [ ] 4.5 Website — no new nav page expected (existing guide page updated in 4.1); run
-      `mkdocs build --strict` to confirm.
-- [ ] 4.6 Catalog — `docs/skills-agents.md`: no new skill/command row expected (existing
-      `plan-orchestrator` skill entry, description may need a one-line mention of the new mode).
-- [ ] 4.7 CHANGELOG `[Unreleased]` entry describing the new `orchestrate-dispatch` mode.
-- [ ] 4.8 `./scripts/validate-counts.sh` clean (expect **no count changes** — flag enum, not a new
+- [x] 4.3 REFCARD — checked `docs/reference/orchestrate-reference.md` and `docs/REFCARD.md`: **N/A
+      — neither file has an `output` value table to extend.**
+- [x] 4.4 Help hub / discovery — checked `commands/hub.md` (line 629, one-line pointer to the
+      skill, no per-flag detail) and `commands/smart-help.md` (no `orchestrate:plan` reference at
+      all): **N/A — no new entry needed, confirmed explicitly, no new command was added.**
+- [x] 4.5 Website — no new nav page added (existing guide page updated in 4.1); `mkdocs build
+      --strict` run, exit 0, no warnings attributable to files touched in this branch (pre-existing
+      unrelated INFO notices only — see Verification section results below).
+- [x] 4.6 Catalog — `docs/skills-agents.md`: no new skill/command row added; existing
+      `plan-orchestrator` row description extended with a one-line mention of the new mode.
+- [x] 4.7 CHANGELOG `[Unreleased]` entry added to both `CHANGELOG.md` and `docs/CHANGELOG.md`
+      (kept mirrored per this repo's own convention).
+- [x] 4.8 `./scripts/validate-counts.sh` clean (expect **no count changes** — flag enum, not a new
       command/skill/agent; confirm this expectation holds, don't assume).
-- [ ] 4.9 `./scripts/docs-staleness-check.sh` clean.
+- [x] 4.9 `./scripts/docs-staleness-check.sh` clean — GREEN, 0 issues across all 4 phases.
 
 ---
 
@@ -201,19 +205,19 @@ flow, external dependency, or new command/skill/agent.
 
 ## Acceptance Criteria
 
-- [ ] `plan-orchestrator/SKILL.md` Mode 1 documents `orchestrate-dispatch` as a third `output`
+- [x] `plan-orchestrator/SKILL.md` Mode 1 documents `orchestrate-dispatch` as a third `output`
       value, with the confirm-before-dispatch gate and self-containment prompt shape.
-- [ ] Concurrency-cap logic is scoped to `orchestrate-dispatch` calls only, not all background
+- [x] Concurrency-cap logic is scoped to `orchestrate-dispatch` calls only, not all background
       agents.
-- [ ] Failure/hang detection cross-checks notification against ORCHESTRATE checkboxes, with the
+- [x] Failure/hang detection cross-checks notification against ORCHESTRATE checkboxes, with the
       2×-effort-estimate window — not a fixed constant.
-- [ ] Confirmed-failure disposition leaves worktree/branch in place + adds a HELD-style `.STATUS`
+- [x] Confirmed-failure disposition leaves worktree/branch in place + adds a HELD-style `.STATUS`
       note.
-- [ ] Resumability: re-dispatch against a partially-complete ORCHESTRATE file skips already-checked
+- [x] Resumability: re-dispatch against a partially-complete ORCHESTRATE file skips already-checked
       phases.
-- [ ] `.STATUS` auto-write covers only factual fields; narrative prose stays manual.
-- [ ] Documentation & Discoverability phase complete (tutorial/guide update, REFCARD, hub,
-      CHANGELOG, `validate-counts.sh` clean).
+- [x] `.STATUS` auto-write covers only factual fields; narrative prose stays manual.
+- [x] Documentation & Discoverability phase complete (tutorial/guide update, REFCARD confirmed
+      N/A, hub confirmed N/A, CHANGELOG mirrored, `validate-counts.sh` clean).
 
 ## Commit Strategy
 

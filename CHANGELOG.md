@@ -22,6 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Site Consistency checklist** (`skills/workflow/brainstorm-insights/references/scaffold-templates.md`)
   — advisory (not hard-gated) checkboxes wired to existing tooling (mkdocs nav, index file,
   `/craft:site:update` / `docs-staleness-check.sh`), kept separate from the numeric doc-type score.
+- **`orchestrate-dispatch` output mode** for `plan-orchestrator`'s Spec → ORCHESTRATE flow
+  (`skills/orchestration/plan-orchestrator/SKILL.md`, `commands/orchestrate/plan.md`) — a third
+  `--output` value that dispatches a background `Agent` call from the live planning session
+  instead of requiring a fresh human session. Adds the safety machinery a background dispatch
+  needs that a human session doesn't: confirm-before-dispatch gate, self-containment prompt
+  shape, scoped concurrency cap, failure/hang detection (2×-effort-estimate window), confirmed-
+  failure disposition, resumability, and scoped `.STATUS` auto-write. Documentation-only change —
+  no new command/skill/agent file.
 
 ## [2.56.0] - 2026-06-30
 

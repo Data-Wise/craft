@@ -74,6 +74,9 @@ Discovers specs, parses phases, generates ORCHESTRATE files, and creates worktre
 
 # ORCHESTRATE only (no worktree)
 /craft:orchestrate:plan docs/specs/SPEC-auth.md --output orchestrate-only
+
+# ORCHESTRATE + worktree + dispatch to a background Agent from this session
+/craft:orchestrate:plan docs/specs/SPEC-auth.md --output orchestrate-dispatch
 ```
 
 **8-Step Execution:**
@@ -119,6 +122,31 @@ flowchart TD
 - Commit strategy
 - Verification commands (auto-detected from project type)
 - Session instructions for starting work
+
+#### `orchestrate-dispatch` vs. STOP-new-session — when to use which
+
+Both modes give you the same self-containment guarantee (a durable `ORCHESTRATE-<topic>.md` that's
+complete enough to execute standalone). They differ in **who executes it and from where**:
+
+| | STOP-new-session (`orchestrate-worktree` / `orchestrate-only`) | `orchestrate-dispatch` |
+|---|---|---|
+| Execution | Fresh human session, `cd` into worktree, new `claude` process | Background `Agent` call, dispatched from the live planning session |
+| Token cost | Higher — new session cold-starts (reloads CLAUDE.md, system prompt) | Lower — no cold start, reuses the planning session's already-loaded context |
+| Attention cost | Higher — you personally open/babysit a new terminal per feature | Lower — background agent notifies on completion, no babysitting |
+| Safety guarantee | Structural — a new session *cannot* depend on live-conversation-only context | Same guarantee, but requires the extra mechanisms below since a background agent can't pause to ask |
+| Traceability | Durable ORCHESTRATE file | Same durable file, plus the dispatching session's own review-gate re-check |
+| Extra safety machinery | None needed | Confirm-before-dispatch gate, concurrency cap, failure/hang detection, resumability |
+
+**Use `orchestrate-dispatch` when:** you're actively planning multiple independent features in one
+session and want to fan work out without paying the token/attention cost of N cold-started
+sessions — the pattern this mode formalizes (see the plan-orchestrator skill's `orchestrate-dispatch`
+subsection for the full mechanics: confirm gate, self-containment prompt, concurrency cap, hang
+detection, resumability).
+
+**Use STOP-new-session when:** you want the strongest possible safety guarantee (a session that
+structurally cannot leak live-conversation context), you're not actively multi-tasking across
+features, or the spec is complex/high-ambiguity enough that a human should be present to steer it
+interactively rather than dispatching it unattended.
 
 ---
 
