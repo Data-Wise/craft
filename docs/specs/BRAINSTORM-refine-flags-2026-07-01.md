@@ -8,10 +8,10 @@
 
 ## Trigger for this brainstorm
 
-Earlier today, a new requirement landed (saved as
-[refine-copy-paste-execute-edit-skip.md](../../../../../.claude/projects/-Users-dt-projects-dev-tools-craft/memory/refine-copy-paste-execute-edit-skip.md)
-in memory): every `/refine` call should print the refined prompt in a copy-paste-ready fenced code
-block, then ask a follow-up question about what happens next. That requirement was adopted
+Earlier today, a new requirement landed (saved as `refine-copy-paste-execute-edit-skip` in this
+session's memory — outside this repo, not a resolvable link): every `/refine` call should print
+the refined prompt in a copy-paste-ready fenced code block, then ask a follow-up question about
+what happens next. That requirement was adopted
 ad hoc, in-session, with no code change yet — this brainstorm is where it (and other flag ideas)
 get designed properly before landing in the skill.
 
