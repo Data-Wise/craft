@@ -145,6 +145,28 @@ context-management model.
 | In-flight steps for *this* conversation only | **Tasks** |
 | A passing thought, maybe promote later | **Todo** |
 
+**Lifecycle (the two axes reconciled):**
+
+The selection table above is a *lookup*; this is the *order*. Two axes meet at the Plan node —
+the **review/lifecycle spine** (Proposal → Grill → Plan) and the **durability ladder**
+(Todo → Task → Plan). Proposal and Grill are human gates; Todo/Task/Plan is the execution ladder.
+
+```mermaid
+flowchart LR
+    P["Proposal — your review"] --> G["Grill — lock decisions"]
+    G --> PL["Plan / ORCHESTRATE — durable, checkbox-tracked"]
+    TD["Todo — scratch"] -.promote.-> TK["Task — session"]
+    TK -.promote.-> PL
+    PL --> IMP["implement (worktree)"] --> PR["PR"]
+```
+
+**Reality check — is this order implemented by any command?** No. It's a *manual convention*
+today (we drove it by hand this session). The only automated hop is
+`orchestrate:plan` / `plan-orchestrator` (SPEC + optional GRILL → ORCHESTRATE); `orchestrate`
+has a non-durable inline grill-clarify (`--bound 2 --no-capture`, writes no ledger) then executes;
+`do` only *suggests* the pipeline (Step 2.5, advisory). **No command knows about `PROPOSAL-*.md`
+at all** — the front of the spine is entirely manual and unrecognized (see grill branch 5).
+
 ---
 
 ## Recommended path (unified — token-lever items float up)
