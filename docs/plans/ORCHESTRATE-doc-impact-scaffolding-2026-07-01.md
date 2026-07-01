@@ -33,7 +33,7 @@ spec-producer for free by extending the single shared scorer — no new skill.
 | Phase | Increment | Priority | Effort | Status |
 |-------|-----------|----------|--------|--------|
 | 1 | Rubric extension: 4 new types, tiered thresholds, arch-doc double-count fix | High | Med | ✅ done |
-| 2 | Site-Consistency checklist + wiring to existing tooling | Medium | Low | ☐ not started |
+| 2 | Site-Consistency checklist + wiring to existing tooling | Medium | Low | ✅ done |
 | 3 | Documentation & Discoverability | Medium | Low | ☐ not started |
 
 ---
@@ -72,10 +72,10 @@ documented; arch-doc subtraction rule is explicit, not implicit; no parallel typ
 **Scope:** a boolean, advisory checklist wired to existing tooling — not a new drift-detection
 implementation, not mixed into the numeric score.
 
-- [ ] 2.1 Add a `## Site Consistency` block to `references/scaffold-templates.md` with 3
+- [x] 2.1 Add a `## Site Consistency` block to `references/scaffold-templates.md` with 3
       checkboxes (SPEC §3.5): mkdocs nav updated?, index file updated?, `/craft:site:update` /
       `docs-staleness-check.sh` run? Each checkbox references the real command/script by name.
-- [ ] 2.2 Confirm this block is **advisory, not a per-spec hard gate** (SPEC §3.5) — the release
+- [x] 2.2 Confirm this block is **advisory, not a per-spec hard gate** (SPEC §3.5) — the release
       pipeline already hard-gates `docs-staleness-check.sh --non-interactive` at Step 3b; do not
       add a second hard gate here.
 
