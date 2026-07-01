@@ -170,7 +170,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.55.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.56.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -216,7 +216,7 @@ Display template:
 │   /craft:docs:check-links          /craft:ci:status                    │
 │                                                                         │
 │ GIT (15 incl. 4 guides)          WORKFLOW (14)                          │
-│   /craft:git:worktree              /brainstorm [d|f|s] "topic"         │
+│   /craft:git:worktree              /brainstorm [depth|focus] "topic"   │
 │   /craft:git:sync                  /workflow:focus                     │
 │   /craft:git:branch                /workflow:done                      │
 │   /craft:git:clean                 /workflow:spec-review               │
@@ -235,7 +235,7 @@ Display template:
 ├─────────────────────────────────────────────────────────────────────────┤
 │  Quick Actions:                                                          │
 │    /craft:do "fix bug"          /craft:check --for pr                    │
-│    /brainstorm d f s "auth"     /craft:git:worktree create feat/x       │
+│    /brainstorm deep feat "auth" /craft:git:worktree create feat/x       │
 │    /craft:test debug            /release --dry-run                       │
 │    /craft:git:sync              /craft:insights --since 7                │
 │                                                                         │
@@ -512,12 +512,12 @@ Branch Protection (v2.16.0):
 WORKFLOW COMMANDS (14) - ADHD-Friendly Workflow Management
 ────────────────────────────────────────────────────────────────────────
 Brainstorming:
-  /brainstorm "topic"                | Quick brainstorm (default depth)
-  /brainstorm d f s "auth"           | Deep + feature + save as spec
-  /brainstorm q "quick idea"         | Quick (< 1 min, no questions)
-  /brainstorm m a "architecture"     | Max depth + architecture focus
+  /brainstorm "topic"                | Default depth (2 questions)
+  /brainstorm deep feat s "auth"     | Deep + feature + save as spec
+  /brainstorm quick "quick idea"     | Quick (< 1 min, no questions)
+  /brainstorm "API" --orch           | Hand off to orchestrator after spec
 
-  Depth: q(uick) | d(eep) | m(ax)
+  Depth: quick | default | deep (no max — deep work hands off to --orch)
   Focus: f(eat) | a(rch) | x(ux) | b(api) | u(i) | o(ps)
   Action: s(ave) — capture as SPEC file
 
@@ -654,7 +654,7 @@ Full catalog with trigger phrases: **[Skills & Agents](../docs/skills-agents.md)
 | Documentation | 8 | doc-classifier, mermaid-linter, changelog-automation, openapi-spec |
 | Distribution | 6 | homebrew-formula/workflow/multi-formula/setup, pypi, marketplace |
 | Orchestration | 4 | **drive-engine** (NEW), plan-orchestrator, task-analyzer, session-state |
-| Workflow | 4 | **prompt-refiner** (default-on for brainstorm/do/plan/grill; `--no-refine` to skip), adhd-workflow, **brainstorm-insights** (test plan + Documentation section default-on; `--no-tests`/`--no-docs` to skip) |
+| Workflow | 5 | **prompt-refiner** (default-on for brainstorm/do/plan/grill; `--no-refine` to skip), adhd-workflow, **brainstorm** (test plan + Documentation section default-on; `--no-tests`/`--no-docs` to skip), **brainstorm-insights** (session friction reports, split from brainstorm), task-management (background task lifecycle) |
 | Design | 3 | backend / frontend / devops designers |
 | Code · Testing · Guard&Insights | 2 each | lint/refactor, test-strategist/generator, guard-audit/insights-apply |
 | Architecture · Check · CI · Dev · Modes · Planning · Release | 1 each | architecture, preflight-check, project-detector, git-workflow, mode-controller, project-planner, release |
@@ -787,8 +787,8 @@ SUGGESTED FOR NODE PROJECT:
 │                                                                        │
 │ Brainstorming:                                                         │
 │   /brainstorm "topic"              -> Default depth                   │
-│   /brainstorm d f s "auth"         -> Deep + feature + save spec      │
-│   /brainstorm m a "architecture"   -> Max + architecture focus        │
+│   /brainstorm deep feat s "auth"   -> Deep + feature + save spec      │
+│   /brainstorm "API" --orch         -> Hand off to orchestrator        │
 │                                                                        │
 │ Insights & Guard:                                                      │
 │   /craft:insights          -> Session friction report                  │

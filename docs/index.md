@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.55.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.56.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -14,12 +14,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 117 commands, 8 AI agents, and 40 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 117 commands, 8 AI agents, and 43 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 117 commands, 8 agents, 40 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 117 commands, 8 agents, 43 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -205,22 +205,27 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 ## Key Command Categories
 
-| Category           | Count  | Description                                                                                                               |
-| ------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------- |
-| **Smart**          | 4      | Universal command, orchestrator, checks, help, hub                                                                        |
-| **Documentation**  | 19     | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow                                  |
-| **Site**           | 16     | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit                                                          |
-| **Code & Testing** | 12 + 7 | Code: linting, testing, debugging, refactoring, CI fixes, deps management; Tests: run, debug, watch, coverage, generation |
-| **Git**            | 13     | Repository initialization, branch management, worktrees, sync, recap, clean, two-layer branch protection (local hook + GitHub-side baseline), learning guides |
-| **CI**             | 3      | Detection, generation, validation                                                                                         |
-| **Architecture**   | 4      | Analysis, diagrams, planning, reviews                                                                                     |
-| **Distribution**   | 4      | Marketplace, Homebrew, PyPI, curl installers                                                                              |
-| **Planning**       | 3      | Feature planning, sprints, roadmaps                                                                                       |
-| **Workflow**       | 12     | Brainstorming, task management, spec capture, getting unstuck                                                             |
-| **Total**          | **112** | **Complete development workflow coverage**                                                                                |
+| Category          | Count   | Description                                                                                                                                                     |
+| ------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Smart**          | 9       | Universal command, orchestrator, checks, help, hub (root-level commands)                                                                                          |
+| **Documentation**  | 21      | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow                                                                           |
+| **Site**           | 16      | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit                                                                                                   |
+| **Code & Check**   | 17 + 1  | Code: linting, testing, debugging, refactoring, CI fixes, deps management; Check: pre-flight validation                                                            |
+| **Git**            | 15      | Repository initialization, branch management, worktrees, sync, recap, clean, two-layer branch protection (local hook + GitHub-side baseline), learning guides     |
+| **CI**             | 6       | Detection, generation, validation                                                                                                                                  |
+| **Architecture**   | 4       | Analysis, diagrams, planning, reviews                                                                                                                              |
+| **Distribution**   | 5       | Marketplace, Homebrew, PyPI, curl installers                                                                                                                       |
+| **Planning**       | 3       | Feature planning, sprints, roadmaps                                                                                                                                |
+| **Orchestrate**    | 4       | Multi-agent dispatch, drive loops, swarm levels                                                                                                                    |
+| **Workflow**       | 14      | Brainstorming, task management, spec capture, getting unstuck                                                                                                      |
+| **Utils**          | 2       | Misc helpers                                                                                                                                                       |
+| **Total**          | **117** | **Complete development workflow coverage**                                                                                                                         |
 
-!!! info "Latest: v2.55.0 — Skill-Ecosystem Governance"
+!!! info "Latest: v2.56.0 — Skill-Ecosystem Governance"
     Policy-as-code under `governance/`: `RULES.yaml` holds the 8 skill-location rules as the single source of truth, `run_rules.py` audits them (with `--selftest` meta-validation), and `render_rules.py` generates the `CLAUDE.md` rule block with a `--check` drift gate. See the [governance guide](guide/governance.md) and the [full changelog](CHANGELOG.md) for all releases.
+
+!!! tip "In progress: token-efficiency pass — orchestrator model routing, /refine + /brainstorm redesign"
+    `feature/token-usage-reduction` ([PR #232](https://github.com/Data-Wise/craft/pull/232), unmerged) cuts the always-loaded orchestration path 48% (`/refine` 630→42 lines, `/brainstorm` 528→112 lines, `orchestrator-v2.md` 1473→1212 lines) by moving procedure out of commands/agents and into skills that load conditionally — plus model-pins the orchestrator agents (`sonnet`/`haiku`) for the first time. New skill: [`command-skill-token-efficiency`](skills-agents.md#code-3) codifies the methodology for future authoring. Full writeup: [Token Efficiency](internal/TOKEN-EFFICIENCY-craft.md) (the research report lives at `docs/specs/SPEC-token-efficiency-research-2026-06-30.md` in the repo — specs aren't published to this site). Not yet merged to `dev` — this callout will be replaced by the real release note once it ships.
 
 ## Links
 

@@ -3,7 +3,8 @@ import pytest
 from test_plugin_e2e import PLUGIN_DIR
 pytestmark = [pytest.mark.e2e, pytest.mark.dogfood]
 
-SKILLS = ["skills/workflow/brainstorm-insights/SKILL.md",
+SKILLS = ["skills/workflow/brainstorm/SKILL.md",
+          "skills/workflow/brainstorm-insights/SKILL.md",
           "skills/orchestration/plan-orchestrator/SKILL.md"]
 
 @pytest.mark.parametrize("rel", SKILLS)

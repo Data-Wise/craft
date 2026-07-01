@@ -9,6 +9,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+## [2.56.0] - 2026-06-30
+
+### Added
+
+- **`skills/code/command-skill-token-efficiency/SKILL.md`** — new skill codifying the
+  command-vs-skill content classification, the extract-don't-delete principle, and the
+  full-suite-before-calling-it-done lesson from this branch's own regressions. Auto-triggers on
+  command/skill/agent authoring. `scripts/audit-deprecated-commands.py` gained a `--pair` mode for
+  authoring-time ratio checks (alongside the existing repo-wide `deprecated: true` sweep).
+- **`agents/orchestrator-v2.md` model pinning** — explicit `model:` frontmatter on orchestrator
+  agents (`orchestrator-v2.md`: sonnet, legacy `orchestrator.md`: haiku) instead of inheriting the
+  caller's tier.
+
+### Changed
+
+- **`/refine` reduced to a thin shim** (`commands/workflow/refine.md`, 631→42 lines) — canonical
+  behavior now lives entirely in the pre-existing `prompt-refiner` skill.
+- **`/brainstorm` split** (`skills/workflow/brainstorm-insights/SKILL.md` →
+  `skills/workflow/brainstorm/SKILL.md` + narrowed `brainstorm-insights/SKILL.md`) — cut decision
+  points from 4 to 2, removed in-skill agent delegation (now hands off to `orchestrator-v2` via the
+  existing `--orch` flag instead of spawning agents directly).
+- **`agents/orchestrator-v2.md` BEHAVIOR 5 + 9 extracted** to `skills/orchestrator-resilience/SKILL.md`
+  (1473→1212 lines in the agent file) — error-handling/retry reference and the execution-timeline
+  template now load on agent failure or `timeline` request, not on every orchestrator-v2 invocation.
+
+### Fixed
+
+- Skill count drift (40→43) across `plugin.json`, `marketplace.json`, `CLAUDE.md`, `README.md`,
+  `docs/REFCARD.md`, `mkdocs.yml`, `package.json`, and 8 other doc files.
+- Stale `/brainstorm` examples in `commands/hub.md`, `docs/commands/hub.md`,
+  `docs/skills-agents.md` describing the pre-redesign max-depth shorthand.
+- `agents/orchestrator-v2.md` BEHAVIOR 9 timeline pointer (a literal `EXECUTION TIMELINE` string a
+  test asserts on, dropped during the BEHAVIOR 9 extraction, restored).
+- PR #232 post-merge adversarial-review findings (8 items) across `commands/hub.md`,
+  `docs/commands/hub.md`, `docs/REFCARD.md`, `docs/skills-agents.md`,
+  `docs/adr/ADR-002-done-command-skill-consolidation.md`, and
+  `tests/test_scaffold_defaults_dogfood.py`.
+- Replaced the broken `/usage` scheduled-trigger checkpoint mechanism (persistent 404s — a known,
+  platform-wide `anthropics/claude-code` bug, not session-specific) with `ccusage` (npx, no
+  install) and `claude-monitor` (`uv tool install claude-monitor`), both verified working.
+
+### Research
+
+- Namespace-refactor token-cost go/no-go: empirical measurement (243→77 tokens, 68.3% reduction)
+  appended to `docs/specs/SPEC-refactor-namespace-2026-06-29.md`.
+
 ## [2.55.0] — 2026-06-29
 
 ### Added

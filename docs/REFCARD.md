@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.55.0 (released 2026-06-19)                       │
-│  Commands: 112 | Agents: 8 | Skills: 39                     │
+│  Version: 2.56.0 (released 2026-06-19)                       │
+│  Commands: 117 | Agents: 8 | Skills: 43                     │
 │  Documentation: 99% complete | Tests: 142 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.55.0: Documentation Coverage — Tutorial Suite            │
+│  v2.56.0: Documentation Coverage — Tutorial Suite            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -1576,7 +1576,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.55.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.56.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary
@@ -1600,7 +1600,7 @@ Use `--no-tests` or `--no-docs` to suppress either.
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
-## Skills (40 total)
+## Skills (43 total)
 
 Auto-triggered expertise:
 
@@ -1608,6 +1608,7 @@ Auto-triggered expertise:
 | ------------------------- | --------------------------------------------------- |
 | `drive-engine`            | `/craft:orchestrate:drive` — dispatch + real verify gate (NEW) |
 | `prompt-refiner`          | the `--refine` flag — sharpen a prompt before running (NEW) |
+| `command-skill-token-efficiency` | writing/resizing a command, skill, or agent file — command-vs-skill split guidance + line-ratio check (NEW) |
 | `release`                 | "release", "ship it", version publishing (CI monitoring in v2.22.0) |
 | `guard-audit`             | "audit guard", "review branch protection" (v2.18.0) |
 | `insights-apply`          | "apply insights", "update rules from insights" (v2.18.0) |

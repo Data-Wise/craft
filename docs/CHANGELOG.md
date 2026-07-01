@@ -7,6 +7,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+## [2.56.0] - 2026-06-30
+
+### Added
+
+- **`skills/code/command-skill-token-efficiency/SKILL.md`** — new skill codifying the
+  command-vs-skill content classification, the extract-don't-delete principle, and the
+  full-suite-before-calling-it-done lesson from this branch's own regressions. Auto-triggers on
+  command/skill/agent authoring. `scripts/audit-deprecated-commands.py` gained a `--pair` mode for
+  authoring-time ratio checks (alongside the existing repo-wide `deprecated: true` sweep).
+- **`agents/orchestrator-v2.md` model pinning** — explicit `model:` frontmatter on orchestrator
+  agents (`orchestrator-v2.md`: sonnet, legacy `orchestrator.md`: haiku) instead of inheriting the
+  caller's tier.
+
+### Changed
+
+- **`/refine` reduced to a thin shim** (`commands/workflow/refine.md`, 631→42 lines) — canonical
+  behavior now lives entirely in the pre-existing `prompt-refiner` skill.
+- **`/brainstorm` split** (`skills/workflow/brainstorm-insights/SKILL.md` →
+  `skills/workflow/brainstorm/SKILL.md` + narrowed `brainstorm-insights/SKILL.md`) — cut decision
+  points from 4 to 2, removed in-skill agent delegation (now hands off to `orchestrator-v2` via the
+  existing `--orch` flag instead of spawning agents directly).
+- **`agents/orchestrator-v2.md` BEHAVIOR 5 + 9 extracted** to `skills/orchestrator-resilience/SKILL.md`
+  (1473→1212 lines in the agent file) — error-handling/retry reference and the execution-timeline
+  template now load on agent failure or `timeline` request, not on every orchestrator-v2 invocation.
+
+### Fixed
+
+- Skill count drift (40→43) across `plugin.json`, `marketplace.json`, `CLAUDE.md`, `README.md`,
+  `docs/REFCARD.md`, `mkdocs.yml`, `package.json`, and 8 other doc files.
+- Stale `/brainstorm` examples in `commands/hub.md`, `docs/commands/hub.md`,
+  `docs/skills-agents.md` describing the pre-redesign max-depth shorthand.
+- `agents/orchestrator-v2.md` BEHAVIOR 9 timeline pointer (a literal `EXECUTION TIMELINE` string a
+  test asserts on, dropped during the BEHAVIOR 9 extraction, restored).
+- PR #232 post-merge adversarial-review findings (8 items) across `commands/hub.md`,
+  `docs/commands/hub.md`, `docs/REFCARD.md`, `docs/skills-agents.md`,
+  `docs/adr/ADR-002-done-command-skill-consolidation.md`, and
+  `tests/test_scaffold_defaults_dogfood.py`.
+- Replaced the broken `/usage` scheduled-trigger checkpoint mechanism (persistent 404s — a known,
+  platform-wide `anthropics/claude-code` bug, not session-specific) with `ccusage` (npx, no
+  install) and `claude-monitor` (`uv tool install claude-monitor`), both verified working.
+
+### Research
+
+- Namespace-refactor token-cost go/no-go: empirical measurement (243→77 tokens, 68.3% reduction)
+  appended to `docs/specs/SPEC-refactor-namespace-2026-06-29.md`.
+
 ## [2.55.0] — 2026-06-29
 
 ### Added
@@ -267,6 +315,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   penalty, overwhelming the true engine signal. CI lower bound (−42.2%) does not clear the 15%
   materiality floor. **Decision: NO-FLIP — `--engine=fanout` remains the default.**
   Re-run with fresh-session pairs or with Lever B prompt-trim to resolve the ordering confound.
+
+## [2.40.0] — 2026-06-19
+
+### Added
+
+- **Guard Suite — `/craft:git:guard` + registry toggle (#174)** — promotes `no-switch-guard`
+  (harm-tiered switch/worktree/restore gating) into `scripts/`; adds a `~/.claude/guards.json`
+  registry with per-guard enable/disable + auto-expiring mute (ADHD-friendly toggle UX);
+  a `/craft:git:guard` command (list/status/explain/test/enable/disable/profiles); a
+  `guard-consistency` validator; and `install-guards.sh` (installs both guards). Reconciles
+  destructive-restore ownership to `no-switch-guard` and softens branch-guard's `rm -rf .git` /
+  `reset --hard` from hard-block to confirm. **Catastrophic ops (`rm -rf .git`, `branch -D`)
+  remain non-muteable.** 111 commands.
+
+## [2.39.0] — 2026-06-19
+
+### Added
+
+- **Doc-coverage enforcement for all commands** — every craft command now has its required
+  documentation surfaces enforced. New `scripts/doc-coverage-check.sh` blocks on a missing
+  `docs/REFCARD.md` row or `mkdocs.yml` nav entry and warns (advisory) when a command with
+  `arguments:` lacks a tutorial; new `scripts/refcard-gen.sh` generates REFCARD rows; a Phase 8
+  extension to `docs-staleness-check.sh` surfaces gaps; a blocking pre-release gate
+  (`pre-release-check.sh` Step 13.4); and `/craft:check` shows a commit-context advisory for
+  newly-staged commands. (#172)
+
+### Changed
+
+- **`post-release-sweep.sh --surfaces` now verifies the aggregator leg** — it passes
+  `--aggregator-file dist/data-wise-marketplace.json` to `verify-surfaces.sh` when present, so a
+  stale craft pin in the shipped aggregator copy blocks like any other craft-controlled surface.
+  Closes the one cross-surface gap the multi-surface releases had to bump manually each time.
 
 ## [2.38.2] — 2026-06-15
 

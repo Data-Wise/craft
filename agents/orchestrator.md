@@ -1,5 +1,6 @@
 ---
 name: workflow-orchestrator
+model: haiku
 description: Manages background agent delegation, task parallelization, and result synthesis for workflow automation
 ---
 
