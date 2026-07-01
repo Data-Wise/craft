@@ -44,6 +44,14 @@ Enhanced multi-agent orchestration with:
 - **Timeline view** - Visualizes agent execution
 - **Subagent monitoring** - Tracks agent progress
 - **Result synthesis** - Combines agent outputs
+- **Model pinning** (v2.56.0) - `orchestrator-v2.md` pins `model: sonnet`,
+  legacy `orchestrator.md` pins `model: haiku` — explicit frontmatter instead
+  of inheriting the caller's tier
+- **Resilience reference extracted to a skill** (v2.56.0) - BEHAVIOR
+  5 (error-handling/retry) and BEHAVIOR 9 (execution-timeline template) live
+  in `skills/orchestrator-resilience/SKILL.md`, loaded on agent failure or a
+  `timeline` request rather than on every orchestrator-v2 invocation
+  (1473→1212 lines in the agent file). See [Token Efficiency](internal/TOKEN-EFFICIENCY-craft.md).
 
 ### 3. Mode System
 
