@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **`skills/code/plugin-audit/SKILL.md`** — new skill that diffs enabled plugins' actual
+  command/skill surfaces (`commands/**/*.md`, `skills/**/SKILL.md`) against each other and flags
+  cross-namespace name collisions (e.g. a bare `workflow:brainstorm` skill/command vs.
+  `craft:workflow:brainstorm`). Read-only — reports findings, does not uninstall or disable
+  plugins. Catches the class of finding a 2026-06-29 manual 60-plugin audit missed
+  (`workflow@local-plugins` duplicating craft's own `commands/workflow/*`). See
+  `docs/specs/SPEC-token-efficiency-and-context-tooling-2026-07-01.md` Part D #3.
+
 ## [2.56.0] - 2026-06-30
 
 ### Added
