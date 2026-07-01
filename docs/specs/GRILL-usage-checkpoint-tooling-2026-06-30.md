@@ -6,8 +6,10 @@ scheduled-trigger API (`send_later`/`create_trigger`/`list_triggers`) returned 4
 board (confirmed as a known platform-wide issue via `anthropics/claude-code` issues #43438, #40460,
 and #53581 — not session-specific, retrying wouldn't help).
 
-**Brainstorm SPEC cross-link:** none — no matching `SPEC-usage-checkpoint-tooling-*.md` exists yet;
-this grill session precedes and feeds the spec.
+**Brainstorm SPEC cross-link:** `docs/specs/SPEC-token-efficiency-research-2026-06-30.md` §9. A
+standalone `SPEC-usage-checkpoint-tooling-2026-06-30.md` was written first and then merged into
+§9 of the token-efficiency SPEC per decision 1 below — applying that decision's own "addendum,
+not a new doc" logic to itself; the standalone file was removed after the merge.
 
 **Note on interactivity:** the first `AskUserQuestion` in this grill session went unanswered
 (user unavailable mid-session). Per the milestone/auto-mode convention, subsequent branches were

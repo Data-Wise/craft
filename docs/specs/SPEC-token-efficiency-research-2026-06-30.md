@@ -100,3 +100,39 @@ Reasoning:
 - Does the recommended authoring-efficiency skill get built as new, or folded into an existing skill? **Checked:** no existing craft skill covers this — `find skills -iname '*standard*' -o -iname '*creat*' -o -iname '*author*'` against the repo turned up nothing that overlaps (the closest concept, skill-standards validation, audits format/frontmatter compliance, not token-cost structure). Build new if pursued — no consolidation candidate exists.
 - The §6 audit (18 flagged commands) is unscheduled work — same open question as `SPEC-craft-audit-and-next-steps-2026-06-30.md` §4.4/4.5: dedicated session before v3.0.0, or folded into general maintenance?
 - Real `/usage` validation of the §5 hypothesis hasn't started — recommend tracking it as a follow-up once PR #232 merges, not closing this report's loop until that data exists.
+
+## 9. Addendum (2026-06-30): checkpoint tooling, replacing the broken trigger
+
+The original plan for validating §5's hypothesis was to schedule an automated reminder
+(`send_later`/`create_trigger`) for `.STATUS` item D (~2026-07-14). All three scheduling calls
+returned HTTP 404 — confirmed via research as a known, currently-open platform issue
+(`anthropics/claude-code` [#43438](https://github.com/anthropics/claude-code/issues/43438),
+[#40460](https://github.com/anthropics/claude-code/issues/40460),
+[#53581](https://github.com/anthropics/claude-code/issues/53581)), not session-specific — retrying
+wouldn't have helped.
+
+**Grilled before writing:** `docs/specs/GRILL-usage-checkpoint-tooling-2026-06-30.md` (5 branches).
+Two real gaps caught before shipping: (1) an earlier draft proposed extending
+`docs/internal/TOKEN-EFFICIENCY-craft.md` instead of this SPEC — reversed in favor of what
+`.STATUS` item D already committed to; (2) the researched tool name
+("Claude-Code-Usage-Monitor") is the GitHub repo name, not the installable PyPI package
+(`claude-monitor`) — caught before it could ship as a broken install command.
+
+**Replacement mechanism** — run verified commands against data that already exists, instead of
+waiting for a trigger:
+
+```
+npx ccusage daily --since 2026-06-25 --until 2026-06-30   # pre-merge baseline (already exists)
+npx ccusage daily --since 2026-07-01                       # post-merge (PR #232 merged 2026-07-01; run at checkpoint time)
+```
+
+`ccusage` needs no install (`npx` runs it on demand); flags (`--since`/`--until`, `YYYY-MM-DD`)
+verified live against this machine's real Claude Code usage logs, which already cover the
+pre-merge period — no separate baseline-capture step needed. `claude-monitor` (`uv tool install
+claude-monitor`) is a separate, standing install for ongoing live-session awareness, independent
+of this one checkpoint.
+
+**`.STATUS` item D** now references these commands directly instead of an automated reminder.
+Target date (~2026-07-14) and destination (this section) are unchanged — only the mechanism
+changed, from "wait for a trigger to fire" to "run this command when you next pick this repo back
+up."
