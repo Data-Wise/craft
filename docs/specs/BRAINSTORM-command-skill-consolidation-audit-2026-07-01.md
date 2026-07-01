@@ -89,10 +89,48 @@
 - v3.0.0 CHANGELOG: list retired commands + their skill replacements.
 - Update REFCARD / skills-agents.md / hub after each batch (count cascade).
 
+## Audit Results (executed 2026-07-01, inline)
+
+Ran the orphan sweep + reference-safety check (`scratchpad/consolidation_audit.py`). Three findings
+that **temper and redirect** the plan:
+
+### 1. NO shim is trivially safe to delete — all 56 have live references
+
+Every deprecated shim is woven into the hub catalog, `/do` routing, `smart-help`, and cross-links
+(`git:worktree` 80 refs, `git:status` 37, `site:build` 36, `orchestrate:plan` 26; `check` 432 is
+inflated — common word). **Retirement is a coordinated cleanup, not a delete.** Each shim needs its
+references rewritten to point at the skill first. This is real work per shim — the ~800-token
+resting payoff does NOT justify a big-bang retirement.
+
+### 2. The bigger stale surface: teaching framing scattered across craft
+
+Teaching moved to the `scholar` plugin (teaching-only as of v3.0.0), yet craft still carries:
+
+- **Teaching-specific utils** (genuinely stale candidates): `utils/semester_progress.py`,
+  `utils/teach_config.py`, `utils/teaching_validation.py`, `utils/readme-teach-config.md`,
+  `utils/readme-semester-progress.md`. Check whether `scholar` now owns these → migrate or delete.
+- **Stale teaching *framing* on general commands** (cleanup, not deletion): `git/status.md`
+  ("teaching-specific context"), the whole `site/` namespace ("Publish teaching site", "teaching
+  site" — but the capability is general Quarto/pkgdown/MkDocs infra). De-teaching-ify the wording;
+  keep the capability.
+
+This is a **larger and more consequential lever than shim retirement** — a possible cross-plugin
+migration (teaching utils → scholar) plus a de-teaching-ify wording pass.
+
+### 3. Two possibly-orphaned skills (refs ≤1, no shim target)
+
+`homebrew-multi-formula`, `architecture-decision-records` — verify they're used/needed or retire.
+
+**Net redirect:** shim retirement is *more expensive and less rewarding* than it looked (all
+referenced, ~800 tok). The higher-value cleanup is the **teaching-residue audit** (utils migration
+to scholar + de-teaching-ify framing) and the **2 orphan skills**.
+
 ## Recommended Next Step
 
-→ **Quick Win #1 + #2 first (orphan sweep + reference-safety check)** — cheap, risk-free, and they
-produce the actual retirement candidate list. Then grill the v3.0.0 retirement plan (open
-questions: which high-traffic shims to keep; batch order; whether to gate on `/usage`). Don't start
-deleting until the reference-safety pass is done — the orchestrate-family audit already proved docs
-treat "deprecated" commands as live.
+→ **DONE (audit executed above).** The results redirect priority away from shim retirement toward:
+
+1. **Teaching-residue audit** (highest value) — verify which teaching utils `scholar` now owns;
+   migrate/delete the stale ones; de-teaching-ify framing on `git/status.md` + `site/*`.
+2. **Verify the 2 orphan skills** (`homebrew-multi-formula`, `architecture-decision-records`).
+3. **Shim retirement → defer** — all 56 are referenced; it's coordinated cleanup for ~800 tok,
+   not worth a big push before `/usage` confirms the resting-cost picture.
