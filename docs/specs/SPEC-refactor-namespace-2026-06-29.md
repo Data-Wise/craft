@@ -301,3 +301,39 @@ valid `file` paths (file exists), description length (≤80 chars), naming forma
 
 4. **savant/rforge/scholar** copy this spec's schema structure. They differ in command count and
    category names but use the identical JSON schema and the same 3-check CI gate.
+
+---
+
+## Addendum (2026-06-30): Token-Cost Go/No-Go
+
+**Source:** `docs/plans/2026-06-30-namespace-token-probe.md`, run against the 10 `docs/*` commands
+this spec proposes consolidating.
+
+**Method:** real frontmatter for 10 commands, tokenized with `tiktoken` (`cl100k_base` — an
+approximation of Claude's actual tokenizer, used for a *relative* comparison between layouts, not
+an absolute Claude token count) — flat (10 separate `name`/`description`/`category` blocks) vs.
+consolidated (1 block, sub-actions enumerated in the description).
+
+**Result:**
+
+- Flat layout: 243 tokens
+- Consolidated layout: 77 tokens
+- Delta: 166 tokens (68.3% reduction)
+- Projected across the full `docs`+`site` consolidation (32→9 commands, extrapolated from this
+  10-command sample): ~531 tokens
+
+**Recommendation: proceed with Workstream B (docs/site consolidation), but as a modest win, not
+an urgent one.** The *relative* reduction is real and substantial (68.3% on the sampled
+commands) — this refutes `token-reduction-plan.md`'s implicit worry that command count doesn't
+matter because everything is already lazy-loaded; frontmatter-only cost still scales linearly
+with command count, and consolidation genuinely cuts it. But the *absolute* projected saving
+(~531 tokens across the entire proposed 32→9 consolidation) is small next to this same
+research's own session-start budget breakdown (system prompt ~4,200 tokens, auto-memory ~680,
+env info ~280) — comparable in size to one line item, not a structural fix. Net: worth doing
+opportunistically alongside Workstream A/C (which have their own structural-clarity and
+drift-prevention justifications independent of this number), but this measurement alone doesn't
+justify treating it as higher priority than those.
+
+**Caveat:** this measures only session-start frontmatter cost, not the structural-bloat,
+routing-ambiguity, or cross-repo-dedup motivations the rest of this spec is built on — those may
+independently justify consolidation regardless of this result.
