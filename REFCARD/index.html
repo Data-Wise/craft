@@ -6,14 +6,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 117 commands, 8 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.55.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 117 commands, 8 agents, 43 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.56.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
       
       
       
         <link rel="canonical" href="https://data-wise.github.io/craft/REFCARD/">
       
       
-        <link rel="prev" href="../internal/COMMAND-SPEC-CONVENTIONS/">
+        <link rel="prev" href="../internal/TOKEN-EFFICIENCY-craft/">
       
       
       
@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -4023,6 +4023,34 @@
     
   
     code:skill-standards Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-command-skill-token-efficiency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    command-skill-token-efficiency Tutorial
   
 
     
@@ -11531,6 +11559,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/GROUNDING-craft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Grounding Prompt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/TOKEN-EFFICIENCY-craft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Token Efficiency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12024,10 +12108,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#skills-40-total" class="md-nav__link">
+  <a href="#skills-43-total" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Skills (40 total)
+        Skills (43 total)
       
     </span>
   </a>
@@ -12657,10 +12741,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#skills-40-total" class="md-nav__link">
+  <a href="#skills-43-total" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Skills (40 total)
+        Skills (43 total)
       
     </span>
   </a>
@@ -12873,11 +12957,11 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  CRAFT PLUGIN QUICK REFERENCE                               │
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.55.0 (released 2026-06-19)                       │
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 112 | Agents: 8 | Skills: 39                     │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.56.0 (released 2026-06-19)                       │
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 117 | Agents: 8 | Skills: 43                     │
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Documentation: 99% complete | Tests: 142 passing            │
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  Docs: https://data-wise.github.io/craft/                   │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.55.0: Documentation Coverage — Tutorial Suite            │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.56.0: Documentation Coverage — Tutorial Suite            │
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>└─────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permanent link">&para;</a></h2>
@@ -14776,7 +14860,7 @@ Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 </span><span id="__span-47-21"><a id="__codelineno-47-21" name="__codelineno-47-21" href="#__codelineno-47-21"></a><span class="c1"># NEW in v2.22.0: Doc drift detection</span>
 </span><span id="__span-47-22"><a id="__codelineno-47-22" name="__codelineno-47-22" href="#__codelineno-47-22"></a><span class="c1">#   Cross-references changed files against docs</span>
 </span><span id="__span-47-23"><a id="__codelineno-47-23" name="__codelineno-47-23" href="#__codelineno-47-23"></a><span class="c1">#   Offers to run /craft:docs:sync if drift found</span>
-</span><span id="__span-47-24"><a id="__codelineno-47-24" name="__codelineno-47-24" href="#__codelineno-47-24"></a><span class="c1"># NEW in v2.55.0: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
+</span><span id="__span-47-24"><a id="__codelineno-47-24" name="__codelineno-47-24" href="#__codelineno-47-24"></a><span class="c1"># NEW in v2.56.0: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
 </span><span id="__span-47-25"><a id="__codelineno-47-25" name="__codelineno-47-25" href="#__codelineno-47-25"></a><span class="c1">#   Option A auto-commits + pushes (skip on main, never force-push)</span>
 </span><span id="__span-47-26"><a id="__codelineno-47-26" name="__codelineno-47-26" href="#__codelineno-47-26"></a><span class="c1">#   CLAUDE.md counts synced silently before commit</span>
 </span><span id="__span-47-27"><a id="__codelineno-47-27" name="__codelineno-47-27" href="#__codelineno-47-27"></a><span class="c1">#   Worktree branch ahead/behind shown in summary</span>
@@ -14794,7 +14878,7 @@ Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 </span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="c1"># Via /craft:do: appended to output with --brief flag (block only)</span>
 </span></code></pre></div>
 <p><strong>See:</strong> <a href="../commands/workflow/brainstorm/">Brainstorm Documentation</a> for complete guide</p>
-<h2 id="skills-40-total">Skills (40 total)<a class="headerlink" href="#skills-40-total" title="Permanent link">&para;</a></h2>
+<h2 id="skills-43-total">Skills (43 total)<a class="headerlink" href="#skills-43-total" title="Permanent link">&para;</a></h2>
 <p>Auto-triggered expertise:</p>
 <table>
 <thead>
@@ -14811,6 +14895,10 @@ Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 <tr>
 <td><code>prompt-refiner</code></td>
 <td>the <code>--refine</code> flag — sharpen a prompt before running (NEW)</td>
+</tr>
+<tr>
+<td><code>command-skill-token-efficiency</code></td>
+<td>writing/resizing a command, skill, or agent file — command-vs-skill split guidance + line-ratio check (NEW)</td>
 </tr>
 <tr>
 <td><code>release</code></td>

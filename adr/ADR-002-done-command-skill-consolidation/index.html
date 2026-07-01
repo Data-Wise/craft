@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 117 commands, 8 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.55.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 117 commands, 8 agents, 43 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.56.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -4134,6 +4134,34 @@
     
   
     code:skill-standards Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-command-skill-token-efficiency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    command-skill-token-efficiency Tutorial
   
 
     
@@ -11642,6 +11670,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/GROUNDING-craft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Grounding Prompt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/TOKEN-EFFICIENCY-craft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Token Efficiency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11799,8 +11883,9 @@
 </blockquote>
 <hr />
 <h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
-<p>The v2.34.0 → v3.0.0 migration deprecated seven <code>commands/workflow/*.md</code> commands in favor of the <code>adhd-workflow</code> skill:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/done /recap /next /focus /stuck /spec-review /refine  →  skills/workflow/adhd-workflow/
+<p>The v2.34.0 → v3.0.0 migration deprecated six <code>commands/workflow/*.md</code> commands in favor of the <code>adhd-workflow</code> skill:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/done /recap /next /focus /stuck /spec-review  →  skills/workflow/adhd-workflow/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/refine  →  skills/workflow/prompt-refiner/  (separate consolidation, see SPEC-refine-flag-2026-06-03.md)
 </span></code></pre></div>
 <p>Each command was marked <code>deprecated: true, replaced-by: "skills/workflow/adhd-workflow/"</code>. Both entry paths function during the deprecation cycle: the explicit <code>/craft:workflow:*</code> slash commands still load, and the skill auto-fires on natural-language match.</p>
 <p>A latent defect surfaced during a grill of <code>SPEC-done-memory-settings-2026-06-23.md</code>:</p>
@@ -11828,7 +11913,7 @@
 <li><strong>Positive:</strong> one source of truth; new <code>/done</code> behavior (Settings Sync, Memory Optimize) survives the v3.0.0 command purge; the slash UX is preserved; the change matches an existing craft pattern (<code>skills/release/references/</code>).</li>
 <li><strong>Positive:</strong> <code>references/done.md</code> is excluded from skill counts (validate-counts keys on <code>SKILL.md</code> only) and is not a command — no count cascade.</li>
 <li><strong>Cost:</strong> editors must know to edit <code>references/done.md</code>, not the shim. Mitigated by an HTML comment header in the reference and explicit "do not reimplement here" notices in both the shim and <code>SKILL.md</code>.</li>
-<li><strong>Follow-up (not in scope here):</strong> the other six deprecated commands (<code>/recap</code>, <code>/next</code>, <code>/focus</code>, <code>/stuck</code>, <code>/spec-review</code>, <code>/refine</code>) have the same latent divergence if any grows rich detail. They are currently thin enough that the summary suffices; revisit per-command if one accrues a detailed body.</li>
+<li><strong>Follow-up (not in scope here):</strong> the other five deprecated <code>adhd-workflow</code> commands (<code>/recap</code>, <code>/next</code>, <code>/focus</code>, <code>/stuck</code>, <code>/spec-review</code>) have the same latent divergence if any grows rich detail. They are currently thin enough that the summary suffices; revisit per-command if one accrues a detailed body. (<code>/refine</code> is a separate consolidation into <code>prompt-refiner</code>, not <code>adhd-workflow</code> — see the corrected routing above.)</li>
 </ul>
 <h2 id="verification">Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
 <ul>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 117 commands, 8 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.55.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 117 commands, 8 agents, 43 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.56.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
       
       
       
@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
@@ -4163,6 +4163,34 @@
     
   
     code:skill-standards Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tutorials/TUTORIAL-command-skill-token-efficiency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    command-skill-token-efficiency Tutorial
   
 
     
@@ -11671,6 +11699,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internal/GROUNDING-craft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Session Grounding Prompt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internal/TOKEN-EFFICIENCY-craft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Token Efficiency
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11858,7 +11942,7 @@
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
-<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-2.55.0-brightgreen.svg" /></a></p>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-2.56.0-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -11883,12 +11967,12 @@
 <blockquote>
 <p><strong>TL;DR</strong> (30 seconds)</p>
 <ul>
-<li><strong>What:</strong> Full-stack developer toolkit with 117 commands, 8 AI agents, and 40 auto-triggered skills</li>
+<li><strong>What:</strong> Full-stack developer toolkit with 117 commands, 8 AI agents, and 43 auto-triggered skills</li>
 <li><strong>Why:</strong> Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command</li>
 <li><strong>How:</strong> Install via <code>claude plugin install craft@local-plugins</code></li>
 <li><strong>Next:</strong> Run <code>/craft:do "your task"</code> and let AI route to the best workflow</li>
 </ul>
-<p>Full-stack developer toolkit for Claude Code — 117 commands, 8 agents, 40 skills with smart orchestration and ADHD-friendly workflows</p>
+<p>Full-stack developer toolkit for Claude Code — 117 commands, 8 agents, 43 skills with smart orchestration and ADHD-friendly workflows</p>
 </blockquote>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <div class="grid cards">
@@ -12063,12 +12147,12 @@
 <tbody>
 <tr>
 <td><strong>Smart</strong></td>
-<td>4</td>
-<td>Universal command, orchestrator, checks, help, hub</td>
+<td>9</td>
+<td>Universal command, orchestrator, checks, help, hub (root-level commands)</td>
 </tr>
 <tr>
 <td><strong>Documentation</strong></td>
-<td>19</td>
+<td>21</td>
 <td>Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow</td>
 </tr>
 <tr>
@@ -12077,18 +12161,18 @@
 <td>Full site wizard with 8 ADHD-friendly presets, theme, nav, audit</td>
 </tr>
 <tr>
-<td><strong>Code &amp; Testing</strong></td>
-<td>12 + 7</td>
-<td>Code: linting, testing, debugging, refactoring, CI fixes, deps management; Tests: run, debug, watch, coverage, generation</td>
+<td><strong>Code &amp; Check</strong></td>
+<td>17 + 1</td>
+<td>Code: linting, testing, debugging, refactoring, CI fixes, deps management; Check: pre-flight validation</td>
 </tr>
 <tr>
 <td><strong>Git</strong></td>
-<td>13</td>
+<td>15</td>
 <td>Repository initialization, branch management, worktrees, sync, recap, clean, two-layer branch protection (local hook + GitHub-side baseline), learning guides</td>
 </tr>
 <tr>
 <td><strong>CI</strong></td>
-<td>3</td>
+<td>6</td>
 <td>Detection, generation, validation</td>
 </tr>
 <tr>
@@ -12098,7 +12182,7 @@
 </tr>
 <tr>
 <td><strong>Distribution</strong></td>
-<td>4</td>
+<td>5</td>
 <td>Marketplace, Homebrew, PyPI, curl installers</td>
 </tr>
 <tr>
@@ -12107,20 +12191,34 @@
 <td>Feature planning, sprints, roadmaps</td>
 </tr>
 <tr>
+<td><strong>Orchestrate</strong></td>
+<td>4</td>
+<td>Multi-agent dispatch, drive loops, swarm levels</td>
+</tr>
+<tr>
 <td><strong>Workflow</strong></td>
-<td>12</td>
+<td>14</td>
 <td>Brainstorming, task management, spec capture, getting unstuck</td>
 </tr>
 <tr>
+<td><strong>Utils</strong></td>
+<td>2</td>
+<td>Misc helpers</td>
+</tr>
+<tr>
 <td><strong>Total</strong></td>
-<td><strong>112</strong></td>
+<td><strong>117</strong></td>
 <td><strong>Complete development workflow coverage</strong></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v2.55.0 — Skill-Ecosystem Governance</p>
+<p class="admonition-title">Latest: v2.56.0 — Skill-Ecosystem Governance</p>
 <p>Policy-as-code under <code>governance/</code>: <code>RULES.yaml</code> holds the 8 skill-location rules as the single source of truth, <code>run_rules.py</code> audits them (with <code>--selftest</code> meta-validation), and <code>render_rules.py</code> generates the <code>CLAUDE.md</code> rule block with a <code>--check</code> drift gate. See the <a href="guide/governance/">governance guide</a> and the <a href="CHANGELOG/">full changelog</a> for all releases.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">In progress: token-efficiency pass — orchestrator model routing, /refine + /brainstorm redesign</p>
+<p><code>feature/token-usage-reduction</code> (<a href="https://github.com/Data-Wise/craft/pull/232">PR #232</a>, unmerged) cuts the always-loaded orchestration path 48% (<code>/refine</code> 630→42 lines, <code>/brainstorm</code> 528→112 lines, <code>orchestrator-v2.md</code> 1473→1212 lines) by moving procedure out of commands/agents and into skills that load conditionally — plus model-pins the orchestrator agents (<code>sonnet</code>/<code>haiku</code>) for the first time. New skill: <a href="skills-agents/#code-3"><code>command-skill-token-efficiency</code></a> codifies the methodology for future authoring. Full writeup: <a href="internal/TOKEN-EFFICIENCY-craft/">Token Efficiency</a> (the research report lives at <code>docs/specs/SPEC-token-efficiency-research-2026-06-30.md</code> in the repo — specs aren't published to this site). Not yet merged to <code>dev</code> — this callout will be replaced by the real release note once it ships.</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
 <ul>
