@@ -63,10 +63,22 @@ before/after box:
 | **Edit first** | Revise the text inline, then re-ask this same question with the edited version. |
 | **Skip** | Reject — keep nothing, take no action. |
 
-This replaces the current Accept/Edit/Use-original **for standalone `/refine` only** (per today's
-scope decision) — internal `--refine` callers (brainstorm/do/orchestrate/plan:feature) keep their
-existing Accept/Edit/Use-original confirm unchanged, since those callers already have their own
-downstream flow and a second execute-routing question would double-prompt.
+**Scope decision (revised 2026-07-01, reversing the earlier standalone-only call):** this
+replaces Accept/Edit/Use-original **everywhere `--refine` fires** — standalone `/refine` AND every
+internal caller (`brainstorm`/`do`/`orchestrate`/`plan:feature`/`arch:plan`). One vocabulary, no
+special-casing by caller. The mapping onto the old 3-way is direct for three of the four options:
+
+- **Execute now** ≈ old **Accept** — proceed with the refined prompt into whatever comes next
+  (the calling command's own flow, or the standalone print-and-stop path).
+- **Edit first** ≈ old **Edit** — revise inline, then re-ask.
+- **Skip** ≈ old **Use original** — proceed with the raw, unrefined text (not an abort).
+- **Copy for elsewhere** is the new fourth option, universal escape hatch — print the fenced block
+  and **short-circuit whatever called `--refine`**, regardless of caller. If `brainstorm --refine`
+  hits "Copy for elsewhere," brainstorm's own question flow never starts; the refined prompt was
+  for a different context, not for this invocation.
+
+This costs internal callers exactly one extra option on a question they already ask (not a second
+question) — no double-prompt, since it reuses the existing confirm step rather than adding one.
 
 The fenced-code-block requirement applies to **all four** outcomes except Skip — even "Execute
 now" should show the copy-paste block first (costs nothing, and the user may want to reuse it
@@ -109,7 +121,7 @@ elsewhere later even after acting on it now).
 
 | Option | What | Verdict |
 |---|---|---|
-| **A — ship only the 4-way confirm + fenced block** | Minimal change matching today's actual, confirmed requirement | ✅ **Recommended** — the only piece with a live, confirmed need; everything else is speculative |
+| **A — ship only the 4-way confirm + fenced block, uniformly** | Minimal change matching today's actual, confirmed requirement, applied to all 5 `--refine` call sites | ✅ **Recommended** — the only piece with a live, confirmed need; everything else is speculative |
 | **B — also add `--target` + `--terse`** | Two cheap flags reducing friction for repeat use | ⚠️ Reasonable follow-up, but no evidence yet that users hit the 4-way question often enough to want a bypass |
 | **C — build `--n`, `--scope`, `--history` now** | Full flag surface in one pass | ❌ **Reject for now** — no confirmed demand; risks the same "creating skills preemptively" anti-pattern this session's bloat-grill already flagged for other surfaces |
 
@@ -124,7 +136,12 @@ practice.
 
 - **Scope creep on the confirm flow itself.** The 4-way question is already a meaningful behavior
   change to a canonical skill (`prompt-refiner`) that 5 other commands depend on via `--refine`.
-  Ship it scoped to standalone-only (already decided) and verify no internal caller's tests break.
+  Applying it uniformly (revised decision) means all 5 callers' existing tests that assert
+  Accept/Edit/Use-original wording need updating to the new 4-way vocabulary — grep for the old
+  option labels across `tests/test_interactive_commands_e2e.py` and similar before implementing.
+- **"Copy for elsewhere" as a universal abort.** When it short-circuits an internal caller (e.g.
+  `brainstorm --refine`), the calling command must actually stop — not silently continue past the
+  confirm step. This needs an explicit check in each caller's flow, not just in the skill.
 - **"Execute now" ambiguity.** For a refined prompt that doesn't describe a clear action (e.g., a
   refined *question* rather than a *task*), "Execute now" has no obvious meaning. The skill should
   fall back to "just print the text" behavior when no downstream action is implied — don't force
@@ -137,23 +154,32 @@ practice.
 - **e2e:** standalone `/refine "vague request"` → before/after box → fenced code block → 4-way
   question (Execute now / Copy for elsewhere / Edit first / Skip) — not the old 3-way Accept/Edit/
   Use-original.
-- **e2e:** `--refine` flag on `brainstorm`/`do`/`orchestrate`/`plan:feature` → unchanged
-  Accept/Edit/Use-original confirm, NO fenced block, NO 4-way question (scope guard).
-- **dogfood:** grep `skills/workflow/prompt-refiner/SKILL.md` to confirm the 4-way question logic
-  is conditioned on "no downstream command" (standalone), not applied unconditionally.
+- **e2e:** `--refine` flag on each of `brainstorm`/`do`/`orchestrate`/`plan:feature`/`arch:plan` →
+  same 4-way question fires; "Copy for elsewhere" stops the caller's own flow before its first
+  question (assert the caller's downstream questions never appear in that branch).
+- **e2e:** same flag, "Execute now" branch → caller's normal downstream flow proceeds exactly as
+  the old "Accept" branch did (behavior-preserving for the common case).
+- **dogfood:** grep all 5 caller command/skill files for the old Accept/Edit/Use-original wording
+  — none should remain; all must reference the shared 4-way vocabulary from `prompt-refiner`
+  (single-source guard, same class of check this session used for the doc-scorer rubric).
 
 ## Documentation
 
-- Update `skills/workflow/prompt-refiner/SKILL.md`'s "Standalone use" section with the new 4-way
-  confirm + fenced-block requirement.
-- Update `commands/workflow/refine.md`'s scope note if the flag surface changes (currently just
-  documents what was dropped during consolidation — would need a line on the new confirm shape).
+- Update `skills/workflow/prompt-refiner/SKILL.md`'s "Procedure" section (step 4, currently
+  Accept/Edit/Use original) with the new 4-way confirm + fenced-block requirement — this is now
+  the ONE canonical confirm step for every caller, not a standalone-only variant.
+- Update `commands/workflow/refine.md`'s scope note (currently documents what was dropped during
+  consolidation — add a line on the new confirm shape).
+- Update the 4 other callers' own command/skill docs (`brainstorm`, `do`, `orchestrate`,
+  `plan:feature`, `arch:plan`) wherever they currently describe the Accept/Edit/Use-original
+  interaction, since the vocabulary changes uniformly.
 - REFCARD: no dedicated refine refcard currently exists; skip unless usage justifies one.
 
 ## Recommended Next Step
 
-→ **Option A only** — implement the 4-way confirm + fenced-code-block requirement, scoped to
-standalone `/refine` invocations, replacing (not adding to) the existing Accept/Edit/Use-original
-confirm for that path only. Grill this brainstorm (open question: exact wording of the 4th option
-and whether "Skip" needs a distinct icon/label from "Use original") before implementing — this is
-a canonical skill 5 commands depend on, worth a judgment-lock pass before touching it.
+→ **Option A, applied uniformly** — implement the 4-way confirm + fenced-code-block requirement
+as THE replacement for Accept/Edit/Use-original across all 5 `--refine` call sites (no
+standalone/internal split). Grill this brainstorm (open questions: exact wording of the 4th
+option; whether "Copy for elsewhere" needs caller-specific short-circuit logic or a single shared
+implementation in the skill suffices) before implementing — this is a canonical skill 5 commands
+depend on, worth a judgment-lock pass before touching it.
