@@ -6,35 +6,31 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 117 commands, 8 agents, 43 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.56.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 116 commands, 8 agents, 44 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.57.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/tutorials/TUTORIAL-orchestrate-resume/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/specs/_archive/SPEC-superpowers-claude-context-workflows-2026-07-01/">
       
       
-        <link rel="prev" href="../TUTORIAL-git-guard/">
-      
-      
-        <link rel="next" href="../TUTORIAL-quota/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>orchestrate:resume Tutorial - Craft Plugin</title>
+        <title>Proposal: Superpowers Scoping Correction, claude-context Pilot, Reusable Token Probe - Craft Plugin</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +49,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-orchestrateresume-resume-an-orchestration-session" class="md-skip">
+        <a href="#proposal-superpowers-scoping-correction-claude-context-pilot-reusable-token-probe" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              orchestrate:resume Tutorial
+              Proposal: Superpowers Scoping Correction, claude-context Pilot, Reusable Token Probe
             
           </span>
         </div>
@@ -229,7 +225,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../.." class="md-tabs__link">
+        <a href="../../.." class="md-tabs__link">
           
   
   
@@ -245,13 +241,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../guide/getting-started/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../guide/getting-started/" class="md-tabs__link">
           
   
   
@@ -271,7 +265,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../teaching/" class="md-tabs__link">
+        <a href="../../../teaching/" class="md-tabs__link">
           
   
   
@@ -291,7 +285,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../commands/overview/" class="md-tabs__link">
+        <a href="../../../commands/overview/" class="md-tabs__link">
           
   
   
@@ -311,7 +305,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../cookbook/" class="md-tabs__link">
+        <a href="../../../cookbook/" class="md-tabs__link">
           
   
   
@@ -331,7 +325,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../reference/configuration/" class="md-tabs__link">
+        <a href="../../../reference/configuration/" class="md-tabs__link">
           
   
   
@@ -351,7 +345,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../guide/documentation-quality-development/" class="md-tabs__link">
+        <a href="../../../guide/documentation-quality-development/" class="md-tabs__link">
           
   
   
@@ -369,7 +363,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../REFCARD/" class="md-tabs__link">
+      <a href="../../../REFCARD/" class="md-tabs__link">
         
   
   
@@ -404,7 +398,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -484,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -512,7 +506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../QUICK-START/" class="md-nav__link">
+      <a href="../../../QUICK-START/" class="md-nav__link">
         
   
   
@@ -540,7 +534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ADHD-QUICK-START/" class="md-nav__link">
+      <a href="../../../ADHD-QUICK-START/" class="md-nav__link">
         
   
   
@@ -568,7 +562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/choose-path/" class="md-nav__link">
+      <a href="../../../getting-started/choose-path/" class="md-nav__link">
         
   
   
@@ -596,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/" class="md-nav__link">
+      <a href="../../../workflows/" class="md-nav__link">
         
   
   
@@ -624,7 +618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../PLAYGROUND/" class="md-nav__link">
+      <a href="../../../PLAYGROUND/" class="md-nav__link">
         
   
   
@@ -656,29 +650,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -696,7 +685,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -714,7 +703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/getting-started/" class="md-nav__link">
+      <a href="../../../guide/getting-started/" class="md-nav__link">
         
   
   
@@ -792,7 +781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -820,7 +809,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/claude-code-2.1-integration/" class="md-nav__link">
+      <a href="../../../guide/claude-code-2.1-integration/" class="md-nav__link">
         
   
   
@@ -848,7 +837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/complexity-scoring-algorithm/" class="md-nav__link">
+      <a href="../../../guide/complexity-scoring-algorithm/" class="md-nav__link">
         
   
   
@@ -876,7 +865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -904,7 +893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -932,7 +921,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -960,7 +949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/claude-code-2.1-guide/" class="md-nav__link">
+      <a href="../../../guide/claude-code-2.1-guide/" class="md-nav__link">
         
   
   
@@ -1046,7 +1035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/documentation-quality/" class="md-nav__link">
+      <a href="../../../guide/documentation-quality/" class="md-nav__link">
         
   
   
@@ -1074,7 +1063,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../interactive-docs-update-tutorial/" class="md-nav__link">
+      <a href="../../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
         
   
   
@@ -1102,7 +1091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/release-watch/" class="md-nav__link">
+      <a href="../../../guide/release-watch/" class="md-nav__link">
         
   
   
@@ -1130,7 +1119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-release-watch-v2/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-release-watch-v2/" class="md-nav__link">
         
   
   
@@ -1158,7 +1147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/ci-triage-and-watch/" class="md-nav__link">
+      <a href="../../../guide/ci-triage-and-watch/" class="md-nav__link">
         
   
   
@@ -1186,7 +1175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/release-workflow/" class="md-nav__link">
+      <a href="../../../workflows/release-workflow/" class="md-nav__link">
         
   
   
@@ -1214,7 +1203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/git-feature-workflow/" class="md-nav__link">
+      <a href="../../../workflows/git-feature-workflow/" class="md-nav__link">
         
   
   
@@ -1242,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflows/pre-commit-workflow/" class="md-nav__link">
+      <a href="../../../workflows/pre-commit-workflow/" class="md-nav__link">
         
   
   
@@ -1328,7 +1317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/bash-formatting-library/" class="md-nav__link">
+      <a href="../../../guide/bash-formatting-library/" class="md-nav__link">
         
   
   
@@ -1356,7 +1345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-formatting-migration/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
         
   
   
@@ -1384,7 +1373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/badge-management/" class="md-nav__link">
+      <a href="../../../guide/badge-management/" class="md-nav__link">
         
   
   
@@ -1412,7 +1401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-badge-workflow/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-badge-workflow/" class="md-nav__link">
         
   
   
@@ -1440,7 +1429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/headless-recipes/" class="md-nav__link">
+      <a href="../../../guide/headless-recipes/" class="md-nav__link">
         
   
   
@@ -1468,7 +1457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/interactive-commands/" class="md-nav__link">
+      <a href="../../../guide/interactive-commands/" class="md-nav__link">
         
   
   
@@ -1496,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/check-command-mastery/" class="md-nav__link">
+      <a href="../../../guide/check-command-mastery/" class="md-nav__link">
         
   
   
@@ -1524,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
+      <a href="../../../guide/worktree-advanced-patterns/" class="md-nav__link">
         
   
   
@@ -1552,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/multi-repo-workflow/" class="md-nav__link">
+      <a href="../../../guide/multi-repo-workflow/" class="md-nav__link">
         
   
   
@@ -1580,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/branch-guard-smart-mode/" class="md-nav__link">
+      <a href="../../../guide/branch-guard-smart-mode/" class="md-nav__link">
         
   
   
@@ -1608,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-branch-guard-setup/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
         
   
   
@@ -1636,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-protect-new-repo/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-protect-new-repo/" class="md-nav__link">
         
   
   
@@ -1664,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/guard-suite/" class="md-nav__link">
+      <a href="../../../guide/guard-suite/" class="md-nav__link">
         
   
   
@@ -1692,7 +1681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/guard-design/" class="md-nav__link">
+      <a href="../../../guide/guard-design/" class="md-nav__link">
         
   
   
@@ -1720,7 +1709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-guard-suite/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-guard-suite/" class="md-nav__link">
         
   
   
@@ -1748,7 +1737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-grill/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-grill/" class="md-nav__link">
         
   
   
@@ -1776,7 +1765,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../claude-md-workflows/" class="md-nav__link">
+      <a href="../../../reference/GRILL-PROMPT-craft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reusable Grill Prompt (craft-tuned)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
   
@@ -1804,7 +1821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../interactive-orchestration/" class="md-nav__link">
+      <a href="../../../tutorials/interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -1832,7 +1849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
         
   
   
@@ -1860,7 +1877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-worktree-setup/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
         
   
   
@@ -1888,7 +1905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../orchestrator-modes-compared/" class="md-nav__link">
+      <a href="../../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
         
   
   
@@ -1916,7 +1933,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-release-pipeline/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-release-pipeline/" class="md-nav__link">
         
   
   
@@ -1944,7 +1961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-homebrew-setup/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
         
   
   
@@ -1972,7 +1989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-homebrew-gates/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-homebrew-gates/" class="md-nav__link">
         
   
   
@@ -2000,7 +2017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-insights-workflow/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
         
   
   
@@ -2028,7 +2045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-insights-setup/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-insights-setup/" class="md-nav__link">
         
   
   
@@ -2056,7 +2073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/insights-improvements-guide/" class="md-nav__link">
+      <a href="../../../guide/insights-improvements-guide/" class="md-nav__link">
         
   
   
@@ -2084,7 +2101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/learning-loop-session-completion/" class="md-nav__link">
+      <a href="../../../guide/learning-loop-session-completion/" class="md-nav__link">
         
   
   
@@ -2112,7 +2129,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/hub-live-dashboard/" class="md-nav__link">
+      <a href="../../../guide/hub-live-dashboard/" class="md-nav__link">
         
   
   
@@ -2140,7 +2157,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-version-sync-setup/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-version-sync-setup/" class="md-nav__link">
         
   
   
@@ -2168,7 +2185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/ci-monitoring/" class="md-nav__link">
+      <a href="../../../architecture/ci-monitoring/" class="md-nav__link">
         
   
   
@@ -2196,7 +2213,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/version-sync/" class="md-nav__link">
+      <a href="../../../architecture/version-sync/" class="md-nav__link">
         
   
   
@@ -2224,7 +2241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/mermaid-validation-pipeline/" class="md-nav__link">
+      <a href="../../../architecture/mermaid-validation-pipeline/" class="md-nav__link">
         
   
   
@@ -2252,7 +2269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
+      <a href="../../../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
         
   
   
@@ -2280,7 +2297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/ADR-002-done-command-skill-consolidation/" class="md-nav__link">
+      <a href="../../../adr/ADR-002-done-command-skill-consolidation/" class="md-nav__link">
         
   
   
@@ -2308,7 +2325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/ADR-003-release-drift-advisory-not-hard-gate/" class="md-nav__link">
+      <a href="../../../adr/ADR-003-release-drift-advisory-not-hard-gate/" class="md-nav__link">
         
   
   
@@ -2336,7 +2353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/ADR-004-release-surface-registry/" class="md-nav__link">
+      <a href="../../../adr/ADR-004-release-surface-registry/" class="md-nav__link">
         
   
   
@@ -2364,7 +2381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-brainstorm-power-user/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
   
@@ -2392,7 +2409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
         
   
   
@@ -2420,7 +2437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-first-10-minutes/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-first-10-minutes/" class="md-nav__link">
         
   
   
@@ -2448,7 +2465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../check-tutorial-beginner/" class="md-nav__link">
+      <a href="../../../tutorials/check-tutorial-beginner/" class="md-nav__link">
         
   
   
@@ -2476,7 +2493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../smart-routing-tutorial/" class="md-nav__link">
+      <a href="../../../tutorials/smart-routing-tutorial/" class="md-nav__link">
         
   
   
@@ -2504,7 +2521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-refine-flag/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-refine-flag/" class="md-nav__link">
         
   
   
@@ -2532,7 +2549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../help/refine-flag/" class="md-nav__link">
+      <a href="../../../help/refine-flag/" class="md-nav__link">
         
   
   
@@ -2560,7 +2577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-workflow-brief/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-workflow-brief/" class="md-nav__link">
         
   
   
@@ -2588,7 +2605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-orchestrate-drive/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-orchestrate-drive/" class="md-nav__link">
         
   
   
@@ -2616,7 +2633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../help/orchestrate-drive/" class="md-nav__link">
+      <a href="../../../help/orchestrate-drive/" class="md-nav__link">
         
   
   
@@ -2644,7 +2661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-orchestrate-workflow/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-orchestrate-workflow/" class="md-nav__link">
         
   
   
@@ -2672,7 +2689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../help/orchestrate-workflow/" class="md-nav__link">
+      <a href="../../../help/orchestrate-workflow/" class="md-nav__link">
         
   
   
@@ -2700,7 +2717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-done-optimization/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-done-optimization/" class="md-nav__link">
         
   
   
@@ -2728,7 +2745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../help/memory-optimization/" class="md-nav__link">
+      <a href="../../../help/memory-optimization/" class="md-nav__link">
         
   
   
@@ -2756,7 +2773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/mermaid-authoring/" class="md-nav__link">
+      <a href="../../../guide/mermaid-authoring/" class="md-nav__link">
         
   
   
@@ -2784,7 +2801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/mermaid-troubleshooting/" class="md-nav__link">
+      <a href="../../../guide/mermaid-troubleshooting/" class="md-nav__link">
         
   
   
@@ -2823,10 +2840,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_54" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_55" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_54" id="__nav_2_4_54_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_55" id="__nav_2_4_55_label" tabindex="0">
             
   
   
@@ -2844,8 +2861,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_54_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_54">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_55_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_55">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2862,7 +2879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../testing-quickstart/" class="md-nav__link">
+      <a href="../../../tutorials/testing-quickstart/" class="md-nav__link">
         
   
   
@@ -2890,7 +2907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/test-commands/" class="md-nav__link">
+      <a href="../../../guide/test-commands/" class="md-nav__link">
         
   
   
@@ -2918,7 +2935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/test-architecture/" class="md-nav__link">
+      <a href="../../../guide/test-architecture/" class="md-nav__link">
         
   
   
@@ -2946,7 +2963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/test-migration/" class="md-nav__link">
+      <a href="../../../guide/test-migration/" class="md-nav__link">
         
   
   
@@ -2982,7 +2999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/test-wrapper-pattern/" class="md-nav__link">
+      <a href="../../../guide/test-wrapper-pattern/" class="md-nav__link">
         
   
   
@@ -3021,10 +3038,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_56" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_56" id="__nav_2_4_56_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
             
   
   
@@ -3042,8 +3059,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_56_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_56">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_57">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3060,7 +3077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git-init-reference/" class="md-nav__link">
+      <a href="../../../commands/git-init-reference/" class="md-nav__link">
         
   
   
@@ -3088,7 +3105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/git-init-tutorial/" class="md-nav__link">
+      <a href="../../../guide/git-init-tutorial/" class="md-nav__link">
         
   
   
@@ -3116,7 +3133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/git-init-flow/" class="md-nav__link">
+      <a href="../../../architecture/git-init-flow/" class="md-nav__link">
         
   
   
@@ -3144,7 +3161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git-init-docs-index/" class="md-nav__link">
+      <a href="../../../git-init-docs-index/" class="md-nav__link">
         
   
   
@@ -3180,7 +3197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
+      <a href="../../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
         
   
   
@@ -3208,7 +3225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/orchestrator/" class="md-nav__link">
+      <a href="../../../guide/orchestrator/" class="md-nav__link">
         
   
   
@@ -3236,7 +3253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/orch-flag-usage/" class="md-nav__link">
+      <a href="../../../guide/orch-flag-usage/" class="md-nav__link">
         
   
   
@@ -3264,7 +3281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/marketplace-distribution/" class="md-nav__link">
+      <a href="../../../guide/marketplace-distribution/" class="md-nav__link">
         
   
   
@@ -3292,7 +3309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/homebrew-installation/" class="md-nav__link">
+      <a href="../../../guide/homebrew-installation/" class="md-nav__link">
         
   
   
@@ -3320,7 +3337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/homebrew-automation/" class="md-nav__link">
+      <a href="../../../guide/homebrew-automation/" class="md-nav__link">
         
   
   
@@ -3348,7 +3365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/desktop-release/" class="md-nav__link">
+      <a href="../../../guide/desktop-release/" class="md-nav__link">
         
   
   
@@ -3376,7 +3393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/plugin-release-runbook/" class="md-nav__link">
+      <a href="../../../guide/plugin-release-runbook/" class="md-nav__link">
         
   
   
@@ -3404,7 +3421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../skills-agents/" class="md-nav__link">
+      <a href="../../../skills-agents/" class="md-nav__link">
         
   
   
@@ -3432,7 +3449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/governance/" class="md-nav__link">
+      <a href="../../../guide/governance/" class="md-nav__link">
         
   
   
@@ -3460,7 +3477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/integration-testing/" class="md-nav__link">
+      <a href="../../../guide/integration-testing/" class="md-nav__link">
         
   
   
@@ -3488,7 +3505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/markdown-list-spacing/" class="md-nav__link">
+      <a href="../../../guide/markdown-list-spacing/" class="md-nav__link">
         
   
   
@@ -3516,7 +3533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/dependency-management-advanced/" class="md-nav__link">
+      <a href="../../../guide/dependency-management-advanced/" class="md-nav__link">
         
   
   
@@ -3544,7 +3561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ACCESSIBILITY/" class="md-nav__link">
+      <a href="../../../ACCESSIBILITY/" class="md-nav__link">
         
   
   
@@ -3577,8 +3594,6 @@
                 
   
   
-    
-  
   
   
     
@@ -3589,11 +3604,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
         
           
           <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
@@ -3614,7 +3629,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3632,7 +3647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-arch-analyze/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-arch-analyze/" class="md-nav__link">
         
   
   
@@ -3660,7 +3675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-arch-plan/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-arch-plan/" class="md-nav__link">
         
   
   
@@ -3688,7 +3703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-ci-detect/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-ci-detect/" class="md-nav__link">
         
   
   
@@ -3716,7 +3731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-ci-generate/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-ci-generate/" class="md-nav__link">
         
   
   
@@ -3744,7 +3759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-ci-status/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-ci-status/" class="md-nav__link">
         
   
   
@@ -3772,7 +3787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-ci-triage/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-ci-triage/" class="md-nav__link">
         
   
   
@@ -3800,7 +3815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-ci-validate/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-ci-validate/" class="md-nav__link">
         
   
   
@@ -3828,7 +3843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-ci-watch/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-ci-watch/" class="md-nav__link">
         
   
   
@@ -3856,7 +3871,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-code-ci-local/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-code-ci-local/" class="md-nav__link">
         
   
   
@@ -3884,7 +3899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-code-command-audit/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-code-command-audit/" class="md-nav__link">
         
   
   
@@ -3912,7 +3927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-code-deps-audit/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-code-deps-audit/" class="md-nav__link">
         
   
   
@@ -3940,7 +3955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-code-desktop-watch/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-code-desktop-watch/" class="md-nav__link">
         
   
   
@@ -3968,7 +3983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-code-fewer-prompts/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-code-fewer-prompts/" class="md-nav__link">
         
   
   
@@ -3996,7 +4011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-code-lint/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-code-lint/" class="md-nav__link">
         
   
   
@@ -4024,7 +4039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-code-release-watch/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-code-release-watch/" class="md-nav__link">
         
   
   
@@ -4052,7 +4067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-code-skill-standards/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-code-skill-standards/" class="md-nav__link">
         
   
   
@@ -4080,7 +4095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-command-skill-token-efficiency/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-command-skill-token-efficiency/" class="md-nav__link">
         
   
   
@@ -4108,7 +4123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-dist-homebrew/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-dist-homebrew/" class="md-nav__link">
         
   
   
@@ -4136,7 +4151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-dist-surfaces/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-dist-surfaces/" class="md-nav__link">
         
   
   
@@ -4164,7 +4179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-docs-changelog/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-docs-changelog/" class="md-nav__link">
         
   
   
@@ -4192,7 +4207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-docs-check-links/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-docs-check-links/" class="md-nav__link">
         
   
   
@@ -4220,7 +4235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-docs-check/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-docs-check/" class="md-nav__link">
         
   
   
@@ -4248,7 +4263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-docs-lint/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-docs-lint/" class="md-nav__link">
         
   
   
@@ -4276,7 +4291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-docs-mermaid/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-docs-mermaid/" class="md-nav__link">
         
   
   
@@ -4304,7 +4319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-docs-sync/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-docs-sync/" class="md-nav__link">
         
   
   
@@ -4332,7 +4347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-git-guard/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-git-guard/" class="md-nav__link">
         
   
   
@@ -4357,162 +4372,10 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    orchestrate:resume Tutorial
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    orchestrate:resume Tutorial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-list-available-sessions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: List Available Sessions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-resume-by-session-number" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Resume by Session Number
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-resume-the-most-recent-session" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Resume the Most Recent Session
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-sync-session-state-across-devices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Sync Session State Across Devices
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-resume-on-a-specific-device" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Resume on a Specific Device
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-6-session-state-location" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 6: Session State Location
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What's Next
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-quota/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-quota/" class="md-nav__link">
         
   
   
@@ -4540,7 +4403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TUTORIAL-smart-help/" class="md-nav__link">
+      <a href="../../../tutorials/TUTORIAL-smart-help/" class="md-nav__link">
         
   
   
@@ -4633,7 +4496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../teaching/" class="md-nav__link">
+      <a href="../../../teaching/" class="md-nav__link">
         
   
   
@@ -4711,7 +4574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../teaching-mode-setup/" class="md-nav__link">
+      <a href="../../../tutorials/teaching-mode-setup/" class="md-nav__link">
         
   
   
@@ -4739,7 +4602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../teaching-config-schema/" class="md-nav__link">
+      <a href="../../../teaching-config-schema/" class="md-nav__link">
         
   
   
@@ -4767,7 +4630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../teaching-migration/" class="md-nav__link">
+      <a href="../../../teaching-migration/" class="md-nav__link">
         
   
   
@@ -4853,7 +4716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/teaching-workflow/" class="md-nav__link">
+      <a href="../../../guide/teaching-workflow/" class="md-nav__link">
         
   
   
@@ -4881,7 +4744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../TEACHING-DOCS-INDEX/" class="md-nav__link">
+      <a href="../../../TEACHING-DOCS-INDEX/" class="md-nav__link">
         
   
   
@@ -4909,7 +4772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-TEACHING/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-TEACHING/" class="md-nav__link">
         
   
   
@@ -4995,7 +4858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
+      <a href="../SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
         
   
   
@@ -5023,7 +4886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06/" class="md-nav__link">
+      <a href="../SPEC-teaching-ecosystem-coordination-2026-02-06/" class="md-nav__link">
         
   
   
@@ -5116,7 +4979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/overview/" class="md-nav__link">
+      <a href="../../../commands/overview/" class="md-nav__link">
         
   
   
@@ -5194,7 +5057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/smart/" class="md-nav__link">
+      <a href="../../../commands/smart/" class="md-nav__link">
         
   
   
@@ -5222,7 +5085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/" class="md-nav__link">
+      <a href="../../../commands/docs/" class="md-nav__link">
         
   
   
@@ -5250,7 +5113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/site/" class="md-nav__link">
+      <a href="../../../commands/site/" class="md-nav__link">
         
   
   
@@ -5278,7 +5141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/" class="md-nav__link">
+      <a href="../../../commands/code/" class="md-nav__link">
         
   
   
@@ -5306,7 +5169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/" class="md-nav__link">
+      <a href="../../../commands/git/" class="md-nav__link">
         
   
   
@@ -5334,7 +5197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/arch/" class="md-nav__link">
+      <a href="../../../commands/arch/" class="md-nav__link">
         
   
   
@@ -5362,7 +5225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/dist/" class="md-nav__link">
+      <a href="../../../commands/dist/" class="md-nav__link">
         
   
   
@@ -5390,7 +5253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/plan/" class="md-nav__link">
+      <a href="../../../commands/plan/" class="md-nav__link">
         
   
   
@@ -5426,7 +5289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/" class="md-nav__link">
+      <a href="../../../commands/" class="md-nav__link">
         
   
   
@@ -5504,7 +5367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/check/" class="md-nav__link">
+      <a href="../../../commands/check/" class="md-nav__link">
         
   
   
@@ -5532,7 +5395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/do/" class="md-nav__link">
+      <a href="../../../commands/do/" class="md-nav__link">
         
   
   
@@ -5560,7 +5423,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/grill/" class="md-nav__link">
+      <a href="../../../commands/grill/" class="md-nav__link">
         
   
   
@@ -5588,7 +5451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/hub/" class="md-nav__link">
+      <a href="../../../commands/hub/" class="md-nav__link">
         
   
   
@@ -5616,7 +5479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate/" class="md-nav__link">
+      <a href="../../../commands/orchestrate/" class="md-nav__link">
         
   
   
@@ -5644,7 +5507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/orchestrate-reference/" class="md-nav__link">
+      <a href="../../../reference/orchestrate-reference/" class="md-nav__link">
         
   
   
@@ -5672,7 +5535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate-drive/" class="md-nav__link">
+      <a href="../../../commands/orchestrate-drive/" class="md-nav__link">
         
   
   
@@ -5700,7 +5563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/quota/" class="md-nav__link">
+      <a href="../../../commands/quota/" class="md-nav__link">
         
   
   
@@ -5728,7 +5591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate-workflow/" class="md-nav__link">
+      <a href="../../../commands/orchestrate-workflow/" class="md-nav__link">
         
   
   
@@ -5756,7 +5619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/ci/generate/" class="md-nav__link">
+      <a href="../../../commands/ci/generate/" class="md-nav__link">
         
   
   
@@ -5784,7 +5647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/ci/status/" class="md-nav__link">
+      <a href="../../../commands/ci/status/" class="md-nav__link">
         
   
   
@@ -5812,7 +5675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/api/" class="md-nav__link">
+      <a href="../../../commands/docs/api/" class="md-nav__link">
         
   
   
@@ -5840,7 +5703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/changelog/" class="md-nav__link">
+      <a href="../../../commands/docs/changelog/" class="md-nav__link">
         
   
   
@@ -5868,7 +5731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/check/" class="md-nav__link">
+      <a href="../../../commands/docs/check/" class="md-nav__link">
         
   
   
@@ -5896,7 +5759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/check-links/" class="md-nav__link">
+      <a href="../../../commands/docs/check-links/" class="md-nav__link">
         
   
   
@@ -5924,7 +5787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/claude-md/" class="md-nav__link">
+      <a href="../../../commands/docs/claude-md/" class="md-nav__link">
         
   
   
@@ -5952,7 +5815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/claude-md/edit/" class="md-nav__link">
+      <a href="../../../commands/docs/claude-md/edit/" class="md-nav__link">
         
   
   
@@ -5980,7 +5843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/claude-md/init/" class="md-nav__link">
+      <a href="../../../commands/docs/claude-md/init/" class="md-nav__link">
         
   
   
@@ -6008,7 +5871,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/claude-md/sync/" class="md-nav__link">
+      <a href="../../../commands/docs/claude-md/sync/" class="md-nav__link">
         
   
   
@@ -6036,7 +5899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/demo/" class="md-nav__link">
+      <a href="../../../commands/docs/demo/" class="md-nav__link">
         
   
   
@@ -6064,7 +5927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/guide/" class="md-nav__link">
+      <a href="../../../commands/docs/guide/" class="md-nav__link">
         
   
   
@@ -6092,7 +5955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/help/" class="md-nav__link">
+      <a href="../../../commands/docs/help/" class="md-nav__link">
         
   
   
@@ -6120,7 +5983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/lint/" class="md-nav__link">
+      <a href="../../../commands/docs/lint/" class="md-nav__link">
         
   
   
@@ -6148,7 +6011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/mermaid/" class="md-nav__link">
+      <a href="../../../commands/docs/mermaid/" class="md-nav__link">
         
   
   
@@ -6176,7 +6039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/nav-update/" class="md-nav__link">
+      <a href="../../../commands/docs/nav-update/" class="md-nav__link">
         
   
   
@@ -6204,7 +6067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/prompt/" class="md-nav__link">
+      <a href="../../../commands/docs/prompt/" class="md-nav__link">
         
   
   
@@ -6232,7 +6095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/quickstart/" class="md-nav__link">
+      <a href="../../../commands/docs/quickstart/" class="md-nav__link">
         
   
   
@@ -6260,7 +6123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/site/" class="md-nav__link">
+      <a href="../../../commands/docs/site/" class="md-nav__link">
         
   
   
@@ -6288,7 +6151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/sync/" class="md-nav__link">
+      <a href="../../../commands/docs/sync/" class="md-nav__link">
         
   
   
@@ -6316,7 +6179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/tutorial/" class="md-nav__link">
+      <a href="../../../commands/docs/tutorial/" class="md-nav__link">
         
   
   
@@ -6344,7 +6207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/update/" class="md-nav__link">
+      <a href="../../../commands/docs/update/" class="md-nav__link">
         
   
   
@@ -6372,7 +6235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/website/" class="md-nav__link">
+      <a href="../../../commands/docs/website/" class="md-nav__link">
         
   
   
@@ -6400,7 +6263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/docs/workflow/" class="md-nav__link">
+      <a href="../../../commands/docs/workflow/" class="md-nav__link">
         
   
   
@@ -6428,7 +6291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/worktree/" class="md-nav__link">
+      <a href="../../../commands/git/worktree/" class="md-nav__link">
         
   
   
@@ -6456,7 +6319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/brainstorm/" class="md-nav__link">
+      <a href="../../../commands/workflow/brainstorm/" class="md-nav__link">
         
   
   
@@ -6484,7 +6347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/brief/" class="md-nav__link">
+      <a href="../../../commands/workflow/brief/" class="md-nav__link">
         
   
   
@@ -6512,7 +6375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/insights/" class="md-nav__link">
+      <a href="../../../commands/workflow/insights/" class="md-nav__link">
         
   
   
@@ -6540,7 +6403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/done/" class="md-nav__link">
+      <a href="../../../commands/workflow/done/" class="md-nav__link">
         
   
   
@@ -6568,7 +6431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/arch/analyze/" class="md-nav__link">
+      <a href="../../../commands/arch/analyze/" class="md-nav__link">
         
   
   
@@ -6596,7 +6459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/lint/" class="md-nav__link">
+      <a href="../../../commands/code/lint/" class="md-nav__link">
         
   
   
@@ -6624,7 +6487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/deps-audit/" class="md-nav__link">
+      <a href="../../../commands/code/deps-audit/" class="md-nav__link">
         
   
   
@@ -6652,7 +6515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/ci-local/" class="md-nav__link">
+      <a href="../../../commands/code/ci-local/" class="md-nav__link">
         
   
   
@@ -6680,7 +6543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/command-audit/" class="md-nav__link">
+      <a href="../../../commands/code/command-audit/" class="md-nav__link">
         
   
   
@@ -6708,7 +6571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/release-watch/" class="md-nav__link">
+      <a href="../../../commands/code/release-watch/" class="md-nav__link">
         
   
   
@@ -6736,7 +6599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/desktop-watch/" class="md-nav__link">
+      <a href="../../../commands/code/desktop-watch/" class="md-nav__link">
         
   
   
@@ -6764,7 +6627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/sync-features/" class="md-nav__link">
+      <a href="../../../commands/code/sync-features/" class="md-nav__link">
         
   
   
@@ -6792,7 +6655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/test/" class="md-nav__link">
+      <a href="../../../commands/test/" class="md-nav__link">
         
   
   
@@ -6820,7 +6683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/branch/" class="md-nav__link">
+      <a href="../../../commands/git/branch/" class="md-nav__link">
         
   
   
@@ -6848,7 +6711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/clean/" class="md-nav__link">
+      <a href="../../../commands/git/clean/" class="md-nav__link">
         
   
   
@@ -6876,7 +6739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/status/" class="md-nav__link">
+      <a href="../../../commands/git/status/" class="md-nav__link">
         
   
   
@@ -6904,7 +6767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/sync/" class="md-nav__link">
+      <a href="../../../commands/git/sync/" class="md-nav__link">
         
   
   
@@ -6932,7 +6795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/protect/" class="md-nav__link">
+      <a href="../../../commands/git/protect/" class="md-nav__link">
         
   
   
@@ -6960,7 +6823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/protect-baseline/" class="md-nav__link">
+      <a href="../../../commands/git/protect-baseline/" class="md-nav__link">
         
   
   
@@ -6988,7 +6851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/unprotect/" class="md-nav__link">
+      <a href="../../../commands/git/unprotect/" class="md-nav__link">
         
   
   
@@ -7016,7 +6879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/git/guard/" class="md-nav__link">
+      <a href="../../../commands/git/guard/" class="md-nav__link">
         
   
   
@@ -7044,7 +6907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/arch/diagram/" class="md-nav__link">
+      <a href="../../../commands/arch/diagram/" class="md-nav__link">
         
   
   
@@ -7072,7 +6935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/arch/plan/" class="md-nav__link">
+      <a href="../../../commands/arch/plan/" class="md-nav__link">
         
   
   
@@ -7100,7 +6963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/arch/review/" class="md-nav__link">
+      <a href="../../../commands/arch/review/" class="md-nav__link">
         
   
   
@@ -7128,7 +6991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/ci/detect/" class="md-nav__link">
+      <a href="../../../commands/ci/detect/" class="md-nav__link">
         
   
   
@@ -7156,7 +7019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/ci/triage/" class="md-nav__link">
+      <a href="../../../commands/ci/triage/" class="md-nav__link">
         
   
   
@@ -7184,7 +7047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/ci/validate/" class="md-nav__link">
+      <a href="../../../commands/ci/validate/" class="md-nav__link">
         
   
   
@@ -7212,7 +7075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/ci/watch/" class="md-nav__link">
+      <a href="../../../commands/ci/watch/" class="md-nav__link">
         
   
   
@@ -7240,7 +7103,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/fewer-prompts/" class="md-nav__link">
+      <a href="../../../commands/code/fewer-prompts/" class="md-nav__link">
         
   
   
@@ -7268,7 +7131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/ci-fix/" class="md-nav__link">
+      <a href="../../../commands/code/ci-fix/" class="md-nav__link">
         
   
   
@@ -7296,7 +7159,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/debug/" class="md-nav__link">
+      <a href="../../../commands/code/debug/" class="md-nav__link">
         
   
   
@@ -7324,7 +7187,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/deps-check/" class="md-nav__link">
+      <a href="../../../commands/code/deps-check/" class="md-nav__link">
         
   
   
@@ -7352,7 +7215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/docs-check/" class="md-nav__link">
+      <a href="../../../commands/code/docs-check/" class="md-nav__link">
         
   
   
@@ -7380,7 +7243,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/refactor/" class="md-nav__link">
+      <a href="../../../commands/code/refactor/" class="md-nav__link">
         
   
   
@@ -7408,7 +7271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/release/" class="md-nav__link">
+      <a href="../../../commands/code/release/" class="md-nav__link">
         
   
   
@@ -7436,7 +7299,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/skill-standards/" class="md-nav__link">
+      <a href="../../../commands/code/skill-standards/" class="md-nav__link">
         
   
   
@@ -7464,7 +7327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/test-gen/" class="md-nav__link">
+      <a href="../../../commands/code/test-gen/" class="md-nav__link">
         
   
   
@@ -7492,7 +7355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/dist/homebrew/" class="md-nav__link">
+      <a href="../../../commands/dist/homebrew/" class="md-nav__link">
         
   
   
@@ -7520,7 +7383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/dist/surfaces/" class="md-nav__link">
+      <a href="../../../commands/dist/surfaces/" class="md-nav__link">
         
   
   
@@ -7548,7 +7411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate/drive/" class="md-nav__link">
+      <a href="../../../commands/orchestrate/drive/" class="md-nav__link">
         
   
   
@@ -7576,35 +7439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate/resume/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:orchestrate:resume
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../commands/orchestrate/workflow/" class="md-nav__link">
+      <a href="../../../commands/orchestrate/workflow/" class="md-nav__link">
         
   
   
@@ -7632,7 +7467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/site/docs/frameworks/" class="md-nav__link">
+      <a href="../../../commands/site/docs/frameworks/" class="md-nav__link">
         
   
   
@@ -7660,7 +7495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/smart-help/" class="md-nav__link">
+      <a href="../../../commands/smart-help/" class="md-nav__link">
         
   
   
@@ -7688,7 +7523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/adhd-guide/" class="md-nav__link">
+      <a href="../../../commands/workflow/adhd-guide/" class="md-nav__link">
         
   
   
@@ -7781,7 +7616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/" class="md-nav__link">
+      <a href="../../../cookbook/" class="md-nav__link">
         
   
   
@@ -7859,7 +7694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/release-watch-recipes/" class="md-nav__link">
+      <a href="../../../cookbook/release-watch-recipes/" class="md-nav__link">
         
   
   
@@ -7887,7 +7722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/recipes/refine-before-running/" class="md-nav__link">
+      <a href="../../../cookbook/recipes/refine-before-running/" class="md-nav__link">
         
   
   
@@ -7915,7 +7750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/recipes/drive-a-spec-to-green/" class="md-nav__link">
+      <a href="../../../cookbook/recipes/drive-a-spec-to-green/" class="md-nav__link">
         
   
   
@@ -7943,7 +7778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/recipes/run-a-coded-workflow/" class="md-nav__link">
+      <a href="../../../cookbook/recipes/run-a-coded-workflow/" class="md-nav__link">
         
   
   
@@ -7971,7 +7806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/recipes/fan-a-workflow-across-files/" class="md-nav__link">
+      <a href="../../../cookbook/recipes/fan-a-workflow-across-files/" class="md-nav__link">
         
   
   
@@ -7999,7 +7834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/recipes/triage-a-red-pr/" class="md-nav__link">
+      <a href="../../../cookbook/recipes/triage-a-red-pr/" class="md-nav__link">
         
   
   
@@ -8027,7 +7862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
+      <a href="../../../cookbook/common/setup-new-project/" class="md-nav__link">
         
   
   
@@ -8055,7 +7890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/deploy-course-website/" class="md-nav__link">
+      <a href="../../../cookbook/common/deploy-course-website/" class="md-nav__link">
         
   
   
@@ -8083,7 +7918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/automate-release-workflow/" class="md-nav__link">
+      <a href="../../../cookbook/common/automate-release-workflow/" class="md-nav__link">
         
   
   
@@ -8111,7 +7946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/distribute-plugin-via-homebrew/" class="md-nav__link">
+      <a href="../../../cookbook/common/distribute-plugin-via-homebrew/" class="md-nav__link">
         
   
   
@@ -8139,7 +7974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
+      <a href="../../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
         
   
   
@@ -8167,7 +8002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/find-the-right-command/" class="md-nav__link">
+      <a href="../../../cookbook/common/find-the-right-command/" class="md-nav__link">
         
   
   
@@ -8195,7 +8030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/update-single-doc/" class="md-nav__link">
+      <a href="../../../cookbook/common/update-single-doc/" class="md-nav__link">
         
   
   
@@ -8223,7 +8058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/quick-code-checks/" class="md-nav__link">
+      <a href="../../../cookbook/common/quick-code-checks/" class="md-nav__link">
         
   
   
@@ -8251,7 +8086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/create-git-branch/" class="md-nav__link">
+      <a href="../../../cookbook/common/create-git-branch/" class="md-nav__link">
         
   
   
@@ -8279,7 +8114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/bulk-branch-protection/" class="md-nav__link">
+      <a href="../../../cookbook/common/bulk-branch-protection/" class="md-nav__link">
         
   
   
@@ -8307,7 +8142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/view-project-architecture/" class="md-nav__link">
+      <a href="../../../cookbook/common/view-project-architecture/" class="md-nav__link">
         
   
   
@@ -8335,7 +8170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/setup-parallel-worktrees/" class="md-nav__link">
+      <a href="../../../cookbook/common/setup-parallel-worktrees/" class="md-nav__link">
         
   
   
@@ -8363,7 +8198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/use-interactive-orchestration/" class="md-nav__link">
+      <a href="../../../cookbook/common/use-interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -8391,7 +8226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/post-merge-documentation/" class="md-nav__link">
+      <a href="../../../cookbook/common/post-merge-documentation/" class="md-nav__link">
         
   
   
@@ -8419,7 +8254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/generate-tests-for-project/" class="md-nav__link">
+      <a href="../../../cookbook/common/generate-tests-for-project/" class="md-nav__link">
         
   
   
@@ -8447,7 +8282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/run-tests-by-category/" class="md-nav__link">
+      <a href="../../../cookbook/common/run-tests-by-category/" class="md-nav__link">
         
   
   
@@ -8475,7 +8310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/session-wrap-up/" class="md-nav__link">
+      <a href="../../../cookbook/common/session-wrap-up/" class="md-nav__link">
         
   
   
@@ -8503,7 +8338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/common/memory-aware-routing/" class="md-nav__link">
+      <a href="../../../cookbook/common/memory-aware-routing/" class="md-nav__link">
         
   
   
@@ -8531,7 +8366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/docs-update-interactive-example/" class="md-nav__link">
+      <a href="../../../examples/docs-update-interactive-example/" class="md-nav__link">
         
   
   
@@ -8559,7 +8394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/release-workflow-example/" class="md-nav__link">
+      <a href="../../../examples/release-workflow-example/" class="md-nav__link">
         
   
   
@@ -8645,7 +8480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
+      <a href="../../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
         
   
   
@@ -8673,7 +8508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/command-times-out/" class="md-nav__link">
+      <a href="../../../cookbook/troubleshooting/command-times-out/" class="md-nav__link">
         
   
   
@@ -8701,7 +8536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/wrong-command-output/" class="md-nav__link">
+      <a href="../../../cookbook/troubleshooting/wrong-command-output/" class="md-nav__link">
         
   
   
@@ -8729,7 +8564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/ci-workflow-fails/" class="md-nav__link">
+      <a href="../../../cookbook/troubleshooting/ci-workflow-fails/" class="md-nav__link">
         
   
   
@@ -8757,7 +8592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/pre-commit-blocks-commit/" class="md-nav__link">
+      <a href="../../../cookbook/troubleshooting/pre-commit-blocks-commit/" class="md-nav__link">
         
   
   
@@ -8785,7 +8620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/worktree-wont-create/" class="md-nav__link">
+      <a href="../../../cookbook/troubleshooting/worktree-wont-create/" class="md-nav__link">
         
   
   
@@ -8813,7 +8648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/broken-links-after-update/" class="md-nav__link">
+      <a href="../../../cookbook/troubleshooting/broken-links-after-update/" class="md-nav__link">
         
   
   
@@ -8841,7 +8676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/claude-md-out-of-sync/" class="md-nav__link">
+      <a href="../../../cookbook/troubleshooting/claude-md-out-of-sync/" class="md-nav__link">
         
   
   
@@ -8869,7 +8704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cookbook/troubleshooting/mkdocs-build-fails/" class="md-nav__link">
+      <a href="../../../cookbook/troubleshooting/mkdocs-build-fails/" class="md-nav__link">
         
   
   
@@ -8962,7 +8797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/configuration/" class="md-nav__link">
+      <a href="../../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -8990,7 +8825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/presets/" class="md-nav__link">
+      <a href="../../../reference/presets/" class="md-nav__link">
         
   
   
@@ -9018,7 +8853,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../orchestrator/" class="md-nav__link">
+      <a href="../../../orchestrator/" class="md-nav__link">
         
   
   
@@ -9046,7 +8881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/" class="md-nav__link">
+      <a href="../../../architecture/" class="md-nav__link">
         
   
   
@@ -9074,7 +8909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -9102,7 +8937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/release-watch-v2/" class="md-nav__link">
+      <a href="../../../architecture/release-watch-v2/" class="md-nav__link">
         
   
   
@@ -9130,7 +8965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/desktop-release-pipeline/" class="md-nav__link">
+      <a href="../../../architecture/desktop-release-pipeline/" class="md-nav__link">
         
   
   
@@ -9158,7 +8993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/DISCOVERY-API/" class="md-nav__link">
+      <a href="../../../api/DISCOVERY-API/" class="md-nav__link">
         
   
   
@@ -9186,7 +9021,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/documentation-quality/" class="md-nav__link">
+      <a href="../../../reference/documentation-quality/" class="md-nav__link">
         
   
   
@@ -9214,7 +9049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../API-REFERENCE-CLAUDE-MD/" class="md-nav__link">
+      <a href="../../../API-REFERENCE-CLAUDE-MD/" class="md-nav__link">
         
   
   
@@ -9242,7 +9077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../API-REFERENCE-COMMANDS/" class="md-nav__link">
+      <a href="../../../API-REFERENCE-COMMANDS/" class="md-nav__link">
         
   
   
@@ -9270,7 +9105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/claude-code-instruction-enforcement/" class="md-nav__link">
+      <a href="../../../reference/claude-code-instruction-enforcement/" class="md-nav__link">
         
   
   
@@ -9298,7 +9133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CHANGELOG/" class="md-nav__link">
+      <a href="../../../CHANGELOG/" class="md-nav__link">
         
   
   
@@ -9326,7 +9161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../VERSION-HISTORY/" class="md-nav__link">
+      <a href="../../../VERSION-HISTORY/" class="md-nav__link">
         
   
   
@@ -9354,7 +9189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../RELEASE-v2.8.0/" class="md-nav__link">
+      <a href="../../../RELEASE-v2.8.0/" class="md-nav__link">
         
   
   
@@ -9432,7 +9267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-FORMATTING/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-FORMATTING/" class="md-nav__link">
         
   
   
@@ -9460,7 +9295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -9488,7 +9323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
         
   
   
@@ -9516,7 +9351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
         
   
   
@@ -9544,7 +9379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
         
   
   
@@ -9572,7 +9407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-CLAUDE-MD/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-CLAUDE-MD/" class="md-nav__link">
         
   
   
@@ -9600,7 +9435,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-BRAINSTORM/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-BRAINSTORM/" class="md-nav__link">
         
   
   
@@ -9628,7 +9463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
         
   
   
@@ -9656,7 +9491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-PROTECT-BASELINE/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-PROTECT-BASELINE/" class="md-nav__link">
         
   
   
@@ -9684,7 +9519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-WORKFLOW/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-WORKFLOW/" class="md-nav__link">
         
   
   
@@ -9712,7 +9547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-RELEASE/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-RELEASE/" class="md-nav__link">
         
   
   
@@ -9740,7 +9575,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-TESTING/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-TESTING/" class="md-nav__link">
         
   
   
@@ -9768,7 +9603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-HOMEBREW/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-HOMEBREW/" class="md-nav__link">
         
   
   
@@ -9796,7 +9631,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-CHECK/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-CHECK/" class="md-nav__link">
         
   
   
@@ -9824,7 +9659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-INSIGHTS/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-INSIGHTS/" class="md-nav__link">
         
   
   
@@ -9852,7 +9687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-BUMP-VERSION/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-BUMP-VERSION/" class="md-nav__link">
         
   
   
@@ -9880,7 +9715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-POST-RELEASE-SWEEP/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-POST-RELEASE-SWEEP/" class="md-nav__link">
         
   
   
@@ -9908,7 +9743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-RELEASE-WATCH/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-RELEASE-WATCH/" class="md-nav__link">
         
   
   
@@ -9936,7 +9771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/REFCARD-DOCS-STALENESS/" class="md-nav__link">
+      <a href="../../../reference/REFCARD-DOCS-STALENESS/" class="md-nav__link">
         
   
   
@@ -9964,7 +9799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/COMMAND-EXAMPLES/" class="md-nav__link">
+      <a href="../../../reference/COMMAND-EXAMPLES/" class="md-nav__link">
         
   
   
@@ -9992,7 +9827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/COMMAND-PARAMETERS/" class="md-nav__link">
+      <a href="../../../reference/COMMAND-PARAMETERS/" class="md-nav__link">
         
   
   
@@ -10020,7 +9855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/ERROR-SCENARIOS/" class="md-nav__link">
+      <a href="../../../reference/ERROR-SCENARIOS/" class="md-nav__link">
         
   
   
@@ -10048,7 +9883,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/SKILL-STANDARDS/" class="md-nav__link">
+      <a href="../../../reference/SKILL-STANDARDS/" class="md-nav__link">
         
   
   
@@ -10134,7 +9969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
+      <a href="../../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
         
   
   
@@ -10162,7 +9997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
+      <a href="../../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
         
   
   
@@ -10240,7 +10075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
+      <a href="../../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
         
   
   
@@ -10318,7 +10153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../../tutorials/" class="md-nav__link">
         
   
   
@@ -10346,7 +10181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dependency-management-getting-started/" class="md-nav__link">
+      <a href="../../../tutorials/dependency-management-getting-started/" class="md-nav__link">
         
   
   
@@ -10382,7 +10217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../API-REFERENCE/" class="md-nav__link">
+      <a href="../../../API-REFERENCE/" class="md-nav__link">
         
   
   
@@ -10410,7 +10245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -10438,7 +10273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../DEVELOPER-GUIDE/" class="md-nav__link">
+      <a href="../../../DEVELOPER-GUIDE/" class="md-nav__link">
         
   
   
@@ -10532,7 +10367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../runbooks/parity-gate/" class="md-nav__link">
+      <a href="../../../runbooks/parity-gate/" class="md-nav__link">
         
   
   
@@ -10618,7 +10453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-badge-system-2026-01-30/" class="md-nav__link">
+      <a href="../SPEC-badge-system-2026-01-30/" class="md-nav__link">
         
   
   
@@ -10653,7 +10488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
+      <a href="../SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
         
   
   
@@ -10681,7 +10516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
+      <a href="../SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
         
   
   
@@ -10709,7 +10544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
+      <a href="../SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
         
   
   
@@ -10737,7 +10572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
+      <a href="../SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
         
   
   
@@ -10765,7 +10600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
+      <a href="../SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
         
   
   
@@ -10793,7 +10628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
         
   
   
@@ -10821,7 +10656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05/" class="md-nav__link">
+      <a href="../SPEC-styled-output-v2.14.0-2026-02-05/" class="md-nav__link">
         
   
   
@@ -10849,7 +10684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+      <a href="../SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
         
   
   
@@ -10877,7 +10712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-brainstorm-question-bank/" class="md-nav__link">
+      <a href="../SPEC-brainstorm-question-bank/" class="md-nav__link">
         
   
   
@@ -10905,7 +10740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-branch-protection-hooks-2026-02-06/" class="md-nav__link">
+      <a href="../SPEC-branch-protection-hooks-2026-02-06/" class="md-nav__link">
         
   
   
@@ -10933,7 +10768,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-branch-guard-v2-confirmation-mode-2026-02-13/" class="md-nav__link">
+      <a href="../SPEC-branch-guard-v2-confirmation-mode-2026-02-13/" class="md-nav__link">
         
   
   
@@ -10961,7 +10796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-bump-version-ci-status-2026-02-19/" class="md-nav__link">
+      <a href="../SPEC-bump-version-ci-status-2026-02-19/" class="md-nav__link">
         
   
   
@@ -10989,7 +10824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-bump-version-docs-2026-02-19/" class="md-nav__link">
+      <a href="../SPEC-bump-version-docs-2026-02-19/" class="md-nav__link">
         
   
   
@@ -11017,7 +10852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-claude-md-refactor-2026-02-18/" class="md-nav__link">
+      <a href="../SPEC-claude-md-refactor-2026-02-18/" class="md-nav__link">
         
   
   
@@ -11045,7 +10880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-claude-md-v3-optimization-2026-02-04/" class="md-nav__link">
+      <a href="../SPEC-claude-md-v3-optimization-2026-02-04/" class="md-nav__link">
         
   
   
@@ -11073,7 +10908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-demo-dependency-management-2026-01-17/" class="md-nav__link">
+      <a href="../SPEC-demo-dependency-management-2026-01-17/" class="md-nav__link">
         
   
   
@@ -11101,7 +10936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-docs-gap-fill-2026-02-05/" class="md-nav__link">
+      <a href="../SPEC-docs-gap-fill-2026-02-05/" class="md-nav__link">
         
   
   
@@ -11129,7 +10964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-docs-improvement-2026-01-14/" class="md-nav__link">
+      <a href="../SPEC-docs-improvement-2026-01-14/" class="md-nav__link">
         
   
   
@@ -11157,7 +10992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-docs-sync-update-integration-2026-01-22/" class="md-nav__link">
+      <a href="../SPEC-docs-sync-update-integration-2026-01-22/" class="md-nav__link">
         
   
   
@@ -11185,7 +11020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-engineering-improvements-v2.8.0/" class="md-nav__link">
+      <a href="../SPEC-engineering-improvements-v2.8.0/" class="md-nav__link">
         
   
   
@@ -11213,7 +11048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-full-markdown-linting-2026-01-25/" class="md-nav__link">
+      <a href="../SPEC-full-markdown-linting-2026-01-25/" class="md-nav__link">
         
   
   
@@ -11241,7 +11076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-markdownlint-list-spacing-2026-01-19/" class="md-nav__link">
+      <a href="../SPEC-markdownlint-list-spacing-2026-01-19/" class="md-nav__link">
         
   
   
@@ -11269,7 +11104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-orch-flag-integration-2026-01-19/" class="md-nav__link">
+      <a href="../SPEC-orch-flag-integration-2026-01-19/" class="md-nav__link">
         
   
   
@@ -11297,7 +11132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-orch-flag-v2.5.1-improvements-2026-01-19/" class="md-nav__link">
+      <a href="../SPEC-orch-flag-v2.5.1-improvements-2026-01-19/" class="md-nav__link">
         
   
   
@@ -11325,7 +11160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-spec-integration-2026-01-16/" class="md-nav__link">
+      <a href="../SPEC-spec-integration-2026-01-16/" class="md-nav__link">
         
   
   
@@ -11360,7 +11195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../specs/_archive/SPEC-testing-enhancements-2025-12-30/" class="md-nav__link">
+      <a href="../SPEC-testing-enhancements-2025-12-30/" class="md-nav__link">
         
   
   
@@ -11453,7 +11288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../guide/documentation-quality-development/" class="md-nav__link">
+      <a href="../../../guide/documentation-quality-development/" class="md-nav__link">
         
   
   
@@ -11481,7 +11316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CI-TEMPLATES/" class="md-nav__link">
+      <a href="../../../CI-TEMPLATES/" class="md-nav__link">
         
   
   
@@ -11509,7 +11344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+      <a href="../../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
         
   
   
@@ -11587,7 +11422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../internal/" class="md-nav__link">
+      <a href="../../../internal/" class="md-nav__link">
         
   
   
@@ -11615,7 +11450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../internal/CLAUDE-MD-CONVENTIONS/" class="md-nav__link">
+      <a href="../../../internal/CLAUDE-MD-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -11643,7 +11478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../internal/TEST-CONVENTIONS/" class="md-nav__link">
+      <a href="../../../internal/TEST-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -11671,7 +11506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../internal/PYTHON-CONVENTIONS/" class="md-nav__link">
+      <a href="../../../internal/PYTHON-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -11699,7 +11534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../internal/COMMAND-SPEC-CONVENTIONS/" class="md-nav__link">
+      <a href="../../../internal/COMMAND-SPEC-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -11727,7 +11562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../internal/GROUNDING-craft/" class="md-nav__link">
+      <a href="../../../internal/GROUNDING-craft/" class="md-nav__link">
         
   
   
@@ -11755,7 +11590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../internal/TOKEN-EFFICIENCY-craft/" class="md-nav__link">
+      <a href="../../../internal/TOKEN-EFFICIENCY-craft/" class="md-nav__link">
         
   
   
@@ -11798,7 +11633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../REFCARD/" class="md-nav__link">
+      <a href="../../../REFCARD/" class="md-nav__link">
         
   
   
@@ -11845,10 +11680,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#step-1-list-available-sessions" class="md-nav__link">
+  <a href="#context-read-before-starting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: List Available Sessions
+        Context (read before starting)
       
     </span>
   </a>
@@ -11856,10 +11691,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-resume-by-session-number" class="md-nav__link">
+  <a href="#task-1-correct-the-delivered-reports-superpowers-section" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Resume by Session Number
+        Task 1: Correct the delivered report's Superpowers section
       
     </span>
   </a>
@@ -11867,10 +11702,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-resume-the-most-recent-session" class="md-nav__link">
+  <a href="#task-2-build-a-reusable-token-probe-script" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Resume the Most Recent Session
+        Task 2: Build a reusable token-probe script
       
     </span>
   </a>
@@ -11878,10 +11713,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-sync-session-state-across-devices" class="md-nav__link">
+  <a href="#task-3-draft-the-claude-context-pilot-skill" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Sync Session State Across Devices
+        Task 3: Draft the claude-context pilot skill
       
     </span>
   </a>
@@ -11889,10 +11724,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-resume-on-a-specific-device" class="md-nav__link">
+  <a href="#task-4-resolve-executing-plans-vs-subagent-driven-development-usage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Resume on a Specific Device
+        Task 4: Resolve executing-plans vs subagent-driven-development usage
       
     </span>
   </a>
@@ -11900,21 +11735,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-6-session-state-location" class="md-nav__link">
+  <a href="#recommended-execution-order" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 6: Session State Location
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What's Next
+        Recommended execution order
       
     </span>
   </a>
@@ -11938,7 +11762,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/tutorials/TUTORIAL-orchestrate-resume.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/specs/_archive/SPEC-superpowers-claude-context-workflows-2026-07-01.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -11946,71 +11770,108 @@
   
 
 
-<h1 id="tutorial-orchestrateresume-resume-an-orchestration-session">Tutorial: orchestrate:resume — Resume an Orchestration Session<a class="headerlink" href="#tutorial-orchestrateresume-resume-an-orchestration-session" title="Permanent link">&para;</a></h1>
-<p>By the end of this tutorial you will have:</p>
+<h1 id="proposal-superpowers-scoping-correction-claude-context-pilot-reusable-token-probe">Proposal: Superpowers Scoping Correction, claude-context Pilot, Reusable Token Probe<a class="headerlink" href="#proposal-superpowers-scoping-correction-claude-context-pilot-reusable-token-probe" title="Permanent link">&para;</a></h1>
+<p><strong>Status:</strong> Consolidated 2026-07-01 into <code>SPEC-token-efficiency-and-context-tooling-2026-07-01.md</code> (Part B) after a grill pass. Tasks 1/2/4 approved; Task 3 blocked on <code>claude-context</code> MCP install (not connected in the grilling session). This file remains the source of record for full task steps.
+<strong>Date:</strong> 2026-07-01
+<strong>Related:</strong> <code>docs/internal/TOKEN-EFFICIENCY-craft.md</code>, <code>docs/specs/SPEC-token-efficiency-research-2026-06-30.md</code>, PR #232, <code>docs/plans/2026-06-30-namespace-token-probe.md</code>, outputs/report/<code>Token-Efficiency-Report-and-Proposal.docx</code> (external deliverable — Section 3.3/C1 needs correction per Finding 1)</p>
+<blockquote>
+<p><strong>For agentic workers:</strong> REQUIRED SUB-SKILL: Use <code>superpowers:subagent-driven-development</code> (recommended) or <code>superpowers:executing-plans</code> to implement Task 2 and Task 3 below task-by-task. Task 1 and Task 4 are small enough to do directly.</p>
+</blockquote>
+<hr />
+<h2 id="context-read-before-starting">Context (read before starting)<a class="headerlink" href="#context-read-before-starting" title="Permanent link">&para;</a></h2>
+<p>Two established findings anchor this proposal. Both were verified directly against repo state, not inferred from external research.</p>
+<p><strong>Finding 1 — Superpowers is not a competitor to craft; <code>subagent-driven-development</code> is craft's execution engine.</strong></p>
+<p>Every file under <code>docs/plans/*.md</code> requires <code>superpowers:subagent-driven-development</code> (or <code>superpowers:executing-plans</code>) as a sub-skill. <code>.STATUS</code> documents multiple shipped releases built exactly this way (v2.52.0: "spec→grill→plan→subagent-driven-TDD"; v2.49.x: "craft:grill → superpowers writing-plans → 2 dynamic Workflows"). <code>.superpowers/sdd/</code> contains 39 real review-diff artifacts — active use, not a dormant dependency.</p>
+<p>A previously delivered external report (<code>Token-Efficiency-Report-and-Proposal.docx</code>, Section 3.3/C1) recommended blanket non-adoption of Superpowers. That call is correct only for Superpowers' orchestrate/brainstorm/clarify-design-plan-code-verify layer, which genuinely overlaps with <code>/craft:orchestrate</code> + <code>/craft:grill</code>. It's wrong for <code>subagent-driven-development</code>, which craft's own plan template already requires. The corrected, scoped verdict:</p>
+<table>
+<thead>
+<tr>
+<th>Superpowers component</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>subagent-driven-development</code></td>
+<td>Keep — load-bearing, no craft replacement exists</td>
+</tr>
+<tr>
+<td><code>executing-plans</code></td>
+<td>Keep as documented fallback — usage vs. <code>subagent-driven-development</code> unconfirmed (see Task 4)</td>
+</tr>
+<tr>
+<td>orchestrate/brainstorm/clarify-design-plan-code-verify layer</td>
+<td>Do not adopt — redundant with <code>/craft:orchestrate</code> + <code>/craft:grill</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Finding 2 — claude-context has zero namespace clashes with craft or savant.</strong></p>
+<p><code>craft/.mcp.json</code> registers only <code>mcp-mermaid</code>. <code>savant/.claude-plugin/plugin.json</code> registers no MCP servers at all (commands + skills only). Adding claude-context's MCP server introduces no tool-name collisions. It is a parallel, opt-in semantic-search path for large/fuzzy queries — not a replacement for <code>Grep</code>/<code>Glob</code>, which stays correct and cheaper for exact-match lookups. Best-fit pilot surface: <code>~/projects/r-packages/</code> (6-package MediationVerse ecosystem) — large enough that a vague query can pull 10k+ irrelevant tokens via grep today. Not craft itself (too small to need it).</p>
+<hr />
+<h2 id="task-1-correct-the-delivered-reports-superpowers-section">Task 1: Correct the delivered report's Superpowers section<a class="headerlink" href="#task-1-correct-the-delivered-reports-superpowers-section" title="Permanent link">&para;</a></h2>
+<p><strong>Effort: ~15 min. No sub-skill required — do directly.</strong></p>
+<p><strong>Files:</strong></p>
 <ul>
-<li>Resumed a paused or interrupted orchestration session by ID</li>
-<li>Synced session state across devices</li>
-<li>Understood how session teleportation works</li>
+<li>Edit: <code>outputs/report/Token-Efficiency-Report-and-Proposal.docx</code> (or wherever this file lives when the session starts — locate via <code>find . -iname "Token-Efficiency-Report*"</code> if the path above is stale)</li>
 </ul>
-<p><strong>Prerequisites:</strong> craft installed, a prior orchestration session that was saved or interrupted.</p>
-<hr />
-<h2 id="step-1-list-available-sessions">Step 1: List Available Sessions<a class="headerlink" href="#step-1-list-available-sessions" title="Permanent link">&para;</a></h2>
-<p>Before resuming, see what sessions are available:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orchestrate history
-</span></code></pre></div>
-<p>Output:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Session History
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>───────────────
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a># │ Date        │ Goal                              │ Status
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>──┼─────────────┼───────────────────────────────────┼────────────
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>1 │ 2026-06-19  │ Add OAuth2 authentication          │ 60% complete
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>2 │ 2026-06-18  │ Refactor auth middleware           │ complete
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>3 │ 2026-06-17  │ Generate CI workflow               │ abandoned
-</span></code></pre></div>
-<hr />
-<h2 id="step-2-resume-by-session-number">Step 2: Resume by Session Number<a class="headerlink" href="#step-2-resume-by-session-number" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orchestrate:resume --session-id 1
-</span></code></pre></div>
-<p>Restores the session state and continues from where it was interrupted:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Resuming Session #1 — OAuth2 Authentication
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>─────────────────────────────────────────────
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Restored: 3 completed waves
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Remaining: Wave 4 (frontend login UI)
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>Continuing from Wave 4...
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  Spawning agent: ui-1 (frontend login component)
-</span></code></pre></div>
-<hr />
-<h2 id="step-3-resume-the-most-recent-session">Step 3: Resume the Most Recent Session<a class="headerlink" href="#step-3-resume-the-most-recent-session" title="Permanent link">&para;</a></h2>
-<p>Without <code>--session-id</code>, resumes the most recent incomplete session:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:orchestrate:resume
-</span></code></pre></div>
-<hr />
-<h2 id="step-4-sync-session-state-across-devices">Step 4: Sync Session State Across Devices<a class="headerlink" href="#step-4-sync-session-state-across-devices" title="Permanent link">&para;</a></h2>
-<p>If you started a session on one machine and want to continue on another:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:orchestrate:resume --sync
-</span></code></pre></div>
-<p>Pulls the latest session state from the shared state store before resuming. Requires atlas session sync to be configured.</p>
-<hr />
-<h2 id="step-5-resume-on-a-specific-device">Step 5: Resume on a Specific Device<a class="headerlink" href="#step-5-resume-on-a-specific-device" title="Permanent link">&para;</a></h2>
-<p>For session teleportation — continue an orchestration in Claude Desktop from a Claude Code session:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:orchestrate:resume --session-id abc123 --device desktop
-</span></code></pre></div>
-<p>This packages the session state for handoff to the Claude Desktop environment.</p>
-<hr />
-<h2 id="step-6-session-state-location">Step 6: Session State Location<a class="headerlink" href="#step-6-session-state-location" title="Permanent link">&para;</a></h2>
-<p>Sessions are stored at:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>.claude/orchestrator-session.json     # Current session
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>.claude/orchestrator-history/         # Archived sessions
-</span></code></pre></div>
-<hr />
-<h2 id="whats-next">What's Next<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
+<p><strong>Steps:</strong></p>
 <ul>
-<li>Use <code>/craft:orchestrate continue</code> (shorthand) in the same session to resume the last saved state</li>
-<li>Use <code>/craft:orchestrate save</code> to checkpoint before switching devices</li>
-<li>See <a href="../TUTORIAL-orchestrate-workflow/">orchestrate workflow tutorial</a> for the full orchestration flow</li>
+<li>[ ] Open the docx skill (<code>docx</code> — read/edit existing document workflow) and locate Section 3.3 / recommendation C1 ("Do not adopt Superpowers").</li>
+<li>[ ] Replace the blanket verdict with the scoped table from Finding 1 above (three rows: <code>subagent-driven-development</code> / <code>executing-plans</code> / orchestrate-brainstorm layer).</li>
+<li>[ ] Add a visible correction marker, e.g. italic note: "Corrected 2026-07-01: this recommendation originally applied to the whole Superpowers plugin; scoped down after direct repo inspection found <code>subagent-driven-development</code> already required by craft's plan template."</li>
+<li>[ ] Re-validate the docx (<code>scripts/office/validate.py</code> per the docx skill) and re-save.</li>
 </ul>
+<p><strong>Done when:</strong> Section 3.3 reflects the three-row scoped table, not a single up/down call.</p>
+<hr />
+<h2 id="task-2-build-a-reusable-token-probe-script">Task 2: Build a reusable token-probe script<a class="headerlink" href="#task-2-build-a-reusable-token-probe-script" title="Permanent link">&para;</a></h2>
+<p><strong>Effort: ~30-45 min. Do this before Task 3 — it makes the claude-context pilot measurable instead of anecdotal.</strong></p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Create: <code>scripts/token-probe.py</code></li>
+<li>Reference: <code>docs/plans/2026-06-30-namespace-token-probe.md</code> (source methodology — disposable <code>scratch/namespace-probe/</code> script, <code>tiktoken</code> cl100k_base, measured 68.3% reduction on the namespace-consolidation question)</li>
+<li>Delete when done: any leftover <code>scratch/namespace-probe/*</code> files if still present</li>
+</ul>
+<p><strong>Steps:</strong></p>
+<ul>
+<li>[ ] <strong>Step 1:</strong> Read the existing disposable probe at <code>docs/plans/2026-06-30-namespace-token-probe.md</code> in full to recover its comparison logic (synthetic before/after fixture generation, <code>tiktoken</code> counting, printed diff).</li>
+<li>[ ] <strong>Step 2:</strong> Generalize it into <code>scripts/token-probe.py</code> — parameterize on two file-set globs (<code>--before &lt;glob&gt;</code> / <code>--after &lt;glob&gt;</code>) instead of hardcoded namespace fixtures, so it works for any future "should we merge/split X" question, not just the namespace refactor.</li>
+<li>[ ] <strong>Step 3:</strong> Keep the cl100k_base-vs-Claude's-real-tokenizer caveat, stated once in the script's module docstring (it's a relative-comparison tool, not an exact Claude token count).</li>
+<li>[ ] <strong>Step 4:</strong> Add a <code>--help</code> usage example and a one-line entry in the relevant docs table (check <code>docs/REFCARD.md</code> or wherever <code>scripts/</code> utilities are indexed — search for <code>audit-deprecated-commands.py</code>'s entry as a pattern to follow).</li>
+<li>[ ] <strong>Step 5:</strong> Run it once against a real before/after pair to confirm it reproduces (approximately) the original 68.3% namespace-refactor figure, as a sanity check.</li>
+</ul>
+<p><strong>Done when:</strong> <code>python3 scripts/token-probe.py --before &lt;glob&gt; --after &lt;glob&gt;</code> runs standalone and produces a token-count comparison with no hardcoded fixture data.</p>
+<hr />
+<h2 id="task-3-draft-the-claude-context-pilot-skill">Task 3: Draft the claude-context pilot skill<a class="headerlink" href="#task-3-draft-the-claude-context-pilot-skill" title="Permanent link">&para;</a></h2>
+<p><strong>Effort: ~1-2 hrs including before/after measurement via Task 2's script.</strong></p>
+<p><strong>Files:</strong></p>
+<ul>
+<li>Create: <code>skills/code/semantic-code-search/SKILL.md</code></li>
+<li>Reference/template: <code>skills/code/command-skill-token-efficiency/SKILL.md</code> (existing skill already encoding the thin-command/fat-skill authoring convention — copy its structure, not its content)</li>
+</ul>
+<p><strong>Steps:</strong></p>
+<ul>
+<li>[ ] <strong>Step 1:</strong> Scaffold <code>skills/code/semantic-code-search/SKILL.md</code> using <code>command-skill-token-efficiency</code>'s frontmatter/structure as the template.</li>
+<li>[ ] <strong>Step 2:</strong> Define trigger conditions — requests like "find where X is defined across the R packages," "search the MediationVerse codebase for Y," or similar cross-package/fuzzy lookups. Avoid triggering on requests better served by exact-match <code>Grep</code> (a literal string, a known symbol name).</li>
+<li>[ ] <strong>Step 3:</strong> Implement the MCP-availability fallback: call claude-context's tools (e.g. <code>search_code</code>) when its MCP server is connected; silently fall back to <code>Grep</code>/<code>Glob</code> if not connected. No hard dependency — the skill must not error or block when claude-context isn't configured on a given machine.</li>
+<li>[ ] <strong>Step 4:</strong> Pilot against one MediationVerse package — use <code>medfit</code> (P0, CRAN-bound, most real usage history to search against; path <code>~/projects/r-packages/active/medfit</code>, per the user's global project map — read <code>medfit/CLAUDE.md</code> first for upstream context, per standing convention).</li>
+<li>[ ] <strong>Step 5:</strong> Run 3-5 representative fuzzy queries against <code>medfit</code> both with and without the skill active; measure token cost via <code>scripts/token-probe.py</code> (Task 2) rather than a qualitative "feels faster" judgment.</li>
+<li>[ ] <strong>Step 6:</strong> Write up the pilot result (adopt / expand to other packages / abandon) as a short addendum to this proposal or a new <code>docs/specs/SPEC-claude-context-pilot-&lt;date&gt;.md</code>, following the SPEC-naming convention already in use.</li>
+</ul>
+<p><strong>Done when:</strong> The skill exists, has a fallback path, and the pilot produces a measured (not estimated) before/after token comparison on <code>medfit</code>.</p>
+<hr />
+<h2 id="task-4-resolve-executing-plans-vs-subagent-driven-development-usage">Task 4: Resolve <code>executing-plans</code> vs <code>subagent-driven-development</code> usage<a class="headerlink" href="#task-4-resolve-executing-plans-vs-subagent-driven-development-usage" title="Permanent link">&para;</a></h2>
+<p><strong>Effort: ~10 min. No sub-skill required — do directly, any time, doesn't block Tasks 1-3.</strong></p>
+<p><strong>Steps:</strong></p>
+<ul>
+<li>[ ] Search git history and <code>.superpowers/</code> state for evidence of which of the two documented options (<code>subagent-driven-development</code> vs <code>executing-plans</code>) has actually been invoked across past releases — e.g. <code>git log --all --grep="executing-plans"</code> and inspect <code>.superpowers/</code> subdirectories beyond <code>sdd/</code> for an <code>executing-plans</code>-specific state path.</li>
+<li>[ ] If <code>executing-plans</code> shows zero real usage, simplify the required-sub-skill line in the <code>docs/plans/*.md</code> template (and any generator that stamps it) to name only <code>subagent-driven-development</code>, dropping the redundant "or executing-plans" alternative.</li>
+<li>[ ] If <code>executing-plans</code> has real usage, leave the template as-is and note the split in this file's Context section for future reference.</li>
+</ul>
+<p><strong>Done when:</strong> The plan-template's required-sub-skill line either stays as documented or is simplified, with the decision backed by actual git/state evidence — not left as an open question.</p>
+<hr />
+<h2 id="recommended-execution-order">Recommended execution order<a class="headerlink" href="#recommended-execution-order" title="Permanent link">&para;</a></h2>
+<p><strong>Task 1 → Task 2 → Task 3 → Task 4</strong></p>
+<p>Task 1 is cheap and closes a factual gap in an already-delivered external document — do it first regardless of what else happens this session. Task 2 must precede Task 3 if you want the pilot to produce a real measurement rather than a subjective impression. Task 4 is independent and can slot in anywhere, including a different session entirely.</p>
 
 
 
@@ -12066,12 +11927,12 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../javascripts/mermaid-init.js"></script>
+        <script src="../../../javascripts/mermaid-init.js"></script>
       
     
   </body>

@@ -489,10 +489,6 @@
          <lastmod>2026-07-01</lastmod>
     </url>
     <url>
-         <loc>https://data-wise.github.io/craft/commands/orchestrate/resume/</loc>
-         <lastmod>2026-07-01</lastmod>
-    </url>
-    <url>
          <loc>https://data-wise.github.io/craft/commands/orchestrate/workflow/</loc>
          <lastmod>2026-07-01</lastmod>
     </url>
@@ -889,6 +885,10 @@
          <lastmod>2026-07-01</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/reference/GRILL-PROMPT-craft/</loc>
+         <lastmod>2026-07-01</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/reference/REFCARD-BRAINSTORM/</loc>
          <lastmod>2026-07-01</lastmod>
     </url>
@@ -997,6 +997,30 @@
          <lastmod>2026-07-01</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/specs/BRAINSTORM-command-namespace-naming-rule-2026-07-01/</loc>
+         <lastmod>2026-07-01</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/specs/BRAINSTORM-command-skill-consolidation-audit-2026-07-01/</loc>
+         <lastmod>2026-07-01</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/specs/BRAINSTORM-doc-impact-scaffolding-2026-07-01/</loc>
+         <lastmod>2026-07-01</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/specs/BRAINSTORM-doc-production-taxonomy-2026-07-01/</loc>
+         <lastmod>2026-07-01</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/specs/BRAINSTORM-refine-flags-2026-07-01/</loc>
+         <lastmod>2026-07-01</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/specs/PROPOSAL-orchestrate-family-simplification-2026-07-01/</loc>
+         <lastmod>2026-07-01</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/specs/_archive/SPEC-badge-system-2026-01-30/</loc>
          <lastmod>2026-07-01</lastmod>
     </url>
@@ -1097,6 +1121,10 @@
          <lastmod>2026-07-01</lastmod>
     </url>
     <url>
+         <loc>https://data-wise.github.io/craft/specs/_archive/SPEC-superpowers-claude-context-workflows-2026-07-01/</loc>
+         <lastmod>2026-07-01</lastmod>
+    </url>
+    <url>
          <loc>https://data-wise.github.io/craft/specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06/</loc>
          <lastmod>2026-07-01</lastmod>
     </url>
@@ -1106,6 +1134,10 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/specs/_archive/SPEC-testing-enhancements-2025-12-30/</loc>
+         <lastmod>2026-07-01</lastmod>
+    </url>
+    <url>
+         <loc>https://data-wise.github.io/craft/specs/_archive/SPEC-token-efficiency-research-2026-06-30/</loc>
          <lastmod>2026-07-01</lastmod>
     </url>
     <url>
@@ -1282,10 +1314,6 @@
     </url>
     <url>
          <loc>https://data-wise.github.io/craft/tutorials/TUTORIAL-orchestrate-drive/</loc>
-         <lastmod>2026-07-01</lastmod>
-    </url>
-    <url>
-         <loc>https://data-wise.github.io/craft/tutorials/TUTORIAL-orchestrate-resume/</loc>
          <lastmod>2026-07-01</lastmod>
     </url>
     <url>

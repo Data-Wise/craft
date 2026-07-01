@@ -6,35 +6,31 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 117 commands, 8 agents, 43 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.56.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 116 commands, 8 agents, 44 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.57.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/commands/orchestrate/resume/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/specs/BRAINSTORM-doc-impact-scaffolding-2026-07-01/">
       
       
-        <link rel="prev" href="../drive/">
-      
-      
-        <link rel="next" href="../workflow/">
       
       
         
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>/craft:orchestrate:resume - Craft Plugin</title>
+        <title>BRAINSTORM: Comprehensive Documentation-Impact Scaffolding - Craft Plugin</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +49,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#craftorchestrateresume" class="md-skip">
+        <a href="#brainstorm-comprehensive-documentation-impact-scaffolding" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              /craft:orchestrate:resume
+              BRAINSTORM: Comprehensive Documentation-Impact Scaffolding
             
           </span>
         </div>
@@ -229,7 +225,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../.." class="md-tabs__link">
+        <a href="../.." class="md-tabs__link">
           
   
   
@@ -249,7 +245,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../guide/getting-started/" class="md-tabs__link">
+        <a href="../../guide/getting-started/" class="md-tabs__link">
           
   
   
@@ -269,7 +265,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../teaching/" class="md-tabs__link">
+        <a href="../../teaching/" class="md-tabs__link">
           
   
   
@@ -285,13 +281,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../overview/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../commands/overview/" class="md-tabs__link">
           
   
   
@@ -311,7 +305,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../cookbook/" class="md-tabs__link">
+        <a href="../../cookbook/" class="md-tabs__link">
           
   
   
@@ -331,7 +325,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../reference/configuration/" class="md-tabs__link">
+        <a href="../../reference/configuration/" class="md-tabs__link">
           
   
   
@@ -351,7 +345,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../guide/documentation-quality-development/" class="md-tabs__link">
+        <a href="../../guide/documentation-quality-development/" class="md-tabs__link">
           
   
   
@@ -369,7 +363,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../REFCARD/" class="md-tabs__link">
+      <a href="../../REFCARD/" class="md-tabs__link">
         
   
   
@@ -404,7 +398,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -484,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -512,7 +506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../QUICK-START/" class="md-nav__link">
+      <a href="../../QUICK-START/" class="md-nav__link">
         
   
   
@@ -540,7 +534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ADHD-QUICK-START/" class="md-nav__link">
+      <a href="../../ADHD-QUICK-START/" class="md-nav__link">
         
   
   
@@ -568,7 +562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/choose-path/" class="md-nav__link">
+      <a href="../../getting-started/choose-path/" class="md-nav__link">
         
   
   
@@ -596,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../workflows/" class="md-nav__link">
+      <a href="../../workflows/" class="md-nav__link">
         
   
   
@@ -624,7 +618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../PLAYGROUND/" class="md-nav__link">
+      <a href="../../PLAYGROUND/" class="md-nav__link">
         
   
   
@@ -709,7 +703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/getting-started/" class="md-nav__link">
+      <a href="../../guide/getting-started/" class="md-nav__link">
         
   
   
@@ -787,7 +781,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -815,7 +809,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/claude-code-2.1-integration/" class="md-nav__link">
+      <a href="../../guide/claude-code-2.1-integration/" class="md-nav__link">
         
   
   
@@ -843,7 +837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/complexity-scoring-algorithm/" class="md-nav__link">
+      <a href="../../guide/complexity-scoring-algorithm/" class="md-nav__link">
         
   
   
@@ -871,7 +865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -899,7 +893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -927,7 +921,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -955,7 +949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/claude-code-2.1-guide/" class="md-nav__link">
+      <a href="../../guide/claude-code-2.1-guide/" class="md-nav__link">
         
   
   
@@ -1041,7 +1035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/documentation-quality/" class="md-nav__link">
+      <a href="../../guide/documentation-quality/" class="md-nav__link">
         
   
   
@@ -1069,7 +1063,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+      <a href="../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
         
   
   
@@ -1097,7 +1091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/release-watch/" class="md-nav__link">
+      <a href="../../guide/release-watch/" class="md-nav__link">
         
   
   
@@ -1125,7 +1119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-release-watch-v2/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-release-watch-v2/" class="md-nav__link">
         
   
   
@@ -1153,7 +1147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/ci-triage-and-watch/" class="md-nav__link">
+      <a href="../../guide/ci-triage-and-watch/" class="md-nav__link">
         
   
   
@@ -1181,7 +1175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../workflows/release-workflow/" class="md-nav__link">
+      <a href="../../workflows/release-workflow/" class="md-nav__link">
         
   
   
@@ -1209,7 +1203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../workflows/git-feature-workflow/" class="md-nav__link">
+      <a href="../../workflows/git-feature-workflow/" class="md-nav__link">
         
   
   
@@ -1237,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../workflows/pre-commit-workflow/" class="md-nav__link">
+      <a href="../../workflows/pre-commit-workflow/" class="md-nav__link">
         
   
   
@@ -1323,7 +1317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/bash-formatting-library/" class="md-nav__link">
+      <a href="../../guide/bash-formatting-library/" class="md-nav__link">
         
   
   
@@ -1351,7 +1345,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
         
   
   
@@ -1379,7 +1373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/badge-management/" class="md-nav__link">
+      <a href="../../guide/badge-management/" class="md-nav__link">
         
   
   
@@ -1407,7 +1401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-badge-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-badge-workflow/" class="md-nav__link">
         
   
   
@@ -1435,7 +1429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/headless-recipes/" class="md-nav__link">
+      <a href="../../guide/headless-recipes/" class="md-nav__link">
         
   
   
@@ -1463,7 +1457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/interactive-commands/" class="md-nav__link">
+      <a href="../../guide/interactive-commands/" class="md-nav__link">
         
   
   
@@ -1491,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/check-command-mastery/" class="md-nav__link">
+      <a href="../../guide/check-command-mastery/" class="md-nav__link">
         
   
   
@@ -1519,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/worktree-advanced-patterns/" class="md-nav__link">
+      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
         
   
   
@@ -1547,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/multi-repo-workflow/" class="md-nav__link">
+      <a href="../../guide/multi-repo-workflow/" class="md-nav__link">
         
   
   
@@ -1575,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/branch-guard-smart-mode/" class="md-nav__link">
+      <a href="../../guide/branch-guard-smart-mode/" class="md-nav__link">
         
   
   
@@ -1603,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
         
   
   
@@ -1631,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-protect-new-repo/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-protect-new-repo/" class="md-nav__link">
         
   
   
@@ -1659,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/guard-suite/" class="md-nav__link">
+      <a href="../../guide/guard-suite/" class="md-nav__link">
         
   
   
@@ -1687,7 +1681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/guard-design/" class="md-nav__link">
+      <a href="../../guide/guard-design/" class="md-nav__link">
         
   
   
@@ -1715,7 +1709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-guard-suite/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-guard-suite/" class="md-nav__link">
         
   
   
@@ -1743,7 +1737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-grill/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-grill/" class="md-nav__link">
         
   
   
@@ -1771,7 +1765,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/claude-md-workflows/" class="md-nav__link">
+      <a href="../../reference/GRILL-PROMPT-craft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reusable Grill Prompt (craft-tuned)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
   
@@ -1799,7 +1821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/interactive-orchestration/" class="md-nav__link">
+      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -1827,7 +1849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
         
   
   
@@ -1855,7 +1877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
         
   
   
@@ -1883,7 +1905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
         
   
   
@@ -1911,7 +1933,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-release-pipeline/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-release-pipeline/" class="md-nav__link">
         
   
   
@@ -1939,7 +1961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
         
   
   
@@ -1967,7 +1989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-homebrew-gates/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-homebrew-gates/" class="md-nav__link">
         
   
   
@@ -1995,7 +2017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
         
   
   
@@ -2023,7 +2045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-insights-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-insights-setup/" class="md-nav__link">
         
   
   
@@ -2051,7 +2073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/insights-improvements-guide/" class="md-nav__link">
+      <a href="../../guide/insights-improvements-guide/" class="md-nav__link">
         
   
   
@@ -2079,7 +2101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/learning-loop-session-completion/" class="md-nav__link">
+      <a href="../../guide/learning-loop-session-completion/" class="md-nav__link">
         
   
   
@@ -2107,7 +2129,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/hub-live-dashboard/" class="md-nav__link">
+      <a href="../../guide/hub-live-dashboard/" class="md-nav__link">
         
   
   
@@ -2135,7 +2157,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-version-sync-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-version-sync-setup/" class="md-nav__link">
         
   
   
@@ -2163,7 +2185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/ci-monitoring/" class="md-nav__link">
+      <a href="../../architecture/ci-monitoring/" class="md-nav__link">
         
   
   
@@ -2191,7 +2213,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/version-sync/" class="md-nav__link">
+      <a href="../../architecture/version-sync/" class="md-nav__link">
         
   
   
@@ -2219,7 +2241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/mermaid-validation-pipeline/" class="md-nav__link">
+      <a href="../../architecture/mermaid-validation-pipeline/" class="md-nav__link">
         
   
   
@@ -2247,7 +2269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
+      <a href="../../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
         
   
   
@@ -2275,7 +2297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../adr/ADR-002-done-command-skill-consolidation/" class="md-nav__link">
+      <a href="../../adr/ADR-002-done-command-skill-consolidation/" class="md-nav__link">
         
   
   
@@ -2303,7 +2325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../adr/ADR-003-release-drift-advisory-not-hard-gate/" class="md-nav__link">
+      <a href="../../adr/ADR-003-release-drift-advisory-not-hard-gate/" class="md-nav__link">
         
   
   
@@ -2331,7 +2353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../adr/ADR-004-release-surface-registry/" class="md-nav__link">
+      <a href="../../adr/ADR-004-release-surface-registry/" class="md-nav__link">
         
   
   
@@ -2359,7 +2381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
   
@@ -2387,7 +2409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
         
   
   
@@ -2415,7 +2437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-first-10-minutes/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-first-10-minutes/" class="md-nav__link">
         
   
   
@@ -2443,7 +2465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/check-tutorial-beginner/" class="md-nav__link">
+      <a href="../../tutorials/check-tutorial-beginner/" class="md-nav__link">
         
   
   
@@ -2471,7 +2493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/smart-routing-tutorial/" class="md-nav__link">
+      <a href="../../tutorials/smart-routing-tutorial/" class="md-nav__link">
         
   
   
@@ -2499,7 +2521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-refine-flag/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-refine-flag/" class="md-nav__link">
         
   
   
@@ -2527,7 +2549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../help/refine-flag/" class="md-nav__link">
+      <a href="../../help/refine-flag/" class="md-nav__link">
         
   
   
@@ -2555,7 +2577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-workflow-brief/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-workflow-brief/" class="md-nav__link">
         
   
   
@@ -2583,7 +2605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-orchestrate-drive/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-orchestrate-drive/" class="md-nav__link">
         
   
   
@@ -2611,7 +2633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../help/orchestrate-drive/" class="md-nav__link">
+      <a href="../../help/orchestrate-drive/" class="md-nav__link">
         
   
   
@@ -2639,7 +2661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-orchestrate-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-orchestrate-workflow/" class="md-nav__link">
         
   
   
@@ -2667,7 +2689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../help/orchestrate-workflow/" class="md-nav__link">
+      <a href="../../help/orchestrate-workflow/" class="md-nav__link">
         
   
   
@@ -2695,7 +2717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-done-optimization/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-done-optimization/" class="md-nav__link">
         
   
   
@@ -2723,7 +2745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../help/memory-optimization/" class="md-nav__link">
+      <a href="../../help/memory-optimization/" class="md-nav__link">
         
   
   
@@ -2751,7 +2773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/mermaid-authoring/" class="md-nav__link">
+      <a href="../../guide/mermaid-authoring/" class="md-nav__link">
         
   
   
@@ -2779,7 +2801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/mermaid-troubleshooting/" class="md-nav__link">
+      <a href="../../guide/mermaid-troubleshooting/" class="md-nav__link">
         
   
   
@@ -2818,10 +2840,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_54" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_55" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_54" id="__nav_2_4_54_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_55" id="__nav_2_4_55_label" tabindex="0">
             
   
   
@@ -2839,8 +2861,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_54_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_54">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_55_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_55">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2857,7 +2879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/testing-quickstart/" class="md-nav__link">
+      <a href="../../tutorials/testing-quickstart/" class="md-nav__link">
         
   
   
@@ -2885,7 +2907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/test-commands/" class="md-nav__link">
+      <a href="../../guide/test-commands/" class="md-nav__link">
         
   
   
@@ -2913,7 +2935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/test-architecture/" class="md-nav__link">
+      <a href="../../guide/test-architecture/" class="md-nav__link">
         
   
   
@@ -2941,7 +2963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/test-migration/" class="md-nav__link">
+      <a href="../../guide/test-migration/" class="md-nav__link">
         
   
   
@@ -2977,7 +2999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/test-wrapper-pattern/" class="md-nav__link">
+      <a href="../../guide/test-wrapper-pattern/" class="md-nav__link">
         
   
   
@@ -3016,10 +3038,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_56" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_56" id="__nav_2_4_56_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
             
   
   
@@ -3037,8 +3059,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_56_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_56">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_57">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3055,7 +3077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git-init-reference/" class="md-nav__link">
+      <a href="../../commands/git-init-reference/" class="md-nav__link">
         
   
   
@@ -3083,7 +3105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/git-init-tutorial/" class="md-nav__link">
+      <a href="../../guide/git-init-tutorial/" class="md-nav__link">
         
   
   
@@ -3111,7 +3133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/git-init-flow/" class="md-nav__link">
+      <a href="../../architecture/git-init-flow/" class="md-nav__link">
         
   
   
@@ -3139,7 +3161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../git-init-docs-index/" class="md-nav__link">
+      <a href="../../git-init-docs-index/" class="md-nav__link">
         
   
   
@@ -3175,7 +3197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
+      <a href="../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
         
   
   
@@ -3203,7 +3225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/orchestrator/" class="md-nav__link">
+      <a href="../../guide/orchestrator/" class="md-nav__link">
         
   
   
@@ -3231,7 +3253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/orch-flag-usage/" class="md-nav__link">
+      <a href="../../guide/orch-flag-usage/" class="md-nav__link">
         
   
   
@@ -3259,7 +3281,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/marketplace-distribution/" class="md-nav__link">
+      <a href="../../guide/marketplace-distribution/" class="md-nav__link">
         
   
   
@@ -3287,7 +3309,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/homebrew-installation/" class="md-nav__link">
+      <a href="../../guide/homebrew-installation/" class="md-nav__link">
         
   
   
@@ -3315,7 +3337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/homebrew-automation/" class="md-nav__link">
+      <a href="../../guide/homebrew-automation/" class="md-nav__link">
         
   
   
@@ -3343,7 +3365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/desktop-release/" class="md-nav__link">
+      <a href="../../guide/desktop-release/" class="md-nav__link">
         
   
   
@@ -3371,7 +3393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/plugin-release-runbook/" class="md-nav__link">
+      <a href="../../guide/plugin-release-runbook/" class="md-nav__link">
         
   
   
@@ -3399,7 +3421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../skills-agents/" class="md-nav__link">
+      <a href="../../skills-agents/" class="md-nav__link">
         
   
   
@@ -3427,7 +3449,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/governance/" class="md-nav__link">
+      <a href="../../guide/governance/" class="md-nav__link">
         
   
   
@@ -3455,7 +3477,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/integration-testing/" class="md-nav__link">
+      <a href="../../guide/integration-testing/" class="md-nav__link">
         
   
   
@@ -3483,7 +3505,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/markdown-list-spacing/" class="md-nav__link">
+      <a href="../../guide/markdown-list-spacing/" class="md-nav__link">
         
   
   
@@ -3511,7 +3533,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/dependency-management-advanced/" class="md-nav__link">
+      <a href="../../guide/dependency-management-advanced/" class="md-nav__link">
         
   
   
@@ -3539,7 +3561,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../ACCESSIBILITY/" class="md-nav__link">
+      <a href="../../ACCESSIBILITY/" class="md-nav__link">
         
   
   
@@ -3625,7 +3647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-arch-analyze/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-arch-analyze/" class="md-nav__link">
         
   
   
@@ -3653,7 +3675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-arch-plan/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-arch-plan/" class="md-nav__link">
         
   
   
@@ -3681,7 +3703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-ci-detect/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-detect/" class="md-nav__link">
         
   
   
@@ -3709,7 +3731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-ci-generate/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-generate/" class="md-nav__link">
         
   
   
@@ -3737,7 +3759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-ci-status/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-status/" class="md-nav__link">
         
   
   
@@ -3765,7 +3787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-ci-triage/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-triage/" class="md-nav__link">
         
   
   
@@ -3793,7 +3815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-ci-validate/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-validate/" class="md-nav__link">
         
   
   
@@ -3821,7 +3843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-ci-watch/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-watch/" class="md-nav__link">
         
   
   
@@ -3849,7 +3871,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-code-ci-local/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-ci-local/" class="md-nav__link">
         
   
   
@@ -3877,7 +3899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-code-command-audit/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-command-audit/" class="md-nav__link">
         
   
   
@@ -3905,7 +3927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-code-deps-audit/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-deps-audit/" class="md-nav__link">
         
   
   
@@ -3933,7 +3955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-code-desktop-watch/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-desktop-watch/" class="md-nav__link">
         
   
   
@@ -3961,7 +3983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-code-fewer-prompts/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-fewer-prompts/" class="md-nav__link">
         
   
   
@@ -3989,7 +4011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-code-lint/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-lint/" class="md-nav__link">
         
   
   
@@ -4017,7 +4039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-code-release-watch/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-release-watch/" class="md-nav__link">
         
   
   
@@ -4045,7 +4067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-code-skill-standards/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-skill-standards/" class="md-nav__link">
         
   
   
@@ -4073,7 +4095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-command-skill-token-efficiency/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-command-skill-token-efficiency/" class="md-nav__link">
         
   
   
@@ -4101,7 +4123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-dist-homebrew/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-dist-homebrew/" class="md-nav__link">
         
   
   
@@ -4129,7 +4151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-dist-surfaces/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-dist-surfaces/" class="md-nav__link">
         
   
   
@@ -4157,7 +4179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-docs-changelog/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-docs-changelog/" class="md-nav__link">
         
   
   
@@ -4185,7 +4207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-docs-check-links/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-docs-check-links/" class="md-nav__link">
         
   
   
@@ -4213,7 +4235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-docs-check/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-docs-check/" class="md-nav__link">
         
   
   
@@ -4241,7 +4263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-docs-lint/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-docs-lint/" class="md-nav__link">
         
   
   
@@ -4269,7 +4291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-docs-mermaid/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-docs-mermaid/" class="md-nav__link">
         
   
   
@@ -4297,7 +4319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-docs-sync/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-docs-sync/" class="md-nav__link">
         
   
   
@@ -4325,7 +4347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-git-guard/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-git-guard/" class="md-nav__link">
         
   
   
@@ -4353,35 +4375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-orchestrate-resume/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    orchestrate:resume Tutorial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-quota/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-quota/" class="md-nav__link">
         
   
   
@@ -4409,7 +4403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/TUTORIAL-smart-help/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-smart-help/" class="md-nav__link">
         
   
   
@@ -4502,7 +4496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../teaching/" class="md-nav__link">
+      <a href="../../teaching/" class="md-nav__link">
         
   
   
@@ -4580,7 +4574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/teaching-mode-setup/" class="md-nav__link">
+      <a href="../../tutorials/teaching-mode-setup/" class="md-nav__link">
         
   
   
@@ -4608,7 +4602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../teaching-config-schema/" class="md-nav__link">
+      <a href="../../teaching-config-schema/" class="md-nav__link">
         
   
   
@@ -4636,7 +4630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../teaching-migration/" class="md-nav__link">
+      <a href="../../teaching-migration/" class="md-nav__link">
         
   
   
@@ -4722,7 +4716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/teaching-workflow/" class="md-nav__link">
+      <a href="../../guide/teaching-workflow/" class="md-nav__link">
         
   
   
@@ -4750,7 +4744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../TEACHING-DOCS-INDEX/" class="md-nav__link">
+      <a href="../../TEACHING-DOCS-INDEX/" class="md-nav__link">
         
   
   
@@ -4778,7 +4772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-TEACHING/" class="md-nav__link">
+      <a href="../../reference/REFCARD-TEACHING/" class="md-nav__link">
         
   
   
@@ -4864,7 +4858,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
+      <a href="../_archive/SPEC-teaching-workflow-2026-01-16/" class="md-nav__link">
         
   
   
@@ -4892,7 +4886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-teaching-ecosystem-coordination-2026-02-06/" class="md-nav__link">
+      <a href="../_archive/SPEC-teaching-ecosystem-coordination-2026-02-06/" class="md-nav__link">
         
   
   
@@ -4932,29 +4926,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -4972,7 +4961,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4990,7 +4979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../overview/" class="md-nav__link">
+      <a href="../../commands/overview/" class="md-nav__link">
         
   
   
@@ -5068,7 +5057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../smart/" class="md-nav__link">
+      <a href="../../commands/smart/" class="md-nav__link">
         
   
   
@@ -5096,7 +5085,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/" class="md-nav__link">
+      <a href="../../commands/docs/" class="md-nav__link">
         
   
   
@@ -5124,7 +5113,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../site/" class="md-nav__link">
+      <a href="../../commands/site/" class="md-nav__link">
         
   
   
@@ -5152,7 +5141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/" class="md-nav__link">
+      <a href="../../commands/code/" class="md-nav__link">
         
   
   
@@ -5180,7 +5169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/" class="md-nav__link">
+      <a href="../../commands/git/" class="md-nav__link">
         
   
   
@@ -5208,7 +5197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arch/" class="md-nav__link">
+      <a href="../../commands/arch/" class="md-nav__link">
         
   
   
@@ -5236,7 +5225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dist/" class="md-nav__link">
+      <a href="../../commands/dist/" class="md-nav__link">
         
   
   
@@ -5264,7 +5253,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plan/" class="md-nav__link">
+      <a href="../../commands/plan/" class="md-nav__link">
         
   
   
@@ -5300,7 +5289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../" class="md-nav__link">
+      <a href="../../commands/" class="md-nav__link">
         
   
   
@@ -5325,8 +5314,6 @@
                 
   
   
-    
-  
   
   
     
@@ -5337,11 +5324,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
         
           
           <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
@@ -5362,7 +5349,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5380,7 +5367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../check/" class="md-nav__link">
+      <a href="../../commands/check/" class="md-nav__link">
         
   
   
@@ -5408,7 +5395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../do/" class="md-nav__link">
+      <a href="../../commands/do/" class="md-nav__link">
         
   
   
@@ -5436,7 +5423,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../grill/" class="md-nav__link">
+      <a href="../../commands/grill/" class="md-nav__link">
         
   
   
@@ -5464,7 +5451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../hub/" class="md-nav__link">
+      <a href="../../commands/hub/" class="md-nav__link">
         
   
   
@@ -5492,7 +5479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../commands/orchestrate/" class="md-nav__link">
         
   
   
@@ -5520,7 +5507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/orchestrate-reference/" class="md-nav__link">
+      <a href="../../reference/orchestrate-reference/" class="md-nav__link">
         
   
   
@@ -5548,7 +5535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../orchestrate-drive/" class="md-nav__link">
+      <a href="../../commands/orchestrate-drive/" class="md-nav__link">
         
   
   
@@ -5576,7 +5563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../quota/" class="md-nav__link">
+      <a href="../../commands/quota/" class="md-nav__link">
         
   
   
@@ -5604,7 +5591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../orchestrate-workflow/" class="md-nav__link">
+      <a href="../../commands/orchestrate-workflow/" class="md-nav__link">
         
   
   
@@ -5632,7 +5619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ci/generate/" class="md-nav__link">
+      <a href="../../commands/ci/generate/" class="md-nav__link">
         
   
   
@@ -5660,7 +5647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ci/status/" class="md-nav__link">
+      <a href="../../commands/ci/status/" class="md-nav__link">
         
   
   
@@ -5688,7 +5675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/api/" class="md-nav__link">
+      <a href="../../commands/docs/api/" class="md-nav__link">
         
   
   
@@ -5716,7 +5703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/changelog/" class="md-nav__link">
+      <a href="../../commands/docs/changelog/" class="md-nav__link">
         
   
   
@@ -5744,7 +5731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/check/" class="md-nav__link">
+      <a href="../../commands/docs/check/" class="md-nav__link">
         
   
   
@@ -5772,7 +5759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/check-links/" class="md-nav__link">
+      <a href="../../commands/docs/check-links/" class="md-nav__link">
         
   
   
@@ -5800,7 +5787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/claude-md/" class="md-nav__link">
+      <a href="../../commands/docs/claude-md/" class="md-nav__link">
         
   
   
@@ -5828,7 +5815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/claude-md/edit/" class="md-nav__link">
+      <a href="../../commands/docs/claude-md/edit/" class="md-nav__link">
         
   
   
@@ -5856,7 +5843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/claude-md/init/" class="md-nav__link">
+      <a href="../../commands/docs/claude-md/init/" class="md-nav__link">
         
   
   
@@ -5884,7 +5871,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/claude-md/sync/" class="md-nav__link">
+      <a href="../../commands/docs/claude-md/sync/" class="md-nav__link">
         
   
   
@@ -5912,7 +5899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/demo/" class="md-nav__link">
+      <a href="../../commands/docs/demo/" class="md-nav__link">
         
   
   
@@ -5940,7 +5927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/guide/" class="md-nav__link">
+      <a href="../../commands/docs/guide/" class="md-nav__link">
         
   
   
@@ -5968,7 +5955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/help/" class="md-nav__link">
+      <a href="../../commands/docs/help/" class="md-nav__link">
         
   
   
@@ -5996,7 +5983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/lint/" class="md-nav__link">
+      <a href="../../commands/docs/lint/" class="md-nav__link">
         
   
   
@@ -6024,7 +6011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/mermaid/" class="md-nav__link">
+      <a href="../../commands/docs/mermaid/" class="md-nav__link">
         
   
   
@@ -6052,7 +6039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/nav-update/" class="md-nav__link">
+      <a href="../../commands/docs/nav-update/" class="md-nav__link">
         
   
   
@@ -6080,7 +6067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/prompt/" class="md-nav__link">
+      <a href="../../commands/docs/prompt/" class="md-nav__link">
         
   
   
@@ -6108,7 +6095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/quickstart/" class="md-nav__link">
+      <a href="../../commands/docs/quickstart/" class="md-nav__link">
         
   
   
@@ -6136,7 +6123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/site/" class="md-nav__link">
+      <a href="../../commands/docs/site/" class="md-nav__link">
         
   
   
@@ -6164,7 +6151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/sync/" class="md-nav__link">
+      <a href="../../commands/docs/sync/" class="md-nav__link">
         
   
   
@@ -6192,7 +6179,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/tutorial/" class="md-nav__link">
+      <a href="../../commands/docs/tutorial/" class="md-nav__link">
         
   
   
@@ -6220,7 +6207,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/update/" class="md-nav__link">
+      <a href="../../commands/docs/update/" class="md-nav__link">
         
   
   
@@ -6248,7 +6235,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/website/" class="md-nav__link">
+      <a href="../../commands/docs/website/" class="md-nav__link">
         
   
   
@@ -6276,7 +6263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../docs/workflow/" class="md-nav__link">
+      <a href="../../commands/docs/workflow/" class="md-nav__link">
         
   
   
@@ -6304,7 +6291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/worktree/" class="md-nav__link">
+      <a href="../../commands/git/worktree/" class="md-nav__link">
         
   
   
@@ -6332,7 +6319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/brainstorm/" class="md-nav__link">
+      <a href="../../commands/workflow/brainstorm/" class="md-nav__link">
         
   
   
@@ -6360,7 +6347,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/brief/" class="md-nav__link">
+      <a href="../../commands/workflow/brief/" class="md-nav__link">
         
   
   
@@ -6388,7 +6375,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/insights/" class="md-nav__link">
+      <a href="../../commands/workflow/insights/" class="md-nav__link">
         
   
   
@@ -6416,7 +6403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/done/" class="md-nav__link">
+      <a href="../../commands/workflow/done/" class="md-nav__link">
         
   
   
@@ -6444,7 +6431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arch/analyze/" class="md-nav__link">
+      <a href="../../commands/arch/analyze/" class="md-nav__link">
         
   
   
@@ -6472,7 +6459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/lint/" class="md-nav__link">
+      <a href="../../commands/code/lint/" class="md-nav__link">
         
   
   
@@ -6500,7 +6487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/deps-audit/" class="md-nav__link">
+      <a href="../../commands/code/deps-audit/" class="md-nav__link">
         
   
   
@@ -6528,7 +6515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/ci-local/" class="md-nav__link">
+      <a href="../../commands/code/ci-local/" class="md-nav__link">
         
   
   
@@ -6556,7 +6543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/command-audit/" class="md-nav__link">
+      <a href="../../commands/code/command-audit/" class="md-nav__link">
         
   
   
@@ -6584,7 +6571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/release-watch/" class="md-nav__link">
+      <a href="../../commands/code/release-watch/" class="md-nav__link">
         
   
   
@@ -6612,7 +6599,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/desktop-watch/" class="md-nav__link">
+      <a href="../../commands/code/desktop-watch/" class="md-nav__link">
         
   
   
@@ -6640,7 +6627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/sync-features/" class="md-nav__link">
+      <a href="../../commands/code/sync-features/" class="md-nav__link">
         
   
   
@@ -6668,7 +6655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../test/" class="md-nav__link">
+      <a href="../../commands/test/" class="md-nav__link">
         
   
   
@@ -6696,7 +6683,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/branch/" class="md-nav__link">
+      <a href="../../commands/git/branch/" class="md-nav__link">
         
   
   
@@ -6724,7 +6711,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/clean/" class="md-nav__link">
+      <a href="../../commands/git/clean/" class="md-nav__link">
         
   
   
@@ -6752,7 +6739,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/status/" class="md-nav__link">
+      <a href="../../commands/git/status/" class="md-nav__link">
         
   
   
@@ -6780,7 +6767,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/sync/" class="md-nav__link">
+      <a href="../../commands/git/sync/" class="md-nav__link">
         
   
   
@@ -6808,7 +6795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/protect/" class="md-nav__link">
+      <a href="../../commands/git/protect/" class="md-nav__link">
         
   
   
@@ -6836,7 +6823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/protect-baseline/" class="md-nav__link">
+      <a href="../../commands/git/protect-baseline/" class="md-nav__link">
         
   
   
@@ -6864,7 +6851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/unprotect/" class="md-nav__link">
+      <a href="../../commands/git/unprotect/" class="md-nav__link">
         
   
   
@@ -6892,7 +6879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../git/guard/" class="md-nav__link">
+      <a href="../../commands/git/guard/" class="md-nav__link">
         
   
   
@@ -6920,7 +6907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arch/diagram/" class="md-nav__link">
+      <a href="../../commands/arch/diagram/" class="md-nav__link">
         
   
   
@@ -6948,7 +6935,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arch/plan/" class="md-nav__link">
+      <a href="../../commands/arch/plan/" class="md-nav__link">
         
   
   
@@ -6976,7 +6963,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../arch/review/" class="md-nav__link">
+      <a href="../../commands/arch/review/" class="md-nav__link">
         
   
   
@@ -7004,7 +6991,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ci/detect/" class="md-nav__link">
+      <a href="../../commands/ci/detect/" class="md-nav__link">
         
   
   
@@ -7032,7 +7019,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ci/triage/" class="md-nav__link">
+      <a href="../../commands/ci/triage/" class="md-nav__link">
         
   
   
@@ -7060,7 +7047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ci/validate/" class="md-nav__link">
+      <a href="../../commands/ci/validate/" class="md-nav__link">
         
   
   
@@ -7088,7 +7075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ci/watch/" class="md-nav__link">
+      <a href="../../commands/ci/watch/" class="md-nav__link">
         
   
   
@@ -7116,7 +7103,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/fewer-prompts/" class="md-nav__link">
+      <a href="../../commands/code/fewer-prompts/" class="md-nav__link">
         
   
   
@@ -7144,7 +7131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/ci-fix/" class="md-nav__link">
+      <a href="../../commands/code/ci-fix/" class="md-nav__link">
         
   
   
@@ -7172,7 +7159,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/debug/" class="md-nav__link">
+      <a href="../../commands/code/debug/" class="md-nav__link">
         
   
   
@@ -7200,7 +7187,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/deps-check/" class="md-nav__link">
+      <a href="../../commands/code/deps-check/" class="md-nav__link">
         
   
   
@@ -7228,7 +7215,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/docs-check/" class="md-nav__link">
+      <a href="../../commands/code/docs-check/" class="md-nav__link">
         
   
   
@@ -7256,7 +7243,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/refactor/" class="md-nav__link">
+      <a href="../../commands/code/refactor/" class="md-nav__link">
         
   
   
@@ -7284,7 +7271,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/release/" class="md-nav__link">
+      <a href="../../commands/code/release/" class="md-nav__link">
         
   
   
@@ -7312,7 +7299,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/skill-standards/" class="md-nav__link">
+      <a href="../../commands/code/skill-standards/" class="md-nav__link">
         
   
   
@@ -7340,7 +7327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../code/test-gen/" class="md-nav__link">
+      <a href="../../commands/code/test-gen/" class="md-nav__link">
         
   
   
@@ -7368,7 +7355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dist/homebrew/" class="md-nav__link">
+      <a href="../../commands/dist/homebrew/" class="md-nav__link">
         
   
   
@@ -7396,7 +7383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dist/surfaces/" class="md-nav__link">
+      <a href="../../commands/dist/surfaces/" class="md-nav__link">
         
   
   
@@ -7424,7 +7411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../drive/" class="md-nav__link">
+      <a href="../../commands/orchestrate/drive/" class="md-nav__link">
         
   
   
@@ -7449,118 +7436,10 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:orchestrate:resume
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:orchestrate:resume
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#synopsis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Synopsis
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Description
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="../workflow/" class="md-nav__link">
+      <a href="../../commands/orchestrate/workflow/" class="md-nav__link">
         
   
   
@@ -7588,7 +7467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../site/docs/frameworks/" class="md-nav__link">
+      <a href="../../commands/site/docs/frameworks/" class="md-nav__link">
         
   
   
@@ -7616,7 +7495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../smart-help/" class="md-nav__link">
+      <a href="../../commands/smart-help/" class="md-nav__link">
         
   
   
@@ -7644,7 +7523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../workflow/adhd-guide/" class="md-nav__link">
+      <a href="../../commands/workflow/adhd-guide/" class="md-nav__link">
         
   
   
@@ -7737,7 +7616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/" class="md-nav__link">
+      <a href="../../cookbook/" class="md-nav__link">
         
   
   
@@ -7815,7 +7694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/release-watch-recipes/" class="md-nav__link">
+      <a href="../../cookbook/release-watch-recipes/" class="md-nav__link">
         
   
   
@@ -7843,7 +7722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/recipes/refine-before-running/" class="md-nav__link">
+      <a href="../../cookbook/recipes/refine-before-running/" class="md-nav__link">
         
   
   
@@ -7871,7 +7750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/recipes/drive-a-spec-to-green/" class="md-nav__link">
+      <a href="../../cookbook/recipes/drive-a-spec-to-green/" class="md-nav__link">
         
   
   
@@ -7899,7 +7778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/recipes/run-a-coded-workflow/" class="md-nav__link">
+      <a href="../../cookbook/recipes/run-a-coded-workflow/" class="md-nav__link">
         
   
   
@@ -7927,7 +7806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/recipes/fan-a-workflow-across-files/" class="md-nav__link">
+      <a href="../../cookbook/recipes/fan-a-workflow-across-files/" class="md-nav__link">
         
   
   
@@ -7955,7 +7834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/recipes/triage-a-red-pr/" class="md-nav__link">
+      <a href="../../cookbook/recipes/triage-a-red-pr/" class="md-nav__link">
         
   
   
@@ -7983,7 +7862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/setup-new-project/" class="md-nav__link">
+      <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
         
   
   
@@ -8011,7 +7890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/deploy-course-website/" class="md-nav__link">
+      <a href="../../cookbook/common/deploy-course-website/" class="md-nav__link">
         
   
   
@@ -8039,7 +7918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/automate-release-workflow/" class="md-nav__link">
+      <a href="../../cookbook/common/automate-release-workflow/" class="md-nav__link">
         
   
   
@@ -8067,7 +7946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/distribute-plugin-via-homebrew/" class="md-nav__link">
+      <a href="../../cookbook/common/distribute-plugin-via-homebrew/" class="md-nav__link">
         
   
   
@@ -8095,7 +7974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
+      <a href="../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
         
   
   
@@ -8123,7 +8002,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/find-the-right-command/" class="md-nav__link">
+      <a href="../../cookbook/common/find-the-right-command/" class="md-nav__link">
         
   
   
@@ -8151,7 +8030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/update-single-doc/" class="md-nav__link">
+      <a href="../../cookbook/common/update-single-doc/" class="md-nav__link">
         
   
   
@@ -8179,7 +8058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/quick-code-checks/" class="md-nav__link">
+      <a href="../../cookbook/common/quick-code-checks/" class="md-nav__link">
         
   
   
@@ -8207,7 +8086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/create-git-branch/" class="md-nav__link">
+      <a href="../../cookbook/common/create-git-branch/" class="md-nav__link">
         
   
   
@@ -8235,7 +8114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/bulk-branch-protection/" class="md-nav__link">
+      <a href="../../cookbook/common/bulk-branch-protection/" class="md-nav__link">
         
   
   
@@ -8263,7 +8142,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/view-project-architecture/" class="md-nav__link">
+      <a href="../../cookbook/common/view-project-architecture/" class="md-nav__link">
         
   
   
@@ -8291,7 +8170,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/setup-parallel-worktrees/" class="md-nav__link">
+      <a href="../../cookbook/common/setup-parallel-worktrees/" class="md-nav__link">
         
   
   
@@ -8319,7 +8198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/use-interactive-orchestration/" class="md-nav__link">
+      <a href="../../cookbook/common/use-interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -8347,7 +8226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/post-merge-documentation/" class="md-nav__link">
+      <a href="../../cookbook/common/post-merge-documentation/" class="md-nav__link">
         
   
   
@@ -8375,7 +8254,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/generate-tests-for-project/" class="md-nav__link">
+      <a href="../../cookbook/common/generate-tests-for-project/" class="md-nav__link">
         
   
   
@@ -8403,7 +8282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/run-tests-by-category/" class="md-nav__link">
+      <a href="../../cookbook/common/run-tests-by-category/" class="md-nav__link">
         
   
   
@@ -8431,7 +8310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/session-wrap-up/" class="md-nav__link">
+      <a href="../../cookbook/common/session-wrap-up/" class="md-nav__link">
         
   
   
@@ -8459,7 +8338,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/common/memory-aware-routing/" class="md-nav__link">
+      <a href="../../cookbook/common/memory-aware-routing/" class="md-nav__link">
         
   
   
@@ -8487,7 +8366,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/docs-update-interactive-example/" class="md-nav__link">
+      <a href="../../examples/docs-update-interactive-example/" class="md-nav__link">
         
   
   
@@ -8515,7 +8394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../examples/release-workflow-example/" class="md-nav__link">
+      <a href="../../examples/release-workflow-example/" class="md-nav__link">
         
   
   
@@ -8601,7 +8480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
         
   
   
@@ -8629,7 +8508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/command-times-out/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/command-times-out/" class="md-nav__link">
         
   
   
@@ -8657,7 +8536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/wrong-command-output/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/wrong-command-output/" class="md-nav__link">
         
   
   
@@ -8685,7 +8564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/ci-workflow-fails/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/ci-workflow-fails/" class="md-nav__link">
         
   
   
@@ -8713,7 +8592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/pre-commit-blocks-commit/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/pre-commit-blocks-commit/" class="md-nav__link">
         
   
   
@@ -8741,7 +8620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/worktree-wont-create/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/worktree-wont-create/" class="md-nav__link">
         
   
   
@@ -8769,7 +8648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/broken-links-after-update/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/broken-links-after-update/" class="md-nav__link">
         
   
   
@@ -8797,7 +8676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/claude-md-out-of-sync/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/claude-md-out-of-sync/" class="md-nav__link">
         
   
   
@@ -8825,7 +8704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../cookbook/troubleshooting/mkdocs-build-fails/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/mkdocs-build-fails/" class="md-nav__link">
         
   
   
@@ -8918,7 +8797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/configuration/" class="md-nav__link">
+      <a href="../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -8946,7 +8825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/presets/" class="md-nav__link">
+      <a href="../../reference/presets/" class="md-nav__link">
         
   
   
@@ -8974,7 +8853,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../orchestrator/" class="md-nav__link">
+      <a href="../../orchestrator/" class="md-nav__link">
         
   
   
@@ -9002,7 +8881,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/" class="md-nav__link">
+      <a href="../../architecture/" class="md-nav__link">
         
   
   
@@ -9030,7 +8909,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -9058,7 +8937,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/release-watch-v2/" class="md-nav__link">
+      <a href="../../architecture/release-watch-v2/" class="md-nav__link">
         
   
   
@@ -9086,7 +8965,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../architecture/desktop-release-pipeline/" class="md-nav__link">
+      <a href="../../architecture/desktop-release-pipeline/" class="md-nav__link">
         
   
   
@@ -9114,7 +8993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../api/DISCOVERY-API/" class="md-nav__link">
+      <a href="../../api/DISCOVERY-API/" class="md-nav__link">
         
   
   
@@ -9142,7 +9021,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/documentation-quality/" class="md-nav__link">
+      <a href="../../reference/documentation-quality/" class="md-nav__link">
         
   
   
@@ -9170,7 +9049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../API-REFERENCE-CLAUDE-MD/" class="md-nav__link">
+      <a href="../../API-REFERENCE-CLAUDE-MD/" class="md-nav__link">
         
   
   
@@ -9198,7 +9077,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../API-REFERENCE-COMMANDS/" class="md-nav__link">
+      <a href="../../API-REFERENCE-COMMANDS/" class="md-nav__link">
         
   
   
@@ -9226,7 +9105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/claude-code-instruction-enforcement/" class="md-nav__link">
+      <a href="../../reference/claude-code-instruction-enforcement/" class="md-nav__link">
         
   
   
@@ -9254,7 +9133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../CHANGELOG/" class="md-nav__link">
+      <a href="../../CHANGELOG/" class="md-nav__link">
         
   
   
@@ -9282,7 +9161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../VERSION-HISTORY/" class="md-nav__link">
+      <a href="../../VERSION-HISTORY/" class="md-nav__link">
         
   
   
@@ -9310,7 +9189,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../RELEASE-v2.8.0/" class="md-nav__link">
+      <a href="../../RELEASE-v2.8.0/" class="md-nav__link">
         
   
   
@@ -9388,7 +9267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-FORMATTING/" class="md-nav__link">
+      <a href="../../reference/REFCARD-FORMATTING/" class="md-nav__link">
         
   
   
@@ -9416,7 +9295,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -9444,7 +9323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
         
   
   
@@ -9472,7 +9351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+      <a href="../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
         
   
   
@@ -9500,7 +9379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
         
   
   
@@ -9528,7 +9407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-CLAUDE-MD/" class="md-nav__link">
+      <a href="../../reference/REFCARD-CLAUDE-MD/" class="md-nav__link">
         
   
   
@@ -9556,7 +9435,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-BRAINSTORM/" class="md-nav__link">
+      <a href="../../reference/REFCARD-BRAINSTORM/" class="md-nav__link">
         
   
   
@@ -9584,7 +9463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
+      <a href="../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
         
   
   
@@ -9612,7 +9491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-PROTECT-BASELINE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-PROTECT-BASELINE/" class="md-nav__link">
         
   
   
@@ -9640,7 +9519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-WORKFLOW/" class="md-nav__link">
+      <a href="../../reference/REFCARD-WORKFLOW/" class="md-nav__link">
         
   
   
@@ -9668,7 +9547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-RELEASE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-RELEASE/" class="md-nav__link">
         
   
   
@@ -9696,7 +9575,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-TESTING/" class="md-nav__link">
+      <a href="../../reference/REFCARD-TESTING/" class="md-nav__link">
         
   
   
@@ -9724,7 +9603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-HOMEBREW/" class="md-nav__link">
+      <a href="../../reference/REFCARD-HOMEBREW/" class="md-nav__link">
         
   
   
@@ -9752,7 +9631,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-CHECK/" class="md-nav__link">
+      <a href="../../reference/REFCARD-CHECK/" class="md-nav__link">
         
   
   
@@ -9780,7 +9659,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-INSIGHTS/" class="md-nav__link">
+      <a href="../../reference/REFCARD-INSIGHTS/" class="md-nav__link">
         
   
   
@@ -9808,7 +9687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-BUMP-VERSION/" class="md-nav__link">
+      <a href="../../reference/REFCARD-BUMP-VERSION/" class="md-nav__link">
         
   
   
@@ -9836,7 +9715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-POST-RELEASE-SWEEP/" class="md-nav__link">
+      <a href="../../reference/REFCARD-POST-RELEASE-SWEEP/" class="md-nav__link">
         
   
   
@@ -9864,7 +9743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-RELEASE-WATCH/" class="md-nav__link">
+      <a href="../../reference/REFCARD-RELEASE-WATCH/" class="md-nav__link">
         
   
   
@@ -9892,7 +9771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/REFCARD-DOCS-STALENESS/" class="md-nav__link">
+      <a href="../../reference/REFCARD-DOCS-STALENESS/" class="md-nav__link">
         
   
   
@@ -9920,7 +9799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/COMMAND-EXAMPLES/" class="md-nav__link">
+      <a href="../../reference/COMMAND-EXAMPLES/" class="md-nav__link">
         
   
   
@@ -9948,7 +9827,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/COMMAND-PARAMETERS/" class="md-nav__link">
+      <a href="../../reference/COMMAND-PARAMETERS/" class="md-nav__link">
         
   
   
@@ -9976,7 +9855,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/ERROR-SCENARIOS/" class="md-nav__link">
+      <a href="../../reference/ERROR-SCENARIOS/" class="md-nav__link">
         
   
   
@@ -10004,7 +9883,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../reference/SKILL-STANDARDS/" class="md-nav__link">
+      <a href="../../reference/SKILL-STANDARDS/" class="md-nav__link">
         
   
   
@@ -10090,7 +9969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
+      <a href="../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
         
   
   
@@ -10118,7 +9997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
+      <a href="../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
         
   
   
@@ -10196,7 +10075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
+      <a href="../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
         
   
   
@@ -10274,7 +10153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/" class="md-nav__link">
+      <a href="../../tutorials/" class="md-nav__link">
         
   
   
@@ -10302,7 +10181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../tutorials/dependency-management-getting-started/" class="md-nav__link">
+      <a href="../../tutorials/dependency-management-getting-started/" class="md-nav__link">
         
   
   
@@ -10338,7 +10217,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../API-REFERENCE/" class="md-nav__link">
+      <a href="../../API-REFERENCE/" class="md-nav__link">
         
   
   
@@ -10366,7 +10245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -10394,7 +10273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../DEVELOPER-GUIDE/" class="md-nav__link">
+      <a href="../../DEVELOPER-GUIDE/" class="md-nav__link">
         
   
   
@@ -10488,7 +10367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../runbooks/parity-gate/" class="md-nav__link">
+      <a href="../../runbooks/parity-gate/" class="md-nav__link">
         
   
   
@@ -10574,7 +10453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-badge-system-2026-01-30/" class="md-nav__link">
+      <a href="../_archive/SPEC-badge-system-2026-01-30/" class="md-nav__link">
         
   
   
@@ -10609,7 +10488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
+      <a href="../_archive/SPEC-broken-link-validation-2026-01-17/" class="md-nav__link">
         
   
   
@@ -10637,7 +10516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
+      <a href="../_archive/SPEC-craft-hub-v2-2026-01-15/" class="md-nav__link">
         
   
   
@@ -10665,7 +10544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
+      <a href="../_archive/SPEC-dry-run-feature-2026-01-15/" class="md-nav__link">
         
   
   
@@ -10693,7 +10572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
+      <a href="../_archive/SPEC-website-organization-standard-2026-01-17/" class="md-nav__link">
         
   
   
@@ -10721,7 +10600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
+      <a href="../_archive/SPEC-help-template-menu-2026-01-16/" class="md-nav__link">
         
   
   
@@ -10749,7 +10628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
+      <a href="../_archive/SPEC-docs-update-interactive-2026-01-22/" class="md-nav__link">
         
   
   
@@ -10777,7 +10656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05/" class="md-nav__link">
+      <a href="../_archive/SPEC-styled-output-v2.14.0-2026-02-05/" class="md-nav__link">
         
   
   
@@ -10805,7 +10684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
+      <a href="../_archive/SPEC-command-enhancements-2026-01-29/" class="md-nav__link">
         
   
   
@@ -10833,7 +10712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-brainstorm-question-bank/" class="md-nav__link">
+      <a href="../_archive/SPEC-brainstorm-question-bank/" class="md-nav__link">
         
   
   
@@ -10861,7 +10740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-branch-protection-hooks-2026-02-06/" class="md-nav__link">
+      <a href="../_archive/SPEC-branch-protection-hooks-2026-02-06/" class="md-nav__link">
         
   
   
@@ -10889,7 +10768,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-branch-guard-v2-confirmation-mode-2026-02-13/" class="md-nav__link">
+      <a href="../_archive/SPEC-branch-guard-v2-confirmation-mode-2026-02-13/" class="md-nav__link">
         
   
   
@@ -10917,7 +10796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-bump-version-ci-status-2026-02-19/" class="md-nav__link">
+      <a href="../_archive/SPEC-bump-version-ci-status-2026-02-19/" class="md-nav__link">
         
   
   
@@ -10945,7 +10824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-bump-version-docs-2026-02-19/" class="md-nav__link">
+      <a href="../_archive/SPEC-bump-version-docs-2026-02-19/" class="md-nav__link">
         
   
   
@@ -10973,7 +10852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-claude-md-refactor-2026-02-18/" class="md-nav__link">
+      <a href="../_archive/SPEC-claude-md-refactor-2026-02-18/" class="md-nav__link">
         
   
   
@@ -11001,7 +10880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-claude-md-v3-optimization-2026-02-04/" class="md-nav__link">
+      <a href="../_archive/SPEC-claude-md-v3-optimization-2026-02-04/" class="md-nav__link">
         
   
   
@@ -11029,7 +10908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-demo-dependency-management-2026-01-17/" class="md-nav__link">
+      <a href="../_archive/SPEC-demo-dependency-management-2026-01-17/" class="md-nav__link">
         
   
   
@@ -11057,7 +10936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-docs-gap-fill-2026-02-05/" class="md-nav__link">
+      <a href="../_archive/SPEC-docs-gap-fill-2026-02-05/" class="md-nav__link">
         
   
   
@@ -11085,7 +10964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-docs-improvement-2026-01-14/" class="md-nav__link">
+      <a href="../_archive/SPEC-docs-improvement-2026-01-14/" class="md-nav__link">
         
   
   
@@ -11113,7 +10992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-docs-sync-update-integration-2026-01-22/" class="md-nav__link">
+      <a href="../_archive/SPEC-docs-sync-update-integration-2026-01-22/" class="md-nav__link">
         
   
   
@@ -11141,7 +11020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-engineering-improvements-v2.8.0/" class="md-nav__link">
+      <a href="../_archive/SPEC-engineering-improvements-v2.8.0/" class="md-nav__link">
         
   
   
@@ -11169,7 +11048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-full-markdown-linting-2026-01-25/" class="md-nav__link">
+      <a href="../_archive/SPEC-full-markdown-linting-2026-01-25/" class="md-nav__link">
         
   
   
@@ -11197,7 +11076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-markdownlint-list-spacing-2026-01-19/" class="md-nav__link">
+      <a href="../_archive/SPEC-markdownlint-list-spacing-2026-01-19/" class="md-nav__link">
         
   
   
@@ -11225,7 +11104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-orch-flag-integration-2026-01-19/" class="md-nav__link">
+      <a href="../_archive/SPEC-orch-flag-integration-2026-01-19/" class="md-nav__link">
         
   
   
@@ -11253,7 +11132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-orch-flag-v2.5.1-improvements-2026-01-19/" class="md-nav__link">
+      <a href="../_archive/SPEC-orch-flag-v2.5.1-improvements-2026-01-19/" class="md-nav__link">
         
   
   
@@ -11281,7 +11160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-spec-integration-2026-01-16/" class="md-nav__link">
+      <a href="../_archive/SPEC-spec-integration-2026-01-16/" class="md-nav__link">
         
   
   
@@ -11316,7 +11195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../specs/_archive/SPEC-testing-enhancements-2025-12-30/" class="md-nav__link">
+      <a href="../_archive/SPEC-testing-enhancements-2025-12-30/" class="md-nav__link">
         
   
   
@@ -11409,7 +11288,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guide/documentation-quality-development/" class="md-nav__link">
+      <a href="../../guide/documentation-quality-development/" class="md-nav__link">
         
   
   
@@ -11437,7 +11316,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../CI-TEMPLATES/" class="md-nav__link">
+      <a href="../../CI-TEMPLATES/" class="md-nav__link">
         
   
   
@@ -11465,7 +11344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+      <a href="../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
         
   
   
@@ -11543,7 +11422,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/" class="md-nav__link">
+      <a href="../../internal/" class="md-nav__link">
         
   
   
@@ -11571,7 +11450,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/CLAUDE-MD-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/CLAUDE-MD-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -11599,7 +11478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/TEST-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/TEST-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -11627,7 +11506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/PYTHON-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/PYTHON-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -11655,7 +11534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/COMMAND-SPEC-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/COMMAND-SPEC-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -11683,7 +11562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/GROUNDING-craft/" class="md-nav__link">
+      <a href="../../internal/GROUNDING-craft/" class="md-nav__link">
         
   
   
@@ -11711,7 +11590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../internal/TOKEN-EFFICIENCY-craft/" class="md-nav__link">
+      <a href="../../internal/TOKEN-EFFICIENCY-craft/" class="md-nav__link">
         
   
   
@@ -11754,7 +11633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../REFCARD/" class="md-nav__link">
+      <a href="../../REFCARD/" class="md-nav__link">
         
   
   
@@ -11801,10 +11680,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#synopsis" class="md-nav__link">
+  <a href="#current-state-what-already-exists" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Synopsis
+        Current state (what already exists)
       
     </span>
   </a>
@@ -11812,10 +11691,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#description" class="md-nav__link">
+  <a href="#the-gap-whats-requested" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Description
+        The gap (what's requested)
       
     </span>
   </a>
@@ -11823,10 +11702,98 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#two-key-findings-shape-everything-below" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See Also
+        Two key findings (shape everything below)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-wins-30-min-each" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Wins (&lt; 30 min each)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#medium-effort-12-hrs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Medium Effort (1–2 hrs)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#long-term-future-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long-term (future sessions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-debate-create-skills-for-these-doc-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The debate: create skills for these doc operations?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks / edge cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-plan-default-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test Plan (default-on)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-default-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation (default-on)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Next Step
       
     </span>
   </a>
@@ -11850,7 +11817,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/commands/orchestrate/resume.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/specs/BRAINSTORM-doc-impact-scaffolding-2026-07-01.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -11858,22 +11825,170 @@
   
 
 
-<h1 id="craftorchestrateresume">/craft:orchestrate:resume<a class="headerlink" href="#craftorchestrateresume" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p><strong>Resume orchestration session across devices using Claude Desktop session teleportation</strong></p>
-</blockquote>
+<h1 id="brainstorm-comprehensive-documentation-impact-scaffolding">BRAINSTORM: Comprehensive Documentation-Impact Scaffolding<a class="headerlink" href="#brainstorm-comprehensive-documentation-impact-scaffolding" title="Permanent link">&para;</a></h1>
+<p><strong>Date:</strong> 2026-07-01 · <strong>Depth:</strong> default · <strong>Focus:</strong> arch
+<strong>Refined from:</strong> "include docs generating, refcards, tutorials, API/architecture docs, cookbooks,
+docs reorg + mkdocs nav, index, and site-update check in every spec written by orchestrate; debate
+creating skills for these."</p>
 <hr />
-<h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orchestrate:resume<span class="w"> </span><span class="o">[</span>mode<span class="o">]</span>
-</span></code></pre></div>
-<hr />
-<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
-<p>Resume orchestration session across devices using Claude Desktop session teleportation</p>
-<hr />
-<h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<h2 id="current-state-what-already-exists">Current state (what already exists)<a class="headerlink" href="#current-state-what-already-exists" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../../hub/">/craft:hub</a> — Browse all commands</li>
+<li><strong>Doc-scorer rubric</strong> (<code>commands/docs/sync.md</code>) scores <strong>4 output types</strong>: Guide, Refcard, Demo,
+  Mermaid. Threshold ≥3. It is the declared <strong>single source of truth</strong> — plan-orchestrator says
+  <em>"do NOT invent a new rubric — reuse the scorer."</em></li>
+<li><strong>plan-orchestrator</strong> already emits a <strong>Documentation section by default</strong> in every ORCHESTRATE,
+  pre-checking boxes that clear the threshold. Template in <code>references/scaffold-templates.md</code>.</li>
+<li><strong>5 doc AGENTS already exist:</strong> <code>craft:docs:api-documenter</code>, <code>docs-architect</code>,
+  <code>reference-builder</code>, <code>tutorial-engineer</code>, <code>mermaid-expert</code>.</li>
 </ul>
+<h2 id="the-gap-whats-requested">The gap (what's requested)<a class="headerlink" href="#the-gap-whats-requested" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Requested</th>
+<th>Category</th>
+<th>Status today</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tutorials</td>
+<td>content type</td>
+<td>❌ not scored (appears only as a stale-doc example)</td>
+</tr>
+<tr>
+<td>API docs</td>
+<td>content type</td>
+<td>❌ not scored (agent exists)</td>
+</tr>
+<tr>
+<td>Architecture docs</td>
+<td>content type</td>
+<td>⚠️ arch is a <em>scoring factor</em> (+3 Mermaid), not an output type</td>
+</tr>
+<tr>
+<td>Cookbooks</td>
+<td>content type</td>
+<td>❌ not scored</td>
+</tr>
+<tr>
+<td>Docs reorg + mkdocs nav</td>
+<td><strong>structural check</strong></td>
+<td>❌ absent</td>
+</tr>
+<tr>
+<td>Index file</td>
+<td><strong>structural check</strong></td>
+<td>❌ absent</td>
+</tr>
+<tr>
+<td>Site-update check</td>
+<td><strong>structural check</strong></td>
+<td>❌ absent</td>
+</tr>
+</tbody>
+</table>
+<h2 id="two-key-findings-shape-everything-below">Two key findings (shape everything below)<a class="headerlink" href="#two-key-findings-shape-everything-below" title="Permanent link">&para;</a></h2>
+<p><code>★ Insight ─────────────────────────────────────</code></p>
+<ul>
+<li><strong>The requests split into two different categories.</strong> Content types (tutorial, API, arch,
+  cookbook) are <em>"what doc to author"</em> — they belong in the doc-scorer rubric. Structural checks
+  (mkdocs nav, index, site-update) are <em>"did the site stay consistent"</em> — they're <strong>checks, not
+  authored artifacts</strong>, and belong in a separate Site-Consistency checklist.</li>
+<li><strong>Creating skills for these would duplicate 5 existing agents.</strong> <code>api-documenter</code>,
+  <code>tutorial-engineer</code>, <code>docs-architect</code>, <code>reference-builder</code>, <code>mermaid-expert</code> already do the
+  authoring. A new skill-per-type is the exact duplication the orchestrate-family audit is
+  fighting.</li>
+</ul>
+<p><code>─────────────────────────────────────────────────</code></p>
+<hr />
+<h2 id="quick-wins-30-min-each">Quick Wins (&lt; 30 min each)<a class="headerlink" href="#quick-wins-30-min-each" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Extend the doc-scorer rubric with the missing content types</strong> — add Tutorial, API, Cookbook
+   columns (and promote "Architecture doc" from a factor to an output type) to the scoring table in
+   <code>commands/docs/sync.md</code>. Single source of truth stays single; plan-orchestrator inherits them
+   for free (it just reads the scorer).</li>
+<li><strong>Add a <code>## Site Consistency</code> block to the scaffold template</strong> (<code>references/scaffold-templates.md</code>)
+   — three checkboxes: mkdocs nav updated? index file updated? <code>site:update</code> run? These are
+   pass/fail checks, not scored artifacts.</li>
+</ol>
+<h2 id="medium-effort-12-hrs">Medium Effort (1–2 hrs)<a class="headerlink" href="#medium-effort-12-hrs" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] <strong>Wire the Documentation section to REFERENCE existing doc agents</strong>, not new skills — each
+  emitted doc type links to the agent that authors it (<code>api-documenter</code>, <code>tutorial-engineer</code>, …).
+  The ORCHESTRATE tells the implementer <em>which agent to run</em>, not a new skill to write.</li>
+<li>[ ] <strong>Fold the site-update check into the existing <code>/craft:site:update</code> + docs-staleness
+  tooling</strong> — the check should invoke what already exists, not re-implement drift detection.</li>
+</ul>
+<h2 id="long-term-future-sessions">Long-term (future sessions)<a class="headerlink" href="#long-term-future-sessions" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] <strong>A single <code>docs-impact</code> skill</strong> (NOT one-per-type) that owns the expanded rubric + emits the
+  section — only if the inline scorer-reuse proves too thin. Debated below.</li>
+<li>[ ] <strong>Reorg-aware nav validation</strong> — a check that new docs are actually added to <code>mkdocs.yml</code> nav
+  (catches the "orphaned page" class the mkdocs memory already flags).</li>
+</ul>
+<hr />
+<h2 id="the-debate-create-skills-for-these-doc-operations">The debate: create skills for these doc operations?<a class="headerlink" href="#the-debate-create-skills-for-these-doc-operations" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>What</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A — skill per doc type</strong> (tutorial-gen, cookbook-author, api-doc, …)</td>
+<td>New skill for each</td>
+<td>❌ <strong>Reject</strong> — duplicates the 5 existing doc AGENTS; multiplies surface + count cascade; the anti-pattern this session keeps finding</td>
+</tr>
+<tr>
+<td><strong>B — one <code>docs-impact</code> skill</strong></td>
+<td>Single skill owns expanded rubric + section emission</td>
+<td>⚠️ Maybe later — only if inline scorer-reuse gets unwieldy; today plan-orchestrator already emits the section inline, so a skill is premature</td>
+</tr>
+<tr>
+<td><strong>C — no new skills; extend rubric + reference existing agents</strong> (Recommended)</td>
+<td>Scorer gains types; section references agents + site commands</td>
+<td>✅ <strong>Recommended</strong> — reuses the SoT rubric, reuses the 5 agents, adds zero duplicative surface</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why C:</strong> the authoring capability already exists (agents) and the scoring SoT already exists
+(rubric). The gap is <em>coverage in the rubric</em> + <em>a site-consistency checklist</em> — both are
+extensions of existing single-source mechanisms, not new capabilities. Creating skills would
+re-implement what agents do and fork the "single source of truth" the design explicitly protects.</p>
+<h2 id="risks-edge-cases">Risks / edge cases<a class="headerlink" href="#risks-edge-cases" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Rubric bloat → false-positive doc recommendations.</strong> Adding 4 types means more <code>score ≥3</code>
+  triggers; tune factors so a one-line fix doesn't demand a cookbook.</li>
+<li><strong>Single-source discipline.</strong> The expansion MUST land in <code>commands/docs/sync.md</code>, not be copied
+  into the scaffold template or ORCHESTRATE body (drift trap).</li>
+<li><strong>Structural checks aren't scored.</strong> Don't force mkdocs-nav/index/site into the 0–N scorer — they
+  are boolean checks; mixing them into the score corrupts it.</li>
+<li><strong>Count cascade</strong> only if this adds a <em>command</em>; extending a rubric + template does not.</li>
+</ul>
+<h2 id="test-plan-default-on">Test Plan (default-on)<a class="headerlink" href="#test-plan-default-on" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>e2e:</strong> an ORCHESTRATE emitted for an arch change pre-checks Architecture + Mermaid; the
+  Site-Consistency block is present with 3 unchecked boxes.</li>
+<li><strong>dogfood:</strong> the expanded types live in <code>commands/docs/sync.md</code> ONLY (assert no parallel rubric
+  in <code>scaffold-templates.md</code> or plan-orchestrator body — single-source guard).</li>
+<li><strong>dogfood:</strong> the Documentation section references existing agents by name (no new <code>skills/docs-*</code>).</li>
+</ul>
+<h2 id="documentation-default-on">Documentation (default-on)<a class="headerlink" href="#documentation-default-on" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Update <code>commands/docs/sync.md</code> rubric table + <code>references/scaffold-templates.md</code>.</li>
+<li>Update the doc-scorer description in <code>plan-orchestrator/SKILL.md</code> (type list).</li>
+<li>Refcard entry for the expanded doc-impact section.</li>
+</ul>
+<h2 id="recommended-next-step">Recommended Next Step<a class="headerlink" href="#recommended-next-step" title="Permanent link">&para;</a></h2>
+<p>→ <strong>Option C, starting with Quick Win #1</strong> — extend the doc-scorer rubric in <code>commands/docs/sync.md</code>
+with Tutorial/API/Cookbook/Architecture types. It's the smallest change that makes every
+orchestrate-emitted spec cover the fuller set, it protects the single-source-of-truth, and it needs
+zero new skills. Grill this brainstorm (open questions: rubric factor weights; whether
+site-consistency is a hard gate or advisory) before implementing.</p>
 
 
 
@@ -11929,12 +12044,12 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
-        <script src="../../../javascripts/mermaid-init.js"></script>
+        <script src="../../javascripts/mermaid-init.js"></script>
       
     
   </body>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 117 commands, 8 agents, 43 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.56.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync.">
+        <meta name="description" content="Full-stack developer toolkit - 116 commands, 8 agents, 44 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.57.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#orchestrate-pipeline-guide-v2210" class="md-skip">
+        <a href="#orchestrate-pipeline-guide-v2210-grill-added-v2430" class="md-skip">
           Skip to content
         </a>
       
@@ -1778,6 +1778,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reference/GRILL-PROMPT-craft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reusable Grill Prompt (craft-tuned)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
@@ -2825,10 +2853,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_54" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_55" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_54" id="__nav_2_4_54_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_55" id="__nav_2_4_55_label" tabindex="0">
             
   
   
@@ -2846,8 +2874,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_54_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_54">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_55_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_55">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3023,10 +3051,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_56" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_56" id="__nav_2_4_56_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
             
   
   
@@ -3044,8 +3072,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_56_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_56">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_57">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3253,6 +3281,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#craftgrill-interrogate-before-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:grill — Interrogate Before Building
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#new-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3272,6 +3311,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="/craft:orchestrate:plan — Spec to Worktree Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestrate-dispatch-vs-stop-new-session-when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        orchestrate-dispatch vs. STOP-new-session — when to use which
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -4559,34 +4615,6 @@
     
   
     git:guard Tutorial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-orchestrate-resume/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    orchestrate:resume Tutorial
   
 
     
@@ -7651,34 +7679,6 @@
     
   
     /craft:orchestrate:drive
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../commands/orchestrate/resume/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:orchestrate:resume
   
 
     
@@ -11951,6 +11951,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#craftgrill-interrogate-before-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /craft:grill — Interrogate Before Building
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#new-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -11970,6 +11981,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="/craft:orchestrate:plan — Spec to Worktree Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orchestrate-dispatch-vs-stop-new-session-when-to-use-which" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        orchestrate-dispatch vs. STOP-new-session — when to use which
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -12136,14 +12164,15 @@
   
 
 
-<h1 id="orchestrate-pipeline-guide-v2210">Orchestrate Pipeline Guide (v2.21.0+)<a class="headerlink" href="#orchestrate-pipeline-guide-v2210" title="Permanent link">&para;</a></h1>
+<h1 id="orchestrate-pipeline-guide-v2210-grill-added-v2430">Orchestrate Pipeline Guide (v2.21.0+, grill added v2.43.0)<a class="headerlink" href="#orchestrate-pipeline-guide-v2210-grill-added-v2430" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>TL;DR</strong>: 2 new commands, 2 brainstorm enhancements, consistent worktree types across all docs — connecting the full workflow from brainstorm to PR.</p>
+<p><strong>TL;DR</strong>: divergent (<code>brainstorm</code>) generates options; convergent (<code>grill</code>) interrogates a spec/plan until every branch is resolved; <code>orchestrate:plan</code> turns the locked result into a worktree; <code>orchestrate</code> (or a background-dispatch agent) implements it. Four commands, one direction.</p>
 </blockquote>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>v2.21.0 adds the missing pipeline connecting brainstorming to implementation:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>brainstorm → spec → ORCHESTRATE → worktree → implement → PR
+<p>The full workflow connecting an idea to a merged PR:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>brainstorm → spec → [grill] → ORCHESTRATE → worktree → implement → PR
 </span></code></pre></div>
+<p><code>grill</code> is the step most likely to be skipped by habit — it's optional for well-scoped, low-ambiguity work, but load-bearing for anything with unresolved judgment calls (see "When to grill" below). Skipping it doesn't block the pipeline; it just means <code>orchestrate:plan</code> inherits whatever ambiguity the spec still has.</p>
 <table>
 <thead>
 <tr>
@@ -12154,18 +12183,28 @@
 </thead>
 <tbody>
 <tr>
+<td><code>/craft:workflow:brainstorm</code></td>
+<td>Command</td>
+<td><strong>Divergent</strong> — generates options, captures a SPEC</td>
+</tr>
+<tr>
+<td><code>/craft:grill</code></td>
+<td>Command</td>
+<td><strong>Convergent</strong> — interrogates a spec/plan/topic one question at a time until every branch is resolved; captures a <code>GRILL-*.md</code> ledger</td>
+</tr>
+<tr>
 <td><code>/craft:orchestrate:plan</code></td>
-<td>New command</td>
-<td>Spec → ORCHESTRATE → worktree pipeline</td>
+<td>Command</td>
+<td>Spec (+ optional grill ledger) → ORCHESTRATE → worktree pipeline</td>
 </tr>
 <tr>
 <td><code>/craft:orchestrate:workflow</code></td>
-<td>New command</td>
+<td>Command</td>
 <td>Coded fixed-control-flow program → schema-gated, resumable (<a href="../../commands/orchestrate-workflow/">guide</a>)</td>
 </tr>
 <tr>
 <td><code>/craft:insights</code></td>
-<td>New command</td>
+<td>Command</td>
 <td>Session friction reports from facets data</td>
 </tr>
 <tr>
@@ -12186,18 +12225,65 @@
 </tbody>
 </table>
 <hr />
+<h2 id="craftgrill-interrogate-before-building"><code>/craft:grill</code> — Interrogate Before Building<a class="headerlink" href="#craftgrill-interrogate-before-building" title="Permanent link">&para;</a></h2>
+<p><strong>Convergent counterpart to brainstorm.</strong> Where brainstorm expands the option space and ends in a captured SPEC, grill takes that SPEC (or a bare plan, ORCHESTRATE file, or diff) and stress-tests it one question at a time — <code>AskUserQuestion</code> calls, not the batched menus brainstorm uses — until every branch of the design is resolved or explicitly deferred.</p>
+<p><strong>When to grill:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Grill first?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spec has open judgment calls (naming, scope boundary, which of 2+ approaches)</td>
+<td>Yes — resolve them here, not mid-implementation</td>
+</tr>
+<tr>
+<td>Spec will be handed to an unattended/background agent that can't pause to ask</td>
+<td>Yes — background agents are one-shot; unresolved ambiguity becomes a guess</td>
+</tr>
+<tr>
+<td>Small, well-scoped, single clear approach</td>
+<td>Optional — <code>orchestrate:plan</code> works directly from the SPEC</td>
+</tr>
+<tr>
+<td>Bug fix, mechanical refactor</td>
+<td>Skip — no design space to interrogate</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Output:</strong> <code>docs/specs/GRILL-&lt;topic&gt;-&lt;date&gt;.md</code> — its own file, never rewriting the brainstorm SPEC's body (only an idempotent one-line back-link is added to the SPEC). Contains a Decision Ledger (each resolved branch, with reasoning) and an Open Questions section for anything explicitly deferred.</p>
+<p><strong>Handoff:</strong> one-directional, same as brainstorm — <code>grill</code> never executes. It hands the locked <code>GRILL-*.md</code> forward to <code>/craft:orchestrate:plan</code>, which reads both the SPEC and the grill ledger together.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># After brainstorm captures a SPEC with unresolved design questions</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:grill<span class="w"> </span>docs/specs/SPEC-auth-2026-02-15.md
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Bare topic, no SPEC yet (grill sketches a skeleton first, then interrogates it)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/craft:grill<span class="w"> </span><span class="s2">&quot;should we split the auth module into two services&quot;</span>
+</span></code></pre></div>
+<hr />
 <h2 id="new-commands">New Commands<a class="headerlink" href="#new-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftorchestrateplan-spec-to-worktree-pipeline"><code>/craft:orchestrate:plan</code> — Spec to Worktree Pipeline<a class="headerlink" href="#craftorchestrateplan-spec-to-worktree-pipeline" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>The canonical behavior lives in the <code>plan-orchestrator</code> skill
+(<code>skills/orchestration/plan-orchestrator/SKILL.md</code> in the repo — not part of this site's nav);
+<code>/craft:orchestrate:plan</code> is a thin shim over it (<code>deprecated: true</code> / <code>replaced-by</code>). The flow
+below still describes the behavior accurately — it's just implemented in the skill now.</p>
+</blockquote>
 <p>Discovers specs, parses phases, generates ORCHESTRATE files, and creates worktrees — all in one flow.</p>
 <p><strong>When to use:</strong> After brainstorming produces a spec, or when you have a spec and want to start implementation.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Interactive: scan for specs and choose</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:orchestrate:plan
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Direct: specify spec path</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth-2026-02-15.md
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># ORCHESTRATE only (no worktree)</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth.md<span class="w"> </span>--output<span class="w"> </span>orchestrate-only
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Interactive: scan for specs and choose</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:orchestrate:plan
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Direct: specify spec path</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth-2026-02-15.md
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># ORCHESTRATE only (no worktree)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth.md<span class="w"> </span>--output<span class="w"> </span>orchestrate-only
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># ORCHESTRATE + worktree + dispatch to a background Agent from this session</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth.md<span class="w"> </span>--output<span class="w"> </span>orchestrate-dispatch
 </span></code></pre></div>
 <p><strong>8-Step Execution:</strong></p>
 <pre class="mermaid"><code>flowchart TD
@@ -12239,18 +12325,71 @@
 <li>Verification commands (auto-detected from project type)</li>
 <li>Session instructions for starting work</li>
 </ul>
+<h4 id="orchestrate-dispatch-vs-stop-new-session-when-to-use-which"><code>orchestrate-dispatch</code> vs. STOP-new-session — when to use which<a class="headerlink" href="#orchestrate-dispatch-vs-stop-new-session-when-to-use-which" title="Permanent link">&para;</a></h4>
+<p>Both modes give you the same self-containment guarantee (a durable <code>ORCHESTRATE-&lt;topic&gt;.md</code> that's
+complete enough to execute standalone). They differ in <strong>who executes it and from where</strong>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>STOP-new-session (<code>orchestrate-worktree</code> / <code>orchestrate-only</code>)</th>
+<th><code>orchestrate-dispatch</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Execution</td>
+<td>Fresh human session, <code>cd</code> into worktree, new <code>claude</code> process</td>
+<td>Background <code>Agent</code> call, dispatched from the live planning session</td>
+</tr>
+<tr>
+<td>Token cost</td>
+<td>Higher — new session cold-starts (reloads CLAUDE.md, system prompt)</td>
+<td>Lower — no cold start, reuses the planning session's already-loaded context</td>
+</tr>
+<tr>
+<td>Attention cost</td>
+<td>Higher — you personally open/babysit a new terminal per feature</td>
+<td>Lower — background agent notifies on completion, no babysitting</td>
+</tr>
+<tr>
+<td>Safety guarantee</td>
+<td>Structural — a new session <em>cannot</em> depend on live-conversation-only context</td>
+<td>Same guarantee, but requires the extra mechanisms below since a background agent can't pause to ask</td>
+</tr>
+<tr>
+<td>Traceability</td>
+<td>Durable ORCHESTRATE file</td>
+<td>Same durable file, plus the dispatching session's own review-gate re-check</td>
+</tr>
+<tr>
+<td>Extra safety machinery</td>
+<td>None needed</td>
+<td>Confirm-before-dispatch gate, concurrency cap, failure/hang detection, resumability</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Use <code>orchestrate-dispatch</code> when:</strong> you're actively planning multiple independent features in one
+session and want to fan work out without paying the token/attention cost of N cold-started
+sessions — the pattern this mode formalizes (see the plan-orchestrator skill's <code>orchestrate-dispatch</code>
+subsection for the full mechanics: confirm gate, self-containment prompt, concurrency cap, hang
+detection, resumability).</p>
+<p><strong>Use STOP-new-session when:</strong> you want the strongest possible safety guarantee (a session that
+structurally cannot leak live-conversation context), you're not actively multi-tasking across
+features, or the spec is complex/high-ambiguity enough that a human should be present to steer it
+interactively rather than dispatching it unattended.</p>
 <hr />
 <h3 id="craftinsights-session-insights-report"><code>/craft:insights</code> — Session Insights Report<a class="headerlink" href="#craftinsights-session-insights-report" title="Permanent link">&para;</a></h3>
 <p>Aggregates session data from <code>~/.claude/usage-data/facets/</code> to identify friction patterns and suggest improvements.</p>
 <p><strong>When to use:</strong> Periodically to review usage patterns, or before creating ORCHESTRATE files.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Default: terminal report, last 30 days</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:insights
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># HTML report for sharing</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:insights<span class="w"> </span>--format<span class="w"> </span>html
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Last 7 days, specific project</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:insights<span class="w"> </span>--since<span class="w"> </span><span class="m">7</span><span class="w"> </span>--project<span class="w"> </span>craft
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Default: terminal report, last 30 days</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:insights
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># HTML report for sharing</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>/craft:insights<span class="w"> </span>--format<span class="w"> </span>html
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Last 7 days, specific project</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>/craft:insights<span class="w"> </span>--since<span class="w"> </span><span class="m">7</span><span class="w"> </span>--project<span class="w"> </span>craft
 </span></code></pre></div>
 <p><strong>Report includes:</strong></p>
 <ul>
@@ -12397,31 +12536,40 @@
 <hr />
 <h2 id="suggested-workflows">Suggested Workflows<a class="headerlink" href="#suggested-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-1-full-pipeline-brainstorm-to-pr">Workflow 1: Full Pipeline (Brainstorm to PR)<a class="headerlink" href="#workflow-1-full-pipeline-brainstorm-to-pr" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 1. Brainstorm the feature</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:workflow:brainstorm<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># 2. Save as spec (prompted automatically)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># → Saves to docs/specs/SPEC-auth-2026-02-15.md</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># 3. Create orchestration (prompted in Step 6)</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># → Generates ORCHESTRATE-auth.md + creates worktree</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># 4. Start implementation</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-auth
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>claude
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># → &quot;Read ORCHESTRATE-auth.md and start Phase 1&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># 1. Brainstorm the feature</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:workflow:brainstorm<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># 2. Save as spec (prompted automatically)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># → Saves to docs/specs/SPEC-auth-2026-02-15.md</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># 3. Grill it if design questions remain (skip for well-scoped specs)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>/craft:grill<span class="w"> </span>docs/specs/SPEC-auth-2026-02-15.md
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># → Saves to docs/specs/GRILL-auth-2026-02-15.md, back-linked from the SPEC</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># 4. Create orchestration (prompted in Step 6, or run orchestrate:plan directly)</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="c1"># → Generates ORCHESTRATE-auth.md + creates worktree</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># → orchestrate:plan reads the SPEC and, if present, the GRILL ledger</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="c1"># 5. Start implementation</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-auth
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>claude
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="c1"># → &quot;Read ORCHESTRATE-auth.md and start Phase 1&quot;</span>
 </span></code></pre></div>
 <h3 id="workflow-2-from-existing-spec">Workflow 2: From Existing Spec<a class="headerlink" href="#workflow-2-from-existing-spec" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Already have a spec? Go directly to orchestration</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-dashboard.md
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Already have a spec, no open design questions? Go directly to orchestration</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-dashboard.md
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Spec has unresolved judgment calls? Grill first</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:grill<span class="w"> </span>docs/specs/SPEC-dashboard.md
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-dashboard.md
 </span></code></pre></div>
 <h3 id="workflow-3-insights-driven-planning">Workflow 3: Insights-Driven Planning<a class="headerlink" href="#workflow-3-insights-driven-planning" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 1. Check friction patterns</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:insights<span class="w"> </span>--project<span class="w"> </span>craft
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># 2. Create ORCHESTRATE — friction prevention auto-populated</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-feature.md
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># → ORCHESTRATE includes guardrails from insights</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># 1. Check friction patterns</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:insights<span class="w"> </span>--project<span class="w"> </span>craft
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># 2. Create ORCHESTRATE — friction prevention auto-populated</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-feature.md
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># → ORCHESTRATE includes guardrails from insights</span>
 </span></code></pre></div>
 <hr />
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
@@ -12430,7 +12578,8 @@
 <li><a href="../insights-improvements-guide/">Insights Improvements Guide</a> — v2.18.0 insights features</li>
 <li><a href="../../tutorials/TUTORIAL-worktree-setup/">Worktree Tutorial</a> — Step-by-step worktree guide</li>
 <li><a href="../orchestrator/">Orchestrator Guide</a> — Multi-agent orchestration</li>
-<li><a href="../../VERSION-HISTORY/">Version History</a> — v2.21.0 release notes</li>
+<li><code>/craft:grill</code> (<code>skills/orchestration/...</code> — see <code>commands/grill.md</code>) — convergent interrogation before <code>orchestrate:plan</code></li>
+<li><a href="../../VERSION-HISTORY/">Version History</a> — v2.21.0 release notes; grill added v2.43.0</li>
 </ul>
 
 
