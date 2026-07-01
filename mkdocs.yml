@@ -16,6 +16,17 @@ exclude_docs: |
   plans/
   # Active specs are working documents
   specs/SPEC-*.md
+  specs/GRILL-*.md
+  specs/PLAN-*.md
+  specs/RESEARCH-*.md
+  # specs/_archive/ is NOT wholly excluded - 30 of 32 files there are real
+  # published pages (in nav, linked from guides/tutorials). Only true
+  # orphans (never added to nav) are excluded individually.
+  specs/_archive/SPEC-command-audit-deprecated-fields-2026-06-13.md
+  specs/_archive/SPEC-craft-improvements-1-7-2026-06-13.md
+  specs/_archive/SPEC-workflow-engine-2026-06-12.md
+  # Internal working proposals (not yet through spec review)
+  internal/PROPOSAL-*.md
   # Stale standalone docs
   FEATURE-RELEASE-CLAUDE-MD.md
   GIF-REGENERATION-CHECKLIST.md
