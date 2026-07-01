@@ -94,6 +94,39 @@ a discipline checklist.
 (whether or not a GRILL file existed), it must leave that phase's checkbox unchecked, add a
 one-line blocker note directly in the ORCHESTRATE file, and stop — never guess.
 
+**Concurrency cap (scoped to `orchestrate-dispatch` only):** soft cap of 2 concurrent
+`orchestrate-dispatch` dispatches per session. A 3rd+ concurrent dispatch requires an explicit
+`AskUserQuestion` confirmation before calling `Agent`. **Scoping rule (the part most likely to be
+silently gotten wrong):** the counter tracks ONLY background `Agent` calls made via this
+`orchestrate-dispatch` flow — it does NOT count unrelated background `Agent` calls the session may
+also have running for other purposes (research agents, doc agents, etc.). Maintain the count as an
+explicit running tally of dispatches labeled `orchestrate-dispatch` (e.g. tag each dispatch's
+`description` so it's identifiable), not a raw count of "all currently-running background agents."
+This is not a hard block — a deliberate larger fan-out is still possible, just confirmed.
+
+**Failure/hang detection:** never trust the `Agent` tool's completion notification alone — cross-
+check it against the dispatched ORCHESTRATE file's own checkboxes and Phase Overview status
+column.
+
+- Notification fires, but re-reading the ORCHESTRATE file shows no checkboxes moved since dispatch
+  → flag as a suspected silent failure. Do not offer merge. Surface this to the user explicitly.
+- No completion notification within the hang-detection window (below) → surface the crash/hang
+  case explicitly. Do not wait silently past the window.
+
+**Hang-detection window formula:** `2 × the dispatched ORCHESTRATE file's own stated phase-effort
+estimate` — not a fixed wall-clock constant. The effort estimate comes from the Phase Overview
+table's `Effort` column, which Mode 1's existing template already requires for every phase. Example:
+a phase overview row stating `Effort: Med` for the currently-dispatched phase sets the flag-as-hung
+threshold at 2× whatever wall-clock duration this session maps `Med` effort to for this project —
+reuse the same effort→duration mapping the session already uses elsewhere, don't invent a new one
+here.
+
+**Confirmed-failure disposition:** on a confirmed silent-failure or hang (per the detection rule
+above), never auto-delete the worktree or branch — leave both in place for inspection. Add a
+`.STATUS` note in the same HELD style already used for prior held work in this repo (factual: what
+was dispatched, what was observed, that it's paused pending manual inspection — not narrative
+guesswork about the cause).
+
 ### 2. Feature Plan (`plan:feature`)
 
 **Trigger:** "plan feature", "break down", "scope this feature".

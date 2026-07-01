@@ -36,7 +36,7 @@ concurrency).
 | Phase | Increment | Priority | Effort | Status |
 |-------|-----------|----------|--------|--------|
 | 1 | Add `orchestrate-dispatch` output value + confirm-gate + self-containment prompt shape | High | Low-Med | ✅ done |
-| 2 | Concurrency cap (scoped) + failure/hang detection + confirmed-failure disposition | High | Med | ☐ not started |
+| 2 | Concurrency cap (scoped) + failure/hang detection + confirmed-failure disposition | High | Med | ✅ done |
 | 3 | Resumability + `.STATUS` auto-write scoping | Medium | Low | ☐ not started |
 | 4 | Documentation & Discoverability | Medium | Low | ☐ not started |
 
@@ -88,21 +88,21 @@ assert against.
 **Scope:** the three safety mechanisms that don't exist in the STOP-new-session mode because a
 human session doesn't need them.
 
-- [ ] 2.1 Document the concurrency cap (SPEC §3.9): soft cap of 2 concurrent
+- [x] 2.1 Document the concurrency cap (SPEC §3.9): soft cap of 2 concurrent
       `orchestrate-dispatch` dispatches per session; explicit confirm gates any 3rd+. **Scope the
       counter to `orchestrate-dispatch`-labeled calls only** — do not count unrelated background
       `Agent` calls the session may have running (this scoping is the part most likely to be
       silently gotten wrong; write it as an explicit rule in the skill, not an implication).
-- [ ] 2.2 Document failure/hang detection (SPEC §3.10): cross-check the Agent tool's completion
+- [x] 2.2 Document failure/hang detection (SPEC §3.10): cross-check the Agent tool's completion
       notification against the ORCHESTRATE file's own checkboxes.
   - Notification fires, no checkboxes moved → flag suspected silent failure, do not offer merge.
   - No notification within the hang-detection window → surface crash/hang explicitly, do not wait
     silently.
-- [ ] 2.3 Document the hang-detection window formula (SPEC §3.10, grill branch 14): **2× the
+- [x] 2.3 Document the hang-detection window formula (SPEC §3.10, grill branch 14): **2× the
       dispatched ORCHESTRATE file's own stated phase-effort estimate** — not a fixed wall-clock
       constant. State explicitly where that effort estimate comes from (the Phase Overview table's
       Effort column, already required by Mode 1's existing template).
-- [ ] 2.4 Document confirmed-failure disposition (SPEC §3.11, grill branch 15): on a confirmed
+- [x] 2.4 Document confirmed-failure disposition (SPEC §3.11, grill branch 15): on a confirmed
       silent-failure or hang, leave the worktree and branch in place — never auto-delete. Add a
       `.STATUS` note in the same HELD style already used for PR #237 this session.
 
