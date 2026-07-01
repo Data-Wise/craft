@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 117 commands, 8 agents, 43 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.56.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
+site_description: "Full-stack developer toolkit - 116 commands, 8 agents, 44 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.57.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types)."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -16,6 +16,20 @@ exclude_docs: |
   plans/
   # Active specs are working documents
   specs/SPEC-*.md
+  specs/GRILL-*.md
+  specs/PLAN-*.md
+  specs/RESEARCH-*.md
+  # specs/_archive/ is NOT wholly excluded - 30 of 32 files there are real
+  # published pages (in nav, linked from guides/tutorials). Only true
+  # orphans (never added to nav) are excluded individually.
+  specs/_archive/SPEC-command-audit-deprecated-fields-2026-06-13.md
+  specs/_archive/SPEC-craft-improvements-1-7-2026-06-13.md
+  specs/_archive/SPEC-workflow-engine-2026-06-12.md
+  # Internal working proposals (not yet through spec review)
+  internal/PROPOSAL-*.md
+  # Internal session artifacts - not published content
+  internal/HOOKS-TOKEN-AUDIT-*.md
+  internal/TUTORIAL-rtk-cli-token-proxy.md
   # Stale standalone docs
   FEATURE-RELEASE-CLAUDE-MD.md
   GIF-REGENERATION-CHECKLIST.md
@@ -144,6 +158,7 @@ nav:
       - Guard Design (Taxonomy): guide/guard-design.md
       - Guard Suite Tutorial: tutorials/TUTORIAL-guard-suite.md
       - Grill Tutorial: tutorials/TUTORIAL-grill.md
+      - Reusable Grill Prompt (craft-tuned): reference/GRILL-PROMPT-craft.md
       - Claude-MD Workflows: tutorials/claude-md-workflows.md
       - Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
       - Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
@@ -172,6 +187,7 @@ nav:
       - Smart Routing Tutorial: tutorials/smart-routing-tutorial.md
       - Refine Flag Tutorial: tutorials/TUTORIAL-refine-flag.md
       - Refine Flag Help: help/refine-flag.md
+      - Workflow Brief Tutorial: tutorials/TUTORIAL-workflow-brief.md
       - Orchestrate Drive Tutorial: tutorials/TUTORIAL-orchestrate-drive.md
       - Orchestrate Drive Help: help/orchestrate-drive.md
       - Orchestrate Workflow Tutorial: tutorials/TUTORIAL-orchestrate-workflow.md
@@ -232,7 +248,6 @@ nav:
       - docs:mermaid Tutorial: tutorials/TUTORIAL-docs-mermaid.md
       - docs:sync Tutorial: tutorials/TUTORIAL-docs-sync.md
       - git:guard Tutorial: tutorials/TUTORIAL-git-guard.md
-      - orchestrate:resume Tutorial: tutorials/TUTORIAL-orchestrate-resume.md
       - quota Tutorial: tutorials/TUTORIAL-quota.md
       - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
 
@@ -339,7 +354,6 @@ nav:
       - /craft:dist:homebrew: commands/dist/homebrew.md
       - /craft:dist:surfaces: commands/dist/surfaces.md
       - /craft:orchestrate:drive: commands/orchestrate/drive.md
-      - /craft:orchestrate:resume: commands/orchestrate/resume.md
       - /craft:orchestrate:workflow: commands/orchestrate/workflow.md
       - /craft:site:docs:frameworks: commands/site/docs/frameworks.md
       - /craft:smart-help: commands/smart-help.md

@@ -116,7 +116,7 @@ These are static suggestions — curated examples of common workflows.
 ### Typical Healthy State
 
 ```
-117 commands | 43 skills | 8 agents | 112 tests passing
+116 commands | 44 skills | 8 agents | 112 tests passing
 
 NEXT ACTION:
    A) Start Phase 3 implementation
@@ -133,7 +133,7 @@ Everything populated, no staleness warnings.
 ### Degraded State (Missing Data)
 
 ```
-117 commands | 43 skills | 8 agents | ? tests passing
+116 commands | 44 skills | 8 agents | ? tests passing
 ```
 
 Only the banner line shows — no Next Action (no .STATUS), no Worktrees (none exist), no Recently Used (no facets). The hub still works; sections appear as data becomes available.

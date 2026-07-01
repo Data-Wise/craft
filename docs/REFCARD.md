@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.56.0 (released 2026-06-19)                       │
-│  Commands: 117 | Agents: 8 | Skills: 43                     │
+│  Version: 2.57.0 (released 2026-06-19)                       │
+│  Commands: 117 | Agents: 8 | Skills: 44                     │
 │  Documentation: 99% complete | Tests: 142 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.56.0: Documentation Coverage — Tutorial Suite            │
+│  v2.57.0: Documentation Coverage — Tutorial Suite            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -475,6 +475,24 @@ Layer 1: /workflow:done     → catches drift at session end
 Layer 2: --headless         → on-demand bulk sync
 Layer 3: GitHub Actions     → safety net after merge to main
 ```
+
+**Doc-impact rubric (8 types, tiered thresholds):**
+
+```text
+Cheap, in-context (threshold >=3):     Guide, Refcard, Demo, Mermaid
+Heavy, agent-authored (threshold >=5   Tutorial, API, Cookbook,
+  OR "new user-facing surface"):       Architecture-doc
+```
+
+Architecture-doc subtracts the Mermaid factor's "architecture change" contribution before applying
+its own threshold, so one arch change can't double-fire both a Mermaid diagram and an
+Architecture-doc write-up off the same signal. Full rubric table + subtraction-rule details live in
+`commands/docs/sync.md` (single source of truth — `plan-orchestrator` and the scaffold template
+read it rather than duplicating the type list).
+
+A companion **Site Consistency** checklist (mkdocs nav / index / `site:update`+
+`docs-staleness-check.sh`) is advisory, not part of the numeric score — see
+`skills/workflow/brainstorm-insights/references/scaffold-templates.md`.
 
 #### /craft:docs:check
 
@@ -1576,7 +1594,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.56.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.57.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary
@@ -1600,7 +1618,7 @@ Use `--no-tests` or `--no-docs` to suppress either.
 
 **See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
 
-## Skills (43 total)
+## Skills (44 total)
 
 Auto-triggered expertise:
 
@@ -1761,7 +1779,6 @@ Comprehensive guides and references:
 | Command | Description |
 | ------- | ----------- |
 | `/craft:orchestrate:drive` | Drive an approved SPEC to completion via the native /goal turn-loop with a verify gate |
-| `/craft:orchestrate:resume` | Resume orchestration sessions across devices using Claude Desktop session teleportation |
 | `/craft:orchestrate:workflow` | Execute a coded, fixed-control-flow workflow with schema-gated agents and cached replay |
 
 ### Distribution Commands

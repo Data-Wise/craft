@@ -11,6 +11,10 @@ testing-advanced = [
     "pytest-xdist>=3.0",
     "pytest-cov>=4.0",
 ]
+# Install: pip install "craft[tools]" -- needed by scripts/token-probe.py
+tools = [
+    "tiktoken>=0.5",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -44,6 +44,14 @@ Enhanced multi-agent orchestration with:
 - **Timeline view** - Visualizes agent execution
 - **Subagent monitoring** - Tracks agent progress
 - **Result synthesis** - Combines agent outputs
+- **Model pinning** (v2.56.0) - `orchestrator-v2.md` pins `model: sonnet`,
+  legacy `orchestrator.md` pins `model: haiku` — explicit frontmatter instead
+  of inheriting the caller's tier
+- **Resilience reference extracted to a skill** (v2.56.0) - BEHAVIOR
+  5 (error-handling/retry) and BEHAVIOR 9 (execution-timeline template) live
+  in `skills/orchestrator-resilience/SKILL.md`, loaded on agent failure or a
+  `timeline` request rather than on every orchestrator-v2 invocation
+  (1473→1212 lines in the agent file). See [Token Efficiency](internal/TOKEN-EFFICIENCY-craft.md).
 
 ### 3. Mode System
 
@@ -215,7 +223,7 @@ Automated detection of documentation drift across 4 phases:
 scripts/docs-staleness-check.sh
     ↓
 Phase 6: Nav Completeness    → mkdocs.yml vs docs/ files
-Phase 7: Count Consistency   → "117 commands" refs match reality
+Phase 7: Count Consistency   → "116 commands" refs match reality
 Phase 8: Coverage            → skills/agents/commands in docs
 Phase 9: Cross-Doc Freshness → stale summary lines
     ↓
@@ -237,5 +245,5 @@ Craft is designed for easy extension:
 ## See Also
 
 - **[Commands Reference](commands.md)** - All commands
-- **[Skills & Agents](skills-agents.md)** - 43 skills, 8 agents
+- **[Skills & Agents](skills-agents.md)** - 44 skills, 8 agents
 - **[Orchestrator Guide](orchestrator.md)** - Coordination details

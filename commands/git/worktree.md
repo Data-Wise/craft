@@ -19,33 +19,36 @@ replaced-by: "skills/dev/git/"
 
 # /craft:git:worktree - Parallel Development with Git Worktrees
 
+> **This command is a thin(ner) shim.** The canonical operation logic —
+> what each action does, dependency auto-detection, scope-based
+> workflow-file creation — lives in the `git-workflow` skill
+> (`skills/dev/git/SKILL.md`, Operation 5: Worktree Management). This file
+> keeps the flag contract and the exact LLM-executable interaction
+> contract (Step 0/0.5, `AskUserQuestion` prompts, branch-guard hard block)
+> that Claude must follow regardless of skill-routing.
+>
+> **Scope note:** the pre-consolidation version also carried a full
+> shell-aliases-for-`~/.zshrc` section, a decision-tree ASCII diagram,
+> per-action dry-run mockups, and duplicated box-drawing output for every
+> action. That's illustrative, not unique behavior — dropped rather than
+> ported. See the skill for the operation list if something looks missing.
+
 Manage git worktrees for working on multiple branches simultaneously without switching.
 
-## Why Worktrees?
-
-- **No branch switching** - Each branch has its own folder
-- **Parallel development** - Work on feature + hotfix at same time
-- **Claude Code friendly** - Each terminal/session stays on its branch
-- **No stash juggling** - Uncommitted work stays put
-
 ## Craft Worktrees vs Claude Code Native Isolation
-
-Both craft and Claude Code use git worktrees under the hood, but for different purposes. Understanding the difference helps you choose the right tool.
 
 | Aspect | Craft (`/craft:git:worktree`) | Claude Code Native (`isolation: worktree`) |
 |--------|-------------------------------|-------------------------------------------|
 | Location | `~/.git-worktrees/<project>/<branch>` | `.claude/worktrees/<hash>/` |
 | Lifetime | Persistent until manually removed | Temporary, auto-cleaned after agent finishes |
 | Branch naming | `feature/<name>` from `dev` | Agent-generated temporary branch |
-| Visibility | User-managed, listed with `git worktree list` | Transparent to user |
 | Use case | Feature development workflow | Agent isolation during subagent execution |
-| Sharing | Other sessions can `cd` into it | Single agent session only |
 
-**Craft's approach** is recommended for feature development: worktrees are persistent, clearly named, visible to all your tools and sessions, and integrated into the `dev → feature/* → PR` workflow. You navigate into them, run Claude Code inside them, and manage their lifecycle explicitly.
-
-**Claude Code's `isolation: worktree`** serves a different purpose: when a Claude Code subagent needs to be isolated during execution (e.g., in swarm/parallel agent scenarios), it creates a temporary worktree for that agent's session and cleans it up automatically. This is agent-level isolation, not a development workflow tool.
-
-These two approaches are complementary. A craft worktree (long-lived, feature-scoped) can itself host subagent execution with `isolation: worktree` if needed. They operate at different levels of the development stack.
+Craft's worktrees are long-lived and user-managed, integrated into the
+`dev → feature/* → PR` workflow. Claude Code's native isolation is
+agent-scoped and auto-cleaned. A craft worktree can itself host subagent
+execution with `isolation: worktree` if needed — the two are complementary,
+not competing.
 
 ## Execution Behavior (MANDATORY)
 
@@ -73,7 +76,7 @@ Worktree Setup Plan:
 
 ### Step 0.5: Confirm Before Executing
 
-After showing the plan, ask before proceeding:
+After showing the plan, ask before proceeding (via `AskUserQuestion`):
 
 ```json
 {
@@ -103,26 +106,21 @@ After showing the plan, ask before proceeding:
 }
 ```
 
-### Steps 1-N: Execute with Progress
-
-Show each step as it completes:
+### Steps 1-N: Execute with Progress, Then Summary
 
 ```text
   [1/N] Creating directory... ✅
   [2/N] Creating branch... ✅
   [3/N] Installing dependencies... ✅
   ...
-```
 
-### Step N+1: Summary with Next Steps
-
-```text
   Worktree ready: ~/.git-worktrees/<project>/<folder>
   Branch: <branch-name>
   Next: cd <path> && claude
 ```
 
-**Exception:** The `list` action does not require confirmation — it's read-only.
+**Exception:** the `list`, `install`, and `validate` actions are read-only
+— no confirmation needed, no changes made.
 
 ## Usage
 
@@ -134,53 +132,13 @@ Show each step as it completes:
 /craft:git:worktree clean              # Remove merged worktrees
 /craft:git:worktree install            # Install deps in current worktree
 /craft:git:worktree finish             # Complete feature: tests → changelog → cleanup ORCHESTRATE → PR
-/craft:git:worktree validate          # Verify CWD matches expected worktree
+/craft:git:worktree validate           # Verify CWD matches expected worktree
 ```
 
-## Actions
+## Branch Guard (create)
 
-### setup - First-Time Configuration
-
-Creates the worktree parent folder structure:
-
-```bash
-/craft:git:worktree setup
-```
-
-**What it does:**
-
-```bash
-# Get project name from git remote or folder
-project=$(basename $(git rev-parse --show-toplevel))
-
-# Create worktree parent folder
-mkdir -p ~/.git-worktrees/$project
-
-echo "✅ Worktree folder ready: ~/.git-worktrees/$project"
-echo ""
-echo "Next: /craft:git:worktree create <branch-name>"
-```
-
-**Output:**
-
-```
-╭─ Worktree Setup ────────────────────────────────────╮
-│ Project: aiterm                                     │
-│ Main repo: ~/projects/dev-tools/aiterm              │
-│ Worktree folder: ~/.git-worktrees/aiterm/           │
-├─────────────────────────────────────────────────────┤
-│ ✅ Created ~/.git-worktrees/aiterm/                 │
-│                                                     │
-│ Next steps:                                         │
-│   /craft:git:worktree create feature/my-feature     │
-╰─────────────────────────────────────────────────────╯
-```
-
-### create - Create New Worktree
-
-Creates a worktree for an existing or new branch.
-
-**Branch Guard (NEW in v2.16.0):** Worktrees must be created from `dev`, never from `main`. If on `main`:
+Worktrees must be created from `dev`, never from `main`. Hard block, no
+override:
 
 ```
 Cannot create worktree from main.
@@ -188,82 +146,13 @@ Worktrees must branch from dev.
 
 Switch to dev first:
   git checkout dev
-
-Then retry:
-  /craft:git:worktree create feature/your-feature
 ```
 
-No options to override. Hard block.
+## Auto-Setup After Create: Scope Detection
 
-```bash
-/craft:git:worktree create feature/new-ui
-/craft:git:worktree create hotfix/urgent-fix
-```
-
-**What it does:**
-
-```bash
-# Step 0: Branch guard check (belt-and-suspenders with PreToolUse hook)
-# The branch-guard.sh hook blocks edits on main, but this command-level
-# check gives a clearer error message specific to worktree creation.
-current_branch=$(git branch --show-current)
-if [[ "$current_branch" == "main" ]]; then
-    echo "Cannot create worktree from main. Switch to dev first."
-    exit 1
-fi
-
-project=$(basename $(git rev-parse --show-toplevel))
-branch=$1
-folder_name=$(echo $branch | tr '/' '-')  # feature/new-ui → feature-new-ui
-
-# Ensure parent exists
-mkdir -p ~/.git-worktrees/$project
-
-# Create worktree
-git worktree add ~/.git-worktrees/$project/$folder_name $branch
-
-# Detect project type and install dependencies
-cd ~/.git-worktrees/$project/$folder_name
-if [ -f package.json ]; then
-    echo "📦 Installing npm dependencies..."
-    npm install
-elif [ -f pyproject.toml ]; then
-    echo "🐍 Setting up Python environment..."
-    uv venv && source .venv/bin/activate && uv pip install -e .
-elif [ -f requirements.txt ]; then
-    echo "🐍 Installing Python dependencies..."
-    pip install -r requirements.txt
-fi
-
-echo "✅ Worktree ready at ~/.git-worktrees/$project/$folder_name"
-```
-
-**Output:**
-
-```
-╭─ Create Worktree ───────────────────────────────────╮
-│ Branch: feature/new-ui                              │
-│ Location: ~/.git-worktrees/aiterm/feature-new-ui    │
-├─────────────────────────────────────────────────────┤
-│ Creating worktree...                                │
-│ ✅ Worktree created                                 │
-│                                                     │
-│ Installing dependencies...                          │
-│ 📦 Detected: Node.js (package.json)                 │
-│ ✅ npm install complete                             │
-├─────────────────────────────────────────────────────┤
-│ Ready! Start working:                               │
-│   cd ~/.git-worktrees/aiterm/feature-new-ui         │
-│   claude                                            │
-╰─────────────────────────────────────────────────────╯
-```
-
-### Auto-Setup After Create (NEW)
-
-After creating a worktree, the command automatically detects scope from the
-branch name and offers to create workflow files.
-
-#### Scope Detection
+After creating a worktree, detect scope from the branch name and offer to
+create workflow files (`ORCHESTRATE-<name>.md`, and for larger scope a
+`SPEC-<name>-<date>.md`, `.STATUS` entry, `CLAUDE.md` row):
 
 | Branch Pattern | Scope | Auto-Create |
 |----------------|-------|-------------|
@@ -273,534 +162,21 @@ branch name and offers to create workflow files.
 | User selects "multi-phase" | Large | ORCHESTRATE + SPEC + .STATUS + CLAUDE.md |
 | User selects "custom" | Custom | Ask what to create |
 
-#### Scope Confirmation
+Confirm the detected scope via `AskUserQuestion` before creating any file —
+full operation detail (exact templates, flow) lives in
+[`skills/dev/git/SKILL.md`](../../skills/dev/git/SKILL.md), Operation 5.
 
-After detecting scope, confirm with the user:
+## move - Move Current Branch to Worktree
 
-```json
-{
-  "questions": [{
-    "question": "Branch '<branch>' detected as <scope> scope. What workflow files should I create?",
-    "header": "Scope",
-    "multiSelect": false,
-    "options": [
-      {
-        "label": "<auto-detected option> (Recommended)",
-        "description": "Based on branch pattern '<pattern>'."
-      },
-      {
-        "label": "Multi-phase project",
-        "description": "ORCHESTRATE + SPEC + update .STATUS + update CLAUDE.md."
-      },
-      {
-        "label": "Minimal (no files)",
-        "description": "Skip workflow file creation."
-      },
-      {
-        "label": "Custom",
-        "description": "Choose exactly which files to create."
-      }
-    ]
-  }]
-}
-```
+**The killer feature.** Moves your current branch (with uncommitted work,
+via stash/pop) to a worktree so the main folder can return to a stable
+branch. See the skill for the full stash → switch → worktree-add → restore
+→ install sequence.
 
-#### Files Created
+## finish - Complete Feature Workflow
 
-**ORCHESTRATE file** (`ORCHESTRATE-<name>.md`):
-
-```markdown
-# <Name> Orchestration Plan
-
-> **Branch:** `<branch>`
-> **Base:** `dev`
-> **Worktree:** `~/.git-worktrees/<project>/<folder>`
-
-## Objective
-
-[Describe the goal of this work]
-
-## Phase Overview
-
-| Phase | Task | Priority | Status |
-| ----- | ---- | -------- | ------ |
-| 1     |      | High     |        |
-
-## Acceptance Criteria
-
-- [ ] ...
-
-## How to Start
-
-\`\`\`bash
-cd <worktree-path>
-claude
-\`\`\`
-```
-
-**SPEC file** (`docs/specs/SPEC-<name>-<date>.md`) — for medium+ scope:
-
-```markdown
-# SPEC: <Name>
-
-> **Date:** <YYYY-MM-DD>
-> **Branch:** `<branch>`
-> **Status:** Draft
-
-## Summary
-
-[1-2 sentence summary]
-
-## Requirements
-
-- ...
-
-## Design
-
-[Architecture decisions, trade-offs]
-
-## Implementation Plan
-
-| Step | Description | Files |
-| ---- | ----------- | ----- |
-| 1    |             |       |
-```
-
-**Main repo updates** — for multi-phase scope only:
-
-- `.STATUS`: Add worktree entry with `status: WIP`
-- `CLAUDE.md`: Add row to Active Worktrees table
-
-#### Auto-Setup Flow
-
-```text
-create worktree
-  → detect scope from branch name
-  → AskUserQuestion: confirm scope
-  → create ORCHESTRATE file (if medium+)
-  → create SPEC file (if release/multi-phase)
-  → update .STATUS in main repo (if multi-phase)
-  → update CLAUDE.md in main repo (if multi-phase)
-  → show summary of created files
-```
-
-### move - Move Current Branch to Worktree
-
-**The killer feature!** Moves your current branch (with uncommitted work) to a worktree:
-
-```bash
-/craft:git:worktree move
-```
-
-**Use case:** You're working on a feature in the main folder but want to move it to a worktree so main folder can stay on `main` branch.
-
-**What it does:**
-
-```bash
-project=$(basename $(git rev-parse --show-toplevel))
-current_branch=$(git branch --show-current)
-folder_name=$(echo $current_branch | tr '/' '-')
-
-# Step 1: Stash uncommitted work (CRITICAL!)
-echo "📦 Stashing uncommitted work..."
-git stash push --include-untracked -m "WIP before moving to worktree"
-
-# Step 2: Switch main folder to stable branch
-echo "🔀 Switching to main branch..."
-git checkout main || git checkout master
-
-# Step 3: Create worktree for the feature branch
-echo "🌳 Creating worktree..."
-mkdir -p ~/.git-worktrees/$project
-git worktree add ~/.git-worktrees/$project/$folder_name $current_branch
-
-# Step 4: Go to worktree and restore work
-cd ~/.git-worktrees/$project/$folder_name
-echo "📦 Restoring stashed work..."
-git stash pop
-
-# Step 5: Install dependencies
-if [ -f package.json ]; then
-    echo "📦 Installing npm dependencies..."
-    npm install
-elif [ -f pyproject.toml ]; then
-    echo "🐍 Setting up Python environment..."
-    uv venv && source .venv/bin/activate && uv pip install -e .
-fi
-
-echo "✅ Branch moved to worktree!"
-```
-
-**Output:**
-
-```
-╭─ Move Branch to Worktree ───────────────────────────╮
-│ Branch: feat/mission-control-hud                    │
-│ Uncommitted files: 37                               │
-├─────────────────────────────────────────────────────┤
-│ Step 1/5: Stashing work...                          │
-│   ✅ Stashed 37 files                               │
-│                                                     │
-│ Step 2/5: Switching main folder to 'main'...        │
-│   ✅ Now on branch 'main'                           │
-│                                                     │
-│ Step 3/5: Creating worktree...                      │
-│   ✅ Created at ~/.git-worktrees/scribe/feat-...    │
-│                                                     │
-│ Step 4/5: Restoring stashed work...                 │
-│   ✅ Applied stash, 37 files restored               │
-│                                                     │
-│ Step 5/5: Installing dependencies...                │
-│   📦 npm install                                    │
-│   ✅ Dependencies installed                         │
-├─────────────────────────────────────────────────────┤
-│ DONE! Your setup is now:                            │
-│                                                     │
-│   ~/projects/dev-tools/scribe                       │
-│     └── Branch: main (stable base)                  │
-│                                                     │
-│   ~/.git-worktrees/scribe/feat-mission-control-hud  │
-│     └── Branch: feat/mission-control-hud            │
-│     └── Your 37 uncommitted files are here!         │
-│                                                     │
-│ Start Claude Code in the worktree:                  │
-│   cd ~/.git-worktrees/scribe/feat-mission-control-hud
-│   claude                                            │
-╰─────────────────────────────────────────────────────╯
-```
-
-### validate - Verify Worktree Environment
-
-Validates that the current working directory matches the expected worktree for the active branch:
-
-```bash
-/craft:git:worktree validate
-```
-
-**What it checks:**
-
-1. Is CWD inside a git worktree? (`git rev-parse --show-toplevel`)
-2. Does the worktree path match `~/.git-worktrees/<project>/<branch>`?
-3. Is the branch name consistent with the folder name?
-4. Are there file writes targeting outside the worktree?
-
-**Detection logic:**
-
-```bash
-# Check if in a worktree
-git_dir=$(git rev-parse --git-dir 2>/dev/null)
-toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
-branch=$(git branch --show-current)
-cwd=$(pwd)
-
-is_worktree=false
-if [[ "$git_dir" == *".git/worktrees/"* ]]; then
-    is_worktree=true
-fi
-
-# Check branch-folder consistency
-folder_name=$(basename "$cwd")
-expected_folder=$(echo "$branch" | tr '/' '-')
-
-# Find main repo
-if $is_worktree; then
-    main_repo=$(git worktree list | head -1 | awk '{print $1}')
-fi
-```
-
-**Output (all passing):**
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│ WORKTREE VALIDATION                                           │
-├───────────────────────────────────────────────────────────────┤
-│ CWD:       ~/.git-worktrees/craft/feature-auth                │
-│ Branch:    feature/auth                                       │
-│ Toplevel:  ~/.git-worktrees/craft/feature-auth                │
-│ Main repo: ~/projects/dev-tools/craft                         │
-├───────────────────────────────────────────────────────────────┤
-│ ✅ CWD is inside expected worktree                             │
-│ ✅ Branch matches folder name                                  │
-│ ✅ No writes detected outside worktree                         │
-└───────────────────────────────────────────────────────────────┘
-```
-
-**Output (issues found):**
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│ WORKTREE VALIDATION                                           │
-├───────────────────────────────────────────────────────────────┤
-│ CWD:       ~/projects/dev-tools/craft                         │
-│ Branch:    feature/auth                                       │
-│ Toplevel:  ~/projects/dev-tools/craft                         │
-│ Main repo: ~/projects/dev-tools/craft                         │
-├───────────────────────────────────────────────────────────────┤
-│ ⚠️  CWD is the main repo, not the worktree                    │
-│ ⚠️  Expected: ~/.git-worktrees/craft/feature-auth              │
-│ ✅ Branch matches folder name                                  │
-│                                                               │
-│ FIX: cd ~/.git-worktrees/craft/feature-auth                   │
-└───────────────────────────────────────────────────────────────┘
-```
-
-**Note:** This is a read-only action — no confirmation needed, no changes made.
-
-### list - Show All Worktrees
-
-```bash
-/craft:git:worktree list
-```
-
-**What it does:**
-
-```bash
-git worktree list --porcelain | while read line; do
-    # Parse and display nicely
-done
-```
-
-**Output:**
-
-```
-╭─ Git Worktrees ─────────────────────────────────────╮
-│ Project: scribe                                     │
-├─────────────────────────────────────────────────────┤
-│                                                     │
-│ 📁 ~/projects/dev-tools/scribe                      │
-│    Branch: main                                     │
-│    Status: clean                                    │
-│    Type: Main repository                            │
-│                                                     │
-│ 🌳 ~/.git-worktrees/scribe/mission-control-hud      │
-│    Branch: feat/mission-control-hud                 │
-│    Status: 3 uncommitted changes                    │
-│    Type: Worktree                                   │
-│                                                     │
-│ 🌳 ~/.git-worktrees/scribe/wonderful-wilson         │
-│    Branch: wonderful-wilson                         │
-│    Status: clean                                    │
-│    Type: Worktree                                   │
-│                                                     │
-├─────────────────────────────────────────────────────┤
-│ Total: 3 (1 main + 2 worktrees)                     │
-╰─────────────────────────────────────────────────────╯
-```
-
-### clean - Remove Merged Worktrees
-
-Safely removes worktrees for branches that have been merged:
-
-```bash
-/craft:git:worktree clean
-```
-
-**What it does:**
-
-```bash
-# Find merged branches
-merged=$(git branch --merged main | grep -v "main\|master\|\*")
-
-for branch in $merged; do
-    # Check if branch has a worktree
-    worktree_path=$(git worktree list | grep "$branch" | awk '{print $1}')
-    if [ -n "$worktree_path" ]; then
-        echo "Remove worktree for merged branch '$branch'? (y/n)"
-        # Interactive removal
-    fi
-done
-
-# Prune broken references
-git worktree prune
-```
-
-**Output:**
-
-```
-╭─ Clean Worktrees ───────────────────────────────────╮
-│ Scanning for merged branches with worktrees...      │
-├─────────────────────────────────────────────────────┤
-│                                                     │
-│ Found 2 worktrees for merged branches:              │
-│                                                     │
-│ ⚠️  feat/old-feature (merged 3 days ago)            │
-│     Worktree: ~/.git-worktrees/aiterm/feat-old-...  │
-│     [Remove? y/n]                                   │
-│                                                     │
-│ ⚠️  fix/typo (merged 1 week ago)                    │
-│     Worktree: ~/.git-worktrees/aiterm/fix-typo      │
-│     [Remove? y/n]                                   │
-│                                                     │
-├─────────────────────────────────────────────────────┤
-│ Also running: git worktree prune                    │
-│ ✅ Cleaned up broken references                     │
-╰─────────────────────────────────────────────────────╯
-```
-
-### install - Install Dependencies
-
-Install dependencies for the current worktree based on project type:
-
-```bash
-/craft:git:worktree install
-```
-
-**Auto-detection:**
-
-| Project Type | Detection | Install Command |
-|--------------|-----------|-----------------|
-| Node.js | `package.json` | `npm install` |
-| Python (uv) | `pyproject.toml` | `uv venv && uv pip install -e .` |
-| Python (pip) | `requirements.txt` | `pip install -r requirements.txt` |
-| Rust | `Cargo.toml` | Nothing (global cache) |
-| Go | `go.mod` | Nothing (global cache) |
-| R | `DESCRIPTION` | Nothing (global library) |
-| R (renv) | `renv.lock` | `R -e "renv::restore()"` |
-
-### finish - Complete Feature Workflow
-
-**The AI-assisted workflow!** Runs tests, generates changelog, and creates a PR:
-
-```bash
-/craft:git:worktree finish
-```
-
-**Use case:** You've completed work on a feature in a worktree and want to:
-
-1. Verify tests pass
-2. Document the changes
-3. Create a PR for review
-
-**What it does:**
-
-#### Step 1: Run Tests (Auto-Detected)
-
-```bash
-# Detect project type and run appropriate tests
-if [ -f package.json ]; then
-    echo "🧪 Running: npm test"
-    npm test
-elif [ -f pyproject.toml ] || [ -f setup.py ]; then
-    echo "🧪 Running: pytest"
-    pytest -v
-elif [ -f DESCRIPTION ]; then
-    echo "🧪 Running: R CMD check"
-    R CMD check . --no-manual
-elif [ -f Cargo.toml ]; then
-    echo "🧪 Running: cargo test"
-    cargo test
-elif [ -f go.mod ]; then
-    echo "🧪 Running: go test"
-    go test ./...
-fi
-```
-
-#### Step 2: Generate Changelog Entry
-
-```bash
-# Get branch info
-branch=$(git branch --show-current)
-base_branch=$(git merge-base main HEAD)
-
-# Extract commits since branching
-commits=$(git log --oneline $base_branch..HEAD)
-
-# Determine change type from branch name
-if [[ "$branch" == feat/* ]]; then
-    section="### Added"
-elif [[ "$branch" == fix/* ]]; then
-    section="### Fixed"
-elif [[ "$branch" == docs/* ]]; then
-    section="### Documentation"
-else
-    section="### Changed"
-fi
-
-# Generate entry (Claude fills in the summary)
-echo "
-$section
-- **$branch**: [AI generates summary from commits]
-  - $(echo "$commits" | head -5)
-"
-```
-
-#### Step 2.5: Remove ORCHESTRATE Files
-
-```bash
-# Check for ORCHESTRATE files in the worktree
-orchestrate_files=$(ls ORCHESTRATE-*.md 2>/dev/null)
-
-if [ -n "$orchestrate_files" ]; then
-    echo "📋 Found ORCHESTRATE files (working artifacts):"
-    echo "   $orchestrate_files"
-    echo "   These are feature-branch artifacts and should not merge to dev."
-    git rm $orchestrate_files
-    git commit -m "chore: remove ORCHESTRATE file (merge cleanup)"
-fi
-```
-
-#### Step 3: Create PR
-
-```bash
-# Get target branch (usually dev or main)
-target="dev"
-if ! git rev-parse --verify dev &>/dev/null; then
-    target="main"
-fi
-
-# Create PR with AI-generated description
-gh pr create \
-    --base "$target" \
-    --title "[AI generates from branch name + commits]" \
-    --body "[AI generates from commit history + changes]"
-```
-
-**Output:**
-
-```
-╭─ Finish Feature ────────────────────────────────────╮
-│ Branch: feat/user-auth                              │
-│ Commits: 7 since branching from main                │
-├─────────────────────────────────────────────────────┤
-│                                                     │
-│ Step 1/4: Running Tests                             │
-│   📦 Detected: Python (pyproject.toml)              │
-│   🧪 Running: pytest -v                             │
-│   ✅ 47 tests passed                                │
-│                                                     │
-│ Step 2/4: Generating Changelog                      │
-│   📝 Branch type: feat/* → "Added" section          │
-│   📝 Entry generated:                               │
-│                                                     │
-│   ### Added                                         │
-│   - **User Authentication**: JWT-based auth system  │
-│     with login, logout, and session management.     │
-│     Includes password hashing and token refresh.    │
-│                                                     │
-│   ✏️  Review and edit CHANGELOG.md? [Y/n]           │
-│                                                     │
-│ Step 3/4: Removing ORCHESTRATE files                │
-│   📋 Found: ORCHESTRATE-user-auth.md                │
-│   ✅ Removed (merge cleanup)                        │
-│                                                     │
-│ Step 4/4: Creating PR                               │
-│   🎯 Target: dev                                    │
-│   📋 Title: feat: Add user authentication system    │
-│   📋 Body: (AI-generated from 7 commits)            │
-│                                                     │
-│   ✅ PR created: https://github.com/.../pull/42     │
-│                                                     │
-├─────────────────────────────────────────────────────┤
-│ DONE! Feature complete.                             │
-│                                                     │
-│ Next steps:                                         │
-│   - Review PR: gh pr view 42                        │
-│   - Clean worktree after merge:                     │
-│     /craft:git:worktree clean                       │
-╰─────────────────────────────────────────────────────╯
-```
-
-**Flags (optional):**
+Runs tests (auto-detected by project type), generates a changelog entry,
+removes stray `ORCHESTRATE-*.md` working artifacts, and opens a PR:
 
 ```bash
 /craft:git:worktree finish --skip-tests    # Skip test step
@@ -808,108 +184,41 @@ gh pr create \
 /craft:git:worktree finish --target main   # Target main instead of dev
 ```
 
-**AI-Generated Content:**
+Full step-by-step (test-command detection table, changelog section
+inference, PR body template) lives in the skill.
 
-The `finish` action uses Claude to generate:
+## install - Install Dependencies
 
-1. **Changelog entry**: Summarizes commits into a clear, user-facing description
-2. **PR title**: Concise title following conventional commit style
-3. **PR body**: Structured description with:
-   - Summary of changes
-   - Key implementation details
-   - Testing notes
-   - Screenshots (if applicable)
+Auto-detects project type (`package.json`, `pyproject.toml`,
+`requirements.txt`, `Cargo.toml`, `go.mod`, `DESCRIPTION`/`renv.lock`) and
+runs the matching install command. Read-only otherwise (Rust/Go use global
+caches).
 
-**Example PR Body Generated:**
+## validate - Verify Worktree Environment
 
-```markdown
-## Summary
-Adds JWT-based user authentication with login, logout, and session management.
+Read-only check that CWD is inside the expected `~/.git-worktrees/<project>/<branch>`
+worktree and the branch matches the folder name. No confirmation needed.
 
-## Changes
-- Add `/auth/login` and `/auth/logout` endpoints
-- Implement JWT token generation and validation
-- Add password hashing with bcrypt
-- Create auth middleware for protected routes
-- Add token refresh mechanism
+## clean - Remove Merged Worktrees
 
-## Testing
-- 47 unit tests added for auth module
-- Manual testing completed for login flow
-
-## Checklist
-- [x] Tests pass
-- [x] Changelog updated
-- [x] Documentation updated
-```
-
-## Shell Aliases (Recommended)
-
-Add these to `~/.zshrc` for quick navigation:
-
-```bash
-# General worktree navigation
-alias wt='cd ~/.git-worktrees'
-alias wtl='git worktree list'
-
-# Project-specific (customize for your projects)
-alias aiterm-wt='cd ~/.git-worktrees/aiterm'
-alias scribe-hud='cd ~/.git-worktrees/scribe/mission-control-hud'
-alias scribe-alt='cd ~/.git-worktrees/scribe/wonderful-wilson'
-```
+Finds worktrees for branches merged into `main`/`dev`, confirms per-branch
+removal, then runs `git worktree prune` for stale references.
 
 ## Best Practices
 
-### DO
-
-- Keep worktrees outside project folder (`~/.git-worktrees/`)
+- Keep worktrees outside the project folder (`~/.git-worktrees/`)
 - Use consistent naming (`project/branch-name`)
-- Install deps after creating worktree
 - Start Claude Code IN the worktree folder
-- Use different ports for dev servers (`PORT=3001 npm run dev`)
-
-### DON'T
-
-- Create worktrees inside the project folder
-- Switch branches within a worktree (defeats the purpose!)
-- Forget to install dependencies
-- Leave stale worktrees around (use `clean`)
-
-## Worktree vs Branch Decision
-
-```
-Need to work on something else?
-│
-├─ Quick fix (< 1 hour)?
-│   └─ Just switch branches
-│
-├─ Longer work + need to switch back?
-│   └─ CREATE WORKTREE
-│
-├─ Running dev server that shouldn't stop?
-│   └─ CREATE WORKTREE
-│
-├─ Using Claude Code in parallel?
-│   └─ CREATE WORKTREE
-│
-└─ Not sure?
-    └─ CREATE WORKTREE (safer)
-```
+- Don't switch branches within a worktree — create a new one instead
+- Don't leave stale worktrees around — run `clean` after merge
 
 ## Integration
 
 **Related commands:**
 
-- `/craft:check` - Now detects worktree context
+- `/craft:check` - Detects worktree context
 - `/craft:git:sync` - Works in worktrees too
 - `/craft:git:clean` - Cleans branches (not worktrees)
-- `/craft:git:feature` - Feature branch workflow (start/promote/release)
-
-**aiterm integration:**
-
-- `ait sessions` - Tracks sessions per worktree
-- `ait detect` - Identifies worktree context
-- `ait feature status` - Rich pipeline visualization
 
 **Workflow summary:**
 
@@ -925,85 +234,13 @@ Need to work on something else?
 
 ## Dry-Run Mode
 
-Preview what each action will do without executing it:
-
-```bash
-# Preview worktree creation
-/craft:git:worktree create feature/my-feature --dry-run
-
-# Preview cleanup
-/craft:git:worktree clean -n
-
-# Preview setup
-/craft:git:worktree setup --dry-run
-
-# Preview finish workflow
-/craft:git:worktree finish -n
-```
-
-### Example Output: Create
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│ 🔍 DRY RUN: Create Worktree                                    │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│ ✓ Operations:                                                 │
-│   - Create worktree at ~/.git-worktrees/craft/feature-auth    │
-│   - Checkout branch: feature/auth                             │
-│   - Detect project type: Node.js                              │
-│   - Run npm install (auto-detected)                           │
-│                                                               │
-│ 📊 Summary: 1 worktree to create, auto-install enabled        │
-│                                                               │
-├───────────────────────────────────────────────────────────────┤
-│ Run without --dry-run to execute                              │
-└───────────────────────────────────────────────────────────────┘
-```
-
-### Example Output: Clean
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│ 🔍 DRY RUN: Clean Worktrees                                    │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│ ✓ Worktrees to remove (2):                                    │
-│   - ~/.git-worktrees/craft/feature-old (merged to dev)        │
-│   - ~/.git-worktrees/craft/fix-bug (merged to main)           │
-│                                                               │
-│ ⊘ Skip (1):                                                   │
-│   - ~/.git-worktrees/craft/feature-wip (not merged)           │
-│                                                               │
-│ ⚠ Warnings:                                                   │
-│   • feature-wip is not merged to any branch                    │
-│                                                               │
-│ 📊 Summary: 2 worktrees to remove, 1 skipped                   │
-│                                                               │
-├───────────────────────────────────────────────────────────────┤
-│ Run without --dry-run to execute                              │
-└───────────────────────────────────────────────────────────────┘
-```
-
-### Supported Actions
-
-| Action | Dry-Run Support | What It Shows |
-|--------|----------------|---------------|
-| `setup` | ✅ Yes | Directory creation, project detection |
-| `create` | ✅ Yes | Worktree path, branch, auto-install plan |
-| `move` | ✅ Yes | Source/target paths, branch operations |
-| `list` | ⊘ N/A | Read-only (no preview needed) |
-| `clean` | ✅ Yes | Worktrees to remove, merge status |
-| `install` | ⊘ N/A | Read-only analysis, safe to run |
-| `finish` | ✅ Yes | Test commands, changelog, PR details |
-| `validate` | ⊘ N/A | Read-only (no preview needed) |
+Every state-changing action (`setup`, `create`, `move`, `clean`, `finish`)
+supports `--dry-run`/`-n` — preview the plan without executing. `list`,
+`install`, and `validate` are already read-only and don't need it.
 
 ## See Also
 
-- Template: `templates/dry-run-pattern.md`
-- Utility: `utils/dry_run_output.py`
-- Related: `/craft:git:clean` (branch cleanup)
-- Specification: `docs/specs/_archive/SPEC-dry-run-feature-2026-01-15.md`
+- `skills/dev/git/SKILL.md` — canonical operation logic (Operation 5)
 - `/craft:git:branch` - Interactive git branch management assistant
 - `/craft:git:status` - Enhanced git status with teaching-specific context
 - `/craft:git:unprotect` - Session-scoped bypass for branch protection with reason logging

@@ -1,7 +1,7 @@
 # Research Report: Token Efficiency in Claude Code Plugins (Craft Case Study)
 
-**Status:** COMPLETE (research) / branch IMPLEMENTED, PR #232 open · **Date:** 2026-06-30 · **Driver:** Cowork session, originally triggered by observing subagent calls dominating token usage
-**Companion docs:** [`docs/internal/TOKEN-EFFICIENCY-craft.md`](../internal/TOKEN-EFFICIENCY-craft.md) (what we did, implementation record) · [`SPEC-craft-audit-and-next-steps-2026-06-30.md`](SPEC-craft-audit-and-next-steps-2026-06-30.md) (broader audit + roadmap)
+**Status:** COMPLETE (research), MERGED (PR #232 → v2.56.0, 2026-07-01) · Consolidated 2026-07-01 into `SPEC-token-efficiency-and-context-tooling-2026-07-01.md` (Part A) alongside the superpowers/claude-context follow-on work · **Date:** 2026-06-30 · **Driver:** Cowork session, originally triggered by observing subagent calls dominating token usage
+**Companion docs:** [`docs/internal/TOKEN-EFFICIENCY-craft.md`](../../internal/TOKEN-EFFICIENCY-craft.md) (what we did, implementation record) · [`SPEC-craft-audit-and-next-steps-2026-06-30.md`](../SPEC-craft-audit-and-next-steps-2026-06-30.md) (broader audit + roadmap)
 
 ---
 

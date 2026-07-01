@@ -7,140 +7,107 @@
 ## Syntax
 
 ```
-/brainstorm [depth:count] [focus] [action] [-C|--categories "cats"] "topic"
+/brainstorm [depth] [focus] [action] [-C|--categories "cats"] "topic"
 ```
+
+Depth and focus, if omitted, are asked together in a single `AskUserQuestion`
+call (the only depth+focus decision point). There is no colon notation and
+no `max`/`m` tier.
 
 ## Depth Layer
 
-| Full | Short | Count | Time |
-|------|-------|-------|------|
-| (default) | - | 2 | < 5 min |
-| quick | q | 0 | < 1 min |
-| deep | d | 8 | < 10 min |
-| max | m | 8 | < 30 min |
+| Depth | Expert Questions | Time |
+|-------|-------------------|------|
+| quick | 0 | < 1 min |
+| default | 2 | < 5 min |
+| deep | 6 | < 10 min |
 
-Custom: `d:5`, `m:12`, `q:0`
+No per-invocation count override (`d:5`, `m:12`) — `deep` is the ceiling. Use
+the post-question follow-up offer ("anything else before I generate this?")
+to add more instead.
 
 ## Focus Layer
 
-| Full | Short | Single |
-|------|-------|--------|
-| feature | feat | f |
-| architecture | arch | a |
-| ux | ux | x |
-| api | api | b |
-| ui | ui | u |
-| ops | ops | o |
+| Focus | Shapes output |
+|-------|----------------|
+| `feat` | User stories, requirements-first |
+| `arch` | Mermaid diagram, technical approach |
+| `ux` | User-facing scope, success criteria |
+| `api` | API endpoints, technical + requirements |
+| `ui` | Visual/interaction scope |
+| `ops` | Technical approach, risks, timeline |
 
 ## Action Layer
 
-| Full | Short | Single |
-|------|-------|--------|
-| save | save | s |
+| Action | Effect |
+|--------|--------|
+| `save` | Captures a `docs/specs/SPEC-<topic>-<date>.md` in addition to the BRAINSTORM file |
 
-## Category Shortcuts
+## Category Override (`-C` / `--categories`)
 
-| Short | Full |
-|-------|------|
-| req | requirements |
-| usr | users |
-| scp | scope |
-| tech | technical |
-| time | timeline |
-| risk | risks |
-| exist | existing |
-| ok | success |
-| all | all categories |
+Default categories are focus-driven (table below). Override with a
+comma-separated list to limit expert questions regardless of focus:
+
+| Category | Covers |
+|----------|--------|
+| `req` | requirements |
+| `users` | target users / audience |
+| `scope` | what's in / out of scope |
+| `tech` | technical approach, stack |
+| `timeline` | sequencing, milestones |
+| `risks` | risks, edge cases, failure modes |
+| `existing` | existing code/patterns to reuse or replace |
+| `success` | success criteria |
+| `all` | every category (default at `deep` when `-C` omitted) |
+
+Default categories by focus:
+
+| Focus | Default categories |
+|-------|---------------------|
+| `feat` | req, users, scope, success |
+| `arch` | tech, risks, existing, scope |
+| `api` | tech, req, success |
+| `ux` | users, scope, success |
+| `ops` | tech, risks, timeline |
+| (auto/unset) | req, users, tech, success |
 
 ---
 
-## Mode Selection Flowchart
+## Flow
 
 ```mermaid
 flowchart TD
-    Start["/brainstorm"] --> HasArgs{Arguments?}
+    Start["/brainstorm"] --> HasArgs{Depth + focus supplied?}
 
-    HasArgs -->|None| NewSession{New session?}
-    HasArgs -->|Topic only| DepthQ["Q1: Depth?"]
-    HasArgs -->|Topic + mode| Execute
-    HasArgs -->|Full args| Execute
+    HasArgs -->|No| DepthFocusQ["Single AskUserQuestion: depth + focus"]
+    HasArgs -->|Yes| ContextScan
 
-    NewSession -->|Yes| ResumeQ["Q-1: Resume session?"]
-    NewSession -->|No| SmartDetect["Smart Context Detection"]
-
-    ResumeQ --> ResumeChoice{User selects}
-    ResumeChoice -->|Resume session| LoadSession["Load previous context"]
-    ResumeChoice -->|Start fresh| SmartDetect
-
-    LoadSession --> DepthQ
-
-    SmartDetect --> HowMany{Topics found?}
-    HowMany -->|1 topic| AutoTopic["Use detected topic"]
-    HowMany -->|2-4 topics| TopicQ["Q0: Which topic?"]
-    HowMany -->|0 or 5+| AskTopic["Ask: What to brainstorm?"]
-
-    AutoTopic --> DepthQ
-    TopicQ --> DepthQ
-    AskTopic --> DepthQ
-
-    DepthQ --> FocusQ["Q2: Focus?"]
-    FocusQ --> ContextScan["Step 1.7: Context Scan"]
-    ContextScan --> Questions["Ask Questions"]
-    Questions --> AskMore["Ask More?"]
-    AskMore --> Execute["Execute Brainstorm"]
-    Execute --> Save["Save Output"]
-    Save --> SpecQ{Spec capture?}
-    SpecQ -->|save action| SpecCapture["Capture as spec"]
-    SpecQ -->|feat/arch/api| SpecPrompt["Q: Capture as spec?"]
-    SpecQ -->|quick/no| Done["Report + Next Steps"]
-    SpecPrompt --> Done
-    SpecCapture --> Done
+    DepthFocusQ --> ContextScan["Context scan: existing SPEC, .STATUS, git"]
+    ContextScan --> Questions["Expert questions (0/2/6 by depth,\ncategory-filtered)"]
+    Questions --> FollowUp["One follow-up offer:\nanything else, or generate?"]
+    FollowUp --> Generate["Generate BRAINSTORM output"]
+    Generate --> SpecQ{save action?}
+    SpecQ -->|Yes| SpecCapture["Capture SPEC-<topic>-<date>.md"]
+    SpecQ -->|No| Done["Report + next command"]
+    SpecCapture --> OrchOffer["Offer --orch hand-off\n(post-spec only)"]
+    OrchOffer --> Done
 ```
 
-## Milestone Flow (d:20 example)
-
-```mermaid
-graph TD
-    A["Start: d:20"] --> B["Ask questions 1-8"]
-    B --> C{"Milestone: Continue?"}
-    C -->|Done| F["Generate brainstorm"]
-    C -->|4 more| D["Ask 9-12"]
-    C -->|8 more| E["Ask 9-16"]
-    C -->|Keep going| G["Unlimited mode"]
-    D --> C
-    E --> C
-    G --> H{"Every 4: Continue?"}
-    H -->|Yes| G
-    H -->|No| F
-```
-
-## v2.4.0 Colon Notation Flow
-
-```
-ColonArgs["d:5, m:12, q:3"] --> parse_depth_with_count()
-  --> (depth_mode, question_count)
-```
-
-## v2.4.0 Categories Flag Flow
-
-```
--C req,tech --> parse_categories()
-  --> Filter question bank
-  --> Selected questions
-```
+Two decision points total: **(1)** depth+focus (skippable via arguments),
+**(2)** the one follow-up offer. No milestone re-prompting, no per-depth
+escape-hatch menu.
 
 ---
 
-## Agent Delegation (Max Mode)
+## No In-Skill Agent Delegation
 
-| Focus | Agents |
-|-------|--------|
-| feature | product-strategist |
-| architecture | backend-architect, database-architect |
-| design | ux-ui-designer |
-| backend | backend-architect, security-specialist |
-| frontend | frontend-specialist, performance-engineer |
-| devops | devops-engineer |
+The pre-redesign version launched background agents directly from a "max"
+depth tier, duplicating `orchestrator-v2`'s wave checkpoints/model
+routing/confirmation safeguards without them, and referencing agent type
+names that didn't exist. This was removed. The current skill does not spawn
+subagents itself — after `save`, it offers a hand-off to the orchestrator via
+the existing `--orch` flag / `plan-orchestrator` skill /
+`/craft:orchestrate:plan <spec-path>`.
 
 ---
 
@@ -148,24 +115,24 @@ ColonArgs["d:5, m:12, q:3"] --> parse_depth_with_count()
 
 ```bash
 # Fastest path
-/brainstorm q "topic"
+/brainstorm quick "topic"
 
-# Balanced (default)
+# Balanced (default depth+focus menu)
 /brainstorm "topic"
 
-# Focused deep dive
-/brainstorm d:5 f -C req,tech "topic"
+# Skip the menu
+/brainstorm deep feat "topic"
+
+# Focused deep dive (category override)
+/brainstorm deep feat -C req,tech "topic"
 
 # Full spec capture
-/brainstorm d f s "topic"
+/brainstorm deep feat save "topic"
 
-# Maximum analysis
-/brainstorm m a s "topic"
-
-# Orchestrated
-/brainstorm "topic" --orch=optimize
+# Orchestrated hand-off (post-spec)
+/brainstorm deep arch save "topic" --orch=optimize
 ```
 
 ---
 
-*See also: [Power User Tutorial](../tutorials/TUTORIAL-brainstorm-power-user.md) | [Question Bank](../specs/_archive/SPEC-brainstorm-question-bank.md)*
+*See also: [Power User Tutorial](../tutorials/TUTORIAL-brainstorm-power-user.md)*

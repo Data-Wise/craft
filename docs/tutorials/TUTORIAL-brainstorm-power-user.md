@@ -1,6 +1,6 @@
 # Brainstorm Power User Tutorial
 
-> Advanced patterns, detailed examples, and expert workflows for `/workflow:brainstorm`
+> Advanced patterns and detailed examples for `/workflow:brainstorm`
 
 **Prerequisites:** Basic familiarity with `/brainstorm` (see `/craft:hub workflow:brainstorm`)
 
@@ -10,40 +10,58 @@
 
 ```bash
 # Minimal
-/brainstorm "auth"                           # Default everything
+/brainstorm "auth"                           # depth+focus menu, then 2 decision points
 
-# With focus
-/brainstorm feat "auth"                      # Feature focus
-/brainstorm f "auth"                         # Same (single letter)
+# Skip the menu — supply depth + focus as arguments
+/brainstorm quick feat "auth"                # Quick depth, feature focus
+/brainstorm deep arch "auth"                 # Deep depth, architecture focus
 
-# With action
-/brainstorm save "auth"                      # Save as spec
-/brainstorm s "auth"                         # Same (single letter)
+# Save as spec
+/brainstorm deep feat save "auth"            # Deep + feature focus + spec capture
 
-# Combined
-/brainstorm feat save "auth"                 # Feature + spec
-/brainstorm f s "auth"                       # Same (ultra-short)
+# Category override — limit expert questions regardless of focus defaults
+/brainstorm deep "caching" -C tech,risks     # Only technical + risk questions
+/brainstorm deep "auth" --categories req,users,success
 
-# Full control
-/brainstorm deep feat save "auth"            # Deep + feature + spec
-/brainstorm d f s "auth"                     # Power user mode
-
-# Maximum depth
-/brainstorm max arch save "auth"             # Max + architecture + spec
-/brainstorm m a s "auth"                     # Same (ultra-short)
-
-# Custom question counts (v2.4.0)
-/brainstorm d:5 "auth"                       # Deep with exactly 5 questions
-/brainstorm m:12 "api"                       # Max with 12 questions
-/brainstorm q:0 "quick"                      # Quick with 0 questions
-
-# Category filtering (v2.4.0)
-/brainstorm d:5 "auth" -C req,tech           # 5 questions from req + tech
-/brainstorm m:10 f "api" --categories req,usr,tech,exist
-
-# Power user - full control
-/brainstorm d:15 f s -C req,tech,success "auth"
+# Orchestrated hand-off (post-spec, not in-skill delegation)
+/brainstorm deep arch save "multi-tenant SaaS" --orch=optimize
 ```
+
+There is no `max`/`m` depth tier, no colon notation (`d:5`, `m:12`), and no
+`--format json`/`--format markdown` flag — these were part of the
+pre-redesign 4-decision-point system and were intentionally removed. See
+[Two Decision Points](#two-decision-points-not-four) below for why.
+
+---
+
+## Two Decision Points, Not Four
+
+The current design has exactly two decision points per session:
+
+1. **Depth + focus**, asked together in one `AskUserQuestion` call when not
+   supplied as arguments.
+2. **One optional follow-up** — "anything else before I generate this?" —
+   offered once, after the expert questions, regardless of depth.
+
+There is no per-depth escape-hatch menu, no "switch depth mid-flow," and no
+milestone re-prompting every N questions. If a topic genuinely needs more
+than the deep-tier's 6 expert questions, use the follow-up offer to add
+more — don't look for a count-override flag; there isn't one.
+
+| Depth | Time | Expert Questions |
+|-------|------|-------------------|
+| quick | < 1 min | 0 |
+| default | < 5 min | 2 |
+| deep | < 10 min | 6 |
+
+| Focus | Shapes output |
+|-------|---------------|
+| `feat` | User stories, requirements-first |
+| `arch` | Mermaid diagram, technical approach |
+| `ux` | User-facing scope, success criteria |
+| `api` | API endpoints, technical + requirements |
+| `ui` | Visual/interaction scope |
+| `ops` | Technical approach, risks, timeline |
 
 ---
 
@@ -52,217 +70,113 @@
 ### Scenario 1: Interactive Mode Selection
 
 ```
-User: /workflow:brainstorm
+User: /workflow:brainstorm "user authentication"
 
-Claude: Shows mode menu...
-User: Selects "Feature (Recommended)"
+Claude: Single AskUserQuestion combining depth + focus...
+User: Selects "default" depth, "feat" focus
 
-Claude: Shows depth menu...
-User: Selects "Quick (Recommended)"
-
-Claude: "What topic would you like to brainstorm?"
-User: "user authentication"
-
--> Runs feature + quick brainstorm for auth
--> Completes in 42s
--> Saves to BRAINSTORM-user-auth-2024-12-24.md
+-> Asks 2 expert questions (requirements + success, focus-driven default)
+-> One follow-up offer: "anything else, or ready to generate?"
+-> Saves to BRAINSTORM-user-authentication-<date>.md
 ```
 
-### Scenario 2: Direct Invocation (Skip Menu)
+### Scenario 2: Direct Invocation (Skip the Menu)
 
 ```
-User: /workflow:brainstorm quick feature auth
+User: /workflow:brainstorm quick feat "auth"
 
--> Skips menus entirely
--> Runs feature mode with quick depth
--> Completes in 38s
+-> Skips the depth+focus menu (both supplied as arguments)
+-> Quick depth = 0 expert questions, straight to generation
+-> Saves to BRAINSTORM-auth-<date>.md
 ```
 
-### Scenario 3: Thorough Architecture Analysis
+### Scenario 3: Deep Architecture + Spec Capture
 
 ```
-User: /workflow:brainstorm thorough architecture "multi-tenant SaaS"
+User: /workflow:brainstorm deep arch save "multi-tenant SaaS"
 
--> Launches backend-architect agent (background)
--> Launches database-architect agent (background)
--> Generates initial ideas while agents work
--> Synthesizes comprehensive plan
--> Completes in 3m 24s
--> Saves detailed analysis with agent findings
+-> Deep depth: 6 expert questions (tech, risks, existing, scope defaults for arch focus)
+-> One follow-up offer
+-> Generates BRAINSTORM with a Mermaid architecture diagram
+-> Spec capture: user-story + acceptance criteria prompts
+-> Saves docs/specs/SPEC-multi-tenant-saas-<date>.md
 ```
 
-### Scenario 4: JSON Output
+### Scenario 4: Category Override
 
 ```
-User: /workflow:brainstorm feature notifications --format json
+User: /workflow:brainstorm deep "caching" -C tech,risks
 
--> Runs feature brainstorm
--> Outputs JSON structure
--> Saves to BRAINSTORM-notifications-2024-12-24.json
+-> Deep depth, but expert questions limited to technical + risk categories
+   (instead of the focus-driven default set)
+-> Skips users, scope, timeline, existing, success entirely
+-> More focused context gathering for a narrow topic
 ```
 
-### Scenario 5: Colon Notation (v2.4.0)
+### Scenario 5: Orchestrated Hand-off
 
 ```
-User: /workflow:brainstorm d:5 "auth system"
+User: /workflow:brainstorm deep arch save "payment api" --orch=optimize
 
--> Deep mode with exactly 5 questions
--> Asks 5 questions from question bank
--> Shows "Ask More?" prompt
--> Proceeds to brainstorm
+-> Runs the normal 2-decision-point brainstorm flow, generates + saves the spec
+-> Post-spec: offers hand-off to orchestrator-v2 via --orch=optimize
+   (plan-orchestrator skill / /craft:orchestrate:plan <spec-path>)
+-> This is the ONLY delegation mechanism — brainstorm does not spawn
+   subagents itself (see "Going Deeper" below)
 ```
 
-### Scenario 6: Categories Flag (v2.4.0)
+### Scenario 6: Context-Aware Smart Questions
 
 ```
-User: /workflow:brainstorm d:5 "auth" -C req,tech
+User: /workflow:brainstorm deep "dependency management"
 
--> Deep mode with 5 questions from requirements + technical
--> Skips users, scope, timeline, risks, existing, success
--> More focused context gathering
-```
-
-### Scenario 7: Unlimited Questions with Milestones
-
-```
-User: /workflow:brainstorm d:20 "microservices"
-
--> Asks first 8 questions
--> Milestone prompt: "You've answered 8 questions. Continue?"
--> User selects "8 more questions"
--> Asks next 8 questions
--> Milestone prompt: "You've answered 16 questions. Continue?"
--> User selects "Done - Start brainstorming"
--> Proceeds to brainstorm with 16 questions of context
-```
-
-### Scenario 8: Power User (v2.4.0)
-
-```
-User: /workflow:brainstorm d:15 f s -C req,tech,success "payment api"
-
--> Deep mode with 15 questions
--> Feature focus with spec capture
--> Categories: requirements, technical, success only
--> Milestone prompts every 8 questions
--> Generates comprehensive plan with spec
-```
-
-### Scenario 9: Orchestration Mode (v2.5.0)
-
-```
-User: /workflow:brainstorm "authentication system" --orch=optimize
-
--> Orchestrator spawns with optimize mode
--> Parallel agent analysis for comprehensive coverage
-```
-
-### Scenario 10: Orchestration Dry-Run (v2.5.0)
-
-```
-User: /workflow:brainstorm "payment api" --orch=release --dry-run
-
-+---------------------------------------------------------------------+
-| DRY RUN: Orchestration Preview                                      |
-+---------------------------------------------------------------------+
-| Task: brainstorm 'payment api' focusing on categories: all         |
-| Mode: release                                                       |
-| Max Agents: 4                                                       |
-| Compression: 85%                                                    |
-+---------------------------------------------------------------------+
-```
-
-### Scenario 11: Context-Aware Smart Questions (v2.15.0)
-
-```
-User: /workflow:brainstorm d:5 "dependency management"
-
--> Context scan finds SPEC-dependency-management.md
--> "Found SPEC-dependency-management.md -- load as context?" -> Yes
--> Pre-fills requirements + technical from spec
--> Asks 3 remaining questions (scope, risks, success)
--> Generates brainstorm with full spec context
+-> Context scan finds an existing SPEC-dependency-management.md
+-> Pre-fills requirements + technical from the existing spec
+-> Only asks the remaining expert questions the spec doesn't already answer
 ```
 
 ---
 
-## Output Formats
+## Going Deeper: No In-Skill Agent Delegation
 
-### Terminal (Default)
+The pre-redesign version had a "max" depth that launched background agents
+directly from inside brainstorm — duplicating what `orchestrator-v2` already
+does (wave checkpoints, file-based results, explicit model routing,
+`AskUserQuestion` confirmation before spawning) but without those
+safeguards, and referencing agent type names that didn't exist.
 
-```
-+-------------------------------------------------------------+
-| BRAINSTORM: [Topic]                                          |
-| Mode: [mode] | Depth: [depth] | Duration: [time]            |
-+-------------------------------------------------------------+
-|                                                              |
-| ## Quick Wins (< 30 min each)                                |
-|   [Action 1] - [Benefit]                                     |
-|   [Action 2] - [Benefit]                                     |
-|                                                              |
-| ## Medium Effort (1-2 hours)                                 |
-|   [ ] [Task with clear outcome]                              |
-|                                                              |
-| ## Long-term (Future sessions)                               |
-|   [ ] [Strategic item]                                       |
-|                                                              |
-| ## Recommended Path                                          |
-|   -> [Clear recommendation with reasoning]                   |
-+-------------------------------------------------------------+
-```
-
-### JSON (`--format json`)
-
-```json
-{
-  "metadata": {
-    "timestamp": "2024-12-24T10:30:00Z",
-    "mode": "feature",
-    "depth": "quick",
-    "duration_seconds": 45,
-    "agents_used": []
-  },
-  "content": {
-    "topic": "User notifications",
-    "quick_wins": [],
-    "medium_effort": [],
-    "long_term": []
-  },
-  "recommendations": {
-    "recommended_path": "...",
-    "next_steps": []
-  }
-}
-```
-
-### Markdown (`--format markdown`)
-
-Saves to `BRAINSTORM-[topic]-[date].md`
+The current design does not spawn subagents itself. After a spec is
+captured, it offers a hand-off to the orchestrator via the existing
+`--orch` flag / `plan-orchestrator` skill / `/craft:orchestrate:plan
+<spec-path>` — one delegation mechanism, already hardened, instead of two.
 
 ---
 
-## Backward Compatibility
+## Output
 
-| Old Syntax (v2.2.0) | New Syntax (v2.4.0) | Status |
-|---------------------|---------------------|--------|
-| `--save-spec` | `save` or `s` | Deprecated but works |
-| `--save-spec=full` | `save` (default is full) | Deprecated but works |
-| `--save-spec=quick` | `q save` | Deprecated but works |
-| `feature` | `feat` or `f` | Both work |
-| `architecture` | `arch` or `a` | Both work |
-| `thorough` | `max` or `m` | `thorough` deprecated |
+- `BRAINSTORM-<topic>-<date>.md` — always generated, even when also saving a spec.
+- `docs/specs/SPEC-<topic>-<date>.md` — when the `save` action is selected.
+- Terminal summary with paths and a suggested next command.
+- Test-plan + Documentation scaffolds are emitted by default (`--no-tests`/`--no-docs` to suppress).
 
 ---
 
 ## Tips
 
-1. **Start quick, go deep if needed** — `q` mode with "Ask More?" is the fastest path
-2. **Use categories to focus** — `-C req,tech` skips irrelevant questions
-3. **Colon notation saves time** — `d:5` is more precise than generic `d` (8 questions)
-4. **Spec capture for implementation** — `s` flag auto-generates implementation spec
-5. **Orchestration for complex topics** — `--orch=optimize` parallelizes analysis
-6. **Context-aware saves repetition** — Smart questions skip what's already known (v2.15.0)
+1. **Skip the menu when you know what you want** — supply depth + focus as
+   arguments (`/brainstorm deep arch "topic"`) to go straight to the expert
+   questions.
+2. **Use `-C`/`--categories` to narrow a broad topic** — overrides the
+   focus-driven default category set.
+3. **`deep` is the ceiling** — 6 expert questions max per invocation; use the
+   follow-up offer to add more instead of looking for a count override.
+4. **`save` for anything implementation-bound** — auto-generates the spec
+   with user-story + acceptance criteria.
+5. **`--orch=<mode>` for complex topics** — hands off to the orchestrator
+   after spec capture, not before.
+6. **Context-aware saves repetition** — an existing SPEC on the same topic
+   pre-fills answers the skill can already infer.
 
 ---
 
-*See also: [Question Bank Reference](../specs/_archive/SPEC-brainstorm-question-bank.md) | [Brainstorm Reference Card](../reference/REFCARD-BRAINSTORM.md)*
+*See also: [Brainstorm Reference Card](../reference/REFCARD-BRAINSTORM.md)*

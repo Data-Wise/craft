@@ -28,12 +28,26 @@ def test_grill_passes_command_audit():
                    for line in combined.splitlines()), combined
 
 
-def _grill_body():
+def _grill_shim():
     return open(os.path.join(CRAFT, "commands", "grill.md"), encoding="utf-8").read()
 
 
-def test_grill_body_carries_contract():
-    body = _grill_body()
+def _grill_skill():
+    return open(
+        os.path.join(CRAFT, "skills", "workflow", "grill", "SKILL.md"), encoding="utf-8"
+    ).read()
+
+
+def test_grill_command_is_shim_routing_to_skill():
+    """commands/grill.md must be a thin shim routing to the canonical grill skill,
+    not a duplicate of the full procedure (thin-command/fat-skill, ADR-002)."""
+    shim = _grill_shim()
+    assert "skills/workflow/grill/SKILL.md" in shim, "shim must point to the grill skill"
+    assert len(shim.splitlines()) < 80, "shim should be thin, not a copy of the full body"
+
+
+def test_grill_skill_carries_contract():
+    body = _grill_skill()
     low = body.lower()
     assert "one question at a time" in low                     # core directive
     assert "recommended" in low                                # recommended-answer rule
@@ -45,12 +59,29 @@ def test_grill_body_carries_contract():
     assert ("one at a time" in low or "one-at-a-time" in low) and "askuserquestion" in low
 
 
-def test_grill_body_captures_and_hands_off():
-    body = _grill_body()
+def test_grill_skill_captures_and_hands_off():
+    body = _grill_skill()
     assert "grill_ledger" in body                              # uses the util, not ad-hoc writes
     assert "resolve_ledger_path" in body
     assert "no-capture" in body.lower()                        # embedded-caller suppression
     assert "/craft:plan" in body or "plan-orchestrator" in body  # handoff to the spine
+
+
+def test_grill_skill_has_attack_angles():
+    """The skill enumerates adversarial attack angles (feature added with the extraction)."""
+    low = _grill_skill().lower()
+    assert "attack angle" in low or "weakest recommendation" in low
+    assert "riskiest assumption" in low
+    assert "reversibility" in low or "scope creep" in low
+
+
+def test_grill_skill_no_hardcoded_project_gotchas():
+    """Attack angles must stay project-agnostic — no craft-internal gotchas hardcoded
+    (they would poison grills of other projects). Angle 3 reads the target's CLAUDE.md."""
+    low = _grill_skill().lower()
+    for leaked in ("_discovery.py", "python3.9", "python 3.9", "rich-body-trap"):
+        assert leaked not in low, f"craft-internal gotcha '{leaked}' leaked into the generic skill"
+    assert "claude.md" in low, "angle 3 must instruct reading the target project's CLAUDE.md"
 
 
 # ── /done enhancements (v2.49.0) structural tests ─────────────────────────────
