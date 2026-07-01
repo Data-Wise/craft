@@ -7,7 +7,10 @@ of docs/plans/2026-07-01-token-efficiency-linear-implementation.md), while closi
 that pattern had relative to the existing STOP-new-session mode.
 
 **Date:** 2026-07-01
-**Outcome:** 10 branches resolved, design locked. Not yet implemented — hand off to `/craft:plan`.
+**Outcome:** 15 branches resolved, design locked. Not yet implemented — hand off to `/craft:plan`.
+Branches 11-15 added 2026-07-01 during a post-grill improvement pass (self-review, no
+subagent) that resolved the 2 remaining Open Questions and closed 3 gaps found while
+re-reading the ledger cold.
 
 **Prior research this session established** (not re-litigated here): ad hoc background-agent
 dispatch beats `/craft:orchestrate:plan`'s existing STOP-new-session mode on token cost (no N
@@ -37,11 +40,16 @@ is a different capability (cross-worktree, from the planning session, no YAML re
 | 8 | Resumability | Idempotent resume: a re-dispatch against the SAME ORCHESTRATE file must detect already-checked '- [ ] 1.1' phases (per branch #5's own tracking) and instruct the new agent to skip them, starting from the first unchecked phase. Reuses data the design already produces -- no new tracking mechanism. Rejected: always-restart-from-Phase-1 (risks redoing completed work / conflicting edits on re-run, since Agent calls have no built-in retry/resume semantics). |
 | 9 | Concurrency cap | Soft cap at 2 concurrent dispatches per session; an explicit AskUserQuestion confirmation gates any 3rd+ concurrent dispatch. Matches this session's own actual pattern (2 concurrent, chosen deliberately) and guards against the review-queue-overload failure mode flagged earlier in this session (stacking unreviewed work faster than it can be verified). Not a hard block -- a deliberate larger fan-out is still possible, just confirmed. |
 | 10 | Failure/hang detection | Cross-check the Agent tool's completion notification against the ORCHESTRATE file itself -- when notified, the dispatching session must verify checkboxes actually advanced (not just trust the agent's final chat summary). Notification fires but no checkboxes moved -> flag as suspected silent failure, do not offer merge. No notification within a reasonable window -> surface the crash/hang case explicitly, do not wait silently. Closes the gap where branches #5 (review gate) and #8 (resumability) both assume completion or death is already KNOWN -- neither covered detecting a hung agent, a crashed Agent call (tool docs: returns null on terminal API error after retries), or a false-positive success claim. Uses data the design already produces (checkboxes) plus the existing platform notification mechanism -- no new infrastructure. Rejected: trusting the notification alone (leaves exactly this gap open -- 'silence looks identical to still-running', per Monitor's own coverage principle). |
+| 11 | GRILL-file precondition strictness | Warn-only (advisory), not a hard block. Matches this repo's own ADR-003 precedent (gentle-ramp: advise, don't gate). A hard block would stop dispatch of a well-scoped, low-ambiguity spec just because no GRILL-*.md exists -- and branch 6 already has an ungrilled backstop (agent leaves an unchecked box + blocker note instead of guessing), so the hard-block's marginal safety gain is small next to its cost in friction. |
+| 12 | `.STATUS` Active Worktrees write mode | Auto-write only the factual fields (branch, path, PR link once opened) at dispatch time -- all of that data already exists then, no new logic needed. The narrative/purpose prose stays manual: auto-generated prose reads worse than hand-written, evidenced by every `.STATUS` entry from this very session. |
+| 13 | Concurrency cap scope | The soft cap of 2 (branch 9) counts ONLY `orchestrate-dispatch` dispatches, not unrelated background Agent calls the session may also have running. Without this scoping, the cap could silently undercount (blocking a legitimate 2nd dispatch because of an unrelated agent) or overcount (never triggering the confirm because an orchestrate-dispatch agent isn't recognized as such). |
+| 14 | Hang-detection window definition | "Reasonable window" (branch 10) is tied to the dispatched ORCHESTRATE file's own stated phase-effort estimate -- flag as possibly-hung at 2x that estimate with no notification, rather than a fixed wall-clock value. Reuses data the design already requires (every ORCHESTRATE file has effort estimates per Mode 1's existing template) instead of inventing a new arbitrary constant. |
+| 15 | Confirmed-failure disposition | On a confirmed silent-failure or hang (branch 10), the worktree and branch are left in place for inspection -- never auto-deleted. Add a `.STATUS` note in the same HELD style already used for PR #237 this session, so a failed dispatch doesn't just vanish from tracking. |
 
 ## Open Questions
 
-- [ ] Exact wording/location of the GRILL-file precondition check in branch 6 -- warn-only (advisory, matches ADR-003 precedent elsewhere in this repo) or hard-block? Not resolved, needs a decision during /craft:plan.
-- [ ] Whether `.STATUS` Active Worktrees entries get auto-written by the new mode or stay manual (Mode 1's existing step 7 already says 'Update .STATUS' -- likely just extends unchanged, but not explicitly confirmed in this grill).
+- [x] GRILL-file precondition strictness -- resolved, see branch 11 (warn-only).
+- [x] `.STATUS` Active Worktrees write mode -- resolved, see branch 12 (auto factual fields, manual prose).
 - [ ] Not implemented yet -- this ledger is the handoff artifact for /craft:plan, no code/skill changes made this session for this topic.
 
 ## Research finding: sequential-thinking MCP (rejected for this design)
