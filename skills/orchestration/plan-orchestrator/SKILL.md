@@ -177,7 +177,7 @@ Unselected tiers print as `N/A — <reason>` (never empty stubs).
 
 - Emit test stubs **red-first** (failing placeholder, not passing no-op).
 - Each stub carries `# TODO(author): delete if not contract-bearing` until the author confirms the contract.
-- Scaffold templates live in `references/scaffold-templates.md`; point to that file — do not duplicate templates inline.
+- Scaffold templates live in [`../../workflow/brainstorm-insights/references/scaffold-templates.md`](../../workflow/brainstorm-insights/references/scaffold-templates.md); point to that file — do not duplicate templates inline.
 
 ### `--yes` non-suppression
 
@@ -195,7 +195,7 @@ When this skill emits an ORCHESTRATE artifact, it also emits a Documentation sec
 
 Derive which documentation artifacts are needed by running the existing doc-scorer rubric from `commands/docs/sync.md` (threshold ≥3). Do **not** invent a new rubric — reuse the scorer as the single source of truth.
 
-For each doc type the scorer evaluates (guide, refcard, demo, mermaid), pre-check (`[x]`) boxes that meet the threshold, and mark the rest `N/A — score <N>`. The template for the Documentation section lives in `references/scaffold-templates.md`.
+For each doc type the scorer evaluates (guide, refcard, demo, mermaid), pre-check (`[x]`) boxes that meet the threshold, and mark the rest `N/A — score <N>`. The template for the Documentation section lives in [`../../workflow/brainstorm-insights/references/scaffold-templates.md`](../../workflow/brainstorm-insights/references/scaffold-templates.md).
 
 ### Lifecycle split
 
