@@ -129,7 +129,7 @@ directory), but is cataloged here for discoverability:*
 | test-generator | Generates dogfooding test suites (automated + interactive) for any project type | `skills/testing/test-generator/SKILL.md` |
 | test-strategist | Test strategy, coverage optimization, and quality assurance | `skills/testing/test-strategist/SKILL.md` |
 
-### Workflow (4)
+### Workflow (5)
 
 | Name | Description | Path |
 |------|-------------|------|

@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.56.0] - 2026-06-30
+
 ### Added
 
 - **`skills/code/command-skill-token-efficiency/SKILL.md`** — new skill codifying the
@@ -42,6 +44,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `docs/skills-agents.md` describing the pre-redesign max-depth shorthand.
 - `agents/orchestrator-v2.md` BEHAVIOR 9 timeline pointer (a literal `EXECUTION TIMELINE` string a
   test asserts on, dropped during the BEHAVIOR 9 extraction, restored).
+- PR #232 post-merge adversarial-review findings (8 items) across `commands/hub.md`,
+  `docs/commands/hub.md`, `docs/REFCARD.md`, `docs/skills-agents.md`,
+  `docs/adr/ADR-002-done-command-skill-consolidation.md`, and
+  `tests/test_scaffold_defaults_dogfood.py`.
+- Replaced the broken `/usage` scheduled-trigger checkpoint mechanism (persistent 404s — a known,
+  platform-wide `anthropics/claude-code` bug, not session-specific) with `ccusage` (npx, no
+  install) and `claude-monitor` (`uv tool install claude-monitor`), both verified working.
+
+### Research
+
+- Namespace-refactor token-cost go/no-go: empirical measurement (243→77 tokens, 68.3% reduction)
+  appended to `docs/specs/SPEC-refactor-namespace-2026-06-29.md`.
 
 ## [2.55.0] — 2026-06-29
 
