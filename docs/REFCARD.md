@@ -476,6 +476,24 @@ Layer 2: --headless         → on-demand bulk sync
 Layer 3: GitHub Actions     → safety net after merge to main
 ```
 
+**Doc-impact rubric (8 types, tiered thresholds):**
+
+```text
+Cheap, in-context (threshold >=3):     Guide, Refcard, Demo, Mermaid
+Heavy, agent-authored (threshold >=5   Tutorial, API, Cookbook,
+  OR "new user-facing surface"):       Architecture-doc
+```
+
+Architecture-doc subtracts the Mermaid factor's "architecture change" contribution before applying
+its own threshold, so one arch change can't double-fire both a Mermaid diagram and an
+Architecture-doc write-up off the same signal. Full rubric table + subtraction-rule details live in
+`commands/docs/sync.md` (single source of truth — `plan-orchestrator` and the scaffold template
+read it rather than duplicating the type list).
+
+A companion **Site Consistency** checklist (mkdocs nav / index / `site:update`+
+`docs-staleness-check.sh`) is advisory, not part of the numeric score — see
+`skills/workflow/brainstorm-insights/references/scaffold-templates.md`.
+
 #### /craft:docs:check
 
 **Purpose:** Comprehensive documentation validation.

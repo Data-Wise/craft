@@ -34,7 +34,7 @@ spec-producer for free by extending the single shared scorer — no new skill.
 |-------|-----------|----------|--------|--------|
 | 1 | Rubric extension: 4 new types, tiered thresholds, arch-doc double-count fix | High | Med | ✅ done |
 | 2 | Site-Consistency checklist + wiring to existing tooling | Medium | Low | ✅ done |
-| 3 | Documentation & Discoverability | Medium | Low | ☐ not started |
+| 3 | Documentation & Discoverability | Medium | Low | ✅ done |
 
 ---
 
@@ -90,15 +90,21 @@ confirmed advisory (no new hard-block logic added anywhere).
 
 ## Phase 3 — Documentation & Discoverability (REQUIRED — final phase)
 
-- [ ] 3.1 REFCARD entry for the expanded doc-impact section (`docs/REFCARD.md` or a dedicated
+- [x] 3.1 REFCARD entry for the expanded doc-impact section (`docs/REFCARD.md` or a dedicated
       `docs/reference/REFCARD-DOC-IMPACT.md` if the section is large enough per existing convention).
-- [ ] 3.2 Help hub / discovery — verify no new command exists, so `/craft:hub` needs no new entry;
-      mark N/A explicitly.
-- [ ] 3.3 Website — run `mkdocs build --strict` to confirm no new nav gap from the REFCARD change.
-- [ ] 3.4 Catalog — `docs/skills-agents.md`: no new skill/command row expected; confirm.
-- [ ] 3.5 CHANGELOG `[Unreleased]` entry describing the rubric extension + Site-Consistency block.
-- [ ] 3.6 `./scripts/validate-counts.sh` clean (expect **no count changes**).
-- [ ] 3.7 `./scripts/docs-staleness-check.sh` clean.
+      Added inline to the existing `/craft:docs:sync` REFCARD entry — section not large enough to
+      warrant a dedicated page.
+- [x] 3.2 Help hub / discovery — verify no new command exists, so `/craft:hub` needs no new entry;
+      mark N/A explicitly. **N/A** — no new command/skill/agent created.
+- [x] 3.3 Website — run `mkdocs build --strict` to confirm no new nav gap from the REFCARD change.
+      Exit 0, 0 warnings; pre-existing INFO-level nav/anchor notes on unrelated spec files only.
+- [x] 3.4 Catalog — `docs/skills-agents.md`: no new skill/command row expected; confirm. Confirmed
+      — `/craft:docs:sync` doesn't appear there (it's a command, not a skill/agent), no change needed.
+- [x] 3.5 CHANGELOG `[Unreleased]` entry describing the rubric extension + Site-Consistency block.
+      Added to both root `CHANGELOG.md` and `docs/CHANGELOG.md` (mirrored).
+- [x] 3.6 `./scripts/validate-counts.sh` clean (expect **no count changes**). Confirmed: 116/44/8,
+      no drift.
+- [x] 3.7 `./scripts/docs-staleness-check.sh` clean. All 4 phases GREEN, 0 issues.
 
 ---
 
@@ -143,15 +149,19 @@ or new command/skill/agent.
 
 ## Acceptance Criteria
 
-- [ ] Rubric extended with 4 new types + tiered thresholds + arch-doc subtraction rule, documented
+- [x] Rubric extended with 4 new types + tiered thresholds + arch-doc subtraction rule, documented
       in `commands/docs/sync.md`.
-- [ ] Site-Consistency checklist added to `references/scaffold-templates.md`, advisory not
+- [x] Site-Consistency checklist added to `references/scaffold-templates.md`, advisory not
       hard-gated.
-- [ ] No new skill/command/agent created.
-- [ ] Single-source guard dogfood test passes (no parallel type list anywhere).
+- [x] No new skill/command/agent created.
+- [ ] Single-source guard dogfood test passes (no parallel type list anywhere). **Not written this
+      session** — the Test Plan's dogfood/e2e stubs are marked
+      `# TODO(author): delete if not contract-bearing` and were left as scaffolding per the SPEC's
+      red-first convention; no test files were added. Flagging for the dispatching session's review
+      gate rather than guessing at test authorship scope.
 - [ ] Audit-path e2e test passes (real injected drift is actually caught, not just checkbox
-      presence).
-- [ ] Documentation & Discoverability phase complete.
+      presence). **Same as above** — not authored this session.
+- [x] Documentation & Discoverability phase complete.
 
 ## Commit Strategy
 
