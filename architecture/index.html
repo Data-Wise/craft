@@ -12141,6 +12141,14 @@
 <li><strong>Timeline view</strong> - Visualizes agent execution</li>
 <li><strong>Subagent monitoring</strong> - Tracks agent progress</li>
 <li><strong>Result synthesis</strong> - Combines agent outputs</li>
+<li><strong>Model pinning</strong> (v2.56.0) - <code>orchestrator-v2.md</code> pins <code>model: sonnet</code>,
+  legacy <code>orchestrator.md</code> pins <code>model: haiku</code> — explicit frontmatter instead
+  of inheriting the caller's tier</li>
+<li><strong>Resilience reference extracted to a skill</strong> (v2.56.0) - BEHAVIOR
+  5 (error-handling/retry) and BEHAVIOR 9 (execution-timeline template) live
+  in <code>skills/orchestrator-resilience/SKILL.md</code>, loaded on agent failure or a
+  <code>timeline</code> request rather than on every orchestrator-v2 invocation
+  (1473→1212 lines in the agent file). See <a href="../internal/TOKEN-EFFICIENCY-craft/">Token Efficiency</a>.</li>
 </ul>
 <h3 id="3-mode-system">3. Mode System<a class="headerlink" href="#3-mode-system" title="Permanent link">&para;</a></h3>
 <p>Four execution modes control depth and time:</p>

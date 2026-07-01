@@ -9552,10 +9552,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#category-shortcuts" class="md-nav__link">
+  <a href="#category-override-c-categories" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Category Shortcuts
+        Category Override (-C / --categories)
       
     </span>
   </a>
@@ -9563,10 +9563,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mode-selection-flowchart" class="md-nav__link">
+  <a href="#flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mode Selection Flowchart
+        Flow
       
     </span>
   </a>
@@ -9574,43 +9574,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#milestone-flow-d20-example" class="md-nav__link">
+  <a href="#no-in-skill-agent-delegation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Milestone Flow (d:20 example)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#v240-colon-notation-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        v2.4.0 Colon Notation Flow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#v240-categories-flag-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        v2.4.0 Categories Flag Flow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#agent-delegation-max-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Agent Delegation (Max Mode)
+        No In-Skill Agent Delegation
       
     </span>
   </a>
@@ -11905,10 +11872,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#category-shortcuts" class="md-nav__link">
+  <a href="#category-override-c-categories" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Category Shortcuts
+        Category Override (-C / --categories)
       
     </span>
   </a>
@@ -11916,10 +11883,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mode-selection-flowchart" class="md-nav__link">
+  <a href="#flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mode Selection Flowchart
+        Flow
       
     </span>
   </a>
@@ -11927,43 +11894,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#milestone-flow-d20-example" class="md-nav__link">
+  <a href="#no-in-skill-agent-delegation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Milestone Flow (d:20 example)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#v240-colon-notation-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        v2.4.0 Colon Notation Flow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#v240-categories-flag-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        v2.4.0 Categories Flag Flow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#agent-delegation-max-mode" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Agent Delegation (Max Mode)
+        No In-Skill Agent Delegation
       
     </span>
   </a>
@@ -12012,85 +11946,73 @@
 </blockquote>
 <hr />
 <h2 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/brainstorm [depth:count] [focus] [action] [-C|--categories &quot;cats&quot;] &quot;topic&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/brainstorm [depth] [focus] [action] [-C|--categories &quot;cats&quot;] &quot;topic&quot;
 </span></code></pre></div>
+<p>Depth and focus, if omitted, are asked together in a single <code>AskUserQuestion</code>
+call (the only depth+focus decision point). There is no colon notation and
+no <code>max</code>/<code>m</code> tier.</p>
 <h2 id="depth-layer">Depth Layer<a class="headerlink" href="#depth-layer" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Full</th>
-<th>Short</th>
-<th>Count</th>
+<th>Depth</th>
+<th>Expert Questions</th>
 <th>Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>(default)</td>
-<td>-</td>
-<td>2</td>
-<td>&lt; 5 min</td>
-</tr>
-<tr>
 <td>quick</td>
-<td>q</td>
 <td>0</td>
 <td>&lt; 1 min</td>
 </tr>
 <tr>
-<td>deep</td>
-<td>d</td>
-<td>8</td>
-<td>&lt; 10 min</td>
+<td>default</td>
+<td>2</td>
+<td>&lt; 5 min</td>
 </tr>
 <tr>
-<td>max</td>
-<td>m</td>
-<td>8</td>
-<td>&lt; 30 min</td>
+<td>deep</td>
+<td>6</td>
+<td>&lt; 10 min</td>
 </tr>
 </tbody>
 </table>
-<p>Custom: <code>d:5</code>, <code>m:12</code>, <code>q:0</code></p>
+<p>No per-invocation count override (<code>d:5</code>, <code>m:12</code>) — <code>deep</code> is the ceiling. Use
+the post-question follow-up offer ("anything else before I generate this?")
+to add more instead.</p>
 <h2 id="focus-layer">Focus Layer<a class="headerlink" href="#focus-layer" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
-<th>Full</th>
-<th>Short</th>
-<th>Single</th>
+<th>Focus</th>
+<th>Shapes output</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>feature</td>
-<td>feat</td>
-<td>f</td>
+<td><code>feat</code></td>
+<td>User stories, requirements-first</td>
 </tr>
 <tr>
-<td>architecture</td>
-<td>arch</td>
-<td>a</td>
+<td><code>arch</code></td>
+<td>Mermaid diagram, technical approach</td>
 </tr>
 <tr>
-<td>ux</td>
-<td>ux</td>
-<td>x</td>
+<td><code>ux</code></td>
+<td>User-facing scope, success criteria</td>
 </tr>
 <tr>
-<td>api</td>
-<td>api</td>
-<td>b</td>
+<td><code>api</code></td>
+<td>API endpoints, technical + requirements</td>
 </tr>
 <tr>
-<td>ui</td>
-<td>ui</td>
-<td>u</td>
+<td><code>ui</code></td>
+<td>Visual/interaction scope</td>
 </tr>
 <tr>
-<td>ops</td>
-<td>ops</td>
-<td>o</td>
+<td><code>ops</code></td>
+<td>Technical approach, risks, timeline</td>
 </tr>
 </tbody>
 </table>
@@ -12098,186 +12020,152 @@
 <table>
 <thead>
 <tr>
-<th>Full</th>
-<th>Short</th>
-<th>Single</th>
+<th>Action</th>
+<th>Effect</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>save</td>
-<td>save</td>
-<td>s</td>
+<td><code>save</code></td>
+<td>Captures a <code>docs/specs/SPEC-&lt;topic&gt;-&lt;date&gt;.md</code> in addition to the BRAINSTORM file</td>
 </tr>
 </tbody>
 </table>
-<h2 id="category-shortcuts">Category Shortcuts<a class="headerlink" href="#category-shortcuts" title="Permanent link">&para;</a></h2>
+<h2 id="category-override-c-categories">Category Override (<code>-C</code> / <code>--categories</code>)<a class="headerlink" href="#category-override-c-categories" title="Permanent link">&para;</a></h2>
+<p>Default categories are focus-driven (table below). Override with a
+comma-separated list to limit expert questions regardless of focus:</p>
 <table>
 <thead>
 <tr>
-<th>Short</th>
-<th>Full</th>
+<th>Category</th>
+<th>Covers</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>req</td>
+<td><code>req</code></td>
 <td>requirements</td>
 </tr>
 <tr>
-<td>usr</td>
-<td>users</td>
+<td><code>users</code></td>
+<td>target users / audience</td>
 </tr>
 <tr>
-<td>scp</td>
-<td>scope</td>
+<td><code>scope</code></td>
+<td>what's in / out of scope</td>
 </tr>
 <tr>
-<td>tech</td>
-<td>technical</td>
+<td><code>tech</code></td>
+<td>technical approach, stack</td>
 </tr>
 <tr>
-<td>time</td>
-<td>timeline</td>
+<td><code>timeline</code></td>
+<td>sequencing, milestones</td>
 </tr>
 <tr>
-<td>risk</td>
-<td>risks</td>
+<td><code>risks</code></td>
+<td>risks, edge cases, failure modes</td>
 </tr>
 <tr>
-<td>exist</td>
-<td>existing</td>
+<td><code>existing</code></td>
+<td>existing code/patterns to reuse or replace</td>
 </tr>
 <tr>
-<td>ok</td>
-<td>success</td>
+<td><code>success</code></td>
+<td>success criteria</td>
 </tr>
 <tr>
-<td>all</td>
-<td>all categories</td>
+<td><code>all</code></td>
+<td>every category (default at <code>deep</code> when <code>-C</code> omitted)</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="mode-selection-flowchart">Mode Selection Flowchart<a class="headerlink" href="#mode-selection-flowchart" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart TD
-    Start["/brainstorm"] --&gt; HasArgs{Arguments?}
-
-    HasArgs --&gt;|None| NewSession{New session?}
-    HasArgs --&gt;|Topic only| DepthQ["Q1: Depth?"]
-    HasArgs --&gt;|Topic + mode| Execute
-    HasArgs --&gt;|Full args| Execute
-
-    NewSession --&gt;|Yes| ResumeQ["Q-1: Resume session?"]
-    NewSession --&gt;|No| SmartDetect["Smart Context Detection"]
-
-    ResumeQ --&gt; ResumeChoice{User selects}
-    ResumeChoice --&gt;|Resume session| LoadSession["Load previous context"]
-    ResumeChoice --&gt;|Start fresh| SmartDetect
-
-    LoadSession --&gt; DepthQ
-
-    SmartDetect --&gt; HowMany{Topics found?}
-    HowMany --&gt;|1 topic| AutoTopic["Use detected topic"]
-    HowMany --&gt;|2-4 topics| TopicQ["Q0: Which topic?"]
-    HowMany --&gt;|0 or 5+| AskTopic["Ask: What to brainstorm?"]
-
-    AutoTopic --&gt; DepthQ
-    TopicQ --&gt; DepthQ
-    AskTopic --&gt; DepthQ
-
-    DepthQ --&gt; FocusQ["Q2: Focus?"]
-    FocusQ --&gt; ContextScan["Step 1.7: Context Scan"]
-    ContextScan --&gt; Questions["Ask Questions"]
-    Questions --&gt; AskMore["Ask More?"]
-    AskMore --&gt; Execute["Execute Brainstorm"]
-    Execute --&gt; Save["Save Output"]
-    Save --&gt; SpecQ{Spec capture?}
-    SpecQ --&gt;|save action| SpecCapture["Capture as spec"]
-    SpecQ --&gt;|feat/arch/api| SpecPrompt["Q: Capture as spec?"]
-    SpecQ --&gt;|quick/no| Done["Report + Next Steps"]
-    SpecPrompt --&gt; Done
-    SpecCapture --&gt; Done</code></pre>
-<h2 id="milestone-flow-d20-example">Milestone Flow (d:20 example)<a class="headerlink" href="#milestone-flow-d20-example" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph TD
-    A["Start: d:20"] --&gt; B["Ask questions 1-8"]
-    B --&gt; C{"Milestone: Continue?"}
-    C --&gt;|Done| F["Generate brainstorm"]
-    C --&gt;|4 more| D["Ask 9-12"]
-    C --&gt;|8 more| E["Ask 9-16"]
-    C --&gt;|Keep going| G["Unlimited mode"]
-    D --&gt; C
-    E --&gt; C
-    G --&gt; H{"Every 4: Continue?"}
-    H --&gt;|Yes| G
-    H --&gt;|No| F</code></pre>
-<h2 id="v240-colon-notation-flow">v2.4.0 Colon Notation Flow<a class="headerlink" href="#v240-colon-notation-flow" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ColonArgs[&quot;d:5, m:12, q:3&quot;] --&gt; parse_depth_with_count()
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  --&gt; (depth_mode, question_count)
-</span></code></pre></div>
-<h2 id="v240-categories-flag-flow">v2.4.0 Categories Flag Flow<a class="headerlink" href="#v240-categories-flag-flow" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>-C req,tech --&gt; parse_categories()
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  --&gt; Filter question bank
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  --&gt; Selected questions
-</span></code></pre></div>
-<hr />
-<h2 id="agent-delegation-max-mode">Agent Delegation (Max Mode)<a class="headerlink" href="#agent-delegation-max-mode" title="Permanent link">&para;</a></h2>
+<p>Default categories by focus:</p>
 <table>
 <thead>
 <tr>
 <th>Focus</th>
-<th>Agents</th>
+<th>Default categories</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>feature</td>
-<td>product-strategist</td>
+<td><code>feat</code></td>
+<td>req, users, scope, success</td>
 </tr>
 <tr>
-<td>architecture</td>
-<td>backend-architect, database-architect</td>
+<td><code>arch</code></td>
+<td>tech, risks, existing, scope</td>
 </tr>
 <tr>
-<td>design</td>
-<td>ux-ui-designer</td>
+<td><code>api</code></td>
+<td>tech, req, success</td>
 </tr>
 <tr>
-<td>backend</td>
-<td>backend-architect, security-specialist</td>
+<td><code>ux</code></td>
+<td>users, scope, success</td>
 </tr>
 <tr>
-<td>frontend</td>
-<td>frontend-specialist, performance-engineer</td>
+<td><code>ops</code></td>
+<td>tech, risks, timeline</td>
 </tr>
 <tr>
-<td>devops</td>
-<td>devops-engineer</td>
+<td>(auto/unset)</td>
+<td>req, users, tech, success</td>
 </tr>
 </tbody>
 </table>
 <hr />
+<h2 id="flow">Flow<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    Start["/brainstorm"] --&gt; HasArgs{Depth + focus supplied?}
+
+    HasArgs --&gt;|No| DepthFocusQ["Single AskUserQuestion: depth + focus"]
+    HasArgs --&gt;|Yes| ContextScan
+
+    DepthFocusQ --&gt; ContextScan["Context scan: existing SPEC, .STATUS, git"]
+    ContextScan --&gt; Questions["Expert questions (0/2/6 by depth,\ncategory-filtered)"]
+    Questions --&gt; FollowUp["One follow-up offer:\nanything else, or generate?"]
+    FollowUp --&gt; Generate["Generate BRAINSTORM output"]
+    Generate --&gt; SpecQ{save action?}
+    SpecQ --&gt;|Yes| SpecCapture["Capture SPEC-&lt;topic&gt;-&lt;date&gt;.md"]
+    SpecQ --&gt;|No| Done["Report + next command"]
+    SpecCapture --&gt; OrchOffer["Offer --orch hand-off\n(post-spec only)"]
+    OrchOffer --&gt; Done</code></pre>
+<p>Two decision points total: <strong>(1)</strong> depth+focus (skippable via arguments),
+<strong>(2)</strong> the one follow-up offer. No milestone re-prompting, no per-depth
+escape-hatch menu.</p>
+<hr />
+<h2 id="no-in-skill-agent-delegation">No In-Skill Agent Delegation<a class="headerlink" href="#no-in-skill-agent-delegation" title="Permanent link">&para;</a></h2>
+<p>The pre-redesign version launched background agents directly from a "max"
+depth tier, duplicating <code>orchestrator-v2</code>'s wave checkpoints/model
+routing/confirmation safeguards without them, and referencing agent type
+names that didn't exist. This was removed. The current skill does not spawn
+subagents itself — after <code>save</code>, it offers a hand-off to the orchestrator via
+the existing <code>--orch</code> flag / <code>plan-orchestrator</code> skill /
+<code>/craft:orchestrate:plan &lt;spec-path&gt;</code>.</p>
+<hr />
 <h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Fastest path</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/brainstorm<span class="w"> </span>q<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Balanced (default)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>/brainstorm<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># Focused deep dive</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span>f<span class="w"> </span>-C<span class="w"> </span>req,tech<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># Full spec capture</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>/brainstorm<span class="w"> </span>d<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># Maximum analysis</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>/brainstorm<span class="w"> </span>m<span class="w"> </span>a<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="c1"># Orchestrated</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>/brainstorm<span class="w"> </span><span class="s2">&quot;topic&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Fastest path</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/brainstorm<span class="w"> </span>quick<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Balanced (default depth+focus menu)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/brainstorm<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Skip the menu</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>/brainstorm<span class="w"> </span>deep<span class="w"> </span>feat<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># Focused deep dive (category override)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>/brainstorm<span class="w"> </span>deep<span class="w"> </span>feat<span class="w"> </span>-C<span class="w"> </span>req,tech<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Full spec capture</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>/brainstorm<span class="w"> </span>deep<span class="w"> </span>feat<span class="w"> </span>save<span class="w"> </span><span class="s2">&quot;topic&quot;</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># Orchestrated hand-off (post-spec)</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>/brainstorm<span class="w"> </span>deep<span class="w"> </span>arch<span class="w"> </span>save<span class="w"> </span><span class="s2">&quot;topic&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
 </span></code></pre></div>
 <hr />
-<p><em>See also: <a href="../../tutorials/TUTORIAL-brainstorm-power-user/">Power User Tutorial</a> | <a href="../../specs/_archive/SPEC-brainstorm-question-bank/">Question Bank</a></em></p>
+<p><em>See also: <a href="../../tutorials/TUTORIAL-brainstorm-power-user/">Power User Tutorial</a></em></p>
 
 
 

@@ -12213,12 +12213,8 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v2.56.0 — Skill-Ecosystem Governance</p>
-<p>Policy-as-code under <code>governance/</code>: <code>RULES.yaml</code> holds the 8 skill-location rules as the single source of truth, <code>run_rules.py</code> audits them (with <code>--selftest</code> meta-validation), and <code>render_rules.py</code> generates the <code>CLAUDE.md</code> rule block with a <code>--check</code> drift gate. See the <a href="guide/governance/">governance guide</a> and the <a href="CHANGELOG/">full changelog</a> for all releases.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">In progress: token-efficiency pass — orchestrator model routing, /refine + /brainstorm redesign</p>
-<p><code>feature/token-usage-reduction</code> (<a href="https://github.com/Data-Wise/craft/pull/232">PR #232</a>, unmerged) cuts the always-loaded orchestration path 48% (<code>/refine</code> 630→42 lines, <code>/brainstorm</code> 528→112 lines, <code>orchestrator-v2.md</code> 1473→1212 lines) by moving procedure out of commands/agents and into skills that load conditionally — plus model-pins the orchestrator agents (<code>sonnet</code>/<code>haiku</code>) for the first time. New skill: <a href="skills-agents/#code-3"><code>command-skill-token-efficiency</code></a> codifies the methodology for future authoring. Full writeup: <a href="internal/TOKEN-EFFICIENCY-craft/">Token Efficiency</a> (the research report lives at <code>docs/specs/SPEC-token-efficiency-research-2026-06-30.md</code> in the repo — specs aren't published to this site). Not yet merged to <code>dev</code> — this callout will be replaced by the real release note once it ships.</p>
+<p class="admonition-title">Latest: v2.56.0 — Token-Usage Reduction</p>
+<p><a href="https://github.com/Data-Wise/craft/pull/232">PR #232</a> cuts the always-loaded orchestration path (<code>/refine</code> 631→42 lines, <code>/brainstorm</code> split with 4→2 decision points, <code>orchestrator-v2.md</code> 1473→1212 lines) by moving procedure out of commands/agents and into skills that load conditionally — plus model-pins the orchestrator agents (<code>sonnet</code>/<code>haiku</code>) for the first time. New skill: <a href="skills-agents/#code-3"><code>command-skill-token-efficiency</code></a> codifies the methodology for future authoring. Full writeup: <a href="internal/TOKEN-EFFICIENCY-craft/">Token Efficiency</a>. See the <a href="CHANGELOG/">full changelog</a> for all releases, including the prior v2.43.0 skill-ecosystem governance work (<code>governance/</code> policy-as-code, see the <a href="guide/governance/">governance guide</a>).</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
 <ul>
