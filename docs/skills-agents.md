@@ -96,7 +96,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 | Name | Description | Path |
 |------|-------------|------|
 | drive-engine | Reusable execution body behind `/craft:orchestrate:drive` — parse-or-derive ORCHESTRATE phases, dispatch file-scoped subagents, and run the authoritative real verify gate | `skills/orchestration/drive-engine/SKILL.md` |
-| plan-orchestrator | Produce concrete planning artifacts (ORCHESTRATE files, feature breakdowns, sprint backlogs, roadmaps) from specs | `skills/orchestration/plan-orchestrator/SKILL.md` |
+| plan-orchestrator | Produce concrete planning artifacts (ORCHESTRATE files, feature breakdowns, sprint backlogs, roadmaps) from specs; Mode 1 supports `--output orchestrate-dispatch` for in-session background-agent dispatch | `skills/orchestration/plan-orchestrator/SKILL.md` |
 | session-state | Manages orchestrator session state persistence — save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
 | task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer/SKILL.md` |
 | workflow-engine | Reusable execution body behind `/craft:orchestrate:workflow` — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents under a run-wide semaphore, structurally gate every output, and run a first-class verify gate | `skills/orchestration/workflow-engine/SKILL.md` |

@@ -6,7 +6,7 @@ arguments:
     description: Path to SPEC-*.md file (if omitted, scans docs/specs/ for available specs)
     required: false
   - name: output
-    description: "Output mode: orchestrate-worktree (default), orchestrate-only"
+    description: "Output mode: orchestrate-worktree (default) | orchestrate-only | orchestrate-dispatch"
     required: false
     default: orchestrate-worktree
 deprecated: true
@@ -33,6 +33,9 @@ development.
 
 # ORCHESTRATE only (no worktree)
 /craft:orchestrate:plan docs/specs/SPEC-auth.md --output orchestrate-only
+
+# ORCHESTRATE + worktree + dispatch to a background Agent (skips the STOP-new-session step)
+/craft:orchestrate:plan docs/specs/SPEC-auth.md --output orchestrate-dispatch
 ```
 
 ## When Invoked
