@@ -39,6 +39,7 @@ _Prior (all merged + worktrees removed 2026-06-21): `feature/governance-184-rele
 > B) **`--swarm=2` orchestrate level** — `SPEC-orchestrate-swarm-2level-2026-06-18` APPROVED; implement 2-level autonomous subagent dispatch.
 > C) **`brew upgrade craft && claude plugin update craft@local-plugins`** — local install lag; advisory (WARN surfaces, not blocking).
 > D) **Check real `/usage` data ~2 weeks after PR #232 merges** (target: ~2026-07-14) — compare pre-merge vs. post-merge subagent/session token cost against the unvalidated 48% line-count hypothesis in `SPEC-token-efficiency-research-2026-06-30.md`. Record the result as an addendum to that SPEC, not a new doc.
+> E) **Investigate/fix the "Validate Plugin Structure" CI check** — hangs/stalls on most PRs (observed again on PR #232, 2026-06-30), forcing a recurring `--admin` merge bypass once substantive checks are green. Root-cause the hang (GitHub Actions runner queue vs. an actual check bug) instead of continuing to work around it every release.
 
 ✅ Session 2026-06-29 (plugin audit + superpowers research + CLAUDE.md health fix):
 - **Plugin audit** (60 installed plugins → 33 KEEP / 24 DELETE): rendered ADHD visual widget with copy-paste `claude plugin remove` commands. All 12 `@claude-code-workflows` flagged DELETE (redundant with craft's 117 commands); 3 language LSPs (Java/Lua/PHP) not in stack; 3 duplicate entries across sources.
