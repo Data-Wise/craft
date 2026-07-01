@@ -37,7 +37,7 @@ failures as regressions; compare against that exact count.
 |-------|------|------|--------|------|--------|
 | 1 | 1 | Delete/gut `commands/orchestrate/resume.md` (fictional feature) | Low | None | ✅ done |
 | 2 | 2 | Thin-shim `commands/orchestrate/plan.md` → `plan-orchestrator` skill; drop duplicate template | Low-Med | Low | ✅ done |
-| 3 | 3 (T2) | Extract shared verify-gate + engine-comparison prose into one on-demand reference | Low-Med | Low | ☐ not started |
+| 3 | 3 (T2) | Extract shared verify-gate + engine-comparison prose into one on-demand reference | Low-Med | Low | ⊘ N/A — premise obsolete (see Phase 3) |
 
 ---
 
@@ -85,13 +85,41 @@ is resolved).
 always-loaded command body → drift + token cost. **Token lever: progressive disclosure** (move
 shared prose into one on-demand reference).
 
-- [ ] 3.1 Create the shared engine ref holding ONE canonical engine-comparison table + the shared verify-gate description. **Location MUST be non-discovered — under `skills/orchestration/.../references/` (PR #236's pattern) or `docs/guide/`. NEVER under `commands/`**: `commands/_discovery.py:267,287` turns any `.md` under `commands/` into a command (only `docs`/`utils` segments are stripped), so `commands/orchestrate/references/engines.md` would ship a phantom `orchestrate:references:engines` command and break `validate-counts.sh`.
-- [ ] 3.2 Replace the three copied blocks in `orchestrate.md` / `workflow.md` / `drive.md` with a one-line link to the reference.
-- [ ] 3.3 While here, fix the `orchestrate.md` self-contradiction (rank 4 is NOT in this wave, so leave the engine-name/route bug alone unless it's in the same prose block — if it is, note it as a follow-up, don't fix silently).
-- [ ] 3.4 Confirm the reference isn't miscounted as a skill/command: `./scripts/validate-counts.sh` + `npx markdownlint-cli2` on the new file.
+**PHASE 3 IS A NO-OP — premise obsolete, confirmed against the current tree, no extraction performed.**
 
-**Acceptance:** one canonical engine table; three command bodies shrink; counts unaffected;
-markdown clean.
+Verification: `git diff dev -- commands/orchestrate.md commands/orchestrate/workflow.md
+commands/orchestrate/drive.md` is **empty** — Phases 1–2 never touched these three files, so this
+reflects the state at branch point, not something this wave caused. Re-reading each file directly
+(not from the plan's description):
+
+- The "which engine when" comparison table exists in **exactly ONE place already**:
+  `commands/orchestrate/workflow.md` lines 33–39 (a `> **Which orchestration mode?**` blockquote
+  table). `commands/orchestrate/drive.md` does not carry this table at all. `commands/orchestrate.md`
+  does not carry it either (checked `## See Also`, `## Reference`, and the full file — no match).
+- The "real verify gate" prose is **not a verbatim copy** across files — `workflow.md` Step 6
+  ("A `verify` stage runs the project's real verification command; its exit status is the
+  authoritative pass/fail") and `drive.md` Step 7 ("the `drive-engine` skill runs the project's
+  actual verify command + `git status --short`... Green is required to declare done") are
+  independently-worded, each legitimately describing that command's own step. Neither is a
+  copy-paste duplicate of the other, and `orchestrate.md` doesn't carry this prose at all.
+- So the acceptance criterion "three command bodies shrink" has no referent — there is nothing to
+  extract into a shared reference. Creating one anyway would add indirection for zero drift
+  reduction and risk the exact phantom-command failure mode 3.1 itself warns about
+  (`commands/_discovery.py:267,287` turning any new `.md` under `commands/` into a discovered
+  command).
+- **3.3's rank-4 self-contradiction is confirmed present**, exactly as the plan anticipated:
+  `commands/orchestrate.md:289` says `"Route to /craft:orchestrate:drive using the detected
+  spec/workflow file"` when the engine actually being routed to is `workflow`, not `drive`. Per
+  3.3's own instruction ("leave the engine-name/route bug alone... rank 4 is NOT in this wave"),
+  this is confirmed but deliberately NOT fixed here.
+
+- [x] 3.1 N/A — no duplicated engine-comparison table to extract (exists in exactly one place).
+- [x] 3.2 N/A — no copied blocks exist in the other two command bodies to replace.
+- [x] 3.3 Confirmed the `orchestrate.md:289` self-contradiction exists; left it alone (rank 4, out of Wave 1 scope) per the plan's own instruction.
+- [x] 3.4 N/A — no new reference file created, so nothing to count/lint. `validate-counts.sh` remains green (verified after Phases 1–2 already).
+
+**Acceptance:** re-scoped to "confirm or refute the premise, act only if real." Premise refuted with
+evidence above; no action taken; nothing regressed.
 
 ---
 
