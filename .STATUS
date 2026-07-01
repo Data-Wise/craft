@@ -25,7 +25,12 @@ summary alone). **After every merge, run the applicable post-merge check** (`val
 baseline noise), force-push, `--admin` beyond the one documented benign-flake case, deleting
 anything beyond the just-merged feature branch/worktree, touching `main` (still PR-only).
 Consolidated from two separate grants + refined via `/craft:workflow:refine` (manual, skill not
-invocable this session).
+invocable this session). **Future-session design (2026-07-01, not built):** two background-agent
+passes (research + design) both concluded don't codify yet — write
+`~/.claude/rules/session-authorized-merge.md` (template + structure already designed) **on the
+NEXT occurrence** of this kind of grant, not now. No craft command/skill warranted (Half A has no
+persisted state to manage; would duplicate `unprotect`/`guard`'s shape for nothing). Trigger =
+next occurrence, not a date.
 
 📌 Next action (held, not yet started): `/craft:orchestrate:plan` against `docs/specs/GRILL-plan-orchestrator-dispatch-mode-2026-07-01.md` (synthesize SPEC from the ledger's 10 branches — no paired SPEC file exists) to plan the `orchestrate-dispatch` mode. **User to review the grill ledger/synthesized spec first before this runs.** Refined prompt captured in session 2026-07-01 (prompt-refiner applied manually — skill not invocable via Skill tool this session, known discovery gap).
 
