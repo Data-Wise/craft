@@ -46,8 +46,53 @@ This skill consolidates four commands. The user's phrasing selects the mode:
 5. Generate `ORCHESTRATE-<topic>.md` with sections: Objective, Phase Overview, Phase 1..N, Friction Prevention, Acceptance Criteria, Commit Strategy, Verification, Session Instructions.
 6. Create worktree at `~/.git-worktrees/<project>/feature-<topic>` from `dev` if selected.
 7. Update `.STATUS` and `.gitignore`.
+8. Branch on `output`:
+   - `orchestrate-worktree` (default) or `orchestrate-only` → instruct the user to `cd` into the
+     worktree and start a new session — do NOT begin implementation (STOP-new-session mode).
+   - `orchestrate-dispatch` → skip the STOP instruction; instead run the confirm-before-dispatch
+     gate (below), then dispatch a background `Agent` call from this same live session. See
+     "`orchestrate-dispatch` mode" below for the full flow.
 
-**Key constraint:** ORCHESTRATE file lives in the **worktree root**, never the main repo. After generation, instruct the user to `cd` into the worktree and start a new session — do NOT begin implementation.
+**Key constraint:** ORCHESTRATE file lives in the **worktree root**, never the main repo.
+
+### `orchestrate-dispatch` mode
+
+A third `output` value. Same self-containment guarantee as STOP-new-session mode, but execution
+happens via a background `Agent` call dispatched from the live planning session instead of a
+fresh human session opening a new terminal. Use this when the token/attention cost of a
+cold-started human session outweighs the extra safety mechanisms below (see "When to use which"
+in the pipeline-orchestrate guide).
+
+**GRILL-file precondition (warn-only, not a hard block):** if no `GRILL-*.md` exists for the
+spec's topic, print an advisory warning and proceed anyway — grilling resolves judgment calls
+before dispatch, but a well-scoped, low-ambiguity spec doesn't strictly require it. The backstop
+below (ungrilled-ambiguity handling) covers the case where it turns out an unresolved judgment
+call was needed after all.
+
+**Confirm-before-dispatch gate:** after the ORCHESTRATE file and worktree are generated
+(steps 5-7), before calling `Agent`, run an `AskUserQuestion` gate — not a suppressible prompt.
+Show the generated ORCHESTRATE summary (Phase Overview table) and the worktree path. Options:
+
+- **dispatch-now** — call `Agent` immediately with the self-containment prompt (below).
+- **review-first** — pause; let the user inspect/edit the ORCHESTRATE file before dispatching.
+- **cancel** — stop; ORCHESTRATE file and worktree remain, no dispatch.
+
+This gate fires unconditionally. `--yes` auto-accepts other prompts in this skill but does **not**
+suppress this one — it is a design requirement, not a prompt-refiner echo, because dispatch hands
+off execution to an unsupervised agent and deserves an explicit human checkpoint every time.
+
+**Self-containment prompt shape:** the dispatched `Agent`'s entire prompt is exactly:
+
+> "Read `ORCHESTRATE-<topic>.md` in full, then execute it."
+
+No other context is passed — no summary, no paraphrase, no conversation history. This is the same
+durable artifact a fresh human session would read under STOP-new-session mode; self-containment
+becomes structural (inherited from the ORCHESTRATE file's own required completeness) rather than
+a discipline checklist.
+
+**Ungrilled-ambiguity backstop:** if the dispatched agent hits genuine unresolved ambiguity
+(whether or not a GRILL file existed), it must leave that phase's checkbox unchecked, add a
+one-line blocker note directly in the ORCHESTRATE file, and stop — never guess.
 
 ### 2. Feature Plan (`plan:feature`)
 

@@ -35,30 +35,39 @@ concurrency).
 
 | Phase | Increment | Priority | Effort | Status |
 |-------|-----------|----------|--------|--------|
-| 1 | Add `orchestrate-dispatch` output value + confirm-gate + self-containment prompt shape | High | Low-Med | ☐ not started |
+| 1 | Add `orchestrate-dispatch` output value + confirm-gate + self-containment prompt shape | High | Low-Med | ✅ done |
 | 2 | Concurrency cap (scoped) + failure/hang detection + confirmed-failure disposition | High | Med | ☐ not started |
 | 3 | Resumability + `.STATUS` auto-write scoping | Medium | Low | ☐ not started |
 | 4 | Documentation & Discoverability | Medium | Low | ☐ not started |
 
 ---
 
+**Note (not a blocker):** `docs/specs/SPEC-orchestrate-dispatch-mode-2026-07-01.md` (linked at the
+top of this file) is not present in the worktree — only the GRILL file and this ORCHESTRATE file
+were committed. The GRILL is the upstream source the SPEC was synthesized from and is fully
+self-contained (all 15 decision branches inline their own rationale), so implementation proceeded
+using GRILL branch numbers as the index instead of the SPEC's `§3.N` references. `§3.N` maps
+1:1 to GRILL branches 1-12; for branches 13-15 (added post-grill) use the branch number directly,
+not `§3.N`. The dispatching session should either commit the missing SPEC file or update this
+file's front-matter link.
+
 ## Phase 1 — Add the `orchestrate-dispatch` output value
 
 **Scope:** wire the third enum value into the command's argument surface and the skill's Mode 1
 section; implement the confirm-before-dispatch gate and the self-containment prompt shape.
 
-- [ ] 1.1 Update `commands/orchestrate/plan.md` frontmatter: `output` arg description becomes
+- [x] 1.1 Update `commands/orchestrate/plan.md` frontmatter: `output` arg description becomes
       `orchestrate-worktree (default) | orchestrate-only | orchestrate-dispatch` (SPEC §3.2).
-- [ ] 1.2 In `skills/orchestration/plan-orchestrator/SKILL.md` Mode 1 section, document the new
+- [x] 1.2 In `skills/orchestration/plan-orchestrator/SKILL.md` Mode 1 section, document the new
       flow branch: after worktree creation (existing step 6), if `--output orchestrate-dispatch`,
       skip the "STOP, new session" instruction and instead run the confirm gate (1.3) then dispatch.
-- [ ] 1.3 Implement the confirm-before-dispatch `AskUserQuestion` gate (SPEC §3.7): show the
+- [x] 1.3 Implement the confirm-before-dispatch `AskUserQuestion` gate (SPEC §3.7): show the
       generated ORCHESTRATE summary + worktree path, options **dispatch-now / review-first /
       cancel**. This gate is a design requirement, not a suppressible prompt — document explicitly
       that `--yes` does NOT skip it (SPEC §6 e2e test).
-- [ ] 1.4 Implement the self-containment prompt shape (SPEC §3.3): the dispatched `Agent`'s entire
+- [x] 1.4 Implement the self-containment prompt shape (SPEC §3.3): the dispatched `Agent`'s entire
       prompt is "read `ORCHESTRATE-<topic>.md` in full, then execute it" — no other context passed.
-- [ ] 1.5 Document the GRILL-file precondition as warn-only (SPEC §3.6/§3.11 in the grill,
+- [x] 1.5 Document the GRILL-file precondition as warn-only (SPEC §3.6/§3.11 in the grill,
       branches 6 and 11): if no `GRILL-*.md` exists for the spec's topic, print an advisory
       warning, do not block. Document the ungrilled backstop: an agent hitting genuine unresolved
       ambiguity leaves that phase's checkbox unchecked, adds a one-line blocker note, and stops.
