@@ -121,6 +121,14 @@ cd <worktree-path> && claude
 | `Cargo.toml` | `cargo test` |
 | `DESCRIPTION` (R) | `R CMD check` |
 
+### Rebase Strategy (Spec → ORCHESTRATE mode)
+
+Before finalizing the worktree, check whether the base branch (`dev`) has recent automated
+commits:
+
+- If the last 5 commits on `dev` include `chore:` or bot commits → suggest a rebase before PR.
+- If the history is clean → standard merge workflow, no rebase suggestion needed.
+
 ## Cross-Repo Detection
 
 Scan spec for paths under `~/projects/dev-tools/<other>/`. If detected:
