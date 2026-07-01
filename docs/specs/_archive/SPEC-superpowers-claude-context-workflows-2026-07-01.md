@@ -1,6 +1,6 @@
 # Proposal: Superpowers Scoping Correction, claude-context Pilot, Reusable Token Probe
 
-**Status:** Ready to implement
+**Status:** Consolidated 2026-07-01 into `SPEC-token-efficiency-and-context-tooling-2026-07-01.md` (Part B) after a grill pass. Tasks 1/2/4 approved; Task 3 blocked on `claude-context` MCP install (not connected in the grilling session). This file remains the source of record for full task steps.
 **Date:** 2026-07-01
 **Related:** `docs/internal/TOKEN-EFFICIENCY-craft.md`, `docs/specs/SPEC-token-efficiency-research-2026-06-30.md`, PR #232, `docs/plans/2026-06-30-namespace-token-probe.md`, outputs/report/`Token-Efficiency-Report-and-Proposal.docx` (external deliverable — Section 3.3/C1 needs correction per Finding 1)
 
