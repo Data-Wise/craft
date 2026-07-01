@@ -1,10 +1,10 @@
 # Craft Skills & Agents
 
-> **TL;DR**: 43 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
+> **TL;DR**: 44 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
 
-Craft includes 43 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 44 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (43 total)
+## Skills (44 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -129,12 +129,13 @@ directory), but is cataloged here for discoverability:*
 | test-generator | Generates dogfooding test suites (automated + interactive) for any project type | `skills/testing/test-generator/SKILL.md` |
 | test-strategist | Test strategy, coverage optimization, and quality assurance | `skills/testing/test-strategist/SKILL.md` |
 
-### Workflow (5)
+### Workflow (6)
 
 | Name | Description | Path |
 |------|-------------|------|
 | adhd-workflow | Session and task workflow support — done/recap/next/focus/stuck/spec-review/refine for ADHD-friendly flow | `skills/workflow/adhd-workflow/SKILL.md` |
 | brainstorm | Generate BRAINSTORM/SPEC documents from topic + project/git context (2 decision points: depth+focus, one follow-up); deep multi-agent work hands off to `--orch` | `skills/workflow/brainstorm/SKILL.md` |
+| grill | Convergent counterpart to brainstorm — interrogate a spec/plan/topic one question at a time (attack angles, Recommended-first) until load-bearing branches resolve; capture a durable `GRILL-*.md` ledger | `skills/workflow/grill/SKILL.md` |
 | brainstorm-insights | Aggregate session facet history into a friction/goals report (directory name kept for path stability; ideation moved to the `brainstorm` skill above) | `skills/workflow/brainstorm-insights/SKILL.md` |
 | background-task-manager | Manage already-launched background tasks — status inspection, output retrieval, cancellation | `skills/workflow/task-management/SKILL.md` |
 | prompt-refiner | Refine a vague request into a sharp prompt using project context (before/after + Accept/Edit/Use-original) — the engine behind the `--refine` flag; replaces the deprecated `/refine` | `skills/workflow/prompt-refiner/SKILL.md` |
