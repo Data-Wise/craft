@@ -12,6 +12,24 @@
 
 **ADHD-Optimized Learning System for Claude Code Git Workflow**
 
+## Table of Contents
+
+- [🎯 Learning Philosophy](#-learning-philosophy)
+- [📅 4-Week Learning Path](#-4-week-learning-path)
+- [🧠 Memory Strategies](#-memory-strategies)
+- [🎮 Practice Exercises](#-practice-exercises)
+- [📊 Progress Tracking](#-progress-tracking)
+- [🎯 Learning Shortcuts](#-learning-shortcuts)
+- [🔧 Built-In Learning Features](#-built-in-learning-features)
+- [🚫 Common Learning Pitfalls](#-common-learning-pitfalls)
+- [💪 Reinforcement Strategies](#-reinforcement-strategies)
+- [🎨 Customization Ideas](#-customization-ideas)
+- [📈 Measuring Success](#-measuring-success)
+- [🔗 Integration with Your Workflow](#-integration-with-your-workflow)
+- [🎓 Advanced Learning](#-advanced-learning)
+- [📝 Learning Journal Template](#-learning-journal-template)
+- [❓ FAQ](#-faq)
+
 ## 🎯 Learning Philosophy
 
 **Key Principle:** Learn by doing, not by memorizing.

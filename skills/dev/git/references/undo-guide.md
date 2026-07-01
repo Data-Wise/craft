@@ -11,6 +11,26 @@
 
 ---
 
+## Table of Contents
+
+- [🆘 Emergency Triage](#-emergency-triage)
+- [Fix Wrong Commit Message](#fix-wrong-commit-message)
+- [Committed to Wrong Branch](#committed-to-wrong-branch)
+- [Undo Last Commit](#undo-last-commit)
+- [Undo a Push](#undo-a-push)
+- [Recover Deleted Work](#recover-deleted-work)
+- [Resolve Merge Conflicts](#resolve-merge-conflicts)
+- [Fix Messed Up Files](#fix-messed-up-files)
+- [Nuclear Option: Reset Everything](#nuclear-option-reset-everything)
+- [Common Scenarios](#common-scenarios)
+- [Safety Commands (Read-Only)](#safety-commands-read-only)
+- [When to Ask for Help](#when-to-ask-for-help)
+- [Prevention Better Than Cure](#prevention-better-than-cure)
+- [Git Reset Cheat Sheet](#git-reset-cheat-sheet)
+- [Reflog is Your Time Machine](#reflog-is-your-time-machine)
+- [Quick Reference Card](#quick-reference-card)
+- [Remember](#remember)
+
 ## 🆘 Emergency Triage
 
 ### Step 1: What happened?

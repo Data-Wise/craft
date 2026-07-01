@@ -7,6 +7,22 @@
 
 **Learning Git Commands with Confidence on Real Work**
 
+## Table of Contents
+
+- [Philosophy](#philosophy)
+- [Safety Rails by Week](#safety-rails-by-week)
+- [Safety Features Built Into All Commands](#safety-features-built-into-all-commands)
+- [Week-by-Week Safety Recommendations](#week-by-week-safety-recommendations)
+- [Emergency Brake: How to Undo](#emergency-brake-how-to-undo)
+- [Safety Checklist](#safety-checklist)
+- [Progressive Trust Model](#progressive-trust-model)
+- [Red Flags (Stop and Review)](#red-flags-stop-and-review)
+- [Your Safety Net](#your-safety-net)
+- [Confidence Building](#confidence-building)
+- [When to Ask for Help](#when-to-ask-for-help)
+- [Branch Guard: Progressive Trust (v2.17.0+)](#branch-guard-progressive-trust-v2170)
+- [Summary: Safety Rails Philosophy](#summary-safety-rails-philosophy)
+
 ## Philosophy
 
 You're learning on **real work** (for ADHD motivation) but with **safety rails** (for peace of mind).
