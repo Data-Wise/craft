@@ -99,7 +99,7 @@ Reasoning:
 
 - Does the recommended authoring-efficiency skill get built as new, or folded into an existing skill? **Checked:** no existing craft skill covers this — `find skills -iname '*standard*' -o -iname '*creat*' -o -iname '*author*'` against the repo turned up nothing that overlaps (the closest concept, skill-standards validation, audits format/frontmatter compliance, not token-cost structure). Build new if pursued — no consolidation candidate exists.
 - The §6 audit (18 flagged commands) is unscheduled work — same open question as `SPEC-craft-audit-and-next-steps-2026-06-30.md` §4.4/4.5: dedicated session before v3.0.0, or folded into general maintenance?
-- Real `/usage` validation of the §5 hypothesis hasn't started — recommend tracking it as a follow-up once PR #232 merges, not closing this report's loop until that data exists.
+- Real `/usage` validation of the §5 hypothesis hasn't started. **Update (§9):** the tracking mechanism is now fixed (verified commands replace a broken scheduled trigger) and PR #232 has merged (2026-07-01) — the checkpoint itself (~2026-07-14) is still pending; this bullet closes only once that data is recorded.
 
 ## 9. Addendum (2026-06-30): checkpoint tooling, replacing the broken trigger
 
