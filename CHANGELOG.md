@@ -11,25 +11,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.57.0] - 2026-07-01
+
 ### Added
 
-- **Doc-impact rubric extension** (`commands/docs/sync.md`) — 4 new scored output types (Tutorial,
-  API, Cookbook, Architecture-doc) alongside the existing Guide/Refcard/Demo/Mermaid, with tiered
-  thresholds keyed to spawn cost (cheap in-context types stay at score >=3; heavy agent-authored
-  types need score >=5 or a defined "new user-facing surface" trigger) and an explicit
-  Architecture-doc double-count subtraction rule so an architecture change can't fire both the
-  Mermaid diagram and the Architecture-doc recommendation off the same signal.
-- **Site Consistency checklist** (`skills/workflow/brainstorm-insights/references/scaffold-templates.md`)
+- **`grill` attack angles** (`skills/workflow/grill/SKILL.md`, #238) — the grill loop now selects
+  from 7 project-agnostic attack angles (weakest recommendation, riskiest assumption,
+  implementation regret, benefit/token-cost honesty, workflow discipline, blast radius,
+  reversibility/scope-creep). Angle 3 reads the *target project's own* CLAUDE.md/ADRs at runtime
+  rather than hardcoding gotchas, so the same grill works across repos.
+- **Doc-impact rubric extension** (`commands/docs/sync.md`, #241) — 4 new scored output types
+  (Tutorial, API, Cookbook, Architecture-doc) alongside the existing Guide/Refcard/Demo/Mermaid,
+  with tiered thresholds keyed to spawn cost (cheap in-context types stay at score >=3; heavy
+  agent-authored types need score >=5 or a defined "new user-facing surface" trigger) and an
+  explicit Architecture-doc double-count subtraction rule so an architecture change can't fire both
+  the Mermaid diagram and the Architecture-doc recommendation off the same signal.
+- **Site Consistency checklist** (`skills/workflow/brainstorm-insights/references/scaffold-templates.md`, #241)
   — advisory (not hard-gated) checkboxes wired to existing tooling (mkdocs nav, index file,
   `/craft:site:update` / `docs-staleness-check.sh`), kept separate from the numeric doc-type score.
 - **`orchestrate-dispatch` output mode** for `plan-orchestrator`'s Spec → ORCHESTRATE flow
-  (`skills/orchestration/plan-orchestrator/SKILL.md`, `commands/orchestrate/plan.md`) — a third
-  `--output` value that dispatches a background `Agent` call from the live planning session
+  (`skills/orchestration/plan-orchestrator/SKILL.md`, `commands/orchestrate/plan.md`, #240) — a
+  third `--output` value that dispatches a background `Agent` call from the live planning session
   instead of requiring a fresh human session. Adds the safety machinery a background dispatch
   needs that a human session doesn't: confirm-before-dispatch gate, self-containment prompt
   shape, scoped concurrency cap, failure/hang detection (2×-effort-estimate window), confirmed-
   failure disposition, resumability, and scoped `.STATUS` auto-write. Documentation-only change —
   no new command/skill/agent file.
+
+### Changed
+
+- **`grill` is now a thin-command/fat-skill** (#238, ADR-002) — `commands/grill.md` is a thin shim
+  routing to `skills/workflow/grill/SKILL.md`, which holds the full ported procedure. Skill count
+  43 → 44.
+- **`orchestrate:plan` thin-shimmed** (#239) — the zombie-deprecated `commands/orchestrate/plan.md`
+  now routes to the `plan-orchestrator` skill instead of carrying a duplicate copy of the
+  spec→ORCHESTRATE logic and template (the rich-body-trap the deprecated-command audit targets).
+
+### Removed
+
+- **`/craft:orchestrate:resume`** (#239) — removed the 523-line unimplemented "session
+  teleportation" command (cloud sync, AES-256, S3, team sharing — zero code, referenced sibling
+  commands that never existed). The two real resume mechanisms (`workflow --resume <run-id>` for
+  cache-replay, the `session-state` skill for local JSON) are unaffected. Command count 117 → 116.
 
 ## [2.56.0] - 2026-06-30
 

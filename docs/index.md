@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.56.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.57.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -14,12 +14,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 117 commands, 8 AI agents, and 44 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 116 commands, 8 AI agents, and 44 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 117 commands, 8 agents, 44 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 116 commands, 8 agents, 44 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -221,7 +221,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 | **Utils**          | 2       | Misc helpers                                                                                                                                                       |
 | **Total**          | **117** | **Complete development workflow coverage**                                                                                                                         |
 
-!!! info "Latest: v2.56.0 — Token-Usage Reduction"
+!!! info "Latest: v2.57.0 — Token-Usage Reduction"
     [PR #232](https://github.com/Data-Wise/craft/pull/232) cuts the always-loaded orchestration path (`/refine` 631→42 lines, `/brainstorm` split with 4→2 decision points, `orchestrator-v2.md` 1473→1212 lines) by moving procedure out of commands/agents and into skills that load conditionally — plus model-pins the orchestrator agents (`sonnet`/`haiku`) for the first time. New skill: [`command-skill-token-efficiency`](skills-agents.md#code-3) codifies the methodology for future authoring. Full writeup: [Token Efficiency](internal/TOKEN-EFFICIENCY-craft.md). See the [full changelog](CHANGELOG.md) for all releases, including the prior v2.43.0 skill-ecosystem governance work (`governance/` policy-as-code, see the [governance guide](guide/governance.md)).
 
 ## Links
