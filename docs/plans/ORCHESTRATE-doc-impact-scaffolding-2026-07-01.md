@@ -32,7 +32,7 @@ spec-producer for free by extending the single shared scorer — no new skill.
 
 | Phase | Increment | Priority | Effort | Status |
 |-------|-----------|----------|--------|--------|
-| 1 | Rubric extension: 4 new types, tiered thresholds, arch-doc double-count fix | High | Med | ☐ not started |
+| 1 | Rubric extension: 4 new types, tiered thresholds, arch-doc double-count fix | High | Med | ✅ done |
 | 2 | Site-Consistency checklist + wiring to existing tooling | Medium | Low | ☐ not started |
 | 3 | Documentation & Discoverability | Medium | Low | ☐ not started |
 
@@ -43,17 +43,17 @@ spec-producer for free by extending the single shared scorer — no new skill.
 **Scope:** add the 4 missing content types to the single-source-of-truth rubric, with tiered
 thresholds and the arch-doc double-count fix.
 
-- [ ] 1.1 In `commands/docs/sync.md`, add Tutorial, API, Cookbook, Architecture-doc rows to the
+- [x] 1.1 In `commands/docs/sync.md`, add Tutorial, API, Cookbook, Architecture-doc rows to the
       rubric table (SPEC §3.2).
-- [ ] 1.2 Set tiered thresholds: cheap in-context types (Refcard, Mermaid, index/nav tweak) stay
+- [x] 1.2 Set tiered thresholds: cheap in-context types (Refcard, Mermaid, index/nav tweak) stay
       at `score ≥3`; heavy agent-authored types (Tutorial, API, Cookbook, Architecture-doc) get
       `score ≥5` OR a concrete "new user-facing surface" trigger. Document the trigger definition
       explicitly, not just the number.
-- [ ] 1.3 Implement the arch-doc double-count subtraction rule (SPEC §3.3): when computing the
+- [x] 1.3 Implement the arch-doc double-count subtraction rule (SPEC §3.3): when computing the
       Architecture-doc type's score, subtract the Mermaid factor's contribution from the shared
       "architecture change" signal before applying the ≥5 threshold. Document this next to the
       rubric table.
-- [ ] 1.4 Update the doc-scorer type-list mention in `skills/orchestration/plan-orchestrator/SKILL.md`
+- [x] 1.4 Update the doc-scorer type-list mention in `skills/orchestration/plan-orchestrator/SKILL.md`
       (Documentation scaffolding section) — must reference the scorer, never hardcode a parallel
       type list (single-source guard, SPEC §3.6).
 
