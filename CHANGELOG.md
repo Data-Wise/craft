@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Doc-impact rubric extension** (`commands/docs/sync.md`) — 4 new scored output types (Tutorial,
+  API, Cookbook, Architecture-doc) alongside the existing Guide/Refcard/Demo/Mermaid, with tiered
+  thresholds keyed to spawn cost (cheap in-context types stay at score >=3; heavy agent-authored
+  types need score >=5 or a defined "new user-facing surface" trigger) and an explicit
+  Architecture-doc double-count subtraction rule so an architecture change can't fire both the
+  Mermaid diagram and the Architecture-doc recommendation off the same signal.
+- **Site Consistency checklist** (`skills/workflow/brainstorm-insights/references/scaffold-templates.md`)
+  — advisory (not hard-gated) checkboxes wired to existing tooling (mkdocs nav, index file,
+  `/craft:site:update` / `docs-staleness-check.sh`), kept separate from the numeric doc-type score.
+
 ## [2.56.0] - 2026-06-30
 
 ### Added
