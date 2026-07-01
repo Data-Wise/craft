@@ -1761,7 +1761,6 @@ Comprehensive guides and references:
 | Command | Description |
 | ------- | ----------- |
 | `/craft:orchestrate:drive` | Drive an approved SPEC to completion via the native /goal turn-loop with a verify gate |
-| `/craft:orchestrate:resume` | Resume orchestration sessions across devices using Claude Desktop session teleportation |
 | `/craft:orchestrate:workflow` | Execute a coded, fixed-control-flow workflow with schema-gated agents and cached replay |
 
 ### Distribution Commands

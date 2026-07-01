@@ -56,6 +56,11 @@ brainstorm → spec → [grill] → ORCHESTRATE → worktree → implement → P
 
 ### `/craft:orchestrate:plan` — Spec to Worktree Pipeline
 
+> The canonical behavior lives in the
+> [`plan-orchestrator` skill](../../skills/orchestration/plan-orchestrator/SKILL.md);
+> `/craft:orchestrate:plan` is a thin shim over it (`deprecated: true` / `replaced-by`). The flow
+> below still describes the behavior accurately — it's just implemented in the skill now.
+
 Discovers specs, parses phases, generates ORCHESTRATE files, and creates worktrees — all in one flow.
 
 **When to use:** After brainstorming produces a spec, or when you have a spec and want to start implementation.

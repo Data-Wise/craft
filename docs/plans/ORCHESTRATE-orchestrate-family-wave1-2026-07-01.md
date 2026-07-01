@@ -35,9 +35,9 @@ failures as regressions; compare against that exact count.
 
 | Phase | Rank | Task | Effort | Risk | Status |
 |-------|------|------|--------|------|--------|
-| 1 | 1 | Delete/gut `commands/orchestrate/resume.md` (fictional feature) | Low | None | ☐ not started |
-| 2 | 2 | Thin-shim `commands/orchestrate/plan.md` → `plan-orchestrator` skill; drop duplicate template | Low-Med | Low | ☐ not started |
-| 3 | 3 (T2) | Extract shared verify-gate + engine-comparison prose into one on-demand reference | Low-Med | Low | ☐ not started |
+| 1 | 1 | Delete/gut `commands/orchestrate/resume.md` (fictional feature) | Low | None | ✅ done |
+| 2 | 2 | Thin-shim `commands/orchestrate/plan.md` → `plan-orchestrator` skill; drop duplicate template | Low-Med | Low | ✅ done |
+| 3 | 3 (T2) | Extract shared verify-gate + engine-comparison prose into one on-demand reference | Low-Med | Low | ⊘ N/A — premise obsolete (see Phase 3) |
 
 ---
 
@@ -48,10 +48,10 @@ feature (cloud sync, AES-256, S3, team sharing) with zero code, zero skill deleg
 references sibling commands (`:sync`, `:archive`, `:share`) that don't exist. It also collides in
 name with two *real* resume mechanisms.
 
-- [ ] 1.1 Confirm nothing depends on it: `grep -rn "orchestrate:resume\|orchestrate/resume" commands/ skills/ docs/ tests/` — expect only See-Also links + the guide.
-- [ ] 1.2 Decide delete vs. gut-to-stub. **Default: delete the command file.** If discovery/tests expect the file to exist, replace its body with a 5-line stub pointing at the real mechanisms (`workflow --resume <run-id>` for cache-replay; `session-state` skill for local JSON).
-- [ ] 1.3 Remove/redirect its See-Also references in `orchestrate.md`, `plan.md`, and both guide docs (`docs/guide/pipeline-orchestrate-guide.md`, `docs/guide/orchestrator.md`).
-- [ ] 1.4 Run the count cascade if a command was removed: `./scripts/validate-counts.sh` (command count drops by 1 — update all surfaces it flags).
+- [x] 1.1 Confirm nothing depends on it: `grep -rn "orchestrate:resume\|orchestrate/resume" commands/ skills/ docs/ tests/` — expect only See-Also links + the guide. (Remaining hits are historical spec/plan docs under `docs/specs/` and `docs/specs/_archive/` — out of scope, they document past decisions.)
+- [x] 1.2 Decide delete vs. gut-to-stub. **Default: delete the command file.** Deleted `commands/orchestrate/resume.md`, `docs/commands/orchestrate/resume.md`, `docs/tutorials/TUTORIAL-orchestrate-resume.md` (no discovery/test dependency found).
+- [x] 1.3 Remove/redirect its See-Also references in `orchestrate.md`, `plan.md`, and both guide docs (`docs/guide/pipeline-orchestrate-guide.md`, `docs/guide/orchestrator.md`) — both guides already had no `orchestrate:resume` references. Also cleaned: `commands/hub.md` + `docs/commands/hub.md` (3 dashboard/reference blocks), `docs/ARCHITECTURE-CLAUDE-CODE-2.1.md` (deleted whole "Session Teleportation" architecture section), `docs/REFCARD.md`, `docs/guide/claude-code-2.1-integration.md` (deleted "Session Teleportation" section + best-practice item + frontmatter/overview mentions), `docs/cookbook/common/use-interactive-orchestration.md`, and `mkdocs.yml` nav (2 entries pointing at deleted files).
+- [x] 1.4 Run the count cascade if a command was removed: `./scripts/validate-counts.sh` (command count drops by 1 — update all surfaces it flags). Command count 117→116 (craft subtotal 103→102). Updated `.claude-plugin/plugin.json`, `README.md`, plus ~16 additional doc files carrying the literal "117 commands" claim (`CLAUDE.md`, `docs/QUICK-START.md`, `docs/PLAYGROUND.md`, `docs/ADHD-QUICK-START.md`, `docs/architecture.md`, `docs/commands.md`, `docs/commands/overview.md`, `docs/commands/arch.md`, `docs/getting-started/choose-path.md`, `docs/guide/getting-started.md`, `docs/guide/claude-code-2.1-integration.md`, `docs/guide/homebrew-automation.md`, `docs/guide/homebrew-installation.md`, `docs/tutorials/TUTORIAL-smart-help.md`, `docs/tutorials/TUTORIAL-first-10-minutes.md`). `validate-counts.sh` is green. `docs-staleness-check.sh` Phase 7 residual warnings (`docs/guide/check-command-mastery.md`, `docs/guide/hub-live-dashboard.md`, `docs/tutorials/TUTORIAL-code-skill-standards.md`) are frozen illustrative sample-output blocks (not live count claims) — deliberately left untouched.
 
 **Acceptance:** no dangling links to `orchestrate:resume`; `validate-counts.sh` green; the two
 *real* resume mechanisms are the only ones a user can find.
@@ -65,14 +65,16 @@ name with two *real* resume mechanisms.
 spec→ORCHESTRATE→worktree logic verbatim, duplicating `plan-orchestrator/SKILL.md` — including
 the ORCHESTRATE template in both files. Same pattern PR #236 fixed for `check.md` + git commands.
 
-- [ ] 2.1 **Diff-and-port gate (do NOT skip — this repo has hit the rich-body-trap before, ADR-002).** Enumerate EVERY distinct behavior in `plan.md`'s body (at minimum: cross-repo path detection, `.STATUS` Active-Worktrees update, worktree creation, the 8-step spec-parse flow, the ORCHESTRATE template). Check each against `skills/orchestration/plan-orchestrator/SKILL.md`. For any behavior NOT in the skill, **port it into the skill first**, then proceed. Deleting `plan.md` logic before confirming the skill covers it = silent behavior loss.
-- [ ] 2.2 Replace `plan.md`'s body with a thin shim: keep frontmatter + args surface, delete the inline 8-step logic and the duplicated ORCHESTRATE template, point execution at the skill (the PR #236 shim shape is the reference).
-- [ ] 2.3 Verify the ORCHESTRATE template now lives in exactly ONE place (the skill). `grep -rn "ORCHESTRATE Template\|Phase Overview" commands/orchestrate/plan.md` → should be gone.
-- [ ] 2.4 Run the deprecated-command auditor: `python3 scripts/audit-deprecated-commands.py --pair commands/orchestrate/plan.md` (body-to-skill ratio should drop below threshold).
+- [x] 2.1 **Diff-and-port gate (do NOT skip — this repo has hit the rich-body-trap before, ADR-002).** Enumerated every distinct behavior in `plan.md`'s body against `skills/orchestration/plan-orchestrator/SKILL.md`. Covered: spec discovery, spec parsing, cross-repo detection, plan confirmation, ORCHESTRATE template (canonical, matches), worktree creation, `.STATUS`/`.gitignore` tracking. **Gap found and ported:** the command's "Rebase Strategy" auto-detection (check `dev`'s last 5 commits for `chore:`/bot commits before suggesting a rebase) was entirely absent from the skill — added a new "Rebase Strategy (Spec → ORCHESTRATE mode)" subsection under the skill's Auto-Detection section before shimming. **Separately found (pre-existing, unrelated, out of scope — flagged as a background task instead of fixed here):** the skill's own "Scaffold templates live in `references/scaffold-templates.md`" pointer (lines ~172, ~190) uses a relative path with no local file — the real shared file is `skills/workflow/brainstorm-insights/references/scaffold-templates.md`. This predates Wave 1 and is orthogonal to the resume/plan consolidation; not touched here.
+- [x] 2.2 Replace `plan.md`'s body with a thin shim: keep frontmatter + args surface, delete the inline 8-step logic and the duplicated ORCHESTRATE template, point execution at the skill (the PR #236 / `grill.md` shim shape used as the reference).
+- [x] 2.3 Verify the ORCHESTRATE template now lives in exactly ONE place (the skill). `grep -n "ORCHESTRATE Template\|Phase Overview" commands/orchestrate/plan.md` → no matches, confirmed.
+- [x] 2.4 Ran the deprecated-command auditor. Note: the ORCHESTRATE file's originally-suggested single-arg invocation (`--pair commands/orchestrate/plan.md`) doesn't match the script's actual signature (`--pair FILE_A FILE_B`); ran `python3 scripts/audit-deprecated-commands.py --pair commands/orchestrate/plan.md skills/orchestration/plan-orchestrator/SKILL.md` instead. Result: ratio 4.3 (flagged, threshold 2.0) — but this is expected/correct for a fully-thinned shim: the reference pattern (`commands/grill.md` vs `skills/workflow/grill/SKILL.md`) also flags at ratio 2.4, and even non-deprecated `commands/check.md` flags at 2.7 against its skill. The script's own docstring confirms exit 1 is "WARN signal, not a hard gate." The repo-wide sweep (`audit-deprecated-commands.py` with no args) does NOT list `plan.md` among its 11 flagged commands, confirming no regression in that direction.
 
-**Acceptance:** `plan.md` is a shim (no duplicate logic/template); auditor passes; guide docs
-updated to note the skill is canonical (removes the "documented as live, actually deprecated"
-mismatch).
+**Acceptance:** `plan.md` is a shim (no duplicate logic/template) — confirmed; auditor ratio is the
+expected direction for a thin shim (advisory-only, not a hard gate) — confirmed; guide docs updated
+to note the skill is canonical — added a canonical-skill pointer note to
+`docs/guide/pipeline-orchestrate-guide.md` (the "documented as live, actually deprecated" mismatch
+is resolved).
 
 ---
 
@@ -83,13 +85,41 @@ mismatch).
 always-loaded command body → drift + token cost. **Token lever: progressive disclosure** (move
 shared prose into one on-demand reference).
 
-- [ ] 3.1 Create the shared engine ref holding ONE canonical engine-comparison table + the shared verify-gate description. **Location MUST be non-discovered — under `skills/orchestration/.../references/` (PR #236's pattern) or `docs/guide/`. NEVER under `commands/`**: `commands/_discovery.py:267,287` turns any `.md` under `commands/` into a command (only `docs`/`utils` segments are stripped), so `commands/orchestrate/references/engines.md` would ship a phantom `orchestrate:references:engines` command and break `validate-counts.sh`.
-- [ ] 3.2 Replace the three copied blocks in `orchestrate.md` / `workflow.md` / `drive.md` with a one-line link to the reference.
-- [ ] 3.3 While here, fix the `orchestrate.md` self-contradiction (rank 4 is NOT in this wave, so leave the engine-name/route bug alone unless it's in the same prose block — if it is, note it as a follow-up, don't fix silently).
-- [ ] 3.4 Confirm the reference isn't miscounted as a skill/command: `./scripts/validate-counts.sh` + `npx markdownlint-cli2` on the new file.
+**PHASE 3 IS A NO-OP — premise obsolete, confirmed against the current tree, no extraction performed.**
 
-**Acceptance:** one canonical engine table; three command bodies shrink; counts unaffected;
-markdown clean.
+Verification: `git diff dev -- commands/orchestrate.md commands/orchestrate/workflow.md
+commands/orchestrate/drive.md` is **empty** — Phases 1–2 never touched these three files, so this
+reflects the state at branch point, not something this wave caused. Re-reading each file directly
+(not from the plan's description):
+
+- The "which engine when" comparison table exists in **exactly ONE place already**:
+  `commands/orchestrate/workflow.md` lines 33–39 (a `> **Which orchestration mode?**` blockquote
+  table). `commands/orchestrate/drive.md` does not carry this table at all. `commands/orchestrate.md`
+  does not carry it either (checked `## See Also`, `## Reference`, and the full file — no match).
+- The "real verify gate" prose is **not a verbatim copy** across files — `workflow.md` Step 6
+  ("A `verify` stage runs the project's real verification command; its exit status is the
+  authoritative pass/fail") and `drive.md` Step 7 ("the `drive-engine` skill runs the project's
+  actual verify command + `git status --short`... Green is required to declare done") are
+  independently-worded, each legitimately describing that command's own step. Neither is a
+  copy-paste duplicate of the other, and `orchestrate.md` doesn't carry this prose at all.
+- So the acceptance criterion "three command bodies shrink" has no referent — there is nothing to
+  extract into a shared reference. Creating one anyway would add indirection for zero drift
+  reduction and risk the exact phantom-command failure mode 3.1 itself warns about
+  (`commands/_discovery.py:267,287` turning any new `.md` under `commands/` into a discovered
+  command).
+- **3.3's rank-4 self-contradiction is confirmed present**, exactly as the plan anticipated:
+  `commands/orchestrate.md:289` says `"Route to /craft:orchestrate:drive using the detected
+  spec/workflow file"` when the engine actually being routed to is `workflow`, not `drive`. Per
+  3.3's own instruction ("leave the engine-name/route bug alone... rank 4 is NOT in this wave"),
+  this is confirmed but deliberately NOT fixed here.
+
+- [x] 3.1 N/A — no duplicated engine-comparison table to extract (exists in exactly one place).
+- [x] 3.2 N/A — no copied blocks exist in the other two command bodies to replace.
+- [x] 3.3 Confirmed the `orchestrate.md:289` self-contradiction exists; left it alone (rank 4, out of Wave 1 scope) per the plan's own instruction.
+- [x] 3.4 N/A — no new reference file created, so nothing to count/lint. `validate-counts.sh` remains green (verified after Phases 1–2 already).
+
+**Acceptance:** re-scoped to "confirm or refute the premise, act only if real." Premise refuted with
+evidence above; no action taken; nothing regressed.
 
 ---
 
