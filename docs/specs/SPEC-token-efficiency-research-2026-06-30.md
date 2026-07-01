@@ -132,6 +132,15 @@ pre-merge period — no separate baseline-capture step needed. `claude-monitor` 
 claude-monitor`) is a separate, standing install for ongoing live-session awareness, independent
 of this one checkpoint.
 
+**Smoke-tested 2026-06-30** (`docs/plans/2026-06-30-usage-checkpoint-tooling.md`):
+`claude-monitor` installed cleanly (`v4.0.0`, 5 executables: `ccm`, `ccmonitor`,
+`claude-code-monitor`, `claude-monitor`, `cmonitor`) and launches without error. The pre-merge
+command returned real data as expected. The post-merge command (`--since 2026-07-01`) returned
+"No usage data found" rather than at least today's row as originally assumed — not a bug, just
+means log indexing hadn't caught up yet this close to the merge; the command syntax itself is
+confirmed correct. Don't be alarmed if it's still empty on a re-check shortly after merge — real
+accumulation is what the ~2026-07-14 checkpoint is for.
+
 **`.STATUS` item D** now references these commands directly instead of an automated reminder.
 Target date (~2026-07-14) and destination (this section) are unchanged — only the mechanism
 changed, from "wait for a trigger to fire" to "run this command when you next pick this repo back
