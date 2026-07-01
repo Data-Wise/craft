@@ -244,7 +244,6 @@ nav:
       - docs:mermaid Tutorial: tutorials/TUTORIAL-docs-mermaid.md
       - docs:sync Tutorial: tutorials/TUTORIAL-docs-sync.md
       - git:guard Tutorial: tutorials/TUTORIAL-git-guard.md
-      - orchestrate:resume Tutorial: tutorials/TUTORIAL-orchestrate-resume.md
       - quota Tutorial: tutorials/TUTORIAL-quota.md
       - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
 
@@ -351,7 +350,6 @@ nav:
       - /craft:dist:homebrew: commands/dist/homebrew.md
       - /craft:dist:surfaces: commands/dist/surfaces.md
       - /craft:orchestrate:drive: commands/orchestrate/drive.md
-      - /craft:orchestrate:resume: commands/orchestrate/resume.md
       - /craft:orchestrate:workflow: commands/orchestrate/workflow.md
       - /craft:site:docs:frameworks: commands/site/docs/frameworks.md
       - /craft:smart-help: commands/smart-help.md

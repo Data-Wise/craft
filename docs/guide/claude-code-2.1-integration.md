@@ -4,7 +4,7 @@
 
 **Available Since:** v1.23.0 (Claude Code 2.1.0 Integration)
 **Commands:** /craft:do, /craft:check, /craft:orchestrate
-**Features:** Complexity scoring, hot-reload validators, agent delegation, session teleportation
+**Features:** Complexity scoring, hot-reload validators, agent delegation
 
 ---
 
@@ -17,7 +17,6 @@ Craft integrates Claude Code 2.1.0 advanced features to provide intelligent task
 3. **Hot-Reload Validators** - Dynamic validation skills without restart
 4. **Agent Delegation** - Specialized agents for different task types
 5. **Forked Context** - Isolated execution to keep chat clean
-6. **Session Teleportation** - Resume work across devices
 
 ---
 
@@ -420,45 +419,6 @@ Orchestrator v2 handles failures with 9 recovery strategies:
 
 ---
 
-## Session Teleportation
-
-Resume work across devices with `/craft:orchestrate:resume`
-
-### Session State Tracking
-
-```mermaid
-graph LR
-    A["Session Start<br/>Device A"] --> B["Auto-save<br/>Session State"]
-    B --> C["Encrypted Cloud<br/>Sync"]
-    C --> D["Device B<br/>Available"]
-    D --> E["Resume Session<br/>/craft:orchestrate:resume"]
-    E --> F["Load State<br/>Continue Work"]
-    F --> G["Resume from<br/>Checkpoint"]
-
-    style A fill:#b3e5fc
-    style B fill:#fff3e0
-    style C fill:#f0f4c3
-    style D fill:#b3e5fc
-    style E fill:#c8e6c9
-    style F fill:#dcedc8
-    style G fill:#f1f8e9
-```
-
-### Using Session Teleportation
-
-```bash
-# Start work on Device A
-/craft:do "implement feature X"
-# ... work in progress ...
-# State auto-saved
-
-# Switch to Device B
-/craft:orchestrate:resume
-# Continues exactly where you left off!
-```
-
----
-
 ## Integration Testing
 
 Craft includes 27+ integration tests validating Claude Code 2.1.0 features:
@@ -543,16 +503,6 @@ Better: "Add OAuth2 authentication with PKCE flow, session management, extensive
 /craft:orchestrate:status
 ```
 
-### 5. Resume Across Sessions
-
-```bash
-# Continue previous work
-/craft:orchestrate:resume
-
-# Or start new
-/craft:do "new task"
-```
-
 ---
 
 ## Troubleshooting
@@ -598,7 +548,7 @@ Result aggregation: < 1 minute
 - [Complexity Scoring Algorithm](complexity-scoring-algorithm.md) - Deep dive into 7 factors
 - [Teaching Workflow Guide](teaching-workflow.md) - Specialized workflow for courses
 - [Orchestrator Documentation](orchestrator.md) - Advanced multi-agent features
-- [Commands Reference](../commands.md) - All 117 commands
+- [Commands Reference](../commands.md) - All 116 commands
 
 ---
 

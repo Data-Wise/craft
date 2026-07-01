@@ -228,9 +228,9 @@ Display template:
 │ SITE (16)                          /craft:dist:curl-install             │
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
-│   /craft:site:check              ORCHESTRATE (4)                        │
+│   /craft:site:check              ORCHESTRATE (3)                        │
 │   /craft:site:update               /craft:orchestrate [mode]           │
-│   /craft:site:publish              /craft:orchestrate:resume           │
+│   /craft:site:publish                                                  │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  Quick Actions:                                                          │
@@ -621,12 +621,11 @@ Command                  | Description
 ### `/craft:hub orchestrate`
 
 ```
-ORCHESTRATE COMMANDS (4) - Multi-Agent Coordination
+ORCHESTRATE COMMANDS (3) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
 /craft:orchestrate "task" [mode]     | Launch orchestrator (free-form, fan-out)
 /craft:orchestrate:drive [spec]      | Spec-driven autonomous /goal loop → verified green
 /craft:orchestrate:workflow [file]   | Coded, deterministic workflow (fixed waves, schema-gated)
-/craft:orchestrate:resume            | Resume previous session
 /craft:orchestrate:plan              | (deprecated → plan-orchestrator skill)
 
 Modes:
@@ -777,7 +776,6 @@ SUGGESTED FOR NODE PROJECT:
 │ Orchestration:                                                         │
 │   /craft:orchestrate "task" optimize -> 4 parallel agents              │
 │   /craft:do "task" --orch=optimize   -> Quick orchestration            │
-│   /craft:orchestrate:resume          -> Resume previous session        │
 │                                                                        │
 │ Documentation:                                                         │
 │   /craft:docs:update       -> Smart detection + generation             │
