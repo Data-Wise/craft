@@ -56,8 +56,8 @@ brainstorm → spec → [grill] → ORCHESTRATE → worktree → implement → P
 
 ### `/craft:orchestrate:plan` — Spec to Worktree Pipeline
 
-> The canonical behavior lives in the
-> [`plan-orchestrator` skill](../../skills/orchestration/plan-orchestrator/SKILL.md);
+> The canonical behavior lives in the `plan-orchestrator` skill
+> (`skills/orchestration/plan-orchestrator/SKILL.md` in the repo — not part of this site's nav);
 > `/craft:orchestrate:plan` is a thin shim over it (`deprecated: true` / `replaced-by`). The flow
 > below still describes the behavior accurately — it's just implemented in the skill now.
 

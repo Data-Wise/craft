@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 117 commands, 8 agents, 43 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.56.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
+site_description: "Full-stack developer toolkit - 116 commands, 8 agents, 44 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.56.0 adds the /craft:code:skill-standards auditor (batch-scan skills against Anthropic's authoring standards, with safe --fix) and /done memory-optimization + settings-sync."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -27,6 +27,9 @@ exclude_docs: |
   specs/_archive/SPEC-workflow-engine-2026-06-12.md
   # Internal working proposals (not yet through spec review)
   internal/PROPOSAL-*.md
+  # Internal session artifacts - not published content
+  internal/HOOKS-TOKEN-AUDIT-*.md
+  internal/TUTORIAL-rtk-cli-token-proxy.md
   # Stale standalone docs
   FEATURE-RELEASE-CLAUDE-MD.md
   GIF-REGENERATION-CHECKLIST.md
@@ -155,6 +158,7 @@ nav:
       - Guard Design (Taxonomy): guide/guard-design.md
       - Guard Suite Tutorial: tutorials/TUTORIAL-guard-suite.md
       - Grill Tutorial: tutorials/TUTORIAL-grill.md
+      - Reusable Grill Prompt (craft-tuned): reference/GRILL-PROMPT-craft.md
       - Claude-MD Workflows: tutorials/claude-md-workflows.md
       - Interactive Orchestration Tutorial: tutorials/interactive-orchestration.md
       - Post-Merge Pipeline Tutorial: tutorials/TUTORIAL-post-merge-pipeline.md
