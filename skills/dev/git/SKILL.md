@@ -113,6 +113,26 @@ Parallel development via `git worktree` — each branch in its own folder, no st
 
 **Critical safety rule:** before any git operation in a worktree, verify CWD and branch with `git worktree list` + `git branch --show-current` — sessions are CWD-pinned and absolute paths may diverge.
 
+**`create` — branch guard:** worktrees must be created from `dev`, never `main` (hard block, no override — if on `main`, tell the user to `git checkout dev` first). After creating, install dependencies by auto-detecting project type (`package.json` → `npm install`; `pyproject.toml` → `uv venv && uv pip install -e .`; `requirements.txt` → `pip install -r requirements.txt`; `Cargo.toml`/`go.mod` → nothing, global cache; `DESCRIPTION`/`renv.lock` → `R -e "renv::restore()"`).
+
+**`create` — scope-based auto-setup:** after creating, detect scope from the branch name and offer (via confirmation) to create workflow files:
+
+| Branch pattern | Scope | Auto-create |
+|---|---|---|
+| `fix/*` | Small | No workflow files |
+| `feature/*` | Medium | `ORCHESTRATE-<name>.md` |
+| `v*` (release) | Release | ORCHESTRATE + `SPEC-<name>-<date>.md` |
+| User selects "multi-phase" | Large | ORCHESTRATE + SPEC + update `.STATUS` + update `CLAUDE.md` |
+| User selects "custom" | Custom | Ask what to create |
+
+**`move` — bring an in-progress branch into a worktree:** the sequence is stash (`git stash push --include-untracked`) → switch main folder to `main`/`master` → `git worktree add` for the feature branch → `cd` into the new worktree → `git stash pop` → install dependencies (same detection as `create`). Use case: work started in the main folder needs to move to a worktree so the main folder can return to a stable base branch.
+
+**`finish` — complete a feature and open a PR:** (1) run tests auto-detected by project type (`npm test` / `pytest -v` / `R CMD check . --no-manual` / `cargo test` / `go test ./...`); (2) generate a changelog entry, inferring the section from branch prefix (`feat/*` → Added, `fix/*` → Fixed, `docs/*` → Documentation, else → Changed); (3) remove stray `ORCHESTRATE-*.md` working artifacts with a cleanup commit — they're feature-branch scratch files and must not merge to `dev`; (4) `gh pr create` targeting `dev` (or `main` if no `dev` branch exists) with an AI-generated title/body summarizing the commits. Flags: `--skip-tests`, `--draft`, `--target <branch>`.
+
+**`validate` — read-only environment check:** confirm CWD is inside the expected `~/.git-worktrees/<project>/<branch>` path and the branch name matches the folder name; no confirmation needed, no changes made.
+
+**`clean` — remove merged worktrees:** find worktrees for branches merged into `main`, confirm removal per-branch, then `git worktree prune` for stale references.
+
 ### 6. Remote Sync
 
 Pull and push with conflict-handling guidance.
@@ -175,10 +195,12 @@ When the user wants to **read** rather than **act**, surface the reference docs 
 
 | User intent | Doc to surface |
 |-------------|----------------|
-| "teach me git", "how does this workflow work", "learning path" | `commands/git/docs/learning-guide.md` |
+| "teach me git", "how does this workflow work", "learning path" | `skills/dev/git/references/learning-guide.md` |
 | "quick reference", "git refcard", "cheat sheet" | `commands/git/docs/refcard.md` |
-| "is this safe?", "what are the safety rails?", "won't this break things?" | `commands/git/docs/safety-rails.md` |
-| "I messed up", "how do I undo X", "git emergency" | `commands/git/docs/undo-guide.md` |
+| "is this safe?", "what are the safety rails?", "won't this break things?" | `skills/dev/git/references/safety-rails.md` |
+| "I messed up", "how do I undo X", "git emergency" | `skills/dev/git/references/undo-guide.md` |
+
+(`refcard.md` stays under `commands/git/docs/` — it wasn't flagged by the deprecated-command body-size audit and isn't part of this consolidation batch.)
 
 For undo specifically, prefer the doc over speculating — it has scripted recovery flows for the common "oh no" scenarios (wrong commit message, wrong branch, accidental push, deleted work, merge conflicts).
 
@@ -235,10 +257,10 @@ This skill replaces the 10 commands and 4 reference docs under `commands/git/` d
 | `/craft:git:protect` | 8 (Local Protection) |
 | `/craft:git:protect-baseline` | 9 (GitHub-Side Protection) |
 | `/craft:git:unprotect` | 10 (Session Bypass) |
-| `commands/git/docs/learning-guide.md` | 11 (Reference: learning) |
+| `commands/git/docs/learning-guide.md` (shim → `skills/dev/git/references/learning-guide.md`) | 11 (Reference: learning) |
 | `commands/git/docs/refcard.md` | 11 (Reference: refcard) |
-| `commands/git/docs/safety-rails.md` | 11 (Reference: safety rails) |
-| `commands/git/docs/undo-guide.md` | 11 (Reference: undo) |
+| `commands/git/docs/safety-rails.md` (shim → `skills/dev/git/references/safety-rails.md`) | 11 (Reference: safety rails) |
+| `commands/git/docs/undo-guide.md` (shim → `skills/dev/git/references/undo-guide.md`) | 11 (Reference: undo) |
 
 Both invocation paths work during the deprecation cycle. The skill auto-fires on natural-language match; explicit `/craft:git:*` paths continue to function until v3.0.0.
 
