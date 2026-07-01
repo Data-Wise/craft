@@ -182,9 +182,19 @@ at all** — the front of the spine is entirely manual and unrecognized (see gri
 | **7** | Path-scope craft's own guidance (T5) | token | Med | Low-Med |
 | **8** | Unify `do.md` / `orchestrate.md` scorers (largely subsumed if T1 done well) | structural | Med-High | Med |
 
-**Recommended first wave: ranks 1–3.** All low-risk, two reuse the exact PR #236 playbook, and
-rank 3 is the cheapest pure token win. That trio also unblocks the held orchestrate-dispatch
-design by removing the plan-template duplication it would otherwise inherit.
+**Recommended first wave: ranks 1–3 — a risk-first debt-clearing wave, not the token play.**
+Be honest about what this wave is: ranks 1–2 clear low-risk structural debt (a fictional command
+and a zombie deprecation), and only rank 3 is a token item. The biggest token wins (T1 `do.md`,
+T4, T5) are deliberately **wave 2**, gated on the ~2026-07-14 `/usage` checkpoint — you shouldn't
+chase token refactors before that number confirms the within-plugin fixes weren't already enough.
+Wave 1's value is safety + removing the confusion this proposal documents; the token payoff comes
+later, with data behind it. (Doing wave 1 first also tidies the plan-template duplication that the
+held orchestrate-dispatch design would otherwise inherit — a nice-to-have, not a hard dependency.)
+
+> **Grilled 2026-07-01** (adversarial pass) — 3 findings applied: task 2.1 hardened to a
+> diff-and-port gate against the rich-body-trap; T2's ref file forbidden from `commands/`
+> (phantom-command risk); this framing corrected from "token-first" to "risk-first." See
+> [GRILL-orchestrate-family-simplification-2026-07-01.md](GRILL-orchestrate-family-simplification-2026-07-01.md#adversarial-pass-2026-07-01).
 
 **My recommendation:** start with #1 + #2 together. Same bug class (dead/duplicate logic),
 same fix pattern already validated this session, lowest risk, and #2 directly removes the

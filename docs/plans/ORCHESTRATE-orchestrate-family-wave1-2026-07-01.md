@@ -65,7 +65,7 @@ name with two *real* resume mechanisms.
 spec→ORCHESTRATE→worktree logic verbatim, duplicating `plan-orchestrator/SKILL.md` — including
 the ORCHESTRATE template in both files. Same pattern PR #236 fixed for `check.md` + git commands.
 
-- [ ] 2.1 Read `skills/orchestration/plan-orchestrator/SKILL.md` and confirm it fully covers Mode 1 (Spec → ORCHESTRATE) that `plan.md` currently re-implements.
+- [ ] 2.1 **Diff-and-port gate (do NOT skip — this repo has hit the rich-body-trap before, ADR-002).** Enumerate EVERY distinct behavior in `plan.md`'s body (at minimum: cross-repo path detection, `.STATUS` Active-Worktrees update, worktree creation, the 8-step spec-parse flow, the ORCHESTRATE template). Check each against `skills/orchestration/plan-orchestrator/SKILL.md`. For any behavior NOT in the skill, **port it into the skill first**, then proceed. Deleting `plan.md` logic before confirming the skill covers it = silent behavior loss.
 - [ ] 2.2 Replace `plan.md`'s body with a thin shim: keep frontmatter + args surface, delete the inline 8-step logic and the duplicated ORCHESTRATE template, point execution at the skill (the PR #236 shim shape is the reference).
 - [ ] 2.3 Verify the ORCHESTRATE template now lives in exactly ONE place (the skill). `grep -rn "ORCHESTRATE Template\|Phase Overview" commands/orchestrate/plan.md` → should be gone.
 - [ ] 2.4 Run the deprecated-command auditor: `python3 scripts/audit-deprecated-commands.py --pair commands/orchestrate/plan.md` (body-to-skill ratio should drop below threshold).
@@ -83,7 +83,7 @@ mismatch).
 always-loaded command body → drift + token cost. **Token lever: progressive disclosure** (move
 shared prose into one on-demand reference).
 
-- [ ] 3.1 Create `commands/orchestrate/references/engines.md` (or a skill reference) holding ONE canonical engine-comparison table + the shared verify-gate description.
+- [ ] 3.1 Create the shared engine ref holding ONE canonical engine-comparison table + the shared verify-gate description. **Location MUST be non-discovered — under `skills/orchestration/.../references/` (PR #236's pattern) or `docs/guide/`. NEVER under `commands/`**: `commands/_discovery.py:267,287` turns any `.md` under `commands/` into a command (only `docs`/`utils` segments are stripped), so `commands/orchestrate/references/engines.md` would ship a phantom `orchestrate:references:engines` command and break `validate-counts.sh`.
 - [ ] 3.2 Replace the three copied blocks in `orchestrate.md` / `workflow.md` / `drive.md` with a one-line link to the reference.
 - [ ] 3.3 While here, fix the `orchestrate.md` self-contradiction (rank 4 is NOT in this wave, so leave the engine-name/route bug alone unless it's in the same prose block — if it is, note it as a follow-up, don't fix silently).
 - [ ] 3.4 Confirm the reference isn't miscounted as a skill/command: `./scripts/validate-counts.sh` + `npx markdownlint-cli2` on the new file.
