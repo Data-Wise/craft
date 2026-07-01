@@ -16,6 +16,8 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 
 📌 Next action (held, not yet started): `/craft:orchestrate:plan` against `docs/specs/GRILL-plan-orchestrator-dispatch-mode-2026-07-01.md` (synthesize SPEC from the ledger's 10 branches — no paired SPEC file exists) to plan the `orchestrate-dispatch` mode. **User to review the grill ledger/synthesized spec first before this runs.** Refined prompt captured in session 2026-07-01 (prompt-refiner applied manually — skill not invocable via Skill tool this session, known discovery gap).
 
+💡 Backlog (future refactoring, not scheduled): **Command-namespace naming rule.** Debate a plugin-wide convention — today 100/117 commands are `namespace:sub:command` (depth-2) but it's inconsistent (`orchestrate:plan` colon-subcommand AND `orchestrate status` positional sub-verb coexist). Proposed rule: `namespace:command` with variants as `--flags` (e.g. `orchestrate --plan`). Deliberately NOT folded into the orchestrate-family proposal (too broad — touches all 117 commands). Debate token-cost vs. discoverability vs. per-command frontmatter loss before adopting. Captured 2026-07-01.
+
 📂 Active Worktrees:
 
 | Branch | Path | Purpose |
