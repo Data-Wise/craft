@@ -14,6 +14,19 @@ progress: v2.34.0 SHIPPED 2026-05-15 (PR #142 → main as 25c53c95, release tag 
 | main   | 43beb7b3 | —    | Production (**v2.56.0 tagged 2026-07-01**, PR #234 merged, main CI GREEN, docs site + Homebrew tap confirmed live) |
 | dev    | 43beb7b3 | main | Synced with main post-release (fast-forwarded, no drift). 2026-07-01 |
 
+🔓 **Session-scoped authorization (2026-07-01, THIS SESSION ONLY — does not carry to a new session):**
+For background-dispatched/directly-executed work this session, may **push branch → open PR →
+merge** without asking each step, once (a) CI is green OR a check is confirmed-benign-stuck per
+this repo's documented `Validate Plugin Structure` pattern, AND (b) I've personally reviewed the
+diff/ORCHESTRATE checkboxes + run the Verification section myself (never trust an agent's chat
+summary alone). **After every merge, run the applicable post-merge check** (`validate-counts.sh` /
+`docs-staleness-check.sh` / broken-links) per judgment on what changed — report only if red.
+**Still requires asking even under this authorization:** any genuinely-failing check (not known
+baseline noise), force-push, `--admin` beyond the one documented benign-flake case, deleting
+anything beyond the just-merged feature branch/worktree, touching `main` (still PR-only).
+Consolidated from two separate grants + refined via `/craft:workflow:refine` (manual, skill not
+invocable this session).
+
 📌 Next action (held, not yet started): `/craft:orchestrate:plan` against `docs/specs/GRILL-plan-orchestrator-dispatch-mode-2026-07-01.md` (synthesize SPEC from the ledger's 10 branches — no paired SPEC file exists) to plan the `orchestrate-dispatch` mode. **User to review the grill ledger/synthesized spec first before this runs.** Refined prompt captured in session 2026-07-01 (prompt-refiner applied manually — skill not invocable via Skill tool this session, known discovery gap).
 
 ✅ Resolved 2026-07-01: **Command-namespace naming rule.** Decided *against* a plugin-wide rename (craft already ~90% `namespace:command`, no depth-3 sprawl; renaming saves ~0 resting tokens per the bloat grill; count-cascade + reference-rot + discoverability cost). Instead adopted the **verb-vs-flag convention** (distinct operation → subcommand; variant → flag) as advisory guidance in `CONTRIBUTING.md`. Rationale: [BRAINSTORM-command-namespace-naming-rule](docs/specs/BRAINSTORM-command-namespace-naming-rule-2026-07-01.md). Optional follow-up (unscheduled): promote the convention to an advisory governance rule (`governance/RULES.yaml` + checker) if enforcement is wanted.

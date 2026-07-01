@@ -117,6 +117,12 @@ Conventional commits, one per phase:
 Then `gh pr create --base dev`. Commit as you go; do **not** push/PR/merge if running as an
 unattended agent — leave that to the review gate.
 
+**Review gate (updated 2026-07-01):** under this session's standing authorization (`.STATUS`),
+the dispatching session pushes/opens the PR/merges directly once CI is green (or confirmed-benign
+per the documented `Validate Plugin Structure` pattern) and the checkboxes + Verification section
+have been re-run and confirmed — no separate ask per merge. Post-merge, run the applicable check
+(`validate-counts.sh` / `docs-staleness-check.sh` / broken-links).
+
 ---
 
 ## .STATUS + tracking
