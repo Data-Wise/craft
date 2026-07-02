@@ -1,0 +1,22 @@
+{
+  "name": "craft-mcp",
+  "version": "0.1.0",
+  "description": "Claude Desktop MCP bridge for craft — exposes craft's read-only repo-hygiene checks (count validation, governance audit, docs-staleness) as MCP tools.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node22 --outfile=dist/index.js --format=esm",
+    "start": "node dist/index.js",
+    "smoke": "npm run build && node tests/smoke.mjs",
+    "build:mcpb": "bash scripts/build-mcpb.sh"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.0"
+  }
+}
