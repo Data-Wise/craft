@@ -25,7 +25,7 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **112 Commands**
+- :rocket:{ .lg .middle } **116 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
 
@@ -33,7 +33,7 @@
 
     Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators
 
-- :sparkles:{ .lg .middle } **39 Skills**
+- :sparkles:{ .lg .middle } **44 Skills**
 
     Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation
 
@@ -70,7 +70,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 115 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 116 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -116,7 +116,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 115 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 116 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -134,7 +134,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 **Quick Links:**
 
-- [All 112 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 116 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -187,7 +187,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 115 commands organized
+    All 116 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](skills-agents.md)**
 
@@ -199,7 +199,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 115 commands
+    Complete documentation for all 116 commands
 
 </div>
 
