@@ -5,6 +5,7 @@
 - **Owner:** dt
 - **Source:** `/refine` → live-site check (Chrome extension not connected → fetched live pages)
 - **Depth/Focus:** default · arch
+- **Grill:** `GRILL-docs-site-hardening-consolidation-2026-07-02.md` (6 branches locked — deploy-model, full-consolidation, merge-safety, guard-scope, H1-gate, sequencing)
 
 ## 1. Problem (two independent root causes)
 
