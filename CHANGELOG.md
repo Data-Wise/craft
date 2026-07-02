@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **curl-pipe installer ships current craft** — `install.sh` (the
+  `curl … install.sh | bash` path advertised in README) cloned a frozen
+  mirror in `Data-Wise/claude-plugins` permanently stuck at **v1.16.0**;
+  it now clones `Data-Wise/craft` directly (current `main`). Also fixed:
+  unconditional `source scripts/formatting.sh` and `read -p` both broke
+  under piped stdin (`set -e` abort); the hardcoded banner
+  ("craft v1.17.0", "107 commands | 8 agents | 36 skills") is now computed
+  live from the installed tree; recursive `cp` (died on the intentionally
+  broken governance symlink fixtures on macOS) replaced by direct clone.
+  11 contract tests added (`tests/test_install_script.py`). See
+  `docs/specs/SPEC-dist-surface-hardening-2026-07-01.md` (D1).
+
 ## [2.57.0] - 2026-07-01
 
 ### Added
