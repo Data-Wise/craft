@@ -1,0 +1,40 @@
+# Auto-merge Dependabot PRs for PATCH + MINOR devDependency bumps on green CI.
+# Prod-dependency bumps and MAJOR updates fall through to manual review.
+#
+# Follows GitHub's documented pattern:
+# https://docs.github.com/en/code-security/dependabot/working-with-dependabot/automating-dependabot-with-github-actions
+#
+# `gh pr merge --auto` only completes once all required status checks pass, so
+# this gates on CI without polling — GitHub holds the merge until checks are green.
+name: Dependabot auto-merge
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    # Only act on PRs opened by Dependabot.
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Enable auto-merge for dev patch/minor bumps
+        # dependency-type is 'direct:development' for a devDependency (grouped or not);
+        # update-type reflects the HIGHEST bump in a group, so a group containing any
+        # major bump reports 'semver-major' and is excluded here — safe by construction.
+        if: >
+          steps.metadata.outputs.dependency-type == 'direct:development' &&
+          (steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
+           steps.metadata.outputs.update-type == 'version-update:semver-minor')
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
