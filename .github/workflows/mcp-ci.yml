@@ -1,0 +1,84 @@
+name: Craft MCP CI
+
+# Runs ONLY when the mcp/ bridge (or this workflow) changes — the craft-mcp
+# Desktop bridge is an independently-versioned subproject (mcp/package.json,
+# currently 0.1.0), decoupled from the craft plugin version. Keeping this a
+# separate, path-filtered workflow means a plugin-only change does not trigger
+# a Node build, and an mcp/-only change does not run the full plugin suite.
+#
+# NOTE (branch protection): do NOT add "MCP Bridge" to required status checks.
+# Because this workflow is path-filtered, PRs that don't touch mcp/ would hang
+# forever on an "expected but never ran" check. It gates mcp/ changes on merit,
+# not every PR.
+
+on:
+  push:
+    branches: [ main, dev ]
+    paths:
+      - 'mcp/**'
+      - '.github/workflows/mcp-ci.yml'
+  pull_request:
+    branches: [ main, dev ]
+    paths:
+      - 'mcp/**'
+      - '.github/workflows/mcp-ci.yml'
+
+concurrency:
+  group: mcp-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mcp-bridge:
+    name: MCP Bridge (build · smoke · validate)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mcp
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      # esbuild targets node22; match it so the build/runtime match Desktop.
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: mcp/package-lock.json
+
+      # The smoke test spawns dist/index.js, which shells out to craft's own
+      # scripts. It only *runs* craft_validate_counts (validate-counts.sh),
+      # which shells to `python3` (stdlib json only — no pyyaml). The Python
+      # governance tool is listed but never invoked here, so no pip installs
+      # are needed. ubuntu-latest ships python3; setup-python pins it explicitly.
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (esbuild bundle)
+        run: npm run build
+
+      - name: Stdio smoke test
+        # Asserts 3 tools, annotations, outputSchema, structuredContent, and a
+        # real validate_counts run against this checkout (has scripts/ +
+        # governance/ one level up — smoke defaults craftRoot to mcp/..).
+        run: node tests/smoke.mjs
+
+      - name: Official manifest validation
+        # @anthropic-ai/mcpb (from modelcontextprotocol/mcpb) — the one official
+        # tool that fits a stdio .mcpb server. `mcpb pack` also auto-validates at
+        # build:mcpb time; this gates the manifest independently of packing.
+        run: npx --yes @anthropic-ai/mcpb validate manifest.json
+
+      - name: Community protocol conformance (non-gating, experimental)
+        # @yawlabs/mcp-compliance — the only stdio-capable strict protocol/schema
+        # conformance suite (the official conformance suite is HTTP-only; the MCP
+        # Inspector CLI uses a loose schema, see modelcontextprotocol/inspector#1005).
+        # COMMUNITY tool: added non-blocking first. Promote to gating (drop
+        # continue-on-error) only after it proves stable across several runs.
+        continue-on-error: true
+        run: npx --yes @yawlabs/mcp-compliance@latest test --strict node dist/index.js

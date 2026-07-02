@@ -1,0 +1,98 @@
+name: Craft MCP Release
+
+# Builds the craft-mcp .mcpb (DXT) bundle and attaches it to the GitHub release
+# as craft-mcp-v<mcpVersion>.mcpb (himalaya-mcp precedent). Claude Desktop
+# installs the .mcpb via its own app UI, not brew.
+#
+# VERSIONING: the .mcpb carries its OWN semver (mcp/package.json, currently
+# 0.1.0), independent of the craft plugin version. Deliberately NO
+# package.json==tag guard (himalaya-mcp couples them; craft does not) — a craft
+# release of v2.57.0 attaches craft-mcp-v0.1.0.mcpb, and that is expected. The
+# asset name reflects the bridge's own maturity, not the plugin tag.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing release tag to attach the .mcpb to (e.g. v2.57.0)'
+        required: false
+        type: string
+
+jobs:
+  build-mcpb:
+    name: Build .mcpb bundle
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mcp
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: mcp/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build .mcpb bundle
+        # build:mcpb bundles ../scripts/*.sh + ../governance/ (present in this
+        # full checkout) and runs `mcpb pack`, which auto-validates the manifest.
+        run: npm run build:mcpb
+
+      - name: Verify .mcpb produced
+        run: |
+          shopt -s nullglob
+          MCPB_FILES=(craft-mcp-v*.mcpb)
+          if [ ${#MCPB_FILES[@]} -eq 0 ]; then
+            echo "ERROR: No .mcpb file produced — build:mcpb may have failed"
+            exit 1
+          fi
+          echo "Built ${MCPB_FILES[0]} ($(wc -c < "${MCPB_FILES[0]}" | tr -d ' ') bytes)"
+
+      - name: Upload .mcpb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcpb-bundle
+          path: mcp/craft-mcp-v*.mcpb
+          if-no-files-found: error
+
+  upload-mcpb:
+    name: Attach .mcpb to release
+    needs: build-mcpb
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download .mcpb artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mcpb-bundle
+
+      - name: Attach to GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          # Untrusted input passed via env (not inlined in run:) per hardening.
+          # On workflow_dispatch, github.event.release is empty — fall back to
+          # the manual `tag` input.
+          RELEASE_TAG: ${{ github.event.release.tag_name || github.event.inputs.tag }}
+          REPO: ${{ github.repository }}
+        run: |
+          shopt -s nullglob
+          MCPB_FILES=(craft-mcp-v*.mcpb)
+          if [ ${#MCPB_FILES[@]} -eq 0 ]; then
+            echo "ERROR: No .mcpb file found — build may have failed"
+            exit 1
+          fi
+          if [ -z "$RELEASE_TAG" ]; then
+            echo "ERROR: No release tag (provide the 'tag' input for workflow_dispatch)"
+            exit 1
+          fi
+          gh release upload "$RELEASE_TAG" "${MCPB_FILES[0]}" --repo "$REPO" --clobber
+          echo "Attached ${MCPB_FILES[0]} to release $RELEASE_TAG"
