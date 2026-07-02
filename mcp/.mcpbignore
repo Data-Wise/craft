@@ -1,0 +1,8 @@
+# dist/index.js is a self-contained esbuild bundle — node_modules is dead weight.
+node_modules/
+src/
+tests/
+tsconfig.json
+*.mcpb
+.gitignore
+scripts/build-mcpb.sh
