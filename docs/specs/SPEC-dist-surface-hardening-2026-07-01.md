@@ -6,6 +6,8 @@
 - **Depth/Focus:** Default · arch
 - **Source:** `/craft:workflow:brainstorm --refine` (3-agent investigation, findings verified against live files)
 - **Companion:** `BRAINSTORM-dist-surface-hardening-2026-07-01.md`
+- **Grill:** `GRILL-craft-mcp-2026-07-01.md` (Cluster C design — 5 branches locked)
+- **Progress:** D1 ✅ (craft #243) · A ✅ (craft #244) · B ✅ (homebrew-tap #132) · C design locked (grill), impl pending
 
 ## 1. Summary
 
