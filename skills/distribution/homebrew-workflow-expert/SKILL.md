@@ -8,6 +8,11 @@ category: distribution
 
 Deep expertise in GitHub Actions workflows for automating Homebrew formula updates, releases, and tap management.
 
+> **Surface scope:** Homebrew installs plugins to the **Claude Code CLI** surface
+> (`~/.claude/`). Claude **Desktop** (DXT/MCPB extensions — a different, MCP-server
+> format) and **Cowork** are separate surfaces; see `dist-extras` and
+> [`commands/dist/surfaces.md`](../../../commands/dist/surfaces.md) for the full model.
+
 ## Reusable Workflow Pattern
 
 The recommended approach is a **centralized reusable workflow** in your homebrew-tap repository.
@@ -238,14 +243,35 @@ jobs:
       source_type: pypi
       auto_merge: true
     secrets:
-      tap_token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+      # Preferred: GitHub App token (short-lived, minted per run). PAT is fallback.
+      app_id: ${{ secrets.APP_ID }}
+      app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
 ```
 
-## Token Setup
+## Auth Setup
 
-### Fine-Grained PAT Requirements
+Cross-repo pushes to the tap are authenticated **primarily by a GitHub App
+token** (short-lived, scoped, minted per run by `actions/create-github-app-token`);
+a fine-grained PAT is a **fallback** for setups without the App. The tap's
+reusable `update-formula.yml` accepts both (`secrets: app_id` + `app_private_key`,
+or `tap_token`), preferring the App token when present.
 
-Create a fine-grained Personal Access Token with:
+### Preferred: GitHub App (`APP_ID` + `APP_PRIVATE_KEY`)
+
+Install a GitHub App (e.g. "Data-Wise Homebrew Automation") on the tap repo with
+**Contents: read/write** + **Pull requests: read/write**, then store its
+credentials as secrets in each source repo:
+
+```bash
+gh secret set APP_ID --repo YOUR-ORG/myapp            # the App's numeric ID
+gh secret set APP_PRIVATE_KEY --repo YOUR-ORG/myapp   # the App's .pem private key
+```
+
+The workflow mints a token per run — nothing to rotate, no expiry to track.
+
+### Fallback: Fine-Grained PAT
+
+Only if you cannot use a GitHub App. Create a fine-grained Personal Access Token:
 
 | Setting | Value |
 |---------|-------|
@@ -253,28 +279,15 @@ Create a fine-grained Personal Access Token with:
 | **Expiration** | 90 days (set reminder to rotate) |
 | **Repository access** | Only select repositories |
 | **Selected repositories** | `YOUR-ORG/homebrew-tap` |
-| **Permissions** | |
-| - Contents | Read and write |
-| - Pull requests | Read and write |
-
-### Adding Token to Repositories
+| **Permissions** | Contents: read/write · Pull requests: read/write |
 
 ```bash
-# Add to a single repo
 gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo YOUR-ORG/myapp
-
-# Paste the token when prompted
-
-# Verify it exists
-gh secret list --repo YOUR-ORG/myapp
+gh secret list --repo YOUR-ORG/myapp   # verify
 ```
 
-### Token Rotation
-
-1. Create new token with same permissions
-2. Update in all repos using the token
-3. Delete old token
-4. Set calendar reminder for next rotation
+Rotate before expiry: create new token → update in all repos → delete old →
+set a calendar reminder. (The App path avoids all of this.)
 
 ## Auto-Merge Strategies
 

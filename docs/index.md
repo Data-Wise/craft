@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.57.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.58.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -25,7 +25,7 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **112 Commands**
+- :rocket:{ .lg .middle } **116 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
 
@@ -33,7 +33,7 @@
 
     Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators
 
-- :sparkles:{ .lg .middle } **39 Skills**
+- :sparkles:{ .lg .middle } **44 Skills**
 
     Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation
 
@@ -70,7 +70,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 115 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 116 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -116,7 +116,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 115 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 116 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -134,7 +134,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 **Quick Links:**
 
-- [All 112 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 116 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -187,7 +187,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 115 commands organized
+    All 116 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](skills-agents.md)**
 
@@ -199,7 +199,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 115 commands
+    Complete documentation for all 116 commands
 
 </div>
 
@@ -221,7 +221,7 @@ Complete OpenAPI-style documentation for all 112 Craft commands:
 | **Utils**          | 2       | Misc helpers                                                                                                                                                       |
 | **Total**          | **117** | **Complete development workflow coverage**                                                                                                                         |
 
-!!! info "Latest: v2.57.0 — Token-Usage Reduction"
+!!! info "Latest: v2.58.0 — Token-Usage Reduction"
     [PR #232](https://github.com/Data-Wise/craft/pull/232) cuts the always-loaded orchestration path (`/refine` 631→42 lines, `/brainstorm` split with 4→2 decision points, `orchestrator-v2.md` 1473→1212 lines) by moving procedure out of commands/agents and into skills that load conditionally — plus model-pins the orchestrator agents (`sonnet`/`haiku`) for the first time. New skill: [`command-skill-token-efficiency`](skills-agents.md#code-3) codifies the methodology for future authoring. Full writeup: [Token Efficiency](internal/TOKEN-EFFICIENCY-craft.md). See the [full changelog](CHANGELOG.md) for all releases, including the prior v2.43.0 skill-ecosystem governance work (`governance/` policy-as-code, see the [governance guide](guide/governance.md)).
 
 ## Links

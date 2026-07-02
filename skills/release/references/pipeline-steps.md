@@ -300,6 +300,18 @@ Generate release notes by analyzing commits since last release (`git log <last-t
 - Test count and stats
 - Link to full changelog comparison
 
+**Automatic asset attachment (no manual step):** publishing the release fires two
+`release: published` workflows —
+
+- `homebrew-release.yml` → updates the Homebrew tap formula.
+- `mcp-release.yml` → builds the craft-mcp Desktop bridge (`cd mcp && npm run build:mcpb`)
+  and attaches **`craft-mcp-v<mcpVersion>.mcpb`** as a release asset. The `.mcpb`
+  is **independently versioned** (`mcp/package.json`, e.g. `0.1.0`), so its asset
+  name does **not** match the craft tag — `craft-mcp-v0.1.0.mcpb` on a `v2.57.0`
+  release is expected. Bump `mcp/package.json` + `mcp/manifest.json` only when the
+  bridge itself changes. To re-attach to an existing release, run `mcp-release.yml`
+  via `workflow_dispatch` with the `tag` input.
+
 ## Step 9: Post-Release (if applicable)
 
 If the project has a docs site (check for `mkdocs.yml`, `_quarto.yml`, or `docs/` directory):

@@ -143,6 +143,9 @@ jobs:
           craft['version'] = os.environ['VERSION']
           craft['sha256'] = os.environ['SHA256']
           craft['desc'] = f"Full-stack developer toolkit for Claude Code with {os.environ['CMD_COUNT']} commands"
+          # Co-write command_count so it can't diverge from desc: this field feeds
+          # the {command_count} token in caveats + the install-script summary.
+          craft['command_count'] = int(os.environ['CMD_COUNT'])
           with open('generator/manifest.json', 'w') as f:
               json.dump(m, f, indent=2)
               f.write('\n')
