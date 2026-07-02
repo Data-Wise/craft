@@ -8,6 +8,11 @@ category: distribution
 
 Coordinate releases across multiple Homebrew formulas, respecting dependency order and handling batch updates.
 
+> **Surface scope:** Homebrew installs plugins to the **Claude Code CLI** surface
+> (`~/.claude/`). Claude **Desktop** (DXT/MCPB extensions — a different, MCP-server
+> format) and **Cowork** are separate surfaces; see `dist-extras` and
+> [`commands/dist/surfaces.md`](../../../commands/dist/surfaces.md) for the full model.
+
 ## Use Cases
 
 1. **Monorepo Releases** - Multiple packages from one repository
@@ -103,8 +108,17 @@ Step 3: Summary
 
 ### Reusable Batch Workflow
 
+> **Note — illustrative pattern, not yet in the tap.** `batch-update.yml` and the
+> `./.github/actions/update-formula` composite action below are a *design sketch* for
+> coordinated multi-formula releases; they do **not** currently exist in
+> `Data-Wise/homebrew-tap`. What the tap actually ships today is
+> `.github/workflows/update-formula.yml` — a **single-formula** reusable workflow (see
+> `homebrew-workflow-expert`). To release several formulas now, call that single-formula
+> workflow once per formula. Build the batch workflow below only if/when true batch
+> orchestration is needed.
+
 ```yaml
-# homebrew-tap/.github/workflows/batch-update.yml
+# homebrew-tap/.github/workflows/batch-update.yml  (illustrative — not present in tap)
 name: Batch Formula Update
 
 on:
@@ -212,7 +226,9 @@ jobs:
       formulas: ${{ needs.prepare.outputs.formulas }}
       auto_merge: true
     secrets:
-      tap_token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+      # Preferred: GitHub App token (see homebrew-workflow-expert). PAT is a fallback.
+      app_id: ${{ secrets.APP_ID }}
+      app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
 ```
 
 ## CLI Command
@@ -240,7 +256,7 @@ jobs:
 ║  [x] flow-cli (v2.1.0) → v2.2.0                               ║
 ║  [x] nexus-cli (v0.5.0) → v0.6.0                              ║
 ║  [ ] mcp-bridge (v0.1.0)                                      ║
-║  [ ] scribe (v1.0.0)                                          ║
+║  [ ] scribe-cli (v1.0.0)                                      ║
 ║                                                               ║
 ║  Selected: 2 formulas                                         ║
 ║  Dependencies: None detected                                  ║
@@ -272,7 +288,7 @@ graph LR
         flow-cli
         nexus-cli
         mcp-bridge
-        scribe
+        scribe-cli
     end
 
     subgraph "System Dependencies"
@@ -285,7 +301,7 @@ graph LR
     atlas --> python@3.12
     nexus-cli --> python@3.12
     mcp-bridge --> node
-    scribe --> rust
+    scribe-cli --> rust
 ```
 
 ## Error Handling

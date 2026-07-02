@@ -8,6 +8,11 @@ category: distribution
 
 Step-by-step implementation guide for `/craft:dist:homebrew setup`.
 
+> **Surface scope:** Homebrew installs plugins to the **Claude Code CLI** surface
+> (`~/.claude/`). Claude **Desktop** (DXT/MCPB extensions — a different, MCP-server
+> format) and **Cowork** are separate surfaces; see `dist-extras` and
+> [`commands/dist/surfaces.md`](../../../commands/dist/surfaces.md) for the full model.
+
 ## Overview
 
 The setup wizard automates complete Homebrew formula automation in one command:
@@ -234,7 +239,9 @@ jobs:
       source_type: github
       auto_merge: ${{ github.event.inputs.auto_merge == 'true' || github.event_name == 'release' }}
     secrets:
-      tap_token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+      # Preferred: GitHub App token (short-lived, minted per run). PAT is fallback.
+      app_id: ${{ secrets.APP_ID }}
+      app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
 ```
 
 **Output:**
@@ -247,43 +254,50 @@ Step 5: Generate Workflow
 ✓ Triggers: release, workflow_dispatch
 ```
 
-### Step 6: Check Token
+### Step 6: Check Auth
+
+Prefer a GitHub App (`APP_ID` + `APP_PRIVATE_KEY`) — short-lived per-run tokens,
+nothing to rotate. A fine-grained PAT (`HOMEBREW_TAP_GITHUB_TOKEN`) is the fallback.
 
 ```bash
-# Check if token exists in repo secrets
-TOKEN_EXISTS=$(gh secret list --repo ${ORG}/${REPO} 2>/dev/null | grep -c "HOMEBREW_TAP_GITHUB_TOKEN" || echo "0")
-
-if [ "$TOKEN_EXISTS" = "0" ]; then
-    echo "⚠ HOMEBREW_TAP_GITHUB_TOKEN not found"
+# Prefer GitHub App creds; fall back to PAT
+SECRETS=$(gh secret list --repo ${ORG}/${REPO} 2>/dev/null)
+if echo "$SECRETS" | grep -q "APP_ID" && echo "$SECRETS" | grep -q "APP_PRIVATE_KEY"; then
+    echo "✓ GitHub App auth configured (APP_ID + APP_PRIVATE_KEY)"
+elif echo "$SECRETS" | grep -q "HOMEBREW_TAP_GITHUB_TOKEN"; then
+    echo "✓ PAT fallback configured (HOMEBREW_TAP_GITHUB_TOKEN)"
+else
+    echo "⚠ No tap auth found"
     echo ""
-    echo "To add the token:"
+    echo "Preferred — add GitHub App creds:"
+    echo "  gh secret set APP_ID --repo ${ORG}/${REPO}"
+    echo "  gh secret set APP_PRIVATE_KEY --repo ${ORG}/${REPO}"
+    echo ""
+    echo "Fallback — add a fine-grained PAT:"
     echo "  gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo ${ORG}/${REPO}"
     echo ""
-    echo "See: /craft:dist:homebrew setup for token configuration"
-else
-    echo "✓ HOMEBREW_TAP_GITHUB_TOKEN configured"
+    echo "See: homebrew-workflow-expert for auth configuration"
 fi
 ```
 
-**Output (token missing):**
+**Output (auth missing):**
 
 ```
-Step 6: Check Token
+Step 6: Check Auth
 ───────────────────────────────────────
-⚠ HOMEBREW_TAP_GITHUB_TOKEN not found
+⚠ No tap auth found
 
-To add the token:
-  gh secret set HOMEBREW_TAP_GITHUB_TOKEN --repo Data-Wise/aiterm
-
-See: /craft:dist:homebrew setup for token configuration
+Preferred — add GitHub App creds:
+  gh secret set APP_ID --repo Data-Wise/aiterm
+  gh secret set APP_PRIVATE_KEY --repo Data-Wise/aiterm
 ```
 
-**Output (token present):**
+**Output (auth present):**
 
 ```
-Step 6: Check Token
+Step 6: Check Auth
 ───────────────────────────────────────
-✓ HOMEBREW_TAP_GITHUB_TOKEN configured
+✓ GitHub App auth configured (APP_ID + APP_PRIVATE_KEY)
 ```
 
 ### Step 7: Summary & Commit
