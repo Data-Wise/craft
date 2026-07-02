@@ -30,6 +30,7 @@ exclude_docs: |
   # Internal session artifacts - not published content
   internal/HOOKS-TOKEN-AUDIT-*.md
   internal/TUTORIAL-rtk-cli-token-proxy.md
+  internal/TUTORIAL-orchestration-and-skill-eval-loop.md
   # Stale standalone docs
   FEATURE-RELEASE-CLAUDE-MD.md
   GIF-REGENERATION-CHECKLIST.md
