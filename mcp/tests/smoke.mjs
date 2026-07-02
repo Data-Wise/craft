@@ -33,6 +33,14 @@ check(names.includes("craft_validate_counts"), "exposes craft_validate_counts");
 check(names.includes("craft_governance_audit"), "exposes craft_governance_audit");
 check(names.includes("craft_docs_staleness"), "exposes craft_docs_staleness");
 
+// Best-practice fields (mcp-builder review): title, annotations, outputSchema
+for (const t of tools) {
+  check(!!t.title, `${t.name} has a title`);
+  check(t.annotations?.readOnlyHint === true, `${t.name} is annotated readOnlyHint:true`);
+  check(t.annotations?.destructiveHint === false, `${t.name} is annotated destructiveHint:false`);
+  check(!!t.outputSchema, `${t.name} declares an outputSchema`);
+}
+
 // repo_path required
 const missing = await client.callTool({ name: "craft_validate_counts", arguments: {} });
 check(missing.isError === true, "craft_validate_counts errors without repo_path");
@@ -45,6 +53,8 @@ const res = await client.callTool({
 const text = res.content?.[0]?.text ?? "";
 check(text.includes("exit"), "validate_counts returns an exit-coded report");
 check(/validated|commands|counts/i.test(text), "validate_counts output looks like a count report");
+check(typeof res.structuredContent?.ok === "boolean", "returns structuredContent.ok");
+check("exit_code" in (res.structuredContent ?? {}), "returns structuredContent.exit_code");
 
 await client.close();
 console.log(failures === 0 ? "\nSMOKE OK" : `\nSMOKE FAILED (${failures})`);
