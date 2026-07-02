@@ -104,6 +104,20 @@ skill counts too (`find skills -name '*.md'` canon).
 
 ### Cluster B (in `homebrew-tap`; regen, never hand-edit `.rb`)
 
+> 🔒 **HARD CONSTRAINT (user, 2026-07-01, via /refine): NO SYMLINKS in plugin installation.**
+> Installations place REAL directories/files. Replace the two-symlink chain
+> (`~/.claude/plugins/<name> → $(brew --prefix)/opt/<name>/libexec`,
+> `~/.claude/local-marketplace/<name> → ~/.claude/plugins/<name>`) with real copies in
+> `generator/blocks/symlink.sh` (+ `marketplace.sh`) and the post_install emitter — then regen
+> all 6 formulas. Implications: (i) `brew upgrade` refresh becomes load-bearing — post_install
+> Step 3 (marketplace-update → plugin-update re-copy) must be explicit, not reliant on the `opt/`
+> symlink auto-following; (ii) **migration** — installer must detect an existing symlink at
+> `~/.claude/plugins/<name>` (current live state) and replace it with a copy; (iii) **B5 is
+> superseded** — no symlinks → no symlink-fallback path; rework the macOS-permission failure
+> handling for the copy; (iv) **enforcement** — add a tap-side contract test asserting no `ln -s`
+> in any generated `*-install` script. The curl installer (D1) is already copy-based (direct
+> clone) — keep it that way.
+
 > **Fix-path correction (structural sweep):** the install *bash* logic is NOT inline in
 > `generate.py` — it's in per-feature block files under `generator/blocks/*.sh` (loaded via
 > `load_block`, `generate.py:31-35`). Only the *Ruby* `post_install` is literal in
