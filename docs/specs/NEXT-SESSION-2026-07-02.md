@@ -13,6 +13,10 @@ dist-surface hardening effort (all merged to `dev`, release cut this session).
 - **Dependabot batch (5 PRs) fully resolved 2026-07-02** — see item #3 below;
   `dev`/`main` synced, unused `zod` dep dropped, `target-branch: dev` fix
   merged to `dev` (activates on `main` at next release).
+- **Homebrew/dist hardening also resolved 2026-07-02** — see item #3b below;
+  2 dist-doc findings fixed, a real `post_install` marketplace-sync race fixed
+  (homebrew-tap #134/#136), and a machine-level `claude plugin install` SSH bug
+  diagnosed as an upstream Claude Code issue and worked around + documented.
 
 ## Pending work (priority order)
 
@@ -61,6 +65,34 @@ than assuming the fix is active.
 `dev` and `main` are synced (0 divergence either direction) as of this
 session's close.
 
+### 3b. Homebrew/dist hardening — RESOLVED 2026-07-02 (post-Dependabot)
+
+- **Dist-doc audit** (2 findings, both fixed, commit `eb34128a`): `homebrew.md`'s
+  `deps` usage table was missing `--mermaid` (documented+demoed in
+  `homebrew-multi-formula` skill but absent from the command doc); count-accuracy
+  test (`tests/test_dist_doc_accuracy.py`) only covered 1/6 `skills/distribution/*`
+  files — extended to all 6.
+- **`post_install` marketplace-sync race** — [homebrew-tap #134](https://github.com/Data-Wise/homebrew-tap/pull/134)
+  (merged): `claude plugin marketplace update local-plugins` fired too eagerly
+  after Step 2's spawned install script returned, causing a spurious
+  "Marketplace not found" on `brew reinstall`/`brew upgrade` even though the
+  manifest was correct. Fixed with a 1s-delay retry + advisory `opoo` degrade
+  across all 6 claude-plugin formulas (generator template, never hand-edited
+  `.rb`s); verified via a planted-defect positive control before merge. Small
+  follow-up docs PR [homebrew-tap #136](https://github.com/Data-Wise/homebrew-tap/pull/136)
+  also merged.
+- **`claude plugin install` SSH-clone bug** — confirmed as a known **upstream
+  Claude Code CLI bug** (not craft's), tracked in 4+ open GitHub issues
+  (anthropics/claude-code #26588, #52234, #29722, #18001): `install` clones via
+  `git@github.com:...` unconditionally, with no HTTPS fallback (unlike
+  `marketplace add`, which does fall back). Fixed on this machine via
+  `git config --global url."https://github.com/".insteadOf git@github.com:`
+  (verified live — `craft@data-wise` install failed before, succeeded after).
+  Documented in `skills/distribution/dist-extras/SKILL.md` (commit `65da64d3`)
+  so future sessions don't re-derive it. **Not craft-fixable** — no action
+  needed beyond the doc note; each new machine needs the one-line workaround
+  applied manually until Anthropic ships a fix upstream.
+
 ### 4. Cleanup (`/craft:git:clean`)
 
 Orphaned worktrees from ended background sessions (`agitated-pasteur`, `epic-chaum`,
@@ -80,7 +112,10 @@ already clean, not part of the orphan list.)
 
 pre-pr-testing · no-auto-archive-live-sessions · ask-question-recommendations trigger ·
 grill-new-specs-before-implementation · tar-pipe-copy-for-broken-symlink-trees ·
-background-pr-automerge-vigilance · apple-notes-html-formatting.
+background-pr-automerge-vigilance · apple-notes-html-formatting ·
+agent-dispatch-recursive-delegation-risk (bounded read-only audits → `Explore`,
+not `general-purpose`; also hardened into workspace-root `~/projects/dev-tools/CLAUDE.md`
+§ "Agent dispatch patterns").
 
 ## Reusable prompts produced (in transcript)
 
