@@ -28,6 +28,11 @@ CURATED_FILES = [
     "commands/dist/marketplace.md",
     "commands/docs/quickstart.md",
     "skills/distribution/dist-extras/SKILL.md",
+    "skills/distribution/distribution-strategist/SKILL.md",
+    "skills/distribution/homebrew-formula-expert/SKILL.md",
+    "skills/distribution/homebrew-multi-formula/SKILL.md",
+    "skills/distribution/homebrew-setup-wizard/SKILL.md",
+    "skills/distribution/homebrew-workflow-expert/SKILL.md",
     "install.sh",
 ]
 

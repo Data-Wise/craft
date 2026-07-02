@@ -1411,6 +1411,7 @@ Show formula dependency graph and system dependency matrix.
 /craft:dist:homebrew deps --formula craft       # Single formula
 /craft:dist:homebrew deps --system              # Include system deps
 /craft:dist:homebrew deps --dot                 # Output in Graphviz DOT format
+/craft:dist:homebrew deps --mermaid             # Output as a Mermaid dependency diagram
 ```
 
 ### Inter-Formula Dependencies
@@ -1456,6 +1457,13 @@ System Dependencies Matrix:
 | mcp-bridge | - | ✓ | - | - | - |
 | scribe-cli | - | - | - | build | - |
 ```
+
+### Mermaid Diagram
+
+With `--mermaid`, outputs the dependency graph as a Mermaid `graph LR` diagram
+(formulas + shared system dependencies as subgraphs) instead of the ASCII
+tree — useful for pasting into docs or rendering in a Mermaid-aware viewer.
+See `homebrew-multi-formula` for a full example diagram.
 
 ---
 
