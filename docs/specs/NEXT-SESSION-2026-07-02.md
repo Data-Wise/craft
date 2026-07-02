@@ -10,6 +10,9 @@ dist-surface hardening effort (all merged to `dev`, release cut this session).
 - **Release:** dist-surface `dev→main` **cut this session** (see `.STATUS` for version/tag).
 - **craft-mcp** (`mcp/`): CLI-validated (smoke 20/20 + `mcpb validate`). Desktop
   install unverified — computer-use can't observe Claude Desktop (blocks screen capture).
+- **Dependabot batch (5 PRs) fully resolved 2026-07-02** — see item #3 below;
+  `dev`/`main` synced, unused `zod` dep dropped, `target-branch: dev` fix
+  merged to `dev` (activates on `main` at next release).
 
 ## Pending work (priority order)
 
@@ -33,15 +36,30 @@ dist-surface hardening effort (all merged to `dev`, release cut this session).
   yet), then implement (new `skills/workflow/phase-briefing/` + `--phase` on
   `/craft:workflow:brief` + orchestrator emit-point).
 
-### 3. Dependabot PRs (opened this session — REVIEW before merge)
+### 3. Dependabot PRs — RESOLVED 2026-07-02
 
-Dependabot (#248 config) opened 5 PRs on `mcp/` + root:
+All 5 opened PRs reviewed (`/review 255 and 256` for the two majors) and merged:
+`#256` typescript 5→6 · `#255` zod 3→4 (superseded) · `#254` @types/node 22→26 ·
+`#252` markdownlint-cli2 0.14→0.23 · `#253` esbuild 0.25→0.28. Follow-up
+[#257](https://github.com/Data-Wise/craft/pull/257) dropped the now-unused
+`zod` direct dep (verified: `src/` never imports it, stays transitively
+installed via the SDK's own `zod: ^3.25 || ^4.0` range; 20/20 smoke pass,
+bundle size unchanged) and set `target-branch: "dev"` on both Dependabot
+ecosystems.
 
-- **#255 zod 3→4** — ⚠️ MAJOR on a craft-mcp **prod** dep; verify the MCP tool schemas still work before merging.
-- **#256 typescript 5→6** — ⚠️ MAJOR (devDep); build may change — run `npm run build && npm run smoke`.
-- **#254 @types/node 22→26** — major devDep; low risk.
-- **#252 markdownlint-cli2 0.14→0.23** (root), **#253 esbuild 0.25→0.28** (mcp) — minor/patch devDeps, safe (run mcp smoke for #253).
-- Merge safe ones on green (mcp-ci.yml gates them); hold the majors (#255/#256) until schema/build verified. NB: no auto-merge monitor is running.
+**Root cause found + fixed, but not yet fully live:** `dependabot.yml` had no
+`target-branch`, so Dependabot defaulted to the GitHub *default* branch
+(`main`) — #255/#256 merged straight into `main`, bypassing craft's
+`main←dev←feature` model and drifting `dev` behind. The fix (`target-branch:
+dev`) is merged to `dev` via #257 but Dependabot reads its config from the
+**default branch**, so it won't take effect until the next `dev→main`
+release. **Watch for this:** if a new Dependabot PR opens before the next
+release, it will still target `main` — repeat the sync-dance (merge on
+green → `git pull origin main` into `dev` → confirm 0 divergence) rather
+than assuming the fix is active.
+
+`dev` and `main` are synced (0 divergence either direction) as of this
+session's close.
 
 ### 4. Cleanup (`/craft:git:clean`)
 
@@ -49,6 +67,8 @@ Orphaned worktrees from ended background sessions (`agitated-pasteur`, `epic-cha
 `quirky-swirles`, `trusting-heyrovsky`, `flamboyant-visvesvaraya`) + ~17 merged
 `feature/*` branches (squash-merged → safe-delete fails, branch-guard blocks `-D`;
 confirm via `git cherry`). Run `/craft:git:clean`. Keep `feature/plugin-audit-skill` (HELD #237).
+(`feature/drop-zod-dep` — created + merged + worktree-removed within this session,
+already clean, not part of the orphan list.)
 
 ### 5. Held / backlog
 
