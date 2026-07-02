@@ -9,6 +9,13 @@ name: Craft MCP Release
 # package.json==tag guard (himalaya-mcp couples them; craft does not) — a craft
 # release of v2.57.0 attaches craft-mcp-v0.1.0.mcpb, and that is expected. The
 # asset name reflects the bridge's own maturity, not the plugin tag.
+#
+# SINGLE JOB (build + upload together): both `release: published` and
+# `workflow_dispatch` upload, so — unlike himalaya-mcp, which gates its upload
+# job on `release` only — there is no path where build runs without upload. A
+# split would add an upload-artifact/download-artifact round-trip that no PR or
+# local run exercises (it fires only on a real release); keeping it one job lets
+# the local `npm run build:mcpb` E2E cover everything but the final upload line.
 
 on:
   release:
@@ -21,9 +28,11 @@ on:
         type: string
 
 jobs:
-  build-mcpb:
-    name: Build .mcpb bundle
+  release-mcpb:
+    name: Build & attach .mcpb
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     defaults:
       run:
         working-directory: mcp
@@ -46,36 +55,7 @@ jobs:
         # full checkout) and runs `mcpb pack`, which auto-validates the manifest.
         run: npm run build:mcpb
 
-      - name: Verify .mcpb produced
-        run: |
-          shopt -s nullglob
-          MCPB_FILES=(craft-mcp-v*.mcpb)
-          if [ ${#MCPB_FILES[@]} -eq 0 ]; then
-            echo "ERROR: No .mcpb file produced — build:mcpb may have failed"
-            exit 1
-          fi
-          echo "Built ${MCPB_FILES[0]} ($(wc -c < "${MCPB_FILES[0]}" | tr -d ' ') bytes)"
-
-      - name: Upload .mcpb artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: mcpb-bundle
-          path: mcp/craft-mcp-v*.mcpb
-          if-no-files-found: error
-
-  upload-mcpb:
-    name: Attach .mcpb to release
-    needs: build-mcpb
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Download .mcpb artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: mcpb-bundle
-
-      - name: Attach to GitHub release
+      - name: Attach .mcpb to release
         env:
           GH_TOKEN: ${{ github.token }}
           # Untrusted input passed via env (not inlined in run:) per hardening.
@@ -87,12 +67,13 @@ jobs:
           shopt -s nullglob
           MCPB_FILES=(craft-mcp-v*.mcpb)
           if [ ${#MCPB_FILES[@]} -eq 0 ]; then
-            echo "ERROR: No .mcpb file found — build may have failed"
+            echo "ERROR: No .mcpb file produced — build:mcpb may have failed"
             exit 1
           fi
           if [ -z "$RELEASE_TAG" ]; then
             echo "ERROR: No release tag (provide the 'tag' input for workflow_dispatch)"
             exit 1
           fi
-          gh release upload "$RELEASE_TAG" "${MCPB_FILES[0]}" --repo "$REPO" --clobber
-          echo "Attached ${MCPB_FILES[0]} to release $RELEASE_TAG"
+          MCPB_FILE="${MCPB_FILES[0]}"
+          echo "Attaching $MCPB_FILE ($(wc -c < "$MCPB_FILE" | tr -d ' ') bytes) to $RELEASE_TAG"
+          gh release upload "$RELEASE_TAG" "$MCPB_FILE" --repo "$REPO" --clobber
