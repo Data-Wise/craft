@@ -271,7 +271,7 @@ class DocsDetector:
         Detect broken internal links
 
         Note: This is a placeholder - actual implementation should use
-        /craft:docs:check-links or markdown-link-check
+        /craft:docs:check-links or lychee
         """
         # Placeholder - would normally integrate with linkcheck tool
         return DetectionResult(

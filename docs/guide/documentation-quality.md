@@ -41,10 +41,13 @@ By the end of this guide, you'll know how to:
 # Install pinned markdown dependencies from lockfile (recommended)
 npm ci
 
-# Or install manually
-npm install --save-dev markdown-link-check markdownlint-cli2
+# Or install markdownlint manually
+npm install --save-dev markdownlint-cli2
 
-# Or let Craft install them when first used
+# Link checking uses Lychee (same tool as CI) — install via Homebrew
+brew install lychee
+
+# Or let Craft install markdownlint when first used
 /craft:docs:lint  # Auto-installs if missing
 ```
 
@@ -53,7 +56,7 @@ npm install --save-dev markdown-link-check markdownlint-cli2
 ```bash
 # Verify tools are available
 npx markdownlint-cli2 --version
-npx markdown-link-check --version
+lychee --version
 ```
 
 ---
