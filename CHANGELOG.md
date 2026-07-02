@@ -52,6 +52,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   asserting distribution docs' plugin-wide count claims match the canonical tree counts
   (closes the systemic gap where only `homebrew.md` was guarded), plus phantom-`scribe`
   and dynamic-`install.sh`-banner regression guards.
+- **craft-mcp CI + `.mcpb` release automation** (SPEC-dist-surface-hardening
+  Cluster C, C-4/C-5) — with the Desktop bridge validated on a real Claude
+  Desktop (C-5 gate), two workflows now cover it:
+  - `.github/workflows/mcp-ci.yml` — path-filtered to `mcp/**`; builds the
+    esbuild bundle, runs the stdio smoke test (3 tools, annotations,
+    `outputSchema`/`structuredContent`, a real `validate_counts` run), and
+    validates the manifest with the official `@anthropic-ai/mcpb`. A
+    non-gating `@yawlabs/mcp-compliance` (community, stdio strict-conformance)
+    step runs with `continue-on-error` — promote to gating once stable.
+  - `.github/workflows/mcp-release.yml` — on `release: published`, runs
+    `npm run build:mcpb` and attaches `craft-mcp-v<mcpVersion>.mcpb` as a
+    release asset (himalaya-mcp precedent). The `.mcpb` stays **independently
+    versioned** (`mcp/package.json`, currently `0.1.0`) — deliberately no
+    `package.json==tag` guard.
 
 ## [2.57.0] - 2026-07-01
 
