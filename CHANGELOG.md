@@ -25,6 +25,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   11 contract tests added (`tests/test_install_script.py`). See
   `docs/specs/SPEC-dist-surface-hardening-2026-07-01.md` (D1).
 
+### Changed
+
+- **Distribution-doc hygiene** (SPEC-dist-surface-hardening A + D2/D6) — corrected
+  stale/incorrect content across the distribution surface: stale command/skill counts
+  (`107`→`116`, `36`→`44`) in `homebrew.md`, `marketplace.md`, `quickstart.md`,
+  `claude-md/init.md`; de-hardcoded the per-formula count table (→ "see `plugin.json`");
+  fixed the structurally-invalid flat `manifest.json` example (now nested under
+  `formulas`); `scribe`→`scribe-cli` (the real tap formula) in `homebrew-multi-formula`;
+  annotated the aspirational `batch-update.yml` workflow as not-yet-present; rewrote the
+  auth guidance in `homebrew-workflow-expert` + `homebrew-setup-wizard` to teach the
+  **GitHub App token as primary** (PAT as fallback), matching the tap's actual contract;
+  added a Code-vs-Desktop **surface-scope** note to all 5 Homebrew skills.
+
+### Added
+
+- **Dist-doc accuracy test** (`tests/test_dist_doc_accuracy.py`, SPEC D6) — CI guard
+  asserting distribution docs' plugin-wide count claims match the canonical tree counts
+  (closes the systemic gap where only `homebrew.md` was guarded), plus phantom-`scribe`
+  and dynamic-`install.sh`-banner regression guards.
+
 ## [2.57.0] - 2026-07-01
 
 ### Added

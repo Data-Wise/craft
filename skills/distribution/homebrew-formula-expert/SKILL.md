@@ -8,6 +8,11 @@ category: distribution
 
 Deep expertise in Homebrew formula creation, maintenance, and best practices.
 
+> **Surface scope:** Homebrew installs plugins to the **Claude Code CLI** surface
+> (`~/.claude/`). Claude **Desktop** (DXT/MCPB extensions — a different, MCP-server
+> format) and **Cowork** are separate surfaces; see `dist-extras` and
+> [`commands/dist/surfaces.md`](../../../commands/dist/surfaces.md) for the full model.
+
 ## Formula Anatomy
 
 ```ruby
