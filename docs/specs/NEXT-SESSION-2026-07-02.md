@@ -33,7 +33,24 @@ dist-surface hardening effort (all merged to `dev`, release cut this session).
   yet), then implement (new `skills/workflow/phase-briefing/` + `--phase` on
   `/craft:workflow:brief` + orchestrator emit-point).
 
-### 3. Held / backlog
+### 3. Dependabot PRs (opened this session — REVIEW before merge)
+
+Dependabot (#248 config) opened 5 PRs on `mcp/` + root:
+
+- **#255 zod 3→4** — ⚠️ MAJOR on a craft-mcp **prod** dep; verify the MCP tool schemas still work before merging.
+- **#256 typescript 5→6** — ⚠️ MAJOR (devDep); build may change — run `npm run build && npm run smoke`.
+- **#254 @types/node 22→26** — major devDep; low risk.
+- **#252 markdownlint-cli2 0.14→0.23** (root), **#253 esbuild 0.25→0.28** (mcp) — minor/patch devDeps, safe (run mcp smoke for #253).
+- Merge safe ones on green (mcp-ci.yml gates them); hold the majors (#255/#256) until schema/build verified. NB: no auto-merge monitor is running.
+
+### 4. Cleanup (`/craft:git:clean`)
+
+Orphaned worktrees from ended background sessions (`agitated-pasteur`, `epic-chaum`,
+`quirky-swirles`, `trusting-heyrovsky`, `flamboyant-visvesvaraya`) + ~17 merged
+`feature/*` branches (squash-merged → safe-delete fails, branch-guard blocks `-D`;
+confirm via `git cherry`). Run `/craft:git:clean`. Keep `feature/plugin-audit-skill` (HELD #237).
+
+### 5. Held / backlog
 
 - **#237** plugin-audit-skill — HELD (jq schema mismatch + false-positive collision heuristic; needs rework).
 - craft-mcp Desktop `.mcpb` validation — optional (CLI already proves the server); Apple Note has the steps.
