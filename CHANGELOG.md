@@ -37,6 +37,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   auth guidance in `homebrew-workflow-expert` + `homebrew-setup-wizard` to teach the
   **GitHub App token as primary** (PAT as fallback), matching the tap's actual contract;
   added a Code-vs-Desktop **surface-scope** note to all 5 Homebrew skills.
+- **Local docs link checker migrated to Lychee** — replaced `markdown-link-check`
+  with [Lychee](https://github.com/lycheeverse/lychee) (the tool craft's CI already
+  runs as "Link Validation (Lychee)") for local link checking, and removed
+  `markdown-link-check` from `devDependencies`. It pulled a wholesale-deprecated
+  transitive `whatwg-encoding` that no bump/override could fix; removal is the only
+  clean fix. Lychee is configured via CLI flags (no config file), so local and CI
+  runs share the same flag string. Deleted `.markdown-link-check.json`. Install
+  locally with `brew install lychee`. No runtime/plugin impact.
 
 ### Added
 

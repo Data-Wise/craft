@@ -2,7 +2,7 @@
 
 > **TL;DR** (2 minutes)
 >
-> - **Customize**: Add rules via `.markdownlint.json` and `.markdown-link-check.json`
+> - **Customize**: Add markdown rules via `.markdownlint.json`; tune link checking via Lychee CLI flags
 > - **Extend**: Modify command files in `commands/docs/`
 > - **Test**: Use `docs/test-violations.md` for validation
 > - **Contribute**: Follow conventional commits and add tests
@@ -38,7 +38,7 @@ graph TB
     B -->|lint| C["craft:docs:lint"]
     B -->|check-links| D["craft:docs:check-links"]
     C --> E[markdownlint-cli2]
-    D --> F[markdown-link-check]
+    D --> F[lychee]
     E --> G[Auto-fix Engine]
     G --> H[Language Detector]
     C --> I[Exit Code Handler]
@@ -57,7 +57,7 @@ craft/
 ├── commands/git/
 │   └── init.md                    # (modified) Pre-commit hooks
 ├── .markdownlint.json             # Linting rules config
-├── .markdown-link-check.json      # Link check config
+│                                  # (link checking uses Lychee CLI flags — no config file)
 └── docs/
     └── test-violations.md         # Test cases
 ```
@@ -160,48 +160,45 @@ module.exports = {
 
 ## Customizing Link Validation
 
-### Default Ignore Patterns
+Link checking uses [Lychee](https://github.com/lycheeverse/lychee), the same tool CI
+runs (`.github/workflows/docs-quality.yml`). Lychee is configured via CLI flags rather
+than a config file, so local runs and CI stay in sync by sharing the same flag string.
 
-```json
-// .markdown-link-check.json
-{
-  "ignorePatterns": [
-    { "pattern": "^https://example.com" },
-    { "pattern": "^http://localhost" },
-    { "pattern": "^https://github.com/.*/pull/" },
-    { "pattern": "^https://github.com/.*/issues/" }
-  ],
-  "timeout": "10s",
-  "retryOn429": true,
-  "retryCount": 3
-}
+### Default Invocation (matches CI)
+
+```bash
+lychee --no-progress --cache --max-cache-age 1d \
+  --exclude-all-private --timeout 20 --max-retries 3 \
+  'docs/**/*.md' 'README.md' 'CLAUDE.md'
 ```
+
+- `--exclude-all-private` skips `localhost`, `127.0.0.1`, and private IP ranges
+- `--timeout 20` / `--max-retries 3` mirror the CI action's resilience settings
+- `--cache` reuses results between runs (CI caches `.lycheecache`)
 
 ### Add Project-Specific Patterns
 
 #### Ignore Development URLs
 
-```json
-{
-  "ignorePatterns": [
-    { "pattern": "^http://localhost:\\d+" },
-    { "pattern": "^https://dev\\." },
-    { "pattern": "^https://staging\\." }
-  ]
-}
+```bash
+lychee --exclude-all-private \
+  --exclude '^https://dev\.' \
+  --exclude '^https://staging\.' \
+  'docs/**/*.md'
 ```
 
-#### Ignore Placeholder Links
+#### Ignore Placeholder / WIP Links
 
-```json
-{
-  "ignorePatterns": [
-    { "pattern": "^#$" },
-    { "pattern": "^#todo$" },
-    { "pattern": "^/docs/.*\\.wip\\.md$" }
-  ]
-}
+```bash
+lychee \
+  --exclude '\.wip\.md$' \
+  --exclude '#todo$' \
+  'docs/**/*.md'
 ```
+
+For persistent project-wide excludes, add a `--exclude-path` file or a `[lychee]`
+section to a checked-in `lychee.toml` — but only if CI's action args are updated to
+match, otherwise local and CI behavior will diverge.
 
 ### Custom Link Validation Logic
 
@@ -879,7 +876,6 @@ jq '.errors[] | select(.severity == "error")' report.json
 ### Documentation
 
 - [markdownlint-cli2 docs](https://github.com/DavidAnson/markdownlint-cli2)
-- [markdown-link-check docs](https://github.com/tcort/markdown-link-check)
 - [lychee docs](https://github.com/lycheeverse/lychee)
 
 ### Rule References
