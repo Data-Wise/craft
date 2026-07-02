@@ -39,8 +39,8 @@ echo ""
 if [ ! -d "${CRAFT_DIR}" ]; then
     echo "❌ Craft plugin not found"
     echo ""
-    echo "Please install craft v1.17.0+ first:"
-    echo "  curl -fsSL https://raw.githubusercontent.com/Data-Wise/claude-plugins/main/craft/install.sh | bash"
+    echo "Please install craft first:"
+    echo "  curl -fsSL https://raw.githubusercontent.com/Data-Wise/craft/main/install.sh | bash"
     echo ""
     exit 1
 fi
