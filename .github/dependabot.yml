@@ -1,0 +1,53 @@
+# Dependabot configuration — keeps the two npm manifests fresh.
+# Chosen over Renovate: at craft's manifest size (2 package.json files, ~8 deps),
+# Dependabot's zero-config-server model wins; Renovate's flexibility is not needed.
+#
+# Two npm ecosystems:
+#   /      root devDeps (markdownlint-cli2, markdown-link-check)
+#   /mcp   craft-mcp deps (@modelcontextprotocol/sdk, zod) + devDeps
+#          (esbuild, typescript, @types/node)  — activates once mcp/package.json lands.
+#
+# Updates are GROUPED (one PR per directory per dependency-type) to avoid PR spam.
+# PATCH + MINOR devDependency bumps auto-merge on green CI via
+# .github/workflows/dependabot-auto-merge.yml; prod deps and MAJOR bumps are
+# left for manual review.
+version: 2
+updates:
+  # ── Root: docs-tooling devDependencies ───────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      root-dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # ── craft-mcp: runtime deps + build devDependencies ──────────────────
+  - package-ecosystem: "npm"
+    directory: "/mcp"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      # devDependencies (esbuild, typescript, @types/node): minor+patch grouped,
+      # eligible for auto-merge.
+      mcp-dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+      # production deps (@modelcontextprotocol/sdk, zod): grouped to reduce noise,
+      # but never auto-merged — always manual review.
+      mcp-prod-dependencies:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
