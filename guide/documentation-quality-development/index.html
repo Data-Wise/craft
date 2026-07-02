@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 116 commands, 8 agents, 44 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.57.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 116 commands, 8 agents, 44 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.58.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -11505,10 +11505,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-ignore-patterns" class="md-nav__link">
+  <a href="#default-invocation-matches-ci" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Default Ignore Patterns
+        Default Invocation (matches CI)
       
     </span>
   </a>
@@ -11539,10 +11539,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ignore-placeholder-links" class="md-nav__link">
+  <a href="#ignore-placeholder-wip-links" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ignore Placeholder Links
+        Ignore Placeholder / WIP Links
       
     </span>
   </a>
@@ -12674,10 +12674,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#default-ignore-patterns" class="md-nav__link">
+  <a href="#default-invocation-matches-ci" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Default Ignore Patterns
+        Default Invocation (matches CI)
       
     </span>
   </a>
@@ -12708,10 +12708,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ignore-placeholder-links" class="md-nav__link">
+  <a href="#ignore-placeholder-wip-links" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Ignore Placeholder Links
+        Ignore Placeholder / WIP Links
       
     </span>
   </a>
@@ -13346,7 +13346,7 @@
 <blockquote>
 <p><strong>TL;DR</strong> (2 minutes)</p>
 <ul>
-<li><strong>Customize</strong>: Add rules via <code>.markdownlint.json</code> and <code>.markdown-link-check.json</code></li>
+<li><strong>Customize</strong>: Add markdown rules via <code>.markdownlint.json</code>; tune link checking via Lychee CLI flags</li>
 <li><strong>Extend</strong>: Modify command files in <code>commands/docs/</code></li>
 <li><strong>Test</strong>: Use <code>docs/test-violations.md</code> for validation</li>
 <li><strong>Contribute</strong>: Follow conventional commits and add tests</li>
@@ -13379,7 +13379,7 @@
     B --&gt;|lint| C["craft:docs:lint"]
     B --&gt;|check-links| D["craft:docs:check-links"]
     C --&gt; E[markdownlint-cli2]
-    D --&gt; F[markdown-link-check]
+    D --&gt; F[lychee]
     E --&gt; G[Auto-fix Engine]
     G --&gt; H[Language Detector]
     C --&gt; I[Exit Code Handler]
@@ -13394,7 +13394,7 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── commands/git/
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   └── init.md                    # (modified) Pre-commit hooks
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── .markdownlint.json             # Linting rules config
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── .markdown-link-check.json      # Link check config
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│                                  # (link checking uses Lychee CLI flags — no config file)
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>└── docs/
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    └── test-violations.md         # Test cases
 </span></code></pre></div>
@@ -13475,39 +13475,35 @@
 </span></code></pre></div>
 <hr />
 <h2 id="customizing-link-validation">Customizing Link Validation<a class="headerlink" href="#customizing-link-validation" title="Permanent link">&para;</a></h2>
-<h3 id="default-ignore-patterns">Default Ignore Patterns<a class="headerlink" href="#default-ignore-patterns" title="Permanent link">&para;</a></h3>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// .markdown-link-check.json</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="p">{</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">&quot;ignorePatterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^https://example.com&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^http://localhost&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^https://github.com/.*/pull/&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^https://github.com/.*/issues/&quot;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="p">],</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10s&quot;</span><span class="p">,</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="nt">&quot;retryOn429&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="nt">&quot;retryCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
+<p>Link checking uses <a href="https://github.com/lycheeverse/lychee">Lychee</a>, the same tool CI
+runs (<code>.github/workflows/docs-quality.yml</code>). Lychee is configured via CLI flags rather
+than a config file, so local runs and CI stay in sync by sharing the same flag string.</p>
+<h3 id="default-invocation-matches-ci">Default Invocation (matches CI)<a class="headerlink" href="#default-invocation-matches-ci" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>lychee<span class="w"> </span>--no-progress<span class="w"> </span>--cache<span class="w"> </span>--max-cache-age<span class="w"> </span>1d<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>--exclude-all-private<span class="w"> </span>--timeout<span class="w"> </span><span class="m">20</span><span class="w"> </span>--max-retries<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="s1">&#39;docs/**/*.md&#39;</span><span class="w"> </span><span class="s1">&#39;README.md&#39;</span><span class="w"> </span><span class="s1">&#39;CLAUDE.md&#39;</span>
 </span></code></pre></div>
+<ul>
+<li><code>--exclude-all-private</code> skips <code>localhost</code>, <code>127.0.0.1</code>, and private IP ranges</li>
+<li><code>--timeout 20</code> / <code>--max-retries 3</code> mirror the CI action's resilience settings</li>
+<li><code>--cache</code> reuses results between runs (CI caches <code>.lycheecache</code>)</li>
+</ul>
 <h3 id="add-project-specific-patterns">Add Project-Specific Patterns<a class="headerlink" href="#add-project-specific-patterns" title="Permanent link">&para;</a></h3>
 <h4 id="ignore-development-urls">Ignore Development URLs<a class="headerlink" href="#ignore-development-urls" title="Permanent link">&para;</a></h4>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;ignorePatterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^http://localhost:\\d+&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^https://dev\\.&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^https://staging\\.&quot;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="p">]</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">}</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>lychee<span class="w"> </span>--exclude-all-private<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>--exclude<span class="w"> </span><span class="s1">&#39;^https://dev\.&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span>--exclude<span class="w"> </span><span class="s1">&#39;^https://staging\.&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="s1">&#39;docs/**/*.md&#39;</span>
 </span></code></pre></div>
-<h4 id="ignore-placeholder-links">Ignore Placeholder Links<a class="headerlink" href="#ignore-placeholder-links" title="Permanent link">&para;</a></h4>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">&quot;ignorePatterns&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^#$&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^#todo$&quot;</span><span class="w"> </span><span class="p">},</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;pattern&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^/docs/.*\\.wip\\.md$&quot;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">  </span><span class="p">]</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p">}</span>
+<h4 id="ignore-placeholder-wip-links">Ignore Placeholder / WIP Links<a class="headerlink" href="#ignore-placeholder-wip-links" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>lychee<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span>--exclude<span class="w"> </span><span class="s1">&#39;\.wip\.md$&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span>--exclude<span class="w"> </span><span class="s1">&#39;#todo$&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="s1">&#39;docs/**/*.md&#39;</span>
 </span></code></pre></div>
+<p>For persistent project-wide excludes, add a <code>--exclude-path</code> file or a <code>[lychee]</code>
+section to a checked-in <code>lychee.toml</code> — but only if CI's action args are updated to
+match, otherwise local and CI behavior will diverge.</p>
 <h3 id="custom-link-validation-logic">Custom Link Validation Logic<a class="headerlink" href="#custom-link-validation-logic" title="Permanent link">&para;</a></h3>
 <p>Extend <code>commands/docs/check-links.md</code> to add custom checks:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Add after line 150 (within MODE_HANDLERS)</span>
@@ -14078,7 +14074,6 @@
 <h3 id="documentation_1">Documentation<a class="headerlink" href="#documentation_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="https://github.com/DavidAnson/markdownlint-cli2">markdownlint-cli2 docs</a></li>
-<li><a href="https://github.com/tcort/markdown-link-check">markdown-link-check docs</a></li>
 <li><a href="https://github.com/lycheeverse/lychee">lychee docs</a></li>
 </ul>
 <h3 id="rule-references">Rule References<a class="headerlink" href="#rule-references" title="Permanent link">&para;</a></h3>
