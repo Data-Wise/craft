@@ -1,10 +1,10 @@
 # Craft Skills & Agents
 
-> **TL;DR**: 44 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
+> **TL;DR**: 45 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
 
-Craft includes 44 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 45 auto-activating skills and 8 specialized agents for comprehensive development support.
 
-## Skills (44 total)
+## Skills (45 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
