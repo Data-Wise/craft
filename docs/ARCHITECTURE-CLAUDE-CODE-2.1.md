@@ -399,51 +399,6 @@ graph TB
 
 ---
 
-#### 8. Session Teleportation
-
-**Purpose**: Resume orchestration sessions across devices
-
-```mermaid
-sequenceDiagram
-    participant Device1
-    participant CloudSync
-    participant Device2
-
-    Device1->>Device1: Start orchestration
-    Device1->>Device1: Save session state
-    Device1->>CloudSync: Sync to cloud (encrypted)
-
-    Note over CloudSync: Session State Schema v1.0.0<br/>- session_id<br/>- agents (status, results)<br/>- timestamp
-
-    Device2->>CloudSync: Fetch session list
-    CloudSync-->>Device2: Available sessions
-    Device2->>Device2: /craft:orchestrate:resume [id]
-    Device2->>CloudSync: Download state
-    CloudSync-->>Device2: Decrypted state
-    Device2->>Device2: Restore context
-    Device2->>Device2: Continue execution
-```
-
-**Session State Schema** (JSON v1.0.0):
-
-```json
-{
-  "session_id": "uuid",
-  "timestamp": "ISO-8601",
-  "mode": "default|debug|optimize|release",
-  "agents": [
-    {
-      "name": "agent-name",
-      "status": "completed|in_progress|failed",
-      "results": "agent output",
-      "duration_ms": 1234
-    }
-  ]
-}
-```
-
----
-
 ## Data Flow Architecture
 
 ### Task Routing Flow

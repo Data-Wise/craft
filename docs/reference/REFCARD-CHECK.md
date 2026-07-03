@@ -415,7 +415,7 @@ Auto-fix available:
 
 **Tools used:**
 
-- markdown-link-check
+- lychee
 - markdownlint-cli2
 - Custom validators (utils/)
 

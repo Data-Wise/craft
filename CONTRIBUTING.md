@@ -184,6 +184,24 @@ arguments:
 - Options/arguments
 - Related commands
 
+### Command Authoring: Subcommand vs Flag
+
+When adding a capability, decide **subcommand** (`namespace:command`, a new file) vs **flag**
+(`--option` on an existing command) by this rule:
+
+> **Distinct operation with its own contract → subcommand. Variant or modifier of the same
+> operation → flag.**
+
+- `git:worktree`, `git:sync`, `git:status` are *distinct operations* → separate commands (colons).
+  Do **not** collapse distinct operations into one command's flags — that creates a fat
+  mega-command with tangled flag-combo validation and loses per-command frontmatter
+  (`argument-hint`, model routing, allowed-tools).
+- `orchestrate:plan --output orchestrate-only|worktree|dispatch` are *variants of one operation* →
+  a flag enum, not three commands.
+
+Advisory, not enforced. Rationale + the decision to skip a plugin-wide rename:
+[`docs/specs/BRAINSTORM-command-namespace-naming-rule-2026-07-01.md`](docs/specs/BRAINSTORM-command-namespace-naming-rule-2026-07-01.md).
+
 ## Testing
 
 ### Running Tests

@@ -35,7 +35,26 @@ replaced-by: "skills/check/"
 
 # /craft:check - Universal Pre-flight
 
-Run appropriate checks for your project type and context.
+> **This command is a thin(ner) shim.** The canonical decision logic —
+> which validators run for which `--for` context, mode budgets, follow-up
+> routing on failure — lives in the `preflight-check` skill
+> (`skills/check/SKILL.md`). This file keeps the parts that are
+> invocation-specific and can't be deferred to skill-routing: the flag
+> contract above, and the exact LLM-executable output format Claude must
+> produce when this command runs (kept here per
+> `skills/code/command-skill-token-efficiency/SKILL.md`'s rule that
+> anything the command always needs — even if skill-routing hasn't fired
+> yet — stays in the command file).
+>
+> **Scope note:** the pre-consolidation version of this command also carried
+> full per-language project-detection walls (Python/Node/R/Go check lists),
+> an extensive "community validator marketplace" section, and duplicated
+> ASCII dry-run mockups for every mode/context combination. That's
+> illustrative/aspirational content, not unique behavior — the skill's
+> `--for`/mode tables already capture the decision logic, and
+> `.claude-plugin/skills/validation/*.md` own the actual per-validator
+> implementation. Dropped rather than ported; see the skill for anything
+> that looks missing.
 
 ## Usage
 
@@ -49,103 +68,6 @@ Run appropriate checks for your project type and context.
 /craft:check -n                 # Preview checks
 /craft:check --context              # Output session context only
 ```
-
-## Dry-Run Mode
-
-Preview which checks will be performed without actually executing them:
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│ 🔍 DRY RUN: Pre-flight Validation                             │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│ ✓ Project Detection:                                          │
-│   - Type: Python CLI                                          │
-│   - Build tool: uv                                            │
-│   - Config: pyproject.toml                                    │
-│   - Worktree: No (main repo)                                  │
-│   - Guard: Active (block-new-code)                            │
-│   - Git status: Clean working tree                            │
-│                                                               │
-│ ✓ Validation Plan (5 checks):                                 │
-│                                                               │
-│   1. Linting (ruff)                                           │
-│      Command: ruff check .                                    │
-│      Scope: All Python files (~450 files)                     │
-│      Estimated: ~3 seconds                                    │
-│                                                               │
-│   2. Type Checking (mypy)                                     │
-│      Command: mypy src/                                       │
-│      Scope: Source files only                                 │
-│      Estimated: ~8 seconds                                    │
-│                                                               │
-│   3. Testing (pytest)                                         │
-│      Command: pytest                                          │
-│      Scope: All tests (~135 tests)                            │
-│      Estimated: ~15 seconds                                   │
-│                                                               │
-│   4. Security Audit (pip-audit)                               │
-│      Command: uv pip list | pip-audit                         │
-│      Scope: All dependencies                                  │
-│      Estimated: ~5 seconds                                    │
-│                                                               │
-│   5. Git Status                                               │
-│      Command: git status --porcelain                          │
-│      Scope: Working tree                                      │
-│      Estimated: < 1 second                                    │
-│                                                               │
-│ ✓ Mode Configuration:                                         │
-│   - Mode: default (quick)                                     │
-│   - Context: General validation                               │
-│   - Fail fast: Yes                                            │
-│   - Exit on first error: Yes                                  │
-│                                                               │
-│ ⚠ Notes:                                                      │
-│   • Total estimated time: ~32 seconds                         │
-│   • Use 'thorough' mode for comprehensive checks (~3-5 min)   │
-│   • Use '--for commit' for pre-commit specific checks         │
-│                                                               │
-│ 📊 Summary: 5 checks, ~32 seconds execution time              │
-│                                                               │
-├───────────────────────────────────────────────────────────────┤
-│ Run without --dry-run to execute                              │
-└───────────────────────────────────────────────────────────────┘
-```
-
-### Context-Specific Dry-Run
-
-```bash
-/craft:check --for pr --dry-run
-```
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│ 🔍 DRY RUN: Pre-PR Validation                                 │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│ ✓ Additional PR Checks:                                       │
-│   6. Coverage Analysis (pytest-cov)                           │
-│      Command: pytest --cov --cov-report=term                  │
-│      Threshold: 80% minimum                                   │
-│      Estimated: ~20 seconds                                   │
-│                                                               │
-│   7. Merge Conflict Detection                                 │
-│      Command: git merge-tree main HEAD                        │
-│      Estimated: ~2 seconds                                    │
-│                                                               │
-│   8. Branch Status                                            │
-│      Command: git rev-list --count origin/main..HEAD          │
-│      Check: Branch ahead/behind main                          │
-│      Estimated: ~1 second                                     │
-│                                                               │
-│ 📊 Summary: 8 total checks for PR readiness (~55 seconds)     │
-│                                                               │
-├───────────────────────────────────────────────────────────────┤
-│ Run without --dry-run to execute                              │
-└───────────────────────────────────────────────────────────────┘
-```
-
-**Note**: Dry-run shows the validation plan based on project type and context. Read-only analysis, no actual checks performed.
 
 ## Execution Behavior (MANDATORY)
 
@@ -226,22 +148,15 @@ docs_status=$(./scripts/docs-staleness-check.sh --json 2>/dev/null \
     || echo "N/A")
 ```
 
-**Insights integration (v2.21.0):**
-
-If insights data exists (`~/.claude/usage-data/facets/`), append a friction summary to the context output:
-
-```text
-│ Insights: 3 friction patterns in last 30 days               │
-│   - Wrong CWD (8x) → verify worktree before editing          │
-│   - Forgot ORCHESTRATE (3x) → read on session start          │
-│   Run /craft:insights for full report                        │
-```
+**Insights integration:** if `~/.claude/usage-data/facets/` exists, append a
+friction summary (top patterns + `/craft:insights` pointer) to the context
+output.
 
 When `--context` is passed, the command exits after displaying this header. No checks are executed.
 
 ### Step 0.5: Confirm Before Running
 
-After showing the plan, ask before executing:
+After showing the plan, ask before executing (via `AskUserQuestion`):
 
 ```json
 {
@@ -273,46 +188,36 @@ After showing the plan, ask before executing:
 
 ### Steps 1-N: Execute with Progress
 
-Run each check and display results as they complete:
+Run each check and display results as they complete, then a summary:
 
 ```text
   [1/N] <check-name>... ✅ passed (X issues)
   [2/N] <check-name>... ❌ failed (Y errors)
   ...
-```
-
-### Step N+1: Summary
-
-```text
   Results: X/N checks passed
   Issues: Y warnings, Z errors
   Next steps: [actionable recommendations]
 ```
 
-### Mode-Specific Check Lists
+## What Runs Where
 
-| Check | default | debug | release |
-|-------|---------|-------|---------|
-| Unit tests | Quick (fail-fast) | Verbose (all output) | Full + coverage report |
-| Markdown lint | Changed files only | All files | All files + strict rules |
-| Link validation | Skip external | Internal links only | All links (internal + external) |
-| Version sync | Basic check | Show all version refs | Full audit with diff |
-| Stale refs | Skip | Verbose scan | Full scan |
-| Hook conflict | Skip | Verbose audit | Full audit |
-| CLAUDE.md health | Line count only | All checks | All checks + fix suggestions |
-| Git status | Summary | Detailed | Full diff + ahead/behind |
+Which checks run for which `--for` context and mode, and how each is
+implemented (lint, tests, version sync, stale refs, hook conflicts, skill
+standards, badges, formula desc, CLAUDE.md health, etc.), is decision logic
+owned by [`skills/check/SKILL.md`](../skills/check/SKILL.md) — read it for
+the full `--for`/mode tables and the validator-routing rules. Do not
+reimplement that logic here; if it looks wrong or incomplete, fix the skill.
 
-## Orchestration Mode (NEW in v2.5.0)
+Two things stay pinned to this command file because they're invocation
+mechanics, not decision logic:
 
-Use `--orch` flag to run checks via orchestrator for complex validation scenarios:
+### Orchestration Mode (`--orch`)
 
 ```bash
 /craft:check --orch                 # Orchestrated validation with mode prompt
 /craft:check --orch=optimize        # Fast parallel check execution
 /craft:check --orch=release --dry-run   # Preview orchestrated validation
 ```
-
-### Orchestration Flow
 
 ```python
 from utils.orch_flag_handler import handle_orch_flag, show_orchestration_preview, spawn_orchestrator
@@ -344,650 +249,29 @@ if orch_flag:
 # Otherwise, continue with normal check flow...
 ```
 
-## Auto-Detection
-
-Detects project type, git context, and worktree status:
-
-### Worktree Detection
-
-```bash
-# Check if running in a worktree
-if git rev-parse --is-inside-work-tree &>/dev/null; then
-  git_dir=$(git rev-parse --git-dir)
-  if [[ "$git_dir" == *".git/worktrees/"* ]]; then
-    echo "🌳 Running in worktree"
-    echo "   Main repo: $(dirname $(dirname $(dirname $git_dir)))"
-    echo "   Branch: $(git branch --show-current)"
-  fi
-fi
-```
-
-**Worktree-aware output:**
-
-```
-╭─ /craft:check ──────────────────────────────────────╮
-│ Project: scribe (Node.js)                           │
-│ 🌳 Worktree: ~/.git-worktrees/scribe/feat-hud       │
-│    Main: ~/projects/dev-tools/scribe                │
-│    Branch: feat/mission-control-hud                 │
-│    Guard: None (feature branches unrestricted)      │
-├─────────────────────────────────────────────────────┤
-│ ✓ Lint         0 issues                             │
-│ ...                                                 │
-```
-
-Detects project type and runs appropriate checks:
-
-### Python Projects
-
-```
-✓ Detected: Python (pyproject.toml)
-Checks:
-  ├── ruff check .              (linting)
-  ├── mypy .                    (type checking)
-  ├── pytest                    (tests)
-  ├── pip-audit                 (security)
-  ├── /craft:docs:check-links   (if docs/ exists and changed)
-  └── docs-staleness-check.sh   (if scripts/ exists)
-```
-
-### JavaScript/TypeScript Projects
-
-```
-✓ Detected: Node.js (package.json)
-Checks:
-  ├── eslint .                  (linting)
-  ├── tsc --noEmit              (types)
-  ├── npm test                  (tests)
-  ├── npm audit                 (security)
-  └── /craft:docs:check-links   (if docs/ exists and changed)
-```
-
-### R Packages
-
-```
-✓ Detected: R Package (DESCRIPTION)
-Checks:
-  ├── lintr::lint_package()     (linting)
-  ├── devtools::check()         (R CMD check)
-  ├── testthat::test_local()    (tests)
-  ├── pkgdown::build_site()     (docs if configured)
-  └── spelling::spell_check()   (spelling)
-```
-
-### Go Projects
-
-```
-✓ Detected: Go (go.mod)
-Checks:
-  ├── go vet ./...              (static analysis)
-  ├── golangci-lint run         (linting)
-  ├── go test ./...             (tests)
-  └── go mod verify             (dependencies)
-```
-
-## Version Consistency Check (NEW in v2.22.0)
-
-Validates that all version references in the project match the source of truth.
-
-**Script:** `scripts/version-sync.sh`
-
-**How it works:**
-
-1. Discovers source of truth (priority: `.claude-plugin/plugin.json` → `package.json` → `pyproject.toml` → `DESCRIPTION` → `Cargo.toml`)
-2. Checks all version files (manifests, CLAUDE.md, .STATUS)
-3. Scans source code for version constants (`VERSION =`, `__version__`)
-4. Reports mismatches with fix suggestions
-
-**When it runs:**
-
-| Context | Behavior |
-|---------|----------|
-| `--for commit` | Basic check — run `version-sync.sh --quiet` |
-| `--for pr` | Full check — show all version references |
-| `--for release` | Full audit — show all references + fix suggestions |
-
-**Integration:**
-
-```bash
-# Called internally by /craft:check
-bash scripts/version-sync.sh           # Full output
-bash scripts/version-sync.sh --quiet   # Exit code only (for hooks)
-bash scripts/version-sync.sh --fix     # Show fix commands
-```
-
-**Belt-and-suspenders protection:**
-
-| Layer | When | Behavior |
-|-------|------|----------|
-| PreToolUse hook | During editing | Warning (non-blocking) |
-| Pre-commit hook | At commit time | Blocking |
-| `/craft:check` | On demand | Informational report |
-
-### `--version` flag (NEW in v2.33.0)
-
-Run **only** the version validator (no other checks):
-
-```bash
-/craft:check --version              # Tier 1 files only (default), warn on drift
-/craft:check --version thorough     # Tier 1 + Tier 2 long-tail sweep
-/craft:check --version release      # Strict — exit 1 on any drift (CI gating)
-```
-
-Routes to the hot-reload validator at `.claude-plugin/skills/validation/version-check.md`, which wraps `scripts/bump-version.sh --verify`. The output uses the standard box-drawing format showing source-of-truth resolution, per-tier status, and a fix suggestion when drift is detected. See the validator skill for the exact output format.
-
-**Auto-included when:**
-
-- `--for pr` (the release PR would fail on version drift)
-- `--for release` (drift is fatal in release context)
-- `--version` (explicit invocation)
-
-## Stale Reference Scan (NEW in v2.22.0)
-
-Detects file renames that leave stale references in documentation.
-
-**Script:** `scripts/stale-ref-scan.sh`
-
-**How it works:**
-
-1. Runs `git diff --name-status` between base branch and HEAD to find renames
-2. Extracts old file names from rename entries (R100, R090, etc.)
-3. Greps `docs/`, `README.md`, `CLAUDE.md`, and `tutorials/` for old names
-4. Reports files that still reference the old name
-
-**When it runs:** `--for pr` and `--for release`
-
-```bash
-bash scripts/stale-ref-scan.sh dev      # Compare against dev
-bash scripts/stale-ref-scan.sh --quiet  # Exit code only
-```
-
-## Hook Conflict Audit (NEW in v2.22.0)
-
-Audits git hooks for rules that might block Claude Code operations.
-
-**Script:** `scripts/hook-conflict-audit.sh`
-
-**What it checks:**
-
-- `.githooks/`, `.husky/`, `.git/hooks/` for branch protection rules
-- Pre-commit hooks with strict linting that may reject auto-generated changes
-- Pre-push hooks with test suites that may slow or block pushes
-- Commit-msg hooks with conventional commit enforcement
-- lint-staged configuration
-
-**When it runs:** `--for pr` and `--for release`
-
-```bash
-bash scripts/hook-conflict-audit.sh --for pr       # PR-specific audit
-bash scripts/hook-conflict-audit.sh --for release   # Release-specific audit
-```
-
-## Badge URL Validation (NEW in v2.27.0)
-
-Validates that CI badge URLs in README.md and docs/index.md include both `?branch=main` and `?branch=dev` variants. Ensures badges are not hardcoded to a single branch.
-
-**When it runs:** `--for release` and `--for deploy`
-
-**What it checks:**
-
-- README.md badge URLs include `?branch=main` variant
-- README.md badge URLs include `?branch=dev` variant
-- docs/index.md badge URLs include `?branch=main` variant
-- docs/index.md badge URLs include `?branch=dev` variant
-- All badge URLs resolve (HTTP 200)
-
-**Severity:** error (blocking)
-
-```bash
-# Example validation
-grep -E 'badge.*\?branch=' README.md docs/index.md
-# Expect both ?branch=main and ?branch=dev for each workflow badge
-```
-
-## Homebrew Formula Desc Validation (NEW in v2.27.0)
-
-Checks that the Homebrew formula `desc` field command counts match actual counts from the project. Prevents the formula description from drifting out of sync after adding or removing commands.
-
-**When it runs:** `--for release`
-
-**What it checks:**
-
-- Parses `desc` field from the Homebrew formula (`homebrew-tap/Formula/craft.rb`)
-- Extracts any numeric counts mentioned (e.g., "107 commands")
-- Compares against actual command count from `scripts/validate-counts.sh`
-- Reports mismatch if counts differ
-
-**Severity:** warning (not blocking)
-
-```bash
-# Example check
-formula_desc=$(grep 'desc "' ../homebrew-tap/Formula/craft.rb | sed 's/.*desc "//;s/"//')
-actual_count=$(find commands/ -name '*.md' | wc -l | tr -d ' ')
-# Compare counts extracted from desc vs actual
-```
-
-## CLAUDE.md Health Check (NEW in v2.22.0)
-
-Basic health check for CLAUDE.md files.
-
-**Script:** `scripts/claude-md-health.sh`
-
-**What it checks:**
-
-- Line count (warns if >200, since system prompt truncates)
-- Version reference presence
-- Staleness (days since last update vs latest commit)
-- Count accuracy (e.g., "111 commands" claim vs actual count)
-
-**When it runs:** `--for pr` and `--for release`
-
-```bash
-bash scripts/claude-md-health.sh           # Full check
-bash scripts/claude-md-health.sh --quiet   # Exit code only
-```
-
-## Skill Standards Validation (NEW in v2.51.0)
-
-Audits every `skills/**/SKILL.md` against the vendored Anthropic skill standards (frontmatter completeness, size limits, naming hygiene, version-tag cleanliness) — the same rules `/craft:code:skill-standards` enforces.
-
-Routes to the hot-reload validator at `.claude-plugin/skills/validation/skill-standards-check.md`, which wraps `scripts/skill_standards_audit.py`.
-
-**When it runs:** `--for pr` and `--for release`
-
-**Severity:** graduated gate — **advisory (warn-only) below release**, **blocking at the release tier** (`--for release` / `CRAFT_MODE=release`). The ecosystem graduated past the warn→error soak at 39/39 skills @ 100/100; the release gate keeps drift from re-entering. A missing audit script or standards doc degrades to advisory so a tooling fault never red-lists a release.
-
-```bash
-CRAFT_MODE=release bash .claude-plugin/skills/validation/skill-standards-check.md   # gate
-python3 scripts/skill_standards_audit.py --root skills                              # raw audit
-```
-
-## Documentation Checks
-
-**Conditional checking** - Runs only when needed:
-
-```bash
-# Check if docs/ directory exists
-if [ -d "docs/" ]; then
-  # Check if any docs were modified
-  if git diff --name-only | grep -q "^docs/"; then
-    echo "📚 Docs changed, running validation..."
-
-    # Step 1: Markdown linting (fast, critical errors)
-    echo "  → Checking markdown quality..."
-    claude "/craft:docs:lint default"
-
-    # Step 2: Link validation (internal links)
-    echo "  → Checking links..."
-    claude "/craft:docs:check-links default"
-  else
-    echo "📚 Docs unchanged, skipping validation"
-  fi
-fi
-```
-
-**Integration:**
-
-- Automatically runs 2 checks when docs are changed:
-  1. `/craft:docs:lint` - Markdown quality (critical errors)
-  2. `/craft:docs:check-links` - Internal link validation
-- Uses default mode for speed (< 6s total)
-- Critical errors cause pre-flight to fail
-- Prevents deploying broken documentation
-
-## Instruction Health Check (NEW in v2.22.0)
-
-Validates CLAUDE.md accuracy and instruction system health:
-
-```bash
-# Run as part of /craft:check (auto-included in all modes)
-PYTHONPATH=. python3 utils/claude_md_sync.py --check-only
-```
-
-### What Gets Checked
-
-1. **Count accuracy** — Commands, skills, agents, specs, tests match filesystem
-2. **Line budget** — Global CLAUDE.md < 100 lines, project CLAUDE.md < 100 lines
-3. **Reference file freshness** — `.claude/reference/` files exist and are current
-4. **CLAUDE.md lint** — No broken internal links, no stale version references
-
-### Output Format
-
-```
-╭─ Instruction Health ────────────────────────────╮
-│ CLAUDE.md Counts:                                │
-│   Commands: 111 ✅    Skills: 25 ✅               │
-│   Agents:   8 ✅      Specs:  30 ✅               │
-│   Tests:    ~1575 ✅                              │
-│                                                   │
-│ Line Budget:                                      │
-│   Global CLAUDE.md:  85 lines ✅ (< 100)          │
-│   Project CLAUDE.md: 82 lines ✅ (< 100)          │
-│                                                   │
-│ Reference Files:                                  │
-│   .claude/reference/agents.md ✅                  │
-│   .claude/reference/test-suite.md ✅              │
-│   .claude/reference/project-structure.md ✅       │
-│                                                   │
-│ CLAUDE.md Lint: No issues ✅                      │
-╰─────────────────────────────────────────────────╯
-```
-
-### Severity Levels
-
-| Issue | Severity | Action |
-|-------|----------|--------|
-| Stale count (off by > 5%) | 🔴 ERROR | Auto-fix with `claude_md_sync.py` |
-| Line budget exceeded | 🟡 WARNING | Suggest extracting sections to reference/ |
-| Missing reference file | 🟡 WARNING | Suggest running `--generate-reference` |
-| Stale version reference | 🟡 WARNING | Show current vs documented version |
-| Broken CLAUDE.md link | 🔴 ERROR | Show broken path and suggest fix |
-
-### Mode-Specific Behavior
-
-| Check | default | thorough | `--for pr` | `--for release` |
-|-------|---------|----------|------------|-----------------|
-| Count accuracy | ✅ | ✅ | ✅ | ✅ |
-| Line budget | Skip | ✅ | ✅ | ✅ |
-| Reference files | Skip | ✅ | ✅ | ✅ |
-| CLAUDE.md lint | Skip | ✅ | ✅ | ✅ |
-| Auto-fix stale | No | No | No | Yes |
-
-## Check Modes
-
-### Default Mode (Quick)
-
-- Lint check (fast rules only)
-- Test run (fail-fast)
-- Git status
-- Docs quality (if docs/ changed: lint + links)
-- Instruction health (count accuracy only)
-
-### Thorough Mode
-
-- Full lint check
-- Complete test suite
-- Type checking
-- Security audit
-- Doc validation (lint + links + anchors)
-- Instruction health (full check)
-
-### Context-Specific Check Lists (`--for` flag)
-
-The `--for` flag adjusts which checks run based on what you're preparing for:
-
-| Check | `--for commit` | `--for pr` | `--for release` | `--for deploy` |
-|-------|---------------|-----------|----------------|---------------|
-| Git status | Clean tree | Ahead of base | Tag exists | Clean + tagged |
-| Lint | Changed files | All files | All + strict | All + strict |
-| Tests | Fast (fail-fast) | Full suite | Full + coverage | Full + coverage |
-| Type check | Skip | Run | Run | Run |
-| Security | Skip | Advisory | Full audit | Full audit |
-| Links | Skip | Internal | All links | All links |
-| Version sync | Basic check | Check | Full audit | Full audit |
-| Stale refs | Skip | Scan | Scan | Scan |
-| Hook conflict | Skip | Audit | Audit | Audit |
-| CLAUDE.md health | Skip | Basic | Full | Full |
-| Merge conflicts | Skip | Detect | N/A | N/A |
-| Coverage threshold | Skip | 80% min | 90% min | 90% min |
-| Instruction health | Counts only | Full check | Full check | Full + auto-fix |
-| Badge URLs | Skip | Skip | Validate both branches | Validate both branches |
-| Formula desc | Skip | Skip | Check counts match | Skip |
-| Skill standards | Skip | Advisory | Blocking gate | Skip |
-| Doc surfaces | Advisory (new cmds) | Skip | Skip | Skip |
-
-When `--for` is specified, the Step 0 preview shows this context:
-
-```text
-Pre-flight Check Plan:
-  Project: craft (Claude Code Plugin)
-  Mode: default
-  Branch: feature/command-enhancements
-  Context: pr (pre-PR validation)
-
-  Checks to run (8 for PR context):
-  1. Git status (ahead of dev?)
-  2. Lint — all files (ruff / markdownlint)
-  3. Unit tests — full suite (python3 tests/test_craft_plugin.py)
-  4. Type check (mypy, if applicable)
-  5. Security advisory (pip-audit / npm audit)
-  6. Internal link validation
-  7. Merge conflict detection (git merge-tree)
-  8. Coverage threshold (80% minimum)
-```
-
-## Hot-Reload Validator Discovery (NEW in v1.23.0)
-
-**Dynamic validator discovery** - Auto-detects validation skills without restart:
-
-### How It Works
-
-1. **Scan for validators**: `/craft:check` scans `.claude-plugin/skills/validation/*.md`
-2. **Parse frontmatter**: Detects validators with `hot_reload: true` flag
-3. **Execute in fork**: Runs each validator in isolated context, **exporting `CRAFT_MODE` set to the resolved execution mode** (see binding below)
-4. **Aggregate results**: Combines all validator outputs; any validator that exits non-zero blocks the check
-
-#### Mode binding (REQUIRED — validators gate on `CRAFT_MODE`)
-
-Validators receive their tier **only** through the `CRAFT_MODE` environment variable — there is no separate `--for` signal inside a validator. When executing the hot-reload validators, resolve `CRAFT_MODE` from the active context and **export it on each validator invocation**:
+### Hot-Reload Validator Discovery + `CRAFT_MODE` Binding (REQUIRED)
+
+`/craft:check` scans `.claude-plugin/skills/validation/*.md` for
+`hot_reload: true` validators and executes each in a forked context. Validators
+receive their tier **only** through the `CRAFT_MODE` environment variable —
+there is no separate `--for` signal inside a validator. Resolve `CRAFT_MODE`
+from the active context and **export it on each validator invocation**:
 
 | Active context | Exported `CRAFT_MODE` | Effect on release-gated validators (version-check, skill-standards) |
 |----------------|-----------------------|----------------------------------------------------------------------|
 | `--for commit`, `--for pr`, default | `default` (or the explicit mode arg) | advisory / warn-only |
 | `--for release`, `--for deploy`, `release` mode | `release` | **blocking** — validator propagates its exit code |
 
-Concretely: `/craft:check --for release` MUST invoke each validator as `CRAFT_MODE=release bash <validator>.md`. Omitting this export silently downgrades every release-tier gate to advisory.
+Concretely: `/craft:check --for release` MUST invoke each validator as
+`CRAFT_MODE=release bash <validator>.md`. Omitting this export silently
+downgrades every release-tier gate to advisory.
 
-### Built-in Validators
+## Doc Surfaces Warning (non-blocking)
 
-| Validator | Languages | Tools | Purpose |
-|-----------|-----------|-------|---------|
-| **test-coverage** | Python, JS, R, Go | pytest-cov, jest, covr, go test | Coverage validation |
-| **broken-links** | All | test_craft_plugin.py | Internal link validation |
-| **lint-check** | Python, JS, TS, R, Go, Rust | ruff, eslint, lintr, golangci-lint, clippy | Code quality |
-
-### Mode-Aware Behavior
-
-Validators adapt to execution mode:
-
-```
-| Mode     | Coverage | Lint Severity | Auto-fix |
-|----------|----------|---------------|----------|
-| default  | 70%      | Warnings+     | No       |
-| debug    | 60%      | All           | No       |
-| optimize | 75%      | Errors        | Yes      |
-| release  | 90%      | Errors        | No       |
-```
-
-### Example Output
-
-```
-╭─ /craft:check (with validators) ────────────────────╮
-│ Project: craft (Claude Code Plugin)                │
-│ Mode: default                                       │
-├─────────────────────────────────────────────────────┤
-│ Core Checks:                                        │
-│ ✓ Git          Clean working tree                  │
-│ ✓ Project      Valid plugin manifest               │
-│                                                     │
-│ Hot-Reload Validators (3 discovered):               │
-│ ✓ test-coverage   87% >= 70% (default mode)        │
-│ ✓ broken-links    No broken links (342 checked)    │
-│ ✓ lint-check      No issues (ruff)                 │
-├─────────────────────────────────────────────────────┤
-│ STATUS: ALL CHECKS PASSED ✓                        │
-│ Validators: 3/3 passed                              │
-╰─────────────────────────────────────────────────────╯
-```
-
-### Orchestration Examples (v2.5.0)
-
-```
-User: /craft:check --orch=optimize
-
-→ ORCHESTRATOR v2.1 — OPTIMIZE MODE
-Spawning orchestrator...
-   Task: run comprehensive checks for general context
-   Mode: optimize
-
-Executing: /craft:orchestrate 'run comprehensive checks for general context' optimize
-```
-
-```
-User: /craft:check --orch=release --dry-run
-
-+---------------------------------------------------------------------+
-| DRY RUN: Orchestration Preview                                      |
-+---------------------------------------------------------------------+
-| Task: validation workflow with default mode                         |
-| Mode: release                                                       |
-| Max Agents: 4                                                       |
-| Compression: 85%                                                    |
-+---------------------------------------------------------------------+
-| This would spawn the orchestrator with the above settings.          |
-| Remove --dry-run to execute.                                        |
-+---------------------------------------------------------------------+
-```
-
-```
-User: /craft:check --for pr --orch
-
-→ Orchestration Mode Selection
-Available modes:
-  default   - Quick tasks (2 agents max, 70% compression)
-  debug     - Sequential troubleshooting (1 agent, 90% compression)
-  optimize  - Fast parallel work (4 agents, 60% compression)
-  release   - Pre-release audit (4 agents, 85% compression)
-
-[AskUserQuestion prompt appears]
-```
-
-### Adding Custom Validators
-
-Create a new validator in `.claude-plugin/skills/validation/`:
-
-```markdown
----
-name: check:my-validator
-description: Custom validation logic
-category: validation
-context: fork
-hot_reload: true
-version: 1.0.0
----
-
-# Custom Validator Implementation
-
-## Auto-Detection
-[Detect your project type]
-
-## Validation Logic
-[Run your validation tool]
-
-## Output Format
-[Report pass/fail with details]
-```
-
-**Requirements:**
-
-- Must have `hot_reload: true` in frontmatter
-- Must use `context: fork` for isolation
-- Must report clear pass/fail status
-- Should be mode-aware (check `$CRAFT_MODE`)
-- Should gracefully skip if tools unavailable
-
-### Validator Execution Flow
-
-```
-1. Scan: .claude-plugin/skills/validation/*.md
-2. Filter: Only files with hot_reload: true
-3. Execute: In forked context (isolated)
-4. Collect: Exit codes and stdout/stderr
-5. Report: Aggregated pass/fail summary
-```
-
-**Benefits:**
-
-- ✅ **No restart required** - Add validators on the fly
-- ✅ **Isolated execution** - Validators don't corrupt context
-- ✅ **Community extensible** - Users can add custom validators
-- ✅ **Mode-aware** - Behavior adapts to context
-- ✅ **Multi-language** - Works across tech stacks
-
-### Community Validator Ecosystem (NEW in v1.23.0)
-
-**Generate custom validators**:
+When `--for commit` is active (or mode is default and staged files include
+`commands/**/*.md`), print a non-blocking checklist — never fails the check:
 
 ```bash
-/craft:check:gen-validator security-audit --languages "python,javascript"
-```
-
-**Discover community validators**:
-
-- [GitHub Validator Marketplace](https://github.com/topics/craft-plugin-validator)
-- Search by language: `craft-plugin-validator+python`
-- 100+ community validators available
-
-**Install validators**:
-
-```bash
-# Direct download
-curl -o .claude-plugin/skills/validation/security-audit.md \
-  https://raw.githubusercontent.com/user/repo/main/validator.md
-
-# Test validator
-CRAFT_MODE=default bash .claude-plugin/skills/validation/security-audit.md
-
-# Auto-detected by /craft:check
-/craft:check  # Runs all discovered validators
-```
-
-**Validator registry** (community-maintained):
-
-| Validator | Languages | Purpose |
-|-----------|-----------|---------|
-| security-audit | Python, JS | Vulnerability scanning |
-| performance-check | Python, JS | Performance profiling |
-| accessibility | Web | Accessibility validation |
-| license-check | All | License compliance |
-| dependency-audit | Python, JS, Go | Dependency vulnerabilities |
-
-**Resources**:
-
-- [Validator Generator](/craft:check:gen-validator)
-- [Best Practices Guide](../docs/VALIDATOR-BEST-PRACTICES.md)
-- [Example Validators](https://github.com/topics/craft-plugin-validator)
-
-## Context-Specific Checks
-
-### Pre-Commit (`--for commit`)
-
-```
-╭─ Pre-Commit Checks ─────────────────────────────────╮
-│ ✓ Lint: No issues                                  │
-│ ✓ Tests: 45/45 passed                              │
-│ ✓ Types: No errors                                 │
-│ ✓ No secrets detected                              │
-│ ✓ Version sync: All match v2.21.0                  │
-├─────────────────────────────────────────────────────┤
-│ READY TO COMMIT                                    │
-╰─────────────────────────────────────────────────────╯
-```
-
-When staged files include new `commands/**/*.md` files, a non-blocking doc-surfaces advisory is shown below the commit-ready banner:
-
-```
-⚠️  New commands detected. Doc surfaces needed:
-  commands/foo/bar.md  ✗ guide  ✗ tutorial  ✓ api
-  (run /craft:docs:update --post-merge to fill gaps)
-```
-
-### Doc Surfaces Warning (non-blocking)
-
-When `--for commit` is active (or mode is default and staged files include `commands/**/*.md`):
-
-```bash
-# Detect new/modified command files in staging area
 new_cmds=$(git diff --cached --name-only --diff-filter=A -- 'commands/**/*.md' 2>/dev/null || true)
 if [[ -n "$new_cmds" ]]; then
     echo ""
@@ -998,50 +282,32 @@ if [[ -n "$new_cmds" ]]; then
 fi
 ```
 
-This check is **non-blocking** — it prints the checklist but never causes `/craft:check` to fail.
+## Quota Pre-flight (opt-in, never blocking)
 
-### Pre-PR (`--for pr`)
+After all mandatory checks, surface a quota advisory if a fresh cache file
+(`~/.claude/quota-cache.json`, timestamp < 900s old) is present:
 
-```
-╭─ Pre-PR Checks ─────────────────────────────────────╮
-│ ✓ Lint: No issues                                  │
-│ ✓ Tests: 156/156 passed                            │
-│ ✓ Coverage: 87% (meets 80% threshold)              │
-│ ✓ Types: No errors                                 │
-│ ✓ No merge conflicts                               │
-│ ✓ Branch up to date with main                      │
-│ ✓ Version sync: All match v2.21.0                  │
-│ ✓ Stale refs: No renames with stale docs           │
-│ ✓ Hook audit: No conflicts detected                │
-│ ✓ CLAUDE.md: Healthy (161 lines)                   │
-├─────────────────────────────────────────────────────┤
-│ READY FOR PR                                       │
-╰─────────────────────────────────────────────────────╯
+```bash
+CACHE="$HOME/.claude/quota-cache.json"
+NOW=$(date +%s)
+if [[ -f "$CACHE" ]]; then
+    TS=$(python3 -c "import json; d=json.load(open('$CACHE')); print(d.get('timestamp',0))" 2>/dev/null || echo 0)
+    AGE=$(( NOW - TS ))
+    if [[ "$AGE" -lt 900 ]]; then
+        LEVEL=$(python3 -c "import json; d=json.load(open('$CACHE')); print(d.get('level',''))" 2>/dev/null)
+        case "$LEVEL" in
+            SAFE)   echo "✅ Quota: SAFE — sufficient tokens for this run" ;;
+            TIGHT)  echo "⚠️  Quota: TIGHT — approaching limit; consider batching" ;;
+            DEFER)  echo "💡 Quota: DEFER recommended — low tokens; run /craft:quota first" ;;
+        esac
+    fi
+fi
 ```
 
-### Pre-Release (`--for release`)
-
-```
-╭─ Pre-Release Checks ────────────────────────────────╮
-│ ✓ Lint: No issues (strict mode)                    │
-│ ✓ Tests: All passing (unit + integration + e2e)    │
-│ ✓ Coverage: 87% (meets threshold)                  │
-│ ✓ Types: No errors                                 │
-│ ✓ Security: No vulnerabilities                     │
-│ ✓ Docs: Valid and up-to-date                       │
-│ ✓ CHANGELOG: Updated                               │
-│ ✓ Version: Bumped correctly (full audit)           │
-│ ✓ Stale refs: No renames with stale docs           │
-│ ✓ Hook audit: No conflicts for release             │
-│ ✓ CLAUDE.md: Healthy (161 lines, counts accurate)  │
-├─────────────────────────────────────────────────────┤
-│ READY FOR RELEASE                                  │
-╰─────────────────────────────────────────────────────╯
-```
+Populate the cache with `/craft:quota <run-type>` before `/craft:check`; the
+cache auto-expires after 15 minutes.
 
 ## Output Format
-
-### All Passing
 
 ```
 ╭─ /craft:check ──────────────────────────────────────╮
@@ -1057,67 +323,9 @@ This check is **non-blocking** — it prints the checklist but never causes `/cr
 ╰─────────────────────────────────────────────────────╯
 ```
 
-### Issues Found
-
-```
-╭─ /craft:check ──────────────────────────────────────╮
-│ Project: aiterm (Python CLI)                       │
-│ Time: 15.2s                                        │
-├─────────────────────────────────────────────────────┤
-│ ⚠ Lint         3 issues                            │
-│   └─ src/main.py:12 - Line too long               │
-│   └─ src/utils.py:8 - Unused import               │
-│   └─ tests/test_api.py:45 - Missing docstring     │
-│                                                     │
-│ ✓ Tests        135/135 passed                      │
-│ ✓ Types        No errors                           │
-│ ⚠ Git          Uncommitted changes                 │
-├─────────────────────────────────────────────────────┤
-│ STATUS: 2 ISSUES FOUND                             │
-│ Fix with: /craft:code:ci-fix                       │
-╰─────────────────────────────────────────────────────╯
-```
-
-### Quota Pre-flight (opt-in)
-
-After all mandatory checks, `/craft:check` optionally surfaces a quota advisory if a fresh
-cache file is present. This step is **never blocking** — it prints guidance only.
-
-**Trigger condition:** `~/.claude/quota-cache.json` exists AND its `timestamp` field is under
-900 seconds old (15 minutes). If the file is absent or stale, this step is silently skipped.
-
-**Logic:**
-
-```bash
-CACHE="$HOME/.claude/quota-cache.json"
-NOW=$(date +%s)
-if [[ -f "$CACHE" ]]; then
-    TS=$(python3 -c "import json; d=json.load(open('$CACHE')); print(d.get('timestamp',0))" 2>/dev/null || echo 0)
-    AGE=$(( NOW - TS ))
-    if [[ "$AGE" -lt 900 ]]; then
-        # Cache is fresh — read advisory level and surface it
-        LEVEL=$(python3 -c "import json; d=json.load(open('$CACHE')); print(d.get('level',''))" 2>/dev/null)
-        case "$LEVEL" in
-            SAFE)   echo "✅ Quota: SAFE — sufficient tokens for this run" ;;
-            TIGHT)  echo "⚠️  Quota: TIGHT — approaching limit; consider batching" ;;
-            DEFER)  echo "💡 Quota: DEFER recommended — low tokens; run /craft:quota first" ;;
-        esac
-    fi
-    # Stale cache → silently skip
-fi
-```
-
-**Advisory levels (from `/craft:quota`):**
-
-| Level | Meaning | Action |
-|-------|---------|--------|
-| SAFE | Tokens available | Print checkmark and continue |
-| TIGHT | Near limit | Print warning; do NOT block |
-| DEFER | Very low | Print recommendation; do NOT block |
-
-**To populate the cache**, run `/craft:quota <run-type>` before `/craft:check`. The quota command
-writes `~/.claude/quota-cache.json` with a `timestamp` and `level` field. The cache auto-expires
-after 15 minutes, so a stale run never produces misleading output.
+On issues, use the same box format with per-issue detail lines and a
+`STATUS: N ISSUES FOUND` footer plus a fix suggestion (e.g.
+`/craft:code:ci-fix`).
 
 ## Integration
 
@@ -1130,3 +338,4 @@ Works with:
 - `/craft:code:ci-fix` - Auto-fix issues
 - `/craft:code:ci-local` - Full CI simulation
 - `/craft:quota` - Standalone pre-flight quota check
+- `/craft:check:gen-validator` - Scaffold a new custom validator (see the skill's "Validator Generation" section for the full flow)

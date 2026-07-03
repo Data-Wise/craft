@@ -1058,9 +1058,9 @@ When issues are found, the audit command automatically applies known fixes:
 ```ruby
 # Fix 1: Description too long (> 80 chars)
 # Before:
-desc "Full-stack developer toolkit - 107 commands, 8 agents, 36 skills - Claude Code plugin"
+desc "Full-stack developer toolkit - 116 commands, 8 agents, 44 skills - Claude Code plugin"
 # After:
-desc "Full-stack developer toolkit for Claude Code with 107 commands"
+desc "Full-stack developer toolkit for Claude Code with 116 commands"
 
 # Fix 2: Array comparison (use Array#include?)
 # Before:
@@ -1411,6 +1411,7 @@ Show formula dependency graph and system dependency matrix.
 /craft:dist:homebrew deps --formula craft       # Single formula
 /craft:dist:homebrew deps --system              # Include system deps
 /craft:dist:homebrew deps --dot                 # Output in Graphviz DOT format
+/craft:dist:homebrew deps --mermaid             # Output as a Mermaid dependency diagram
 ```
 
 ### Inter-Formula Dependencies
@@ -1457,6 +1458,13 @@ System Dependencies Matrix:
 | scribe-cli | - | - | - | build | - |
 ```
 
+### Mermaid Diagram
+
+With `--mermaid`, outputs the dependency graph as a Mermaid `graph LR` diagram
+(formulas + shared system dependencies as subgraphs) instead of the ASCII
+tree — useful for pasting into docs or rendering in a Mermaid-aware viewer.
+See `homebrew-multi-formula` for a full example diagram.
+
 ---
 
 ## Integration
@@ -1497,26 +1505,33 @@ TAP_DIR=~/projects/dev-tools/homebrew-tap
 
 **Step 2: Add or update manifest entry**
 
-Edit `$TAP_DIR/generator/manifest.json`:
+Edit `$TAP_DIR/generator/manifest.json`. Entries nest under the top-level
+`formulas` key (a flat top-level `"my-plugin"` entry is NOT valid — the
+generator reads `manifest["formulas"]`):
 
 ```json
-"my-plugin": {
-  "type": "claude-plugin",
-  "desc": "Short description under 80 chars",
-  "homepage": "https://github.com/Data-Wise/my-plugin",
-  "source": "github",
-  "repo": "Data-Wise/my-plugin",
-  "version": "1.0.0",
-  "sha256": "...",
-  "generated": true,
-  "features": {
-    "schema_cleanup": true,
-    "marketplace": true
-  },
-  "libexec_paths": [".claude-plugin", "dist"],
-  "test_paths": [
-    {"path": ".claude-plugin/plugin.json", "type": "file"}
-  ]
+{
+  "formulas": {
+    "…": "(existing entries)",
+    "my-plugin": {
+      "type": "claude-plugin",
+      "desc": "Short description under 80 chars",
+      "homepage": "https://github.com/Data-Wise/my-plugin",
+      "source": "github",
+      "repo": "Data-Wise/my-plugin",
+      "version": "1.0.0",
+      "sha256": "...",
+      "generated": true,
+      "features": {
+        "schema_cleanup": true,
+        "marketplace": true
+      },
+      "libexec_paths": [".claude-plugin", "dist"],
+      "test_paths": [
+        {"path": ".claude-plugin/plugin.json", "type": "file"}
+      ]
+    }
+  }
 }
 ```
 
@@ -1586,9 +1601,9 @@ All 6 plugin formulas are generated from the manifest:
 
 | Formula | Features | Status |
 |---------|----------|--------|
-| `craft.rb` | 107 commands, branch-guard, schema-cleanup | `brew audit --strict` clean |
+| `craft.rb` | branch-guard, schema-cleanup (command count: see `plugin.json`) | `brew audit --strict` clean |
 | `himalaya-mcp.rb` | copy_map layout, CLI wrapper, npm build | `brew audit --strict` clean |
-| `scholar.rb` | 28 commands | `brew audit --strict` clean |
+| `scholar.rb` | schema-cleanup (command count: see `plugin.json`) | `brew audit --strict` clean |
 | `rforge.rb` | head-only (no releases) | `brew audit --strict` clean |
 | `rforge-orchestrator.rb` | monorepo URL pattern | `brew audit --strict` clean |
 | `workflow.rb` | ADHD workflow automation | `brew audit --strict` clean |

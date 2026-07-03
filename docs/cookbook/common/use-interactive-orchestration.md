@@ -219,14 +219,6 @@ Benefits:
 
   If complexity score is 8-10, automatically routes to orchestrator
 
-- **Resume paused orchestration:**
-
-  ```bash
-  /craft:orchestrate:resume
-  ```
-
-  Continue from last checkpoint if interrupted
-
 ## Troubleshooting
 
 | Issue | Solution |

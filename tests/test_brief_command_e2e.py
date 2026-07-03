@@ -256,9 +256,18 @@ class TestWorkflowCommandCount:
         # brief.md must exist and workflow dir must be counted
         assert BRIEF_CMD.exists(), "brief.md must exist to be counted"
         total_documented = int(m.group(1))
-        # Just verify the total is >= 117 (as of this addition)
-        assert total_documented >= 117, (
-            f"Total command count in plugin.json is {total_documented}, expected >= 117 after adding brief"
+        # Verify plugin.json's documented total matches the actual on-disk command count
+        # (rather than a hardcoded floor, which goes stale whenever a command is added/removed).
+        actual_total = len(
+            [
+                f
+                for f in COMMANDS_DIR.rglob("*.md")
+                if f.name not in ("index.md", "README.md")
+            ]
+        )
+        assert total_documented == actual_total, (
+            f"plugin.json says {total_documented} commands but found {actual_total} files "
+            f"in commands/. Update plugin.json description."
         )
 
 

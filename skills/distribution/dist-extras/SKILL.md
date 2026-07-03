@@ -206,6 +206,37 @@ ERROR: Repository is PRIVATE. Cannot publish to public marketplace.
 **Public repo (default):** behaviour unchanged — appends plugin entry to the shared
 `marketplace.json` and pushes.
 
+### Known upstream limitation: `claude plugin install` uses SSH, not HTTPS
+
+`claude plugin install <name>@<marketplace>` clones via `git@github.com:...`
+unconditionally — even for fully public repos, and even on machines with a
+working `gh`-managed HTTPS credential helper. Unlike `claude plugin
+marketplace add` (which correctly falls back to HTTPS when SSH auth fails),
+`install` has no HTTPS fallback, so it fails outright with `Permission
+denied (publickey)` on any machine without SSH keys registered for GitHub.
+
+This is a **Claude Code CLI bug, not a marketplace/manifest problem** —
+nothing in `marketplace.json`'s schema can work around it (confirmed live
+2026-07-02: craft's `data-wise` marketplace entry was correctly registered
+and installable-in-principle, but `install` still failed via SSH). Tracked
+upstream: [anthropics/claude-code#26588](https://github.com/anthropics/claude-code/issues/26588),
+[#52234](https://github.com/anthropics/claude-code/issues/52234),
+[#29722](https://github.com/anthropics/claude-code/issues/29722),
+[#18001](https://github.com/anthropics/claude-code/issues/18001) (multiple
+duplicate reports, open as of April 2026).
+
+**Workaround** (per-machine, not per-repo — apply once):
+
+```bash
+git config --global url."https://github.com/".insteadOf git@github.com:
+```
+
+Redirects any `git@github.com:` clone to `https://github.com/`, so it
+transparently uses the existing `gh auth git-credential` helper (already
+installed by `gh auth login`) instead of requiring an SSH key. Verified
+live: `craft@data-wise` installed successfully after applying this rule,
+having failed before it.
+
 ### Post-release pin refresh (drift prevention)
 
 After tagging/releasing, **installed Claude Code pins do not auto-update**. Without an explicit

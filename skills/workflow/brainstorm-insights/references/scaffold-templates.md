@@ -43,3 +43,20 @@ Template lifted verbatim from `commands/workflow/brainstorm.md:407-418`:
 - [ ] Website (`mkdocs.yml` nav + guides; `mkdocs build`) and `docs/skills-agents.md` catalog row
 - [ ] CHANGELOG `[Unreleased]` + count bumps; `validate-counts.sh` + `docs-staleness-check.sh` clean
 ```
+
+---
+
+## Site Consistency
+
+Advisory checklist for structural site checks — **not a hard gate**. The release pipeline already
+hard-gates docs staleness (`docs-staleness-check.sh --non-interactive`, release Step 3b); this
+block exists so structural drift is checked *during* feature work too, without adding a second
+blocking gate. Each box names the real tool that performs the check — never manual recall.
+
+```markdown
+## Site Consistency
+
+- [ ] mkdocs nav updated (new pages added to `mkdocs.yml` nav)?
+- [ ] index file updated (if new top-level doc)?
+- [ ] `/craft:site:update` / `docs-staleness-check.sh` run?
+```

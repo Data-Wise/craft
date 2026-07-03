@@ -8,6 +8,12 @@ category: distribution
 
 Expert in selecting and prioritizing distribution channels for software projects.
 
+> **Surface note:** a distribution *channel* (Homebrew / PyPI / npm / curl) is
+> orthogonal to a Claude *surface* (Code CLI · Desktop DXT/MCPB · Cowork). A plugin
+> may ship via Homebrew yet still need a separate DXT artifact to reach Desktop. For
+> the surface model see `dist-extras` and
+> [`commands/dist/surfaces.md`](../../../commands/dist/surfaces.md).
+
 ## Role
 
 Analyze project characteristics and recommend the most effective distribution strategy, considering:

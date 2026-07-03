@@ -1,0 +1,46 @@
+{
+  "manifest_version": "0.3",
+  "name": "craft-mcp",
+  "display_name": "Craft Repo Hygiene",
+  "version": "0.1.0",
+  "description": "Run craft's read-only repo-hygiene checks from Claude Desktop: count validation, skill-ecosystem governance audit, and docs-staleness — against a craft-family repo you point it at.",
+  "author": {
+    "name": "Data-Wise",
+    "url": "https://github.com/Data-Wise"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Data-Wise/craft"
+  },
+  "homepage": "https://github.com/Data-Wise/craft",
+  "keywords": ["craft", "plugin", "hygiene", "governance", "counts", "docs", "mcp"],
+
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"],
+      "env": {
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:${HOME}/.local/bin:/usr/bin:/bin",
+        "CRAFT_MCP_SCRIPTS": "${__dirname}/bundled"
+      }
+    }
+  },
+
+  "tools": [
+    {
+      "name": "craft_validate_counts",
+      "description": "Validate a craft-family plugin's command/skill/agent counts (read-only)."
+    },
+    {
+      "name": "craft_governance_audit",
+      "description": "Run craft's skill-ecosystem governance rules and report violations (read-only)."
+    },
+    {
+      "name": "craft_docs_staleness",
+      "description": "Check a craft-family repo's docs for staleness (read-only; never --fix)."
+    }
+  ]
+}

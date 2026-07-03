@@ -151,19 +151,19 @@ docs/guide/tutorial.md:42:3: Broken anchor → guide.md#non-existent
 
 ### Configuration
 
-Link checking behavior is configured via `.markdown-link-check.json`:
+Link checking uses [Lychee](https://github.com/lycheeverse/lychee) — the same tool CI
+runs. Behavior is controlled via CLI flags (no config file), so local and CI runs match
+by sharing the same flag string:
 
-```json
-{
-  "ignorePatterns": [
-    { "pattern": "^https://example.com" },
-    { "pattern": "^http://localhost" }
-  ],
-  "timeout": "10s",
-  "retryOn429": true,
-  "retryCount": 3
-}
+```bash
+lychee --no-progress --cache --max-cache-age 1d \
+  --exclude-all-private --timeout 20 --max-retries 3 \
+  'docs/**/*.md' 'README.md' 'CLAUDE.md'
 ```
+
+- `--exclude-all-private` — skip `localhost`, `127.0.0.1`, and private IP ranges
+- `--timeout` / `--max-retries` — resilience against slow or rate-limited hosts
+- `--exclude '<regex>'` — add ad-hoc URL exclusions (repeatable)
 
 ### Examples
 
@@ -217,12 +217,16 @@ Pre-commit hooks can auto-validate links:
 
 #### CI/CD
 
-GitHub Actions workflow (`.github/workflows/docs-quality.yml`):
+GitHub Actions workflow (`.github/workflows/docs-quality.yml`) runs the Lychee action:
 
 ```yaml
-- name: Check documentation links
-  run: |
-    npx markdown-link-check docs/**/*.md
+- name: Link Checker
+  uses: lycheeverse/lychee-action@v1
+  with:
+    args: --verbose --no-progress --cache --max-cache-age 1d --exclude-all-private --timeout 20 --max-retries 3 'docs/**/*.md' 'README.md' 'CLAUDE.md'
+    fail: false
+    format: markdown
+    output: lychee-output.md
 ```
 
 ---
