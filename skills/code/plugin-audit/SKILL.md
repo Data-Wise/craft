@@ -20,7 +20,7 @@ Two plugins registering the same command or skill name — or near-duplicate con
 ## Inputs
 
 1. **`~/.claude/settings.json`** — `enabledPlugins` object. Keys are `<plugin-name>@<marketplace-name>`; only plugins with a truthy value are actually active.
-2. **`~/.claude/plugins/installed_plugins.json`** (if present) — richer per-plugin metadata (source path, marketplace, version) than `settings.json` alone provides. Treat as supplementary, not required — some installations only have `settings.json`.
+2. **`~/.claude/plugins/installed_plugins.json`** (if present) — richer per-plugin metadata (source path, marketplace, version) than `settings.json` alone provides. Treat as supplementary, not required — some installations only have `settings.json`. **Schema:** `{"version": 2, "plugins": {"<name>@<marketplace>": [{"installPath": "...", "version": "...", ...}]}}` — `.plugins` is an object keyed by `<name>@<marketplace>`, each value an ARRAY of install records (usually one). The on-disk path field is `installPath`, not `path`.
 3. **Each enabled plugin's own directory** — resolve via `installed_plugins.json`'s recorded path, or `~/.claude/plugins/marketplaces/<marketplace>/<plugin>/` / `~/.claude/plugins/repos/...` (layout varies by install method: local marketplace vs. GitHub marketplace vs. Desktop). Within that directory, the actual surface is:
    - `commands/**/*.md` — each file's path (minus the `.md`) becomes a command name, namespaced as `<plugin>:<relative-path-without-ext>` (e.g. `commands/workflow/brainstorm.md` → `<plugin>:workflow:brainstorm`).
    - `skills/**/SKILL.md` — each `SKILL.md`'s parent directory name is the skill name, namespaced the same way.
@@ -35,10 +35,10 @@ Execute these steps in order.
 jq -r '.enabledPlugins | to_entries[] | select(.value == true) | .key' ~/.claude/settings.json
 ```
 
-Cross-reference against `installed_plugins.json` if present, to resolve each plugin's on-disk path:
+Cross-reference against `installed_plugins.json` if present, to resolve each plugin's on-disk path. `.plugins` is keyed by `<name>@<marketplace>` with an array of install records per key — take the first record's `installPath`:
 
 ```bash
-jq -r '.plugins[]? | "\(.name)@\(.marketplace) -> \(.path // "unknown")"' ~/.claude/plugins/installed_plugins.json 2>/dev/null \
+jq -r '.plugins | to_entries[] | "\(.key) -> \(.value[0].installPath // "unknown")"' ~/.claude/plugins/installed_plugins.json 2>/dev/null \
   || echo "(installed_plugins.json not found — resolve paths manually per plugin)"
 ```
 
@@ -62,14 +62,18 @@ Build one flat list per plugin of `<base-name>` entries (the part after the last
 
 ### Step 3: Cross-plugin collision detection
 
-Compare every pair of enabled plugins' base-name lists. Flag two classes of finding:
+Compare every pair of enabled plugins' base-name lists. A raw basename intersection produces a false-positive firehose in practice — generic names (`status`, `init`, `check`, `sync`, `list`) legitimately recur across many unrelated plugins without being duplicates. Apply BOTH of the following filters; report a pair only if at least one fires:
 
-1. **Exact base-name collision** — the same command or skill base name (e.g. `brainstorm`) appears in two or more different plugins. This is the `workflow` vs. `craft:workflow` class: a bare-namespace plugin (`workflow@local-plugins`) and a prefixed one (`craft`) both define `brainstorm`, `refine`, `done`, etc.
-2. **Substring/near-duplicate namespace** — one plugin's namespace is a suffix or prefix of another's own command namespace (e.g. plugin `workflow` vs. plugin `craft`'s `commands/workflow/*` subdirectory) — this is a structural signal even before checking individual command names, since it means an entire plugin may be redundant with a subset of another.
+1. **Breadth threshold (weak signals, need volume):** the pair shares **3 or more** basenames. A single coincidental shared word (e.g. two unrelated plugins both happen to have a `status` command) is NOT reported on its own — it's noise, not signal.
+2. **Structural namespace containment (strong signal, 1 match is enough):** one plugin's own name/namespace (e.g. `workflow`) exactly matches a subdirectory name under another plugin's `commands/` or `skills/` tree (e.g. `craft`'s `commands/workflow/`). This is the actual `workflow@local-plugins` vs. `craft:workflow:*` bug pattern — one plugin's entire top-level surface duplicates a subtree of another — and it's reportable even with just one shared basename, because the containment itself is the finding, not the name overlap.
+
+A single shared basename with NO structural containment relationship is a coincidence, not a collision — do not report it.
 
 ```bash
 # Given two newline-separated basename lists, list1.txt and list2.txt:
 comm -12 <(sort -u list1.txt) <(sort -u list2.txt)
+# Apply the breadth threshold (>=3) OR the structural containment check above
+# before treating the comm -12 output as a reportable finding.
 ```
 
 Run this pairwise across all `C(N, 2)` plugin pairs. For N enabled plugins this is cheap (N is typically under 100).
@@ -113,7 +117,16 @@ To sanity-check this skill's logic without touching real installed plugins, crea
 /tmp/fixture-plugin-b/commands/workflow/brainstorm.md
 ```
 
-Both have base name `brainstorm` — Step 3's `comm -12` on their basename lists should report exactly one collision. This mirrors the real `workflow@local-plugins` vs. `craft` finding from 2026-07-01 without requiring a live plugin install to reproduce.
+Both have base name `brainstorm` — Step 3's `comm -12` on their basename lists finds one shared basename, and `fixture-plugin-b`'s command lives under a `workflow/` subdirectory matching `fixture-plugin-a`'s own name → structural containment fires → **reportable**, even though there's only one shared basename. This mirrors the real `workflow@local-plugins` vs. `craft` finding from 2026-07-01 without requiring a live plugin install to reproduce.
+
+**Negative control (must NOT be flagged):** create two more throwaway directories that each define an unrelated `status` command with no structural relationship:
+
+```text
+/tmp/fixture-plugin-c/commands/status.md
+/tmp/fixture-plugin-d/commands/status.md
+```
+
+One shared basename (`status`), no breadth (<3 shared names), no namespace containment (`status` isn't a subdirectory name in either plugin) → Step 3 must report **zero** collisions for this pair. If a run of this skill flags `fixture-plugin-c` vs. `fixture-plugin-d`, the breadth/containment filters have regressed back to the false-positive firehose this section exists to prevent.
 
 ## Error Recovery
 
