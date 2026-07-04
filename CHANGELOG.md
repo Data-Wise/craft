@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`project-planner` ↔ `plan-orchestrator` trigger collision (A1)** — both skills
+  fired on overlapping phrases ("break down a feature", "create a roadmap", "plan
+  a sprint"), causing non-deterministic routing between a strategy-advice skill
+  and an artifact-generating one. Stripped the colliding phrases from
+  `project-planner`; added `"plan a sprint"` to `plan-orchestrator` to close an
+  orphan-phrase gap the fix would otherwise have left; rewrote `project-planner`'s
+  Example Prompts/When-to-Use sections, which still demonstrated the removed
+  phrasing. Found and fixed via an adversarial `/craft:grill` + code-reviewer pass
+  before merge, not a direct one-line edit.
+- **Docs-deploy live-verify window widened 5min → 15min** — the H1 live-site
+  verification gate (`docs.yml`) failed on its first real release because
+  GitHub Pages' CDN took longer to propagate than the original window
+  anticipated, even though the underlying content was correct within seconds.
+
 ## [2.59.0] - 2026-07-03
 
 ### Added

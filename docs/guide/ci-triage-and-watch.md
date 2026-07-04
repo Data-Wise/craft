@@ -7,7 +7,7 @@
 > - **What:** Two CI commands shipped in v2.37.0 — `/craft:ci:watch` (poll a run, route the next action) and `/craft:ci:triage` (classify a red check, recommend a fix).
 > - **Why:** Turns the manual "is this failure mine or pre-existing?" reasoning from every release into one command, with `file:line` evidence.
 > - **How:** `watch` a PR to completion → it suggests *merge* (green) or hands off to `triage` (red) → triage gives a verdict + recommendation.
-> - **Next:** [CI status dashboard](../commands/ci/status.md) · [code:ci-fix](../commands.md#craftcodeci-fix)
+> - **Next:** [CI status dashboard](../commands/ci/status.md) · [code:ci-fix](../commands/code/ci-fix.md)
 
 Two complementary commands. **`watch` is the poller; `triage` is the analyst.**
 
