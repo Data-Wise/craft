@@ -202,6 +202,15 @@ Use this instead of plain `deploy` for `scholar`-style course sites.
 
 ### update — Post-code-change update
 
+**Dev-branch staleness warning (H3, SPEC-docs-site-hardening-consolidation-2026-07-02):** deploy is `main`-gated (`docs.yml` triggers only on push to `main`). If the current branch is not `main`, warn before making changes:
+
+```text
+⚠️  Changes made now won't reach the live site until the next dev→main release.
+    Preview locally instead: mkdocs serve
+```
+
+This kills the false-green failure mode where `update` reports success locally but the live site never changes.
+
 When code changes and docs may drift, this operation:
 
 1. Detects what changed (git diff vs last deploy tag)
