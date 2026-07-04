@@ -16,8 +16,6 @@ arguments:
   - name: no-docs
     description: "Skip the auto-emitted Documentation section (on by default)"
     required: false
-deprecated: true
-replaced-by: "skills/orchestration/plan-orchestrator/"
 ---
 
 # Feature Planning

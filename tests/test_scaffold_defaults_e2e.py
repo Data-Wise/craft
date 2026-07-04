@@ -33,8 +33,11 @@ def test_scaffold_flag_scope():
 
 
 def test_logic_lives_in_skills_not_deprecated_commands():
-    # the deprecated commands must POINT to the skill, not embed the tier-inference table
-    for rel in ["commands/workflow/brainstorm.md", "commands/plan/feature.md"]:
+    # the deprecated commands must POINT to the skill, not embed the tier-inference table.
+    # plan/feature.md is excluded: it was un-deprecated 2026-07-04 (SPEC-orchestrator-
+    # consolidation-2026-07-04.md D2) after discovering it was never actually a thin
+    # shim — it carries genuine independent feature-planning content, not a redirect.
+    for rel in ["commands/workflow/brainstorm.md"]:
         t = (PLUGIN_DIR / rel).read_text(encoding="utf-8").lower()
         assert "brainstorm-insights" in t or "plan-orchestrator" in t, \
             f"{rel} must point to its skill"

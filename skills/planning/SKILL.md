@@ -19,37 +19,40 @@ Use this skill when:
 
 ## Capabilities
 
-### Feature Planning
+Advisory only — this skill talks through an approach, it never emits the file/backlog
+itself. Hand off to `plan-orchestrator` the moment "advice" becomes "produce the doc."
 
-- User story creation
-- Task breakdown (WBS)
-- Dependency mapping
-- Acceptance criteria definition
-- MVP scoping
+### Feature Planning Strategy
 
-### Estimation
+- How to approach user-story framing
+- How to think about task breakdown (WBS) before committing one to paper
+- How to reason about dependency ordering
+- What makes acceptance criteria testable
+- How to scope an MVP vs. full build
 
-- Effort estimation techniques
-- Complexity assessment
-- Risk-adjusted timelines
-- Capacity planning
-- Velocity tracking
+### Estimation Coaching
 
-### Project Management
+- Effort estimation techniques and their trade-offs
+- How to assess complexity honestly
+- Risk-adjusted timeline reasoning
+- Capacity-planning approaches
+- Reading velocity trends
 
-- Sprint planning
-- Milestone definition
-- Progress tracking
-- Risk identification
-- Stakeholder communication
+### Delivery Management Advice
 
-### Agile Practices
+- Sprint-planning approach and capacity trade-offs
+- Milestone-definition strategy
+- How to track progress without false precision
+- Risk identification frameworks
+- Stakeholder-communication approach
 
-- Scrum ceremonies
-- Kanban workflows
-- Backlog grooming
-- Retrospective facilitation
-- Continuous improvement
+### Agile Coaching
+
+- Scrum ceremony facilitation advice
+- Kanban workflow design
+- Backlog-grooming approach
+- Retrospective facilitation technique
+- Continuous-improvement framing
 
 ## Example Prompts
 
@@ -61,13 +64,18 @@ Use this skill when:
 "How should we estimate this complex feature?"
 ```
 
-## Outputs
+## What This Skill Gives You
 
-- Feature plans with tasks
-- Sprint plans with capacity
-- Project roadmaps
-- Risk assessments
-- Milestone definitions
+Conversational advice and reasoning, not a file:
+
+- A recommended approach to breaking down a feature
+- A recommended sprint-capacity strategy
+- A recommended roadmap/milestone strategy
+- A risk assessment talked through in conversation
+- Milestone-definition guidance
+
+Need the actual artifact instead (a written `SPEC-*.md`, feature breakdown, sprint
+backlog, or roadmap file)? That's `plan-orchestrator`, not this skill.
 
 ## ADHD-Friendly Features
 
@@ -79,9 +87,7 @@ Use this skill when:
 
 ## Integration
 
-Works with:
-
-- `/craft:plan:feature` - Feature planning
-- `/craft:plan:sprint` - Sprint planning
-- `/craft:plan:roadmap` - Roadmap generation
-- `/craft:git:branch` - Create feature branches
+- `plan-orchestrator` — the moment advice needs to become a committed file (feature
+  breakdown, sprint backlog, roadmap, `ORCHESTRATE-*.md`), hand off here. This skill
+  never produces those artifacts itself.
+- `/craft:git:branch` — once a strategy is agreed, create the feature branch to act on it.
