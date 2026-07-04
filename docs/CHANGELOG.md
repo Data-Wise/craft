@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.59.0] - 2026-07-03
+
+### Added
+
+- **Skill count 44 → 45**: `plugin-audit` — diffs installed plugins' command/skill
+  surfaces to flag cross-namespace name collisions (e.g. `workflow` vs.
+  `craft:workflow`). Read-only; reports findings, never disables a plugin.
+  Reworked before merge: fixed a schema mismatch (real `installed_plugins.json`
+  keys plugins by `<name>@<marketplace>` with an array of install records,
+  `installPath` not `path`) and a false-positive collision heuristic (now
+  requires breadth ≥3 shared basenames OR structural namespace containment,
+  instead of flagging any single shared basename). (#237)
+
+### Fixed
+
+- **Docs-site staleness hardening (H1/H2/H3)** — `.github/workflows/docs.yml`
+  now polls the live site post-deploy and asserts the homepage version matches
+  `plugin.json`, failing loudly instead of trusting a successful local
+  `mkdocs gh-deploy` as proof the live site changed. Extended
+  `tests/test_dist_doc_accuracy.py`'s stale-count guard from a 10-file curated
+  dist-doc list to all of `docs/**/*.md`, with an evidence-based exclude list
+  for dated/versioned snapshots and tutorial/example transcripts. `docs:update`
+  and the `site-management` skill's `update` operation now warn when run off
+  `main` that changes won't reach the live site until the next release. (#259)
+
 ## [2.58.0] - 2026-07-02
 
 ### Fixed
