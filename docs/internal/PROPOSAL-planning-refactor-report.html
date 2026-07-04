@@ -1,0 +1,493 @@
+<title>SPEC-B — Planning Refactor Proposal</title>
+<style>
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #11151d;
+      --surface: #171c26;
+      --ink: #e7e9f0;
+      --ink-dim: #a7adbc;
+      --line: #2a3140;
+      --accent: #d79a45;
+      --accent-ink: #1b1206;
+      --ok: #5cb37e;
+      --ok-bg: #16261d;
+      --warn: #d79a45;
+      --warn-bg: #2a2013;
+      --danger: #e0776a;
+      --danger-bg: #2a1917;
+      --code-bg: #1c222e;
+    }
+  }
+  :root {
+    --ground: #f6f7fa;
+    --surface: #ffffff;
+    --ink: #1b2231;
+    --ink-dim: #5b6376;
+    --line: #d7dbe3;
+    --accent: #b8792a;
+    --accent-ink: #ffffff;
+    --ok: #3f8b5c;
+    --ok-bg: #eaf5ee;
+    --warn: #b8792a;
+    --warn-bg: #faf1e2;
+    --danger: #b14638;
+    --danger-bg: #fbeae8;
+    --code-bg: #eef0f4;
+  }
+  :root[data-theme="dark"] {
+    --ground: #11151d;
+    --surface: #171c26;
+    --ink: #e7e9f0;
+    --ink-dim: #a7adbc;
+    --line: #2a3140;
+    --accent: #d79a45;
+    --accent-ink: #1b1206;
+    --ok: #5cb37e;
+    --ok-bg: #16261d;
+    --warn: #d79a45;
+    --warn-bg: #2a2013;
+    --danger: #e0776a;
+    --danger-bg: #2a1917;
+    --code-bg: #1c222e;
+  }
+  :root[data-theme="light"] {
+    --ground: #f6f7fa;
+    --surface: #ffffff;
+    --ink: #1b2231;
+    --ink-dim: #5b6376;
+    --line: #d7dbe3;
+    --accent: #b8792a;
+    --accent-ink: #ffffff;
+    --ok: #3f8b5c;
+    --ok-bg: #eaf5ee;
+    --warn: #b8792a;
+    --warn-bg: #faf1e2;
+    --danger: #b14638;
+    --danger-bg: #fbeae8;
+    --code-bg: #eef0f4;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Charter, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 20px 96px;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Cascadia Mono", monospace;
+  }
+
+  header.doc-head {
+    max-width: 760px;
+    margin: 56px auto 8px;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 18px;
+  }
+
+  .eyebrow .sep { opacity: 0.4; }
+
+  h1 {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+
+  .subhead {
+    font-size: 19px;
+    color: var(--ink-dim);
+    max-width: 62ch;
+    margin: 0 0 28px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    line-height: 1.6;
+  }
+  .pill.ok { background: var(--ok-bg); color: var(--ok); }
+  .pill.warn { background: var(--warn-bg); color: var(--warn); }
+  .pill.danger { background: var(--danger-bg); color: var(--danger); }
+  .pill.neutral { background: var(--code-bg); color: var(--ink-dim); }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  section { margin-top: 56px; }
+
+  .sec-label {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    margin: 0 0 16px;
+    text-wrap: balance;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+  }
+
+  h3 {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 28px 0 10px;
+  }
+
+  p { margin: 0 0 16px; }
+  p.lede { font-size: 19px; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+  code {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    background: var(--code-bg);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin: 20px 0;
+  }
+  .callout.ok { border-left-color: var(--ok); }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .callout-label {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .callout.ok .callout-label { color: var(--ok); }
+  .callout.warn .callout-label { color: var(--warn); }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    background: var(--surface);
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  th {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    background: var(--code-bg);
+    white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: none; }
+  td.id, th.id { font-family: ui-monospace, monospace; font-weight: 700; white-space: nowrap; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    padding: 24px;
+    margin: 20px 0;
+    overflow-x: auto;
+  }
+  .pipeline .row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 640px;
+  }
+  .pipeline .tier {
+    flex: 1;
+    background: var(--code-bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .pipeline .tier.done { border-color: var(--ok); box-shadow: inset 0 0 0 1px var(--ok); }
+  .pipeline .tier.deferred { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); opacity: 0.85; }
+  .pipeline .tier .t-label {
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .pipeline .tier .t-name { font-weight: 700; margin-top: 2px; }
+  .pipeline .arrow { color: var(--ink-dim); font-size: 20px; flex-shrink: 0; }
+  .pipeline .seam-row {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    color: var(--ink-dim);
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+  }
+  .pipeline .exec {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-radius: 6px;
+    padding: 12px 14px;
+    text-align: center;
+    min-width: 640px;
+  }
+  .pipeline .exec .t-label { color: var(--accent-ink); opacity: 0.75; }
+
+  ul.plain { padding-left: 22px; margin: 0 0 16px; }
+  ul.plain li { margin-bottom: 8px; }
+
+  .status-line {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--ink-dim);
+    margin-bottom: 16px;
+  }
+
+  footer {
+    max-width: 760px;
+    margin: 64px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .pipeline .row, .pipeline .exec { min-width: unset; }
+  }
+</style>
+
+<header class="doc-head">
+  <div class="eyebrow">
+    <span>SPEC-B</span><span class="sep">/</span>
+    <span>craft-internal planning refactor</span><span class="sep">/</span>
+    <span>dev</span>
+  </div>
+  <h1>One entry point for planning, one owner per intent</h1>
+  <p class="subhead">A proposal to give craft's five overlapping planning surfaces — brainstorm, spec capture, strategy advice, artifact generation, and execution — unambiguous routing, without pretending this is a bigger cleanup than it is.</p>
+  <span class="pill neutral">Originated 2026-06-22</span>
+  <span class="pill warn">In progress</span>
+  <span class="pill ok">1 of 8 actions shipped</span>
+</header>
+
+<main>
+
+  <section>
+    <div class="sec-label">§0 — The actual problem</div>
+    <h2>Why this exists</h2>
+    <p class="lede">craft grew several "help me plan something" skills over time, and — because Claude Code activates skills by matching conversation phrasing, not by asking intent first — some of them now compete for the same words.</p>
+    <p>An earlier framing of this work claimed a ~20-asset consolidation. That was wrong on two counts: it counted planning that actually belongs to sibling plugins, and its own action list <em>added</em> files rather than removing them. This version is narrower and more honest: it's not about fewer files. It's about <strong>routing disambiguation</strong> — making sure that when someone says "plan a sprint," exactly one skill knows that's its job.</p>
+    <div class="callout">
+      <span class="callout-label">Scope boundary</span>
+      <p>Cross-plugin domain planning was split out to a separate spec (SPEC-A). This proposal covers craft-internal, generic-software planning only.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">§4–5 — Proposed architecture</div>
+    <h2>The pipeline</h2>
+    <p>Two intents live on one axis — <strong>deliberate</strong> vs. <strong>act</strong> — and each tier of deliberation gets exactly one owner:</p>
+
+    <div class="pipeline">
+      <div class="row">
+        <div class="tier done">
+          <div class="t-label">tier 1</div>
+          <div class="t-name">brainstorm</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="tier">
+          <div class="t-label">tier 2</div>
+          <div class="t-name">spec capture</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="tier done">
+          <div class="t-label">tier 3 · strategy</div>
+          <div class="t-name">project-planner</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="tier deferred">
+          <div class="t-label">tier 4 · artifact</div>
+          <div class="t-name">plan-orchestrator</div>
+        </div>
+      </div>
+      <div class="seam-row">↓ one-directional hand-off at the seam ↓</div>
+      <div class="exec">
+        <div class="t-label">tier 5 — execute</div>
+        <div class="t-name">/craft:do → complexity router → command / agent / orchestrator</div>
+      </div>
+    </div>
+
+    <p><code>/craft:plan</code> would own tiers 1–4: it produces a durable <code>SPEC-*.md</code> or <code>ORCHESTRATE-*.md</code> file, then stops. It hands that artifact to <code>/craft:do</code> exactly once, and never the reverse — <code>/do</code> may suggest planning on high-uncertainty intent, but never invokes it. One seam, one direction.</p>
+  </section>
+
+  <section>
+    <div class="sec-label">§1 — Locked decisions</div>
+    <h2>What's already decided</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="id">ID</th><th>Topic</th><th>Decision</th></tr></thead>
+        <tbody>
+          <tr><td class="id">D-router</td><td><code>/do</code> vs <code>/plan</code></td><td>Seam composition — <code>/plan</code> owns tiers 1–4, one-directional hand-off to <code>/do</code> at orchestrate.</td></tr>
+          <tr><td class="id">D-ns</td><td>Namespacing</td><td><code>/craft:plan</code> — never bare <code>/plan</code>, to avoid clashing with Claude Code's native plan mode.</td></tr>
+          <tr><td class="id">D-enf</td><td>Enforcement</td><td>Visibility-only. Any drift guard warns; it never blocks.</td></tr>
+          <tr><td class="id">D-reduce</td><td>Consolidation</td><td>Alias deprecated commands now, hard-delete at v2.50.0 — a real deprecation horizon, not just a label.</td></tr>
+          <tr><td class="id">D-A6</td><td>Superpowers handling</td><td>Document precedence only. No "disable" language — the sibling plugin's manifest is all-or-nothing.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">§3 — Collision register</div>
+    <h2>What's actually colliding</h2>
+    <p>Six trigger-phrase or logic collisions were found. "Resolution" here means <em>surfaced or mitigated</em> — most of these involve a sibling plugin craft can't unilaterally edit, so a warning is the honest ceiling, not a cop-out.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="id">ID</th><th>Collision</th><th>Severity</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="id">C1</td>
+            <td><code>project-planner</code> ↔ <code>plan-orchestrator</code>, both fire on "plan sprint / roadmap / feature"</td>
+            <td><span class="pill danger">High</span></td>
+            <td><span class="pill ok">✓ Resolved 2026-07-03</span></td>
+          </tr>
+          <tr>
+            <td class="id">C2</td>
+            <td>Superpowers <code>brainstorming</code> may hard-gate-preempt craft entirely</td>
+            <td><span class="pill danger">Critical · unverified</span></td>
+            <td><span class="pill neutral">Verify first (A0)</span></td>
+          </tr>
+          <tr>
+            <td class="id">C3</td>
+            <td><code>plan-orchestrator</code> ↔ superpowers <code>writing-plans</code></td>
+            <td><span class="pill warn">Medium</span></td>
+            <td><span class="pill neutral">Documented only</span></td>
+          </tr>
+          <tr>
+            <td class="id">C4</td>
+            <td>craft's own session-resume logic ↔ superpowers <code>executing-plans</code></td>
+            <td><span class="pill warn">Medium</span></td>
+            <td><span class="pill neutral">Documented only</span></td>
+          </tr>
+          <tr>
+            <td class="id">C5</td>
+            <td>User-level rule files detached from craft's own logic</td>
+            <td><span class="pill neutral">Low–Med</span></td>
+            <td><span class="pill neutral">Planned (A5)</span></td>
+          </tr>
+          <tr>
+            <td class="id">C6</td>
+            <td>Deprecated command bodies still parsed by discovery</td>
+            <td><span class="pill neutral">Low</span></td>
+            <td><span class="pill warn">In progress (A3)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">§6 — Action list</div>
+    <h2>Where each item stands</h2>
+
+    <div class="callout ok">
+      <span class="callout-label">A1 · Shipped 2026-07-03</span>
+      <p>Tightened <code>project-planner</code> to strategy-only trigger phrases. Grilling this before implementation caught two gaps the one-line plan missed: an orphaned trigger phrase left with nowhere to route, and the skill's own example prompts still teaching the exact ambiguous wording being removed. Both fixed.</p>
+    </div>
+
+    <div class="callout warn">
+      <span class="callout-label">A2 · Grilled 2026-07-04, deferred</span>
+      <p>The proposed <code>/craft:plan</code> dispatcher is scoped and ready — a pure router using deterministic file-existence checks (does a SPEC exist? a GRILL? an ORCHESTRATE?), deliberately <em>not</em> phrase matching, which is what caused C1 in the first place. But it now sits behind A3: a bare dispatcher next to still-full-length deprecated subcommands under the same path would just create new confusion. No user has hit this friction yet either. Recommendation: hold.</p>
+    </div>
+
+    <h3>Next up — A3</h3>
+    <p><code>commands/plan/sprint.md</code> and <code>roadmap.md</code> are flagged deprecated but are still 108 and 116 lines respectively — full implementations, not the thin alias stubs the deprecation model calls for. <code>feature.md</code> turned out not to be deprecated at all (it's active, gained a <code>--refine</code> flag since this spec was written) and needs no action. Shrinking the two real stubs is what unblocks A2.</p>
+
+    <h3>Remaining, not started</h3>
+    <ul class="plain">
+      <li><strong>A4</strong> — originally a bespoke drift-guard skill; superseded by <code>plugin-audit</code>, which already shipped for a different reason. Two scope gaps remain: it can't see collisions <em>inside</em> one plugin, or between a plugin skill and a user-level rule file.</li>
+      <li><strong>A5</strong> — fold neutral user-rule logic (not domain-specific) into craft's own skills, closing one of A4's gaps as a side effect.</li>
+      <li><strong>A6</strong> — write down superpowers precedence; never attempt to disable a sibling plugin's skill.</li>
+      <li><strong>A7</strong> — audit sibling plugins under the separate cross-plugin spec.</li>
+      <li><strong>A8</strong> — behavioral tests + the documentation/count cascade, once the shape above is final.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-label">Recommendation</div>
+    <h2>What to do next</h2>
+    <p class="lede">Finish A3 before touching A2. It's small, unblocked, and already fully scoped — and it clears the one real objection standing between the current state and shipping the dispatcher.</p>
+    <p>Beyond that: A0 (verifying whether superpowers actually preempts craft) is the one open question that could shrink this whole spec — if it turns out there's no real preemption, A4's guard and most of the superpowers documentation work drop out entirely. It's read-only and runnable today.</p>
+  </section>
+
+</main>
+
+<footer>
+  Source: docs/specs/SPEC-planning-refactor-2026-06-22.md · Grill ledgers: GRILL-planning-refactor-a2-2026-07-04.md · Generated as a working proposal, not a replacement for the spec.
+</footer>
