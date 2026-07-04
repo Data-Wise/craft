@@ -1,6 +1,6 @@
 ---
 name: plan-orchestrator
-description: This skill should be used when the user asks to "generate an ORCHESTRATE file", "turn a spec into a plan", "scaffold a feature breakdown", "scaffold a sprint backlog", "generate roadmap artifacts", "create an implementation plan from SPEC", or needs to produce concrete planning artifacts (ORCHESTRATE-*.md, feature breakdowns with task estimates, sprint backlogs, milestone roadmaps). Differs from `project-planner` (high-level strategy/advice) by producing committed, actionable artifacts tied to specs and worktrees.
+description: This skill should be used when the user asks to "generate an ORCHESTRATE file", "turn a spec into a plan", "scaffold a feature breakdown", "scaffold a sprint backlog", "plan a sprint" (when a committed backlog/artifact is wanted, not just strategy advice), "generate roadmap artifacts", "create an implementation plan from SPEC", or needs to produce concrete planning artifacts (ORCHESTRATE-*.md, feature breakdowns with task estimates, sprint backlogs, milestone roadmaps). Differs from `project-planner` (high-level strategy/advice) by producing committed, actionable artifacts tied to specs and worktrees.
 category: orchestration
 ---
 

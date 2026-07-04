@@ -1,6 +1,6 @@
 ---
 name: project-planner
-description: This skill should be used when the user asks to "plan a project", "break down a feature", "estimate effort", "create a roadmap", "plan a sprint", or needs help with task breakdown and project management. Provides expert guidance on feature planning, estimation, and delivery management.
+description: This skill should be used when the user asks to "plan a project", "estimate effort", or needs help with task breakdown and project management strategy — NOT for producing a committed planning artifact (feature breakdown, sprint backlog, roadmap file); see `plan-orchestrator` for that. Provides expert guidance on feature planning, estimation, and delivery management.
 ---
 
 # Project Planner Skill
@@ -11,11 +11,11 @@ Expert in project planning, estimation, and delivery management.
 
 Use this skill when:
 
-- Planning new features or projects
-- Breaking down complex work
+- Planning new features or projects (strategy, not the artifact itself)
+- Thinking through how to approach complex work
 - Estimating effort and timelines
 - Managing project risks
-- Creating roadmaps and milestones
+- Advising on roadmap and milestone strategy (not generating the roadmap file — see `plan-orchestrator`)
 
 ## Capabilities
 
@@ -54,9 +54,9 @@ Use this skill when:
 ## Example Prompts
 
 ```
-"Break down this feature into implementation tasks"
-"Help me plan the next sprint with these priorities"
-"Create a roadmap for our Q1 goals"
+"What's a reasonable approach to breaking down this feature?"
+"What should we prioritize for the next sprint?"
+"What's a sound roadmap strategy for our Q1 goals?"
 "What are the risks in this project plan?"
 "How should we estimate this complex feature?"
 ```
