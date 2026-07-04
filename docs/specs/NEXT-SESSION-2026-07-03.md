@@ -1,5 +1,16 @@
 # NEXT-SESSION Plan — 2026-07-03
 
+> **SUPERSEDED 2026-07-04.** Everything below is now stale or resolved:
+> **A1** shipped (`12f50b4b`, 2026-07-03). **A2** was grilled 2026-07-04
+> (`GRILL-planning-refactor-a2-2026-07-04.md`) and **deferred** — not "unchanged,
+> still needed" as this doc's item #2 says; it's now sequenced after A3, with
+> no concrete friction case yet. Per user direction, the **entire
+> SPEC-planning-refactor-2026-06-22.md thread is paused**, folded into a future
+> larger renaming + hardening + refactoring effort (scope not yet defined) — do
+> NOT resume A3/A5-A8 standalone from this doc. See `.STATUS` (`PAUSED
+> 2026-07-04` entry) and `docs/internal/PROPOSAL-planning-refactor-report.html`
+> for current state. Kept below for historical record only.
+
 Handoff for the next Claude Code session. Entry point + pending work after
 the planning-asset-audit sync-check this session.
 
