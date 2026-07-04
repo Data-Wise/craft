@@ -50,7 +50,7 @@ This spec is honest about both.
 
 | # | Collision | Sources | Severity | Disposition |
 |---|---|---|---|---|
-| C1 | `project-planner` ↔ `plan-orchestrator` both fire on 'plan sprint/roadmap/feature' | craft-internal | HIGH | **A1** strip artifact verbs from project-planner (genuinely resolvable — craft owns both) |
+| C1 | `project-planner` ↔ `plan-orchestrator` both fire on 'plan sprint/roadmap/feature' | craft-internal | HIGH | ✅ **RESOLVED 2026-07-03** (`12f50b4b`) — A1 shipped, expanded in scope after adversarial review: stripped artifact verbs from project-planner + added "plan a sprint" to plan-orchestrator (closing an orphan-phrase gap the original A1 text didn't cover) + rewrote project-planner's Example Prompts/When-to-Use (closing a body/frontmatter drift gap a code-reviewer pass found) |
 | C2 | superpowers `brainstorming` HARD-GATE preempts craft | cross | **CRITICAL (unverified)** | **A0** verify first; if real → **surfaced** by A4 visibility guard (warn, not block) |
 | C3 | `plan-orchestrator` ↔ superpowers `writing-plans` | cross | MED | **documented** (A6) — craft cannot disable a sibling skill |
 | C4 | `orchestrate:resume`+`session-state` ↔ superpowers `executing-plans` | cross | MED | **documented** (A6) |
@@ -216,7 +216,7 @@ in A6 to treat that superpowers skill as redundant, not just "additive."
 
 | # | Original plan | Revision |
 |---|---|---|
-| **A1** | Tighten `project-planner` triggers | **Unchanged — still needed.** Confirmed live via direct read, zero drift. |
+| **A1** | Tighten `project-planner` triggers | ✅ **DONE 2026-07-03** (`12f50b4b`). Shipped via `/craft:grill` adversarial pass, not a straight implementation of the original text — see §12. |
 | **A2** | New `/plan` dispatcher command | **Unchanged — still needed.** `orchestrate-dispatch` solves a different problem (parallel-agent fan-out); does not touch the C1 trigger-routing question. |
 | **A3** | Convert deprecated `plan/*` bodies to alias stubs | **Partially done, finish it.** `sprint.md`/`roadmap.md` are correctly flagged deprecated but still full-length (108/116 lines) — shrink to real thin stubs. `feature.md` is NOT deprecated; leave as-is, drop from this action. `orchestrate/resume.md` — no action needed, already deleted (#239), and its removal closes the superpowers-`executing-plans` half of C4 for free. |
 | **A4** | Bespoke drift-guard skill | **Replaced.** Don't build new tooling — run the existing `plugin-audit` skill, then handle its two scope gaps directly: (a) add an intra-plugin check for craft's own skills (folds into A1's fix), (b) fold `brainstorm-mode.md` logic into the real `skills/workflow/brainstorm` skill per A5, so the superpowers `brainstorming` vs. craft `brainstorm` collision becomes visible to `plugin-audit` the next time it runs. |
@@ -229,3 +229,26 @@ collisions between a plugin skill and a `~/.claude/rules/*` user rule, or collis
 between two skills inside the *same* plugin. Both gaps intersect this spec's open
 work (C1, C2). Resolution: A1 + A5 close both gaps as a side effect — no new tooling
 required beyond what's already shipped.
+
+## 12. A1 implementation — grill findings (2026-07-03)
+
+A1 was implemented via `/craft:grill` (adversarial interrogation), not a direct application of
+this document's original one-line description ("strip artifact verbs from project-planner").
+The grill expanded scope by two findings neither this spec's §3/§6 text anticipated:
+
+1. **Orphan-phrase risk.** `plan-orchestrator`'s existing trigger phrasing
+   ("scaffold a sprint backlog") doesn't obviously cover the bare, generic phrase
+   `"plan a sprint"` being removed from `project-planner` — an LLM-based trigger match on
+   a generic phrase against a specific artifact-signaling phrase is not guaranteed. Fix:
+   added `"plan a sprint"` explicitly to `plan-orchestrator`'s own description.
+2. **Body/frontmatter drift** (found by a `feature-dev:code-reviewer` agent pass, confidence
+   85). `project-planner`'s own "Example Prompts" and "When to Use" sections still
+   demonstrated the exact phrases being stripped from its frontmatter trigger description.
+   Shipping only the frontmatter edit would have left the skill's own body teaching users
+   the ambiguous phrasing the fix was meant to eliminate. Fix: rewrote both sections to
+   strategy-flavored equivalents.
+
+**Takeaway for future A-items in this spec:** a one-line action-list description is not
+sufficient scope for a skill-trigger edit — check the skill's own body for drift, and check
+the sibling skill's trigger coverage for gaps, before considering the fix complete. Verified
+via `scripts/skill_standards_audit.py` (clean) and the full test suite (2713 passed, 0 failed).
