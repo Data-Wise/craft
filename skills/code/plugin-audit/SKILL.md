@@ -110,14 +110,14 @@ If zero collisions: report a clean audit explicitly (don't stay silent — silen
 
 ## Detecting the target class on a synthetic fixture
 
-To sanity-check this skill's logic without touching real installed plugins, create two throwaway directories:
+To sanity-check this skill's logic without touching real installed plugins, create two throwaway directories — note the first plugin **must be named `workflow`** (not a generic placeholder) for the containment check below to actually apply, since containment compares a plugin's own directory/basename against the other plugin's subdirectory names:
 
 ```text
-/tmp/fixture-plugin-a/commands/brainstorm.md
-/tmp/fixture-plugin-b/commands/workflow/brainstorm.md
+/tmp/workflow/commands/brainstorm.md
+/tmp/fixture-plugin-craft/commands/workflow/brainstorm.md
 ```
 
-Both have base name `brainstorm` — Step 3's `comm -12` on their basename lists finds one shared basename, and `fixture-plugin-b`'s command lives under a `workflow/` subdirectory matching `fixture-plugin-a`'s own name → structural containment fires → **reportable**, even though there's only one shared basename. This mirrors the real `workflow@local-plugins` vs. `craft` finding from 2026-07-01 without requiring a live plugin install to reproduce.
+Both have base name `brainstorm` — Step 3's `comm -12` on their basename lists finds one shared basename, and `fixture-plugin-craft`'s command lives under a `workflow/` subdirectory matching the first plugin's own name (`workflow`) → structural containment fires → **reportable**, even though there's only one shared basename. This mirrors the real `workflow@local-plugins` vs. `craft` finding from 2026-07-01 without requiring a live plugin install to reproduce.
 
 **Negative control (must NOT be flagged):** create two more throwaway directories that each define an unrelated `status` command with no structural relationship:
 
