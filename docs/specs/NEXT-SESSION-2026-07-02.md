@@ -96,17 +96,26 @@ session's close.
   needed beyond the doc note; each new machine needs the one-line workaround
   applied manually until Anthropic ships a fix upstream.
 
-### 4. Cleanup (`/craft:git:clean`) — reverified 2026-07-04, list narrowed
+### 4. Cleanup (`/craft:git:clean`) — DONE 2026-07-04 (worktrees + 7 branches); 16 more to audit
 
-Still present as of 2026-07-04: `epic-chaum-8ec54d`, `quirky-swirles-9c9291`,
-`trusting-heyrovsky-4e591c` (all detached HEAD, `~/.git-worktrees/craft/`).
-`agitated-pasteur` and `flamboyant-visvesvaraya` are gone (already cleaned since
-this doc was written). `feature/plugin-audit-skill`'s worktree is also gone —
-**not because it was cleaned, but because #237 MERGED** (2026-07-04, `c1643af4`,
-see item #5 below) and its worktree was removed as part of that merge, not orphan
-cleanup. Still run `/craft:git:clean` for the 3 remaining detached-HEAD worktrees
-and the merged `feature/*` branch refs (squash-merged → safe-delete fails,
-branch-guard blocks `-D`; confirm via `git cherry`).
+**Resolved 2026-07-04:** the 3 detached-HEAD worktrees (`epic-chaum-8ec54d`,
+`quirky-swirles-9c9291`, `trusting-heyrovsky-4e591c`) were removed and their
+7 corresponding `claude/*`/`feature/*` branches force-deleted, each verified
+squash-merged by matching its HEAD commit subject against `dev`'s log
+(PRs #247 through #250, plus 2 plain-merged + `feature/drop-zod-dep` from #257).
+`branch-guard` briefly muted 30min via `/craft:git:guard disable branch-guard`
+for the force-deletes, then re-armed immediately after. `git branch --merged
+dev` now shows only `dev`/`main`.
+
+**Next: 16 more local `feature/*` branches, NOT yet audited** — `governance-*`
+(6), `check-skill-standards-gate`, `cleanup-stray-orchestrate`,
+`flaky-perf-xfail`, `grill-command`, `homebrew-dist-gates`,
+`insights-session-hook`, `mcp-ci-release`, `multi-surface-release`,
+`release-multisurface`, `skill-standards-check`, `pr-139-merge`. None show in
+`--merged dev` (squash-merge hides them there too), but several plausibly map to
+already-shipped milestones (see `.STATUS` backlog note captured 2026-07-04 for
+the full reasoning + verification method). Check each via `git log dev --oneline
+--grep="<branch HEAD commit subject>"` before the next `/craft:git:clean` pass.
 
 ### 5. Held / backlog
 
