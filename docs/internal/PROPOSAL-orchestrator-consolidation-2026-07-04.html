@@ -1,0 +1,536 @@
+<title>SPEC-C — Orchestrator Consolidation</title>
+<style>
+  :root {
+    --ground: #f3f5f6;
+    --surface: #ffffff;
+    --surface-2: #eceef0;
+    --ink: #1b2430;
+    --ink-dim: #57626d;
+    --line: #d8dee2;
+    --accent: #2f7d78;
+    --accent-ink: #ffffff;
+    --accent-wash: #e4f0ef;
+    --ok: #3f8b5c;
+    --ok-bg: #e9f4ee;
+    --warn: #b8792a;
+    --warn-bg: #f9f0e1;
+    --danger: #b1453a;
+    --danger-bg: #f8e9e7;
+    --code-bg: #eaeef0;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Menlo", "Consolas", monospace;
+    --serif: Charter, "Iowan Old Style", "Palatino Linotype", "Georgia", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #11161a;
+      --surface: #171e23;
+      --surface-2: #1c242a;
+      --ink: #e6ebee;
+      --ink-dim: #9aa7ae;
+      --line: #2a353c;
+      --accent: #5db6ae;
+      --accent-ink: #08211e;
+      --accent-wash: #17302e;
+      --ok: #6fbb8b;
+      --ok-bg: #17281e;
+      --warn: #d79a4f;
+      --warn-bg: #2c2313;
+      --danger: #d68178;
+      --danger-bg: #2c1917;
+      --code-bg: #1d262c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #11161a; --surface: #171e23; --surface-2: #1c242a;
+    --ink: #e6ebee; --ink-dim: #9aa7ae; --line: #2a353c;
+    --accent: #5db6ae; --accent-ink: #08211e; --accent-wash: #17302e;
+    --ok: #6fbb8b; --ok-bg: #17281e; --warn: #d79a4f; --warn-bg: #2c2313;
+    --danger: #d68178; --danger-bg: #2c1917; --code-bg: #1d262c;
+  }
+  :root[data-theme="light"] {
+    --ground: #f3f5f6; --surface: #ffffff; --surface-2: #eceef0;
+    --ink: #1b2430; --ink-dim: #57626d; --line: #d8dee2;
+    --accent: #2f7d78; --accent-ink: #ffffff; --accent-wash: #e4f0ef;
+    --ok: #3f8b5c; --ok-bg: #e9f4ee; --warn: #b8792a; --warn-bg: #f9f0e1;
+    --danger: #b1453a; --danger-bg: #f8e9e7; --code-bg: #eaeef0;
+  }
+
+  * { box-sizing: border-box; }
+  html { scrollbar-gutter: stable; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.62;
+  }
+  ::selection { background: var(--accent-wash); color: var(--ink); }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px;
+  }
+
+  code, .mono {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    background: var(--code-bg);
+    padding: 0.1em 0.38em;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 24px 28px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: baseline;
+    margin-bottom: 16px;
+  }
+  .eyebrow .sep { opacity: 0.4; }
+  h1 {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: clamp(26px, 3.6vw, 36px);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin: 0 0 14px;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  .lede {
+    font-family: var(--serif);
+    font-size: 19px;
+    color: var(--ink-dim);
+    max-width: 62ch;
+    margin: 0 0 18px;
+  }
+  .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 4px 11px;
+    border-radius: 999px;
+    line-height: 1.5;
+  }
+  .pill.neutral { background: var(--surface-2); color: var(--ink-dim); }
+  .pill.ok { background: var(--ok-bg); color: var(--ok); }
+  .pill.warn { background: var(--warn-bg); color: var(--warn); }
+  .pill.accent { background: var(--accent-wash); color: var(--accent); }
+
+  .absorbs {
+    margin-top: 22px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    font-size: 15px;
+    color: var(--ink-dim);
+  }
+  .absorbs strong { color: var(--ink); }
+
+  /* ---------- Layout: rail + column ---------- */
+  .layout {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  @media (min-width: 980px) {
+    .layout {
+      max-width: 1180px;
+      grid-template-columns: 200px minmax(0, 700px);
+      gap: 56px;
+      align-items: start;
+    }
+  }
+
+  nav.toc {
+    position: sticky;
+    top: 32px;
+    display: none;
+    font-family: var(--mono);
+    font-size: 12.5px;
+  }
+  @media (min-width: 980px) { nav.toc { display: block; } }
+  nav.toc .toc-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-dim);
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+  nav.toc a {
+    color: var(--ink-dim);
+    text-decoration: none;
+    display: block;
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+  }
+  nav.toc a:hover { color: var(--accent); border-left-color: var(--accent); }
+
+  main { min-width: 0; }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    margin: 52px 0 6px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+    text-wrap: balance;
+    scroll-margin-top: 24px;
+  }
+  h2 .num { color: var(--accent); margin-right: 10px; }
+  h3 {
+    font-family: var(--mono);
+    font-size: 15.5px;
+    font-weight: 700;
+    margin: 30px 0 10px;
+    color: var(--ink);
+    scroll-margin-top: 24px;
+  }
+  h4 {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 22px 0 8px;
+    color: var(--ink-dim);
+  }
+
+  p { margin: 0 0 16px; max-width: 66ch; }
+  ul, ol { margin: 0 0 16px; padding-left: 1.3em; }
+  li { margin-bottom: 7px; max-width: 64ch; }
+  li::marker { color: var(--ink-dim); }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Tables ---------- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; margin: 18px 0 24px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; background: var(--surface); }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--ink-dim); background: var(--surface-2); white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: none; }
+  td.tag, th.tag { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
+  td code { white-space: normal; }
+
+  /* ---------- Callouts ---------- */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--ink-dim);
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 15.5px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout .callout-label {
+    font-family: var(--mono); font-size: 11.5px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; display: block; margin-bottom: 8px;
+  }
+  .callout.decision { border-left-color: var(--accent); }
+  .callout.decision .callout-label { color: var(--accent); }
+  .callout.keep { border-left-color: var(--ok); }
+  .callout.keep .callout-label { color: var(--ok); }
+  .callout.drop { border-left-color: var(--danger); }
+  .callout.drop .callout-label { color: var(--danger); }
+  .callout.escalate { border-left-color: var(--warn); }
+  .callout.escalate .callout-label { color: var(--warn); }
+
+  .kv { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 13px; color: var(--ink-dim); margin: 8px 0 22px; }
+  .kv b { color: var(--ink); font-weight: 600; }
+
+  hr.div { border: none; border-top: 1px solid var(--line); margin: 40px 0; }
+
+  footer {
+    max-width: 700px;
+    margin: 40px auto 0;
+    padding: 24px 0 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+  @media (min-width: 980px) { footer { margin-left: 256px; } }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    .masthead { padding: 32px 18px 20px; }
+    .layout { padding: 0 18px 64px; }
+  }
+</style>
+
+<div class="masthead">
+  <div class="eyebrow">
+    <span>SPEC-C</span><span class="sep">/</span>
+    <span>craft-internal orchestrator consolidation</span><span class="sep">/</span>
+    <span>dev</span>
+  </div>
+  <h1>Orchestrator Consolidation &amp; Platform-Grounding</h1>
+  <p class="lede">Scoping the "future larger effort" that <code>SPEC-planning-refactor-2026-06-22</code> was paused into — four research tracks, one combined decision set.</p>
+  <div class="pillrow">
+    <span class="pill accent">Repo: craft</span>
+    <span class="pill neutral">Date: 2026-07-04</span>
+    <span class="pill warn">Scoped, not implemented</span>
+    <span class="pill ok">4 research tracks</span>
+  </div>
+  <div class="absorbs">
+    <strong>Absorbs two open threads:</strong> <code>SPEC-planning-refactor-2026-06-22.md</code> A2–A8 (flag/boundary consolidation) and the <code>.STATUS</code> 2026-07-04 backlog entry on stray/leaking background agents (dispatch safety). Both close into this spec rather than staying separate.
+  </div>
+</div>
+
+<div class="layout">
+  <nav class="toc" aria-label="Section navigation">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#s0">0 · Objective</a></li>
+      <li><a href="#s1">1 · Flags &amp; boundaries</a></li>
+      <li><a href="#s2">2 · Dispatch reliability</a></li>
+      <li><a href="#s3">3 · Platform grounding</a></li>
+      <li><a href="#s4">4 · Token-savings audit</a></li>
+      <li><a href="#s5">5 · Decision summary</a></li>
+      <li><a href="#s6">6 · Files touched</a></li>
+      <li><a href="#s7">7 · Non-goals</a></li>
+      <li><a href="#s8">8 · Sequencing</a></li>
+      <li><a href="#s9">9 · .STATUS ref</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <h2 id="s0"><span class="num">0</span>Objective</h2>
+    <p>Two problems, scoped together because they share root cause and files:</p>
+    <ol>
+      <li><strong>Boundary clarity</strong> — the <code>/craft:plan</code>-family (do / orchestrate / plan:*) commands and skills have drifted flags and responsibilities since the planning-refactor spec was written; give them one predictable entry point and unambiguous per-intent ownership.</li>
+      <li><strong>Dispatch safety</strong> — craft's bespoke <code>orchestrate-dispatch</code> background-agent mode was built on an unvalidated token-savings premise, using a mechanism (manual backgrounding) the platform has since made a default, with a safety net (concurrency cap, hang detection) that turns out to be non-enforcing prose. Right-size it against what the platform actually provides today.</li>
+    </ol>
+    <p>Both are informed by four research tracks run 2026-07-04 (§1–§4), combined into one action list (§5).</p>
+
+    <h2 id="s1"><span class="num">1</span>Flags &amp; Boundaries Audit</h2>
+    <p>Builds on the planning-refactor spec's own decision ledger and C1–C7 collision register — extends it with what changed or was missed since.</p>
+
+    <h3>1.1 Flag inventory &amp; conflicts</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Command / skill</th><th>Flags it owns</th></tr></thead>
+        <tbody>
+          <tr><td class="tag"><code>do</code></td><td><code>task</code>, <code>--dry-run</code>/<code>-n</code>, <code>--orch</code>, <code>--orch-mode</code>, <code>--refine</code> (default <strong>ON</strong>)/<code>--no-refine</code>, <code>--brief</code></td></tr>
+          <tr><td class="tag"><code>orchestrate</code></td><td><code>task</code>, positional <code>mode</code>, <code>--dry-run</code>/<code>-n</code>, <code>--swarm</code>, <code>--refine</code> (default <strong>OFF</strong>), <code>--engine</code>, <code>--no-clarify</code>, <code>--yes</code>/<code>--non-interactive</code></td></tr>
+          <tr><td class="tag"><code>orchestrate/drive</code></td><td><code>spec</code>, <code>-n</code>, <code>--yes</code>/<code>-y</code>, <code>--max-turns</code>, <code>--no-auto</code>, <code>--agents</code>, <code>--condition</code></td></tr>
+          <tr><td class="tag"><code>orchestrate/workflow</code></td><td><code>workflow</code>, <code>-n</code>, <code>--resume</code>, <code>--refine</code> (default <strong>OFF</strong>)</td></tr>
+          <tr><td class="tag"><code>orchestrate/plan</code></td><td><code>spec-path</code>, <code>--output</code></td></tr>
+          <tr><td class="tag"><code>grill</code></td><td><code>target</code>, <code>--bound</code>, <code>--no-capture</code>, <code>--yes</code>, <code>--refine</code> (ON, topic-scoped)</td></tr>
+          <tr><td class="tag"><code>plan/feature</code></td><td><code>--refine</code> (ON), <code>--no-tests</code>, <code>--no-docs</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><strong>Conflicts found</strong> (new, beyond C1–C7):</p>
+    <ol>
+      <li><strong><code>--refine</code> default is genuinely inconsistent</strong> — ON for <code>do</code>/<code>grill</code>/<code>plan:feature</code>, OFF for <code>orchestrate</code>/<code>workflow</code>. Same flag name, opposite default, no documented rule for why.</li>
+      <li><code>--yes</code> is used in <code>do.md</code>'s body (L48-49) but never declared in its frontmatter.</li>
+      <li><code>--plan</code> on <code>/do</code> is spec'd (planning-refactor §4 rule 4: <em>"<code>/do --plan X</code> is pure sugar forwarding to <code>/craft:plan X</code>"</em>) but <strong>unimplemented</strong> — no such arg exists in <code>commands/do.md</code> today.</li>
+      <li><code>mode</code> is positional on <code>orchestrate</code> but <code>--orch-mode</code> is a flag on <code>do</code> — three spellings of the same 4-value enum (<code>default</code>/<code>debug</code>/<code>optimize</code>/<code>release</code>) across <code>do</code>, <code>orchestrate</code>, and <code>CLAUDE.md</code>'s own table.</li>
+    </ol>
+
+    <h3>1.2 Boundary map</h3>
+    <p>Clean separations confirmed: brainstorm (divergent → SPEC), grill (convergent → GRILL ledger), plan-orchestrator (committed artifacts), the drive/workflow engines. <strong>Two real bleeds found:</strong></p>
+    <ul>
+      <li><strong>project-planner bleeds into plan-orchestrator</strong> — see 1.3, C1-residual.</li>
+      <li><strong>Intent classification has two owners</strong> — <code>task-analyzer</code> claims activation "when the user invokes /craft:do" and owns Workflow Selection, while <code>do.md</code> independently hardcodes the same category/complexity tables inline. They can drift from each other with no shared source.</li>
+    </ul>
+
+    <h3>1.3 New findings beyond C1–C7</h3>
+
+    <div class="callout">
+      <span class="callout-label">C1-residual — the strongest finding</span>
+      <p>The planning-refactor spec marks C1 "✅ RESOLVED 2026-07-03." True only for <code>skills/planning/SKILL.md</code>'s frontmatter description. Its <strong>body</strong> — Capabilities (L22-52), Outputs (L64-71), Integration (L80-87) — still teaches artifact-production language A1 was supposed to strip. The exact body/frontmatter-drift class that spec's own §12 takeaway warned future items to check for, reintroduced in the very next skill.</p>
+    </div>
+
+    <ul>
+      <li><strong>C2-new:</strong> the verify-gate detection table is triplicated verbatim across <code>drive-engine:34-40</code>, <code>workflow-engine:103-109</code>, <code>plan-orchestrator:207-215</code>.</li>
+      <li><strong>C3-new:</strong> <code>session-state</code> documents resume/archive/history contracts for <code>orchestrate:resume</code>, but that command was deleted in #239 — an under-exposed capability or dead documentation surface.</li>
+      <li><strong>C4-new — a live three-way contradiction:</strong> <code>commands/plan/feature.md:19-20</code> carries <code>deprecated: true</code> continuously since 2026-05-14. Since then it gained active features (#215's <code>--refine</code>, #216's scaffolding defaults). Tests enforce it as live (<code>test_craft_plugin.py:583</code>, <code>test_plugin_dogfood.py:426</code>, <code>test_scaffold_defaults_e2e.py:17</code>). And the planning-refactor spec's §11 declared it "NOT deprecated" — wrong; the flag is still literally present. Three sources disagree with each other and with the file itself.</li>
+      <li><strong>C5-new:</strong> <code>plan/sprint.md</code> (108 lines) / <code>plan/roadmap.md</code> (116 lines) are still full-length bodies, not thin alias stubs — A3 remains unfinished.</li>
+      <li><strong>C6-new:</strong> the 4-value mode enum is duplicated across <code>do</code>, <code>orchestrate</code>, and <code>CLAUDE.md</code>, not sourced from a single <code>skills/modes</code> reference.</li>
+    </ul>
+
+    <h3>1.4 Proposed refactoring</h3>
+    <p>Net-neutral-to-reducing, per this spec family's own honesty convention — the original spec's §0 explicitly rejected "consolidate for its own sake."</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="tag">#</th><th>Action</th><th>Resolves</th></tr></thead>
+        <tbody>
+          <tr><td class="tag">D3</td><td>Fix project-planner's <strong>body</strong> to strategy-only language, mirroring A1's frontmatter fix</td><td>C1-residual</td></tr>
+          <tr><td class="tag">D2</td><td>Resolve the <code>plan/feature.md</code> contradiction — recommend <strong>un-deprecating</strong> (cheaper than editing 3 test files)</td><td>C4-new</td></tr>
+          <tr><td class="tag">D1a</td><td>Finish A3: shrink sprint/roadmap to real thin stubs</td><td>C5-new</td></tr>
+          <tr><td class="tag">D1b</td><td>Land A2 (<code>/craft:plan</code> deterministic router) — only after D1a</td><td>paused A2</td></tr>
+          <tr><td class="tag">D4</td><td>Consolidate the triplicated verify-gate table into one shared reference</td><td>C2-new</td></tr>
+          <tr><td class="tag">D6</td><td>Normalize <code>--refine</code>: ON for deliberation-entry, OFF for execution engines — state once</td><td>Conflict 1</td></tr>
+          <tr><td class="tag">D5</td><td>Collapse <code>do.md</code> ↔ <code>task-analyzer</code> dual intent-routing ownership</td><td>1.2 bleed</td></tr>
+          <tr><td class="tag">D7</td><td>Set a new, concrete deprecation horizon — v2.50.0 already passed at v2.59.0</td><td>C5-new follow-through</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Net effect:</strong> +1 command initially; −2 files at D7's horizon, −2 duplicated tables at D4 — nets to reduction, unlike the original action list.</p>
+    <div class="kv"><b>Order:</b>&nbsp;D3 → D2 → D1a → D4/D6 → D5 → D1b → D7</div>
+
+    <h2 id="s2"><span class="num">2</span>Orchestrate-Dispatch Reliability Audit</h2>
+
+    <h3>2.1 Mechanism as designed</h3>
+    <p><code>orchestrate-dispatch</code> is the third <code>output</code> value of Mode 1 (Spec → ORCHESTRATE), added #240/v2.57.0. Flow: GRILL-file precondition (warn-only) → confirm-before-dispatch <code>AskUserQuestion</code> gate, unconditional even under <code>--yes</code> → dispatch a background <code>Agent</code> with a fixed self-containment prompt: <em>"Read <code>ORCHESTRATE-&lt;topic&gt;.md</code> in full, then execute it."</em> — no other context.</p>
+
+    <p><strong>Caps/timeouts today — all prose-level, none executable:</strong></p>
+    <ul>
+      <li><strong>Concurrency cap:</strong> soft cap of 2 concurrent dispatches per session — an in-context tally the LLM maintains, not a system-enforced semaphore.</li>
+      <li><strong>Hang-detection window:</strong> 2 × the ORCHESTRATE file's own stated phase-effort estimate — no fixed constant, no timer.</li>
+      <li><strong>Failure detection:</strong> cross-check completion notification against checkboxes. Both hang and failure detection are <em>reports to the user</em>, not kills.</li>
+      <li><strong>Resumability:</strong> idempotent re-dispatch driven by the file's own checkbox state — genuinely craft-specific value.</li>
+    </ul>
+    <p><strong>Confirmed by grep:</strong> no <code>TaskStop</code>, <code>pkill</code>, <code>pgrep</code>, <code>kill</code>, or timer machinery anywhere in <code>skills/orchestration/</code>. Even <code>orchestrator-resilience</code>'s "Timeout / Force terminate / Circuit Breaker" sections are markdown display templates — narrative text, not a syscall.</p>
+
+    <h3>2.2 Concrete failure modes</h3>
+    <ol>
+      <li><strong>Parent session ends/crashes before the background agent completes</strong> — nothing tracks or reaps the orphan. Same underlying exposure as the <code>.STATUS</code> 2026-07-04 example (a <code>while true</code> loop, still running 6.5+ hours later). craft's design is somewhat safer (bounded phase-work, not an intentional infinite loop) but has <strong>no structural orphan bound</strong>.</li>
+      <li><strong>Hang past the 2×-window produces a report, not a kill.</strong> No <code>TaskStop</code>/kill step exists anywhere.</li>
+      <li><strong>Cross-session interference is real and unguarded.</strong> The concurrency cap is per-session — two craft sessions each independently allow 2 dispatches, no shared counter; <code>.STATUS</code> writes race with no locking; worktree paths are deterministic from topic, so same-topic dispatches collide. A v2.57.0 milestone already recorded a near-miss: <em>"recovered a killed agent's completed-but-uncommitted Phase 3 work."</em></li>
+      <li><strong>Does the <code>while true</code> leak reproduce identically?</strong> No — craft never emits an infinite loop; dispatched work is finite. But the governing property that let that loop leak — persistence with nothing bounding it once the owner is gone — is unaddressed here too.</li>
+    </ol>
+
+    <h3>2.3 Root cause tie-in</h3>
+    <p>The premise for building this mechanism — "save tokens vs. N cold-started sessions" — was never measured (§4), and the platform now backgrounds subagents by default with completion notifications (§3). The custom concurrency-cap/hang-detection layer solves a problem the platform has already absorbed, while providing none of the enforcement it implies.</p>
+
+    <h3>2.4 Decision: simplify toward platform-native</h3>
+
+    <div class="callout drop">
+      <span class="callout-label">Drop / shrink</span>
+      <p>The manually-maintained concurrency-cap tally, the hang-detection wall-clock prose, and <code>orchestrator-resilience</code>'s Timeout/Force-terminate/Circuit-Breaker templates — where they overlap platform-native background-agent handling. Replace with: rely on the platform's default background execution and <code>agent_completed</code>/<code>agent_needs_input</code> hooks.</p>
+    </div>
+    <div class="callout keep">
+      <span class="callout-label">Keep — genuinely craft-specific</span>
+      <p>The confirm-before-dispatch human gate; the ORCHESTRATE self-containment prompt guarantee; resumability via checkboxes. None of these duplicate a platform default.</p>
+    </div>
+    <div class="callout decision">
+      <span class="callout-label">Add — the one gap the platform doesn't close</span>
+      <p>A persistent cross-session dispatch ledger (§2.5) — the platform's defaults are per-session; they don't give visibility into "what did any craft session on this machine dispatch, and is it still alive."</p>
+    </div>
+    <div class="callout escalate">
+      <span class="callout-label">Escalate, don't simulate</span>
+      <p>A genuine TTL/kill mechanism requires an executable stop at the platform/harness layer. craft cannot guarantee this from inside a markdown skill — recommend asking/filing with the platform rather than faking it with more prose.</p>
+    </div>
+
+    <h3>2.5 Ledger design</h3>
+    <p>The one net-new piece of craft-side machinery.</p>
+    <ul>
+      <li><strong>File:</strong> <code>.claude/orchestrate-dispatches.json</code> (project-local, gitignored).</li>
+      <li><strong>Record per dispatch:</strong> <code>dispatch_id</code>, <code>session_id</code>, <code>topic</code>, <code>worktree_path</code>, <code>orchestrate_file</code>, <code>dispatched_at</code>, <code>status</code>.</li>
+      <li><strong>Written at dispatch time</strong> — every field already exists then, no new logic to produce them.</li>
+      <li><strong>Surfaced via</strong> a read-only step in <code>/craft:check</code> (or a small <code>/craft:orchestrate:sweep</code>) listing entries past their expected window — modeled on how <code>/craft:git:clean</code> surfaces orphaned worktrees. Report-only first.</li>
+    </ul>
+
+    <h3>2.6 Documentation gaps to close</h3>
+    <ol>
+      <li>State plainly that the caps are LLM-instruction discipline, not runtime enforcement.</li>
+      <li>Document what happens (today: nothing) if the parent session dies mid-dispatch.</li>
+      <li>Document the cross-session story: per-session caps, no write-lock, deterministic path collisions.</li>
+      <li>Add a disclaimer to <code>orchestrator-resilience</code>: its sections are report templates for orchestrator-v2's narrative output, not the dispatch supervisor.</li>
+    </ol>
+
+    <h2 id="s3"><span class="num">3</span>opusplan / ultracode / Current Platform Capability</h2>
+    <p>Grounded via live research, 2026-07-04.</p>
+    <ul>
+      <li><strong><code>opusplan</code></strong> — a real, current <code>/model</code> value: Opus during Plan Mode, auto-switches to Sonnet once a plan is approved and execution begins. Orthogonal to dispatch-safety.</li>
+      <li><strong><code>ultracode</code></strong> — a session effort setting (<code>xhigh</code> reasoning + automatic dynamic-workflow orchestration), enabled via <code>/effort ultracode</code> or the keyword in-prompt. Concurrency-capped at 16 concurrent / 1000 total agent calls per run.</li>
+      <li><strong>Directly load-bearing for §2:</strong> subagents now run <strong>in the background by default</strong> (shipped 2026-07-01) — the parent session keeps working, notified on completion. New <code>agent_needs_input</code>/<code>agent_completed</code> hooks exist. Worktree-based background sessions now auto-commit/push/open a draft PR on finishing.</li>
+    </ul>
+    <p><strong>Implication:</strong> <code>orchestrate-dispatch</code> (designed pre-2026-07-01) manually implements what the platform has since made a default — the direct evidence behind §2.4.</p>
+
+    <h2 id="s4"><span class="num">4</span>Token-Savings Rationale, Verified</h2>
+    <p>The stated reason for building <code>orchestrate-dispatch</code> was avoiding "N cold-started sessions, each reloading CLAUDE.md/system-prompt" — qualitative, never measured, never re-verified since.</p>
+    <ul>
+      <li><strong>What it actually credits:</strong> dispatching from an already-warm session instead of N fresh terminals. Achievable via a <strong>synchronous</strong> foreground <code>Agent</code> call too — nothing token-wise is specific to backgrounding.</li>
+      <li><strong>What backgrounding specifically adds:</strong> attention/parallelism — not a token claim.</li>
+      <li><strong>The "68.3%" figure</strong> measures an unrelated namespace-string tokenization probe — not orchestrate-dispatch.</li>
+      <li><strong>The 60/70/85/90% "compression" figures</strong> are context-window-usage trigger thresholds — not tokens saved.</li>
+      <li><strong>Already on record:</strong> a related 48% figure is disclaimed as line-count with an "unvalidated" causal link; the real <code>/usage</code> checkpoint (~2026-07-14) is still open.</li>
+    </ul>
+    <p><strong>Conclusion:</strong> the token-savings premise for background dispatch specifically was asserted, never measured, and the mechanism it credits doesn't require backgrounding. This doesn't mean orchestrate-dispatch has no value — §2.4 keeps what's genuinely worth keeping, independent of the token claim.</p>
+
+    <h2 id="s5"><span class="num">5</span>Combined Decision Summary</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Area</th><th>Decision</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td>Orchestrate-dispatch caps</td><td>Drop/shrink toward platform-native</td><td>§2.4</td></tr>
+          <tr><td>Orchestrate-dispatch value-add</td><td>Keep confirm-gate, self-containment, resumability</td><td>§2.4</td></tr>
+          <tr><td>Cross-session visibility</td><td>Add dispatch ledger + report-only sweep</td><td>§2.5</td></tr>
+          <tr><td>Real TTL/kill</td><td>Escalate to platform, don't simulate</td><td>§2.4</td></tr>
+          <tr><td>Dispatch docs</td><td>Fix 4 gaps</td><td>§2.6</td></tr>
+          <tr><td>Flag/boundary consolidation</td><td>D3→D2→D1a→D4/D6→D5→D1b→D7</td><td>§1.4</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="s6"><span class="num">6</span>Files Touched <span style="font-family:var(--serif);font-style:italic;font-weight:400;font-size:0.55em;color:var(--ink-dim);">— future implementation, not this spec</span></h2>
+    <ul>
+      <li><code>skills/orchestration/plan-orchestrator/SKILL.md</code> — trim §2.4's drop list, add ledger write step, fix §2.6 doc gaps.</li>
+      <li><code>skills/orchestration/orchestrator-resilience/SKILL.md</code> — add the §2.6 disclaimer; trim platform-overlap.</li>
+      <li><code>skills/planning/SKILL.md</code> — D3 body fix.</li>
+      <li><code>commands/plan/feature.md</code> — D2 (remove <code>deprecated: true</code>).</li>
+      <li><code>commands/plan/sprint.md</code>, <code>commands/plan/roadmap.md</code> — D1a (shrink to stubs).</li>
+      <li><code>commands/do.md</code> — D5, D1b (once D1a lands), <code>--yes</code> frontmatter declaration.</li>
+      <li><code>skills/orchestration/task-analyzer/SKILL.md</code> — D5 counterpart.</li>
+      <li><code>drive-engine</code>, <code>workflow-engine</code> — D4 dedupe.</li>
+      <li><code>skills/workflow/prompt-refiner/SKILL.md</code> — D6.</li>
+      <li>New: <code>.claude/orchestrate-dispatches.json</code> + its <code>/craft:check</code> surface.</li>
+      <li>CHANGELOG/count-cascade files, per convention, once any command/skill count changes.</li>
+    </ul>
+
+    <h2 id="s7"><span class="num">7</span>Non-Goals</h2>
+    <ul>
+      <li>No code changes ship as part of this spec — scoping only.</li>
+      <li>No platform/upstream changes are made here — §2.4's escalation is a request to raise, not a workaround to build.</li>
+      <li>Cross-plugin material stays in <code>SPEC-planning-federation-2026-06-22.md</code> (SPEC-A) — unchanged.</li>
+      <li>This spec does not re-litigate the planning-refactor spec's §14 A0 verdict (C2 downgraded Critical→Medium) — it builds on that verdict as settled.</li>
+    </ul>
+
+    <h2 id="s8"><span class="num">8</span>Gating &amp; Sequencing</h2>
+    <p>This spec <strong>is</strong> the "future larger effort" the planning-refactor spec's pause was waiting on. Once approved:</p>
+    <ol>
+      <li>Open a worktree before any code changes — <code class="mono">git worktree add ~/.git-worktrees/craft/feature-orchestrator-consolidation -b feature/orchestrator-consolidation dev</code>.</li>
+      <li>The two decision areas (§2, §1) touch disjoint file sets and can proceed as two parallel implementation tracks in one worktree, or two separate worktrees.</li>
+      <li>Within the flag/boundary track, respect the D3→D2→D1a→D4/D6→D5→D1b→D7 order — D1b depends on D1a.</li>
+      <li>Behavioral tests gate the PR per the existing pre-PR-testing convention — full suite, not a subset, given this touches routing logic multiple tests already pin.</li>
+    </ol>
+
+    <h2 id="s9"><span class="num">9</span>.STATUS Cross-Reference</h2>
+    <p>See <code>.STATUS</code> 2026-07-04 entry: the original "PAUSED, scope not yet defined" framing is superseded by this spec's existence; the stray-agent backlog bullet is closed into §2 rather than left as a standalone open question.</p>
+
+  </main>
+</div>
+
+<footer>
+  Source: docs/specs/SPEC-orchestrator-consolidation-2026-07-04.md · Research tracks: flags/boundaries, dispatch reliability, opusplan/ultracode grounding, token-savings verification · Scoping document — no implementation shipped.
+</footer>
