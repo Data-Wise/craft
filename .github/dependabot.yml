@@ -4,8 +4,13 @@
 #
 # Two npm ecosystems:
 #   /      root devDeps (markdownlint-cli2, markdown-link-check)
-#   /mcp   craft-mcp deps (@modelcontextprotocol/sdk, zod) + devDeps
+#   /mcp   craft-mcp deps (@modelcontextprotocol/sdk) + devDeps
 #          (esbuild, typescript, @types/node)  — activates once mcp/package.json lands.
+#
+# target-branch: "dev" — craft uses a main←dev←feature model; main is PR-only.
+# Without this, Dependabot defaults to the default branch (main) and its PRs
+# bypass dev integration, drifting dev behind main. Point it at dev so bumps
+# flow through the normal integration path.
 #
 # Updates are GROUPED (one PR per directory per dependency-type) to avoid PR spam.
 # PATCH + MINOR devDependency bumps auto-merge on green CI via
@@ -16,6 +21,7 @@ updates:
   # ── Root: docs-tooling devDependencies ───────────────────────────────
   - package-ecosystem: "npm"
     directory: "/"
+    target-branch: "dev"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
@@ -31,6 +37,7 @@ updates:
   # ── craft-mcp: runtime deps + build devDependencies ──────────────────
   - package-ecosystem: "npm"
     directory: "/mcp"
+    target-branch: "dev"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
@@ -44,7 +51,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      # production deps (@modelcontextprotocol/sdk, zod): grouped to reduce noise,
+      # production deps (@modelcontextprotocol/sdk): grouped to reduce noise,
       # but never auto-merged — always manual review.
       mcp-prod-dependencies:
         dependency-type: "production"

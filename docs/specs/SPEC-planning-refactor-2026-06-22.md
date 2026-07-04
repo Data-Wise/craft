@@ -165,3 +165,67 @@ the job shrinks to "`/craft:plan` entry + seam + count hygiene."
 1. **A0** (live C2 verify) — read-only, runnable now.
 2. **SPEC-A / P2** (protocol) — `/craft:plan` cannot finalize its domain-defer shape without it.
 3. Then a worktree for A1–A8 with cross-boundary confirmations. If A0 = no preemption, prune A4.
+
+---
+
+## 11. Sync Check — 2026-07-03 (against `.STATUS` + `git log` since spec date)
+
+Re-verified every action item against current file contents (not assumptions).
+Three real commits landed in the planning/orchestrate surface since 2026-06-22.
+
+### Corrected file-state facts (spec had these wrong or unresolved)
+
+| File | Was assumed | Actual (verified 2026-07-03) |
+|---|---|---|
+| `commands/plan/feature.md` | deprecated (all 3 grouped together) | **NOT deprecated** — 141 lines, active, gained `--refine` arg (#215) |
+| `commands/plan/sprint.md` | deprecated | confirmed deprecated, but still **108 lines** (not yet a thin stub) |
+| `commands/plan/roadmap.md` | deprecated | confirmed deprecated, but still **116 lines** (not yet a thin stub) |
+| `commands/orchestrate/plan.md` | deprecated | **NOT deprecated** — 57 lines, active entry point, gained 3rd output mode |
+| `commands/orchestrate/resume.md` | active (dupes superpowers `executing-plans`, → C4) | **DELETED** (#239) — was 523 lines of unimplemented fiction (cloud sync, S3, team sharing), zero real code |
+| `skills/planning/SKILL.md` (`project-planner`) | over-broad triggers | **unchanged** — collision C1 confirmed still live, verbatim |
+
+### New capability: `plugin-audit` skill (#237) — changes A4's shape
+
+craft shipped a general-purpose skill that diffs every enabled plugin's command/skill
+surface and flags cross-namespace name collisions (built after a manual audit missed
+`workflow@local-plugins` duplicating craft's own `commands/workflow/*`). This
+**mostly replaces the bespoke drift-guard proposed in A4** — but has two gaps this
+spec's issues fall into:
+
+- **Scope gap 1 — intra-plugin collisions.** `plugin-audit` compares *across* plugins.
+  C1 (`project-planner` vs `plan-orchestrator`) is a collision *inside* craft itself —
+  invisible to it.
+- **Scope gap 2 — user-level rules aren't "plugins."** C2's other half
+  (`~/.claude/rules/brainstorm-mode.md`) isn't a plugin surface, so `plugin-audit`
+  won't see it either — even though craft *does* now have a real
+  `skills/workflow/brainstorm` + `commands/workflow/brainstorm.md` pair that a
+  base-name diff against superpowers `brainstorming` would very plausibly flag as a
+  near-duplicate.
+
+### New commits also enhanced the orchestrate spine directly
+
+`plan-orchestrator` gained a **3rd output mode**, `orchestrate-dispatch` (#240) — a
+confirm-before-dispatch gate for parallel-agent work, with a concurrency cap and
+failure/hang detection. This is unrelated to A2's routing problem (different meaning
+of "dispatch": *dispatching parallel agents*, not *routing which planning skill
+fires*) — but it is exactly the kind of capability superpowers'
+`dispatching-parallel-agents` provides, now natively in craft. Strengthens the case
+in A6 to treat that superpowers skill as redundant, not just "additive."
+
+### Revised action list
+
+| # | Original plan | Revision |
+|---|---|---|
+| **A1** | Tighten `project-planner` triggers | **Unchanged — still needed.** Confirmed live via direct read, zero drift. |
+| **A2** | New `/plan` dispatcher command | **Unchanged — still needed.** `orchestrate-dispatch` solves a different problem (parallel-agent fan-out); does not touch the C1 trigger-routing question. |
+| **A3** | Convert deprecated `plan/*` bodies to alias stubs | **Partially done, finish it.** `sprint.md`/`roadmap.md` are correctly flagged deprecated but still full-length (108/116 lines) — shrink to real thin stubs. `feature.md` is NOT deprecated; leave as-is, drop from this action. `orchestrate/resume.md` — no action needed, already deleted (#239), and its removal closes the superpowers-`executing-plans` half of C4 for free. |
+| **A4** | Bespoke drift-guard skill | **Replaced.** Don't build new tooling — run the existing `plugin-audit` skill, then handle its two scope gaps directly: (a) add an intra-plugin check for craft's own skills (folds into A1's fix), (b) fold `brainstorm-mode.md` logic into the real `skills/workflow/brainstorm` skill per A5, so the superpowers `brainstorming` vs. craft `brainstorm` collision becomes visible to `plugin-audit` the next time it runs. |
+| **A5–A8** | — | Unchanged, not yet started. |
+
+### C7 — new finding
+
+**`plugin-audit`'s cross-plugin scope stops at plugin boundaries** — it cannot see
+collisions between a plugin skill and a `~/.claude/rules/*` user rule, or collisions
+between two skills inside the *same* plugin. Both gaps intersect this spec's open
+work (C1, C2). Resolution: A1 + A5 close both gaps as a side effect — no new tooling
+required beyond what's already shipped.

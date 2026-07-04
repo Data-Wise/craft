@@ -68,6 +68,25 @@ You are an ADHD-friendly documentation generator. Detect what's needed, generate
 When this command runs, Claude MUST follow these steps in order. Do NOT skip
 the detection-first preview or proceed without showing what will be updated.
 
+### Step -1: Dev-Branch Staleness Warning (H3)
+
+Docs deploy is `main`-gated (`.github/workflows/docs.yml` triggers only on push
+to `main`) — the live site tracks releases, not `dev`. Before doing anything
+else, check the current branch:
+
+```bash
+git branch --show-current
+```
+
+If NOT `main`, print this warning before proceeding (do not skip it — this is
+the fix for the false-green failure mode where `docs:update` reports success
+locally but the live site never changes until the next `dev→main` release):
+
+```text
+⚠️  Changes made now won't reach the live site until the next dev→main release.
+    Preview locally instead: mkdocs serve
+```
+
 ### Step 0: Detection-First Preview
 
 Before making ANY changes, scan and display what needs updating:

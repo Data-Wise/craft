@@ -11,8 +11,7 @@
     "build:mcpb": "bash scripts/build-mcpb.sh"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
-    "zod": "^4.4.3"
+    "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^26.1.0",
