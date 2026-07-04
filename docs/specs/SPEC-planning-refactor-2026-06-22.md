@@ -217,8 +217,8 @@ in A6 to treat that superpowers skill as redundant, not just "additive."
 | # | Original plan | Revision |
 |---|---|---|
 | **A1** | Tighten `project-planner` triggers | ✅ **DONE 2026-07-03** (`12f50b4b`). Shipped via `/craft:grill` adversarial pass, not a straight implementation of the original text — see §12. |
-| **A2** | New `/plan` dispatcher command | **Unchanged — still needed.** `orchestrate-dispatch` solves a different problem (parallel-agent fan-out); does not touch the C1 trigger-routing question. |
-| **A3** | Convert deprecated `plan/*` bodies to alias stubs | **Partially done, finish it.** `sprint.md`/`roadmap.md` are correctly flagged deprecated but still full-length (108/116 lines) — shrink to real thin stubs. `feature.md` is NOT deprecated; leave as-is, drop from this action. `orchestrate/resume.md` — no action needed, already deleted (#239), and its removal closes the superpowers-`executing-plans` half of C4 for free. |
+| **A2** | New `/plan` dispatcher command | **Grilled 2026-07-04, DEFERRED — now sequenced AFTER A3** (was ahead of it). Scope locked as a pure router (no new planning logic) using deterministic repo-state detection (SPEC/GRILL/ORCHESTRATE file existence), NOT phrase classification — see [`GRILL-planning-refactor-a2-2026-07-04.md`](GRILL-planning-refactor-a2-2026-07-04.md) + §12. Blocked on A3 (namespace collision with `commands/plan/*`); no concrete user-friction case yet, so not urgent. |
+| **A3** | Convert deprecated `plan/*` bodies to alias stubs | **Partially done, finish it — NOW BLOCKING A2, do this next.** `sprint.md`/`roadmap.md` are correctly flagged deprecated but still full-length (108/116 lines) — shrink to real thin stubs. `feature.md` is NOT deprecated; leave as-is, drop from this action. `orchestrate/resume.md` — no action needed, already deleted (#239), and its removal closes the superpowers-`executing-plans` half of C4 for free. |
 | **A4** | Bespoke drift-guard skill | **Replaced.** Don't build new tooling — run the existing `plugin-audit` skill, then handle its two scope gaps directly: (a) add an intra-plugin check for craft's own skills (folds into A1's fix), (b) fold `brainstorm-mode.md` logic into the real `skills/workflow/brainstorm` skill per A5, so the superpowers `brainstorming` vs. craft `brainstorm` collision becomes visible to `plugin-audit` the next time it runs. |
 | **A5–A8** | — | Unchanged, not yet started. |
 
@@ -252,3 +252,24 @@ The grill expanded scope by two findings neither this spec's §3/§6 text antici
 sufficient scope for a skill-trigger edit — check the skill's own body for drift, and check
 the sibling skill's trigger coverage for gaps, before considering the fix complete. Verified
 via `scripts/skill_standards_audit.py` (clean) and the full test suite (2713 passed, 0 failed).
+
+## 13. A2 — grill findings (2026-07-04), deferred
+
+Full ledger: [`GRILL-planning-refactor-a2-2026-07-04.md`](GRILL-planning-refactor-a2-2026-07-04.md).
+
+A2 (the proposed `/craft:plan` dispatcher command) was grilled before any implementation, per
+this spec's own §12 takeaway. Five branches resolved:
+
+1. **Real gap, scope bounded to router-only** — no new planning logic, just decides which
+   existing skill/command to call for a given topic.
+2. **Tier-detection must be deterministic (repo-state signals), not phrase-based** — phrase
+   classification is exactly the mechanism that caused C1; a second phrase classifier one
+   layer up would relocate the same risk, not eliminate it.
+3. **D-ns (§1) trusted as-is**, not re-verified this pass.
+4. **New sequencing dependency found:** A2 collides with the still-unfinished A3
+   (`commands/plan/{sprint,roadmap}.md` not yet thin stubs) — a bare `/craft:plan` router
+   next to stale full-length subcommands under the same path prefix is confusing regardless
+   of tier semantics. **A2 now sequenced after A3**, reversing the order in
+   `docs/specs/NEXT-SESSION-2026-07-03.md`.
+5. **Deferred** — no concrete user-friction case yet for tier-routing confusion; do A3 first
+   (small, unblocked, already scoped) before returning to A2.
