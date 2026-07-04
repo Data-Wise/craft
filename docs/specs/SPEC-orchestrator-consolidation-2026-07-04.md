@@ -87,9 +87,16 @@ bleeds found:**
   warned future A-items to check for, reintroduced in the very next skill.
 - **C2-new:** the verify-gate detection table is triplicated verbatim across
   `drive-engine:34-40`, `workflow-engine:103-109`, `plan-orchestrator:207-215`.
-- **C3-new:** `session-state` skill documents resume/archive/history contracts for
-  `orchestrate:resume`, but that command was deleted in #239 — either an
-  under-exposed capability or dead documentation surface.
+- **C3-new (re-verified during adversarial review, 2026-07-04):** `session-state`'s
+  resume/archive/history contracts are for **orchestrator-v2 session state**
+  (`.claude/orchestrator-session.json`, triggered by "resume session" /
+  "continue where I left off") — confirmed still live and functional, **not** wired to
+  the deleted `orchestrate:resume` slash command (`grep` for
+  `orchestrate:resume`/`orchestrate/resume.md` in `session-state/SKILL.md` returns
+  nothing). The actual problem is narrower than first stated: not a dead-docs surface,
+  but a **confusing name overlap** — a reader could reasonably assume `session-state`'s
+  "resume" capability is the deleted command's replacement, when it's an unrelated,
+  always-functioning mechanism.
 - **C4-new (a live three-way contradiction):** `commands/plan/feature.md:19-20` carries
   `deprecated: true`, continuously, since 2026-05-14. Since then it gained active
   features (#215's `--refine` arg, #216's scaffolding defaults). Tests enforce it as
@@ -116,18 +123,40 @@ own sake")
 | D2 | Resolve the `plan/feature.md` contradiction — **recommended: un-deprecate it** (remove `deprecated: true` at L19-20; it's cheaper than editing three test files to stop enforcing it as live) | C4-new |
 | D1a | Finish A3 (shrink `plan/sprint.md`/`plan/roadmap.md` to real thin stubs) | C5-new, closes paused-spec A3 |
 | D1b | Land A2 (`/craft:plan` deterministic repo-state router) — only after D1a, per the paused spec's own A2-after-A3 sequencing (§13 there) | paused-spec A2 |
-| D4 | Consolidate the triplicated verify-gate table (drive-engine/workflow-engine/plan-orchestrator) into one shared reference file | C2-new |
+| D4 | Consolidate the triplicated verify-gate table (`drive-engine`, `workflow-engine`, **and** `plan-orchestrator` — all three sites named in C2-new) into one new shared reference file, `skills/orchestration/references/verify-gate-detection.md` | C2-new |
 | D6 | Normalize `--refine` default: **ON** for deliberation-entry commands (`do`, `plan:*`, `grill`), **OFF** for execution engines (`orchestrate`, `workflow`) — state the rule once in the `prompt-refiner` skill, reference it from each command instead of repeating a bare "default: on/off" | Conflict 1.1.1 |
 | D5 | Collapse `do.md` ↔ `task-analyzer` dual intent-routing ownership — pick one source (recommend: `task-analyzer` skill owns the category/complexity tables, `do.md` calls it rather than duplicating the tables inline) | 1.2 bleed |
-| D7 | Set a **new, concrete deprecation horizon** — the original v2.50.0 target already passed (current version v2.59.0) with D1a's stubs still unshipped | C5-new follow-through |
+| D9 | Dedupe the mode enum (`default`/`debug`/`optimize`/`release`): `skills/modes/SKILL.md` (the `mode-controller` skill) **already exists and already owns the canonical definitions** — `do.md`, `orchestrate.md`, and `CLAUDE.md` each independently hardcode their own copy instead of referencing it. No new file needed; just point the three duplicates at the existing skill. | C6-new |
+| D10 | Rename or annotate `session-state`'s "resume" language to avoid the name collision with the deleted `orchestrate:resume` command — the mechanism itself is confirmed fine (see C3-new's revised note, §1.3), this is a documentation clarity fix, not a functional change | C3-new |
+| D7 | Set a **new, concrete deprecation horizon** for `plan/sprint.md`/`plan/roadmap.md` (the original v2.50.0 target already passed at v2.59.0) | C5-new (horizon-setting only — see D8 for actual removal) |
+| D8 | **Execute** the horizon D7 sets: delete `plan/sprint.md` and `plan/roadmap.md` once it passes. This is the item that actually removes the 2 files — D7 alone only schedules a date, it does not perform a deletion. Contingent/deferred: runs later than the rest of this list, once the horizon arrives. | C5-new follow-through (the actual fix) |
 
-**Net effect:** +1 command (A2/D1b) initially; −2 files at D7's horizon (sprint/roadmap
-stubs deleted) and −2 duplicated tables at D4 — nets to reduction once D7 fires, unlike
-the original spec's action list (which the original spec's own §0 admitted only added
-assets).
+**Net effect (revised 2026-07-04 after adversarial review — the original "nets to
+reduction" framing didn't hold up):**
 
-**Suggested order:** D3 → D2 → D1a → D4/D6 → D5 → D1b → D7 (D1b last since it depends on
-D1a and benefits from D5/D6 being settled first).
+- **+1 file** — D4's new `verify-gate-detection.md` reference file (the original spec
+  undercounted this: it credited D4 as part of a "−2" figure that was actually about
+  D8's deletions, not D4's own file cost).
+- **+1 command** — D1b's `/craft:plan` router (assuming it's a genuine new command file,
+  not merely an alias inside `do.md` — this spec doesn't fully resolve that ambiguity;
+  flagged for the implementing session to confirm before counting it either way).
+- **−2 files** — D8's deletions, but **only once D8 actually executes**, which is
+  contingent on the horizon D7 sets, not immediate. Until then this is +2 pending, not
+  banked.
+- **D9, D10, D6, D5, D3, D2** have no file-count effect — they edit existing files in
+  place.
+
+**Honest bottom line: net 0 (not a reduction) once D8 eventually executes; net +2 in the
+interim between D7 firing and D8 executing.** This revises the original spec's
+overstated "nets to reduction, unlike the original action list" — the corrected framing
+is closer to "flat, with a deferred cleanup," which is still a fair outcome (the
+original planning-refactor spec's action list only ever added), just not the clean win
+first claimed.
+
+**Suggested order:** D3 → D2 → D1a → D4/D6/D9/D10 → D5 → D1b → D7 → D8 (D8 last and
+deferred — it depends on D7's horizon actually arriving, not on the other items; D1b
+still last-before-D7/D8 since it depends on D1a and benefits from D5/D6 being settled
+first).
 
 ## 2. Track 2 — Orchestrate-Dispatch Reliability Audit
 
@@ -203,13 +232,19 @@ already absorbed, while providing none of the enforcement it implies.
 
 ### 2.4 Decision: simplify toward platform-native (confirmed direction, 2026-07-04)
 
-- **Drop/shrink:** the manually-maintained concurrency-cap tally (L97-105), the
-  hang-detection wall-clock-window prose (L116-122), and `orchestrator-resilience`'s
-  "Timeout/Force terminate/Circuit Breaker" templates (L53-118) *where they overlap
-  platform-native background-agent handling*. Replace with: rely on the platform's
-  default background execution and `agent_completed`/`agent_needs_input` notification
-  hooks (confirmed live as of 2026-07-01, see §3) instead of re-implementing a
-  supervision loop in prose.
+- **Drop/shrink:** the manually-maintained concurrency-cap tally (L97-105), and
+  `orchestrator-resilience`'s "Timeout/Force terminate/Circuit Breaker" templates
+  (L53-118) *where they overlap platform-native background-agent handling*. Replace with:
+  rely on the platform's default background execution and
+  `agent_completed`/`agent_needs_input` notification hooks (confirmed live as of
+  2026-07-01, see §3) instead of re-implementing a supervision loop in prose.
+  **Clarification added 2026-07-04 (adversarial review finding #4):** the hang-detection
+  window's *formula* (L116-122, `2 × phase-effort estimate`) is **not** part of this drop
+  — it survives as the ledger sweep's overdue-threshold input (§2.5 needs exactly this
+  number to know what "past its expected window" means). What's actually dropped is only
+  the *active, in-session polling/reporting behavior* built on top of that formula (the
+  live session babysitting a dispatch and self-reporting a hang) — the platform's
+  notification hooks replace that active loop, not the threshold math itself.
 - **Keep — genuinely craft-specific, no platform equivalent:**
   - The confirm-before-dispatch human gate (L72-82) — a deliberate, non-suppressible
     checkpoint before handing off to an unsupervised agent.
@@ -236,9 +271,11 @@ already absorbed, while providing none of the enforcement it implies.
   logic to produce them, per L139-143's existing precedent for `.STATUS` factual writes).
 - **Surfaced via** a read-only step added to `/craft:check` (or a small new
   `/craft:orchestrate:sweep` command) that lists ledger entries whose expected
-  completion window has passed, modeled directly on how `/craft:git:clean` already
-  surfaces orphaned worktrees. **Report-only first** — matches this repo's own
-  gentle-ramp precedent (ADR-003, release-drift advisory-not-hard-gate).
+  completion window has passed — "expected" computed via the same `2 × phase-effort
+  estimate` formula §2.4 keeps (L116-122), just evaluated by the sweep instead of a live
+  session's active polling. Modeled directly on how `/craft:git:clean` already surfaces
+  orphaned worktrees. **Report-only first** — matches this repo's own gentle-ramp
+  precedent (ADR-003, release-drift advisory-not-hard-gate).
 
 ### 2.6 Documentation gaps to close (regardless of what else ships)
 
@@ -313,32 +350,60 @@ claim.
 
 | Area | Decision | Detail |
 |---|---|---|
-| Orchestrate-dispatch caps | Drop/shrink toward platform-native | §2.4 |
+| Orchestrate-dispatch caps | Drop/shrink toward platform-native (hang-detection *formula* kept, only active polling dropped — see §2.4 clarification) | §2.4 |
 | Orchestrate-dispatch value-add | Keep confirm-gate, self-containment, resumability | §2.4 |
 | Cross-session visibility | Add dispatch ledger + report-only sweep | §2.5 |
 | Real TTL/kill | Escalate to platform, don't simulate | §2.4 |
 | Dispatch docs | Fix 4 gaps in §2.6 | §2.6 |
-| Flag/boundary consolidation | D3→D2→D1a→D4/D6→D5→D1b→D7 | §1.4 |
+| D3 — project-planner body | Fix Capabilities/Outputs/Integration to strategy-only language | §1.4 |
+| D2 — plan/feature.md contradiction | Un-deprecate (remove `deprecated: true`) | §1.4 |
+| D1a — sprint/roadmap stubs | Shrink to real thin stubs | §1.4 |
+| D4 — verify-gate table | Consolidate 3 sites into new `verify-gate-detection.md` | §1.4 |
+| D6 — `--refine` default | Normalize ON/OFF split, state once | §1.4 |
+| D9 — mode enum | Dedupe against existing `skills/modes/SKILL.md` | §1.4 |
+| D10 — session-state naming | Clarify "resume" language, no functional change | §1.4 |
+| D5 — intent-routing ownership | Collapse `do.md`↔`task-analyzer` to one source | §1.4 |
+| D1b — `/craft:plan` router | Land after D1a; file-vs-alias question still open | §1.4 |
+| D7 — deprecation horizon | Set new concrete date | §1.4 |
+| D8 — actual deletion | Delete sprint/roadmap once D7's horizon passes (deferred) | §1.4 |
+
+*(Track 1's 10 D-items now itemized individually per adversarial-review finding #5 —
+the original single collapsed row was the reason findings C3-new/C6-new initially slipped
+through with no decision attached; per-item rows make that check possible on a read-through.)*
 
 ## 6. Files Touched (future implementation, not this spec)
 
 - `skills/orchestration/plan-orchestrator/SKILL.md` — trim §2.4's drop list, add ledger
-  write step, fix §2.6 doc gaps.
+  write step, fix §2.6 doc gaps, **and D4** (remove its own copy of the verify-gate
+  table, point at the new shared reference — this file was missing from D4's scope in
+  the original draft; it's one of the three sites C2-new actually names).
 - `skills/orchestration/orchestrator-resilience/SKILL.md` — add the disclaimer from
   §2.6 item 4; trim overlap with platform-native handling.
 - `skills/planning/SKILL.md` (project-planner) — D3 body fix.
 - `commands/plan/feature.md` — D2 (remove `deprecated: true`).
-- `commands/plan/sprint.md`, `commands/plan/roadmap.md` — D1a (shrink to stubs).
+- `commands/plan/sprint.md`, `commands/plan/roadmap.md` — D1a (shrink to stubs now);
+  **D8** (deleted outright once D7's horizon passes — deferred, later than the rest of
+  this list).
 - `commands/do.md` — D5 (defer to `task-analyzer` instead of duplicating tables), D1b
-  (new `/craft:plan` router, once D1a lands), `--yes` frontmatter declaration.
+  (new `/craft:plan` router, once D1a lands — **confirm at implementation time whether
+  this is a standalone `commands/plan.md` file or an alias inside `do.md`; this spec
+  counts it as "+1 command" in §1.4 but does not resolve which**), `--yes` frontmatter
+  declaration, D9 (mode-enum table → reference `skills/modes/SKILL.md` instead of
+  hardcoding).
 - `skills/orchestration/task-analyzer/SKILL.md` — D5 counterpart.
 - `skills/orchestration/drive-engine/SKILL.md`, `workflow-engine/SKILL.md` — D4
-  (dedupe verify-gate table into a shared reference).
+  (remove their own copies of the verify-gate table, point at the new shared reference).
+- New: `skills/orchestration/references/verify-gate-detection.md` — D4's shared
+  reference file (the one genuinely new file this spec's flag/boundary track adds).
 - `skills/workflow/prompt-refiner/SKILL.md` — D6 (state the ON/OFF rule once).
+- `commands/orchestrate.md`, `CLAUDE.md` — D9 counterpart (dedupe their own mode-enum
+  copies against `skills/modes/SKILL.md`).
+- `skills/orchestration/session-state/SKILL.md` — D10 (clarify/rename the "resume"
+  language to avoid the name collision with the deleted `orchestrate:resume` command).
 - New: `.claude/orchestrate-dispatches.json` (gitignored, runtime-created, not
   hand-authored) and its `/craft:check` or `/craft:orchestrate:sweep` surface.
 - CHANGELOG/count-cascade files, per craft's own convention, once any command/skill
-  count changes (D1b adds one, D1a/D7 eventually remove two).
+  count changes (D1b adds one now; D8 removes two, later, once its horizon fires).
 
 ## 7. Non-Goals
 
@@ -362,11 +427,27 @@ pause was waiting on scoped. Once approved:
    sets (see §6) and can proceed as two parallel implementation tracks inside that one
    worktree, or as two separate worktrees if preferred — no shared-file conflict between
    them.
-3. Within the flag/boundary track, respect the D3→D2→D1a→D4/D6→D5→D1b→D7 order (§1.4)
-   — D1b (`/craft:plan` router) explicitly depends on D1a completing first.
+3. Within the flag/boundary track, execute in the 4 waves below (§8.1) — supersedes the
+   flat D3→D2→D1a→D4/D6→D5→D1b→D7 ordering from earlier drafts of this spec, which
+   predates D8/D9/D10 (added during adversarial review, §1.4).
 4. Behavioral tests gate the PR per this repo's existing `pre-pr-testing` convention —
    full suite, not a subset, given this touches routing logic multiple tests already
-   pin (C4-new's three test files, §1.3).
+   pin (C4-new's three test files, §1.3). Each wave below gets its own test-gate before
+   moving to the next — don't batch all 10 D-items into one untested PR.
+
+### 8.1 Waves (flag/boundary track, D3–D10)
+
+| Wave | Items | Why grouped | Gate before next wave |
+|---|---|---|---|
+| **1 — Do first** | D3, D2, D1a | Cheap, independently unblocked, no cross-item dependency. Highest confidence, lowest risk — start here. | Full suite green; the 3 test files pinning C4-new (`test_craft_plugin.py:583`, `test_plugin_dogfood.py:426`, `test_scaffold_defaults_e2e.py:17`) updated to match D2's un-deprecation. |
+| **2 — Cleanup** | D4, D6, D9, D10 | Independent of each other and of Wave 1 — pure consolidation/dedupe, no new routing behavior. Can run in any order, even in parallel across sub-agents. | New `verify-gate-detection.md` (D4) referenced correctly from all 3 sites; `--refine` default rule (D6) documented once, not repeated. |
+| **3 — Depends on Waves 1+2** | D5, D1b | D5 needs Wave 2's dedupe settled (it collapses `do.md`↔`task-analyzer`, which D9's mode-enum dedupe also touches). D1b needs D1a's stubs shrunk first (Wave 1) and benefits from D5/D6 being settled (avoids building the router against tables about to move). | `/craft:plan` router routes each intent correctly (behavioral test per D-table); confirm file-vs-alias resolved (§6 flagged this as open) before counting it in any release count-cascade. |
+| **4 — Deferred** | D7, D8 | Runs on its own clock, independent of Waves 1–3 landing. D7 sets a date; D8 executes on it later — do not schedule D8 in the same PR cycle as Waves 1–3. | D7's horizon documented in `.STATUS`/CHANGELOG so a future session knows to check back; D8 only executes once that date arrives. |
+
+**Dispatch-safety track (§2) runs independently of all 4 waves above** — different files
+(§6), no ordering dependency either direction. Sequence within it: ledger design (§2.5)
+before the `/craft:check`/`sweep` surface that reads it; documentation fixes (§2.6) can
+land anytime, including before the ledger exists.
 
 ## 9. `.STATUS` Cross-Reference
 
