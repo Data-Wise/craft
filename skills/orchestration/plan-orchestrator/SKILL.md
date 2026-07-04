@@ -206,13 +206,8 @@ cd <worktree-path> && claude
 
 ## Auto-Detection
 
-| Detection | Verification Command |
-|-----------|---------------------|
-| `tests/test_craft_plugin.py` | `python3 tests/test_craft_plugin.py` |
-| `package.json` test script | `npm test` |
-| `pytest.ini` / `pyproject.toml` | `pytest` |
-| `Cargo.toml` | `cargo test` |
-| `DESCRIPTION` (R) | `R CMD check` |
+See [`../references/verify-gate-detection.md`](../references/verify-gate-detection.md) for the
+full detection table and how to use it.
 
 ### Rebase Strategy (Spec → ORCHESTRATE mode)
 

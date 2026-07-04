@@ -14,11 +14,11 @@ arguments:
     required: false
     default: false
   - name: orch-mode
-    description: Orchestration mode (default|debug|optimize|release)
+    description: "Orchestration mode (default|debug|optimize|release) — canonical definitions in skills/modes/SKILL.md"
     required: false
     default: null
   - name: refine
-    description: "Runs the prompt-refiner by default; pass --no-refine to skip"
+    description: "Runs the prompt-refiner by default (deliberation-entry command — see prompt-refiner SKILL.md Default Policy); pass --no-refine to skip"
     required: false
     default: true
   - name: no-refine

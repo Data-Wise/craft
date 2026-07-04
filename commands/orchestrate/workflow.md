@@ -14,7 +14,7 @@ arguments:
     description: "Replay run <run-id> from cache, re-running only stages whose cache key changed (and their downstream)"
     required: false
   - name: refine
-    description: Pre-process a natural-language workflow request through prompt-refiner before synthesizing a definition
+    description: "Pre-process a natural-language workflow request through prompt-refiner before synthesizing a definition (execution engine — defaults OFF per prompt-refiner SKILL.md Default Policy)"
     required: false
     default: false
 related_commands: orchestrate, orchestrate:drive

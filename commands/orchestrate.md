@@ -19,7 +19,7 @@ arguments:
     required: false
     default: false
   - name: refine
-    description: Refine the prompt via the prompt-refiner skill before acting
+    description: "Refine the prompt via the prompt-refiner skill before acting (execution engine — defaults OFF per prompt-refiner SKILL.md Default Policy; task scope is already decided by the time it reaches here)"
     required: false
     default: false
   - name: engine
@@ -131,6 +131,12 @@ Preview the orchestration plan without spawning any agents:
 **Note**: Dry-run shows the orchestration strategy, agent allocation, and parallelization plan without spawning actual background agents or consuming context.
 
 ## Modes (NEW in v1.1.0)
+
+The 4 mode names (`default`/`debug`/`optimize`/`release`) are canonically defined in
+`skills/modes/SKILL.md` (the `mode-controller` skill) — see it for the general
+time-budget/behavior meaning of each. The table below is **not** a duplicate of that
+one: it's orchestrator-v2-specific config (agent concurrency, compression ratio) that
+`skills/modes/SKILL.md` doesn't cover, kept here intentionally.
 
 | Mode | Max Agents | Compression | Use Case |
 |------|------------|-------------|----------|

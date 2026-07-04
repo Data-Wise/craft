@@ -9,6 +9,27 @@ Rewrites a raw user request into a sharper prompt, then confirms. Called
 by the `--refine` flag on brainstorm / do / orchestrate / plan:feature /
 arch:plan, or standalone ("refine and print").
 
+## Default Policy (D6, 2026-07-04)
+
+`--refine`'s default is **ON for deliberation-entry commands, OFF for execution
+engines** — stated once here; callers reference this section instead of each
+re-explaining the same on/off choice independently.
+
+| Command | Default | Category |
+|---|---|---|
+| `do` | **ON** | Deliberation-entry (routes a task; refining sharpens what gets routed) |
+| `workflow:brainstorm` | **ON** | Deliberation-entry |
+| `plan:feature` | **ON** | Deliberation-entry |
+| `grill` | **ON** (topic-scoped — skipped when the argument is a path, nothing to refine) | Deliberation-entry |
+| `orchestrate` | **OFF** | Execution engine (task is already decided by the time it reaches here; refining would re-litigate a settled scope) |
+| `orchestrate:workflow` | **OFF** | Execution engine |
+
+**Rule of thumb for any future command:** if the command's job is *deciding what to
+do*, default ON. If its job is *doing the already-decided thing*, default OFF.
+`arch:plan` currently defaults OFF and predates this policy — it wasn't part of the
+D6 conflict finding (Conflict 1.1.1) and isn't renamed here; revisit separately if it
+turns out to need one.
+
 ## Inputs
 
 - `prompt` — the raw argument the user typed.

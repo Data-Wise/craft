@@ -65,12 +65,10 @@ Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
 
 ## Execution Modes
 
-| Mode | Budget | Use Case | Example |
-|------|--------|----------|---------|
-| **default** | < 10s | Quick tasks | `/craft:code:lint` |
-| **debug** | < 120s | Verbose traces | `/craft:code:lint debug` |
-| **optimize** | < 180s | Performance | `/craft:code:lint optimize` |
-| **release** | < 300s | Thorough validation | `/craft:code:lint release` |
+Canonical definitions live in `skills/modes/SKILL.md` (the `mode-controller` skill) —
+see it for the full time-budget/use-case/behavior table. Quick reference:
+`default` (<10s, quick tasks) · `debug` (<120s, verbose) · `optimize` (<180s,
+performance) · `release` (<300s, thorough). Example: `/craft:code:lint debug`.
 
 ## Troubleshooting
 
