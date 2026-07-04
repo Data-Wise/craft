@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 116 commands, 8 agents, 44 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.58.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 116 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.59.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -11725,10 +11725,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-held-backlog" class="md-nav__link">
+  <a href="#3-dependabot-prs-resolved-2026-07-02" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Held / backlog
+        3. Dependabot PRs — RESOLVED 2026-07-02
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3b-homebrewdist-hardening-resolved-2026-07-02-post-dependabot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3b. Homebrew/dist hardening — RESOLVED 2026-07-02 (post-Dependabot)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-cleanup-craftgitclean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Cleanup (/craft:git:clean)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-held-backlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Held / backlog
       
     </span>
   </a>
@@ -11797,6 +11830,13 @@ dist-surface hardening effort (all merged to <code>dev</code>, release cut this 
 <li><strong>Release:</strong> dist-surface <code>dev→main</code> <strong>cut this session</strong> (see <code>.STATUS</code> for version/tag).</li>
 <li><strong>craft-mcp</strong> (<code>mcp/</code>): CLI-validated (smoke 20/20 + <code>mcpb validate</code>). Desktop
   install unverified — computer-use can't observe Claude Desktop (blocks screen capture).</li>
+<li><strong>Dependabot batch (5 PRs) fully resolved 2026-07-02</strong> — see item #3 below;
+  <code>dev</code>/<code>main</code> synced, unused <code>zod</code> dep dropped, <code>target-branch: dev</code> fix
+  merged to <code>dev</code> (activates on <code>main</code> at next release).</li>
+<li><strong>Homebrew/dist hardening also resolved 2026-07-02</strong> — see item #3b below;
+  2 dist-doc findings fixed, a real <code>post_install</code> marketplace-sync race fixed
+  (homebrew-tap #134/#136), and a machine-level <code>claude plugin install</code> SSH bug
+  diagnosed as an upstream Claude Code issue and worked around + documented.</li>
 </ul>
 <h2 id="pending-work-priority-order">Pending work (priority order)<a class="headerlink" href="#pending-work-priority-order" title="Permanent link">&para;</a></h2>
 <h3 id="1-docs-site-harden-consolidate-task-6-grilled-ready-to-plan">1. Docs-site harden + consolidate  — task #6, GRILLED &amp; ready to plan<a class="headerlink" href="#1-docs-site-harden-consolidate-task-6-grilled-ready-to-plan" title="Permanent link">&para;</a></h3>
@@ -11819,7 +11859,63 @@ dist-surface hardening effort (all merged to <code>dev</code>, release cut this 
   yet), then implement (new <code>skills/workflow/phase-briefing/</code> + <code>--phase</code> on
   <code>/craft:workflow:brief</code> + orchestrator emit-point).</li>
 </ul>
-<h3 id="3-held-backlog">3. Held / backlog<a class="headerlink" href="#3-held-backlog" title="Permanent link">&para;</a></h3>
+<h3 id="3-dependabot-prs-resolved-2026-07-02">3. Dependabot PRs — RESOLVED 2026-07-02<a class="headerlink" href="#3-dependabot-prs-resolved-2026-07-02" title="Permanent link">&para;</a></h3>
+<p>All 5 opened PRs reviewed (<code>/review 255 and 256</code> for the two majors) and merged:
+<code>#256</code> typescript 5→6 · <code>#255</code> zod 3→4 (superseded) · <code>#254</code> @types/node 22→26 ·
+<code>#252</code> markdownlint-cli2 0.14→0.23 · <code>#253</code> esbuild 0.25→0.28. Follow-up
+<a href="https://github.com/Data-Wise/craft/pull/257">#257</a> dropped the now-unused
+<code>zod</code> direct dep (verified: <code>src/</code> never imports it, stays transitively
+installed via the SDK's own <code>zod: ^3.25 || ^4.0</code> range; 20/20 smoke pass,
+bundle size unchanged) and set <code>target-branch: "dev"</code> on both Dependabot
+ecosystems.</p>
+<p><strong>Root cause found + fixed, but not yet fully live:</strong> <code>dependabot.yml</code> had no
+<code>target-branch</code>, so Dependabot defaulted to the GitHub <em>default</em> branch
+(<code>main</code>) — #255/#256 merged straight into <code>main</code>, bypassing craft's
+<code>main←dev←feature</code> model and drifting <code>dev</code> behind. The fix (<code>target-branch:
+dev</code>) is merged to <code>dev</code> via #257 but Dependabot reads its config from the
+<strong>default branch</strong>, so it won't take effect until the next <code>dev→main</code>
+release. <strong>Watch for this:</strong> if a new Dependabot PR opens before the next
+release, it will still target <code>main</code> — repeat the sync-dance (merge on
+green → <code>git pull origin main</code> into <code>dev</code> → confirm 0 divergence) rather
+than assuming the fix is active.</p>
+<p><code>dev</code> and <code>main</code> are synced (0 divergence either direction) as of this
+session's close.</p>
+<h3 id="3b-homebrewdist-hardening-resolved-2026-07-02-post-dependabot">3b. Homebrew/dist hardening — RESOLVED 2026-07-02 (post-Dependabot)<a class="headerlink" href="#3b-homebrewdist-hardening-resolved-2026-07-02-post-dependabot" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Dist-doc audit</strong> (2 findings, both fixed, commit <code>eb34128a</code>): <code>homebrew.md</code>'s
+  <code>deps</code> usage table was missing <code>--mermaid</code> (documented+demoed in
+  <code>homebrew-multi-formula</code> skill but absent from the command doc); count-accuracy
+  test (<code>tests/test_dist_doc_accuracy.py</code>) only covered 1/6 <code>skills/distribution/*</code>
+  files — extended to all 6.</li>
+<li><strong><code>post_install</code> marketplace-sync race</strong> — <a href="https://github.com/Data-Wise/homebrew-tap/pull/134">homebrew-tap #134</a>
+  (merged): <code>claude plugin marketplace update local-plugins</code> fired too eagerly
+  after Step 2's spawned install script returned, causing a spurious
+  "Marketplace not found" on <code>brew reinstall</code>/<code>brew upgrade</code> even though the
+  manifest was correct. Fixed with a 1s-delay retry + advisory <code>opoo</code> degrade
+  across all 6 claude-plugin formulas (generator template, never hand-edited
+  <code>.rb</code>s); verified via a planted-defect positive control before merge. Small
+  follow-up docs PR <a href="https://github.com/Data-Wise/homebrew-tap/pull/136">homebrew-tap #136</a>
+  also merged.</li>
+<li><strong><code>claude plugin install</code> SSH-clone bug</strong> — confirmed as a known <strong>upstream
+  Claude Code CLI bug</strong> (not craft's), tracked in 4+ open GitHub issues
+  (anthropics/claude-code #26588, #52234, #29722, #18001): <code>install</code> clones via
+  <code>git@github.com:...</code> unconditionally, with no HTTPS fallback (unlike
+  <code>marketplace add</code>, which does fall back). Fixed on this machine via
+  <code>git config --global url."https://github.com/".insteadOf git@github.com:</code>
+  (verified live — <code>craft@data-wise</code> install failed before, succeeded after).
+  Documented in <code>skills/distribution/dist-extras/SKILL.md</code> (commit <code>65da64d3</code>)
+  so future sessions don't re-derive it. <strong>Not craft-fixable</strong> — no action
+  needed beyond the doc note; each new machine needs the one-line workaround
+  applied manually until Anthropic ships a fix upstream.</li>
+</ul>
+<h3 id="4-cleanup-craftgitclean">4. Cleanup (<code>/craft:git:clean</code>)<a class="headerlink" href="#4-cleanup-craftgitclean" title="Permanent link">&para;</a></h3>
+<p>Orphaned worktrees from ended background sessions (<code>agitated-pasteur</code>, <code>epic-chaum</code>,
+<code>quirky-swirles</code>, <code>trusting-heyrovsky</code>, <code>flamboyant-visvesvaraya</code>) + ~17 merged
+<code>feature/*</code> branches (squash-merged → safe-delete fails, branch-guard blocks <code>-D</code>;
+confirm via <code>git cherry</code>). Run <code>/craft:git:clean</code>. Keep <code>feature/plugin-audit-skill</code> (HELD #237).
+(<code>feature/drop-zod-dep</code> — created + merged + worktree-removed within this session,
+already clean, not part of the orphan list.)</p>
+<h3 id="5-held-backlog">5. Held / backlog<a class="headerlink" href="#5-held-backlog" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>#237</strong> plugin-audit-skill — HELD (jq schema mismatch + false-positive collision heuristic; needs rework).</li>
 <li>craft-mcp Desktop <code>.mcpb</code> validation — optional (CLI already proves the server); Apple Note has the steps.</li>
@@ -11828,7 +11924,10 @@ dist-surface hardening effort (all merged to <code>dev</code>, release cut this 
 <h2 id="new-rulesmemories-this-session-already-saved">New rules/memories this session (already saved)<a class="headerlink" href="#new-rulesmemories-this-session-already-saved" title="Permanent link">&para;</a></h2>
 <p>pre-pr-testing · no-auto-archive-live-sessions · ask-question-recommendations trigger ·
 grill-new-specs-before-implementation · tar-pipe-copy-for-broken-symlink-trees ·
-background-pr-automerge-vigilance · apple-notes-html-formatting.</p>
+background-pr-automerge-vigilance · apple-notes-html-formatting ·
+agent-dispatch-recursive-delegation-risk (bounded read-only audits → <code>Explore</code>,
+not <code>general-purpose</code>; also hardened into workspace-root <code>~/projects/dev-tools/CLAUDE.md</code>
+§ "Agent dispatch patterns").</p>
 <h2 id="reusable-prompts-produced-in-transcript">Reusable prompts produced (in transcript)<a class="headerlink" href="#reusable-prompts-produced-in-transcript" title="Permanent link">&para;</a></h2>
 <p>Phase-end briefing protocol · background-agent monitoring w/ leak-scan · MCP-validation
 research · npm-hygiene best-practices · live-docs-site staleness check (general form).</p>
