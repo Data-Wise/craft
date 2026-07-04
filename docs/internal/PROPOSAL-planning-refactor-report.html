@@ -332,8 +332,9 @@
   <h1>One entry point for planning, one owner per intent</h1>
   <p class="subhead">A proposal to give craft's five overlapping planning surfaces — brainstorm, spec capture, strategy advice, artifact generation, and execution — unambiguous routing, without pretending this is a bigger cleanup than it is.</p>
   <span class="pill neutral">Originated 2026-06-22</span>
-  <span class="pill warn">In progress</span>
+  <span class="pill danger">Paused 2026-07-04</span>
   <span class="pill ok">1 of 8 actions shipped</span>
+  <span class="pill ok">A0 verified</span>
 </header>
 
 <main>
@@ -419,9 +420,9 @@
           </tr>
           <tr>
             <td class="id">C2</td>
-            <td>Superpowers <code>brainstorming</code> may hard-gate-preempt craft entirely</td>
-            <td><span class="pill danger">Critical · unverified</span></td>
-            <td><span class="pill neutral">Verify first (A0)</span></td>
+            <td>Superpowers <code>brainstorming</code> hard-gates craft — real, but scoped to top-level interactive sessions only</td>
+            <td><span class="pill warn">Medium · confirmed 2026-07-04</span></td>
+            <td><span class="pill ok">✓ Verified 2026-07-04 (A0)</span></td>
           </tr>
           <tr>
             <td class="id">C3</td>
@@ -471,19 +472,29 @@
 
     <h3>Remaining, not started</h3>
     <ul class="plain">
-      <li><strong>A4</strong> — originally a bespoke drift-guard skill; superseded by <code>plugin-audit</code>, which already shipped for a different reason. Two scope gaps remain: it can't see collisions <em>inside</em> one plugin, or between a plugin skill and a user-level rule file.</li>
+      <li><strong>A4</strong> — originally a bespoke drift-guard skill; superseded by <code>plugin-audit</code>, which already shipped for a different reason. Two scope gaps remain: it can't see collisions <em>inside</em> one plugin, or between a plugin skill and a user-level rule file. <strong>A0 verdict (below) confirmed these gaps still matter</strong> — C2 is real, so A4 isn't fully mooted, but its remaining shape is documentation, not new tooling.</li>
       <li><strong>A5</strong> — fold neutral user-rule logic (not domain-specific) into craft's own skills, closing one of A4's gaps as a side effect.</li>
-      <li><strong>A6</strong> — write down superpowers precedence; never attempt to disable a sibling plugin's skill.</li>
+      <li><strong>A6</strong> — write down superpowers precedence; never attempt to disable a sibling plugin's skill. Now has concrete content to write (see A0 verdict): name the shared-trigger-vocabulary collision explicitly, and state that soft preemption at the top-level interactive session is expected/acceptable, while craft's own pipeline still governs anything reached via <code>/craft:do</code>, explicit slash commands, or subagent dispatch.</li>
       <li><strong>A7</strong> — audit sibling plugins under the separate cross-plugin spec.</li>
       <li><strong>A8</strong> — behavioral tests + the documentation/count cascade, once the shape above is final.</li>
     </ul>
   </section>
 
   <section>
+    <div class="sec-label">§14 (spec) — A0 verdict</div>
+    <h2>A0: does superpowers actually preempt craft?</h2>
+    <div class="callout ok">
+      <span class="callout-label">Verified 2026-07-04 — real, but scoped</span>
+      <p>superpowers ships its own <code>SessionStart</code> hook (matcher <code>startup|clear|compact</code>) that unconditionally injects the full <code>using-superpowers</code> skill body as <code>&lt;EXTREMELY_IMPORTANT&gt;</code> context on every top-level session start — regardless of task type. That body asserts <code>"'Let's build X' → superpowers:brainstorming first, then implementation skills"</code>, with zero awareness of craft's own <code>skills/workflow/brainstorm</code>, which shares nearly the same trigger vocabulary. The collision is genuine.</p>
+      <p>Two mitigants, found via a live subagent test: <strong>(1)</strong> enforcement is prompt-level only — the actual <code>PreToolUse</code> hooks in <code>settings.json</code> (<code>branch-guard</code>, <code>version-sync-hook</code>, <code>no-switch-guard</code>, <code>rtk</code>) don't gate Write/Edit on prior skill invocation, so nothing technically blocks implementation before brainstorming runs. <strong>(2)</strong> it does not propagate to subagents — a freshly dispatched agent's context held only the bare name <code>superpowers:using-superpowers</code>, not its injected body, so craft's own <code>orchestrate-dispatch</code>/<code>plan-orchestrator</code> background-agent work (where most real implementation happens) is untouched.</p>
+    </div>
+  </section>
+
+  <section>
     <div class="sec-label">Recommendation</div>
     <h2>What to do next</h2>
-    <p class="lede">Finish A3 before touching A2. It's small, unblocked, and already fully scoped — and it clears the one real objection standing between the current state and shipping the dispatcher.</p>
-    <p>Beyond that: A0 (verifying whether superpowers actually preempts craft) is the one open question that could shrink this whole spec — if it turns out there's no real preemption, A4's guard and most of the superpowers documentation work drop out entirely. It's read-only and runnable today.</p>
+    <p class="lede">This thread is currently <strong>paused</strong> (user-directed, 2026-07-04) — folded into a future larger renaming/hardening/refactoring effort, scope not yet defined. Do not resume A2/A3/A5–A8 standalone until that effort is scoped.</p>
+    <p>When it is: finish A3 before touching A2 — small, unblocked, already fully scoped, and clears the one real objection standing between the current state and shipping the dispatcher. A0 is now resolved (above); fold its verdict into A4/A6 as scoped documentation work rather than re-investigating.</p>
   </section>
 
 </main>
