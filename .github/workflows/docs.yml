@@ -59,18 +59,25 @@ jobs:
       #
       # Poll with timeout+retry (GRILL G-5): distinguish "not yet propagated"
       # (GitHub Pages CDN lag — keep polling) from "wrong content" (fail loud).
+      #
+      # Window widened 5min -> 15min (2026-07-04, v2.59.0 release): the first
+      # live run of this gate failed at the 5min mark even though the
+      # underlying gh-pages branch content was already correct within
+      # seconds of deploy — pure Pages CDN edge-cache lag exceeded the
+      # original window. 30 attempts x 30s gives margin above the ~12min
+      # observed worst case without leaving the job open-ended.
       - name: Verify live site matches deployed version
         run: |
           EXPECTED=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
           echo "Expected version: $EXPECTED"
-          for i in $(seq 1 10); do
+          for i in $(seq 1 30); do
             LIVE=$(curl -s --max-time 10 https://data-wise.github.io/craft/ | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 || true)
-            echo "Attempt $i/10: live site shows '$LIVE'"
+            echo "Attempt $i/30: live site shows '$LIVE'"
             if [ "$LIVE" = "v$EXPECTED" ]; then
               echo "Live site confirmed at v$EXPECTED"
               exit 0
             fi
             sleep 30
           done
-          echo "::error::Live site never showed v$EXPECTED after 10 attempts (~5min) — deploy may have failed or content is stale. Check https://data-wise.github.io/craft/ manually."
+          echo "::error::Live site never showed v$EXPECTED after 30 attempts (~15min) — deploy may have failed or content is stale. Check https://data-wise.github.io/craft/ manually, or re-run: gh workflow run 'Deploy Documentation' --ref main"
           exit 1
