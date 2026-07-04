@@ -1,8 +1,12 @@
 # SPEC-B — craft-internal Planning Refactor
 
 > **Repo:** `~/projects/dev-tools/craft` · **Branch:** `dev` · **Date:** 2026-06-22
-> **Status:** Design revised after adversarial review + interactive decision pass. Implementation
-> gated on **A0 (live C2 verification)** and **SPEC-A / P2 (protocol)**.
+> **Status:** **PAUSED 2026-07-04 (user-directed).** A0 verified (§14) and A1 shipped
+> (`12f50b4b`); A2 grilled and deferred behind A3. User has folded the remainder of this
+> thread (A2–A8) into a **future larger renaming + hardening + refactoring effort**, scope
+> not yet defined — do not resume A2/A3/A5–A8 standalone from this spec until that effort is
+> scoped. See `.STATUS` (`PAUSED 2026-07-04` entry) and
+> `docs/internal/PROPOSAL-planning-refactor-report.html` for the working summary.
 > **Scope narrowed:** craft-internal generic-software planning only. Cross-plugin federation
 > moved to **SPEC-planning-federation-2026-06-22 (SPEC-A)**. Orchestrate clarify/refactor moved
 > to **SPEC-orchestrate-clarify-refactor-2026-06-22**.
@@ -51,7 +55,7 @@ This spec is honest about both.
 | # | Collision | Sources | Severity | Disposition |
 |---|---|---|---|---|
 | C1 | `project-planner` ↔ `plan-orchestrator` both fire on 'plan sprint/roadmap/feature' | craft-internal | HIGH | ✅ **RESOLVED 2026-07-03** (`12f50b4b`) — A1 shipped, expanded in scope after adversarial review: stripped artifact verbs from project-planner + added "plan a sprint" to plan-orchestrator (closing an orphan-phrase gap the original A1 text didn't cover) + rewrote project-planner's Example Prompts/When-to-Use (closing a body/frontmatter drift gap a code-reviewer pass found) |
-| C2 | superpowers `brainstorming` HARD-GATE preempts craft | cross | **CRITICAL (unverified)** | **A0** verify first; if real → **surfaced** by A4 visibility guard (warn, not block) |
+| C2 | superpowers `brainstorming` HARD-GATE preempts craft | cross | **MEDIUM (verified 2026-07-04, §14)** | Real but scoped: prompt-level only (no `PreToolUse` hook backs it), and does not propagate to subagents — only top-level interactive sessions get primed. **Surfaced**, not resolved; A4 folded into `plugin-audit` (§11) |
 | C3 | `plan-orchestrator` ↔ superpowers `writing-plans` | cross | MED | **documented** (A6) — craft cannot disable a sibling skill |
 | C4 | `orchestrate:resume`+`session-state` ↔ superpowers `executing-plans` | cross | MED | **documented** (A6) |
 | C5 | user `brainstorm-mode`/`spec-only-mode` logic detached from craft | user↔craft | LOW-MED | **A5** hybrid shared-source (neutral only) |
@@ -162,9 +166,12 @@ the job shrinks to "`/craft:plan` entry + seam + count hygiene."
 
 ## 10. Gating order (execution contract)
 
-1. **A0** (live C2 verify) — read-only, runnable now.
+1. **A0** (live C2 verify) — ✅ **done 2026-07-04**, see §14. Preemption confirmed but scoped
+   (prompt-level, top-level-session-only) — A4's bespoke guard is NOT pruned entirely, but its
+   scope shrinks to documentation (already anticipated by §11's "A4 replaced" revision).
 2. **SPEC-A / P2** (protocol) — `/craft:plan` cannot finalize its domain-defer shape without it.
-3. Then a worktree for A1–A8 with cross-boundary confirmations. If A0 = no preemption, prune A4.
+3. Then a worktree for A1–A8 with cross-boundary confirmations. **Currently PAUSED (see header)
+   — do not open this worktree until the folded-in larger effort is scoped.**
 
 ---
 
@@ -273,3 +280,40 @@ this spec's own §12 takeaway. Five branches resolved:
    `docs/specs/NEXT-SESSION-2026-07-03.md`.
 5. **Deferred** — no concrete user-friction case yet for tier-routing confusion; do A3 first
    (small, unblocked, already scoped) before returning to A2.
+
+## 14. A0 — live C2 verification (2026-07-04)
+
+**Verdict: preemption confirmed, but real-but-scoped, not the unqualified "hard-gate" the
+premise feared.**
+
+**Mechanism traced.** superpowers ships its own `SessionStart` hook
+(`hooks/session-start`, matcher `startup|clear|compact`) that unconditionally injects the
+full `using-superpowers` skill body as `<EXTREMELY_IMPORTANT>` context on every top-level
+session start/clear/compact — regardless of task type (observed live: fired this session on
+a read-only doc-review request, not a build request). That body carries a hard mandate
+("IF A SKILL APPLIES...YOU DO NOT HAVE A CHOICE") plus an explicit priority rule
+("'Let's build X' → superpowers:brainstorming first, then implementation skills") with zero
+awareness of craft's own `skills/workflow/brainstorm/SKILL.md`, which targets nearly the same
+trigger words ("brainstorm", "design a feature", "draft a spec") — the same class of
+collision A1 resolved for `project-planner` vs `plan-orchestrator`, still open here.
+
+**Two mitigants found via a live subagent test:**
+
+1. **Prompt-level, not hook-level.** Inspected `settings.json`'s actual `PreToolUse` hooks
+   directly: only `branch-guard`, `version-sync-hook`, `no-switch-guard`, and `rtk` gate tool
+   calls. None check for prior skill invocation — nothing technically blocks Write/Edit
+   before brainstorming runs, unlike craft's own hook-enforced guards (branch-guard, etc).
+2. **Does not propagate to subagents.** A freshly dispatched subagent's context contained
+   only the bare name `superpowers:using-superpowers`, not its injected body — the
+   `SessionStart` hook only fires at genuine top-level CLI session boundaries. Craft's own
+   `orchestrate-dispatch`/`plan-orchestrator` background-agent architecture (where most real
+   implementation happens per §5/§11) is untouched by this mechanism.
+
+**Consequence for gating (§9, §10):** A4 is not fully pruned as §9's "if no preemption" branch
+anticipated, but its scope shrinks from "build a guard" to "document precedence" — consistent
+with §11's already-revised A4 disposition (replaced by `plugin-audit` + closing its two scope
+gaps). C2 severity downgraded CRITICAL → MEDIUM (§3). Full finding also recorded in `.STATUS`
+(2026-07-04 entry).
+
+**This spec's status as of this verdict: PAUSED (see header).** The verdict is recorded here
+for continuity; A2–A8 do not resume until the folded-in larger effort is scoped.
