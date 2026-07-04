@@ -77,13 +77,12 @@ Conversational advice and reasoning, not a file:
 Need the actual artifact instead (a written `SPEC-*.md`, feature breakdown, sprint
 backlog, or roadmap file)? That's `plan-orchestrator`, not this skill.
 
-## ADHD-Friendly Features
+## ADHD-Friendly Conversation Style
 
-- Clear task breakdowns
-- Visual progress indicators
-- Priority rankings
-- Quick wins highlighted
-- Next step recommendations
+- Break the reasoning into short, clearly-labeled steps rather than one long paragraph
+- Name priorities explicitly (what matters most, what can wait) instead of a flat list
+- Call out quick wins vs. longer efforts when discussing an approach
+- End with one concrete recommended next step, not an open-ended set of options
 
 ## Integration
 
