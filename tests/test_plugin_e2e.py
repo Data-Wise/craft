@@ -167,6 +167,7 @@ class TestCommandFrontmatter:
             "commands/arch/plan.md",
             "commands/orchestrate/workflow.md",  # FR6: --refine parity (workflow-engine)
             "commands/grill.md",  # Task 3: refine default-on for topic, skip on path
+            "commands/plan.md",  # D1b: /craft:plan router, SPEC-orchestrator-consolidation-2026-07-04
         }
         declarers = set()
         for cmd in _find_all_commands():

@@ -291,6 +291,35 @@ a time to surface gaps before building.
 **Scaffold defaults (v2.52.0):** emits a tier-inferred test plan + Documentation section by default.
 Use `--no-tests` or `--no-docs` to suppress either.
 
+### /craft:plan `[topic]` (NEW, D1b)
+
+**Purpose:** Single entry point for craft's planning tiers (brainstorm → spec → strategy →
+artifact). Routes to exactly one tier via **deterministic repo-state detection** — no SPEC found →
+brainstorm; SPEC, no GRILL → offer `/craft:grill`; GRILL (or skipped), no ORCHESTRATE →
+plan-orchestrator; all three exist → project-planner. Never phrase-based classification — see
+`GRILL-planning-refactor-a2-2026-07-04.md` G-2 for why.
+
+```bash
+/craft:plan "orchestrator-consolidation"   # infers tier from repo state
+/craft:plan --dry-run                      # preview routing without invoking
+/craft:do --plan "add auth"                # sugar, forwards to /craft:plan
+```
+
+**Scope:** router only — never re-implements the four tiers' logic, never invokes `/craft:do` or
+`/craft:orchestrate` directly (one-directional seam: `plan` produces, `do`/`orchestrate` consume
+later).
+
+### /craft:plan:feature `<feature_description>`
+
+**Purpose:** Scope a new feature into user stories, task breakdown, dependencies, and acceptance
+criteria — the artifact-generating tier `/craft:plan` routes to when no committed plan exists yet
+for the topic.
+
+```bash
+/craft:plan:feature "avatar upload"                # MVP-scope by default
+/craft:plan:feature "avatar upload" --scope full    # full-build scope
+```
+
 ## Smart Documentation (17 commands)
 
 ### Core Documentation Commands

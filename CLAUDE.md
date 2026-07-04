@@ -4,9 +4,9 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**116 commands** · **45 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**117 commands** · **45 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-> `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (6 commands)
+> `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (7 commands)
 
 **Current Version:** v2.59.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
@@ -87,7 +87,7 @@ performance) · `release` (<300s, thorough). Example: `/craft:code:lint debug`.
 
 | Directory | Purpose |
 |-----------|---------|
-| `commands/` | 116 commands (auto-discovered, one `.md` per command) |
+| `commands/` | 117 commands (auto-discovered, one `.md` per command) |
 | `skills/` | 45 skills (`SKILL.md` pattern) |
 | `agents/` | 8 agent definitions |
 | `tests/` | Unit, e2e, dogfood, and integration test suites |
