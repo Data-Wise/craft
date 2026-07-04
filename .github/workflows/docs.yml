@@ -1,3 +1,8 @@
+# Deploy model (H3, SPEC-docs-site-hardening-consolidation-2026-07-02, G-1):
+# the live site tracks `main` (releases), by design — main-gated, not a dev
+# preview. Work on `dev` never reaches https://data-wise.github.io/craft/
+# until the next dev→main release PR merges. For a local preview of dev-side
+# changes, use `mkdocs serve` — there is no separate dev deploy target.
 name: Deploy Documentation
 
 on:
@@ -43,4 +48,29 @@ jobs:
             sleep 5
           done
           echo "Deploy failed after 3 attempts"
+          exit 1
+
+      # H1 (SPEC-docs-site-hardening-consolidation-2026-07-02): the deploy step
+      # above only proves `mkdocs gh-deploy` succeeded LOCALLY — it never
+      # verifies the live URL actually reflects the new content. RC1 from that
+      # spec was exactly this: docs.yml is main-gated, but nothing checked the
+      # live site matched what was just deployed, so staleness went unnoticed
+      # until a manual audit found it days later.
+      #
+      # Poll with timeout+retry (GRILL G-5): distinguish "not yet propagated"
+      # (GitHub Pages CDN lag — keep polling) from "wrong content" (fail loud).
+      - name: Verify live site matches deployed version
+        run: |
+          EXPECTED=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+          echo "Expected version: $EXPECTED"
+          for i in $(seq 1 10); do
+            LIVE=$(curl -s --max-time 10 https://data-wise.github.io/craft/ | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 || true)
+            echo "Attempt $i/10: live site shows '$LIVE'"
+            if [ "$LIVE" = "v$EXPECTED" ]; then
+              echo "Live site confirmed at v$EXPECTED"
+              exit 0
+            fi
+            sleep 30
+          done
+          echo "::error::Live site never showed v$EXPECTED after 10 attempts (~5min) — deploy may have failed or content is stale. Check https://data-wise.github.io/craft/ manually."
           exit 1
