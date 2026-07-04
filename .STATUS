@@ -330,3 +330,11 @@ Spec: docs/specs/SPEC-insights-improvements-v2.33-2026-02-27.md
 | plugin | code | desktop | released | drift |
 |--------|------|---------|----------|-------|
 | craft | 2.53.0 | manual | 2.53.0 | no |
+
+
+## Session Recap — 2026-07-03 — Planning-Refactor Sync + Handoff
+- Synced SPEC-planning-refactor-2026-06-22.md against #237/#239/#240 (see spec S11).
+- Corrected: feature.md + orchestrate/plan.md NOT deprecated; resume.md deleted (#239).
+- #237 plugin-audit-skill confirmed MERGED (2026-07-02 doc said HELD - now stale).
+- Handoff: docs/specs/NEXT-SESSION-2026-07-03.md
+- Next: A1 (project-planner collision) -> A2 (/plan dispatcher) -> finish A3.
