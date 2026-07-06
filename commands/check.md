@@ -282,33 +282,6 @@ if [[ -n "$new_cmds" ]]; then
 fi
 ```
 
-## Quota Pre-flight (opt-in, never blocking)
-
-After all mandatory checks, surface a quota advisory if a fresh cache file
-(`~/.claude/quota-cache.json`, timestamp < 900s old) is present:
-
-```bash
-CACHE="$HOME/.claude/quota-cache.json"
-NOW=$(date +%s)
-if [[ -f "$CACHE" ]]; then
-    TS=$(python3 -c "import json; d=json.load(open('$CACHE')); print(d.get('timestamp',0))" 2>/dev/null || echo 0)
-    AGE=$(( NOW - TS ))
-    if [[ "$AGE" -lt 900 ]]; then
-        LEVEL=$(python3 -c "import json; d=json.load(open('$CACHE')); print(d.get('level',''))" 2>/dev/null)
-        case "$LEVEL" in
-            SAFE)   echo "✅ Quota: SAFE — sufficient tokens for this run" ;;
-            TIGHT)  echo "⚠️  Quota: TIGHT — approaching limit; consider batching" ;;
-            DEFER)  echo "💡 Quota: DEFER recommended — low tokens; wait before a heavy /craft:orch run" ;;
-        esac
-    fi
-fi
-```
-
-Populate the cache with `scripts/quota-persist.sh` before `/craft:check`; the
-cache auto-expires after 15 minutes. The standalone `/craft:quota` command
-was folded into `/craft:orch`'s own Step 1.5 pre-flight gate — see
-that command for the full SAFE/TIGHT/DEFER advisory logic.
-
 ## Output Format
 
 ```
@@ -339,5 +312,4 @@ Works with:
 - `/craft:docs:check-links` - Documentation link validation
 - `/craft:ci:fix` - Auto-fix issues
 - `/craft:ci:local` - Full CI simulation
-- `/craft:orch` - Its Step 1.5 has the full SAFE/TIGHT/DEFER quota advisory (formerly a standalone /craft:quota command)
 - `/craft:check:gen-validator` - Scaffold a new custom validator (see the skill's "Validator Generation" section for the full flow)
