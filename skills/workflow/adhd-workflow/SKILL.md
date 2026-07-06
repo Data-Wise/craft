@@ -1,6 +1,6 @@
 ---
 name: adhd-workflow
-description: ADHD-friendly session and task workflow for craft users — captures context at session end, restores it at session start, picks the next task, breaks through blockers, holds focus on one task, reviews a craft spec, or refines a vague craft prompt. Use when wrapping up or resuming a coding session, when deciding what to work on next, when stuck or in decision paralysis, when focusing on a single craft task, or when reviewing/refining a craft spec or prompt. The full intent-to-operation map is in the "When to Use" table below.
+description: ADHD-friendly session and task workflow for craft users — captures context at session end, restores it at session start, picks the next task, breaks through blockers, holds focus on one task, reviews a craft spec, or refines a vague craft prompt. Use when wrapping up or resuming a coding session, when deciding what to work on next (also: "what's next", "pick a task for me", "give me something to do"), when stuck or in decision paralysis, when focusing on a single craft task, or when reviewing/refining a craft spec or prompt. The full intent-to-operation map is in the "When to Use" table below.
 ---
 
 # ADHD Workflow Skill
@@ -15,7 +15,7 @@ Activate this skill when the user's prompt matches any of these concerns:
 |-------------|-----------|
 | "I'm done", "wrap up", "end session", "save progress" | Session completion |
 | "where did I leave off", "what's the state", "recap me" | Context restoration |
-| "what next", "what should I work on", "I can't decide" | Next-task suggestion |
+| "what next", "what's next", "what should I work on", "I can't decide", "pick a task for me", "give me something to do", "what should I do now" | Next-task suggestion |
 | "let me focus", "single task", "Pomodoro" | Focus mode |
 | "I'm stuck", "I don't know what to do", "blocked" | Unblock helper |
 | "review my spec", "approve spec", "archive spec" | Spec review |
