@@ -138,7 +138,7 @@ Determines task complexity for mode selection:
 ╭─ Task Analysis ─────────────────────────────────────╮
 │ Input: "add user authentication"                   │
 ├─────────────────────────────────────────────────────┤
-│ Intent: Create (feature)                           │
+│ Intent: Feature                                    │
 │ Domain: Authentication                             │
 │ Complexity: Medium                                 │
 │ Workflow: Feature Development                      │
@@ -166,7 +166,7 @@ Works with:
 ```
 Input: "fix typo in readme"
 Analysis:
-  - Intent: Fix
+  - Intent: Bug
   - Domain: Documentation
   - Complexity: Simple
   - Command: Direct edit (no routing needed)
@@ -177,7 +177,7 @@ Analysis:
 ```
 Input: "implement oauth2 login with google"
 Analysis:
-  - Intent: Create (feature)
+  - Intent: Feature
   - Domain: Authentication + API
   - Complexity: Complex
   - Workflow: Feature Development

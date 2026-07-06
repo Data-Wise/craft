@@ -21,6 +21,9 @@ replaced-by: "skills/workflow/prompt-refiner/"
    via AskUserQuestion, return the chosen prompt. With no downstream command
    (standalone `/refine "..."` ), stop after the before/after + confirm step
    and print the refined prompt.
+   > Note: `prompt-refiner` won't appear in the Skill tool's available-skill
+   > list (it's a nested, non-command-shaped skill) — invoke it by reading
+   > the file directly, not by guessing a Skill-tool name.
 2. **Do not reimplement here.** Any change to `/refine` behavior — including
    the optional `--explain` rationale mode — must be made in the skill, never
    duplicated into this shim.

@@ -473,9 +473,9 @@ The orchestrator can coordinate complex brainstorming workflows using `/brainsto
 The orchestrator will:
 
 1. Launch `/brainstorm d:8 "authentication" -C req,users,scope,success` for context
-2. Spawn `backend-architect` agent to design auth flow
-3. Spawn `frontend-specialist` agent for login UI design
-4. Coordinate test strategy with `test-strategist`
+2. Spawn a subagent (`general-purpose`, description: "design auth flow")
+3. Spawn a subagent (`general-purpose`, description: "login UI design")
+4. Coordinate test strategy
 5. Synthesize all findings into comprehensive plan
 
 ### Brainstorm + Orchestration Patterns
@@ -483,7 +483,7 @@ The orchestrator will:
 ```bash
 # Pattern 1: Quick context then implement
 /craft:orch "add payment integration"
-# → Brainstorm q:2 → backend-architect → code implementation
+# → Brainstorm q:2 → subagent (general-purpose) → code implementation
 
 # Pattern 2: Deep context with multiple agents
 /craft:orch "design microservices architecture" optimize

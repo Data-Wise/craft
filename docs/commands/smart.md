@@ -78,8 +78,8 @@ Tasks are scored on 7 factors (each 0-2 points):
 # - Time: 2-4 hours (1)
 # Total: 6/14 = 4.3 → Score: 6
 
-# Routing: Single agent
-# Delegates to: backend-architect agent
+# Routing: Command sequence
+# Runs: /craft:arch:plan, /craft:code:test-gen, /craft:git:branch (no agent dispatch)
 ```
 
 **Example 3: Complex Task (Score: 9)**

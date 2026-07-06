@@ -617,7 +617,7 @@ Command                  | Description
 ─────────────────────────────────────────────────────────────────────────
 ```
 
-### `/craft:hub orchestrate`
+### `/craft:hub orch`
 
 ```
 ORCHESTRATE COMMANDS (3) - Multi-Agent Coordination

@@ -456,6 +456,7 @@ nav:
         - Developer Guide: DEVELOPER-GUIDE.md
     - Runbooks:
       - Parity Gate Protocol: runbooks/parity-gate.md
+      - Release Rollback: runbooks/release-rollback.md
     - Specifications (Archive):
       - Badge Management System: specs/_archive/SPEC-badge-system-2026-01-30.md
       - Broken Link Validation: specs/_archive/SPEC-broken-link-validation-2026-01-17.md

@@ -28,7 +28,7 @@ Craft currently has 107 commands, 26 skills, 8 agents. The multi-repo coordinati
 
 ## Medium Effort (1-2 hours each)
 
-5. **Add `isolation: "worktree"` to craft agents** - Agents doing code modifications (feature-dev, backend-architect, code-reviewer) should declare worktree isolation for safe parallel execution.
+5. **Add `isolation: "worktree"` to craft agents** - Agents doing code modifications (feature-dev, backend-architect, code-reviewer) should declare worktree isolation for safe parallel execution. *(Historical brainstorm note — `feature-dev` and `backend-architect` named here were never implemented as real agents; see the do.md dead-agent-dispatch fix, 2026-07-06.)*
 
 6. **Add `skills` field to agent definitions** - Preload relevant skills into agents at startup (e.g., orchestrator gets `session-state` + `task-analyzer`).
 

@@ -178,6 +178,15 @@ jobs:
           bash tests/test_branch_guard_e2e.sh
           bash tests/test_no_switch_guard.sh
 
+      - name: Run release-pipeline bash suites
+        # bump-version.sh and post-release-sweep.sh are the most safety-critical
+        # scripts in the release pipeline. Their test suites are self-contained
+        # bash suites (not collected by pytest) and must run in CI, not just
+        # manually, to catch regressions before release.
+        run: |
+          bash tests/test_bump_version.sh
+          bash tests/test_post_release_sweep.sh
+
       - name: Summary
         run: |
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

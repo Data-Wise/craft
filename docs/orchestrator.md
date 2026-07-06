@@ -73,7 +73,7 @@ Orchestrator v2 provides:
 2. Performance check (performance-engineer)
 3. Test suite (testing-specialist)
 4. Deployment readiness (devops-engineer)
-5. Code quality (code-quality-reviewer)
+5. Code quality (lint + review checks)
 
 ### Debug Mode (Verbose)
 
@@ -114,14 +114,19 @@ Total:   ████████ (~60s)
 Agents can share context and coordinate:
 
 ```
-security-specialist: "SQL injection vulnerability found"
-→ Notifies backend-architect
+Subagent (description: "Security audit"): "SQL injection vulnerability found"
+→ Result written to /tmp/craft-orch/security-audit-result.md
 
-backend-architect: "Implementing parameterized queries"
-→ Notifies testing-specialist
+Subagent (description: "Fix parameterized queries"): "Implementing parameterized queries"
+→ Result written to /tmp/craft-orch/fix-queries-result.md
 
-testing-specialist: "Adding security test cases"
+Subagent (description: "Add security test cases"): "Adding security test cases"
 ```
+
+(Subagents use real `subagent_type` values — `general-purpose`, `Explore`,
+`Bash`, `Plan` — with a descriptive `description` field, not named specialist
+agents like `backend-architect`; see `agents/orchestrator-v2.md`'s Subagent
+Delegation Protocol.)
 
 ## Monitoring & Status
 
@@ -235,10 +240,10 @@ Task: "add authentication"
 Pattern: FEATURE_IMPLEMENTATION + SECURITY
 Mode: optimize
 
-Selected agents:
-→ backend-architect (API design)
-→ security-specialist (OAuth2/JWT)
-→ testing-specialist (test strategy)
+Spawned subagents (general-purpose, distinguished by `description`):
+→ "API design"
+→ "OAuth2/JWT implementation"
+→ "Test strategy"
 ```
 
 ### Error Handling

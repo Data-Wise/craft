@@ -1,5 +1,5 @@
 ---
-name: orchestrate
+name: orch
 description: Launch orchestrator mode with subagent delegation, monitoring, mode-aware execution, and chat compression
 category: smart
 arguments:
@@ -241,26 +241,6 @@ Analyze the task and display a numbered plan. Do NOT spawn any agents yet.
 | 2 | ... | ... | 1 | none |
 | 3 | ... | ... | 2 | 1 |
 ```
-
-### Step 1.5: Quota Pre-Flight Check (folded in from the former /craft:quota command)
-
-Before confirming the plan, read `~/.claude/quota-cache.json` and gate on rate-limit headroom:
-
-- **Cache absent:** print `quota cache absent -- run scripts/quota-persist.sh first` and STOP.
-- **Cache stale** (`captured_at` older than `STALE_SECS=900` seconds): print `quota cache stale (Nm old) -- run scripts/quota-persist.sh to refresh` and STOP.
-- Otherwise extract `five_hour_pct`, `reset_at`, `captured_at` from the cache.
-
-Run `python3 scripts/quota_estimate.py` with marker files matching the selected engine (`workflow`: `.craft/workflow-runs/*/manifest.json`; `fanout`: `.craft/orchestrate-runs/*.json`) to get `{n, median, p05, p95, cold_start}`. If `cold_start` is true (`n < 3`), label the estimate as **insufficient history** but proceed using whatever data is available.
-
-Map `five_hour_pct` to an advisory:
-
-| Range | Advisory | Action |
-|-------|----------|--------|
-| < 60 | **SAFE** | Proceed — ample quota headroom |
-| 60–85 | **TIGHT** | Proceed with caution — monitor usage |
-| > 85 | **DEFER** | Do not start — show reset time from `reset_at` |
-
-Display the advisory inline (SAFE/TIGHT/DEFER, estimate, and reset time for TIGHT/DEFER) before Step 2's confirm gate. On **DEFER**, stop here rather than proceeding to Step 2 — wait for reset or reduce run scope. Write `.craft/quota.json` with the advisory, estimate, and timestamps (same schema the former standalone command used), so other tooling that reads that file is unaffected by this being inlined rather than a separate command.
 
 ### Engine Selection (--engine routing)
 

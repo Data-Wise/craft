@@ -69,4 +69,5 @@ npm publish
 - Never skip the check phase
 - Write clear, user-focused release notes
 - Test installation from fresh environment
-- Have a rollback plan
+- Have a rollback plan — see `docs/runbooks/release-rollback.md` for the manual
+  per-surface undo steps (git tag, GitHub release, Homebrew formula, docs site)
