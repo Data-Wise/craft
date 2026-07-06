@@ -135,6 +135,10 @@ def _run_verify(sandbox_dir: str, env_overrides: dict, extra_args: list[str] | N
     env["SURFACES_REPO_DIR"] = sandbox_dir
     # Prevent live cowork-store glob from touching the real machine state.
     env.setdefault("SURFACES_COWORK_STORE", "/nonexistent/cowork_store")
+    # Prevent live `gh release list` / docs-site curl from touching the network —
+    # every sandbox in this file pins plugin.json at 2.37.0.
+    env.setdefault("SURFACES_GH_RELEASE_VERSION", "2.37.0")
+    env.setdefault("SURFACES_DOCS_SITE_VERSION", "2.37.0")
     env.update(env_overrides)
     result = subprocess.run(
         ["bash", str(VERIFY_SCRIPT)] + (extra_args or []),

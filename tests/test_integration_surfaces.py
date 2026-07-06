@@ -137,6 +137,9 @@ def test_full_pipeline_propagate_check_verify_report_exits_0():
             "SURFACES_AGGREGATOR_FILE": agg_file,
             "SURFACES_BREW_CMD": brew_sentinel,
             "SURFACES_CLAUDE_CMD": claude_sentinel,
+            # Prevent live `gh release list` / docs-site curl from touching the network.
+            "SURFACES_GH_RELEASE_VERSION": version,
+            "SURFACES_DOCS_SITE_VERSION": version,
         }
 
         # Phase 1a: brew propagate --check

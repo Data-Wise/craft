@@ -112,6 +112,8 @@ run_verify() {
            SURFACES_BREW_VERSION="${SURFACES_BREW_VERSION-$SBX_VERSION}" \
            SURFACES_INSTALLED_PLUGINS="${SURFACES_INSTALLED_PLUGINS-$SANDBOX/installed_plugins.json}" \
            SURFACES_COWORK_STORE="${SURFACES_COWORK_STORE-/nonexistent/cowork_store}" \
+           SURFACES_GH_RELEASE_VERSION="${SURFACES_GH_RELEASE_VERSION-$SBX_VERSION}" \
+           SURFACES_DOCS_SITE_VERSION="${SURFACES_DOCS_SITE_VERSION-$SBX_VERSION}" \
            bash "$VERIFY_SCRIPT" "$@" 2>&1 )
 }
 
@@ -422,12 +424,124 @@ JSON
            SURFACES_TAP_FORMULA="$SANDBOX/craft.rb" \
            SURFACES_BREW_VERSION="2.37.0" \
            SURFACES_INSTALLED_PLUGINS="$SANDBOX/installed_plugins.json" \
+           SURFACES_GH_RELEASE_VERSION="2.37.0" \
+           SURFACES_DOCS_SITE_VERSION="2.37.0" \
            HOME="$fake_home" \
            bash "$VERIFY_SCRIPT" 2>&1 ) || exit_code=$?
     local stripped; stripped=$(strip_ansi "$output")
 
     assert_equals "0" "$exit_code" "Cowork glob at depth 4 exits 0"
     assert_contains "$stripped" "cowork" "Cowork leg appears in report (glob found it)"
+
+    destroy_sandbox
+}
+
+test_report_only_never_blocks() {
+    echo -e "${T_BLUE}[TEST]${T_NC} REPORT-ONLY: mismatch still DRIFTS but never exits 1"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    # Same planted mismatch (stale brew) exercised in test_mismatch_blocks.
+    local default_exit=0 default_output
+    default_output=$(SURFACES_TAP_FORMULA="" SURFACES_BREW_VERSION="2.36.0" run_verify) || default_exit=$?
+    local ro_exit=0 ro_output
+    ro_output=$(SURFACES_TAP_FORMULA="" SURFACES_BREW_VERSION="2.36.0" run_verify --report-only) || ro_exit=$?
+    local ro_stripped; ro_stripped=$(strip_ansi "$ro_output")
+
+    assert_equals "1" "$default_exit" "Default mode still exits 1 for the same planted mismatch"
+    assert_equals "0" "$ro_exit" "--report-only exits 0 for the same planted mismatch"
+    assert_contains "$ro_stripped" "DRIFTED" "--report-only prints DRIFTED for the mismatched leg"
+    assert_contains "$ro_stripped" "brew-installed" "--report-only report names the drifted leg"
+
+    destroy_sandbox
+}
+
+test_report_only_all_legs_aligned() {
+    echo -e "${T_BLUE}[TEST]${T_NC} REPORT-ONLY: fully-aligned sandbox prints ALIGNED per surface, exit 0"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local exit_code=0 output
+    output=$(run_verify --report-only) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "--report-only exits 0 when fully aligned"
+    assert_contains "$stripped" "ALIGNED" "--report-only prints ALIGNED for matching legs"
+    assert_not_contains "$stripped" "DRIFTED" "No DRIFTED line when nothing mismatched"
+
+    destroy_sandbox
+}
+
+test_github_release_leg_aligned_and_drifted() {
+    echo -e "${T_BLUE}[TEST]${T_NC} GITHUB RELEASE leg: aligned + drifted, injectable via SURFACES_GH_RELEASE_VERSION"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local exit_code=0 output
+    output=$(run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+    assert_equals "0" "$exit_code" "Aligned github-release leg does not block"
+    assert_contains "$stripped" "github release" "Report lists the github-release leg"
+
+    local drift_exit=0 drift_output
+    drift_output=$(SURFACES_GH_RELEASE_VERSION="2.36.0" run_verify) || drift_exit=$?
+    local drift_stripped; drift_stripped=$(strip_ansi "$drift_output")
+    assert_equals "1" "$drift_exit" "Stale github-release leg blocks (exit 1)"
+    assert_contains "$drift_stripped" "MISMATCH" "Report flags the github-release mismatch"
+
+    destroy_sandbox
+}
+
+test_docs_site_leg_aligned_and_drifted() {
+    echo -e "${T_BLUE}[TEST]${T_NC} DOCS SITE leg: aligned + drifted, injectable via SURFACES_DOCS_SITE_VERSION"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local exit_code=0 output
+    output=$(run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+    assert_equals "0" "$exit_code" "Aligned docs-site leg does not block"
+    assert_contains "$stripped" "docs site" "Report lists the docs-site leg"
+
+    local drift_exit=0 drift_output
+    drift_output=$(SURFACES_DOCS_SITE_VERSION="2.36.0" run_verify) || drift_exit=$?
+    local drift_stripped; drift_stripped=$(strip_ansi "$drift_output")
+    assert_equals "1" "$drift_exit" "Stale docs-site leg blocks (exit 1)"
+    assert_contains "$drift_stripped" "MISMATCH" "Report flags the docs-site mismatch"
+
+    destroy_sandbox
+}
+
+test_version_flag_overrides_target() {
+    echo -e "${T_BLUE}[TEST]${T_NC} --version: diagnoses a DIFFERENT version than plugin.json's current one"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    # All fixtures are pinned at 2.37.0 (from make_sandbox). Asking the script
+    # to check against --version 2.36.0 instead must now report every leg as
+    # a MISMATCH against that overridden target, proving --version actually
+    # changed what's being compared (not just cosmetic header text).
+    local exit_code=0 output
+    output=$(run_verify --version 2.36.0) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "1" "$exit_code" "Fixtures at 2.37.0 mismatch an overridden --version 2.36.0 target"
+    assert_contains "$stripped" "Surfaces for craft v2.36.0" "Header reflects the --version override, not plugin.json"
+    assert_contains "$stripped" "MISMATCH" "Legs now compare against the overridden version"
+
+    # Sanity: a --version matching the fixtures' actual version still aligns.
+    local match_exit=0 match_output
+    match_output=$(run_verify --version 2.37.0) || match_exit=$?
+    assert_equals "0" "$match_exit" "--version matching the real fixture version still exits 0"
+
+    destroy_sandbox
+}
+
+test_version_flag_with_report_only() {
+    echo -e "${T_BLUE}[TEST]${T_NC} --report-only --version: diagnose a past release without blocking"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local exit_code=0 output
+    output=$(run_verify --report-only --version 2.36.0) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "--report-only --version never blocks even on a full mismatch"
+    assert_contains "$stripped" "DRIFTED" "Combined flags still surface DRIFTED legs"
 
     destroy_sandbox
 }
@@ -461,6 +575,13 @@ main() {
     test_aggregator_name_mismatch_blocks
     test_aggregator_correct_name_and_version_passes
     test_cowork_glob_maxdepth
+    # Phase 2 additions: --report-only, --version, github-release + docs-site legs
+    test_report_only_never_blocks
+    test_report_only_all_legs_aligned
+    test_github_release_leg_aligned_and_drifted
+    test_docs_site_leg_aligned_and_drifted
+    test_version_flag_overrides_target
+    test_version_flag_with_report_only
     print_summary
     [ "$FAILED_TESTS" -gt 0 ] && exit 1 || exit 0
 }
