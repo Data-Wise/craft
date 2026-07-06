@@ -19,7 +19,7 @@ this plan does not re-litigate them.
 | Phase | Increment | Priority | Effort | Status |
 |---|---|---|---|---|
 | 1 | H3: `do.md` dead-branch removal + 24-doc sweep | High | Med | ✅ Done (`68ba115b`) |
-| 2 | M1/M10: release-state `--report-only` verify + runbook | Med | Med | Not started |
+| 2 | M1/M10: release-state `--report-only` verify + runbook | Med | Med | ✅ Done (`e328d71b`) |
 | 3 | G1: remove stray file | Low | XS | Not started |
 
 ## Phase 1: H3 — `do.md` Dead Agent-Dispatch Removal
@@ -75,26 +75,27 @@ test file (new test), 24 doc files listed above (update, selectively).
 (GitHub release publication, docs-site version), then fold that into `/craft:dist:surfaces`
 rather than building a new script or command. Write a manual rollback runbook alongside it.
 
-- [ ] 2.1 Read `scripts/verify-surfaces.sh` in full (dependency from the SPEC — do this
+- [x] 2.1 Read `scripts/verify-surfaces.sh` in full (dependency from the SPEC — do this
       before writing any code). Confirm the existing 5-leg structure (marketplace.json,
       git tag, tap Formula, brew-installed, Code-registered) and its env-var override
       pattern (`SURFACES_GIT_TAG` etc.) to match conventions for the 2 new legs.
-- [ ] 2.2 Add a `--report-only` flag: same checks, but never exits 1 — prints
+- [x] 2.2 Add a `--report-only` flag: same checks, but never exits 1 — prints
       `ALIGNED`/`DRIFTED` per surface and always exits 0. Existing default (blocking,
       exit 1 on mismatch) stays unchanged for the release pipeline's own gate.
-- [ ] 2.3 Add the GitHub-release-published leg (`gh release view vX.Y.Z` or equivalent).
-- [ ] 2.4 Add the docs-site-version leg — reuse the existing live-site version-poll
+- [x] 2.3 Add the GitHub-release-published leg (`gh release view vX.Y.Z` or equivalent).
+- [x] 2.4 Add the docs-site-version leg — reuse the existing live-site version-poll
       pattern already used elsewhere in this repo (release skill Step 13 / `docs.yml`'s
       post-deploy poll per `.STATUS` history) rather than inventing a new HTTP check.
-- [ ] 2.5 Add a `--version <X>` override (promoting the existing env-var override pattern
+- [x] 2.5 Add a `--version <X>` override (promoting the existing env-var override pattern
       to a first-class flag) so `--report-only` can diagnose a specific past release, not
       only the current `plugin.json` version.
-- [ ] 2.6 Fold into `commands/dist/surfaces.md`: add the `--version` and `--report-only`
+- [x] 2.6 Fold into `commands/dist/surfaces.md`: add the `--version` and `--report-only`
       pass-through, extend its report table to the 2 new legs. No new command file.
-- [ ] 2.7 Write `docs/runbooks/release-rollback.md`: manual per-surface undo steps for a
+- [x] 2.7 Write `docs/runbooks/release-rollback.md`: manual per-surface undo steps for a
       bad release (revert/delete tag, delete/edit GitHub release, revert Homebrew formula
-      commit + re-run tap CI, re-deploy docs site from the last-good commit).
-- [ ] 2.8 Update `commands/code/release.md`'s existing "have a rollback plan" line to
+      commit + re-run tap CI, re-deploy docs site from the last-good commit). Registered
+      in `mkdocs.yml` nav under Runbooks (manually curated, not auto-discovered).
+- [x] 2.8 Update `commands/code/release.md`'s existing "have a rollback plan" line to
       link the new runbook.
 
 **Key files:** `scripts/verify-surfaces.sh` (update), `commands/dist/surfaces.md` (update),
