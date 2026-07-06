@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.61.0] - 2026-07-06
+
 ### Fixed
 
 - **`do.md` no longer dispatches to nonexistent agents.** Removed `select_agent()`'s dead
