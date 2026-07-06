@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 116 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.59.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.60.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -2394,6 +2394,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../adr/ADR-005-shim-canonical-path-resolution.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-005: Shim Canonical-Path Resolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
@@ -2618,7 +2646,63 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-orchestrate-drive/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-docs-generate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docs Generate Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-plan-feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plan Feature Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-orch-drive/" class="md-nav__link">
         
   
   
@@ -2646,7 +2730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../help/orchestrate-drive/" class="md-nav__link">
+      <a href="../../help/orch-drive/" class="md-nav__link">
         
   
   
@@ -2674,7 +2758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-orchestrate-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-orch-workflow/" class="md-nav__link">
         
   
   
@@ -2702,7 +2786,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../help/orchestrate-workflow/" class="md-nav__link">
+      <a href="../../help/orch-workflow/" class="md-nav__link">
         
   
   
@@ -2853,10 +2937,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_55" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_58" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_55" id="__nav_2_4_55_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_58" id="__nav_2_4_58_label" tabindex="0">
             
   
   
@@ -2874,8 +2958,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_55_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_55">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_58_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_58">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3051,10 +3135,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_60" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_60" id="__nav_2_4_60_label" tabindex="0">
             
   
   
@@ -3072,8 +3156,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_57">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_60_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_60">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -3304,15 +3388,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#craftorchestrateplan-spec-to-worktree-pipeline" class="md-nav__link">
+  <a href="#craftorchplan-spec-to-worktree-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        /craft:orchestrate:plan — Spec to Worktree Pipeline
+        /craft:orch:plan — Spec to Worktree Pipeline
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="/craft:orchestrate:plan — Spec to Worktree Pipeline">
+    <nav class="md-nav" aria-label="/craft:orch:plan — Spec to Worktree Pipeline">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -4131,14 +4215,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-code-ci-local/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-local/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    code:ci-local Tutorial
+    ci:local Tutorial
   
 
     
@@ -4195,34 +4279,6 @@
     
   
     code:deps-audit Tutorial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-code-desktop-watch/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    code:desktop-watch Tutorial
   
 
     
@@ -4615,34 +4671,6 @@
     
   
     git:guard Tutorial
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../tutorials/TUTORIAL-quota/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    quota Tutorial
   
 
     
@@ -5739,14 +5767,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate/" class="md-nav__link">
+      <a href="../../commands/orch/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:orchestrate
+    /craft:orch
   
 
     
@@ -5774,7 +5802,7 @@
   <span class="md-ellipsis">
     
   
-    /craft:orchestrate (reference)
+    /craft:orch (reference)
   
 
     
@@ -5795,14 +5823,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate-drive/" class="md-nav__link">
+      <a href="../../commands/orch/drive/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:orchestrate:drive
+    /craft:orch:drive
   
 
     
@@ -5823,42 +5851,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/quota/" class="md-nav__link">
+      <a href="../../commands/orch/workflow/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:quota
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../commands/orchestrate-workflow/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:orchestrate:workflow
+    /craft:orch:workflow
   
 
     
@@ -5915,6 +5915,34 @@
     
   
     /craft:ci:status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/docs/generate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:docs:generate
   
 
     
@@ -6579,14 +6607,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/brainstorm/" class="md-nav__link">
+      <a href="../../commands/brainstorm/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:workflow:brainstorm
+    /craft:brainstorm
   
 
     
@@ -6607,14 +6635,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/brief/" class="md-nav__link">
+      <a href="../../commands/brief/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:workflow:brief
+    /craft:brief
   
 
     
@@ -6663,14 +6691,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/workflow/done/" class="md-nav__link">
+      <a href="../../commands/done/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /workflow:done
+    /craft:done
   
 
     
@@ -6775,14 +6803,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/ci-local/" class="md-nav__link">
+      <a href="../../commands/ci/local/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:code:ci-local
+    /craft:ci:local
   
 
     
@@ -6839,34 +6867,6 @@
     
   
     /craft:code:release-watch
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../commands/code/desktop-watch/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:code:desktop-watch
   
 
     
@@ -7391,14 +7391,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/code/ci-fix/" class="md-nav__link">
+      <a href="../../commands/ci/fix/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:code:ci-fix
+    /craft:ci:fix
   
 
     
@@ -7671,14 +7671,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate/drive/" class="md-nav__link">
+      <a href="../../commands/orch/drive/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:orchestrate:drive
+    /craft:orch:drive
   
 
     
@@ -7699,14 +7699,70 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/orchestrate/workflow/" class="md-nav__link">
+      <a href="../../commands/orch/workflow/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:orchestrate:workflow
+    /craft:orch:workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/plan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/plan/feature/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:plan:feature
   
 
     
@@ -7763,34 +7819,6 @@
     
   
     /craft:smart-help
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../commands/workflow/adhd-guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /craft:workflow:adhd-guide
   
 
     
@@ -11974,15 +12002,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#craftorchestrateplan-spec-to-worktree-pipeline" class="md-nav__link">
+  <a href="#craftorchplan-spec-to-worktree-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        /craft:orchestrate:plan — Spec to Worktree Pipeline
+        /craft:orch:plan — Spec to Worktree Pipeline
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="/craft:orchestrate:plan — Spec to Worktree Pipeline">
+    <nav class="md-nav" aria-label="/craft:orch:plan — Spec to Worktree Pipeline">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -12183,7 +12211,7 @@
 </thead>
 <tbody>
 <tr>
-<td><code>/craft:workflow:brainstorm</code></td>
+<td><code>/craft:brainstorm</code></td>
 <td>Command</td>
 <td><strong>Divergent</strong> — generates options, captures a SPEC</td>
 </tr>
@@ -12193,14 +12221,14 @@
 <td><strong>Convergent</strong> — interrogates a spec/plan/topic one question at a time until every branch is resolved; captures a <code>GRILL-*.md</code> ledger</td>
 </tr>
 <tr>
-<td><code>/craft:orchestrate:plan</code></td>
+<td><code>/craft:orch:plan</code></td>
 <td>Command</td>
 <td>Spec (+ optional grill ledger) → ORCHESTRATE → worktree pipeline</td>
 </tr>
 <tr>
-<td><code>/craft:orchestrate:workflow</code></td>
+<td><code>/craft:orch:workflow</code></td>
 <td>Command</td>
-<td>Coded fixed-control-flow program → schema-gated, resumable (<a href="../../commands/orchestrate-workflow/">guide</a>)</td>
+<td>Coded fixed-control-flow program → schema-gated, resumable (<a href="../../commands/orch/workflow/">guide</a>)</td>
 </tr>
 <tr>
 <td><code>/craft:insights</code></td>
@@ -12255,7 +12283,7 @@
 </tbody>
 </table>
 <p><strong>Output:</strong> <code>docs/specs/GRILL-&lt;topic&gt;-&lt;date&gt;.md</code> — its own file, never rewriting the brainstorm SPEC's body (only an idempotent one-line back-link is added to the SPEC). Contains a Decision Ledger (each resolved branch, with reasoning) and an Open Questions section for anything explicitly deferred.</p>
-<p><strong>Handoff:</strong> one-directional, same as brainstorm — <code>grill</code> never executes. It hands the locked <code>GRILL-*.md</code> forward to <code>/craft:orchestrate:plan</code>, which reads both the SPEC and the grill ledger together.</p>
+<p><strong>Handoff:</strong> one-directional, same as brainstorm — <code>grill</code> never executes. It hands the locked <code>GRILL-*.md</code> forward to <code>/craft:orch:plan</code>, which reads both the SPEC and the grill ledger together.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># After brainstorm captures a SPEC with unresolved design questions</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:grill<span class="w"> </span>docs/specs/SPEC-auth-2026-02-15.md
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -12264,30 +12292,30 @@
 </span></code></pre></div>
 <hr />
 <h2 id="new-commands">New Commands<a class="headerlink" href="#new-commands" title="Permanent link">&para;</a></h2>
-<h3 id="craftorchestrateplan-spec-to-worktree-pipeline"><code>/craft:orchestrate:plan</code> — Spec to Worktree Pipeline<a class="headerlink" href="#craftorchestrateplan-spec-to-worktree-pipeline" title="Permanent link">&para;</a></h3>
+<h3 id="craftorchplan-spec-to-worktree-pipeline"><code>/craft:orch:plan</code> — Spec to Worktree Pipeline<a class="headerlink" href="#craftorchplan-spec-to-worktree-pipeline" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>The canonical behavior lives in the <code>plan-orchestrator</code> skill
 (<code>skills/orchestration/plan-orchestrator/SKILL.md</code> in the repo — not part of this site's nav);
-<code>/craft:orchestrate:plan</code> is a thin shim over it (<code>deprecated: true</code> / <code>replaced-by</code>). The flow
+<code>/craft:orch:plan</code> is a thin shim over it (<code>deprecated: true</code> / <code>replaced-by</code>). The flow
 below still describes the behavior accurately — it's just implemented in the skill now.</p>
 </blockquote>
 <p>Discovers specs, parses phases, generates ORCHESTRATE files, and creates worktrees — all in one flow.</p>
 <p><strong>When to use:</strong> After brainstorming produces a spec, or when you have a spec and want to start implementation.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Interactive: scan for specs and choose</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:orchestrate:plan
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:orch:plan
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Direct: specify spec path</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth-2026-02-15.md
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:orch:plan<span class="w"> </span>docs/specs/SPEC-auth-2026-02-15.md
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># ORCHESTRATE only (no worktree)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth.md<span class="w"> </span>--output<span class="w"> </span>orchestrate-only
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:orch:plan<span class="w"> </span>docs/specs/SPEC-auth.md<span class="w"> </span>--output<span class="w"> </span>orchestrate-only
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># ORCHESTRATE + worktree + dispatch to a background Agent from this session</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-auth.md<span class="w"> </span>--output<span class="w"> </span>orchestrate-dispatch
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>/craft:orch:plan<span class="w"> </span>docs/specs/SPEC-auth.md<span class="w"> </span>--output<span class="w"> </span>orchestrate-dispatch
 </span></code></pre></div>
 <p><strong>8-Step Execution:</strong></p>
 <pre class="mermaid"><code>flowchart TD
-    Start(["/craft:orchestrate:plan"]) --&gt; D[Step 1: Discover Specs]
+    Start(["/craft:orch:plan"]) --&gt; D[Step 1: Discover Specs]
     D --&gt; D1{Specs found?}
     D1 --&gt;|Yes| Choose[User picks spec]
     D1 --&gt;|No brainstorms| Err[Suggest /brainstorm first]
@@ -12472,14 +12500,14 @@ interactively rather than dispatching it unattended.</p>
 </tr>
 <tr>
 <td><strong>Pipeline</strong></td>
-<td><code>/craft:orchestrate:plan</code> or brainstorm</td>
+<td><code>/craft:orch:plan</code> or brainstorm</td>
 <td>Long-lived</td>
 <td><code>feature/*</code></td>
 <td>Always</td>
 </tr>
 <tr>
 <td><strong>Swarm</strong></td>
-<td><code>/craft:orchestrate --swarm</code></td>
+<td><code>/craft:orch --swarm</code></td>
 <td>Short-lived</td>
 <td><code>swarm-*</code></td>
 <td>Reads existing</td>
@@ -12537,7 +12565,7 @@ interactively rather than dispatching it unattended.</p>
 <h2 id="suggested-workflows">Suggested Workflows<a class="headerlink" href="#suggested-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-1-full-pipeline-brainstorm-to-pr">Workflow 1: Full Pipeline (Brainstorm to PR)<a class="headerlink" href="#workflow-1-full-pipeline-brainstorm-to-pr" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># 1. Brainstorm the feature</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:workflow:brainstorm<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:brainstorm<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># 2. Save as spec (prompted automatically)</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># → Saves to docs/specs/SPEC-auth-2026-02-15.md</span>
@@ -12557,18 +12585,18 @@ interactively rather than dispatching it unattended.</p>
 </span></code></pre></div>
 <h3 id="workflow-2-from-existing-spec">Workflow 2: From Existing Spec<a class="headerlink" href="#workflow-2-from-existing-spec" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Already have a spec, no open design questions? Go directly to orchestration</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-dashboard.md
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:orch:plan<span class="w"> </span>docs/specs/SPEC-dashboard.md
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Spec has unresolved judgment calls? Grill first</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:grill<span class="w"> </span>docs/specs/SPEC-dashboard.md
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-dashboard.md
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>/craft:orch:plan<span class="w"> </span>docs/specs/SPEC-dashboard.md
 </span></code></pre></div>
 <h3 id="workflow-3-insights-driven-planning">Workflow 3: Insights-Driven Planning<a class="headerlink" href="#workflow-3-insights-driven-planning" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># 1. Check friction patterns</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:insights<span class="w"> </span>--project<span class="w"> </span>craft
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># 2. Create ORCHESTRATE — friction prevention auto-populated</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/craft:orchestrate:plan<span class="w"> </span>docs/specs/SPEC-feature.md
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/craft:orch:plan<span class="w"> </span>docs/specs/SPEC-feature.md
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># → ORCHESTRATE includes guardrails from insights</span>
 </span></code></pre></div>
 <hr />
