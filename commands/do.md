@@ -14,11 +14,11 @@ arguments:
     required: false
     default: false
   - name: orch-mode
-    description: Orchestration mode (default|debug|optimize|release)
+    description: "Orchestration mode (default|debug|optimize|release) — canonical definitions in skills/modes/SKILL.md"
     required: false
     default: null
   - name: refine
-    description: "Runs the prompt-refiner by default; pass --no-refine to skip"
+    description: "Runs the prompt-refiner by default (deliberation-entry command — see prompt-refiner SKILL.md Default Policy); pass --no-refine to skip"
     required: false
     default: true
   - name: no-refine
@@ -27,6 +27,10 @@ arguments:
     default: false
   - name: brief
     description: After execution, append 3-line action block (Next step / Watch out for / Connects to)
+    required: false
+    default: false
+  - name: plan
+    description: "Pure sugar: forwards to /craft:plan <task> instead of routing (alias, not a mode — see SPEC-planning-refactor-2026-06-22.md §4 rule 4)"
     required: false
     default: false
 ---
@@ -86,10 +90,10 @@ Preview which commands will be executed without actually running them:
 │   1. Command routing (if complexity < 4)                      │
 │      → /craft:arch:plan → /craft:code:test-gen               │
 │   2. Orchestration (if complexity > 7)                        │
-│      → /craft:orchestrate "add user authentication"          │
+│      → /craft:orch "add user authentication"          │
 │                                                               │
 │ ⚠ Notes:                                                      │
-│   • Consider creating spec first: /craft:workflow:brainstorm  │
+│   • Consider creating spec first: /craft:brainstorm  │
 │   • Agent will execute in forked context (results synthesized)│
 │   • Permission may be requested for agent delegation          │
 │                                                               │
@@ -175,6 +179,20 @@ Then retry: /craft:do <task>
 ### On `feature/*` (including worktrees)
 
 Route directly without branch intervention — no restrictions. If in a worktree with an `ORCHESTRATE-*.md` file, include the orchestration context in routing decisions (e.g., route to the relevant increment).
+
+## --plan (Sugar Forwarding to /craft:plan)
+
+`--plan` is pure sugar, not a routing mode: `/craft:do --plan <task>` forwards the task
+verbatim to `/craft:plan <task>` and stops — no complexity scoring, no branch-aware
+routing, no agent delegation. This exists only so a `/do`-first habit still reaches the
+deliberate-planning entry point without remembering the separate `/craft:plan` command
+name. It is one-directional: `/craft:plan` never invokes `/craft:do` in return (avoids
+routing cycles — see `SPEC-planning-refactor-2026-06-22.md` §4 rule 4).
+
+```bash
+/craft:do --plan "redesign the auth flow"
+# Forwards to: /craft:plan "redesign the auth flow"
+```
 
 ## How It Works
 
@@ -405,7 +423,7 @@ Spawning orchestrator...
    Task: add user authentication
    Mode: optimize
 
-Executing: /craft:orchestrate 'add user authentication' optimize
+Executing: /craft:orch 'add user authentication' optimize
 ```
 
 ### Mode Selection Prompt
@@ -454,33 +472,21 @@ Available modes:
 
 ## Task Categories
 
-| Category         | Keywords                      | Commands Used                            |
-| ---------------- | ----------------------------- | ---------------------------------------- |
-| **Feature**      | add, create, implement, build | arch:plan, code:test-gen, git:branch     |
-| **Bug**          | fix, debug, issue, error      | code:debug, test, test debug             |
-| **Quality**      | lint, quality, clean, improve | code:lint, test --coverage, code:refactor|
-| **Docs**         | document, update docs, readme | docs:sync, docs:validate, docs:changelog |
-| **Test**         | test, coverage, verify        | test, test --coverage, test debug        |
-| **Release**      | release, deploy, publish      | deps-audit, lint, test, code:release     |
-| **Architecture** | design, refactor, restructure | arch:analyze, arch:plan, arch:diagram    |
+Keywords are canonically defined in
+[`task-analyzer/SKILL.md`](../skills/orchestration/task-analyzer/SKILL.md)'s Intent
+Recognition table (D5, 2026-07-04 — single source, no longer duplicated here). Commands
+Used is `/craft:do`-specific routing, kept here since it's this command's own execution
+mapping, not a general intent classification:
 
-## Routing Logic
-
-```
-Task Analysis:
-  ├── Contains "add/create/implement"
-  │   └── Feature workflow
-  ├── Contains "fix/debug/error/issue"
-  │   └── Bug fix workflow
-  ├── Contains "test/coverage/verify"
-  │   └── Testing workflow
-  ├── Contains "doc/readme/changelog"
-  │   └── Documentation workflow
-  ├── Contains "release/deploy/publish"
-  │   └── Release workflow
-  └── Contains "refactor/restructure/design"
-      └── Architecture workflow
-```
+| Category         | Commands Used                            |
+| ---------------- | ----------------------------------------- |
+| **Feature**      | arch:plan, code:test-gen, git:branch     |
+| **Bug**          | code:debug, test, test debug             |
+| **Quality**      | code:lint, test --coverage, code:refactor|
+| **Docs**         | docs:sync, docs:validate, docs:changelog |
+| **Test**         | test, test --coverage, test debug        |
+| **Release**      | deps-audit, lint, test, code:release     |
+| **Architecture** | arch:analyze, arch:plan, arch:diagram    |
 
 ## Complexity Analysis (NEW in v1.23.0)
 
@@ -568,7 +574,7 @@ When complexity score ≥ 4, `/craft:do` delegates to specialized agents:
 ├─────────────────────────────────────────────────────┤
 │ ✓ Task setup complete                              │
 ╰─────────────────────────────────────────────────────╯
-💡 /craft:workflow:brief --plan to plan next steps.
+💡 /craft:brief --plan to plan next steps.
 ```
 
 ## Integration
@@ -804,7 +810,8 @@ if relevant_friction:
 ### Step 1: Analyze Task and Calculate Complexity
 
 ```
-1. Parse task description for keywords and intent
+1. Parse task description for keywords and intent (category keywords: see
+   task-analyzer/SKILL.md's Intent Recognition table — do not restate them here)
 2. Calculate complexity score (0-10):
 
    score = 0
@@ -814,13 +821,10 @@ if relevant_friction:
    if requires research (investigation):          score += 2
    if multi-file changes (5+ files):             score += 2
 
-3. Determine category:
-   - Feature (add/create/implement/build)
-   - Bug (fix/debug/error/issue)
-   - Quality (lint/quality/improve)
-   - Documentation (document/update docs/readme)
-   - Architecture (design/refactor/restructure)
-   - Release (release/deploy/publish)
+3. Determine category (Feature / Bug / Quality / Docs / Test / Release / Architecture
+   — canonical keywords in task-analyzer/SKILL.md, this command's routing-tier decision
+   below is /craft:do-specific and distinct from task-analyzer's own Complexity
+   Assessment table, which drives MODE selection, not routing tier — don't conflate them)
 ```
 
 ### Step 2: Select Execution Strategy
@@ -876,7 +880,7 @@ if score >= 6 and category == "feature":
         #
         # AskUserQuestion:
         #   Options:
-        #     - "Yes — create worktree + ORCHESTRATE" → /craft:orchestrate:plan {spec}
+        #     - "Yes — create worktree + ORCHESTRATE" → /craft:orch:plan {spec}
         #     - "No — proceed with spec context" → load spec, continue to Step 3
         pass
 ```
@@ -989,7 +993,7 @@ Task(
 
 ### Step 5.5: Brief Appendix (--brief flag)
 
-If `--brief` was passed, after result synthesis append the 3-line action block directly below the result summary. Follow the output constraints in `commands/workflow/brief.md` Step 3. Do NOT trigger the `--plan` phase — block only.
+If `--brief` was passed, after result synthesis append the 3-line action block directly below the result summary. Follow the output constraints in `commands/brief.md` Step 3. Do NOT trigger the `--plan` phase — block only.
 
 Output format when `--brief` is active:
 

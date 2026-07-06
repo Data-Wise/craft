@@ -45,7 +45,7 @@ python3 scripts/release-watch.py -f markdown > report.md
 
 ```bash
 /craft:code:release-watch              # Full unified check
-/craft:code:desktop-watch              # Desktop only (alias)
+/craft:code:release-watch --product desktop  # Desktop only
 /craft:code:sync-features              # Audit + release watch + action plan
 ```
 

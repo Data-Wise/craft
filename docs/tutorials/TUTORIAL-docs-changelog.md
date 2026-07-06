@@ -27,7 +27,7 @@ Drafted entry for ## [2.41.0] — 2026-06-19:
 
 ### Added
 - `/craft:quota` — pre-flight token quota gate with SAFE/TIGHT/DEFER advisory
-- `--engine=workflow|fanout` flag on `/craft:orchestrate`
+- `--engine=workflow|fanout` flag on `/craft:orch`
 
 ### Changed
 - Expanded `git:guard` skill with `explain` and `profile` subcommands

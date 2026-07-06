@@ -147,13 +147,13 @@ def test_mode_configuration_table():
 
 def test_orchestrate_command_exists():
     """Test that orchestrate.md command exists."""
-    cmd_path = PLUGIN_DIR / "commands" / "orchestrate.md"
-    assert cmd_path.exists(), "Missing commands/orchestrate.md"
+    cmd_path = PLUGIN_DIR / "commands" / "orch.md"
+    assert cmd_path.exists(), "Missing commands/orch.md"
 
 
 def test_orchestrate_command_version():
     """Test orchestrate command exists and has required content."""
-    cmd_path = PLUGIN_DIR / "commands" / "orchestrate.md"
+    cmd_path = PLUGIN_DIR / "commands" / "orch.md"
     assert cmd_path.exists(), "File not found"
 
     content = cmd_path.read_text()
@@ -164,7 +164,7 @@ def test_orchestrate_command_version():
 
 def test_orchestrate_mode_syntax():
     """Test that mode syntax is documented in command."""
-    cmd_path = PLUGIN_DIR / "commands" / "orchestrate.md"
+    cmd_path = PLUGIN_DIR / "commands" / "orch.md"
     assert cmd_path.exists(), "File not found"
 
     content = cmd_path.read_text()
@@ -182,7 +182,7 @@ def test_orchestrate_mode_syntax():
 
 def test_orchestrate_new_subcommands():
     """Test that new subcommands are documented."""
-    cmd_path = PLUGIN_DIR / "commands" / "orchestrate.md"
+    cmd_path = PLUGIN_DIR / "commands" / "orch.md"
     assert cmd_path.exists(), "File not found"
 
     content = cmd_path.read_text()

@@ -27,7 +27,7 @@ Examples:
         --after 'commands/docs.md'
 
     # Compare a command file before/after a thin-shim extraction (two snapshots)
-    python3 scripts/token-probe.py --before /tmp/before/refine.md --after commands/workflow/refine.md
+    python3 scripts/token-probe.py --before /tmp/before/refine.md --after commands/refine.md
 
 Exit codes:
     0 - comparison ran and printed a result (this tool has no pass/fail

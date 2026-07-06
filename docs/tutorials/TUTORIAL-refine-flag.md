@@ -30,12 +30,12 @@ By the end of this tutorial, you'll understand:
 
 `--refine` sharpens a vague prompt before the command acts. It hands your
 argument to the `prompt-refiner` skill, shows you a before/after box, and lets
-you confirm. Let's walk through it with `/craft:workflow:brainstorm`.
+you confirm. Let's walk through it with `/craft:brainstorm`.
 
 ## Step 1: Run brainstorm with a vague prompt
 
 ```text
-/craft:workflow:brainstorm --refine "add auth"
+/craft:brainstorm --refine "add auth"
 ```
 
 `add auth` is exactly the kind of terse prompt that benefits from refinement —

@@ -17,9 +17,9 @@ worst of the confusion with almost no risk.
 
 **This revision (2026-07-01) adds two things you asked for:** (1) a deeper set of refactors
 ranked by which **latest Anthropic / community token-saving lever** each one rides — see
-[Deeper cuts](#deeper-cuts--prioritised-by-token-lever); and (2) **document-type defaults &
+[Deeper cuts](#deeper-cuts-prioritised-by-token-lever); and (2) **document-type defaults and
 options** for proposal / grill / plan / tasks / todos, folded in as a real craft convention —
-see [Document-type defaults & options](#document-type-defaults--options).
+see [Document-type defaults and options](#document-type-defaults-and-options).
 
 ---
 
@@ -75,7 +75,7 @@ see [Document-type defaults & options](#document-type-defaults--options).
 
 ---
 
-## Deeper cuts — prioritised by token lever
+## Deeper cuts, prioritised by token lever
 
 The explicit priority is refactors that ride the **newest Anthropic / community token-saving
 tooling**, not just tidy-ups. Grounding (mid-2026, sources at foot):
@@ -106,7 +106,7 @@ them now de-risks that plan too.
 
 ---
 
-## Document-type defaults & options
+## Document-type defaults and options
 
 Folding your taxonomy question into this proposal. Each type gets a **default** behaviour and
 **options** — and the whole ladder turns out to *be* craft's local version of Anthropic's

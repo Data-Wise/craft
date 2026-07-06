@@ -301,8 +301,8 @@ EXIT_CODE=$((CODE_EXIT || MD_EXIT))
 
 Works with:
 
-- `/craft:code:ci-local` - Pre-commit checks
-- `/craft:code:ci-fix` - Auto-fix lint issues
+- `/craft:ci:local` - Pre-commit checks
+- `/craft:ci:fix` - Auto-fix lint issues
 - `/craft:code:release` - Release validation
 - `/craft:docs:lint` - Markdown-specific linting (delegated)
 
@@ -311,4 +311,3 @@ Works with:
 - `/craft:code:command-audit` - Validate command frontmatter, find deprecated patterns, report health score
 - `/craft:code:coverage` - Test Coverage Report
 - `/craft:code:deps-check` - Dependency Check
-- `/craft:code:desktop-watch` - Track Claude Desktop releases and identify plugin integration opportunities

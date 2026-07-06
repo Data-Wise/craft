@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:quickstart - Quick Start Generator
 
+> Also reachable via `/craft:docs:generate quickstart` (unified router across all 9 doc generators).
+
 Generate a 5-minute quickstart guide for any project.
 
 ## Purpose
@@ -130,7 +132,7 @@ Generated quickstart follows this structure:
 ```markdown
 # Craft
 
-> **TL;DR:** Claude Code plugin with 116 commands, 45 skills, 8 agents for ADHD-friendly development workflows.
+> **TL;DR:** Claude Code plugin with 115 commands, 45 skills, 8 agents for ADHD-friendly development workflows.
 
 ## 30-Second Setup
 

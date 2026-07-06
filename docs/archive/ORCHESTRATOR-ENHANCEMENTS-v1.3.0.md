@@ -110,9 +110,9 @@ Location: `.claude/orchestrator-session.json`
 ### New Commands
 
 ```bash
-/craft:orchestrate continue      # Resume from saved state
-/craft:orchestrate save          # Force state save
-/craft:orchestrate history       # Show past sessions
+/craft:orch continue      # Resume from saved state
+/craft:orch save          # Force state save
+/craft:orch history       # Show past sessions
 ```
 
 **Pros:** Survives disconnects, enables long workflows
@@ -138,8 +138,8 @@ Integrate with craft's mode system:
 
 ### Usage
 ```bash
-/craft:orchestrate "add auth" optimize    # Fast parallel execution
-/craft:orchestrate "prep release" release # Thorough multi-agent
+/craft:orch "add auth" optimize    # Fast parallel execution
+/craft:orch "prep release" release # Thorough multi-agent
 ```
 
 ```
@@ -280,7 +280,7 @@ Orchestrator respects craft modes:
 | release | 4 | 85% | Full report |
 
 ### Invocation
-/craft:orchestrate "task" [mode]
+/craft:orch "task" [mode]
 
 ## BEHAVIOR 8: Improved Context Tracking (NEW)
 

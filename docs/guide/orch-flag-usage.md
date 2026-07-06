@@ -5,14 +5,14 @@
 
 ## Overview
 
-The `--orch` flag provides a shorthand for spawning the orchestrator without requiring a separate `/craft:orchestrate` command invocation. This enables quick orchestration for complex tasks directly from any supported command.
+The `--orch` flag provides a shorthand for spawning the orchestrator without requiring a separate `/craft:orch` command invocation. This enables quick orchestration for complex tasks directly from any supported command.
 
 ## Supported Commands
 
 | Command | Use Case |
 |---------|----------|
 | `/craft:do` | Universal task routing with orchestration |
-| `/craft:workflow:brainstorm` | Parallel context gathering with orchestration |
+| `/craft:brainstorm` | Parallel context gathering with orchestration |
 | `/craft:check` | Orchestrated validation workflows |
 | `/craft:docs:sync` | Multi-agent documentation updates |
 | `/craft:ci:generate` | Complex CI workflow generation |
@@ -72,7 +72,7 @@ Available modes:
 
 ```bash
 # Brainstorm with categories
-/craft:workflow:brainstorm "authentication" -C req,tech --orch=optimize
+/craft:brainstorm "authentication" -C req,tech --orch=optimize
 
 # Pre-release checks
 /craft:check --for release --orch=release
@@ -238,7 +238,7 @@ If you encounter issues not covered here:
 
 1. **Check documentation:**
    - Main guide: This file
-   - Command docs: `commands/do.md`, `commands/workflow/brainstorm.md`
+   - Command docs: `commands/do.md`, `commands/brainstorm.md`
    - Integration guide: `docs/guide/claude-code-2.1-integration.md`
 
 2. **Verify setup:**
@@ -350,5 +350,5 @@ The `--orch` flag is opt-in and doesn't affect existing workflows. Commands work
 For more information, see:
 
 - [Complexity Scoring Algorithm](../guide/complexity-scoring-algorithm.md)
-- [Orchestrator Command](../commands/orchestrate.md)
+- [Orchestrator Command](../commands/orch.md)
 - [Version History](../VERSION-HISTORY.md)

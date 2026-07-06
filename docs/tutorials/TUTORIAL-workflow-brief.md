@@ -1,10 +1,10 @@
-# Tutorial: `/craft:workflow:brief`
+# Tutorial: `/craft:brief`
 
 **Generate a 3-line action block from live session context**
 
 ## Overview
 
-`/craft:workflow:brief` replaces the "always append a 3-line block" behavior
+`/craft:brief` replaces the "always append a 3-line block" behavior
 that used to auto-fire at the end of research-mode responses. Invoke it
 explicitly when you want a scannable Next step / Watch out for / Connects to
 summary, with optional planning and board expansions.
@@ -26,7 +26,7 @@ This tutorial walks through:
 **Goal**: Get a quick "what's next" summary without leaving the conversation.
 
 ```bash
-/craft:workflow:brief
+/craft:brief
 ```
 
 **Expected output**:
@@ -53,7 +53,7 @@ name a specific artifact, not a project name.
 things are in flight (an `ORCHESTRATE-*.md` file and/or open PRs).
 
 ```bash
-/craft:workflow:brief --board
+/craft:brief --board
 ```
 
 **Expected output**:
@@ -85,7 +85,7 @@ instead of guessing.
 clarifying questions before you commit to it.
 
 ```bash
-/craft:workflow:brief --plan
+/craft:brief --plan
 ```
 
 **Expected output**: the standard 3-line block, followed by a 2-3 sentence
@@ -110,7 +110,7 @@ Key risk:  push rejected if remote diverged again → re-fetch and retry
 brief back up after a break.
 
 ```bash
-/craft:workflow:brief --verbose
+/craft:brief --verbose
 ```
 
 **Expected output**:
@@ -133,8 +133,8 @@ Connects to:   probmed feature/wasserstein-pmed
 `--board` and `--plan`/`--verbose` compose:
 
 ```bash
-/craft:workflow:brief --board --plan      # board + block + planning phase
-/craft:workflow:brief --board --verbose   # board + verbose-expanded block
+/craft:brief --board --plan      # board + block + planning phase
+/craft:brief --board --verbose   # board + verbose-expanded block
 ```
 
 `--show-context` (standalone) displays the context sources before
@@ -153,4 +153,4 @@ unsure what the block will be based on.
 
 ---
 
-*See also: [`/craft:do --brief`](../commands/do.md) (execute + append block), [`/craft:workflow:done`](../commands/workflow/done.md) (full session completion), [`/craft:workflow:brainstorm`](../commands/workflow/brainstorm.md) (full planning session from scratch)*
+*See also: [`/craft:do --brief`](../commands/do.md) (execute + append block), [`/craft:done`](../commands/done.md) (full session completion), [`/craft:brainstorm`](../commands/brainstorm.md) (full planning session from scratch)*

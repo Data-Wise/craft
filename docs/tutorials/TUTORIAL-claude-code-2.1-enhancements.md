@@ -27,7 +27,7 @@ Claude Code 2.1.0 brought some powerful new features, and we've integrated three
 | Enhancement | What It Does | Why It Matters |
 |------------|--------------|----------------|
 | **Smart Task Routing** | `/craft:do` now delegates complex tasks to specialized helpers | You get better results for complicated tasks |
-| **Better Error Recovery** | `/craft:orchestrate` keeps going even if something fails | One hiccup doesn't derail your whole workflow |
+| **Better Error Recovery** | `/craft:orch` keeps going even if something fails | One hiccup doesn't derail your whole workflow |
 | **Hot-Reload Validators** | `/craft:check` finds new validation rules automatically | Add custom checks without restarting |
 
 Let's break these down into plain English.
@@ -144,7 +144,7 @@ You didn't have to break down the task yourself—the system recognized the comp
 Ever been on a group project where one person drops out and everything grinds to a halt? That's how orchestration used to work. Now, the show goes on.
 
 **What is orchestration?**
-When you run `/craft:orchestrate`, you're asking multiple agents to work together on a big task. They work in "waves"—some in parallel, some sequentially.
+When you run `/craft:orch`, you're asking multiple agents to work together on a big task. They work in "waves"—some in parallel, some sequentially.
 
 **The old problem:**
 If you skipped one agent (maybe you denied permission), the whole workflow would stop.
@@ -178,7 +178,7 @@ Wave 2: [Agent C] (uses Agent B's results, notes Agent A missing)
 ### Real Example
 
 You run:
-`/craft:orchestrate "prepare v2.0 release"`
+`/craft:orch "prepare v2.0 release"`
 
 The orchestrator plans three waves:
 
@@ -218,10 +218,10 @@ Think of hooks as quality control inspectors on an assembly line—they make sur
 
 ### Monitoring in Action
 
-When you run `/craft:orchestrate`, you now see real-time status:
+When you run `/craft:orch`, you now see real-time status:
 
 ```
-╭─ /craft:orchestrate "prepare v2.0 release" ─────╮
+╭─ /craft:orch "prepare v2.0 release" ─────╮
 │                                                 │
 │ 📊 Resource Monitor:                            │
 │   Active agents: 2/2 (at capacity)             │
@@ -390,7 +390,7 @@ You asked for a feature. You got a complete, tested feature. One command.
 **Your task:** Get v2.0 ready to ship
 
 **Command:**
-`/craft:orchestrate "prepare v2.0 release"`
+`/craft:orch "prepare v2.0 release"`
 
 **What happens:**
 
@@ -497,7 +497,7 @@ You wanted a new check. You created a file. It works immediately.
 ### Exercise 2: Resilient Orchestration
 
 **Try this:**
-`/craft:orchestrate "update documentation site"`
+`/craft:orch "update documentation site"`
 
 **During execution:**
 

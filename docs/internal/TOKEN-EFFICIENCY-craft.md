@@ -14,8 +14,8 @@ Subagent calls (orchestrator agents, brainstorm's old delegation path) were burn
 
 | File | Before | After | Δ |
 |---|---:|---:|---:|
-| `commands/workflow/refine.md` | 630 lines | 42 lines | **−93%** |
-| `commands/workflow/brainstorm.md` | 528 lines | 112 lines | **−79%** |
+| `commands/refine.md` | 630 lines | 42 lines | **−93%** |
+| `commands/brainstorm.md` | 528 lines | 112 lines | **−79%** |
 | `agents/orchestrator-v2.md` | 1473 lines | 1212 lines | −18% |
 | `skills/workflow/brainstorm-insights/SKILL.md` | 236 lines | 170 lines | −28% |
 
@@ -73,7 +73,7 @@ It scans every `commands/**/*.md` with `deprecated: true`, finds its `replaced-b
 | Command | Lines | Skill lines | Ratio |
 |---|---:|---:|---:|
 | `commands/check.md` | 1132 | 127 | **8.9** |
-| `commands/workflow/task-cancel.md` | 508 | 90 | 5.6 |
+| `commands/task/cancel.md` | 508 | 90 | 5.6 |
 | `commands/git/worktree.md` | 1010 | 250 | 4.0 |
 
 `skills/dev/git/` (250 lines) is the `replaced-by:` target for six commands totaling 4185 source lines — the single highest-leverage consolidation target in the repo, not yet executed (tracked in [issue #233](https://github.com/Data-Wise/craft/issues/233)).

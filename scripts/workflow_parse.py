@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic workflow-engine parser/core for /craft:orchestrate:workflow.
+"""Deterministic workflow-engine parser/core for /craft:orch:workflow.
 
 Mechanical core (Increment 1): reads a WORKFLOW definition (YAML form or the
 frozen shape-DSL form), compiles it to a canonical *wave plan*, structurally

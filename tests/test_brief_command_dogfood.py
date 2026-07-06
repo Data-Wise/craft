@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Dogfood tests for /craft:workflow:brief — validates that craft's own validation
+Dogfood tests for /craft:brief — validates that craft's own validation
 scripts still pass after adding brief.md as the 117th command.
 
 Unlike e2e structural tests (test_brief_command_e2e.py), these run real scripts
@@ -21,7 +21,7 @@ pytestmark = [pytest.mark.dogfood]
 PLUGIN_DIR = Path(__file__).parent.parent
 SCRIPTS_DIR = PLUGIN_DIR / "scripts"
 PLUGIN_JSON = PLUGIN_DIR / ".claude-plugin" / "plugin.json"
-BRIEF_CMD = PLUGIN_DIR / "commands" / "workflow" / "brief.md"
+BRIEF_CMD = PLUGIN_DIR / "commands" / "brief.md"
 DO_CMD = PLUGIN_DIR / "commands" / "do.md"
 
 

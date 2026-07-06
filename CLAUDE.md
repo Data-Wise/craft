@@ -4,11 +4,11 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**116 commands** · **45 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**115 commands** · **45 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
-> `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (6 commands)
+> `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (7 commands)
 
-**Current Version:** v2.59.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
+**Current Version:** v2.60.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
@@ -59,18 +59,16 @@ Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
 | Lint code | `/craft:code:lint` |
 | Lint markdown | `/craft:docs:lint` |
 | Release pipeline | `/release` or `/release -n` |
-| Brainstorm | `/craft:workflow:brainstorm` |
-| Orchestrate | `/craft:orchestrate` |
+| Brainstorm | `/craft:brainstorm` |
+| Orchestrate | `/craft:orch` |
 | CLAUDE.md sync | `/craft:docs:claude-md:sync` |
 
 ## Execution Modes
 
-| Mode | Budget | Use Case | Example |
-|------|--------|----------|---------|
-| **default** | < 10s | Quick tasks | `/craft:code:lint` |
-| **debug** | < 120s | Verbose traces | `/craft:code:lint debug` |
-| **optimize** | < 180s | Performance | `/craft:code:lint optimize` |
-| **release** | < 300s | Thorough validation | `/craft:code:lint release` |
+Canonical definitions live in `skills/modes/SKILL.md` (the `mode-controller` skill) —
+see it for the full time-budget/use-case/behavior table. Quick reference:
+`default` (<10s, quick tasks) · `debug` (<120s, verbose) · `optimize` (<180s,
+performance) · `release` (<300s, thorough). Example: `/craft:code:lint debug`.
 
 ## Troubleshooting
 
@@ -89,7 +87,7 @@ Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
 
 | Directory | Purpose |
 |-----------|---------|
-| `commands/` | 116 commands (auto-discovered, one `.md` per command) |
+| `commands/` | 115 commands (auto-discovered, one `.md` per command) |
 | `skills/` | 45 skills (`SKILL.md` pattern) |
 | `agents/` | 8 agent definitions |
 | `tests/` | Unit, e2e, dogfood, and integration test suites |

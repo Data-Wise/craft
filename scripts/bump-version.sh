@@ -100,7 +100,7 @@ _skill_cat() { find "skills/$1" -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' '
 CMD_CODE=$(_cmd_cat code);   CMD_TEST=$(_cmd_cat test);     CMD_ARCH=$(_cmd_cat arch)
 CMD_DOCS=$(_cmd_cat docs);   CMD_PLAN=$(_cmd_cat plan);     CMD_CI=$(_cmd_cat ci)
 CMD_GIT=$(_cmd_cat git);     CMD_WORKFLOW=$(_cmd_cat workflow)
-CMD_DIST=$(_cmd_cat dist);   CMD_SITE=$(_cmd_cat site);     CMD_ORCH=$(_cmd_cat orchestrate)
+CMD_DIST=$(_cmd_cat dist);   CMD_SITE=$(_cmd_cat site);     CMD_ORCH=$(_cmd_cat orch)
 
 SKILL_ARCH=$(_skill_cat architecture); SKILL_CHECK=$(_skill_cat check);   SKILL_CI=$(_skill_cat ci)
 SKILL_CODE=$(_skill_cat code);         SKILL_DESIGN=$(_skill_cat design);  SKILL_DEV=$(_skill_cat dev)

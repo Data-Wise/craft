@@ -135,7 +135,7 @@ Release Watch integrates with the broader craft workflow:
 | Command | What It Does |
 |---------|-------------|
 | `/craft:code:release-watch` | Full unified check |
-| `/craft:code:desktop-watch` | Desktop only (alias) |
+| `/craft:code:release-watch --product desktop` | Desktop only |
 | `/craft:code:sync-features` | Audit + release watch + interactive action plan |
 | `/craft:do "check for updates"` | Routes to release-watch automatically |
 

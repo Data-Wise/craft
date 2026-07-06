@@ -58,7 +58,7 @@ Task: Preparing a release
 | **Before creating PR** | `/craft:check --for pr` | Comprehensive, matches what CI will run |
 | **Before releasing** | `/craft:check thorough --for release` | Full audit including security, docs, version sync |
 | **Before deploying** | `/craft:check thorough --for deploy` | Release checks + environment validation |
-| **CI simulation** | `/craft:code:ci-local` | Exact CI environment replication |
+| **CI simulation** | `/craft:ci:local` | Exact CI environment replication |
 
 ---
 
@@ -235,7 +235,7 @@ Pre-flight Check Plan:
   ✓ No known CVEs in dependencies
 
 [7/12] Documentation validation...
-  ✓ All command docs present (116 commands)
+  ✓ All command docs present (115 commands)
   ✓ All help files valid YAML
   ✓ mkdocs builds without warnings
 
@@ -283,14 +283,14 @@ Next steps:
 
 ```bash
 # Want to replicate exact CI environment locally
-/craft:code:ci-local
+/craft:ci:local
 ```
 
 This runs the EXACT commands from `.github/workflows/ci.yml` in the same order, with the same flags.
 
 **What it does differently from `/craft:check`:**
 
-| Aspect | `/craft:check thorough --for pr` | `/craft:code:ci-local` |
+| Aspect | `/craft:check thorough --for pr` | `/craft:ci:local` |
 |--------|--------------------------------|----------------------|
 | Environment | Local env | CI-like (isolated) |
 | Commands | Optimized for speed | Exact CI commands |
@@ -502,7 +502,7 @@ Pre-flight Check Plan:
 [12/12] CLAUDE.md health...
   ✓ Line count: 187 lines (under 200 limit)
   ✓ Version present: v2.22.0
-  ⚠ Count accuracy: CLAUDE.md shows "116 commands" — actual count is 107
+  ⚠ Count accuracy: CLAUDE.md shows "115 commands" — actual count is 107
   ✓ Staleness: Quick Commands table matches command frontmatter
 
 Results: 10/12 checks passed, 3 warnings, 1 failure
@@ -709,7 +709,7 @@ Map local checks to CI jobs:
 | `/craft:check --for commit` | `lint` and `test` jobs |
 | `/craft:check --for pr` | Full `ci.yml` workflow |
 | `/craft:check thorough --for release` | `release-validation.yml` |
-| `/craft:code:ci-local` | Exact `ci.yml` replication |
+| `/craft:ci:local` | Exact `ci.yml` replication |
 
 **Example workflow integration:**
 
@@ -976,7 +976,7 @@ done
 wait
 
 # Or use craft orchestrator
-/craft:orchestrate "run checks across all projects" optimize
+/craft:orch "run checks across all projects" optimize
 ```
 
 ---
@@ -990,7 +990,7 @@ wait
 3. **Use `/craft:check --for pr`** before creating PRs (25s)
 4. **Use `/craft:check thorough --for release`** before releases (90s)
 5. **Integrate with git hooks** for automatic validation
-6. **Match CI commands** with `/craft:code:ci-local` for debugging
+6. **Match CI commands** with `/craft:ci:local` for debugging
 7. **Auto-fix lint** with `/craft:code:lint --fix`
 8. **Debug failures** with verbose test output
 

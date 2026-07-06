@@ -147,7 +147,7 @@ class E2EWorkflows:
 
     def test_workflow_command_exposes_recipe_metadata(self):
         """
-        Discoverability: /craft:orchestrate:workflow surfaces its cookbook recipes.
+        Discoverability: /craft:orch:workflow surfaces its cookbook recipes.
 
         Steps:
         1. User views the orchestrate:workflow command detail

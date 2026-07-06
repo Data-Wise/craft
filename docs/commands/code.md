@@ -11,7 +11,7 @@ Development workflow tools with mode support - 21 commands.
 | Deep debugging with traces | `/craft:code:lint debug` | Verbose output with fix suggestions |
 | Run unit tests | `/craft:test` | Auto-detects framework (pytest, jest) |
 | Test CLI tool behavior | `/craft:test` | Validates stdin/stdout/exit codes |
-| Run CI checks locally | `/craft:code:ci-local` | Full CI pipeline without pushing |
+| Run CI checks locally | `/craft:ci:local` | Full CI pipeline without pushing |
 | Check for vulnerabilities | `/craft:code:deps-audit` | Security-focused dependency scan |
 | Pre-release validation | `/craft:code:lint release` | Comprehensive + types + security |
 
@@ -45,11 +45,11 @@ Development workflow tools with mode support - 21 commands.
 
 ## CI/CD Commands
 
-### /craft:code:ci-fix
+### /craft:ci:fix
 
 Auto-fix common CI/CD issues (linting, formatting, missing files).
 
-### /craft:code:ci-local
+### /craft:ci:local
 
 Run CI checks locally before pushing.
 
@@ -97,15 +97,11 @@ Validate command frontmatter, find deprecated patterns, report health score.
 
 ### /craft:code:release-watch
 
-Unified release tracker for Claude Code CLI and Claude Desktop — structured CHANGELOG parsing, 24h cache, auto-fix proposals, and `--product` flag for scoped tracking.
-
-### /craft:code:desktop-watch
-
-Track Claude Desktop releases (delegates to unified release-watch with `--product desktop`).
+Unified release tracker for Claude Code CLI and Claude Desktop — structured CHANGELOG parsing, 24h cache, auto-fix proposals, and `--product` flag for scoped tracking (`all`, `code`, or `desktop`).
 
 ### /craft:code:sync-features
 
-Interactive wizard that chains command-audit, release-watch, and desktop-watch into a prioritized action plan.
+Interactive wizard that chains command-audit and release-watch (both products) into a prioritized action plan.
 
 ## Other Commands
 

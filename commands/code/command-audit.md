@@ -126,7 +126,6 @@ Works with:
 
 ## See Also
 
-- `/craft:code:ci-fix` - Fix CI Failures
+- `/craft:ci:fix` - Fix CI Failures
 - `/craft:code:coverage` - Test Coverage Report
 - `/craft:code:deps-check` - Dependency Check
-- `/craft:code:desktop-watch` - Track Claude Desktop releases and identify plugin integration opportunities

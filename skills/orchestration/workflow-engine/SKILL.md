@@ -1,11 +1,11 @@
 ---
 name: workflow-engine
-description: This skill should be used when executing a coded, fixed-control-flow workflow — "run the workflow engine", "execute this WORKFLOW yaml", "run the coded orchestration", decompose→cover→verify→synthesize shapes. Owns the reusable body behind /craft:orchestrate:workflow — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents wave by wave under a run-wide semaphore, structurally gate every output, and run a first-class verify gate.
+description: This skill should be used when executing a coded, fixed-control-flow workflow — "run the workflow engine", "execute this WORKFLOW yaml", "run the coded orchestration", decompose→cover→verify→synthesize shapes. Owns the reusable body behind /craft:orch:workflow — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents wave by wave under a run-wide semaphore, structurally gate every output, and run a first-class verify gate.
 ---
 
 # Workflow Engine
 
-The reusable execution body behind `/craft:orchestrate:workflow`. The command
+The reusable execution body behind `/craft:orch:workflow`. The command
 owns args (`--dry-run`, `--resume`, `--refine`); this skill owns the work.
 
 Unlike `drive-engine` (improvises "what next" each turn) the control flow here
@@ -100,13 +100,8 @@ sufficient — the command must really run. This is the drive-engine gate lifted
 into the engine so `drive` stays expressible as a workflow definition; keep the
 semantics a strict superset.
 
-| Detection | Verify command |
-|-----------|----------------|
-| `tests/test_craft_plugin.py` | `python3 tests/test_craft_plugin.py` |
-| `package.json` test script | `npm test` |
-| `pyproject.toml` / `pytest.ini` | `pytest` |
-| `Cargo.toml` | `cargo test` |
-| `DESCRIPTION` (R) | `R CMD check` |
+See [`../references/verify-gate-detection.md`](../references/verify-gate-detection.md) for the
+full detection table and how to use it.
 
 ## Run substrate
 

@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:workflow - Workflow Documentation Generator
 
+> Also reachable via `/craft:docs:generate workflow` (unified router across all 9 doc generators).
+
 Generate task-focused workflow documentation for multi-step processes.
 
 ## Purpose

@@ -142,7 +142,7 @@ open docs/demos/*.gif docs/gifs/*.gif
 | 07 | `/craft:git:worktree add feature-auth` | Worktree creation, path output |
 | 08 | `/craft:dist:homebrew setup` | Setup steps, formula generation |
 | 09 | `/craft:check --for commit` | Pre-commit checks, validation |
-| 10 | `/craft:orchestrate 'prepare v2.0 release' release` | Orchestrator dashboard, agent status |
+| 10 | `/craft:orch 'prepare v2.0 release' release` | Orchestrator dashboard, agent status |
 
 **For each command:**
 

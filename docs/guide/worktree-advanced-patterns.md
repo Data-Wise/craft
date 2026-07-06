@@ -964,7 +964,7 @@ Each repo's worktree gets its own ORCHESTRATE file, scoped to that repo's work b
   ORCHESTRATE-oauth2.md   ← describes web-app work, refs auth-core worktree
 ```
 
-When `/craft:orchestrate:plan` detects cross-repo paths in a spec, it creates both worktrees and writes both ORCHESTRATE files automatically.
+When `/craft:orch:plan` detects cross-repo paths in a spec, it creates both worktrees and writes both ORCHESTRATE files automatically.
 
 ### Development Order
 

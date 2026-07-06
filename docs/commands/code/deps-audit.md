@@ -87,5 +87,5 @@ Run with --fix to auto-fix
 
 ## See Also
 
-- [/craft:code:ci-local](ci-local.md) — Run full CI suite locally
+- [/craft:ci:local](../ci/local.md) — Run full CI suite locally
 - [/craft:check](../check.md) — Pre-flight validation

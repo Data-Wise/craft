@@ -74,6 +74,6 @@ Action items for craft:
 
 ## What's Next
 
-- Pair with `/craft:code:desktop-watch` for Desktop-only monitoring
+- Use `--product desktop` for Desktop-only monitoring
 - Use action items to create issues or feature branches for plugin updates
 - Run before every `/release` to check for compatibility changes since the last craft version

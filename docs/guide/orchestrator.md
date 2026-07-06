@@ -6,14 +6,14 @@
 >
 > - **What:** Advanced task orchestrator coordinating multiple agents with 4 execution modes (10s, 2min, 3min, 5min)
 > - **Why:** Handle complex multi-step tasks with proper delegation, monitoring, and ADHD-friendly tracking
-> - **How:** `/craft:orchestrate "task" [mode]` where mode = default/debug/optimize/release
+> - **How:** `/craft:orch "task" [mode]` where mode = default/debug/optimize/release
 > - **NEW (v2.5.0):** Use `--orch` flag on supported commands for quick orchestration: `/craft:do "task" --orch=optimize`
-> - **Sibling modes:** [`:drive`](../commands/orchestrate-drive.md) (spec → green) and [`:workflow`](../commands/orchestrate-workflow.md) (coded, schema-gated, resumable) — see [Modes Compared](../tutorials/orchestrator-modes-compared.md)
-> - **Next:** Try `/craft:orchestrate "add auth" debug` for verbose execution tracking
+> - **Sibling modes:** [`:drive`](../commands/orch/drive.md) (spec → green) and [`:workflow`](../commands/orch/workflow.md) (coded, schema-gated, resumable) — see [Modes Compared](../tutorials/orchestrator-modes-compared.md)
+> - **Next:** Try `/craft:orch "add auth" debug` for verbose execution tracking
 
 > 🎓 **User Guide** - Practical examples and quick start.
 >
-> Looking for technical details? See the [**Orchestrator Reference**](../commands/orchestrate.md) for implementation details and advanced features.
+> Looking for technical details? See the [**Orchestrator Reference**](../commands/orch.md) for implementation details and advanced features.
 >
 > **NEW (v2.5.0):** For quick orchestration without a separate command, see the [**--orch Flag Guide**](orch-flag-usage.md) for streamlined usage patterns.
 
@@ -39,7 +39,7 @@ The orchestrator coordinates multiple agents and tools for complex, multi-step t
 ### Traditional Method (v2.4.0 and earlier)
 
 ```bash
-/craft:orchestrate "implement user authentication"
+/craft:orch "implement user authentication"
 ```
 
 ### NEW (v2.5.0): Quick Orchestration with --orch Flag
@@ -55,14 +55,14 @@ The `--orch` flag enables orchestration directly from supported commands:
 | Command | Usage |
 |---------|-------|
 | `/craft:do` | `/craft:do "task" --orch=[mode]` |
-| `/craft:workflow:brainstorm` | `/brainstorm "topic" --orch=[mode]` |
+| `/craft:brainstorm` | `/brainstorm "topic" --orch=[mode]` |
 | `/craft:check` | `/craft:check --orch=[mode]` |
 | `/craft:docs:sync` | `/craft:docs:sync --orch=[mode]` |
 | `/craft:ci:generate` | `/craft:ci:generate --orch=[mode]` |
 
 **Benefits:**
 
-- No need to remember separate `/craft:orchestrate` command
+- No need to remember separate `/craft:orch` command
 - Integrates seamlessly with existing workflows
 - Preserves command-specific context and arguments
 
@@ -122,7 +122,7 @@ The orchestrator will:
 Quick orchestration for simple tasks:
 
 ```bash
-/craft:orchestrate "add validation"
+/craft:orch "add validation"
 ```
 
 ### Debug Mode (<120s)
@@ -130,7 +130,7 @@ Quick orchestration for simple tasks:
 Verbose output with detailed logging:
 
 ```bash
-/craft:orchestrate "fix the bug" debug
+/craft:orch "fix the bug" debug
 ```
 
 ### Optimize Mode (<180s)
@@ -138,7 +138,7 @@ Verbose output with detailed logging:
 Parallel execution for speed:
 
 ```bash
-/craft:orchestrate "implement auth" optimize
+/craft:orch "implement auth" optimize
 ```
 
 **Benefits:**
@@ -152,7 +152,7 @@ Parallel execution for speed:
 Comprehensive audit for releases:
 
 ```bash
-/craft:orchestrate "prep for v2.0 release" release
+/craft:orch "prep for v2.0 release" release
 ```
 
 **Includes:**
@@ -167,7 +167,7 @@ Comprehensive audit for releases:
 Orchestrate complex features with structured context gathering:
 
 ```bash
-/craft:orchestrate "plan new feature"
+/craft:orch "plan new feature"
 ```
 
 Flow:
@@ -182,15 +182,15 @@ Flow:
 
 ```bash
 # Focused categories for technical features
-/craft:orchestrate "design API" optimize
+/craft:orch "design API" optimize
 # → Brainstorm d:8 -C tech,requirements
 
 # User-focused for UX features
-/craft:orchestrate "design dashboard" optimize
+/craft:orch "design dashboard" optimize
 # → Brainstorm d:8 -C users,scope,success
 
 # Risk-aware for critical systems
-/craft:orchestrate "implement auth" release
+/craft:orch "implement auth" release
 # → Brainstorm d:10 -C req,tech,risk,success
 ```
 
@@ -199,7 +199,7 @@ Flow:
 ### Status Dashboard
 
 ```bash
-/craft:orchestrate status
+/craft:orch status
 ```
 
 Shows:
@@ -212,7 +212,7 @@ Shows:
 ### Timeline View
 
 ```bash
-/craft:orchestrate timeline
+/craft:orch timeline
 ```
 
 Visual timeline of execution steps.
@@ -220,7 +220,7 @@ Visual timeline of execution steps.
 ### Budget Tracking
 
 ```bash
-/craft:orchestrate budget
+/craft:orch budget
 ```
 
 Context usage and remaining capacity.
@@ -230,7 +230,7 @@ Context usage and remaining capacity.
 If interrupted, resume with:
 
 ```bash
-/craft:orchestrate continue
+/craft:orch continue
 ```
 
 The orchestrator maintains state and continues from where it left off.
@@ -242,10 +242,10 @@ Choosing the right approach depends on your task scope and need for isolation:
 | Scenario | Approach | Command | Why |
 |----------|----------|---------|-----|
 | Quick task, clear scope | Direct command | `/craft:do "task"` | No orchestration overhead |
-| Multi-step task, single session | Orchestrator | `/craft:orchestrate "task"` | Agent delegation + monitoring |
-| Multi-phase feature from spec | Pipeline | `/craft:orchestrate:plan SPEC.md` | Full brainstorm → PR traceability |
-| Parallel isolated implementation | Swarm | `/craft:orchestrate --swarm "task"` | Each agent gets own worktree |
-| Feature spanning multiple repos | Cross-repo pipeline | `/craft:orchestrate:plan` (auto-detects) | Same branch name, paired worktrees |
+| Multi-step task, single session | Orchestrator | `/craft:orch "task"` | Agent delegation + monitoring |
+| Multi-phase feature from spec | Pipeline | `/craft:orch:plan SPEC.md` | Full brainstorm → PR traceability |
+| Parallel isolated implementation | Swarm | `/craft:orch --swarm "task"` | Each agent gets own worktree |
+| Feature spanning multiple repos | Cross-repo pipeline | `/craft:orch:plan` (auto-detects) | Same branch name, paired worktrees |
 | Quick feature, no spec | Manual worktree | `/craft:git:worktree create feature/name` | Simple isolation without orchestration |
 
 ### Worktree Types
@@ -253,8 +253,8 @@ Choosing the right approach depends on your task scope and need for isolation:
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
-| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
+| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 
 ## Performance Tips
@@ -288,5 +288,5 @@ Choosing the right approach depends on your task scope and need for isolation:
 
 - [Skills & Agents](../skills-agents.md) - Understanding the system
 - [Getting Started](getting-started.md) - Basic usage
-- [Brainstorm Command](../commands/workflow/brainstorm.md) - Context gathering (v2.4.0)
+- [Brainstorm Command](../commands/brainstorm.md) - Context gathering (v2.4.0)
 - [**NEW** --orch Flag Guide](orch-flag-usage.md) - Quick orchestration (v2.5.0)

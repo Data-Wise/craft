@@ -6,9 +6,9 @@
 
 The orchestrator coordinates multiple specialized agents to handle complex development tasks through intelligent delegation and parallel execution.
 
-> **Three orchestration modes:** `/craft:orchestrate` (this page) improvises each
-> turn; [`/craft:orchestrate:drive`](commands/orchestrate-drive.md) drives an
-> approved spec to verified green; [`/craft:orchestrate:workflow`](commands/orchestrate-workflow.md)
+> **Three orchestration modes:** `/craft:orch` (this page) improvises each
+> turn; [`/craft:orch:drive`](commands/orch/drive.md) drives an
+> approved spec to verified green; [`/craft:orch:workflow`](commands/orch/workflow.md)
 > executes a coded, fixed-control-flow program with schema-gated agents and
 > resumable replay. See [Orchestrator Modes Compared](tutorials/orchestrator-modes-compared.md).
 
@@ -26,16 +26,16 @@ Orchestrator v2 provides:
 
 ```bash
 # Let orchestrator choose mode
-/craft:orchestrate "add authentication"
+/craft:orch "add authentication"
 
 # Specify mode explicitly
-/craft:orchestrate "add auth" optimize    # Fast parallel
-/craft:orchestrate "prep release" release # Thorough
+/craft:orch "add auth" optimize    # Fast parallel
+/craft:orch "prep release" release # Thorough
 
 # Monitor execution
-/craft:orchestrate status                 # Agent dashboard
-/craft:orchestrate timeline               # Execution timeline
-/craft:orchestrate budget                 # Context tracking
+/craft:orch status                 # Agent dashboard
+/craft:orch timeline               # Execution timeline
+/craft:orch budget                 # Context tracking
 ```
 
 ## Modes
@@ -47,7 +47,7 @@ Orchestrator v2 provides:
 **Use case:** Feature development, quick iterations
 
 ```bash
-/craft:orchestrate "implement user profiles" optimize
+/craft:orch "implement user profiles" optimize
 ```
 
 **Workflow:**
@@ -64,7 +64,7 @@ Orchestrator v2 provides:
 **Use case:** Production preparation, quality audit
 
 ```bash
-/craft:orchestrate "prepare for production" release
+/craft:orch "prepare for production" release
 ```
 
 **Workflow:**
@@ -82,7 +82,7 @@ Orchestrator v2 provides:
 **Use case:** Troubleshooting, diagnostics
 
 ```bash
-/craft:orchestrate "why is CI failing" debug
+/craft:orch "why is CI failing" debug
 ```
 
 ## Agent Coordination
@@ -128,7 +128,7 @@ testing-specialist: "Adding security test cases"
 ### Status Dashboard
 
 ```bash
-/craft:orchestrate status
+/craft:orch status
 ```
 
 **Output:**
@@ -153,7 +153,7 @@ testing-specialist: "Adding security test cases"
 ### Timeline View
 
 ```bash
-/craft:orchestrate timeline
+/craft:orch timeline
 ```
 
 **Visualizes:**
@@ -166,7 +166,7 @@ testing-specialist: "Adding security test cases"
 ### Context Budget
 
 ```bash
-/craft:orchestrate budget
+/craft:orch budget
 ```
 
 **Tracks:**
@@ -294,13 +294,13 @@ Always check status for long-running tasks:
 
 ```bash
 # Start long task
-/craft:orchestrate "comprehensive audit" release
+/craft:orch "comprehensive audit" release
 
 # Check progress (separate prompt)
-/craft:orchestrate status
+/craft:orch status
 
 # View timeline when complete
-/craft:orchestrate timeline
+/craft:orch timeline
 ```
 
 ## See Also

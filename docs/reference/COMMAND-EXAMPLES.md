@@ -28,7 +28,7 @@ Practical examples and real-world usage patterns for all Craft commands.
 |------|---------|-------|
 | **Quick sanity check** | `/craft:check` | Validates everything |
 | **Get help** | `/craft:hub` | Interactive discovery |
-| **Find next action** | `/craft:workflow:next` | Smart suggestions |
+| **Find next action** | `/craft:next` | Smart suggestions |
 | **Add a feature** | `/craft:plan:feature "name"` then `/craft:git:worktree create` | Planned approach |
 | **Quick linting** | `/craft:code:lint` | Default mode |
 | **Run tests** | `/craft:test` | Quick smoke tests |
@@ -163,23 +163,23 @@ q to quit
 
 ---
 
-### /craft:orchestrate - Multi-Agent Coordination
+### /craft:orch - Multi-Agent Coordination
 
 ```bash
 # Basic orchestration
-/craft:orchestrate "add OAuth authentication"
+/craft:orch "add OAuth authentication"
 
 # With mode selection
-/craft:orchestrate "refactor payment system" optimize
+/craft:orch "refactor payment system" optimize
 
 # Check status
-/craft:orchestrate status
+/craft:orch status
 
 # Resume interrupted task
-/craft:orchestrate resume task-abc123
+/craft:orch resume task-abc123
 
 # Monitor live
-/craft:orchestrate status live
+/craft:orch status live
 ```
 
 **Output Example**:
@@ -205,7 +205,7 @@ AGENT STATUS
   test: 🟡 writing tests (30% done)
   docs: ⏳ queued
 
-Run: /craft:orchestrate task-123 status --live
+Run: /craft:orch task-123 status --live
 ```
 
 ---
@@ -1002,7 +1002,7 @@ SUMMARY: 156/156 passing (2.4s)
 /craft:code:coverage --threshold 85
 
 # 3. Build and test locally
-/craft:code:ci-local
+/craft:ci:local
 
 # 4. Create release
 /craft:code:release
@@ -1035,7 +1035,7 @@ SUMMARY: 156/156 passing (2.4s)
 /craft:arch:review --detailed
 
 # 5. Get next steps
-/craft:workflow:next
+/craft:next
 ```
 
 ---

@@ -492,7 +492,7 @@ def test_craft_command_structure():
     assert commands_dir.exists(), "commands/ directory not found"
 
     # Check orchestrate.md has required sections
-    orchestrate = commands_dir / "orchestrate.md"
+    orchestrate = commands_dir / "orch.md"
     content = orchestrate.read_text()
 
     required_sections = [

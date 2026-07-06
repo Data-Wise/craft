@@ -2,7 +2,7 @@
 Canonical body for the ADHD-workflow "Session Completion" operation.
 Source of truth for /done. Loaded by:
   - skills/workflow/adhd-workflow/SKILL.md (operation 1, NL-triggered)
-  - commands/workflow/done.md (the /craft:workflow:done slash shim)
+  - commands/done.md (the /craft:done slash shim)
 Do not duplicate this content into the command shim — edit it here.
 See docs/adr/ADR-002-done-command-skill-consolidation.md for the rationale.
 -->
@@ -11,7 +11,7 @@ See docs/adr/ADR-002-done-command-skill-consolidation.md for the rationale.
 
 The ADHD-friendly session-completion flow: capture progress before it is
 forgotten. Follow these steps when the user wraps up a session (via the
-`adhd-workflow` skill's natural-language match or the `/craft:workflow:done`
+`adhd-workflow` skill's natural-language match or the `/craft:done`
 slash shim).
 
 ## Table of Contents
@@ -244,7 +244,7 @@ done
 📖 DOC DRIFT CHECK:
   ⚠  commands/check.md changed → docs/commands/check.md may need update
   ⚠  scripts/version-sync.sh added → consider adding docs reference
-  ✅ commands/workflow/done.md → docs already up to date
+  ✅ commands/done.md → docs already up to date
 
   Run /craft:docs:sync to update? [Y/n]
 ```

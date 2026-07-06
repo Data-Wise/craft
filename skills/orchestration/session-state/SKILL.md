@@ -8,6 +8,15 @@ category: orchestration
 
 Handles persistent state for orchestrator sessions, enabling resume after disconnects.
 
+## Scope — Not to Be Confused With `orchestrate:resume`
+
+"Resume" here means resuming **orchestrator-v2 session state**: reloading
+`.claude/orchestrator-session.json` so an in-progress multi-agent orchestration can continue where
+it left off (see Resume Flow below). This skill has no relationship to the `orchestrate:resume`
+slash command, which was a separate, fictional 523-line command removed in #239. If a request seems
+to want "bring back the old `orchestrate:resume` command," that is out of scope for this skill —
+this skill only manages the session-state JSON files described below.
+
 ## State File Location
 
 ```

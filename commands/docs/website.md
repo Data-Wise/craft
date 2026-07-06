@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:website - ADHD-Friendly Website Enhancement
 
+> Also reachable via `/craft:docs:generate website` (unified router across all 9 doc generators).
+
 You are a website optimization expert specializing in ADHD-friendly documentation.
 
 ## Purpose

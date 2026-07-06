@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-E2E structural tests for /craft:workflow:brief and its --brief integration in /craft:do.
+E2E structural tests for /craft:brief and its --brief integration in /craft:do.
 
 Validates:
 - brief.md has valid frontmatter with required arguments
@@ -23,7 +23,7 @@ pytestmark = [pytest.mark.e2e, pytest.mark.structure]
 
 PLUGIN_DIR = Path(__file__).parent.parent
 COMMANDS_DIR = PLUGIN_DIR / "commands"
-BRIEF_CMD = COMMANDS_DIR / "workflow" / "brief.md"
+BRIEF_CMD = COMMANDS_DIR / "brief.md"
 DO_CMD = COMMANDS_DIR / "do.md"
 PLUGIN_JSON = PLUGIN_DIR / ".claude-plugin" / "plugin.json"
 
@@ -51,16 +51,18 @@ class TestBriefFileStructure:
     """brief.md must exist and have valid frontmatter."""
 
     def test_brief_command_exists(self):
-        assert BRIEF_CMD.exists(), "commands/workflow/brief.md not found"
+        assert BRIEF_CMD.exists(), "commands/brief.md not found"
 
     def test_brief_has_description(self):
         fm = _extract_frontmatter(BRIEF_CMD)
         assert fm.get("description"), "brief.md missing frontmatter description"
 
-    def test_brief_has_category_workflow(self):
+    def test_brief_has_no_category_at_root(self):
+        """brief.md is now a root command (like check/do/grill/hub); those
+        have no category field, so brief.md shouldn't either."""
         fm = _extract_frontmatter(BRIEF_CMD)
-        assert fm.get("category") == "workflow", (
-            f"Expected category 'workflow', got '{fm.get('category')}'"
+        assert fm.get("category") is None, (
+            f"Expected no category field for root command, got '{fm.get('category')}'"
         )
 
     def test_brief_declares_plan_argument(self):
@@ -204,13 +206,13 @@ class TestDoCommandBriefIntegration:
     def test_step_5_5_references_brief_constraints(self):
         """Step 5.5 must point to brief.md for output constraints, not restate them."""
         # The step should cross-reference brief.md
-        assert "commands/workflow/brief.md" in self._content or "brief.md" in self._content, (
-            "Step 5.5 should reference commands/workflow/brief.md for constraints"
+        assert "commands/brief.md" in self._content or "brief.md" in self._content, (
+            "Step 5.5 should reference commands/brief.md for constraints"
         )
 
     def test_do_has_brief_footer_suggestion(self):
-        assert "/craft:workflow:brief --plan" in self._content, (
-            "do.md must contain the footer suggestion '/craft:workflow:brief --plan'"
+        assert "/craft:brief --plan" in self._content, (
+            "do.md must contain the footer suggestion '/craft:brief --plan'"
         )
 
     def test_step_5_5_is_block_only_no_plan_phase(self):

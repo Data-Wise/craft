@@ -11,19 +11,19 @@ Steps 1-N: Execute with progress
 Step N+1: Summary + next steps
 ```
 
-## /craft:orchestrate
+## /craft:orch
 
 ### Quick Start
 
 ```bash
 # Interactive mode selection
-/craft:orchestrate "add auth"
+/craft:orch "add auth"
 
 # Skip mode prompt
-/craft:orchestrate "add auth" default
-/craft:orchestrate "add auth" debug
-/craft:orchestrate "add auth" optimize
-/craft:orchestrate "add auth" release
+/craft:orch "add auth" default
+/craft:orch "add auth" debug
+/craft:orch "add auth" optimize
+/craft:orch "add auth" release
 ```
 
 ### Interactive Flow
@@ -243,7 +243,7 @@ During orchestration, design decisions use structured prompts:
 
 | Tip | Command |
 |-----|---------|
-| Skip mode prompt | `/craft:orchestrate "task" default` |
+| Skip mode prompt | `/craft:orch "task" default` |
 | Quick check | `/craft:check` (default is fastest) |
 | Preview before applying | `--dry-run` flag |
 | Post-merge docs | `/craft:docs:update --post-merge` |
@@ -255,7 +255,7 @@ During orchestration, design decisions use structured prompts:
 
 - [Interactive Commands Guide](../guide/interactive-commands.md) — Full explanation with examples
 - [Interactive Orchestration Tutorial](../tutorials/interactive-orchestration.md) — Step-by-step walkthrough
-- [/craft:orchestrate](../commands/orchestrate.md) — Full command reference
+- [/craft:orch](../commands/orch.md) — Full command reference
 - [/craft:check](../commands/check.md) — Full command reference
 - [/craft:docs:update](../commands/docs/update.md) — Full command reference
 - [/craft:git:worktree](../commands/git/worktree.md) — Full command reference

@@ -20,7 +20,7 @@ Analyze the /insights report suggestions and map them to concrete craft command/
 | 4 | Session context | `/craft:check --context` flag | Injects worktree, branch, phase into session |
 | 5 | Branch guard | New `/craft:guard:audit` skill | Analyzes hooks, finds false positives, proposes fixes |
 | 6 | Worktree validation | Both hook + command flag | Hook catches mistakes, command provides manual check |
-| 7 | Parallel swarm | `/craft:orchestrate --swarm` flag | 3 agents in isolated worktrees, converge to one PR |
+| 7 | Parallel swarm | `/craft:orch --swarm` flag | 3 agents in isolated worktrees, converge to one PR |
 | 8 | Insights-to-rules | New `/craft:insights:apply` skill | Parses insights, suggests CLAUDE.md additions |
 
 ## Agent Findings
@@ -45,7 +45,7 @@ Analyze the /insights report suggestions and map them to concrete craft command/
 - Missing: session phase (implementation/testing/PR prep), target branch context, test command auto-detection
 - `--context` would output a session header block that persists for the conversation
 
-**Orchestrate (`commands/orchestrate.md`):**
+**Orchestrate (`commands/orch.md`):**
 
 - Currently reads ORCHESTRATE files and delegates to agents sequentially or in groups
 - No concept of "swarm" (isolated worktrees per agent with convergence)
@@ -86,7 +86,7 @@ Analyze the /insights report suggestions and map them to concrete craft command/
 - [ ] Implement `/release --autonomous` self-correction logic
 - [ ] Create `/craft:guard:audit` skill (test harness generation)
 - [ ] Create `/craft:insights:apply` skill (parse report, suggest rules)
-- [ ] Add `--swarm` flag to `/craft:orchestrate` with worktree creation
+- [ ] Add `--swarm` flag to `/craft:orch` with worktree creation
 - [ ] Create PreToolUse hook for worktree path validation
 
 ## Long-term (Future sessions)
@@ -110,7 +110,7 @@ Start with the 3 existing command updates (check, release, worktree) since they 
 | 1d | Worktree path validation hook | `.claude-plugin/hooks/pretooluse.py` | Medium |
 | 2a | `/craft:guard:audit` skill | `skills/guard-audit/SKILL.md` (new) | Medium |
 | 2b | `/craft:insights:apply` skill | `skills/insights-apply/SKILL.md` (new) | Medium |
-| 3 | `/craft:orchestrate --swarm` | `commands/orchestrate.md` | High |
+| 3 | `/craft:orch --swarm` | `commands/orch.md` | High |
 
 ## File Changes Summary
 
@@ -119,7 +119,7 @@ Start with the 3 existing command updates (check, release, worktree) since they 
 | `commands/check.md` | UPDATE | Add `--context` arg, session header output |
 | `skills/release/SKILL.md` | UPDATE | Add `--autonomous` flag, self-correction logic |
 | `commands/git/worktree.md` | UPDATE | Add `--validate` flag, path verification |
-| `commands/orchestrate.md` | UPDATE | Add `--swarm` flag, worktree-per-agent |
+| `commands/orch.md` | UPDATE | Add `--swarm` flag, worktree-per-agent |
 | `skills/guard-audit/SKILL.md` | CREATE | Branch guard audit + tuning skill |
 | `skills/insights-apply/SKILL.md` | CREATE | Insights report to CLAUDE.md rules |
 | `.claude-plugin/hooks/pretooluse.py` | UPDATE | Add worktree path validation |

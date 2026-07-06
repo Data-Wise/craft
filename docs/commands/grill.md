@@ -40,18 +40,18 @@ dependencies *before* you implement.
 | Argument | Description |
 |----------|-------------|
 | `target` | Spec/plan path, a quoted topic, or empty to detect from context |
-| `--bound N` | Limit interrogation to N decision branches (used by `/craft:orchestrate` Step 0.5) |
+| `--bound N` | Limit interrogation to N decision branches (used by `/craft:orch` Step 0.5) |
 | `--no-capture` | Skip writing a `GRILL-*` file; return decisions inline (embedded callers) |
 
 ## When to use grill vs brainstorm
 
 | You want to… | Use |
 |--------------|-----|
-| Generate ideas, options, MVP scope | `/craft:workflow:brainstorm` (divergent) |
+| Generate ideas, options, MVP scope | `/craft:brainstorm` (divergent) |
 | Stress-test a plan/spec for gaps before building | `/craft:grill` (convergent) |
 
 ## See also
 
-- [`/craft:workflow:brainstorm`](../commands.md) — generate before you interrogate
-- [`/craft:orchestrate`](orchestrate.md) — its Step 0.5 Clarify invokes a bounded grill
+- [`/craft:brainstorm`](../commands.md) — generate before you interrogate
+- [`/craft:orch`](orch.md) — its Step 0.5 Clarify invokes a bounded grill
 - [Grill Tutorial](../tutorials/TUTORIAL-grill.md)

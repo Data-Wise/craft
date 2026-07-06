@@ -107,7 +107,7 @@ routing/confirmation safeguards without them, and referencing agent type
 names that didn't exist. This was removed. The current skill does not spawn
 subagents itself — after `save`, it offers a hand-off to the orchestrator via
 the existing `--orch` flag / `plan-orchestrator` skill /
-`/craft:orchestrate:plan <spec-path>`.
+`/craft:orch:plan <spec-path>`.
 
 ---
 

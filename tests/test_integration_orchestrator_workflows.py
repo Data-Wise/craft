@@ -11,7 +11,7 @@ Components tested:
 - .claude-plugin/hooks/orchestrate-hooks.sh
 - agents/orchestrator-v2.md
 - commands/do.md
-- commands/orchestrate.md
+- commands/orch.md
 
 Run with: python tests/test_integration_orchestrator_workflows.py
 """

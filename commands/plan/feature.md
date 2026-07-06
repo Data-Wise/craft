@@ -3,7 +3,7 @@ description: Feature Planning
 category: plan
 arguments:
   - name: refine
-    description: "Runs the prompt-refiner by default; pass --no-refine to skip"
+    description: "Runs the prompt-refiner by default (deliberation-entry command — see prompt-refiner SKILL.md Default Policy); pass --no-refine to skip"
     required: false
     default: true
   - name: no-refine
@@ -16,8 +16,6 @@ arguments:
   - name: no-docs
     description: "Skip the auto-emitted Documentation section (on by default)"
     required: false
-deprecated: true
-replaced-by: "skills/orchestration/plan-orchestrator/"
 ---
 
 # Feature Planning

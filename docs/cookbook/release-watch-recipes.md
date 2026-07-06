@@ -64,10 +64,10 @@ Track Claude Desktop without Code noise:
 python3 scripts/release-watch.py --product desktop
 ```
 
-Or via the Craft command alias:
+Or via the Craft command:
 
 ```bash
-/craft:code:desktop-watch
+/craft:code:release-watch --product desktop
 ```
 
 ## Recipe 5: Version Delta

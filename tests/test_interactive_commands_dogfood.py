@@ -5,7 +5,7 @@ from test_plugin_e2e import PLUGIN_DIR
 
 pytestmark = [pytest.mark.e2e, pytest.mark.dogfood]
 
-DEFAULT_ON = ["commands/workflow/brainstorm.md", "commands/do.md", "commands/plan/feature.md"]
+DEFAULT_ON = ["commands/brainstorm.md", "commands/do.md", "commands/plan/feature.md"]
 
 @pytest.mark.parametrize("rel", DEFAULT_ON)
 def test_refine_default_on_documented(rel):
@@ -25,7 +25,7 @@ def test_yes_cascade_documented():
 
 
 def test_orchestrate_clarify_model():
-    text = (PLUGIN_DIR / "commands/orchestrate.md").read_text(encoding="utf-8")
+    text = (PLUGIN_DIR / "commands/orch.md").read_text(encoding="utf-8")
     assert "Step 0.5" in text
     lo = text.lower()
     assert "askuserquestion" in lo and "consequence" in lo, \

@@ -420,9 +420,9 @@ class TestPluginJsonSchema:
 def test_refine_delegates_to_skill():
     """Every --refine command must delegate to the skill, not restate the flow."""
     targets = [
-        "commands/workflow/brainstorm.md",
+        "commands/brainstorm.md",
         "commands/do.md",
-        "commands/orchestrate.md",
+        "commands/orch.md",
         "commands/plan/feature.md",
         "commands/arch/plan.md",
     ]
@@ -512,7 +512,7 @@ class TestBumpVersionSubtotals:
                               hub.read_text(), count=1))
         subprocess.run(["bash", str(script), "--counts-only"], capture_output=True,
                        text=True, timeout=60)
-        expected = _cmd_cat_count("orchestrate")
+        expected = _cmd_cat_count("orch")
         out = hub.read_text()
         assert f"ORCHESTRATE ({expected})" in out, f"expected ORCHESTRATE ({expected})"
         assert "ORCHESTRATE (99)" not in out, "stale subtotal not rewritten"

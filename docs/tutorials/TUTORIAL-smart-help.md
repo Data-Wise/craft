@@ -33,7 +33,7 @@ Based on recent activity:
   /craft:check         — Last check: 47 commits ago
 
 General:
-  /craft:hub           — Browse all 116 commands
+  /craft:hub           — Browse all 115 commands
   /craft:do            — Smart routing for any task
 ```
 
@@ -55,7 +55,7 @@ Commands matching "ci":
   /craft:ci:triage      — Classify CI failures
   /craft:ci:validate    — Validate existing CI workflow
   /craft:ci:watch       — Poll CI run to completion
-  /craft:code:ci-local  — Run CI mirror locally
+  /craft:ci:local  — Run CI mirror locally
 ```
 
 ---
@@ -89,5 +89,5 @@ Use smart-help when you're unsure which command fits your situation. Use hub whe
 ## What's Next
 
 - Run `/craft:do <task>` for intelligent command routing based on a natural-language task description
-- Use `/craft:hub` to browse all 116 commands by category
+- Use `/craft:hub` to browse all 115 commands by category
 - See [smart routing tutorial](smart-routing-tutorial.md) for advanced do command patterns

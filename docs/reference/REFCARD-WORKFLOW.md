@@ -1,4 +1,4 @@
-# Quick Reference: /craft:orchestrate:workflow
+# Quick Reference: /craft:orch:workflow
 
 **Execute a coded, fixed-control-flow workflow** — schema-gated agents,
 data-driven fan-out, cached/resumable replay.
@@ -10,11 +10,11 @@ data-driven fan-out, cached/resumable replay.
 ## Quick Start
 
 ```bash
-/craft:orchestrate:workflow --dry-run        # preview wave plan, no agents
-/craft:orchestrate:workflow                   # run newest WORKFLOW-*.yaml
-/craft:orchestrate:workflow <file>            # run a specific definition
-/craft:orchestrate:workflow --resume <run-id> # cached replay of changed stages
-/craft:orchestrate:workflow --refine          # refine an NL request first
+/craft:orch:workflow --dry-run        # preview wave plan, no agents
+/craft:orch:workflow                   # run newest WORKFLOW-*.yaml
+/craft:orch:workflow <file>            # run a specific definition
+/craft:orch:workflow --resume <run-id> # cached replay of changed stages
+/craft:orch:workflow --refine          # refine an NL request first
 ```
 
 ---
@@ -26,16 +26,16 @@ data-driven fan-out, cached/resumable replay.
 │                                                         │
 │  Fixed, repeatable shape                                │
 │  (decompose → cover → verify → synthesize)?             │
-│    └─> /craft:orchestrate:workflow                      │
+│    └─> /craft:orch:workflow                      │
 │                                                         │
 │  One approved spec → drive to green?                    │
-│    └─> /craft:orchestrate:drive                         │
+│    └─> /craft:orch:drive                         │
 │                                                         │
 │  Exploratory, can't predict the steps?                  │
-│    └─> /craft:orchestrate                               │
+│    └─> /craft:orch                               │
 │                                                         │
 │  Not sure what it will run?                             │
-│    └─> /craft:orchestrate:workflow --dry-run            │
+│    └─> /craft:orch:workflow --dry-run            │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -92,6 +92,6 @@ a change cascades downstream invalidation. `--resume` re-runs only what changed.
 
 ## See Also
 
-- Command: [/craft:orchestrate:workflow](../commands/orchestrate-workflow.md)
-- Tutorial: [TUTORIAL-orchestrate-workflow](../tutorials/TUTORIAL-orchestrate-workflow.md)
+- Command: [/craft:orch:workflow](../commands/orch/workflow.md)
+- Tutorial: [TUTORIAL-orch-workflow](../tutorials/TUTORIAL-orch-workflow.md)
 - Compared: [Orchestrator Modes Compared](../tutorials/orchestrator-modes-compared.md)

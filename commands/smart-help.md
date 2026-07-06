@@ -34,7 +34,7 @@ Get intelligent help based on your project and question.
 │                                                     │
 │ Quality:                                            │
 │   /craft:code:deps-audit   pip-audit security      │
-│   /craft:code:ci-local     pre-commit simulation   │
+│   /craft:ci:local     pre-commit simulation   │
 │                                                     │
 │ Release:                                            │
 │   /craft:code:release      PyPI workflow           │
@@ -54,7 +54,7 @@ Get intelligent help based on your project and question.
 │   /craft:code:docs-check   roxygen2 validation     │
 │                                                     │
 │ Quality:                                            │
-│   /craft:code:ci-local     R CMD check simulation  │
+│   /craft:ci:local     R CMD check simulation  │
 │   /craft:arch:analyze      package structure       │
 │                                                     │
 │ Release:                                            │
@@ -181,7 +181,7 @@ Get intelligent help based on your project and question.
 │                                                     │
 │ Related:                                            │
 │   /craft:test:gen          Generate test files     │
-│   /craft:code:ci-local     Run full CI checks      │
+│   /craft:ci:local     Run full CI checks      │
 │                                                     │
 ╰─────────────────────────────────────────────────────╯
 ```
@@ -215,13 +215,13 @@ Get intelligent help based on your project and question.
 
 ╭─ Orchestration Modes ───────────────────────────────╮
 │                                                     │
-│ /craft:orchestrate         Improvised multi-agent  │
+│ /craft:orch         Improvised multi-agent  │
 │   LLM reasons "what next" each turn (exploratory)  │
 │                                                     │
-│ /craft:orchestrate:drive   Spec → verified green   │
+│ /craft:orch:drive   Spec → verified green   │
 │   Autonomous /goal loop with a real verify gate    │
 │                                                     │
-│ /craft:orchestrate:workflow  Coded, fixed program  │
+│ /craft:orch:workflow  Coded, fixed program  │
 │   parallel/pipeline/verify, schema-gated agents,   │
 │   data-driven fan-out, cached/resumable replay     │
 │   Best for: decompose → cover → verify → synthesize│
@@ -236,15 +236,15 @@ Get intelligent help based on your project and question.
 → Use /craft:test to run your test suite
 
 /craft:help "how do I run a fixed, repeatable multi-agent shape?"
-→ Use /craft:orchestrate:workflow for a coded, schema-gated, resumable workflow
-→ Preview it first with /craft:orchestrate:workflow --dry-run
+→ Use /craft:orch:workflow for a coded, schema-gated, resumable workflow
+→ Preview it first with /craft:orch:workflow --dry-run
 
 /craft:help "how do I prepare a release?"
 → Use /craft:code:release for the full release workflow
 
 /craft:help "how do I check code quality?"
 → Use /craft:check for quick validation
-→ Use /craft:code:ci-local for full CI simulation
+→ Use /craft:ci:local for full CI simulation
 
 /craft:help "what commands are available?"
 → Use /craft:hub to see all 115 commands

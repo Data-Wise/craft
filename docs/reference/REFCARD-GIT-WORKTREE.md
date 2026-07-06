@@ -28,8 +28,8 @@ Need to work on something else?
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
-| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
+| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 
 **Manual** worktrees are for quick features where you know the scope. **Pipeline** worktrees are created as part of the brainstorm → spec → ORCHESTRATE flow and always include an ORCHESTRATE file with phases. **Swarm** worktrees are ephemeral — created by the orchestrator for parallel agent execution and cleaned up after convergence. **Cross-Repo** worktrees enforce the same branch name across repositories for coordinated multi-repo features.

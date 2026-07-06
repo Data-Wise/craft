@@ -92,4 +92,4 @@ Shows what `--fix` would change without applying it.
 
 - Add `--fail-on high` to your CI workflow via `/craft:ci:generate`
 - Run after every `npm install` or dependency update
-- Use `/craft:code:ci-local` for the full pre-push check including deps audit
+- Use `/craft:ci:local` for the full pre-push check including deps audit

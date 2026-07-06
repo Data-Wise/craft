@@ -3,7 +3,7 @@
 > **Intelligent Task Routing & Multi-Agent Orchestration**: Leverage Claude Code 2.1.0 capabilities for smart task handling
 
 **Available Since:** v1.23.0 (Claude Code 2.1.0 Integration)
-**Commands:** /craft:do, /craft:check, /craft:orchestrate
+**Commands:** /craft:do, /craft:check, /craft:orch
 **Features:** Complexity scoring, hot-reload validators, agent delegation
 
 ---
@@ -46,7 +46,7 @@ Craft integrates Claude Code 2.1.0 advanced features to provide intelligent task
 
 ```bash
 # Multi-agent coordination
-/craft:orchestrate "implement teaching workflow feature"
+/craft:orch "implement teaching workflow feature"
 ```
 
 ---
@@ -351,7 +351,7 @@ categories: [validation]
 
 ## Orchestrator v2 Features
 
-When a task scores 8-10 points, /craft:orchestrate v2 coordinates multiple agents.
+When a task scores 8-10 points, /craft:orch v2 coordinates multiple agents.
 
 ### Multi-Agent Coordination
 
@@ -466,7 +466,7 @@ Configure execution mode based on task requirements:
 # Explicit mode selection
 /craft:do "add feature" optimize
 /craft:do "debug issue" debug
-/craft:orchestrate "complex task" release
+/craft:orch "complex task" release
 ```
 
 ---
@@ -500,7 +500,7 @@ Better: "Add OAuth2 authentication with PKCE flow, session management, extensive
 /craft:do "complex task" --verbose
 
 # Check session state
-/craft:orchestrate:status
+/craft:orch:status
 ```
 
 ---
@@ -548,7 +548,7 @@ Result aggregation: < 1 minute
 - [Complexity Scoring Algorithm](complexity-scoring-algorithm.md) - Deep dive into 7 factors
 - [Teaching Workflow Guide](teaching-workflow.md) - Specialized workflow for courses
 - [Orchestrator Documentation](orchestrator.md) - Advanced multi-agent features
-- [Commands Reference](../commands.md) - All 116 commands
+- [Commands Reference](../commands.md) - All 115 commands
 
 ---
 

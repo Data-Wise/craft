@@ -5,7 +5,7 @@ Complete reference for all 116 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 116 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 115 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement (default-on):** `/brainstorm`, `/craft:do`, `/craft:plan:feature`, `/craft:grill` run the `prompt-refiner` skill automatically before acting. Use `--no-refine` to skip; pass `--yes` to auto-accept the refined prompt without a confirm step.
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -40,26 +40,26 @@ ledger. See [command reference](commands/grill.md) and [tutorial](tutorials/TUTO
 /craft:grill "add OAuth login"                     # skeleton, then grill
 ```
 
-### /craft:orchestrate 🔍
+### /craft:orch 🔍
 
 Multi-agent orchestrator with mode-aware execution.
 
 ```bash
-/craft:orchestrate "add auth" optimize    # Fast parallel
-/craft:orchestrate "prep release" release # Thorough audit
-/craft:orchestrate status                 # Agent dashboard
-/craft:orchestrate "task" --dry-run       # Preview orchestration plan
+/craft:orch "add auth" optimize    # Fast parallel
+/craft:orch "prep release" release # Thorough audit
+/craft:orch status                 # Agent dashboard
+/craft:orch "task" --dry-run       # Preview orchestration plan
 ```
 
 **Modes:** optimize (4 agents), release (comprehensive), debug (verbose)
 **Dry-run:** Preview agent allocation, parallelization waves, and execution time.
 
-### /craft:orchestrate:drive
+### /craft:orch:drive
 
 Drive an approved SPEC to completion via the native `/goal` turn-loop, with a real verify gate; stops at verified green and prints the PR command.
 
 ```bash
-/craft:orchestrate:drive --dry-run        # Preview the derived /goal condition + preconditions
+/craft:orch:drive --dry-run        # Preview the derived /goal condition + preconditions
 ```
 
 **Dry-run:** Print the derived condition + dispatch plan + precondition report; zero side effects.
@@ -76,18 +76,6 @@ Pre-flight validation for commits, PRs, and releases.
 ```
 
 **Dry-run:** Preview which checks will be performed without executing them.
-
-### /craft:quota
-
-Pre-flight token quota gate — reads `~/.claude/quota-cache.json` (stale after 900 s),
-estimates cost-weighted tokens for the planned run, and maps to a SAFE / TIGHT / DEFER advisory.
-Silently skips when the cache is absent or stale.
-
-```bash
-/craft:quota                  # Estimate for workflow engine (default)
-/craft:quota fanout           # Estimate for fanout engine
-/craft:quota --json           # Machine-readable JSON output
-```
 
 ### /craft:help
 
@@ -221,6 +209,7 @@ Read-only view of the multi-surface release registry — verify gate states and 
 
 | Command | Description | Help |
 |---------|-------------|------|
+| `/craft:docs:generate` | Unified router across all 9 doc generators | [Ref](commands/docs/generate.md) |
 | `/craft:docs:update` | Smart full-cycle documentation generator | [Ref](commands/docs/update.md) |
 | `/craft:docs:sync` | Change detection and classification | [Ref](commands/docs/sync.md) |
 | `/craft:docs:check` | Documentation health check with auto-fix | [Ref](commands/docs/check.md) |
@@ -393,10 +382,6 @@ Manage Jinja2 templates for test generation.
 
 ## Workflow Commands (workflow/)
 
-### /craft:workflow:adhd-guide
-
-ADHD-friendly workflow guide — structured approaches for maintaining focus.
-
 ### /craft:workflow:recap
 
 Context restoration — summarize what happened in the current or previous session.
@@ -405,36 +390,36 @@ Context restoration — summarize what happened in the current or previous sessi
 /craft:workflow:recap
 ```
 
-### /craft:workflow:refine
+### /craft:refine
 
 Prompt optimizer — improve and refine prompts interactively.
 
 ```bash
-/craft:workflow:refine "my prompt text"
+/craft:refine "my prompt text"
 ```
 
-### /craft:workflow:task-status
+### /craft:task:status
 
 Show status of background tasks launched by the orchestrator.
 
 ```bash
-/craft:workflow:task-status
+/craft:task:status
 ```
 
-### /craft:workflow:task-output
+### /craft:task:output
 
 View results from completed background tasks.
 
 ```bash
-/craft:workflow:task-output <task-id>
+/craft:task:output <task-id>
 ```
 
-### /craft:workflow:task-cancel
+### /craft:task:cancel
 
 Cancel a running background task.
 
 ```bash
-/craft:workflow:task-cancel <task-id>
+/craft:task:cancel <task-id>
 ```
 
 ## Utility Commands (utils/)
@@ -485,7 +470,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 116 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 115 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 

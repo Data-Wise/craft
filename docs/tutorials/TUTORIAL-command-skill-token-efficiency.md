@@ -29,7 +29,7 @@ Sort what's in (or going into) the command file into two buckets:
 
 **Belongs in a skill** — procedure: the actual step-by-step logic, detailed reference material, edge-case handling. This is the content that costs nothing when it's *not* relevant, because skills load conditionally on trigger-match, while commands load in full every time they're invoked.
 
-**Worked example — `commands/workflow/refine.md`:** before `feature/token-usage-reduction` ([PR #232](https://github.com/Data-Wise/craft/pull/232)), this command was 630 lines — the full `--refine` procedure lived directly in the command file. The procedure (how to sharpen a prompt, the before/after/accept-edit-use-original flow) is the same regardless of which command invokes `--refine`, so it moved to `skills/workflow/prompt-refiner/SKILL.md`. What stayed: the flag documentation itself, since the command always runs whether or not the skill's routing has fired yet. Result: 630 → 42 lines, a thin shim pointing at the skill.
+**Worked example — `commands/refine.md`:** before `feature/token-usage-reduction` ([PR #232](https://github.com/Data-Wise/craft/pull/232)), this command was 630 lines — the full `--refine` procedure lived directly in the command file. The procedure (how to sharpen a prompt, the before/after/accept-edit-use-original flow) is the same regardless of which command invokes `--refine`, so it moved to `skills/workflow/prompt-refiner/SKILL.md`. What stayed: the flag documentation itself, since the command always runs whether or not the skill's routing has fired yet. Result: 630 → 42 lines, a thin shim pointing at the skill.
 
 A quick test for whether a split is right: if you deleted the skill, would the command still read sensibly as "this does X, see SKILL.md for how"? If the command can't be described without re-explaining the procedure, the procedure hasn't actually moved.
 
@@ -40,12 +40,12 @@ When moving content out of a command/agent file, move it verbatim into the skill
 ## Step 4: Run the quantitative check
 
 ```bash
-python3 scripts/audit-deprecated-commands.py --pair commands/workflow/refine.md skills/workflow/prompt-refiner/SKILL.md
+python3 scripts/audit-deprecated-commands.py --pair commands/refine.md skills/workflow/prompt-refiner/SKILL.md
 ```
 
 ```text
 skills/workflow/prompt-refiner/SKILL.md: 60 lines
-commands/workflow/refine.md: 42 lines
+commands/refine.md: 42 lines
 ratio: 1.4  [OK, threshold=2.0]
 ```
 

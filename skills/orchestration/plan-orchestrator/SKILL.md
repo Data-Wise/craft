@@ -1,6 +1,6 @@
 ---
 name: plan-orchestrator
-description: This skill should be used when the user asks to "generate an ORCHESTRATE file", "turn a spec into a plan", "scaffold a feature breakdown", "scaffold a sprint backlog", "generate roadmap artifacts", "create an implementation plan from SPEC", or needs to produce concrete planning artifacts (ORCHESTRATE-*.md, feature breakdowns with task estimates, sprint backlogs, milestone roadmaps). Differs from `project-planner` (high-level strategy/advice) by producing committed, actionable artifacts tied to specs and worktrees.
+description: This skill should be used when the user asks to "generate an ORCHESTRATE file", "turn a spec into a plan", "scaffold a feature breakdown", "scaffold a sprint backlog", "plan a sprint" (when a committed backlog/artifact is wanted, not just strategy advice), "generate roadmap artifacts", "create an implementation plan from SPEC", or needs to produce concrete planning artifacts (ORCHESTRATE-*.md, feature breakdowns with task estimates, sprint backlogs, milestone roadmaps). Differs from `project-planner` (high-level strategy/advice) by producing committed, actionable artifacts tied to specs and worktrees.
 category: orchestration
 ---
 
@@ -206,13 +206,8 @@ cd <worktree-path> && claude
 
 ## Auto-Detection
 
-| Detection | Verification Command |
-|-----------|---------------------|
-| `tests/test_craft_plugin.py` | `python3 tests/test_craft_plugin.py` |
-| `package.json` test script | `npm test` |
-| `pytest.ini` / `pyproject.toml` | `pytest` |
-| `Cargo.toml` | `cargo test` |
-| `DESCRIPTION` (R) | `R CMD check` |
+See [`../references/verify-gate-detection.md`](../references/verify-gate-detection.md) for the
+full detection table and how to use it.
 
 ### Rebase Strategy (Spec → ORCHESTRATE mode)
 
@@ -245,7 +240,7 @@ Scan spec for paths under `~/projects/dev-tools/<other>/`. If detected:
 | `session-state` | Plans persist into orchestrator session state. |
 | `project-planner` | Strategic advice upstream; this skill writes the file. |
 | `/craft:git:worktree` | Creates the worktree for ORCHESTRATE mode. |
-| `/craft:orchestrate` | Launches orchestrator after plan exists. |
+| `/craft:orch` | Launches orchestrator after plan exists. |
 | `/craft:docs:sync` | Refreshes roadmap docs on `--update`. |
 
 ## Test-plan scaffolding (default-on)

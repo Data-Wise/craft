@@ -1,6 +1,6 @@
 ---
 name: adhd-workflow
-description: ADHD-friendly session and task workflow for craft users — captures context at session end, restores it at session start, picks the next task, breaks through blockers, holds focus on one task, reviews a craft spec, or refines a vague craft prompt. Use when wrapping up or resuming a coding session, when deciding what to work on next, when stuck or in decision paralysis, when focusing on a single craft task, or when reviewing/refining a craft spec or prompt. The full intent-to-operation map is in the "When to Use" table below.
+description: ADHD-friendly session and task workflow for craft users — captures context at session end, restores it at session start, picks the next task, breaks through blockers, holds focus on one task, reviews a craft spec, or refines a vague craft prompt. Use when wrapping up or resuming a coding session, when deciding what to work on next (also "what's next", "pick a task for me", "give me something to do"), when stuck or in decision paralysis, when focusing on a single craft task, or when reviewing/refining a craft spec or prompt. The full intent-to-operation map is in the "When to Use" table below.
 ---
 
 # ADHD Workflow Skill
@@ -15,7 +15,7 @@ Activate this skill when the user's prompt matches any of these concerns:
 |-------------|-----------|
 | "I'm done", "wrap up", "end session", "save progress" | Session completion |
 | "where did I leave off", "what's the state", "recap me" | Context restoration |
-| "what next", "what should I work on", "I can't decide" | Next-task suggestion |
+| "what next", "what's next", "what should I work on", "I can't decide", "pick a task for me", "give me something to do", "what should I do now" | Next-task suggestion |
 | "let me focus", "single task", "Pomodoro" | Focus mode |
 | "I'm stuck", "I don't know what to do", "blocked" | Unblock helper |
 | "review my spec", "approve spec", "archive spec" | Spec review |
@@ -31,7 +31,7 @@ Capture progress before context evaporates — typically the highest-leverage mo
 
 > **Canonical procedure:** the full session-completion flow lives in
 > [`references/done.md`](references/done.md) — the single source of truth shared
-> with the `/craft:workflow:done` slash shim. For anything beyond the quick
+> with the `/craft:done` slash shim. For anything beyond the quick
 > summary below (Settings Sync, Memory Optimize, Insights Capture, Worktree
 > Status, the interactive summary, auto-git), **load `references/done.md` and
 > follow it.** Never reimplement that flow here or in the command shim. See
@@ -166,7 +166,9 @@ This skill replaces the seven `commands/workflow/*.md` commands during the v2.34
 - `/spec-review` → operation 6 (Spec Review)
 - `/refine` → operation 7 (Prompt Refinement)
 
-Both invocation paths work during the deprecation cycle. The skill auto-fires on natural-language match; explicit `/craft:workflow:*` paths continue to function until v3.0.0.
+Both invocation paths work during the deprecation cycle. The skill auto-fires on natural-language match; explicit slash paths continue to function until v3.0.0 — `/craft:done`, `/craft:next`, and `/craft:refine` are now root commands (promoted from `workflow:`), while `/craft:workflow:recap`, `/craft:workflow:focus`, and `/craft:workflow:spec-review` remain nested.
+
+For ADHD-friendly workflow strategy prose (not an operation, no behavior), see [`references/adhd-guide.md`](references/adhd-guide.md).
 
 ## Related Skills
 

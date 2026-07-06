@@ -20,18 +20,21 @@ dist-surface hardening effort (all merged to `dev`, release cut this session).
 
 ## Pending work (priority order)
 
-### 1. Docs-site harden + consolidate  — task #6, GRILLED & ready to plan
+### 1. Docs-site harden + consolidate — HARDEN done, CONSOLIDATE still pending
 
 - Spec: `SPEC-docs-site-hardening-consolidation-2026-07-02.md`
 - Grill: `GRILL-docs-site-hardening-consolidation-2026-07-02.md` (6 branches locked)
-- **Next step:** `/craft:plan` tier 4 → `ORCHESTRATE`, then implement in G-6 order:
-  1. **HARDEN first** (own PR): H1 poll-timeout live-verify gate in `docs.yml` +
-     dev-update warning; H2 extend `tests/test_dist_doc_accuracy.py` to ALL
-     `docs/*.md` with smart per-line detection (≥50 threshold + skip historical);
-     H3 document the main-gated model.
-  2. Audit+fold-before-shim the merges (esp. `docs:website` 30K → `site:*` — avoid
-     the rich-body trap; caller-grep do/hub/tutorials/tests first).
-  3. ~40-file count cascade LAST, against the final ~24-command set.
+- **HARDEN slice (G-6 step 1) SHIPPED 2026-07-04** — PR #259 (`59bd8995`), released
+  in v2.59.0: H1 live-URL verify gate in `docs.yml` (widened 5min→15min the same
+  day after its first live run hit real CDN propagation lag, `140365c6`); H2
+  extended `tests/test_dist_doc_accuracy.py` to all `docs/**/*.md` (evidence-based
+  exclude list, not a blanket skip); H3 dev-branch staleness warning on
+  `docs:update`. Full suite 2681 passed, 0 failed at merge.
+- **CONSOLIDATE slice (G-6 steps 2-3, ~35→~24 commands) still not started** —
+  deliberately deferred as its own larger effort (audit+fold-before-shim the
+  `docs:website`/`docs:site` merges, then the ~40-file count cascade LAST). This
+  is the actual next step if picking this thread back up: `/craft:plan` tier 4 →
+  `ORCHESTRATE` for the consolidate half only.
 
 ### 2. Phase-briefing skill — task #5, NOT yet grilled
 
@@ -93,20 +96,33 @@ session's close.
   needed beyond the doc note; each new machine needs the one-line workaround
   applied manually until Anthropic ships a fix upstream.
 
-### 4. Cleanup (`/craft:git:clean`)
+### 4. Cleanup (`/craft:git:clean`) — DONE 2026-07-04 (worktrees + 7 branches); 16 more to audit
 
-Orphaned worktrees from ended background sessions (`agitated-pasteur`, `epic-chaum`,
-`quirky-swirles`, `trusting-heyrovsky`, `flamboyant-visvesvaraya`) + ~17 merged
-`feature/*` branches (squash-merged → safe-delete fails, branch-guard blocks `-D`;
-confirm via `git cherry`). Run `/craft:git:clean`. Keep `feature/plugin-audit-skill` (HELD #237).
-(`feature/drop-zod-dep` — created + merged + worktree-removed within this session,
-already clean, not part of the orphan list.)
+**Resolved 2026-07-04:** the 3 detached-HEAD worktrees (`epic-chaum-8ec54d`,
+`quirky-swirles-9c9291`, `trusting-heyrovsky-4e591c`) were removed and their
+7 corresponding `claude/*`/`feature/*` branches force-deleted, each verified
+squash-merged by matching its HEAD commit subject against `dev`'s log
+(PRs #247 through #250, plus 2 plain-merged + `feature/drop-zod-dep` from #257).
+`branch-guard` briefly muted 30min via `/craft:git:guard disable branch-guard`
+for the force-deletes, then re-armed immediately after. `git branch --merged
+dev` now shows only `dev`/`main`.
+
+**Next: 16 more local `feature/*` branches, NOT yet audited** — `governance-*`
+(6), `check-skill-standards-gate`, `cleanup-stray-orchestrate`,
+`flaky-perf-xfail`, `grill-command`, `homebrew-dist-gates`,
+`insights-session-hook`, `mcp-ci-release`, `multi-surface-release`,
+`release-multisurface`, `skill-standards-check`, `pr-139-merge`. None show in
+`--merged dev` (squash-merge hides them there too), but several plausibly map to
+already-shipped milestones (see `.STATUS` backlog note captured 2026-07-04 for
+the full reasoning + verification method). Check each via `git log dev --oneline
+--grep="<branch HEAD commit subject>"` before the next `/craft:git:clean` pass.
 
 ### 5. Held / backlog
 
-- **#237** plugin-audit-skill — HELD (jq schema mismatch + false-positive collision heuristic; needs rework).
+- **#237** plugin-audit-skill — ✅ **MERGED 2026-07-04** (`c1643af4`, released in v2.59.0). Both blocking `/review` findings fixed (real `installed_plugins.json` schema, false-positive collision heuristic now breadth≥3-or-structural-containment). No longer held.
 - craft-mcp Desktop `.mcpb` validation — optional (CLI already proves the server); Apple Note has the steps.
 - Teaching-residue audit (craft↔scholar) — unscheduled.
+- SPEC-planning-refactor-2026-06-22.md — see `NEXT-SESSION-2026-07-03.md` (superseded 2026-07-04) and `.STATUS` — A1 shipped, A2 grilled+deferred, whole thread **paused** pending a larger future renaming+hardening+refactoring effort.
 
 ## New rules/memories this session (already saved)
 

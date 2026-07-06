@@ -186,7 +186,7 @@ MAIN MENU
 
 ---
 
-### /craft:orchestrate
+### /craft:orch
 
 **Category**: Coordination | **Complexity**: Complex | **Time**: Variable
 **Description**: Multi-agent task orchestration with background execution
@@ -205,9 +205,9 @@ MAIN MENU
 #### Examples
 
 ```bash
-/craft:orchestrate "add feature X"
-/craft:orchestrate "refactor auth" optimize
-/craft:orchestrate "release prep" release
+/craft:orch "add feature X"
+/craft:orch "refactor auth" optimize
+/craft:orch "release prep" release
 ```
 
 #### Output Format
@@ -222,10 +222,10 @@ Spawning agents:
   [AGENT-4: docs] Updating documentation...
 
 ETA: ~30 minutes (parallel execution)
-Monitor with: /craft:orchestrate status
+Monitor with: /craft:orch status
 ```
 
-**File**: `commands/orchestrate.md`
+**File**: `commands/orch.md`
 
 ---
 
@@ -602,7 +602,7 @@ Development workflow and code manipulation tools.
 
 ---
 
-### /craft:code:ci-local
+### /craft:ci:local
 
 **Category**: CI/CD | **Complexity**: Simple | **Time**: < 60s
 **Description**: Run CI checks locally before committing
@@ -616,15 +616,15 @@ Development workflow and code manipulation tools.
 #### Examples
 
 ```bash
-/craft:code:ci-local
-/craft:code:ci-local --dry-run
+/craft:ci:local
+/craft:ci:local --dry-run
 ```
 
-**File**: `commands/code/ci-local.md`
+**File**: `commands/ci/local.md`
 
 ---
 
-### /craft:code:ci-fix
+### /craft:ci:fix
 
 **Category**: CI/CD | **Complexity**: Simple | **Time**: < 60s
 **Description**: Fix common CI failures locally
@@ -639,11 +639,11 @@ Development workflow and code manipulation tools.
 #### Examples
 
 ```bash
-/craft:code:ci-fix
-/craft:code:ci-fix "lint errors" --apply
+/craft:ci:fix
+/craft:ci:fix "lint errors" --apply
 ```
 
-**File**: `commands/code/ci-fix.md`
+**File**: `commands/ci/fix.md`
 
 ---
 
@@ -2042,7 +2042,7 @@ Testing, quality assurance, and verification tools.
 
 Development workflow and productivity tools.
 
-### /craft:workflow:brainstorm
+### /craft:brainstorm
 
 **Category**: Planning | **Complexity**: Moderate | **Time**: 10-30 min
 **Description**: ADHD-friendly brainstorming for feature development
@@ -2058,11 +2058,11 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:brainstorm "new authentication system"
-/craft:workflow:brainstorm "API redesign" --duration 30 --save
+/craft:brainstorm "new authentication system"
+/craft:brainstorm "API redesign" --duration 30 --save
 ```
 
-**File**: `commands/workflow/brainstorm.md`
+**File**: `commands/brainstorm.md`
 
 ---
 
@@ -2089,7 +2089,7 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:next
+### /craft:next
 
 **Category**: Planning | **Complexity**: Simple | **Time**: < 5 min
 **Description**: Get next action suggestion
@@ -2103,11 +2103,11 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:next
-/craft:workflow:next --context "feature-auth"
+/craft:next
+/craft:next --context "feature-auth"
 ```
 
-**File**: `commands/workflow/next.md`
+**File**: `commands/next.md`
 
 ---
 
@@ -2133,7 +2133,7 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:done
+### /craft:done
 
 **Category**: Completion | **Complexity**: Simple | **Time**: 1-3 min
 **Description**: Complete task with cleanup and summary
@@ -2148,12 +2148,12 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:done
-/craft:workflow:done --message "feat: add auth"
-/craft:workflow:done --no-commit
+/craft:done
+/craft:done --message "feat: add auth"
+/craft:done --no-commit
 ```
 
-**File**: `commands/workflow/done.md`
+**File**: `commands/done.md`
 
 ---
 
@@ -2179,7 +2179,7 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:refine
+### /craft:refine
 
 **Category**: Planning | **Complexity**: Simple | **Time**: 5-10 min
 **Description**: Refine task definition and scope
@@ -2193,10 +2193,10 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:refine "implement caching"
+/craft:refine "implement caching"
 ```
 
-**File**: `commands/workflow/refine.md`
+**File**: `commands/refine.md`
 
 ---
 
@@ -2223,29 +2223,7 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:adhd-guide
-
-**Category**: Support | **Complexity**: Simple | **Time**: < 5 min
-**Description**: ADHD-friendly quick reference guide
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `topic` | string | No | - | Specific topic |
-
-#### Examples
-
-```bash
-/craft:workflow:adhd-guide
-/craft:workflow:adhd-guide "getting started"
-```
-
-**File**: `commands/workflow/adhd-guide.md`
-
----
-
-### /craft:workflow:task-status
+### /craft:task:status
 
 **Category**: Tracking | **Complexity**: Simple | **Time**: < 5 min
 **Description**: Show task status and progress
@@ -2259,15 +2237,15 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:task-status
-/craft:workflow:task-status --format detailed
+/craft:task:status
+/craft:task:status --format detailed
 ```
 
-**File**: `commands/workflow/task-status.md`
+**File**: `commands/task/status.md`
 
 ---
 
-### /craft:workflow:task-output
+### /craft:task:output
 
 **Category**: Tracking | **Complexity**: Simple | **Time**: < 5 min
 **Description**: Show task output and logs
@@ -2282,15 +2260,15 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:task-output
-/craft:workflow:task-output feature-auth --tail 100
+/craft:task:output
+/craft:task:output feature-auth --tail 100
 ```
 
-**File**: `commands/workflow/task-output.md`
+**File**: `commands/task/output.md`
 
 ---
 
-### /craft:workflow:task-cancel
+### /craft:task:cancel
 
 **Category**: Management | **Complexity**: Simple | **Time**: < 30s
 **Description**: Cancel running task
@@ -2304,10 +2282,10 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:task-cancel task-123
+/craft:task:cancel task-123
 ```
 
-**File**: `commands/workflow/task-cancel.md`
+**File**: `commands/task/cancel.md`
 
 ---
 
@@ -2427,7 +2405,7 @@ Commands support multiple output formats:
 |-----------|--------------|---------|
 | Simple | < 30s | `/craft:git:status`, `/craft:code:lint` |
 | Moderate | 1-5 min | `/craft:test`, `/craft:docs:api` |
-| Complex | 5-30 min | `/craft:plan:feature`, `/craft:orchestrate` |
+| Complex | 5-30 min | `/craft:plan:feature`, `/craft:orch` |
 
 ### Optimization Tips
 

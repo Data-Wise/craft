@@ -512,7 +512,7 @@ class TestAgentHooks:
 |------|----------|------------------|
 | `test_add_feature_end_to_end` | Use `/craft:do` to add a small feature | Complexity scored correctly, routed to agent, feature implemented |
 | `test_pre_commit_validation` | Use `/craft:check` before committing | All validators run, pass/fail reported correctly |
-| `test_orchestrate_complex_task` | Use `/craft:orchestrate` for multi-step task | Agents spawn, resilience works, session persists |
+| `test_orchestrate_complex_task` | Use `/craft:orch` for multi-step task | Agents spawn, resilience works, session persists |
 
 #### Implementation
 

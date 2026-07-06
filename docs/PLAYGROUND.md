@@ -33,11 +33,11 @@ Try these commands yourself and see the magic happen!
 │ /craft:hub - Command Discovery                              │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ 116 commands available across 9 categories                   │
+│ 115 commands available across 9 categories                   │
 │                                                             │
 │ 🎯 SMART (4 commands)                                       │
 │   /craft:do              - Universal task router            │
-│   /craft:orchestrate     - Multi-agent coordination         │
+│   /craft:orch     - Multi-agent coordination         │
 │   /craft:check           - Pre-flight validation            │
 │   /craft:help            - Context-aware help               │
 │                                                             │
@@ -407,7 +407,7 @@ You've seen individual commands in action. Now learn how they work together:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    Explore all 116 commands organized by category
+    Explore all 115 commands organized by category
 
 - :rocket:{ .lg .middle } **[Quick Reference](REFCARD.md)**
 

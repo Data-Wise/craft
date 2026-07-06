@@ -121,6 +121,6 @@ cat .craft/cache/last-orchestration.json | jq .
 
 ## See Also
 
-- `/craft:orchestrate` - Multi-agent orchestration
+- `/craft:orch` - Multi-agent orchestration
 - `agents/orchestrator.md` - Orchestrator agent documentation
 - Claude Code 2.1.0 hook documentation

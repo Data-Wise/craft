@@ -1,11 +1,11 @@
 ---
 name: drive-engine
-description: This skill should be used when driving an approved SPEC to completion — "drive this spec to done", "run the orchestrate drive loop", "implement the spec autonomously until tests pass". Owns the reusable body behind /craft:orchestrate:drive — parse-or-derive ORCHESTRATE phases, dispatch file-scoped subagents, and run the authoritative real verify gate.
+description: This skill should be used when driving an approved SPEC to completion — "drive this spec to done", "run the orchestrate drive loop", "implement the spec autonomously until tests pass". Owns the reusable body behind /craft:orch:drive — parse-or-derive ORCHESTRATE phases, dispatch file-scoped subagents, and run the authoritative real verify gate.
 ---
 
 # Drive Engine
 
-The reusable execution body behind `/craft:orchestrate:drive`. The command
+The reusable execution body behind `/craft:orch:drive`. The command
 owns condition synthesis and gating; this skill owns the work.
 
 ## Responsibilities
@@ -31,15 +31,9 @@ of `{phase, files[], tasks[]}`.
 
 ## Verify-command auto-detection
 
-| Detection | Verify command |
-|-----------|----------------|
-| `tests/test_craft_plugin.py` | `python3 tests/test_craft_plugin.py` |
-| `package.json` test script | `npm test` |
-| `pyproject.toml` / `pytest.ini` | `pytest` |
-| `Cargo.toml` | `cargo test` |
-| `DESCRIPTION` (R) | `R CMD check` |
-
-Always pair with `git status --short` to confirm a clean, committed tree.
+See [`../references/verify-gate-detection.md`](../references/verify-gate-detection.md) for the
+full detection table and how to use it. Always pair with `git status --short` to confirm a clean,
+committed tree.
 
 ## Outputs
 

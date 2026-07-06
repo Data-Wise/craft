@@ -139,7 +139,7 @@ This guide provides a comprehensive checklist for testing Hub v2.0 before mergin
   - [ ] /craft:code:lint [mode]
   - [ ] /craft:code:coverage [mode]
   - [ ] /craft:code:deps-audit
-  - [ ] /craft:code:ci-local
+  - [ ] /craft:ci:local
   - [ ] At least 10 other code commands
 
 - [ ] **Common workflows section**

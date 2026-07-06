@@ -66,7 +66,7 @@ refinement.
 
 | Command | Purpose |
 |---|---|
-| `/craft:workflow:brainstorm` | Brainstorm on a refined topic |
+| `/craft:brainstorm` | Brainstorm on a refined topic |
 | `/craft:do` | Route a refined task |
 | `/craft:plan:feature` | Plan a refined feature |
 | `/craft:grill` | Refine the topic before interrogating |
@@ -75,8 +75,8 @@ refinement.
 
 | Command | Purpose |
 |---|---|
-| `/craft:orchestrate` | Orchestrate a refined goal |
-| `/craft:orchestrate:workflow` | Workflow-orchestrate a refined goal |
+| `/craft:orch` | Orchestrate a refined goal |
+| `/craft:orch:workflow` | Workflow-orchestrate a refined goal |
 | `/craft:arch:plan` | Architecture plan from a refined prompt |
 
 ## See also

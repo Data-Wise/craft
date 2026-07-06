@@ -88,7 +88,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:orchestrate
+### /craft:orch
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -276,7 +276,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:code:ci-local
+### /craft:ci:local
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -285,7 +285,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:code:ci-fix
+### /craft:ci:fix
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -842,7 +842,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Workflow Commands Parameters
 
-### /craft:workflow:brainstorm
+### /craft:brainstorm
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -861,7 +861,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:next
+### /craft:next
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -877,7 +877,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:done
+### /craft:done
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -894,7 +894,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:refine
+### /craft:refine
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -911,15 +911,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:adhd-guide
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| topic | string | No | - | - | Specific topic |
-
----
-
-### /craft:workflow:task-status
+### /craft:task:status
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -927,7 +919,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:task-output
+### /craft:task:output
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -936,7 +928,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:task-cancel
+### /craft:task:cancel
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|

@@ -232,7 +232,7 @@ Use alphanumeric, hyphens, and underscores
 
 ---
 
-### /craft:orchestrate
+### /craft:orch
 
 #### Error: Orchestrator Not Available
 
@@ -248,13 +248,13 @@ No agents running or all busy
 ```bash
 # Option 1: Wait for agents to free
 sleep 30
-/craft:orchestrate "task" optimize
+/craft:orch "task" optimize
 
 # Option 2: Reduce agent count
-/craft:orchestrate "task" default
+/craft:orch "task" default
 
 # Option 3: Check agent status
-/craft:orchestrate status
+/craft:orch status
 ```
 
 ---
@@ -272,12 +272,12 @@ Task description may be too vague
 
 ```bash
 # Option 1: Provide more specific task
-/craft:orchestrate "Add OAuth 2.0 authentication with PKCE"
+/craft:orch "Add OAuth 2.0 authentication with PKCE"
 
 # Option 2: Break into smaller tasks
-/craft:orchestrate "Design OAuth flow"
-/craft:orchestrate "Implement OAuth provider"
-/craft:orchestrate "Add tests"
+/craft:orch "Design OAuth flow"
+/craft:orch "Implement OAuth provider"
+/craft:orch "Add tests"
 
 # Option 3: Use manual planning
 /craft:plan:feature "authentication system"
@@ -309,11 +309,11 @@ Run: /craft:code:deps-check --fix
 /craft:code:deps-check --fix
 
 # Option 2: Resume orchestration
-/craft:orchestrate resume task-123
+/craft:orch resume task-123
 
 # Option 3: Manually fix and retry
 npm install bcrypt
-/craft:orchestrate "task" optimize
+/craft:orch "task" optimize
 ```
 
 ---
@@ -839,7 +839,7 @@ Install with:
 npm install --save-dev jest
 
 # Option 3: Skip tests temporarily
-/craft:code:ci-local --skip-tests
+/craft:ci:local --skip-tests
 ```
 
 ---

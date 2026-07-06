@@ -3,7 +3,7 @@ plus Step 0.5 Clarify invoking bounded /craft:grill."""
 import os
 
 CRAFT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CMD = os.path.join(CRAFT, "commands", "orchestrate.md")
+CMD = os.path.join(CRAFT, "commands", "orch.md")
 REF = os.path.join(CRAFT, "docs", "reference", "orchestrate-reference.md")
 
 

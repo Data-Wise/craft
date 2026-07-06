@@ -9,6 +9,68 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.60.0] - 2026-07-05
+
+### Added
+
+- **`docs:generate` router** — unified `/craft:docs:generate <type>` entry point
+  dispatching to all 9 documentation generators (`api`, `guide`, `help`, `prompt`,
+  `quickstart`, `site`, `tutorial`, `website`, `workflow`). Each generator has
+  genuinely distinct internal logic, so this adds discoverability without
+  reimplementing or merging any of them — the 9 direct commands keep working
+  unchanged.
+- **`task:` namespace** — `task-cancel`/`task-output`/`task-status` moved from
+  `workflow:` to a dedicated `task:cancel`/`task:output`/`task:status`.
+
+### Changed
+
+- **Command-namespace reorganization** (full SPEC:
+  `docs/specs/SPEC-command-namespace-reorganization-2026-07-05.md`):
+  - **Root promotions**: `/craft:next`, `/craft:done`, `/craft:refine`,
+    `/craft:brief`, `/craft:brainstorm` — all previously nested under
+    `workflow:`, promoted to root given heavy real-world use.
+  - **`orchestrate` → `orch` rename** — `/craft:orchestrate` and its
+    `:drive`/`:plan`/`:workflow` sub-namespace renamed to `/craft:orch` across
+    ~110 files (commands, docs, skills, tests, scripts).
+  - **`ci:` consolidation** — `code:ci-fix`/`code:ci-local` moved to
+    `ci:fix`/`ci:local`.
+  - **`adhd-guide` converted to a skill reference** — was a pure-prose command
+    with no arguments/behavior; now lives at
+    `skills/workflow/adhd-workflow/references/adhd-guide.md`.
+  - **`/craft:quota` deleted** — its SAFE/TIGHT/DEFER pre-flight logic folded
+    directly into `/craft:orch`'s Step 1.5.
+  - **`code:desktop-watch` deleted** — was already a pure redirect shim to
+    `release-watch.py --product desktop`, which `release-watch.md` supports
+    natively.
+
+### Fixed
+
+- **`prompt-refiner` / Chat skill-name collision** — added a clarifying note
+  distinguishing craft's `prompt-refiner` skill from Chat's differently-scoped
+  same-named skill.
+- **`adhd-workflow` NL-trigger phrases widened** — added "what's next", "pick a
+  task for me", "give me something to do" so `/next`'s natural-language routing
+  fires more reliably.
+- **ADR-002 self-description contradiction** — `/refine` was miscategorized as
+  one of the seven ADHD-workflow consolidation shims; corrected to describe it
+  as ADR-002's separate consolidation.
+- Stale "117 commands" claims (actual: 115) across 6 distribution/docs files,
+  and a hardcoded pre-rename path in `test_drive_command_in_nav`, caught by the
+  release pre-flight suite.
+- **`project-planner` ↔ `plan-orchestrator` trigger collision (A1)** — both skills
+  fired on overlapping phrases ("break down a feature", "create a roadmap", "plan
+  a sprint"), causing non-deterministic routing between a strategy-advice skill
+  and an artifact-generating one. Stripped the colliding phrases from
+  `project-planner`; added `"plan a sprint"` to `plan-orchestrator` to close an
+  orphan-phrase gap the fix would otherwise have left; rewrote `project-planner`'s
+  Example Prompts/When-to-Use sections, which still demonstrated the removed
+  phrasing. Found and fixed via an adversarial `/craft:grill` + code-reviewer pass
+  before merge, not a direct one-line edit.
+- **Docs-deploy live-verify window widened 5min → 15min** — the H1 live-site
+  verification gate (`docs.yml`) failed on its first real release because
+  GitHub Pages' CDN took longer to propagate than the original window
+  anticipated, even though the underlying content was correct within seconds.
+
 ## [2.59.0] - 2026-07-03
 
 ### Added

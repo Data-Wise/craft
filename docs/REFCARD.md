@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.59.0 (released 2026-06-19)                       │
+│  Version: 2.60.0 (released 2026-06-19)                       │
 │  Commands: 117 | Agents: 8 | Skills: 45                     │
 │  Documentation: 99% complete | Tests: 142 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.59.0: Documentation Coverage — Tutorial Suite            │
+│  v2.60.0: Documentation Coverage — Tutorial Suite            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -113,33 +113,9 @@
 - ✅ Always before `git commit` (catches issues early)
 - ✅ Before creating PR (ensures quality)
 - ✅ Before merging to main (final validation)
-- ✅ In CI/CD pipelines (use `/craft:code:ci-local` or `/craft:check --for release`)
+- ✅ In CI/CD pipelines (use `/craft:ci:local` or `/craft:check --for release`)
 
 **See:** [REFCARD-CHECK.md](reference/REFCARD-CHECK.md) for complete reference
-
-### /craft:quota
-
-**Purpose:** Pre-flight token quota gate — reads cached rate_limits, estimates
-cost-weighted tokens for the planned run, maps to SAFE / TIGHT / DEFER advisory.
-Silently skips when `~/.claude/quota-cache.json` is absent or stale (>900 s).
-
-**Examples:**
-
-```bash
-/craft:quota                  # Estimate for workflow engine (default)
-/craft:quota fanout           # Estimate for fanout engine
-/craft:quota --json           # Machine-readable JSON output
-```
-
-**Advisories:**
-
-| Status | Meaning | five_hour_pct |
-|--------|---------|---------------|
-| SAFE   | Proceed | < 60 % |
-| TIGHT  | Consider deferring large runs | 60–84 % |
-| DEFER  | Quota critically low — defer if possible | ≥ 85 % |
-
-**Related:** `/craft:check` (integrates quota advisory), `/craft:orchestrate`
 
 ### /craft:help
 
@@ -233,7 +209,7 @@ Silently skips when `~/.claude/quota-cache.json` is absent or stale (>900 s).
 ```bash
 /craft:check               # Shows: steps to run, asks confirmation
 /craft:do "task"           # Shows: routing plan, asks confirmation
-/craft:orchestrate "task"  # Shows: mode selection, wave plan, checkpoints
+/craft:orch "task"  # Shows: mode selection, wave plan, checkpoints
 /craft:git:worktree create # Shows: scope detection, file generation plan
 ```
 
@@ -286,10 +262,39 @@ a time to surface gaps before building.
 
 **How it works:** codebase-first sweep → one-at-a-time loop with a Recommended answer per question
 → `/done` halt + milestone checkpoints → durable `GRILL-*` decision ledger → handoff to
-`/craft:plan`. Never overwrites a brainstorm `SPEC-*`. Reused by `/craft:orchestrate` Step 0.5.
+`/craft:plan`. Never overwrites a brainstorm `SPEC-*`. Reused by `/craft:orch` Step 0.5.
 
 **Scaffold defaults (v2.52.0):** emits a tier-inferred test plan + Documentation section by default.
 Use `--no-tests` or `--no-docs` to suppress either.
+
+### /craft:plan `[topic]` (NEW, D1b)
+
+**Purpose:** Single entry point for craft's planning tiers (brainstorm → spec → strategy →
+artifact). Routes to exactly one tier via **deterministic repo-state detection** — no SPEC found →
+brainstorm; SPEC, no GRILL → offer `/craft:grill`; GRILL (or skipped), no ORCHESTRATE →
+plan-orchestrator; all three exist → project-planner. Never phrase-based classification — see
+`GRILL-planning-refactor-a2-2026-07-04.md` G-2 for why.
+
+```bash
+/craft:plan "orchestrator-consolidation"   # infers tier from repo state
+/craft:plan --dry-run                      # preview routing without invoking
+/craft:do --plan "add auth"                # sugar, forwards to /craft:plan
+```
+
+**Scope:** router only — never re-implements the four tiers' logic, never invokes `/craft:do` or
+`/craft:orch` directly (one-directional seam: `plan` produces, `do`/`orchestrate` consume
+later).
+
+### /craft:plan:feature `<feature_description>`
+
+**Purpose:** Scope a new feature into user stories, task breakdown, dependencies, and acceptance
+criteria — the artifact-generating tier `/craft:plan` routes to when no committed plan exists yet
+for the topic.
+
+```bash
+/craft:plan:feature "avatar upload"                # MVP-scope by default
+/craft:plan:feature "avatar upload" --scope full    # full-build scope
+```
 
 ## Smart Documentation (17 commands)
 
@@ -894,8 +899,8 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:code:refactor`   | ----- | Refactoring guidance        |
 | `/craft:code:deps-check` | ----- | Dependency health check     |
 | `/craft:code:deps-audit` | ----- | Security vulnerability scan |
-| `/craft:code:ci-local`       | ----- | Run CI checks locally       |
-| `/craft:code:ci-fix`         | ----- | Diagnose and fix CI failures |
+| `/craft:ci:local`       | ----- | Run CI checks locally       |
+| `/craft:ci:fix`         | ----- | Diagnose and fix CI failures |
 | `/craft:code:fewer-prompts`    | ----- | Install read-only Bash allowlist (--dry-run, --global, --reset) |
 | `/craft:code:skill-standards`  | ----- | Audit plugin skills against Anthropic Skill Standards (--fix, --json, --refresh-standards) |
 
@@ -1217,9 +1222,9 @@ claude plugin update <name>@local-plugins
 
 ```bash
 # Interactive mode (v2.9.0) - Shows mode selection, wave plan, checkpoints
-/craft:orchestrate "add auth"           # Interactive: pick mode + confirm plan
-/craft:orchestrate "add auth" optimize  # Direct mode selection
-/craft:orchestrate "large task" --swarm # Unlimited parallel agents (v2.18.0)
+/craft:orch "add auth"           # Interactive: pick mode + confirm plan
+/craft:orch "add auth" optimize  # Direct mode selection
+/craft:orch "large task" --swarm # Unlimited parallel agents (v2.18.0)
 
 # Orchestrate specific commands with --orch flag (v2.5.0)
 /craft:do "add auth" --orch=optimize      # Quick orchestration
@@ -1229,17 +1234,17 @@ claude plugin update <name>@local-plugins
 /craft:git:worktree "create feat" --orch  # Orchestrated worktree creation
 
 # Session management
-/craft:orchestrate status                 # Agent dashboard
-/craft:orchestrate timeline               # Execution timeline
-/craft:orchestrate continue               # Resume session
+/craft:orch status                 # Agent dashboard
+/craft:orch timeline               # Execution timeline
+/craft:orch continue               # Resume session
 ```
 
 **Spec-driven drive:**
 
 | Command | Purpose |
 |---------|---------|
-| `/craft:orchestrate:drive` | Spec → autonomous /goal loop → verified green |
-| `/craft:orchestrate:workflow` | Coded fixed-control-flow program → schema-gated, resumable ([refcard](reference/REFCARD-WORKFLOW.md)) |
+| `/craft:orch:drive` | Spec → autonomous /goal loop → verified green |
+| `/craft:orch:workflow` | Coded fixed-control-flow program → schema-gated, resumable ([refcard](reference/REFCARD-WORKFLOW.md)) |
 
 **Modes:**
 
@@ -1290,7 +1295,7 @@ graph LR
 |------|---------|--------|
 | 1. Brainstorm | `/brainstorm d:8 "feature"` | `BRAINSTORM-feature.md` |
 | 2. Capture spec | Brainstorm Step 5 (auto) | `docs/specs/SPEC-feature.md` |
-| 3. Create orchestration | `/craft:orchestrate:plan` | `ORCHESTRATE-feature.md` + worktree |
+| 3. Create orchestration | `/craft:orch:plan` | `ORCHESTRATE-feature.md` + worktree |
 | 4. Implement | Work in worktree | Commits on `feature/*` branch |
 | 5. Integrate | `/craft:git:worktree finish` | PR to `dev` |
 
@@ -1299,8 +1304,8 @@ graph LR
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
-| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
+| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 
 **When to use what:**
@@ -1594,7 +1599,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.59.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.60.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary
@@ -1610,13 +1615,13 @@ Use `--no-tests` or `--no-docs` to suppress either.
 
 ```bash
 # End-of-session action block
-/craft:workflow:brief
+/craft:brief
 # Outputs: Next step / Watch out for / Connects to
 # Flags: --plan (add mini-plan), --verbose (expand each line), --show-context
 # Via /craft:do: appended to output with --brief flag (block only)
 ```
 
-**See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
+**See:** [Brainstorm Documentation](commands/brainstorm.md) for complete guide
 
 ## Skills (45 total)
 
@@ -1624,7 +1629,7 @@ Auto-triggered expertise:
 
 | Skill                     | Triggers                                            |
 | ------------------------- | --------------------------------------------------- |
-| `drive-engine`            | `/craft:orchestrate:drive` — dispatch + real verify gate (NEW) |
+| `drive-engine`            | `/craft:orch:drive` — dispatch + real verify gate (NEW) |
 | `prompt-refiner`          | the `--refine` flag — sharpen a prompt before running (NEW) |
 | `command-skill-token-efficiency` | writing/resizing a command, skill, or agent file — command-vs-skill split guidance + line-ratio check (NEW) |
 | `release`                 | "release", "ship it", version publishing (CI monitoring in v2.22.0) |
@@ -1749,7 +1754,6 @@ Comprehensive guides and references:
 | `/craft:code:command-audit` | Validate command frontmatter, find deprecated patterns, report health score |
 | `/craft:code:debug` | Systematic debugging support — error interpretation, root cause analysis, bug fixes |
 | `/craft:code:deps-check` | Check for outdated, missing, or unused dependencies |
-| `/craft:code:desktop-watch` | Track Claude Desktop releases and identify plugin integration opportunities |
 | `/craft:code:docs-check` | Documentation & website pre-flight check for any project |
 | `/craft:code:refactor` | Refactoring guidance — improve code structure without changing behavior |
 | `/craft:code:release` | Guide through the package/project release process |
@@ -1761,6 +1765,7 @@ Comprehensive guides and references:
 
 | Command | Description |
 | ------- | ----------- |
+| `/craft:docs:generate` | Unified router across all 9 doc generators (api, guide, help, prompt, quickstart, site, tutorial, website, workflow) |
 | `/craft:docs:api` | Generate OpenAPI 3.1 specifications and interactive documentation |
 | `/craft:docs:changelog` | Auto-update CHANGELOG.md based on git commits |
 | `/craft:docs:check-links` | Internal link validation for documentation |
@@ -1778,8 +1783,8 @@ Comprehensive guides and references:
 
 | Command | Description |
 | ------- | ----------- |
-| `/craft:orchestrate:drive` | Drive an approved SPEC to completion via the native /goal turn-loop with a verify gate |
-| `/craft:orchestrate:workflow` | Execute a coded, fixed-control-flow workflow with schema-gated agents and cached replay |
+| `/craft:orch:drive` | Drive an approved SPEC to completion via the native /goal turn-loop with a verify gate |
+| `/craft:orch:workflow` | Execute a coded, fixed-control-flow workflow with schema-gated agents and cached replay |
 
 ### Distribution Commands
 
@@ -1803,7 +1808,6 @@ Comprehensive guides and references:
 
 | Command | Description |
 | ------- | ----------- |
-| `/craft:workflow:adhd-guide` | ADHD-friendly workflow strategies for staying focused and productive |
 
 ## Links
 

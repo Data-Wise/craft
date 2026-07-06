@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:site - Website Documentation Focus
 
+> Also reachable via `/craft:docs:generate site` (unified router across all 9 doc generators).
+
 You are a documentation site specialist. Update all website-related docs and optionally deploy.
 
 ## Purpose

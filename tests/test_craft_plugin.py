@@ -547,7 +547,7 @@ def test_drive_engine_skill_exists():
 def test_drive_command_exists():
     """The orchestrate:drive command must exist with valid frontmatter."""
     plugin_dir = Path(__file__).parent.parent
-    cmd = plugin_dir / "commands" / "orchestrate" / "drive.md"
+    cmd = plugin_dir / "commands" / "orch" / "drive.md"
     assert cmd.exists(), "commands/orchestrate/drive.md missing"
     text = cmd.read_text(encoding="utf-8")
     assert text.startswith("---"), "drive.md missing frontmatter block"
@@ -577,9 +577,9 @@ def test_consistent_naming():
 def test_refine_flag_documented():
     """The 5 target commands must declare --refine and delegate to the skill."""
     targets = [
-        "commands/workflow/brainstorm.md",
+        "commands/brainstorm.md",
         "commands/do.md",
-        "commands/orchestrate.md",
+        "commands/orch.md",
         "commands/plan/feature.md",
         "commands/arch/plan.md",
     ]

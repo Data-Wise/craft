@@ -66,5 +66,5 @@ Adds missing steps (lint, type-check) derived from project detection. Reviews ea
 ## What's Next
 
 - Use `/craft:ci:generate` if the workflow needs major restructuring rather than incremental fixes
-- Run `/craft:code:ci-local` to test the validated steps locally before pushing
+- Run `/craft:ci:local` to test the validated steps locally before pushing
 - Use `/craft:ci:watch` after pushing to monitor the first run with the fixed workflow

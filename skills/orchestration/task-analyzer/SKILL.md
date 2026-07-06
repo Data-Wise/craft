@@ -17,19 +17,30 @@ This skill is automatically activated when:
 
 ## Capabilities
 
-### Intent Recognition
+### Intent Recognition (D5, 2026-07-04: canonical source — `/craft:do` references
 
-Identifies task intent from natural language:
+this table instead of duplicating it; see `commands/do.md`'s Task Categories section)
+
+Identifies task intent from natural language. Category names match `/craft:do`'s
+routing categories exactly (renamed 2026-07-04 to eliminate a naming drift where this
+table used different labels — Create/Fix/Document/Refactor/Review — for the same 7
+concepts `/craft:do` already routes on as Feature/Bug/Docs/Architecture, plus a
+missing **Quality** category `/craft:do` has and this table didn't):
 
 | Intent | Keywords | Example |
 |--------|----------|---------|
-| **Create** | add, create, implement, build, new | "add user authentication" |
-| **Fix** | fix, debug, resolve, repair, issue | "fix the login bug" |
-| **Test** | test, verify, check, validate | "test the api endpoints" |
-| **Document** | document, docs, readme, explain | "document the api" |
+| **Feature** | add, create, implement, build, new | "add user authentication" |
+| **Bug** | fix, debug, resolve, repair, issue, error | "fix the login bug" |
+| **Quality** | lint, quality, clean, improve | "clean up the utils module" |
+| **Test** | test, verify, check, validate, coverage | "test the api endpoints" |
+| **Docs** | document, docs, readme, changelog, explain | "document the api" |
 | **Release** | release, deploy, publish, ship | "prepare for release" |
-| **Refactor** | refactor, clean, improve, optimize | "refactor the utils module" |
-| **Review** | review, audit, analyze | "review the architecture" |
+| **Architecture** | design, refactor, restructure, review, audit, analyze | "refactor the utils module" |
+
+**Judgment call made here:** the former standalone "Review" intent (review, audit,
+analyze) had no corresponding category or command mapping in `/craft:do` at all — folded
+its keywords into **Architecture** rather than inventing an 8th category `/craft:do`
+would have no routing for.
 
 ### Domain Detection
 
@@ -76,7 +87,7 @@ Release Workflow:
 
 When a task description reads like a **fixed coded shape** —
 decompose → cover N → verify M → synthesize — **suggest**
-`/craft:orchestrate:workflow`, do **not** silently switch to it.
+`/craft:orch:workflow`, do **not** silently switch to it.
 
 Detect the shape conservatively (the helper
 `workflow_parse.detects_workflow_shape(text)` fires only when ≥3 of the four
@@ -97,7 +108,7 @@ improvised `orchestrate` is the accepted residual risk. On a match, present a
 
 ```
 This looks like a fixed decompose → cover → verify → synthesize shape.
-Consider: /craft:orchestrate:workflow (coded, schema-gated, resumable)
+Consider: /craft:orch:workflow (coded, schema-gated, resumable)
 Or keep going with improvised orchestration. Which do you want?
 ```
 

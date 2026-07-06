@@ -173,7 +173,7 @@ Live site: https://data-wise.github.io/craft/
 
 Note: It may take 1-2 minutes to update.
 
-💡 Check deployment status: /craft:code:ci-local
+💡 Check deployment status: /craft:ci:local
 ```
 
 ## GitHub Pages Setup

@@ -8,11 +8,11 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.59.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-2.60.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 > **v2.36.0 — Deterministic Workflow Engine** 🚀
-> **116 commands** | **45 skills** | **8 agents** | **1994 tests passing**
-> New `/craft:orchestrate:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orchestrate`), drive (`:drive`), and workflow (`:workflow`).
+> **115 commands** | **45 skills** | **8 agents** | **1994 tests passing**
+> New `/craft:orch:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orch`), drive (`:drive`), and workflow (`:workflow`).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -104,7 +104,7 @@ claude
 
 ```
 Craft v1.17.0 loaded
-116 commands available
+115 commands available
 ```
 
 ### Using in Claude Code CLI
@@ -150,7 +150,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 116 commands, 8 agents, 45 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 115 commands, 8 agents, 45 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -245,7 +245,6 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/task-status [task-id]`               | Check status of background tasks                                                              |
 | `/task-output <task-id>`               | Get output from completed task                                                                |
 | `/task-cancel <task-id>`               | Cancel running background task                                                                |
-| `/adhd-guide`                          | ADHD-friendly workflow guide and best practices                                               |
 
 **Brainstorming Modes:**
 
@@ -260,19 +259,19 @@ Specialized workflows for teaching projects with automated validation, semester 
 | Command                            | Description                                                                                      |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `/craft:do <task>`                 | Universal command - routes to appropriate workflow                                               |
-| `/craft:orchestrate <task> [mode]` | **ENHANCED v2.1** Launch orchestrator with mode-aware execution, context tracking, timeline view |
+| `/craft:orch <task> [mode]` | **ENHANCED v2.1** Launch orchestrator with mode-aware execution, context tracking, timeline view |
 | `/craft:check`                     | Pre-flight checks (commit/pr/release)                                                            |
 | `/craft:help`                      | Context-aware help and suggestions                                                               |
 
 #### Orchestrator Modes
 
 ```bash
-/craft:orchestrate "add auth" optimize    # Fast parallel (4 agents)
-/craft:orchestrate "prep release" release # Thorough audit
-/craft:orchestrate status                 # Agent dashboard
-/craft:orchestrate timeline               # Execution timeline
-/craft:orchestrate budget                 # Context tracking
-/craft:orchestrate continue               # Resume session
+/craft:orch "add auth" optimize    # Fast parallel (4 agents)
+/craft:orch "prep release" release # Thorough audit
+/craft:orch status                 # Agent dashboard
+/craft:orch timeline               # Execution timeline
+/craft:orch budget                 # Context tracking
+/craft:orch continue               # Resume session
 ```
 
 ### Code Commands (13)
@@ -289,8 +288,8 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:code:coverage`          | Coverage report          | ✓    |
 | `/craft:code:deps-check`        | Dependency health        | ----- |
 | `/craft:code:deps-audit`        | Security scan            | ----- |
-| `/craft:code:ci-local`          | CI checks locally        | ----- |
-| `/craft:code:ci-fix`            | Fix CI failures          | ----- |
+| `/craft:ci:local`          | CI checks locally        | ----- |
+| `/craft:ci:fix`            | Fix CI failures          | ----- |
 | `/craft:code:skill-standards`   | Audit skill quality      | ----- |
 
 ### Test Commands (3)
@@ -531,7 +530,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 **For plugin development and contributions:**
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
-- 📖 **[Commands Reference](docs/commands.md)** - All 116 commands documented
+- 📖 **[Commands Reference](docs/commands.md)** - All 115 commands documented
 - 📖 **[Skills & Agents](docs/skills-agents.md)** - 45 skills, 8 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure

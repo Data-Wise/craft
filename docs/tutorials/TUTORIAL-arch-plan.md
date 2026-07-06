@@ -61,7 +61,7 @@ The refiner expands the brief request into a precise specification, then generat
 The architecture plan is designed to feed directly into orchestration:
 
 ```
-/craft:orchestrate "implement the OAuth2 plan from arch:plan"
+/craft:orch "implement the OAuth2 plan from arch:plan"
 ```
 
 Or use it as a reference while implementing manually — the phase breakdown maps cleanly to feature branches.
@@ -71,5 +71,5 @@ Or use it as a reference while implementing manually — the phase breakdown map
 ## What's Next
 
 - Run `/craft:arch:analyze` first on existing code to understand current patterns
-- Use `/craft:orchestrate:drive` with a SPEC derived from the plan for fully-automated implementation
-- Architecture plans are good inputs for `/craft:workflow:brainstorm` when exploring trade-offs
+- Use `/craft:orch:drive` with a SPEC derived from the plan for fully-automated implementation
+- Architecture plans are good inputs for `/craft:brainstorm` when exploring trade-offs

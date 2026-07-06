@@ -112,7 +112,7 @@ ever touched by the single idempotent back-link.
 ### Step 6: Handoff
 
 Offer (one-directional into the planning spine):
-`/craft:plan` tier 4 (plan-orchestrator) → `ORCHESTRATE-*.md` → `/craft:do` / `/craft:orchestrate`.
+`/craft:plan` tier 4 (plan-orchestrator) → `ORCHESTRATE-*.md` → `/craft:do` / `/craft:orch`.
 Grill never executes — it interrogates and hands the locked artifact forward.
 
 ## Do Not

@@ -30,7 +30,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 | Name | Description | Path |
 |------|-------------|------|
-| sync-features | Chain command-audit, release-watch, and desktop-watch into a prioritized action plan | `skills/code/SKILL.md` |
+| sync-features | Chain command-audit and unified release-watch into a prioritized action plan | `skills/code/SKILL.md` |
 | demonstration-builder | Designs progressive runnable code examples for tutorials, vignettes, presentations, and documentation | `skills/code/demonstration-builder/SKILL.md` |
 | command-skill-token-efficiency | Checks where content belongs (command vs. skill) when authoring/resizing command, skill, or agent files, and runs the quantitative line-ratio check | `skills/code/command-skill-token-efficiency/SKILL.md` |
 | plugin-audit | Diffs installed plugins' command/skill surfaces to flag cross-namespace name collisions (e.g. `workflow` vs. `craft:workflow`) | `skills/code/plugin-audit/SKILL.md` |
@@ -96,11 +96,11 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 | Name | Description | Path |
 |------|-------------|------|
-| drive-engine | Reusable execution body behind `/craft:orchestrate:drive` — parse-or-derive ORCHESTRATE phases, dispatch file-scoped subagents, and run the authoritative real verify gate | `skills/orchestration/drive-engine/SKILL.md` |
+| drive-engine | Reusable execution body behind `/craft:orch:drive` — parse-or-derive ORCHESTRATE phases, dispatch file-scoped subagents, and run the authoritative real verify gate | `skills/orchestration/drive-engine/SKILL.md` |
 | plan-orchestrator | Produce concrete planning artifacts (ORCHESTRATE files, feature breakdowns, sprint backlogs, roadmaps) from specs; Mode 1 supports `--output orchestrate-dispatch` for in-session background-agent dispatch | `skills/orchestration/plan-orchestrator/SKILL.md` |
 | session-state | Manages orchestrator session state persistence — save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
 | task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer/SKILL.md` |
-| workflow-engine | Reusable execution body behind `/craft:orchestrate:workflow` — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents under a run-wide semaphore, structurally gate every output, and run a first-class verify gate | `skills/orchestration/workflow-engine/SKILL.md` |
+| workflow-engine | Reusable execution body behind `/craft:orch:workflow` — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents under a run-wide semaphore, structurally gate every output, and run a first-class verify gate | `skills/orchestration/workflow-engine/SKILL.md` |
 
 *`orchestrator-resilience` is orchestration-related but lives at the top-level
 `skills/orchestrator-resilience/SKILL.md`, not under `skills/orchestration/` — it is not counted in

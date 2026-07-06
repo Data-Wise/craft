@@ -32,7 +32,7 @@ Craft currently has 107 commands, 26 skills, 8 agents. The multi-repo coordinati
 
 6. **Add `skills` field to agent definitions** - Preload relevant skills into agents at startup (e.g., orchestrator gets `session-state` + `task-analyzer`).
 
-7. **Create multi-repo walkthrough guide** - End-to-end narrative: spec that references another repo -> `/craft:orchestrate:plan` auto-detects -> paired worktrees -> `/craft:ci:status` dashboard -> coordinated PRs.
+7. **Create multi-repo walkthrough guide** - End-to-end narrative: spec that references another repo -> `/craft:orch:plan` auto-detects -> paired worktrees -> `/craft:ci:status` dashboard -> coordinated PRs.
 
 8. **Add Mermaid architecture diagram for multi-repo** - Visual showing: spec detection regex -> paired worktrees (bidirectional ORCHESTRATE refs) -> branch name enforcement -> ci:status monitoring.
 
@@ -52,8 +52,8 @@ Craft currently has 107 commands, 26 skills, 8 agents. The multi-repo coordinati
 
 | Location | Content | Depth |
 |----------|---------|-------|
-| `commands/orchestrate/plan.md` | Full 8-step cross-repo detection workflow | Comprehensive |
-| `commands/orchestrate.md` | Worktree types table, decision tree | Summary |
+| `commands/orch/plan.md` | Full 8-step cross-repo detection workflow | Comprehensive |
+| `commands/orch.md` | Worktree types table, decision tree | Summary |
 | `docs/guide/orchestrator.md` | "When to Use What" table | One-liner |
 | `docs/guide/pipeline-orchestrate-guide.md` | Worktree types, decision table | Summary |
 | `docs/reference/REFCARD-GIT-WORKTREE.md` | Worktree types with prose | 1 paragraph |

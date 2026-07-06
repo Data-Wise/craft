@@ -79,6 +79,5 @@ Fetches releases from `anthropics/claude-code` via the GitHub API, scans release
 
 ## See Also
 
-- [/craft:code:desktop-watch](desktop-watch.md) -- Claude Desktop release tracking
 - [/craft:code:command-audit](command-audit.md) -- Frontmatter validation
 - [/craft:code:deps-audit](deps-audit.md) -- Security vulnerability scan

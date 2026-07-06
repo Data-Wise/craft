@@ -17,7 +17,7 @@ Interactive wizard that audits craft's current state, checks for upstream Claude
 ## Prerequisites
 
 - `gh` CLI installed and authenticated (for release-watch)
-- Internet access (for desktop-watch web search)
+- Internet access (for release-watch --product desktop web search)
 
 ## Sync Pipeline
 

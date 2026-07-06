@@ -437,10 +437,10 @@ def test_spawn_orchestrator_displays_task_and_mode(mock_print):
 
 @patch("utils.orch_flag_handler.print")
 def test_spawn_orchestrator_shows_craft_command(mock_print):
-    """Test spawn shows the /craft:orchestrate command it would execute"""
+    """Test spawn shows the /craft:orch command it would execute"""
     spawn_orchestrator("add tests", "optimize")
     all_output = " ".join(str(c) for c in mock_print.call_args_list)
-    assert "/craft:orchestrate" in all_output
+    assert "/craft:orch" in all_output
 
 
 @patch("utils.orch_flag_handler.print")
