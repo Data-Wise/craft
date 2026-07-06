@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.60.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.61.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -916,10 +916,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-are-agents" class="md-nav__link">
+  <a href="#what-handles-medium-complexity-tasks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Are Agents?
+        What Handles Medium-Complexity Tasks?
       
     </span>
   </a>
@@ -2951,7 +2951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/ADR-005-shim-canonical-path-resolution.md" class="md-nav__link">
+      <a href="../../adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
         
   
   
@@ -10986,6 +10986,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runbooks/release-rollback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Rollback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12340,10 +12368,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#what-are-agents" class="md-nav__link">
+  <a href="#what-handles-medium-complexity-tasks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Are Agents?
+        What Handles Medium-Complexity Tasks?
       
     </span>
   </a>
@@ -12863,28 +12891,33 @@
 <h3 id="the-big-idea">The Big Idea<a class="headerlink" href="#the-big-idea" title="Permanent link">&para;</a></h3>
 <p>Remember when you'd ask for directions and someone would just tell you "turn left," but what you really needed was step-by-step instructions with landmarks? That's the difference between the old <code>/craft:do</code> and the new one.</p>
 <p><strong>Before:</strong> <code>/craft:do</code> was like a smart switchboard—it figured out which Craft command to send you to.
-<strong>Now:</strong> <code>/craft:do</code> can recognize when a task needs a specialist and delegate to an expert agent.</p>
-<h3 id="what-are-agents">What Are Agents?<a class="headerlink" href="#what-are-agents" title="Permanent link">&para;</a></h3>
-<p>Think of agents as specialized assistants:</p>
+<strong>Now:</strong> <code>/craft:do</code> recognizes when a task needs several coordinated steps and
+chains the right commands for you, instead of making you sequence them by hand.</p>
+<h3 id="what-handles-medium-complexity-tasks">What Handles Medium-Complexity Tasks?<a class="headerlink" href="#what-handles-medium-complexity-tasks" title="Permanent link">&para;</a></h3>
+<p>There's no roster of named specialist agents for medium-complexity work — a
+task's <em>category</em> (Feature / Bug / Quality / Docs / Test / Release /
+Architecture) determines which commands get chained:</p>
 <ul>
-<li><strong>Feature Developer</strong> (<code>feature-dev</code>): Builds new features from scratch</li>
-<li><strong>Bug Detective</strong> (<code>bug-detective</code>): Hunts down and fixes problems</li>
-<li><strong>Backend Architect</strong> (<code>backend-architect</code>): Designs system architecture</li>
-<li><strong>Orchestrator</strong> (<code>orchestrator-v2</code>): Coordinates multiple specialists for big projects</li>
+<li><strong>Feature work</strong>: <code>/craft:arch:plan</code> → <code>/craft:code:test-gen</code> → <code>/craft:git:branch</code></li>
+<li><strong>Bug work</strong>: <code>/craft:code:debug</code> → <code>/craft:test</code></li>
+<li><strong>Orchestrator</strong> (<code>orchestrator-v2</code>): a real agent that coordinates multiple
+  subagents for genuinely complex, multi-phase projects (Score 8-10)</li>
 </ul>
 <h3 id="how-it-works-in-simple-terms">How It Works (In Simple Terms)<a class="headerlink" href="#how-it-works-in-simple-terms" title="Permanent link">&para;</a></h3>
 <p>When you give <code>/craft:do</code> a task, it now:</p>
 <ol>
 <li><strong>Analyzes complexity</strong> — Is this simple or complicated?</li>
 <li><strong>Chooses the best approach:</strong></li>
-<li><strong>Simple tasks</strong> → Routes to a Craft command (like before)</li>
-<li><strong>Complex tasks</strong> → Delegates to a specialized agent (new!)</li>
+<li><strong>Simple tasks</strong> → Routes to a single Craft command (like before)</li>
+<li><strong>Medium tasks</strong> → Chains several category commands in sequence (new!)</li>
+<li><strong>Complex tasks</strong> → Delegates to the <code>orchestrator-v2</code> agent, which
+     coordinates real subagents (<code>general-purpose</code>, <code>Explore</code>, <code>Bash</code>, <code>Plan</code>)</li>
 </ol>
 <h4 id="complexity-scoring">Complexity Scoring<a class="headerlink" href="#complexity-scoring" title="Permanent link">&para;</a></h4>
 <p>Here's how it decides:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Score 0-3  → Simple    → Use existing commands
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Score 4-7  → Medium    → Delegate to one specialist
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Score 8-10 → Complex   → Coordinate multiple specialists
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Score 0-3  → Simple    → Run one command
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Score 4-7  → Medium    → Chain the category&#39;s commands
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Score 8-10 → Complex   → orchestrator-v2 coordinates multiple subagents
 </span></code></pre></div>
 <p><strong>What makes a task complex?</strong></p>
 <ul>
@@ -12893,13 +12926,14 @@
 <li>Involves many files (e.g., "prepare for release")</li>
 </ul>
 <h3 id="forked-context-your-safety-net">Forked Context: Your Safety Net<a class="headerlink" href="#forked-context-your-safety-net" title="Permanent link">&para;</a></h3>
-<p>Here's the coolest part: when an agent works on something complex, it gets its own "workspace" (we call it a <strong>forked context</strong>).</p>
+<p>Here's the coolest part: when <code>orchestrator-v2</code> works on something complex, its
+subagents get their own "workspace" (we call it a <strong>forked context</strong>).</p>
 <p><strong>Think of it like this:</strong>
-Imagine you're cooking in the kitchen and your friend offers to help by making a salad in a separate prep area. If they accidentally spill something, it doesn't mess up your main cooking area. That's what forked context does—agents work in isolation, so if something goes wrong, your main conversation stays clean.</p>
+Imagine you're cooking in the kitchen and your friend offers to help by making a salad in a separate prep area. If they accidentally spill something, it doesn't mess up your main cooking area. That's what forked context does—subagents work in isolation, so if something goes wrong, your main conversation stays clean.</p>
 <p><strong>Benefits:</strong></p>
 <ul>
-<li>Agent failures don't break your whole session</li>
-<li>You can have multiple agents working in parallel</li>
+<li>Subagent failures don't break your whole session</li>
+<li>You can have multiple subagents working in parallel</li>
 <li>Results come back to you cleanly organized</li>
 </ul>
 <h3 id="real-example">Real Example<a class="headerlink" href="#real-example" title="Permanent link">&para;</a></h3>
@@ -12913,23 +12947,25 @@ Imagine you're cooking in the kitchen and your friend offers to help by making a
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│ Category: Feature Development               │
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│ Complexity: 7/10 (Medium-Complex)           │
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│                                             │
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│ Decision: Delegate to feature-dev agent     │
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│ Context: Forked (isolated workspace)        │
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│ Estimated time: ~15 minutes                 │
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│                                             │
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│ Why? This is a multi-step feature that      │
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│ requires planning, implementation, and      │
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│ testing. A specialist will do it better.    │
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>└─────────────────────────────────────────────┘
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│ Decision: Chain category commands           │
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│           (/craft:arch:plan → test-gen →    │
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│            git:branch), no agent dispatch   │
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│ Estimated time: ~15 minutes                 │
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│                                             │
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│ Why? This is a multi-step feature that      │
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│ requires planning, implementation, and      │
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│ testing. Chaining the category&#39;s commands   │
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│ handles it in one call.                     │
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>└─────────────────────────────────────────────┘
 </span></code></pre></div>
-<p>The <code>feature-dev</code> agent then:</p>
+<p>The chained sequence then:</p>
 <ol>
-<li>Plans the OAuth integration</li>
-<li>Writes the code</li>
-<li>Adds tests</li>
+<li>Plans the OAuth integration (<code>/craft:arch:plan</code>)</li>
+<li>Writes the code and tests (<code>/craft:code:test-gen</code>)</li>
+<li>Creates the feature branch (<code>/craft:git:branch</code>)</li>
 <li>Brings back a complete solution</li>
 </ol>
-<p>You didn't have to break down the task yourself—the system recognized the complexity and got you the right help.</p>
+<p>You didn't have to break down the task yourself—the system recognized the complexity and chained the right commands for you.</p>
 <h3 id="before-vs-after-comparison">Before vs. After Comparison<a class="headerlink" href="#before-vs-after-comparison" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -12943,17 +12979,17 @@ Imagine you're cooking in the kitchen and your friend offers to help by making a
 <tr>
 <td>"fix the login bug"</td>
 <td>Routes to <code>/craft:code:debug</code></td>
-<td>Delegates to <code>bug-detective</code> agent (more thorough)</td>
+<td>Chains <code>/craft:code:debug</code> + <code>/craft:test</code> (more thorough)</td>
 </tr>
 <tr>
 <td>"add user authentication"</td>
 <td>Routes to <code>/craft:arch:plan</code></td>
-<td>Delegates to <code>feature-dev</code> agent (complete implementation)</td>
+<td>Chains <code>/craft:arch:plan</code> + <code>/craft:code:test-gen</code> + <code>/craft:git:branch</code> (complete implementation)</td>
 </tr>
 <tr>
 <td>"refactor database layer"</td>
 <td>Routes to <code>/craft:arch:analyze</code></td>
-<td>Delegates to <code>backend-architect</code> agent (architectural design)</td>
+<td>Chains <code>/craft:arch:analyze</code> + <code>/craft:code:refactor</code> (architectural design)</td>
 </tr>
 <tr>
 <td>"prepare release"</td>
@@ -13146,8 +13182,8 @@ Just drop a new validation file in the right folder. <code>/craft:check</code> a
 <p><strong>What happens:</strong></p>
 <ol>
 <li><code>/craft:do</code> analyzes: "This is complex (score: 7/10)—needs UI, backend, file handling, validation"</li>
-<li>Delegates to <code>feature-dev</code> agent in a forked context</li>
-<li>Agent breaks it down:</li>
+<li>Chains the feature category's commands (no agent dispatch)</li>
+<li>The command sequence breaks it down:</li>
 <li>Design database schema for user profiles</li>
 <li>Create upload API endpoint</li>
 <li>Add image validation</li>
@@ -13237,7 +13273,7 @@ You wanted a new check. You created a file. It works immediately.</p>
 <p><strong>What to watch for:</strong></p>
 <ul>
 <li>Complexity score (probably 4-5, medium)</li>
-<li>Which agent it would delegate to (<code>bug-detective</code>)</li>
+<li>Which commands it would chain (<code>/craft:code:debug</code>, <code>/craft:test</code>)</li>
 <li>Why it made that choice</li>
 </ul>
 <p><strong>Compare to:</strong>
@@ -13245,7 +13281,7 @@ You wanted a new check. You created a file. It works immediately.</p>
 <p><strong>What to watch for:</strong></p>
 <ul>
 <li>Lower complexity score (probably 1-2, simple)</li>
-<li>Routes to simple command instead of agent</li>
+<li>Routes to a single simple command instead of a chained sequence</li>
 </ul>
 <hr />
 <h3 id="exercise-2-resilient-orchestration">Exercise 2: Resilient Orchestration<a class="headerlink" href="#exercise-2-resilient-orchestration" title="Permanent link">&para;</a></h3>

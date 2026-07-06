@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.60.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.61.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -2525,7 +2525,7 @@
   
   
     <li class="md-nav__item">
-      <a href="adr/ADR-005-shim-canonical-path-resolution.md" class="md-nav__link">
+      <a href="adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
         
   
   
@@ -10560,6 +10560,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="runbooks/release-rollback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Rollback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11970,7 +11998,7 @@
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
-<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-2.60.0-brightgreen.svg" /></a></p>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-2.61.0-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -12011,7 +12039,7 @@
 </li>
 <li>
 <p><img alt="🧠" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f9e0.svg" title=":brain:" /> <strong>8 Specialized Agents</strong></p>
-<p>Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators</p>
+<p>Docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and 2 orchestrators (default + v2.1)</p>
 </li>
 <li>
 <p><img alt="✨" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2728.svg" title=":sparkles:" /> <strong>45 Skills</strong></p>
@@ -12077,7 +12105,7 @@
 </ul>
 </div>
 <h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
-<p>Complete OpenAPI-style documentation for all 112 Craft commands:</p>
+<p>Complete OpenAPI-style documentation for all 115 Craft commands:</p>
 <div class="grid cards">
 <ul>
 <li>
@@ -12241,7 +12269,7 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v2.60.0 — Token-Usage Reduction</p>
+<p class="admonition-title">Latest: v2.61.0 — Token-Usage Reduction</p>
 <p><a href="https://github.com/Data-Wise/craft/pull/232">PR #232</a> cuts the always-loaded orchestration path (<code>/refine</code> 631→42 lines, <code>/brainstorm</code> split with 4→2 decision points, <code>orchestrator-v2.md</code> 1473→1212 lines) by moving procedure out of commands/agents and into skills that load conditionally — plus model-pins the orchestrator agents (<code>sonnet</code>/<code>haiku</code>) for the first time. New skill: <a href="skills-agents/#code-4"><code>command-skill-token-efficiency</code></a> codifies the methodology for future authoring. Full writeup: <a href="internal/TOKEN-EFFICIENCY-craft/">Token Efficiency</a>. See the <a href="CHANGELOG/">full changelog</a> for all releases, including the prior v2.43.0 skill-ecosystem governance work (<code>governance/</code> policy-as-code, see the <a href="guide/governance/">governance guide</a>).</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
@@ -12249,7 +12277,7 @@
 <li><a href="https://github.com/Data-Wise/craft">GitHub Repository</a></li>
 <li><a href="https://github.com/Data-Wise/craft/issues">Issue Tracker</a></li>
 <li><a href="CHANGELOG/">Changelog</a></li>
-<li><a href="https://github.com/Data-Wise/craft/blob/main/ROADMAP.md">ROADMAP</a></li>
+<li><a href="https://github.com/Data-Wise/craft/blob/main/docs/archive/ROADMAP.md">ROADMAP</a></li>
 </ul>
 
 

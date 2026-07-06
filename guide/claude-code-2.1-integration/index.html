@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.60.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.61.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -1060,33 +1060,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#agent-delegation-system" class="md-nav__link">
+  <a href="#medium-complexity-command-sequencing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Agent Delegation System
+        Medium-Complexity Command Sequencing
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Agent Delegation System">
+    <nav class="md-nav" aria-label="Medium-Complexity Command Sequencing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#available-agents" class="md-nav__link">
+  <a href="#category-based-routing-logic" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Available Agents
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#agent-selection-logic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Agent Selection Logic
+        Category-Based Routing Logic
       
     </span>
   </a>
@@ -2941,7 +2930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/ADR-005-shim-canonical-path-resolution.md" class="md-nav__link">
+      <a href="../../adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
         
   
   
@@ -10976,6 +10965,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runbooks/release-rollback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Rollback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12446,33 +12463,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#agent-delegation-system" class="md-nav__link">
+  <a href="#medium-complexity-command-sequencing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Agent Delegation System
+        Medium-Complexity Command Sequencing
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Agent Delegation System">
+    <nav class="md-nav" aria-label="Medium-Complexity Command Sequencing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#available-agents" class="md-nav__link">
+  <a href="#category-based-routing-logic" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Available Agents
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#agent-selection-logic" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Agent Selection Logic
+        Category-Based Routing Logic
       
     </span>
   </a>
@@ -12922,7 +12928,7 @@
     style J fill:#c8e6c9</code></pre>
 <h4 id="example-2-moderate-task-6-points">Example 2: Moderate Task (6 points)<a class="headerlink" href="#example-2-moderate-task-6-points" title="Permanent link">&para;</a></h4>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Task: &quot;Add feature with comprehensive tests and documentation&quot;
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Score: 6/10 → Agent
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Score: 6/10 → Command Sequence
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Time: 5-30 min
 </span></code></pre></div>
 <p><strong>Analysis:</strong></p>
@@ -12940,7 +12946,7 @@
     C --&gt; I
     G --&gt; I
 
-    I --&gt; J["→ feature-developer agent"]
+    I --&gt; J["→ category-based&lt;br/&gt;command sequence"]
 
     style A fill:#e1f5ff
     style B fill:#fff9c4
@@ -12991,11 +12997,11 @@
     A["Start"] --&gt; B{{"Analyze task&lt;br/&gt;Calculate score"}}
 
     B --&gt;|0-3 Points| C["Route: Commands"]
-    B --&gt;|4-7 Points| D["Route: Single Agent"]
+    B --&gt;|4-7 Points| D["Route: Command Sequence"]
     B --&gt;|8-10 Points| E["Route: Orchestrator v2"]
 
     C --&gt; F["Find matching&lt;br/&gt;specific command"]
-    D --&gt; G["Select best agent&lt;br/&gt;from 5 specialists"]
+    D --&gt; G["Chain category&lt;br/&gt;commands"]
     E --&gt; H["Plan multi-phase&lt;br/&gt;work with agents"]
 
     F --&gt; I["Execute&lt;br/&gt;&lt; 30 seconds"]
@@ -13019,68 +13025,31 @@
     style K fill:#f1f8e9
     style L fill:#f1f8e9</code></pre>
 <hr />
-<h2 id="agent-delegation-system">Agent Delegation System<a class="headerlink" href="#agent-delegation-system" title="Permanent link">&para;</a></h2>
-<p>When a task scores 4-7 points, /craft:do delegates to a specialist agent.</p>
-<h3 id="available-agents">Available Agents<a class="headerlink" href="#available-agents" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>Agent</th>
-<th>Specialization</th>
-<th>Best For</th>
-<th>Model</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>feature-developer</strong></td>
-<td>Feature implementation</td>
-<td>"add new feature with tests"</td>
-<td>Sonnet</td>
-</tr>
-<tr>
-<td><strong>bug-detective</strong></td>
-<td>Bug investigation &amp; fixing</td>
-<td>"investigate and fix slow queries"</td>
-<td>Sonnet</td>
-</tr>
-<tr>
-<td><strong>docs-architect</strong></td>
-<td>Documentation &amp; guides</td>
-<td>"write comprehensive migration guide"</td>
-<td>Sonnet</td>
-</tr>
-<tr>
-<td><strong>api-documenter</strong></td>
-<td>API specification &amp; SDKs</td>
-<td>"document REST API with OpenAPI"</td>
-<td>Sonnet</td>
-</tr>
-<tr>
-<td><strong>tutorial-engineer</strong></td>
-<td>Step-by-step tutorials</td>
-<td>"create setup tutorial"</td>
-<td>Sonnet</td>
-</tr>
-</tbody>
-</table>
-<h3 id="agent-selection-logic">Agent Selection Logic<a class="headerlink" href="#agent-selection-logic" title="Permanent link">&para;</a></h3>
+<h2 id="medium-complexity-command-sequencing">Medium-Complexity Command Sequencing<a class="headerlink" href="#medium-complexity-command-sequencing" title="Permanent link">&para;</a></h2>
+<p>When a task scores 4-7 points, <code>/craft:do</code> routes through the same category-based
+command sequence as a score under 4 — it chains the category's commands
+(e.g. <code>/craft:arch:plan</code>, <code>/craft:code:test-gen</code>, <code>/craft:git:branch</code> for a feature
+task) rather than dispatching to a per-domain specialist agent. There is no
+<code>feature-dev</code>/<code>backend-architect</code>/<code>bug-detective</code>/<code>code-quality-reviewer</code> agent —
+those names never had a backing agent definition.</p>
+<p>The docs-authoring agents that <em>do</em> exist (<code>docs-architect</code>, <code>api-documenter</code>,
+<code>tutorial-engineer</code> — under <code>agents/docs/</code>) are separate from <code>/craft:do</code>'s
+complexity routing; they're invoked directly by the docs commands that need them.</p>
+<h3 id="category-based-routing-logic">Category-Based Routing Logic<a class="headerlink" href="#category-based-routing-logic" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph TD
-    A["Task Routed to Agent&lt;br/&gt;Score 4-7"] --&gt; B{{"Analyze keywords&lt;br/&gt;and task type"}}
+    A["Task Routed&lt;br/&gt;Score 4-7"] --&gt; B{{"Determine category&lt;br/&gt;from Step 1"}}
 
-    B --&gt;|"add", "feature", "implement"| C["→ feature-developer"]
-    B --&gt;|"fix", "bug", "issue", "investigate"| D["→ bug-detective"]
-    B --&gt;|"doc", "guide", "tutorial", "architecture"| E["→ docs-architect"]
-    B --&gt;|"API", "OpenAPI", "SDK", "client"| F["→ api-documenter"]
-    B --&gt;|"tutorial", "step-by-step", "onboarding"| G["→ tutorial-engineer"]
-    B --&gt;|No match| H["→ feature-developer&lt;br/&gt;default"]
+    B --&gt;|"add", "feature", "implement"| C["/craft:arch:plan&lt;br/&gt;/craft:code:test-gen&lt;br/&gt;/craft:git:branch"]
+    B --&gt;|"fix", "bug", "issue", "investigate"| D["/craft:code:debug&lt;br/&gt;/craft:test"]
+    B --&gt;|"doc", "guide", "tutorial"| E["/craft:docs:* sequence"]
+    B --&gt;|"quality", "lint", "improve"| F["/craft:code:lint&lt;br/&gt;/craft:code:refactor"]
+    B --&gt;|No match| G["Default category&lt;br/&gt;command sequence"]
 
-    C --&gt; I["Agent executes&lt;br/&gt;in forked context&lt;br/&gt;Clean chat history"]
+    C --&gt; I["Commands execute&lt;br/&gt;in sequence&lt;br/&gt;No agent dispatch"]
     D --&gt; I
     E --&gt; I
     F --&gt; I
     G --&gt; I
-    H --&gt; I
 
     I --&gt; J["Summary returned&lt;br/&gt;to user"]
 

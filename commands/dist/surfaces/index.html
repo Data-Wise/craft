@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.60.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.61.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -2387,7 +2387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../adr/ADR-005-shim-canonical-path-resolution.md" class="md-nav__link">
+      <a href="../../../adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
         
   
   
@@ -10531,6 +10531,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../runbooks/release-rollback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Rollback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11905,8 +11933,10 @@
 <h1 id="craftdistsurfaces">/craft:dist:surfaces<a class="headerlink" href="#craftdistsurfaces" title="Permanent link">&para;</a></h1>
 <p>Read-only view of the multi-surface release registry — verify gate states and inspect the plugin × surface version matrix.</p>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:dist:surfaces<span class="w">              </span><span class="c1"># verify + full human matrix (default)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:dist:surfaces<span class="w"> </span>--json<span class="w">       </span><span class="c1"># machine JSON matrix (live versions + states)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:dist:surfaces<span class="w">                              </span><span class="c1"># verify + full human matrix (default)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:dist:surfaces<span class="w"> </span>--json<span class="w">                       </span><span class="c1"># machine JSON matrix (live versions + states)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:dist:surfaces<span class="w"> </span>--report-only<span class="w">                </span><span class="c1"># diagnostic mode, never blocks (all 7 legs)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:dist:surfaces<span class="w"> </span>--report-only<span class="w"> </span>--version<span class="w"> </span>v2.58.0<span class="w">   </span><span class="c1"># diagnose a PAST release</span>
 </span></code></pre></div>
 <h2 id="arguments">Arguments<a class="headerlink" href="#arguments" title="Permanent link">&para;</a></h2>
 <table>
@@ -11920,6 +11950,14 @@
 <tr>
 <td><code>--json</code></td>
 <td>Emit the surface matrix as machine JSON (live data, not raw registry schema)</td>
+</tr>
+<tr>
+<td><code>--report-only</code></td>
+<td>Never block — print ALIGNED/DRIFTED/ABSENT/WARN per surface (including the GitHub-release and docs-site legs below) and always exit 0. Runs <code>scripts/verify-surfaces.sh --report-only</code> directly, bypassing the registry-mapped 3-surface view.</td>
+</tr>
+<tr>
+<td><code>--version &lt;X&gt;</code></td>
+<td>Check surfaces against <code>&lt;X&gt;</code> instead of the current <code>plugin.json</code> version — diagnose a past release. Only meaningful alongside <code>--report-only</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -11955,6 +11993,9 @@
 </tbody>
 </table>
 <p>A release is "fully shipped" when all BLOCK surfaces report the expected version.</p>
+<p><code>--report-only</code> additionally checks two informational legs as part of Code's aggregate:
+<strong>GitHub release</strong> (is a release published for this version) and <strong>docs site</strong> (does the live
+deployed site show this version) — both diagnostic-only, never block outside <code>--report-only</code>.</p>
 <blockquote>
 <p>The user-facing "3-surface" model collapses the 8 entries in <code>registry.json</code>:
 Code = {git-tag, marketplace, tap, brew, code-registered, aggregator}; Cowork = cowork; Desktop = desktop-ext.</p>
@@ -11979,6 +12020,7 @@ Code = {git-tag, marketplace, tap, brew, code-registered, aggregator}; Cowork = 
 <li><code>scripts/surfaces/registry.json</code> — surface registry (source of truth)</li>
 <li><code>skills/distribution/dist-extras/</code> — 3-surface model + propagation reference</li>
 <li><code>docs/adr/ADR-004-release-surface-registry.md</code> — architecture decision</li>
+<li><a href="../../../runbooks/release-rollback/">Release rollback runbook</a> — manual per-surface undo steps for a bad release; <code>--report-only</code> is the diagnostic to run first</li>
 <li><a href="../../../tutorials/TUTORIAL-dist-surfaces/">Tutorial: Multi-Surface Release Propagation</a></li>
 </ul>
 

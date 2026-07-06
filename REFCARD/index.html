@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.60.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.61.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -2385,7 +2385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-005-shim-canonical-path-resolution.md" class="md-nav__link">
+      <a href="../adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
         
   
   
@@ -10420,6 +10420,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runbooks/release-rollback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Rollback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -13007,11 +13035,11 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  CRAFT PLUGIN QUICK REFERENCE                               │
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.60.0 (released 2026-06-19)                       │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 2.61.0 (released 2026-06-19)                       │
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 117 | Agents: 8 | Skills: 45                     │
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Documentation: 99% complete | Tests: 142 passing            │
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  Docs: https://data-wise.github.io/craft/                   │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.60.0: Documentation Coverage — Tutorial Suite            │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v2.61.0: Documentation Coverage — Tutorial Suite            │
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>└─────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permanent link">&para;</a></h2>
@@ -13036,9 +13064,9 @@
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;lint markdown files&quot;</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Routes to: /craft:docs:lint</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Medium task (score: 6) → Single agent</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Medium task (score: 6) → Command sequence</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add user authentication with JWT&quot;</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Routes to: backend-architect agent</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Routes to: /craft:arch:plan, /craft:code:test-gen, /craft:git:branch (no agent dispatch)</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Complex task (score: 9) → Orchestrator</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>/craft:do<span class="w"> </span><span class="s2">&quot;prepare v2.0 release with tests, docs, and changelog&quot;</span>
@@ -14906,7 +14934,7 @@ read it rather than duplicating the type list).</p>
 </span><span id="__span-49-21"><a id="__codelineno-49-21" name="__codelineno-49-21" href="#__codelineno-49-21"></a><span class="c1"># NEW in v2.22.0: Doc drift detection</span>
 </span><span id="__span-49-22"><a id="__codelineno-49-22" name="__codelineno-49-22" href="#__codelineno-49-22"></a><span class="c1">#   Cross-references changed files against docs</span>
 </span><span id="__span-49-23"><a id="__codelineno-49-23" name="__codelineno-49-23" href="#__codelineno-49-23"></a><span class="c1">#   Offers to run /craft:docs:sync if drift found</span>
-</span><span id="__span-49-24"><a id="__codelineno-49-24" name="__codelineno-49-24" href="#__codelineno-49-24"></a><span class="c1"># NEW in v2.60.0: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
+</span><span id="__span-49-24"><a id="__codelineno-49-24" name="__codelineno-49-24" href="#__codelineno-49-24"></a><span class="c1"># NEW in v2.61.0: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
 </span><span id="__span-49-25"><a id="__codelineno-49-25" name="__codelineno-49-25" href="#__codelineno-49-25"></a><span class="c1">#   Option A auto-commits + pushes (skip on main, never force-push)</span>
 </span><span id="__span-49-26"><a id="__codelineno-49-26" name="__codelineno-49-26" href="#__codelineno-49-26"></a><span class="c1">#   CLAUDE.md counts synced silently before commit</span>
 </span><span id="__span-49-27"><a id="__codelineno-49-27" name="__codelineno-49-27" href="#__codelineno-49-27"></a><span class="c1">#   Worktree branch ahead/behind shown in summary</span>
@@ -15018,8 +15046,8 @@ Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 <td>Mode-aware execution, monitoring</td>
 </tr>
 <tr>
-<td><code>backend-architect</code></td>
-<td>Scalable APIs, microservices</td>
+<td><code>orchestrator</code></td>
+<td>Legacy multi-step coordination</td>
 </tr>
 <tr>
 <td><code>docs-architect</code></td>
@@ -15519,7 +15547,7 @@ Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 <ul>
 <li><strong><a href="../guide/getting-started/">Full Documentation</a></strong> (99% complete)</li>
 <li><strong><a href="https://github.com/Data-Wise/craft/issues">GitHub Issues</a></strong></li>
-<li><strong><a href="https://github.com/Data-Wise/craft/blob/main/ROADMAP.md">ROADMAP</a></strong></li>
+<li><strong><a href="https://github.com/Data-Wise/craft/blob/main/docs/archive/ROADMAP.md">ROADMAP</a></strong></li>
 </ul>
 
 

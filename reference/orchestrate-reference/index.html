@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.60.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.61.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -2387,7 +2387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/ADR-005-shim-canonical-path-resolution.md" class="md-nav__link">
+      <a href="../../adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
         
   
   
@@ -10947,6 +10947,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runbooks/release-rollback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Rollback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -13294,15 +13322,15 @@ reference material split out to keep the command lean.</p>
 <p>The orchestrator will:</p>
 <ol>
 <li>Launch <code>/brainstorm d:8 "authentication" -C req,users,scope,success</code> for context</li>
-<li>Spawn <code>backend-architect</code> agent to design auth flow</li>
-<li>Spawn <code>frontend-specialist</code> agent for login UI design</li>
-<li>Coordinate test strategy with <code>test-strategist</code></li>
+<li>Spawn a subagent (<code>general-purpose</code>, description: "design auth flow")</li>
+<li>Spawn a subagent (<code>general-purpose</code>, description: "login UI design")</li>
+<li>Coordinate test strategy</li>
 <li>Synthesize all findings into comprehensive plan</li>
 </ol>
 <h3 id="brainstorm-orchestration-patterns">Brainstorm + Orchestration Patterns<a class="headerlink" href="#brainstorm-orchestration-patterns" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Pattern 1: Quick context then implement</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add payment integration&quot;</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="c1"># → Brainstorm q:2 → backend-architect → code implementation</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="c1"># → Brainstorm q:2 → subagent (general-purpose) → code implementation</span>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1"># Pattern 2: Deep context with multiple agents</span>
 </span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;design microservices architecture&quot;</span><span class="w"> </span>optimize

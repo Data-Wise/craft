@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.60.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
+        <meta name="description" content="Full-stack developer toolkit - 115 commands, 8 agents, 45 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.61.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), and a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types).">
       
       
       
@@ -2387,7 +2387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/ADR-005-shim-canonical-path-resolution.md" class="md-nav__link">
+      <a href="../../adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
         
   
   
@@ -6592,10 +6592,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#maximum-depth-with-agents" class="md-nav__link">
+  <a href="#deep-analysis-orchestration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Maximum Depth with Agents
+        Deep Analysis + Orchestration
       
     </span>
   </a>
@@ -6691,10 +6691,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#agent-delegation-max-mode" class="md-nav__link">
+  <a href="#agent-delegation-removed-use-orch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Agent Delegation (Max Mode)
+        Agent Delegation (Removed — Use --orch)
       
     </span>
   </a>
@@ -10802,6 +10802,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runbooks/release-rollback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Rollback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -12266,10 +12294,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#maximum-depth-with-agents" class="md-nav__link">
+  <a href="#deep-analysis-orchestration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Maximum Depth with Agents
+        Deep Analysis + Orchestration
       
     </span>
   </a>
@@ -12365,10 +12393,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#agent-delegation-max-mode" class="md-nav__link">
+  <a href="#agent-delegation-removed-use-orch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Agent Delegation (Max Mode)
+        Agent Delegation (Removed — Use --orch)
       
     </span>
   </a>
@@ -12834,10 +12862,14 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/brainstorm<span class="w"> </span>d<span class="w"> </span>a<span class="w"> </span><span class="s2">&quot;multi-tenant SaaS&quot;</span>
 </span></code></pre></div>
 <p>8 expert questions, detailed architecture output with Mermaid diagrams.</p>
-<h3 id="maximum-depth-with-agents">Maximum Depth with Agents<a class="headerlink" href="#maximum-depth-with-agents" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/brainstorm<span class="w"> </span>m<span class="w"> </span>a<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;event-driven microservices&quot;</span>
+<h3 id="deep-analysis-orchestration">Deep Analysis + Orchestration<a class="headerlink" href="#deep-analysis-orchestration" title="Permanent link">&para;</a></h3>
+<p>There is no more <code>max</code> depth and brainstorm no longer spawns agents itself
+(the old max-depth agent delegation used names — <code>backend-architect</code>,
+<code>database-architect</code>, etc. — that were never real agents; removed). Use
+<code>deep</code> for the full question set, then <code>--orch</code> for multi-agent
+implementation planning (routes to the real <code>orchestrator-v2</code> agent):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/brainstorm<span class="w"> </span>d<span class="w"> </span>a<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;event-driven microservices&quot;</span><span class="w"> </span>--orch
 </span></code></pre></div>
-<p>Launches backend-architect and database-architect agents for comprehensive analysis.</p>
 <h3 id="power-user-v240">Power User (v2.4.0)<a class="headerlink" href="#power-user-v240" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">&quot;payment api&quot;</span>
 </span></code></pre></div>
@@ -12995,42 +13027,14 @@
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># → Automatically finds and uses SPEC-user-auth-*.md</span>
 </span></code></pre></div>
 <hr />
-<h2 id="agent-delegation-max-mode">Agent Delegation (Max Mode)<a class="headerlink" href="#agent-delegation-max-mode" title="Permanent link">&para;</a></h2>
-<p>When depth is <code>max</code>, launches relevant agents:</p>
-<table>
-<thead>
-<tr>
-<th>Focus</th>
-<th>Agents Launched</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>feature</td>
-<td>product-strategist</td>
-</tr>
-<tr>
-<td>architecture</td>
-<td>backend-architect, database-architect</td>
-</tr>
-<tr>
-<td>ux</td>
-<td>ux-ui-designer</td>
-</tr>
-<tr>
-<td>api</td>
-<td>backend-architect, security-specialist</td>
-</tr>
-<tr>
-<td>ui</td>
-<td>frontend-specialist, performance-engineer</td>
-</tr>
-<tr>
-<td>ops</td>
-<td>devops-engineer</td>
-</tr>
-</tbody>
-</table>
+<h2 id="agent-delegation-removed-use-orch">Agent Delegation (Removed — Use <code>--orch</code>)<a class="headerlink" href="#agent-delegation-removed-use-orch" title="Permanent link">&para;</a></h2>
+<p>There is no more <code>max</code> depth, and brainstorm no longer spawns agents
+in-skill. The table of per-focus agent names this section used to list
+(<code>backend-architect</code>, <code>database-architect</code>, <code>security-specialist</code>,
+<code>frontend-specialist</code>, <code>devops-engineer</code>, etc.) never had real backing agent
+definitions. Deep analysis needing multiple agents now goes through
+<code>--orch</code> after a spec is captured, which routes to the real <code>orchestrator-v2</code>
+agent — see "Deep Analysis + Orchestration" above.</p>
 <hr />
 <h2 id="output-format">Output Format<a class="headerlink" href="#output-format" title="Permanent link">&para;</a></h2>
 <p><strong>Terminal (default):</strong></p>
@@ -13070,8 +13074,8 @@
 <td>Provide topic explicitly: <code>/brainstorm "topic"</code></td>
 </tr>
 <tr>
-<td>Agents timing out</td>
-<td>Use <code>deep</code> instead of <code>max</code> mode</td>
+<td>Orchestration taking too long</td>
+<td>Use <code>deep</code> without <code>--orch</code> for ideation only</td>
 </tr>
 <tr>
 <td>Spec not saved</td>

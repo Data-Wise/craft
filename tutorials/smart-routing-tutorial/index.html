@@ -2394,7 +2394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../adr/ADR-005-shim-canonical-path-resolution.md" class="md-nav__link">
+      <a href="../../adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
         
   
   
@@ -10953,6 +10953,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runbooks/release-rollback/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Rollback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -13010,26 +13038,22 @@
 <li>No coordination needed</li>
 </ul>
 <h3 id="zone-2-medium-tasks-score-4-7">Zone 2: Medium Tasks (Score 4-7)<a class="headerlink" href="#zone-2-medium-tasks-score-4-7" title="Permanent link">&para;</a></h3>
-<p><strong>Handler:</strong> Single specialized agent
-<strong>Available agents:</strong></p>
-<ul>
-<li><code>backend-architect</code> - API design, server-side logic</li>
-<li><code>docs-architect</code> - System documentation</li>
-<li><code>test-automator</code> - Test generation</li>
-<li><code>security-auditor</code> - Security reviews</li>
-<li><code>performance-engineer</code> - Optimization</li>
-</ul>
+<p><strong>Handler:</strong> Category-based command sequence — the same routing mechanism as
+Zone 1, chaining several of the category's commands rather than dispatching
+to a named specialist agent (there is no <code>backend-architect</code>/<code>test-automator</code>/
+<code>security-auditor</code>/<code>performance-engineer</code> agent — those names never had a
+backing agent definition).</p>
 <p><strong>Examples:</strong></p>
 <ul>
-<li>Add JWT authentication → <code>backend-architect</code></li>
-<li>Create tutorial → <code>docs-architect</code></li>
-<li>Generate test suite → <code>test-automator</code></li>
+<li>Add JWT authentication → <code>/craft:arch:plan</code>, <code>/craft:code:test-gen</code>, <code>/craft:git:branch</code></li>
+<li>Create tutorial → <code>/craft:docs:*</code> sequence</li>
+<li>Generate test suite → <code>/craft:code:test-gen</code>, <code>/craft:test</code></li>
 </ul>
 <p><strong>Why this zone:</strong></p>
 <ul>
-<li>Needs domain expertise</li>
+<li>Needs multiple coordinated steps</li>
 <li>Multiple steps but focused area</li>
-<li>Single agent can handle it</li>
+<li>A chained command sequence can handle it</li>
 <li>Moderate complexity</li>
 </ul>
 <h3 id="zone-3-complex-tasks-score-8-10">Zone 3: Complex Tasks (Score 8-10)<a class="headerlink" href="#zone-3-complex-tasks-score-8-10" title="Permanent link">&para;</a></h3>
@@ -13169,9 +13193,9 @@
 </tbody>
 </table>
 <p><strong>Routing:</strong> Zone 2 - Medium
-<strong>Handler:</strong> Single agent
-<strong>Delegates to:</strong> <code>backend-architect</code>
-<strong>What the agent does:</strong></p>
+<strong>Handler:</strong> Category-based command sequence
+<strong>Runs:</strong> <code>/craft:arch:plan</code>, <code>/craft:code:test-gen</code>, <code>/craft:git:branch</code> (no agent dispatch)
+<strong>What the sequence does:</strong></p>
 <ol>
 <li>Reviews existing auth system</li>
 <li>Designs JWT implementation</li>
@@ -13435,7 +13459,7 @@
 | Time | 1 (1-2 hours) |
 | **Total** | **6/14 = 4.3** |
 
-**Routing:** Zone 2 - Medium (backend-architect agent)
+**Routing:** Zone 2 - Medium (category-based command sequence, no agent dispatch)
 </details>
 
 <p><strong>Task C:</strong> <code>"migrate from REST to GraphQL across 15 services"</code></p>
