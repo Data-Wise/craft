@@ -72,4 +72,4 @@ Or use it as a reference while implementing manually — the phase breakdown map
 
 - Run `/craft:arch:analyze` first on existing code to understand current patterns
 - Use `/craft:orchestrate:drive` with a SPEC derived from the plan for fully-automated implementation
-- Architecture plans are good inputs for `/craft:workflow:brainstorm` when exploring trade-offs
+- Architecture plans are good inputs for `/craft:brainstorm` when exploring trade-offs

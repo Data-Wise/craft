@@ -2042,7 +2042,7 @@ Testing, quality assurance, and verification tools.
 
 Development workflow and productivity tools.
 
-### /craft:workflow:brainstorm
+### /craft:brainstorm
 
 **Category**: Planning | **Complexity**: Moderate | **Time**: 10-30 min
 **Description**: ADHD-friendly brainstorming for feature development
@@ -2058,11 +2058,11 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:brainstorm "new authentication system"
-/craft:workflow:brainstorm "API redesign" --duration 30 --save
+/craft:brainstorm "new authentication system"
+/craft:brainstorm "API redesign" --duration 30 --save
 ```
 
-**File**: `commands/workflow/brainstorm.md`
+**File**: `commands/brainstorm.md`
 
 ---
 
@@ -2089,7 +2089,7 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:next
+### /craft:next
 
 **Category**: Planning | **Complexity**: Simple | **Time**: < 5 min
 **Description**: Get next action suggestion
@@ -2103,11 +2103,11 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:next
-/craft:workflow:next --context "feature-auth"
+/craft:next
+/craft:next --context "feature-auth"
 ```
 
-**File**: `commands/workflow/next.md`
+**File**: `commands/next.md`
 
 ---
 
@@ -2133,7 +2133,7 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:done
+### /craft:done
 
 **Category**: Completion | **Complexity**: Simple | **Time**: 1-3 min
 **Description**: Complete task with cleanup and summary
@@ -2148,12 +2148,12 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:done
-/craft:workflow:done --message "feat: add auth"
-/craft:workflow:done --no-commit
+/craft:done
+/craft:done --message "feat: add auth"
+/craft:done --no-commit
 ```
 
-**File**: `commands/workflow/done.md`
+**File**: `commands/done.md`
 
 ---
 
@@ -2179,7 +2179,7 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:refine
+### /craft:refine
 
 **Category**: Planning | **Complexity**: Simple | **Time**: 5-10 min
 **Description**: Refine task definition and scope
@@ -2193,10 +2193,10 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:refine "implement caching"
+/craft:refine "implement caching"
 ```
 
-**File**: `commands/workflow/refine.md`
+**File**: `commands/refine.md`
 
 ---
 

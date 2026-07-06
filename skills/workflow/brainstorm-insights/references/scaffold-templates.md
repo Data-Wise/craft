@@ -29,7 +29,7 @@ Red-first: write Na/Nb FAILING first; implement to green; run via /craft:test.
 
 ## Documentation & Discoverability
 
-Template lifted verbatim from `commands/workflow/brainstorm.md:407-418`:
+Template lifted verbatim from `commands/brainstorm.md:407-418`:
 
 **REQUIRED SECTION — Documentation & Discoverability:** Every captured spec MUST include a `## Documentation & Discoverability` section so docs are never an afterthought. Code is not "done" until users can find and learn it. Mirror the surface a shipped craft feature carries (tailor to what the feature actually touches; mark N/A explicitly):
 

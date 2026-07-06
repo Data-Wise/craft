@@ -93,7 +93,7 @@ Preview which commands will be executed without actually running them:
 │      → /craft:orchestrate "add user authentication"          │
 │                                                               │
 │ ⚠ Notes:                                                      │
-│   • Consider creating spec first: /craft:workflow:brainstorm  │
+│   • Consider creating spec first: /craft:brainstorm  │
 │   • Agent will execute in forked context (results synthesized)│
 │   • Permission may be requested for agent delegation          │
 │                                                               │
@@ -574,7 +574,7 @@ When complexity score ≥ 4, `/craft:do` delegates to specialized agents:
 ├─────────────────────────────────────────────────────┤
 │ ✓ Task setup complete                              │
 ╰─────────────────────────────────────────────────────╯
-💡 /craft:workflow:brief --plan to plan next steps.
+💡 /craft:brief --plan to plan next steps.
 ```
 
 ## Integration
@@ -993,7 +993,7 @@ Task(
 
 ### Step 5.5: Brief Appendix (--brief flag)
 
-If `--brief` was passed, after result synthesis append the 3-line action block directly below the result summary. Follow the output constraints in `commands/workflow/brief.md` Step 3. Do NOT trigger the `--plan` phase — block only.
+If `--brief` was passed, after result synthesis append the 3-line action block directly below the result summary. Follow the output constraints in `commands/brief.md` Step 3. Do NOT trigger the `--plan` phase — block only.
 
 Output format when `--brief` is active:
 

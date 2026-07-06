@@ -1,6 +1,5 @@
 ---
 description: Generate a 3-line action block (Next step / Watch out for / Connects to) with optional planning expansion
-category: workflow
 arguments:
   - name: plan
     description: Expand to propose approach, ask 2-3 questions, and output a mini-plan
@@ -20,7 +19,7 @@ arguments:
     default: false
 ---
 
-# /craft:workflow:brief
+# /craft:brief
 
 Generate the 3-line action block from live session context. Invoke explicitly when you want the block — replaces the auto-fire behavior formerly in `research-session-defaults.md`.
 
@@ -314,7 +313,7 @@ Key risk:  [condition → mitigation]
 **Suggested footer on `/craft:do` output:** After every `do` completion, a one-line reminder appears:
 
 ```
-💡 /craft:workflow:brief --plan to plan next steps.
+💡 /craft:brief --plan to plan next steps.
 ```
 
 **Replaces:** `## End every research response with the action block` in `~/.claude/rules/research-session-defaults.md`. That section has been removed; invoke this command explicitly.
@@ -322,5 +321,5 @@ Key risk:  [condition → mitigation]
 ## See Also
 
 - `/craft:do <task> --brief` — execute + append block
-- `/craft:workflow:done` — full session completion flow
-- `/craft:workflow:brainstorm` — full planning session from scratch
+- `/craft:done` — full session completion flow
+- `/craft:brainstorm` — full planning session from scratch

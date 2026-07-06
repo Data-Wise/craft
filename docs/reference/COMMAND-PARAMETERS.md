@@ -842,7 +842,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Workflow Commands Parameters
 
-### /craft:workflow:brainstorm
+### /craft:brainstorm
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -861,7 +861,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:next
+### /craft:next
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -877,7 +877,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:done
+### /craft:done
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -894,7 +894,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:refine
+### /craft:refine
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|

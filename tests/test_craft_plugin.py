@@ -577,7 +577,7 @@ def test_consistent_naming():
 def test_refine_flag_documented():
     """The 5 target commands must declare --refine and delegate to the skill."""
     targets = [
-        "commands/workflow/brainstorm.md",
+        "commands/brainstorm.md",
         "commands/do.md",
         "commands/orchestrate.md",
         "commands/plan/feature.md",

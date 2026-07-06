@@ -1,4 +1,4 @@
-# /craft:workflow:brief
+# /craft:brief
 
 > **Generate a 3-line action block (Next step / Watch out for / Connects to) from live session context.**
 
@@ -116,6 +116,6 @@ Outputs the 3-line block, then proposes an execution path, asks 2–3 targeted q
 
 ## See Also
 
-- [`/craft:do`](../do.md) — smart task routing with optional `--brief` footer
+- [`/craft:do`](do.md) — smart task routing with optional `--brief` footer
 - [`/craft:workflow:done`](done.md) — full session completion flow
 - [`/craft:workflow:brainstorm`](brainstorm.md) — full planning session from scratch

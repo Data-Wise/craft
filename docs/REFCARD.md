@@ -1639,13 +1639,13 @@ Use `--no-tests` or `--no-docs` to suppress either.
 
 ```bash
 # End-of-session action block
-/craft:workflow:brief
+/craft:brief
 # Outputs: Next step / Watch out for / Connects to
 # Flags: --plan (add mini-plan), --verbose (expand each line), --show-context
 # Via /craft:do: appended to output with --brief flag (block only)
 ```
 
-**See:** [Brainstorm Documentation](commands/workflow/brainstorm.md) for complete guide
+**See:** [Brainstorm Documentation](commands/brainstorm.md) for complete guide
 
 ## Skills (45 total)
 

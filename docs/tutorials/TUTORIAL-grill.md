@@ -7,7 +7,7 @@
 
 Use `/craft:grill` when you already have a **position** — a spec, a plan, or even a rough idea —
 and you want it stress-tested before you write code. It is the **convergent** counterpart to
-`/craft:workflow:brainstorm`:
+`/craft:brainstorm`:
 
 - **brainstorm** opens the space: "what could we build?"
 - **grill** closes it: "where does this plan break?"
@@ -72,4 +72,4 @@ orchestration plan — no `GRILL-*` file is written mid-orchestration.
 ## See also
 
 - [`/craft:grill` reference](../commands/grill.md)
-- [`/craft:workflow:brainstorm`](../commands.md) — generate options first
+- [`/craft:brainstorm`](../commands.md) — generate options first

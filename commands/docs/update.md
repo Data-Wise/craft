@@ -287,8 +287,8 @@ When outdated GIFs are detected:
 │                                                             │
 │ brainstorm-demo.gif (outdated)                              │
 │   Command changed:                                          │
-│   OLD: /craft:workflow:brainstorm d:3 m:5                   │
-│   NEW: /craft:workflow:brainstorm --categories d:3 m:5      │
+│   OLD: /craft:brainstorm d:3 m:5                   │
+│   NEW: /craft:brainstorm --categories d:3 m:5      │
 │   Last updated: 2026-01-18                                  │
 │                                                             │
 │ Regenerate these GIFs? [y/N/one-by-one]                     │

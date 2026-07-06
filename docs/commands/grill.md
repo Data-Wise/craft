@@ -47,11 +47,11 @@ dependencies *before* you implement.
 
 | You want to… | Use |
 |--------------|-----|
-| Generate ideas, options, MVP scope | `/craft:workflow:brainstorm` (divergent) |
+| Generate ideas, options, MVP scope | `/craft:brainstorm` (divergent) |
 | Stress-test a plan/spec for gaps before building | `/craft:grill` (convergent) |
 
 ## See also
 
-- [`/craft:workflow:brainstorm`](../commands.md) — generate before you interrogate
+- [`/craft:brainstorm`](../commands.md) — generate before you interrogate
 - [`/craft:orchestrate`](orchestrate.md) — its Step 0.5 Clarify invokes a bounded grill
 - [Grill Tutorial](../tutorials/TUTORIAL-grill.md)

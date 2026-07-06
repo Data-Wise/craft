@@ -118,4 +118,4 @@ Start your next session with:
 ## See Also
 
 - [Learning Loop Guide](../../guide/learning-loop-session-completion.md)
-- [/workflow:done Reference](../../commands/workflow/done.md)
+- [/workflow:done Reference](../../commands/done.md)

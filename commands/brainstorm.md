@@ -1,7 +1,6 @@
 ---
 name: brainstorm
 description: Enhanced brainstorming with smart detection, design modes, time budgets, context-aware questions, and spec capture
-category: workflow
 arguments:
   - name: depth
     description: "Analysis depth: q|quick|d|deep (default: balanced, shows menu if omitted)"
@@ -50,7 +49,7 @@ replaced-by: "skills/workflow/brainstorm/"
 > **This command is a thin shim.** The canonical behavior lives in the
 > `brainstorm` skill (a sibling of `brainstorm-insights`, which now holds
 > only the session-insights operation — see "Why this is a redesign" below).
-> This file exists only to preserve the explicit `/craft:workflow:brainstorm`
+> This file exists only to preserve the explicit `/craft:brainstorm`
 > slash entry point through the v2.34.0 → v3.0.0 migration.
 
 ## --refine / --no-refine (prompt pre-processing)
@@ -67,7 +66,7 @@ no-argument interactive commands, refine AFTER the topic is captured.
 ## When invoked
 
 1. **Load the canonical procedure:** read
-   [`skills/workflow/brainstorm/SKILL.md`](../../skills/workflow/brainstorm/SKILL.md)
+   [`skills/workflow/brainstorm/SKILL.md`](../skills/workflow/brainstorm/SKILL.md)
    and follow it exactly — parse args, pick depth+focus, context scan,
    expert questions, one follow-up offer, generate output, optional spec
    capture, optional `--orch` handoff.
@@ -109,4 +108,4 @@ deprecated-commands audit. This redesign:
 `--no-tests` / `--no-docs` still suppress the auto-emitted sections, per the
 arguments above. The tier-inference table and doc-scorer reuse are
 documented in the skill, not here — see
-[`skills/workflow/brainstorm/SKILL.md`](../../skills/workflow/brainstorm/SKILL.md#test-plan-and-documentation-scaffolding-default-on).
+[`skills/workflow/brainstorm/SKILL.md`](../skills/workflow/brainstorm/SKILL.md#test-plan-and-documentation-scaffolding-default-on).

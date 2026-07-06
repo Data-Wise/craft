@@ -1,4 +1,4 @@
-# /workflow:done
+# /craft:done
 
 > **Session completion and context capture - never lose progress at session boundaries.**
 

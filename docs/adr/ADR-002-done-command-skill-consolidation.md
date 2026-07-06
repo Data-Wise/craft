@@ -21,7 +21,7 @@ Each command was marked `deprecated: true, replaced-by: "skills/workflow/adhd-wo
 
 A latent defect surfaced during a grill of `SPEC-done-memory-settings-2026-06-23.md`:
 
-- `commands/workflow/done.md` held **1195 lines** of detailed, current behavior — CLAUDE.md sync, Settings Sync (Step 1.10.5), Memory Capture, Memory Optimize (Step 1.12), Insights Capture, Worktree Status, the interactive summary, and auto-git.
+- `commands/done.md` held **1195 lines** of detailed, current behavior — CLAUDE.md sync, Settings Sync (Step 1.10.5), Memory Capture, Memory Optimize (Step 1.12), Insights Capture, Worktree Status, the interactive summary, and auto-git.
 - `skills/workflow/adhd-workflow/SKILL.md` held a **167-line** router covering all seven operations — a ~24:1 compression. Its "Session Completion" operation was a 5-bullet summary that **did not contain** the detailed flow.
 
 Consequence: the two `/done` entry paths diverged. The slash command ran the rich flow; the natural-language path ran the thin summary. New behavior (Steps 1.10.5 / 1.12, shipped in `1636cf66`) lived **only** in the command — a file scheduled for deletion at v3.0.0. At that point the detail would silently vanish from the user-facing `/done`.
@@ -32,7 +32,7 @@ Consequence: the two `/done` entry paths diverged. The slash command ran the ric
 
 1. The full session-completion procedure moves to `skills/workflow/adhd-workflow/references/done.md` (mirrors the established `skills/release/references/` pattern — heavy operation detail in `references/`, loaded on demand).
 2. `skills/workflow/adhd-workflow/SKILL.md` operation 1 keeps a quick 5-step summary and **points to** `references/done.md` for the full flow.
-3. `commands/workflow/done.md` is reduced to a **thin shim** (~36 lines) that loads and follows `references/done.md`. It preserves the explicit `/craft:workflow:done` slash entry point through v3.0.0.
+3. `commands/done.md` is reduced to a **thin shim** (~36 lines) that loads and follows `references/done.md`. It preserves the explicit `/craft:done` slash entry point through v3.0.0.
 
 Both entry paths — slash command and natural-language match — now resolve to the **same** reference file. There is exactly one place to edit `/done` behavior.
 

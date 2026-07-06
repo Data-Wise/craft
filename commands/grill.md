@@ -32,7 +32,7 @@ arguments:
 > [`grill` skill](../skills/workflow/grill/SKILL.md). This file preserves the
 > explicit `/craft:grill` slash entry point and owns the argument surface.
 
-Convergent counterpart to `/craft:workflow:brainstorm`: brainstorm is **divergent** (generates
+Convergent counterpart to `/craft:brainstorm`: brainstorm is **divergent** (generates
 options); grill is **convergent** (interrogates a position to find gaps, contradictions, and
 unresolved dependencies before you implement).
 

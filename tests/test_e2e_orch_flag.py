@@ -131,7 +131,7 @@ class TestOrchFlagE2E:
 
         commands = [
             "commands/do.md",
-            "commands/workflow/brainstorm.md",
+            "commands/brainstorm.md",
             "commands/check.md",
             "commands/docs/sync.md",
             "commands/ci/generate.md",

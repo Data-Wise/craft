@@ -420,7 +420,7 @@ class TestPluginJsonSchema:
 def test_refine_delegates_to_skill():
     """Every --refine command must delegate to the skill, not restate the flow."""
     targets = [
-        "commands/workflow/brainstorm.md",
+        "commands/brainstorm.md",
         "commands/do.md",
         "commands/orchestrate.md",
         "commands/plan/feature.md",

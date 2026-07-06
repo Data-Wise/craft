@@ -14,8 +14,8 @@ Subagent calls (orchestrator agents, brainstorm's old delegation path) were burn
 
 | File | Before | After | Δ |
 |---|---:|---:|---:|
-| `commands/workflow/refine.md` | 630 lines | 42 lines | **−93%** |
-| `commands/workflow/brainstorm.md` | 528 lines | 112 lines | **−79%** |
+| `commands/refine.md` | 630 lines | 42 lines | **−93%** |
+| `commands/brainstorm.md` | 528 lines | 112 lines | **−79%** |
 | `agents/orchestrator-v2.md` | 1473 lines | 1212 lines | −18% |
 | `skills/workflow/brainstorm-insights/SKILL.md` | 236 lines | 170 lines | −28% |
 

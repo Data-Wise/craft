@@ -1,4 +1,4 @@
-# /workflow:brainstorm
+# /craft:brainstorm
 
 > **ADHD-friendly brainstorming with smart detection, time budgets, and spec capture for implementation. v2.4.0 adds question control with colon notation and categories!**
 
@@ -35,7 +35,7 @@
 
 Enhanced brainstorming with smart mode detection, time budgets, agent delegation, and spec capture for implementation. Designed to be ADHD-friendly with escape hatches at every step.
 
-> **`--refine` flag:** Add `--refine` to sharpen your prompt via the `prompt-refiner` skill before acting. See [the --refine flag guide](../../help/refine-flag.md).
+> **`--refine` flag:** Add `--refine` to sharpen your prompt via the `prompt-refiner` skill before acting. See [the --refine flag guide](../help/refine-flag.md).
 
 **v2.4.0 Features:**
 

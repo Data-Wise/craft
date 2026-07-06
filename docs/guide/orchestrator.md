@@ -55,7 +55,7 @@ The `--orch` flag enables orchestration directly from supported commands:
 | Command | Usage |
 |---------|-------|
 | `/craft:do` | `/craft:do "task" --orch=[mode]` |
-| `/craft:workflow:brainstorm` | `/brainstorm "topic" --orch=[mode]` |
+| `/craft:brainstorm` | `/brainstorm "topic" --orch=[mode]` |
 | `/craft:check` | `/craft:check --orch=[mode]` |
 | `/craft:docs:sync` | `/craft:docs:sync --orch=[mode]` |
 | `/craft:ci:generate` | `/craft:ci:generate --orch=[mode]` |
@@ -288,5 +288,5 @@ Choosing the right approach depends on your task scope and need for isolation:
 
 - [Skills & Agents](../skills-agents.md) - Understanding the system
 - [Getting Started](getting-started.md) - Basic usage
-- [Brainstorm Command](../commands/workflow/brainstorm.md) - Context gathering (v2.4.0)
+- [Brainstorm Command](../commands/brainstorm.md) - Context gathering (v2.4.0)
 - [**NEW** --orch Flag Guide](orch-flag-usage.md) - Quick orchestration (v2.5.0)

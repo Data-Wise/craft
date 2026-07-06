@@ -133,7 +133,7 @@ Non-interactive mode for CI automation and scripted workflows.
 │   ✅ docs/guide/version-sync.md (created)                     │
 │                                                               │
 │ Skipped (no changes needed):                                  │
-│   ─ docs/commands/workflow/done.md                            │
+│   ─ docs/commands/done.md                            │
 │   ─ docs/tutorials/getting-started.md                        │
 │                                                               │
 │ Committed: "docs: auto-sync documentation"                   │
@@ -156,7 +156,7 @@ Shows what would be updated without modifying files:
 │   → docs/guide/version-sync.md (create new)                  │
 │                                                               │
 │ No changes needed:                                            │
-│   ─ docs/commands/workflow/done.md                            │
+│   ─ docs/commands/done.md                            │
 │                                                               │
 │ Run without --dry-run to apply changes.                       │
 └───────────────────────────────────────────────────────────────┘

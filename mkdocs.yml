@@ -315,10 +315,10 @@ nav:
       - /craft:docs:website: commands/docs/website.md
       - /craft:docs:workflow: commands/docs/workflow.md
       - /craft:git:worktree: commands/git/worktree.md
-      - /craft:workflow:brainstorm: commands/workflow/brainstorm.md
-      - /craft:workflow:brief: commands/workflow/brief.md
+      - /craft:brainstorm: commands/brainstorm.md
+      - /craft:brief: commands/brief.md
       - /craft:workflow:insights: commands/workflow/insights.md
-      - /workflow:done: commands/workflow/done.md
+      - /craft:done: commands/done.md
       - /craft:arch:analyze: commands/arch/analyze.md
       - /craft:code:lint: commands/code/lint.md
       - /craft:code:deps-audit: commands/code/deps-audit.md

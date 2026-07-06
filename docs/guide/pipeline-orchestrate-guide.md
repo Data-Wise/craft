@@ -14,7 +14,7 @@ brainstorm → spec → [grill] → ORCHESTRATE → worktree → implement → P
 
 | Feature | Type | Purpose |
 |---------|------|---------|
-| `/craft:workflow:brainstorm` | Command | **Divergent** — generates options, captures a SPEC |
+| `/craft:brainstorm` | Command | **Divergent** — generates options, captures a SPEC |
 | `/craft:grill` | Command | **Convergent** — interrogates a spec/plan/topic one question at a time until every branch is resolved; captures a `GRILL-*.md` ledger |
 | `/craft:orchestrate:plan` | Command | Spec (+ optional grill ledger) → ORCHESTRATE → worktree pipeline |
 | `/craft:orchestrate:workflow` | Command | Coded fixed-control-flow program → schema-gated, resumable ([guide](../commands/orchestrate-workflow.md)) |
@@ -259,7 +259,7 @@ graph TD
 
 ```bash
 # 1. Brainstorm the feature
-/craft:workflow:brainstorm "add user authentication"
+/craft:brainstorm "add user authentication"
 
 # 2. Save as spec (prompted automatically)
 # → Saves to docs/specs/SPEC-auth-2026-02-15.md

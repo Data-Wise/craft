@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: This skill should be used when the user asks to "brainstorm", "explore ideas", "design a feature", "draft a spec", "capture a spec", or mentions ideation, requirements gathering, spec capture, or brainstorming depth/focus modes. Generates BRAINSTORM/SPEC documents from project + conversation context. Replaces the deprecated /craft:workflow:brainstorm command. For session-facet friction or pattern analysis across past sessions, use the brainstorm-insights skill instead.
+description: This skill should be used when the user asks to "brainstorm", "explore ideas", "design a feature", "draft a spec", "capture a spec", or mentions ideation, requirements gathering, spec capture, or brainstorming depth/focus modes. Generates BRAINSTORM/SPEC documents from project + conversation context. Replaces the deprecated /craft:brainstorm command. For session-facet friction or pattern analysis across past sessions, use the brainstorm-insights skill instead.
 ---
 
 # Brainstorm
@@ -64,7 +64,7 @@ If the user wants more, they ask; don't build a state machine for it.
 ### Category override (`-C` / `--categories`)
 
 Default category selection is focus-driven (see table below). Override with
-`-C <list>` / `--categories <list>` (comma-separated, matching `commands/workflow/brainstorm.md`
+`-C <list>` / `--categories <list>` (comma-separated, matching `commands/brainstorm.md`
 frontmatter):
 
 | Category | Covers |

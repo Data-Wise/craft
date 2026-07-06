@@ -405,12 +405,12 @@ Context restoration — summarize what happened in the current or previous sessi
 /craft:workflow:recap
 ```
 
-### /craft:workflow:refine
+### /craft:refine
 
 Prompt optimizer — improve and refine prompts interactively.
 
 ```bash
-/craft:workflow:refine "my prompt text"
+/craft:refine "my prompt text"
 ```
 
 ### /craft:workflow:task-status

@@ -1,6 +1,6 @@
 ---
 name: plugin-audit
-description: This skill should be used when the user asks to "audit my plugins", "check for plugin duplicates", "plugin collision check", "find duplicate skills across plugins", "which plugins overlap", or wants to know if an installed Claude Code plugin duplicates or shadows another plugin's commands/skills. Diffs enabled plugins' actual command/skill surface against each other and flags cross-namespace name collisions — e.g. a bare `workflow:brainstorm` skill in one plugin vs. `craft:workflow:brainstorm` in another. Read-only — reports findings, never disables or uninstalls a plugin itself. Do not confuse with guard-audit (branch-guard.sh rule tuning) or command-skill-token-efficiency (command-vs-skill placement within a single plugin) — this skill compares surfaces ACROSS installed plugins.
+description: This skill should be used when the user asks to "audit my plugins", "check for plugin duplicates", "plugin collision check", "find duplicate skills across plugins", "which plugins overlap", or wants to know if an installed Claude Code plugin duplicates or shadows another plugin's commands/skills. Diffs enabled plugins' actual command/skill surface against each other and flags cross-namespace name collisions — e.g. a bare `workflow:brainstorm` skill in one plugin vs. `craft:brainstorm` in another. Read-only — reports findings, never disables or uninstalls a plugin itself. Do not confuse with guard-audit (branch-guard.sh rule tuning) or command-skill-token-efficiency (command-vs-skill placement within a single plugin) — this skill compares surfaces ACROSS installed plugins.
 ---
 
 # Plugin Audit
@@ -9,7 +9,7 @@ Finds duplicate or colliding plugins in the current Claude Code installation —
 
 ## Why this matters
 
-Two plugins registering the same command or skill name — or near-duplicate content under different namespaces (`workflow:brainstorm` vs. `craft:workflow:brainstorm`) — is both a token-cost problem (duplicate content loads twice) and a correctness problem (routing ambiguity: which one fires?). Manual plugin audits are infrequent and don't scale past a handful of plugins; this skill makes the surface-diff repeatable and cheap enough to run any time plugin state changes.
+Two plugins registering the same command or skill name — or near-duplicate content under different namespaces (`workflow:brainstorm` vs. `craft:brainstorm`) — is both a token-cost problem (duplicate content loads twice) and a correctness problem (routing ambiguity: which one fires?). Manual plugin audits are infrequent and don't scale past a handful of plugins; this skill makes the surface-diff repeatable and cheap enough to run any time plugin state changes.
 
 ## What this skill does NOT do
 
@@ -22,7 +22,7 @@ Two plugins registering the same command or skill name — or near-duplicate con
 1. **`~/.claude/settings.json`** — `enabledPlugins` object. Keys are `<plugin-name>@<marketplace-name>`; only plugins with a truthy value are actually active.
 2. **`~/.claude/plugins/installed_plugins.json`** (if present) — richer per-plugin metadata (source path, marketplace, version) than `settings.json` alone provides. Treat as supplementary, not required — some installations only have `settings.json`. **Schema:** `{"version": 2, "plugins": {"<name>@<marketplace>": [{"installPath": "...", "version": "...", ...}]}}` — `.plugins` is an object keyed by `<name>@<marketplace>`, each value an ARRAY of install records (usually one). The on-disk path field is `installPath`, not `path`.
 3. **Each enabled plugin's own directory** — resolve via `installed_plugins.json`'s recorded path, or `~/.claude/plugins/marketplaces/<marketplace>/<plugin>/` / `~/.claude/plugins/repos/...` (layout varies by install method: local marketplace vs. GitHub marketplace vs. Desktop). Within that directory, the actual surface is:
-   - `commands/**/*.md` — each file's path (minus the `.md`) becomes a command name, namespaced as `<plugin>:<relative-path-without-ext>` (e.g. `commands/workflow/brainstorm.md` → `<plugin>:workflow:brainstorm`).
+   - `commands/**/*.md` — each file's path (minus the `.md`) becomes a command name, namespaced as `<plugin>:<relative-path-without-ext>` (e.g. `commands/brainstorm.md` → `<plugin>:workflow:brainstorm`).
    - `skills/**/SKILL.md` — each `SKILL.md`'s parent directory name is the skill name, namespaced the same way.
 
 ## Audit procedure
@@ -92,7 +92,7 @@ Run this pairwise across all `C(N, 2)` plugin pairs. For N enabled plugins this 
 │                                                                │
 │ [COLLISION] "brainstorm"                                      │
 │   - workflow@local-plugins  commands/brainstorm.md            │
-│   - craft@local-plugins     commands/workflow/brainstorm.md   │
+│   - craft@local-plugins     commands/brainstorm.md   │
 │   Same base name, likely duplicate/redundant plugin.           │
 │   Recommendation: review workflow@local-plugins for removal    │
 │   (this skill does not remove it — human judgment call).       │
@@ -114,7 +114,7 @@ To sanity-check this skill's logic without touching real installed plugins, crea
 
 ```text
 /tmp/workflow/commands/brainstorm.md
-/tmp/fixture-plugin-craft/commands/workflow/brainstorm.md
+/tmp/fixture-plugin-craft/commands/brainstorm.md
 ```
 
 Both have base name `brainstorm` — Step 3's `comm -12` on their basename lists finds one shared basename, and `fixture-plugin-craft`'s command lives under a `workflow/` subdirectory matching the first plugin's own name (`workflow`) → structural containment fires → **reportable**, even though there's only one shared basename. This mirrors the real `workflow@local-plugins` vs. `craft` finding from 2026-07-01 without requiring a live plugin install to reproduce.

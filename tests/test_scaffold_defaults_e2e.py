@@ -14,7 +14,7 @@ def test_scaffold_templates_exist():
     assert "Documentation" in body, "must hold the doc-section template"
 
 
-DEFAULT_ON = {"commands/workflow/brainstorm.md", "commands/plan/feature.md", "commands/grill.md"}
+DEFAULT_ON = {"commands/brainstorm.md", "commands/plan/feature.md", "commands/grill.md"}
 OPT_IN = {"commands/arch/plan.md", "commands/workflow/spec-review.md"}
 
 def test_scaffold_flag_scope():
@@ -37,7 +37,7 @@ def test_logic_lives_in_skills_not_deprecated_commands():
     # plan/feature.md is excluded: it was un-deprecated 2026-07-04 (SPEC-orchestrator-
     # consolidation-2026-07-04.md D2) after discovering it was never actually a thin
     # shim — it carries genuine independent feature-planning content, not a redirect.
-    for rel in ["commands/workflow/brainstorm.md"]:
+    for rel in ["commands/brainstorm.md"]:
         t = (PLUGIN_DIR / rel).read_text(encoding="utf-8").lower()
         assert "brainstorm-insights" in t or "plan-orchestrator" in t, \
             f"{rel} must point to its skill"
