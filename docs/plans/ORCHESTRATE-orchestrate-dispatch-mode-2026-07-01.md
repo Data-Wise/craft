@@ -4,8 +4,8 @@
 > 3rd `--output` value dispatching a background Agent from the live planning session. Later
 > partially simplified per `SPEC-orchestrator-consolidation-2026-07-04.md`'s dispatch-safety
 > track (§2 — simplify toward platform-native background-agent defaults; not yet started as of
-> 2026-07-06, see `.STATUS`). The remote `feature/orchestrate-dispatch-mode` branch was never
-> deleted post-merge — safe to delete (squash-merged), not done here.
+> 2026-07-06, see `.STATUS`). The remote `feature/orchestrate-dispatch-mode` branch (stale since
+> merge) was deleted 2026-07-06.
 
 > **Branch:** `feature/orchestrate-dispatch-mode`
 > **Base:** `dev`
