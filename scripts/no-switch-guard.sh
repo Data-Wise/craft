@@ -61,8 +61,14 @@ announce() {  # $1 = notice → allowed, but shown to the user
 }
 
 # --- helpers --------------------------------------------------------------
-# Resolve the repo dir the command targets (honor `git -C <dir>`), else cwd.
+# Resolve the repo dir the command targets: `git -C <dir>` first, else a
+# leading `cd <dir> &&` (this project's own documented cross-repo idiom —
+# without this, is_dirty() below checks the hook's own invocation cwd
+# instead of the repo the switch actually targets), else cwd.
 git_dir=$(printf '%s' "$cmd" | grep -oE 'git[[:space:]]+-C[[:space:]]+[^[:space:]]+' | head -1 | awk '{print $3}')
+if [ -z "$git_dir" ]; then
+  git_dir=$(printf '%s' "$cmd" | grep -oE '(^|;|&&)[[:space:]]*cd[[:space:]]+[^[:space:]]+' | head -1 | sed -E 's/^(;|&&)?[[:space:]]*cd[[:space:]]+//')
+fi
 is_dirty() {
   local out
   out=$(git ${git_dir:+-C "$git_dir"} status --porcelain 2>/dev/null) || return 1
