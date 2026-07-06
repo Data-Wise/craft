@@ -22,7 +22,7 @@ tutorial_file: docs/cookbook/recipes/run-a-coded-workflow.md
 tags: workflow, orchestration, parallel, fan-out, yaml
 ---
 
-# /craft:orchestrate:workflow — Coded Orchestration
+# /craft:orch:workflow — Coded Orchestration
 
 Executes a **fixed control-flow program** — `parallel` / `pipeline` / `loop` /
 `verify` — where only the *count* of agents in a `parallel` stage flexes to
@@ -34,9 +34,9 @@ skill.
 >
 > | Mode | Control model | Best for |
 > |------|---------------|----------|
-> | `/craft:orchestrate` | LLM improvises each turn | exploratory work |
-> | `/craft:orchestrate:drive` | drive an approved SPEC to green | spec → done |
-> | `/craft:orchestrate:workflow` | **fixed coded program** | known shapes: decompose → cover N → verify M → synthesize |
+> | `/craft:orch` | LLM improvises each turn | exploratory work |
+> | `/craft:orch:drive` | drive an approved SPEC to green | spec → done |
+> | `/craft:orch:workflow` | **fixed coded program** | known shapes: decompose → cover N → verify M → synthesize |
 
 ## Execution Behavior (MANDATORY)
 
@@ -119,8 +119,8 @@ written at run completion (success, verify-fail, or hard error).
 
 ## See Also
 
-- `/craft:orchestrate` — free-form multi-agent orchestration
-- `/craft:orchestrate:drive` — drive an approved SPEC to green
+- `/craft:orch` — free-form multi-agent orchestration
+- `/craft:orch:drive` — drive an approved SPEC to green
 - `workflow-engine` skill — the compile + dispatch + verify body this command calls
 - [Run a coded workflow](../../docs/cookbook/recipes/run-a-coded-workflow.md) — cookbook: write a `WORKFLOW-*.yaml`, dry-run preview, execute, resume
 - [Fan a workflow across files](../../docs/cookbook/recipes/fan-a-workflow-across-files.md) — cookbook: list → parallel-per-file → gate → summarize pattern

@@ -13,11 +13,11 @@ deprecated: true
 replaced-by: "skills/orchestration/plan-orchestrator/"
 ---
 
-# /craft:orchestrate:plan — Spec → ORCHESTRATE → Worktree Pipeline
+# /craft:orch:plan — Spec → ORCHESTRATE → Worktree Pipeline
 
 > **This command is a thin shim.** The canonical behavior lives in the
 > [`plan-orchestrator` skill](../../skills/orchestration/plan-orchestrator/SKILL.md). This file
-> preserves the explicit `/craft:orchestrate:plan` slash entry point and owns the argument surface.
+> preserves the explicit `/craft:orch:plan` slash entry point and owns the argument surface.
 
 Generate an ORCHESTRATE file from a spec document, optionally creating a worktree for isolated
 development.
@@ -26,16 +26,16 @@ development.
 
 ```bash
 # Interactive: scan for specs and choose
-/craft:orchestrate:plan
+/craft:orch:plan
 
 # Direct: specify spec path
-/craft:orchestrate:plan docs/specs/SPEC-auth-2026-02-15.md
+/craft:orch:plan docs/specs/SPEC-auth-2026-02-15.md
 
 # ORCHESTRATE only (no worktree)
-/craft:orchestrate:plan docs/specs/SPEC-auth.md --output orchestrate-only
+/craft:orch:plan docs/specs/SPEC-auth.md --output orchestrate-only
 
 # ORCHESTRATE + worktree + dispatch to a background Agent (skips the STOP-new-session step)
-/craft:orchestrate:plan docs/specs/SPEC-auth.md --output orchestrate-dispatch
+/craft:orch:plan docs/specs/SPEC-auth.md --output orchestrate-dispatch
 ```
 
 ## When Invoked
@@ -52,6 +52,6 @@ The `spec-path` and `output` arguments above are parsed here and passed through 
 
 ## See Also
 
-- [/craft:orchestrate](../orch.md) — Launch orchestrator mode
+- [/craft:orch](../orch.md) — Launch orchestrator mode
 - [/craft:git:worktree](../git/worktree.md) — Manual worktree management
 - [Worktree Tutorial](../../docs/tutorials/TUTORIAL-worktree-setup.md) — Step-by-step guide

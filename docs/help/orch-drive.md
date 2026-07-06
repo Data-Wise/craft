@@ -54,4 +54,4 @@ verify command:
 
 - `/craft:orch:drive` command reference
 - `/craft:orch` — free-form orchestration (`--swarm`)
-- Tutorial: `TUTORIAL-orchestrate-drive.md`
+- Tutorial: `TUTORIAL-orch-drive.md`

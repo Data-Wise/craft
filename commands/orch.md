@@ -35,21 +35,21 @@ arguments:
     required: false
 ---
 
-# /craft:orchestrate — Launch Orchestrator Mode
+# /craft:orch — Launch Orchestrator Mode
 
 ## Usage
 
 ```bash
-/craft:orchestrate <task>              # Start with default mode
-/craft:orchestrate <task> <mode>       # Start with specific mode
-/craft:orchestrate <task> --dry-run    # Preview orchestration plan
-/craft:orchestrate <task> -n           # Preview orchestration plan
-/craft:orchestrate <task> --swarm     # Isolated worktrees per agent
-/craft:orchestrate status              # Show agent dashboard
-/craft:orchestrate timeline            # Show execution timeline
-/craft:orchestrate compress            # Force chat compression
-/craft:orchestrate continue            # Resume previous session
-/craft:orchestrate abort               # Stop all agents
+/craft:orch <task>              # Start with default mode
+/craft:orch <task> <mode>       # Start with specific mode
+/craft:orch <task> --dry-run    # Preview orchestration plan
+/craft:orch <task> -n           # Preview orchestration plan
+/craft:orch <task> --swarm     # Isolated worktrees per agent
+/craft:orch status              # Show agent dashboard
+/craft:orch timeline            # Show execution timeline
+/craft:orch compress            # Force chat compression
+/craft:orch continue            # Resume previous session
+/craft:orch abort               # Stop all agents
 ```
 
 ## --refine (prompt pre-processing)
@@ -146,9 +146,9 @@ one: it's orchestrator-v2-specific config (agent concurrency, compression ratio)
 | `release` | 4 | 85% | Pre-release audit |
 
 ```bash
-/craft:orchestrate "add auth" optimize    # Fast parallel
-/craft:orchestrate "prep release" release # Thorough audit
-/craft:orchestrate "debug login" debug    # Sequential verbose
+/craft:orch "add auth" optimize    # Fast parallel
+/craft:orch "prep release" release # Thorough audit
+/craft:orch "debug login" debug    # Sequential verbose
 ```
 
 ## Execution Behavior (MANDATORY)
@@ -318,7 +318,7 @@ Only spawn agents after the user selects "Yes - Start Wave 1".
     "options": [
       {
         "label": "Yes use :workflow (Recommended)",
-        "description": "Route to /craft:orchestrate:drive using the detected spec/workflow file."
+        "description": "Route to /craft:orch:drive using the detected spec/workflow file."
       },
       {
         "label": "No use fanout instead",
@@ -345,10 +345,10 @@ Spawn agents according to the confirmed plan. Show progress after each wave.
 ## Examples
 
 ```bash
-/craft:orchestrate "add user authentication with OAuth"   # default mode
-/craft:orchestrate "prep release" release                 # thorough audit
-/craft:orchestrate "refactor data layer" --swarm          # isolated worktrees per agent
-/craft:orchestrate "add auth" --dry-run                    # preview plan, spawn nothing
+/craft:orch "add user authentication with OAuth"   # default mode
+/craft:orch "prep release" release                 # thorough audit
+/craft:orch "refactor data layer" --swarm          # isolated worktrees per agent
+/craft:orch "add auth" --dry-run                    # preview plan, spawn nothing
 ```
 
 Full worked examples with progress mockups live in the reference doc.
@@ -382,7 +382,7 @@ management, worktree types, swarm deep config, performance tips, and token instr
 
 ## See Also
 
-- `/craft:orchestrate:drive` — spec-anchored /goal turn-loop (vs --swarm fan-out)
+- `/craft:orch:drive` — spec-anchored /goal turn-loop (vs --swarm fan-out)
 - `/craft:do` — Simpler task routing (no monitoring)
 - `/craft:check` — Pre-flight validation
 - `/craft:hub` — Discover all commands

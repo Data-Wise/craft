@@ -32,14 +32,14 @@ arguments:
     required: false
 ---
 
-# /craft:orchestrate:drive — Spec-Driven Autonomous Loop
+# /craft:orch:drive — Spec-Driven Autonomous Loop
 
 Drives an approved SPEC to completion using Claude Code's built-in `/goal`
 as the turn-loop engine. Thin wrapper: it owns condition synthesis,
 precondition gating, and the confirm gate — and delegates dispatch + the
 real verify gate to the `drive-engine` skill.
 
-> **drive vs `/craft:orchestrate --swarm`:** `drive` is a spec-anchored
+> **drive vs `/craft:orch --swarm`:** `drive` is a spec-anchored
 > `/goal` turn-loop (iterate until a condition holds, real verify
 > arbitrates). `--swarm` is free-form fan-out-and-converge across isolated
 > worktrees. Use `drive` when you have an approved spec and want
@@ -109,6 +109,6 @@ e.g. `gh pr create --base dev`. Never open the PR yourself.
 
 ## See Also
 
-- `/craft:orchestrate` — free-form multi-agent orchestration (`--swarm`)
+- `/craft:orch` — free-form multi-agent orchestration (`--swarm`)
 - `plan-orchestrator` skill — produce an ORCHESTRATE file from a spec
 - `drive-engine` skill — the dispatch + verify body this command calls

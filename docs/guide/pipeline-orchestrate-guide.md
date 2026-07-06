@@ -17,7 +17,7 @@ brainstorm → spec → [grill] → ORCHESTRATE → worktree → implement → P
 | `/craft:brainstorm` | Command | **Divergent** — generates options, captures a SPEC |
 | `/craft:grill` | Command | **Convergent** — interrogates a spec/plan/topic one question at a time until every branch is resolved; captures a `GRILL-*.md` ledger |
 | `/craft:orch:plan` | Command | Spec (+ optional grill ledger) → ORCHESTRATE → worktree pipeline |
-| `/craft:orch:workflow` | Command | Coded fixed-control-flow program → schema-gated, resumable ([guide](../commands/orchestrate-workflow.md)) |
+| `/craft:orch:workflow` | Command | Coded fixed-control-flow program → schema-gated, resumable ([guide](../commands/orch/workflow.md)) |
 | `/craft:insights` | Command | Session friction reports from facets data |
 | Brainstorm Step 6 | Enhancement | Offer ORCHESTRATE creation after spec capture |
 | Brainstorm Step 1.8 | Enhancement | Surface insights before brainstorming |

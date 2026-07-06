@@ -75,4 +75,4 @@ per-agent output JSON, a human-readable `manifest.json`, and `semaphore.count`.
 
 - `/craft:orch:workflow` command reference
 - `/craft:orch:drive` — drive an approved SPEC to green
-- Tutorial: `TUTORIAL-orchestrate-workflow.md`
+- Tutorial: `TUTORIAL-orch-workflow.md`

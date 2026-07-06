@@ -1,4 +1,4 @@
-# /craft:orchestrate
+# /craft:orch
 
 > **Launch orchestrator mode with subagent delegation, monitoring, and chat compression.**
 
@@ -7,23 +7,23 @@
 ## Synopsis
 
 ```bash
-/craft:orchestrate <task> [mode]
-/craft:orchestrate <command>
+/craft:orch <task> [mode]
+/craft:orch <command>
 ```
 
 **Quick examples:**
 
 ```bash
 # Start orchestrated workflow
-/craft:orchestrate "add user authentication"
+/craft:orch "add user authentication"
 
 # Use specific mode
-/craft:orchestrate "add tests for all endpoints" optimize
+/craft:orch "add tests for all endpoints" optimize
 
 # Control commands
-/craft:orchestrate status
-/craft:orchestrate timeline
-/craft:orchestrate abort
+/craft:orch status
+/craft:orch timeline
+/craft:orch abort
 ```
 
 ---
@@ -60,9 +60,9 @@ Activates Orchestrator v2.1 mode which decomposes complex tasks into subtasks, s
 **Examples:**
 
 ```bash
-/craft:orchestrate "add auth" optimize    # Fast parallel
-/craft:orchestrate "prep release" release # Thorough audit
-/craft:orchestrate "debug login" debug    # Sequential verbose
+/craft:orch "add auth" optimize    # Fast parallel
+/craft:orch "prep release" release # Thorough audit
+/craft:orch "debug login" debug    # Sequential verbose
 ```
 
 ---
@@ -97,7 +97,7 @@ Commands now follow a "Show Steps First" pattern — plans are shown before exec
 If no mode is specified, you'll be prompted:
 
 ```
-/craft:orchestrate "add user authentication"
+/craft:orch "add user authentication"
 
 ? Which orchestration mode should I use?
   › Default (Recommended) — 2 agents max, balanced speed and oversight
@@ -177,7 +177,7 @@ Each mode produces visibly different output:
 ### Start Orchestrated Workflow
 
 ```bash
-/craft:orchestrate "add user authentication with OAuth"
+/craft:orch "add user authentication with OAuth"
 
 ## TASK ANALYSIS
 
@@ -203,7 +203,7 @@ Spawning Wave 1 agents...
 ### Check Status
 
 ```bash
-/craft:orchestrate status
+/craft:orch status
 
 ## 🔄 AGENT STATUS
 
@@ -220,7 +220,7 @@ Spawning Wave 1 agents...
 ### View Timeline
 
 ```bash
-/craft:orchestrate timeline
+/craft:orch timeline
 
 ## ⏱️ EXECUTION TIMELINE
 
@@ -238,7 +238,7 @@ code-2   ░░░░░░░░██████░░░░░░░░░ �
 ### Context Budget
 
 ```bash
-/craft:orchestrate budget
+/craft:orch budget
 
 ## 📊 CONTEXT BUDGET
 
@@ -260,13 +260,13 @@ Sessions persist across disconnects:
 
 ```bash
 # Resume previous session
-/craft:orchestrate continue
+/craft:orch continue
 
 # Force save current state
-/craft:orchestrate save
+/craft:orch save
 
 # View session history
-/craft:orchestrate history
+/craft:orch history
 
 ## 📜 SESSION HISTORY
 
@@ -311,7 +311,7 @@ The orchestrator tracks context usage:
 When context gets high, compression archives completed work:
 
 ```bash
-/craft:orchestrate compress
+/craft:orch compress
 
 ## ⚠️ CONTEXT COMPRESSION
 
@@ -347,7 +347,7 @@ The orchestrator coordinates complex workflows that include context gathering wi
 ### Example
 
 ```bash
-/craft:orchestrate "plan new authentication feature"
+/craft:orch "plan new authentication feature"
 ```
 
 Flow:
@@ -362,15 +362,15 @@ Flow:
 
 ```bash
 # Quick context then implement
-/craft:orchestrate "add payment" default
+/craft:orch "add payment" default
 # → Brainstorm q:2 → backend implementation
 
 # Deep context with parallel agents
-/craft:orchestrate "design microservices" optimize
+/craft:orch "design microservices" optimize
 # → Brainstorm d:8 -C tech,risk → 4 agents in parallel
 
 # Full lifecycle (v2.4.0)
-/craft:orchestrate "implement feature" release
+/craft:orch "implement feature" release
 # → Brainstorm d:10 -C req,tech,success → arch + code + test + docs
 ```
 

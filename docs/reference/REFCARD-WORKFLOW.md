@@ -92,6 +92,6 @@ a change cascades downstream invalidation. `--resume` re-runs only what changed.
 
 ## See Also
 
-- Command: [/craft:orch:workflow](../commands/orchestrate-workflow.md)
-- Tutorial: [TUTORIAL-orchestrate-workflow](../tutorials/TUTORIAL-orchestrate-workflow.md)
+- Command: [/craft:orch:workflow](../commands/orch/workflow.md)
+- Tutorial: [TUTORIAL-orch-workflow](../tutorials/TUTORIAL-orch-workflow.md)
 - Compared: [Orchestrator Modes Compared](../tutorials/orchestrator-modes-compared.md)

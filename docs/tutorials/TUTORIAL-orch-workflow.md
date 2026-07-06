@@ -153,7 +153,7 @@ This is the same gate `/craft:orch:drive` uses, lifted into the engine.
 
 ## Next Steps
 
-- **Reference:** [/craft:orch:workflow](../commands/orchestrate-workflow.md)
+- **Reference:** [/craft:orch:workflow](../commands/orch/workflow.md)
 - **Refcard:** [REFCARD-WORKFLOW](../reference/REFCARD-WORKFLOW.md)
 - **Compared:** [Orchestrator Modes Compared](orchestrator-modes-compared.md)
 - **Recipe:** [Run a coded workflow](../cookbook/recipes/run-a-coded-workflow.md)

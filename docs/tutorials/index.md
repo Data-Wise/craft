@@ -41,10 +41,13 @@
 |----------|------|-------------------|
 | [Interactive Orchestration](interactive-orchestration.md) | 20 min | Plan confirmation, wave checkpoints, and mode selection |
 | [Orchestrator Modes Compared](orchestrator-modes-compared.md) | 15 min | Same task in 4 modes — performance metrics and decision guidance |
-| [Orchestrate Drive](TUTORIAL-orchestrate-drive.md) | 15 min | Spec → autonomous /goal loop → verified-green PR handoff |
+| [Orchestrate Drive](TUTORIAL-orch-drive.md) | 15 min | Spec → autonomous /goal loop → verified-green PR handoff |
+| [Orchestrate Workflow](TUTORIAL-orch-workflow.md) | 15 min | Coded fixed-control-flow workflows with schema-gated agents |
 | [Brainstorm Power User](TUTORIAL-brainstorm-power-user.md) | 20 min | Advanced brainstorming patterns and expert workflows |
 | [Refine Flag](TUTORIAL-refine-flag.md) | 10 min | Sharpen a vague prompt before any command runs (`--refine`) |
 | [Insights-Driven Workflow](TUTORIAL-insights-workflow.md) | 20 min | Session insights, friction prevention, guard tuning, CI monitoring |
+| [Docs Generate](TUTORIAL-docs-generate.md) | 5 min | Reach any of the 9 documentation generators via one router command |
+| [Plan Feature](TUTORIAL-plan-feature.md) | 10 min | Turn a feature idea into a scoped, estimated task breakdown |
 
 ## Release & Distribution
 

@@ -7,8 +7,8 @@
 The orchestrator coordinates multiple specialized agents to handle complex development tasks through intelligent delegation and parallel execution.
 
 > **Three orchestration modes:** `/craft:orch` (this page) improvises each
-> turn; [`/craft:orch:drive`](commands/orchestrate-drive.md) drives an
-> approved spec to verified green; [`/craft:orch:workflow`](commands/orchestrate-workflow.md)
+> turn; [`/craft:orch:drive`](commands/orch/drive.md) drives an
+> approved spec to verified green; [`/craft:orch:workflow`](commands/orch/workflow.md)
 > executes a coded, fixed-control-flow program with schema-gated agents and
 > resumable replay. See [Orchestrator Modes Compared](tutorials/orchestrator-modes-compared.md).
 
