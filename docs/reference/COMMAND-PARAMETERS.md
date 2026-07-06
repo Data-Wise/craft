@@ -911,15 +911,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:adhd-guide
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| topic | string | No | - | - | Specific topic |
-
----
-
-### /craft:workflow:task-status
+### /craft:task:status
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -927,7 +919,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:task-output
+### /craft:task:output
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -936,7 +928,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:task-cancel
+### /craft:task:cancel
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|

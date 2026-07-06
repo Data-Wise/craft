@@ -73,7 +73,7 @@ It scans every `commands/**/*.md` with `deprecated: true`, finds its `replaced-b
 | Command | Lines | Skill lines | Ratio |
 |---|---:|---:|---:|
 | `commands/check.md` | 1132 | 127 | **8.9** |
-| `commands/workflow/task-cancel.md` | 508 | 90 | 5.6 |
+| `commands/task/cancel.md` | 508 | 90 | 5.6 |
 | `commands/git/worktree.md` | 1010 | 250 | 4.0 |
 
 `skills/dev/git/` (250 lines) is the `replaced-by:` target for six commands totaling 4185 source lines — the single highest-leverage consolidation target in the repo, not yet executed (tracked in [issue #233](https://github.com/Data-Wise/craft/issues/233)).

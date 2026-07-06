@@ -2223,29 +2223,7 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:adhd-guide
-
-**Category**: Support | **Complexity**: Simple | **Time**: < 5 min
-**Description**: ADHD-friendly quick reference guide
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `topic` | string | No | - | Specific topic |
-
-#### Examples
-
-```bash
-/craft:workflow:adhd-guide
-/craft:workflow:adhd-guide "getting started"
-```
-
-**File**: `commands/workflow/adhd-guide.md`
-
----
-
-### /craft:workflow:task-status
+### /craft:task:status
 
 **Category**: Tracking | **Complexity**: Simple | **Time**: < 5 min
 **Description**: Show task status and progress
@@ -2259,15 +2237,15 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:task-status
-/craft:workflow:task-status --format detailed
+/craft:task:status
+/craft:task:status --format detailed
 ```
 
-**File**: `commands/workflow/task-status.md`
+**File**: `commands/task/status.md`
 
 ---
 
-### /craft:workflow:task-output
+### /craft:task:output
 
 **Category**: Tracking | **Complexity**: Simple | **Time**: < 5 min
 **Description**: Show task output and logs
@@ -2282,15 +2260,15 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:task-output
-/craft:workflow:task-output feature-auth --tail 100
+/craft:task:output
+/craft:task:output feature-auth --tail 100
 ```
 
-**File**: `commands/workflow/task-output.md`
+**File**: `commands/task/output.md`
 
 ---
 
-### /craft:workflow:task-cancel
+### /craft:task:cancel
 
 **Category**: Management | **Complexity**: Simple | **Time**: < 30s
 **Description**: Cancel running task
@@ -2304,10 +2282,10 @@ Development workflow and productivity tools.
 #### Examples
 
 ```bash
-/craft:workflow:task-cancel task-123
+/craft:task:cancel task-123
 ```
 
-**File**: `commands/workflow/task-cancel.md`
+**File**: `commands/task/cancel.md`
 
 ---
 

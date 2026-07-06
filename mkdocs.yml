@@ -358,7 +358,6 @@ nav:
       - /craft:plan:feature: commands/plan/feature.md
       - /craft:site:docs:frameworks: commands/site/docs/frameworks.md
       - /craft:smart-help: commands/smart-help.md
-      - /craft:workflow:adhd-guide: commands/workflow/adhd-guide.md
 
   # 5. COOKBOOK & EXAMPLES - Use case driven recipes
   - 📚 Cookbook & Examples:

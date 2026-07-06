@@ -1,7 +1,10 @@
----
-description: ADHD-Friendly Workflow Guide
-category: workflow
----
+<!--
+Reference content for the adhd-workflow skill, not a command.
+Formerly commands/workflow/adhd-guide.md — pure strategy/reference
+prose with no arguments or behavior, so it moved here per
+SPEC-command-namespace-reorganization-2026-07-05 §4, following the
+same references/ pattern established for done.md by ADR-002.
+-->
 
 # ADHD-Friendly Workflow Guide
 

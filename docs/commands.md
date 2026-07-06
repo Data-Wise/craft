@@ -5,7 +5,7 @@ Complete reference for all 116 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 116 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 115 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement (default-on):** `/brainstorm`, `/craft:do`, `/craft:plan:feature`, `/craft:grill` run the `prompt-refiner` skill automatically before acting. Use `--no-refine` to skip; pass `--yes` to auto-accept the refined prompt without a confirm step.
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -381,10 +381,6 @@ Manage Jinja2 templates for test generation.
 
 ## Workflow Commands (workflow/)
 
-### /craft:workflow:adhd-guide
-
-ADHD-friendly workflow guide — structured approaches for maintaining focus.
-
 ### /craft:workflow:recap
 
 Context restoration — summarize what happened in the current or previous session.
@@ -401,28 +397,28 @@ Prompt optimizer — improve and refine prompts interactively.
 /craft:refine "my prompt text"
 ```
 
-### /craft:workflow:task-status
+### /craft:task:status
 
 Show status of background tasks launched by the orchestrator.
 
 ```bash
-/craft:workflow:task-status
+/craft:task:status
 ```
 
-### /craft:workflow:task-output
+### /craft:task:output
 
 View results from completed background tasks.
 
 ```bash
-/craft:workflow:task-output <task-id>
+/craft:task:output <task-id>
 ```
 
-### /craft:workflow:task-cancel
+### /craft:task:cancel
 
 Cancel a running background task.
 
 ```bash
-/craft:workflow:task-cancel <task-id>
+/craft:task:cancel <task-id>
 ```
 
 ## Utility Commands (utils/)
@@ -473,7 +469,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 116 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 115 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 

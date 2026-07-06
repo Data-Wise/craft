@@ -1808,7 +1808,6 @@ Comprehensive guides and references:
 
 | Command | Description |
 | ------- | ----------- |
-| `/craft:workflow:adhd-guide` | ADHD-friendly workflow strategies for staying focused and productive |
 
 ## Links
 
