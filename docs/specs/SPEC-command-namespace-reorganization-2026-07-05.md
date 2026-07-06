@@ -1,6 +1,6 @@
 # Command Namespace Reorganization — Consolidated Decisions
 
-**Status:** Decided (grilled interactively across all 9 command namespaces) — not yet implemented.
+**Status:** Implemented and committed on `dev` (commits `d27698ab`..`daf9305d`), with two decisions reversed during implementation after reading files the original grill didn't (see §5, §8).
 
 **Origin:** Started from a Chat-session proposal covering `/next`, `/refine`, a `prompt-refiner` naming collision, and a proposed new command. Two of that proposal's three "trivial" items rested on false premises (verified against the repo, not assumed) and one new-command idea was dropped as out of scope for craft. That grill expanded into a full root-vs-namespace audit across every command namespace in the plugin.
 
@@ -106,10 +106,9 @@ Sub-namespace `orchestrate:` (`drive`, `plan`, `workflow`) stays nested as-is (u
 
 ---
 
-## 8. Flagged for future investigation (not decided in this session — needs its own pass)
+## 8. Investigated and resolved — NOT scope drift (reversing the original flag)
 
-- **`utils:` namespace** (`readme-semester-progress.md`, `readme-teach-config.md`) — both `internal: true` (not real slash commands), both teaching/semester-specific content that looks out of place in a general dev-tools plugin. Before moving to `scholar`, verify whether any `craft` command actually imports these Python modules — if orphaned, migrate; if load-bearing, leave and document why.
-- **`site:progress`, `site:publish`** — same teaching/semester-specific scope-drift pattern as the `utils:` finding above. Same investigation needed before action.
+- **`utils:` namespace** (`readme-semester-progress.md`, `readme-teach-config.md`) and **`site:progress`/`site:publish`** were flagged during the interactive grill as apparent teaching/semester-specific scope drift, worth migrating to `scholar`. **Investigation found this was wrong.** README.md has a dedicated "## Teaching Mode" section (with a demo GIF) documenting it as a first-class, intentional craft capability — auto-detection via `.flow/teach-config.yml`, content validation, preview-before-publish workflow, semester tracking, ADHD-friendly dashboards. `semester_progress.py`/`teach_config.py` are actively consumed by `commands/site/publish.md`, `progress.md`, `build.md`, and `git/status.md` — not orphaned. Backed by 2,131 lines across 4 dedicated test files (`test_teaching_mode.py`, `test_teach_config.py`, `test_semester_progress.py`, `test_site_publish.py`). No migration needed; no further action.
 
 ---
 
@@ -126,6 +125,8 @@ Roughly cheapest/lowest-risk → most expensive/highest-risk:
 7. `code:quota` deletion + fold into `orchestrate.md` (Section 3) — real feature work, moderate scope.
 8. `ci:` consolidation (Section 4) — small, 2 files.
 9. `adhd-guide` → skill reference, `task:` namespace split (Section 4) — small, mechanical.
-10. Two merge/consolidation items (Section 5) — real refactor work, scope each independently; navigation-skill merge has a cross-namespace dependency to verify (`docs:nav-update`).
-11. `orchestrate` → `orch` rename (Section 6) — **last**, largest blast radius (122 files), own dedicated PR with full validation pass.
-12. Follow-up investigation: `utils:`/`site:` teaching-content scope drift (Section 8) — separate session, not blocking any of the above.
+10. Two merge/consolidation items (Section 5) — **done**, with one reversal: `docs:generate` router added (originals kept, not merged — genuinely distinct logic per file); navigation-skill merge reversed after reading both skills in full (already a correct, deliberate boundary).
+11. `orchestrate` → `orch` rename (Section 6) — **done**, own dedicated commits, full validation pass (also caught and fixed a real `bump-version.sh` production bug and pre-existing hub.md count drift).
+12. Follow-up investigation: `utils:`/`site:` teaching-content (Section 8) — **done**, resolved as NOT scope drift; no action needed.
+
+**Status: all items implemented and committed** (`d27698ab` through `daf9305d` on `dev`), except the sequencing choice for `refine`'s move (Section 1) which shipped alongside the other root promotions in the same commit.
