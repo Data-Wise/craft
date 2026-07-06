@@ -18,7 +18,7 @@ this plan does not re-litigate them.
 
 | Phase | Increment | Priority | Effort | Status |
 |---|---|---|---|---|
-| 1 | H3: `do.md` dead-branch removal + 24-doc sweep | High | Med | Not started |
+| 1 | H3: `do.md` dead-branch removal + 24-doc sweep | High | Med | ✅ Done (`68ba115b`) |
 | 2 | M1/M10: release-state `--report-only` verify + runbook | Med | Med | Not started |
 | 3 | G1: remove stray file | Low | XS | Not started |
 
@@ -29,14 +29,14 @@ this plan does not re-litigate them.
 backing agent definition. Score 4-7 tasks crash on dispatch. Fix per GRILL decision 3:
 test-first. Also closes M6 (two disagreeing classifiers) as a documented side effect.
 
-- [ ] 1.1 Write `test_do_score_4_7_no_agent_dispatch` (or equivalent) asserting Score 4-7
+- [x] 1.1 Write `test_do_score_4_7_no_agent_dispatch` (or equivalent) asserting Score 4-7
       routes via Step 1's `category`, never via a `subagent_type` dispatch call. Run it,
       confirm it FAILS against current `do.md` (red-first, proves the test is load-bearing).
-- [ ] 1.2 Remove `select_agent()`'s independent keyword-rescan and the 4 dead
+- [x] 1.2 Remove `select_agent()`'s independent keyword-rescan and the 4 dead
       `subagent_type` branches. Route Score 4-7 through the same category-based
       command-sequencing fallback Score 1-3 and 8+ already use.
-- [ ] 1.3 Re-run 1.1's test, confirm it now PASSES.
-- [ ] 1.4 Sweep all 24 doc files referencing the 4 dead agent names as if real (GRILL
+- [x] 1.3 Re-run 1.1's test, confirm it now PASSES.
+- [x] 1.4 Sweep all 24 doc files referencing the 4 dead agent names as if real (GRILL
       decision 1 — full list from `grep -rln "feature-dev\|backend-architect\|bug-detective\|code-quality-reviewer" docs/`,
       re-run at implementation time since this list may have shifted):
       `docs/guide/orchestrator.md`, `docs/guide/complexity-scoring-algorithm.md`,
@@ -61,8 +61,9 @@ test-first. Also closes M6 (two disagreeing classifiers) as a documented side ef
       BRAINSTORM/SPEC/plan docs describing past decisions may be left as historical record
       with a one-line "superseded" note instead of a full rewrite — use judgment per file,
       don't force every historical doc into present-tense accuracy.
-- [ ] 1.5 Re-run the grep from 1.4 repo-wide; confirm zero remaining non-historical
-      references to the 4 dead agent names.
+- [x] 1.5 Re-run the grep from 1.4 repo-wide; confirm zero remaining non-historical
+      references to the 4 dead agent names. (Also caught and fixed "feature-developer",
+      a differently-spelled instance the original grep missed.)
 
 **Key files:** `commands/do.md` (update), `tests/test_craft_plugin.py` or nearest fitting
 test file (new test), 24 doc files listed above (update, selectively).
