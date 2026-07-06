@@ -135,3 +135,6 @@ README.md:7 agents
 README.md:6 agents
 # Orchestrator prose example ("Fast parallel (4 agents)") — a mode limit, not a total
 README.md:4 agents
+# orch.md mode-table prose ("optimize"/"release": 4 agents max concurrency) — a
+# per-run mode limit, not the 8-agent-definitions total. Same class as above.
+docs/commands/orch.md:4 agents
