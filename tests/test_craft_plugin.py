@@ -589,3 +589,50 @@ def test_refine_flag_documented():
         if "--refine" not in text or "prompt-refiner" not in text:
             missing.append(rel)
     assert not missing, f"--refine/prompt-refiner missing in: {missing}"
+
+
+def test_do_score_4_7_no_agent_dispatch():
+    """Score 4-7 tasks in /craft:do must route via the category-based
+    command-sequencing fallback, never via Task(subagent_type=<dead-agent>).
+
+    The 4 names below (feature-dev, backend-architect, bug-detective,
+    code-quality-reviewer) have no backing agent definition anywhere in this
+    plugin (only agents/orchestrator.md, agents/orchestrator-v2.md, and the
+    6 under agents/docs/* exist). do.md must not dispatch to them.
+    """
+    dead_agents = [
+        "feature-dev",
+        "backend-architect",
+        "bug-detective",
+        "code-quality-reviewer",
+    ]
+    text = (PLUGIN_DIR / "commands" / "do.md").read_text(encoding="utf-8")
+
+    # No dead agent name may appear as a subagent_type dispatch target.
+    dispatched = [
+        name for name in dead_agents
+        if re.search(rf'subagent_type\s*=\s*"{re.escape(name)}"', text)
+    ]
+    assert not dispatched, (
+        f"do.md still dispatches Task(subagent_type=...) to dead agents with "
+        f"no backing definition: {dispatched}"
+    )
+
+    # select_agent() (the independent keyword-rescan that picked those dead
+    # names) must be gone entirely — Score 4-7 must route through the same
+    # category-based fallback Score 0-3 and 8+ already use.
+    assert "def select_agent(" not in text, (
+        "do.md still defines select_agent() — Score 4-7 must route via the "
+        "category-based command-sequencing fallback instead of an "
+        "independent agent-selection keyword-rescan"
+    )
+
+    # The category-based fallback (route_to_commands / the category if/elif
+    # block used by Score 0-3 and available as the Step 6 fallback) must be
+    # reachable for Score 4-7, not merely present as an error-path fallback
+    # after a Task() dispatch attempt.
+    assert 'execute(["/craft:arch:plan"' in text, (
+        "do.md must retain the category-based command-sequencing fallback "
+        "(feature category → arch:plan/test-gen/git:branch) as the routing "
+        "path for medium-complexity tasks"
+    )

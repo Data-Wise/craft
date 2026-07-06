@@ -124,7 +124,7 @@ graph LR
 
 ```
 Task: "Add feature with comprehensive tests and documentation"
-Score: 6/10 → Agent
+Score: 6/10 → Command Sequence
 Time: 5-30 min
 ```
 
@@ -145,7 +145,7 @@ graph LR
     C --> I
     G --> I
 
-    I --> J["→ feature-developer agent"]
+    I --> J["→ category-based<br/>command sequence"]
 
     style A fill:#e1f5ff
     style B fill:#fff9c4
@@ -209,11 +209,11 @@ flowchart TD
     A["Start"] --> B{{"Analyze task<br/>Calculate score"}}
 
     B -->|0-3 Points| C["Route: Commands"]
-    B -->|4-7 Points| D["Route: Single Agent"]
+    B -->|4-7 Points| D["Route: Command Sequence"]
     B -->|8-10 Points| E["Route: Orchestrator v2"]
 
     C --> F["Find matching<br/>specific command"]
-    D --> G["Select best agent<br/>from 5 specialists"]
+    D --> G["Chain category<br/>commands"]
     E --> H["Plan multi-phase<br/>work with agents"]
 
     F --> I["Execute<br/>< 30 seconds"]
@@ -240,39 +240,36 @@ flowchart TD
 
 ---
 
-## Agent Delegation System
+## Medium-Complexity Command Sequencing
 
-When a task scores 4-7 points, /craft:do delegates to a specialist agent.
+When a task scores 4-7 points, `/craft:do` routes through the same category-based
+command sequence as a score under 4 — it chains the category's commands
+(e.g. `/craft:arch:plan`, `/craft:code:test-gen`, `/craft:git:branch` for a feature
+task) rather than dispatching to a per-domain specialist agent. There is no
+`feature-dev`/`backend-architect`/`bug-detective`/`code-quality-reviewer` agent —
+those names never had a backing agent definition.
 
-### Available Agents
+The docs-authoring agents that *do* exist (`docs-architect`, `api-documenter`,
+`tutorial-engineer` — under `agents/docs/`) are separate from `/craft:do`'s
+complexity routing; they're invoked directly by the docs commands that need them.
 
-| Agent | Specialization | Best For | Model |
-|-------|---|---|---|
-| **feature-developer** | Feature implementation | "add new feature with tests" | Sonnet |
-| **bug-detective** | Bug investigation & fixing | "investigate and fix slow queries" | Sonnet |
-| **docs-architect** | Documentation & guides | "write comprehensive migration guide" | Sonnet |
-| **api-documenter** | API specification & SDKs | "document REST API with OpenAPI" | Sonnet |
-| **tutorial-engineer** | Step-by-step tutorials | "create setup tutorial" | Sonnet |
-
-### Agent Selection Logic
+### Category-Based Routing Logic
 
 ```mermaid
 graph TD
-    A["Task Routed to Agent<br/>Score 4-7"] --> B{{"Analyze keywords<br/>and task type"}}
+    A["Task Routed<br/>Score 4-7"] --> B{{"Determine category<br/>from Step 1"}}
 
-    B -->|"add", "feature", "implement"| C["→ feature-developer"]
-    B -->|"fix", "bug", "issue", "investigate"| D["→ bug-detective"]
-    B -->|"doc", "guide", "tutorial", "architecture"| E["→ docs-architect"]
-    B -->|"API", "OpenAPI", "SDK", "client"| F["→ api-documenter"]
-    B -->|"tutorial", "step-by-step", "onboarding"| G["→ tutorial-engineer"]
-    B -->|No match| H["→ feature-developer<br/>default"]
+    B -->|"add", "feature", "implement"| C["/craft:arch:plan<br/>/craft:code:test-gen<br/>/craft:git:branch"]
+    B -->|"fix", "bug", "issue", "investigate"| D["/craft:code:debug<br/>/craft:test"]
+    B -->|"doc", "guide", "tutorial"| E["/craft:docs:* sequence"]
+    B -->|"quality", "lint", "improve"| F["/craft:code:lint<br/>/craft:code:refactor"]
+    B -->|No match| G["Default category<br/>command sequence"]
 
-    C --> I["Agent executes<br/>in forked context<br/>Clean chat history"]
+    C --> I["Commands execute<br/>in sequence<br/>No agent dispatch"]
     D --> I
     E --> I
     F --> I
     G --> I
-    H --> I
 
     I --> J["Summary returned<br/>to user"]
 

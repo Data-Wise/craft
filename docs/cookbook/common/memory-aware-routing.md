@@ -94,7 +94,8 @@ Found SPEC-payment-processing.md. Create worktree with ORCHESTRATE plan?
 
 ## Spec Auto-Load (Step 2.6)
 
-When routing to an agent, matching specs are automatically included:
+When routing a medium-complexity (Score 4-7) task, matching specs are
+automatically included in the category-based command sequence's context:
 
 ```
 /craft:do "implement auth from spec"
@@ -104,10 +105,11 @@ Loading spec context: SPEC-auth-system-2026-02-20.md
   - Acceptance Criteria: 3 items
   - Dependencies: OAuth2 SDK
 
-Delegating to backend-architect agent with spec context...
+Running category command sequence with spec context (no agent dispatch)...
 ```
 
-No extra step needed — if a spec matches your task keywords, the agent gets it.
+No extra step needed — if a spec matches your task keywords, the command
+sequence gets it.
 
 ---
 

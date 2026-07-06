@@ -41,16 +41,19 @@ Let's break these down into plain English.
 Remember when you'd ask for directions and someone would just tell you "turn left," but what you really needed was step-by-step instructions with landmarks? That's the difference between the old `/craft:do` and the new one.
 
 **Before:** `/craft:do` was like a smart switchboard—it figured out which Craft command to send you to.
-**Now:** `/craft:do` can recognize when a task needs a specialist and delegate to an expert agent.
+**Now:** `/craft:do` recognizes when a task needs several coordinated steps and
+chains the right commands for you, instead of making you sequence them by hand.
 
-### What Are Agents?
+### What Handles Medium-Complexity Tasks?
 
-Think of agents as specialized assistants:
+There's no roster of named specialist agents for medium-complexity work — a
+task's *category* (Feature / Bug / Quality / Docs / Test / Release /
+Architecture) determines which commands get chained:
 
-- **Feature Developer** (`feature-dev`): Builds new features from scratch
-- **Bug Detective** (`bug-detective`): Hunts down and fixes problems
-- **Backend Architect** (`backend-architect`): Designs system architecture
-- **Orchestrator** (`orchestrator-v2`): Coordinates multiple specialists for big projects
+- **Feature work**: `/craft:arch:plan` → `/craft:code:test-gen` → `/craft:git:branch`
+- **Bug work**: `/craft:code:debug` → `/craft:test`
+- **Orchestrator** (`orchestrator-v2`): a real agent that coordinates multiple
+  subagents for genuinely complex, multi-phase projects (Score 8-10)
 
 ### How It Works (In Simple Terms)
 
@@ -58,17 +61,19 @@ When you give `/craft:do` a task, it now:
 
 1. **Analyzes complexity** — Is this simple or complicated?
 2. **Chooses the best approach:**
-   - **Simple tasks** → Routes to a Craft command (like before)
-   - **Complex tasks** → Delegates to a specialized agent (new!)
+   - **Simple tasks** → Routes to a single Craft command (like before)
+   - **Medium tasks** → Chains several category commands in sequence (new!)
+   - **Complex tasks** → Delegates to the `orchestrator-v2` agent, which
+     coordinates real subagents (`general-purpose`, `Explore`, `Bash`, `Plan`)
 
 #### Complexity Scoring
 
 Here's how it decides:
 
 ```
-Score 0-3  → Simple    → Use existing commands
-Score 4-7  → Medium    → Delegate to one specialist
-Score 8-10 → Complex   → Coordinate multiple specialists
+Score 0-3  → Simple    → Run one command
+Score 4-7  → Medium    → Chain the category's commands
+Score 8-10 → Complex   → orchestrator-v2 coordinates multiple subagents
 ```
 
 **What makes a task complex?**
@@ -79,15 +84,16 @@ Score 8-10 → Complex   → Coordinate multiple specialists
 
 ### Forked Context: Your Safety Net
 
-Here's the coolest part: when an agent works on something complex, it gets its own "workspace" (we call it a **forked context**).
+Here's the coolest part: when `orchestrator-v2` works on something complex, its
+subagents get their own "workspace" (we call it a **forked context**).
 
 **Think of it like this:**
-Imagine you're cooking in the kitchen and your friend offers to help by making a salad in a separate prep area. If they accidentally spill something, it doesn't mess up your main cooking area. That's what forked context does—agents work in isolation, so if something goes wrong, your main conversation stays clean.
+Imagine you're cooking in the kitchen and your friend offers to help by making a salad in a separate prep area. If they accidentally spill something, it doesn't mess up your main cooking area. That's what forked context does—subagents work in isolation, so if something goes wrong, your main conversation stays clean.
 
 **Benefits:**
 
-- Agent failures don't break your whole session
-- You can have multiple agents working in parallel
+- Subagent failures don't break your whole session
+- You can have multiple subagents working in parallel
 - Results come back to you cleanly organized
 
 ### Real Example
@@ -105,32 +111,34 @@ Imagine you're cooking in the kitchen and your friend offers to help by making a
 │ Category: Feature Development               │
 │ Complexity: 7/10 (Medium-Complex)           │
 │                                             │
-│ Decision: Delegate to feature-dev agent     │
-│ Context: Forked (isolated workspace)        │
+│ Decision: Chain category commands           │
+│           (/craft:arch:plan → test-gen →    │
+│            git:branch), no agent dispatch   │
 │ Estimated time: ~15 minutes                 │
 │                                             │
 │ Why? This is a multi-step feature that      │
 │ requires planning, implementation, and      │
-│ testing. A specialist will do it better.    │
+│ testing. Chaining the category's commands   │
+│ handles it in one call.                     │
 └─────────────────────────────────────────────┘
 ```
 
-The `feature-dev` agent then:
+The chained sequence then:
 
-1. Plans the OAuth integration
-2. Writes the code
-3. Adds tests
+1. Plans the OAuth integration (`/craft:arch:plan`)
+2. Writes the code and tests (`/craft:code:test-gen`)
+3. Creates the feature branch (`/craft:git:branch`)
 4. Brings back a complete solution
 
-You didn't have to break down the task yourself—the system recognized the complexity and got you the right help.
+You didn't have to break down the task yourself—the system recognized the complexity and chained the right commands for you.
 
 ### Before vs. After Comparison
 
 | Task | Old Behavior | New Behavior |
 |------|--------------|--------------|
-| "fix the login bug" | Routes to `/craft:code:debug` | Delegates to `bug-detective` agent (more thorough) |
-| "add user authentication" | Routes to `/craft:arch:plan` | Delegates to `feature-dev` agent (complete implementation) |
-| "refactor database layer" | Routes to `/craft:arch:analyze` | Delegates to `backend-architect` agent (architectural design) |
+| "fix the login bug" | Routes to `/craft:code:debug` | Chains `/craft:code:debug` + `/craft:test` (more thorough) |
+| "add user authentication" | Routes to `/craft:arch:plan` | Chains `/craft:arch:plan` + `/craft:code:test-gen` + `/craft:git:branch` (complete implementation) |
+| "refactor database layer" | Routes to `/craft:arch:analyze` | Chains `/craft:arch:analyze` + `/craft:code:refactor` (architectural design) |
 | "prepare release" | Routes to multiple commands | Delegates to `orchestrator-v2` agent (coordinates everything) |
 
 **Bottom line:** You get smarter, more complete solutions for complex tasks.
@@ -371,8 +379,8 @@ Notice the **[NEW]** tags? Those validators were added without any code changes 
 **What happens:**
 
 1. `/craft:do` analyzes: "This is complex (score: 7/10)—needs UI, backend, file handling, validation"
-2. Delegates to `feature-dev` agent in a forked context
-3. Agent breaks it down:
+2. Chains the feature category's commands (no agent dispatch)
+3. The command sequence breaks it down:
    - Design database schema for user profiles
    - Create upload API endpoint
    - Add image validation
@@ -481,7 +489,7 @@ You wanted a new check. You created a file. It works immediately.
 **What to watch for:**
 
 - Complexity score (probably 4-5, medium)
-- Which agent it would delegate to (`bug-detective`)
+- Which commands it would chain (`/craft:code:debug`, `/craft:test`)
 - Why it made that choice
 
 **Compare to:**
@@ -490,7 +498,7 @@ You wanted a new check. You created a file. It works immediately.
 **What to watch for:**
 
 - Lower complexity score (probably 1-2, simple)
-- Routes to simple command instead of agent
+- Routes to a single simple command instead of a chained sequence
 
 ---
 

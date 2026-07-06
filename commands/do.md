@@ -77,27 +77,24 @@ Preview which commands will be executed without actually running them:
 │ ✓ Complexity Breakdown:                                       │
 │   - Multi-step task: +2 (design → implement → test)          │
 │   - Requires planning: +2 (auth architecture needed)          │
-│   Total score: 4 → Agent delegation                           │
+│   Total score: 4 → Command sequencing (medium complexity)     │
 │                                                               │
-│ ✓ Routing Decision: feature-dev Agent                         │
+│ ✓ Routing Decision: Feature category command sequence         │
 │   - Reason: Medium complexity (4/10), feature development     │
-│   - Context: Forked (isolated execution)                      │
-│   - Agent triggers: add, create, implement                    │
-│   - Max complexity: 7 (within agent's capability)             │
+│   - Commands: /craft:arch:plan → /craft:code:test-gen →       │
+│     /craft:git:branch                                         │
 │   - Estimated: ~15 minutes                                    │
 │                                                               │
 │ ✓ Alternative Routes:                                         │
-│   1. Command routing (if complexity < 4)                      │
+│   1. Simpler command routing (if complexity < 4)               │
 │      → /craft:arch:plan → /craft:code:test-gen               │
 │   2. Orchestration (if complexity > 7)                        │
 │      → /craft:orch "add user authentication"          │
 │                                                               │
 │ ⚠ Notes:                                                      │
 │   • Consider creating spec first: /craft:brainstorm  │
-│   • Agent will execute in forked context (results synthesized)│
-│   • Permission may be requested for agent delegation          │
 │                                                               │
-│ 📊 Summary: Agent delegation to feature-dev (~15 min)         │
+│ 📊 Summary: Command sequence for feature category (~15 min)   │
 │                                                               │
 ├───────────────────────────────────────────────────────────────┤
 │ Run without --dry-run to execute                              │
@@ -133,7 +130,9 @@ Preview which commands will be executed without actually running them:
 └───────────────────────────────────────────────────────────────┘
 ```
 
-**Note**: Dry-run shows routing decision based on complexity score. Agent delegation triggers for medium (4-7) and complex (8-10) tasks.
+**Note**: Dry-run shows routing decision based on complexity score. Medium-complexity tasks
+(4-7) route via category-based command sequencing (same fallback as simple tasks, just a
+longer command chain); complex tasks (8-10) delegate to the `orchestrator-v2` agent.
 
 ## Branch-Aware Routing (NEW in v2.16.0, UPDATED in v2.31.0)
 
@@ -201,17 +200,19 @@ routing cycles — see `SPEC-planning-refactor-2026-06-22.md` §4 rule 4).
 3. **Analyze** - Parse task description for intent and category
 4. **Score Complexity** - Calculate 0-10 score based on 5 factors (NEW in v1.23.0)
 5. **Route Decision** - Choose execution strategy:
-   - **Score 0-3**: Route to craft commands (traditional)
-   - **Score 4-7**: Delegate to specialized agent (NEW)
+   - **Score 0-3**: Route to craft commands (category-based sequence)
+   - **Score 4-7**: Route to craft commands (same category-based sequence, longer chain)
    - **Score 8-10**: Delegate to orchestrator-v2 (NEW)
    - **Skill match**: Direct skill invocation for guard:audit, insights:apply
-5. **Execute** - Run commands or invoke agent with forked context
+5. **Execute** - Run commands, or invoke orchestrator-v2 with forked context for Score 8-10
 6. **Synthesize** - Gather results and report to user
 7. **Report** - Summarize what was done
 
-## Agent Delegation Workflow (NEW in v1.23.0)
+## Medium-Complexity Routing (Score 4-7)
 
-When complexity score ≥ 4, `/craft:do` delegates to specialized agents:
+Score 4-7 tasks route through the **same category-based command-sequencing fallback**
+used by Score 0-3 tasks (see Step 6 in Implementation below) — just a longer command
+chain for the detected category. There is no separate agent-delegation step for this tier.
 
 ### Step 1: Complexity Analysis
 
@@ -222,78 +223,59 @@ Claude analyzes:
 - Multi-step task: +2 (design → implement → test)
 - Requires planning: +2 (auth architecture)
 - Total score: 4/10 (Medium)
-→ Decision: Delegate to feature-dev agent
+→ Decision: Route via feature-category command sequence
 ```
 
-### Step 2: Agent Selection
-
-Based on task keywords and complexity:
+### Step 2: Category-Based Command Sequence
 
 ```
 Keywords: "add", "OAuth", "login"
 Category: Feature Development
 Score: 4/10
-→ Selected agent: feature-dev (max complexity: 7)
+→ Commands: /craft:arch:plan → /craft:code:test-gen → /craft:git:branch
 ```
 
-### Step 3: Forked Context Execution
+### Step 3: Result Synthesis
 
 ```
-Main Context (your conversation)
-    ↓
-    Spawn feature-dev agent in forked context
-    ↓
-    Agent works independently:
-    - Designs OAuth flow
-    - Creates implementation plan
-    - Generates test stubs
-    - Identifies dependencies
-    ↓
-    Results synthesized back to main context
-```
-
-### Step 4: Result Synthesis
-
-```
-Claude receives agent results and presents:
+Claude receives command results and presents:
 ✓ Architecture designed (OAuth 2.0 + PKCE)
-✓ Implementation plan created (4 phases)
 ✓ Test stubs generated (12 test cases)
-✓ Dependencies identified (oauth2 SDK, JWT library)
+✓ Branch created (feature/oauth-login)
 
 Ready to implement? (y/n)
 ```
 
-## Agent Delegation Rules
+## Routing Rules
 
-### When to Delegate
+### Execution Strategy by Score
 
-| Condition             | Action                   | Reason                             |
-| --------------------- | ------------------------ | ---------------------------------- |
-| Score < 4             | Route to commands        | Simple, fast execution             |
-| Score 4-7             | Delegate to agent        | Medium complexity, needs expertise |
-| Score 8-10            | Delegate to orchestrator | Complex, multi-agent coordination  |
-| User says "no agents" | Force command routing    | Explicit user preference           |
+| Condition                     | Action                              | Reason                            |
+| ------------------------------ | ------------------------------------ | ---------------------------------- |
+| Score < 4                      | Route to commands                    | Simple, fast execution             |
+| Score 4-7                      | Route to commands (longer sequence)  | Medium complexity, same fallback   |
+| Score 8-10                     | Delegate to orchestrator-v2 agent    | Complex, multi-agent coordination  |
+| User says "no orchestration"   | Force command routing                | Explicit user preference           |
 
-### Forked Context Benefits
+### Orchestrator-v2 Forked Context Benefits (Score 8-10 only)
 
-- **Isolation**: Agent failures don't corrupt main conversation
-- **Parallelization**: Multiple agents can run simultaneously
-- **Resource Control**: Each agent has own context budget
+- **Isolation**: Orchestrator failures don't corrupt main conversation
+- **Parallelization**: Multiple sub-agents can run simultaneously
+- **Resource Control**: Own context budget
 - **Clean Results**: Only final synthesis appears in main conversation
 
-### Fallback Strategy
+### Fallback Strategy (Score 8-10)
 
-If agent delegation fails or is denied:
+If orchestrator-v2 delegation fails or is denied:
 
 ```
-1. Attempt agent delegation
-   ↓ (if permission denied or agent fails)
+1. Attempt orchestrator-v2 delegation
+   ↓ (if permission denied or delegation fails)
 2. Fall back to command routing
    ↓
 3. Execute traditional command sequence
    ↓
-4. Report with note: "Completed without agent delegation"
+4. Report with note: "Completed without orchestrator delegation"
 ```
 
 ## Examples
@@ -494,11 +476,11 @@ Before routing, `/craft:do` analyzes task complexity to determine execution stra
 
 ### Complexity Scoring
 
-| Score | Task Type   | Routing Decision           | Example                |
-| ----- | ----------- | -------------------------- | ---------------------- |
-| 0-3   | **Simple**  | Route to commands          | "lint the code"        |
-| 4-7   | **Medium**  | Single agent delegation    | "add OAuth login"      |
-| 8-10  | **Complex** | orchestrator-v2 delegation | "prepare v2.0 release" |
+| Score | Task Type   | Routing Decision                | Example                |
+| ----- | ----------- | -------------------------------- | ---------------------- |
+| 0-3   | **Simple**  | Route to commands               | "lint the code"        |
+| 4-7   | **Medium**  | Route to commands (longer chain)| "add OAuth login"      |
+| 8-10  | **Complex** | orchestrator-v2 delegation      | "prepare v2.0 release" |
 
 ### Scoring Factors
 
@@ -522,36 +504,29 @@ Task Input
     ↓
 Complexity Score (0-10)
     ↓
-├─ Score 0-3: Simple → Route to commands (current behavior)
-├─ Score 4-7: Medium → Delegate to specialized agent
-│                      ├─ feature-dev (add/create/implement)
-│                      ├─ backend-architect (design/refactor)
-│                      ├─ bug-detective (fix/debug/error)
-│                      └─ code-quality-reviewer (quality/lint)
+├─ Score 0-3: Simple → Route to commands (category-based sequence)
+├─ Score 4-7: Medium → Route to commands (same category-based sequence,
+│                       longer chain — no agent delegation for this tier)
 └─ Score 8-10: Complex → Delegate to orchestrator-v2
 ```
 
-### Agent Delegation (Enabled for Score ≥ 4)
+### Complex-Task Delegation (Score 8-10 only)
 
-When complexity score ≥ 4, `/craft:do` delegates to specialized agents:
+Only Score 8-10 delegates to an agent — Score 4-7 stays on command routing:
 
-| Agent                   | Triggers                      | Max Complexity | Use Case                 |
-| ----------------------- | ----------------------------- | -------------- | ------------------------ |
-| `feature-dev`           | add, create, implement, build | 7              | New features             |
-| `backend-architect`     | design, architect, refactor   | 8              | Architecture             |
-| `bug-detective`         | fix, debug, error, issue      | 6              | Debugging                |
-| `code-quality-reviewer` | quality, lint, improve        | 5              | Code quality             |
-| `orchestrator-v2`       | (any)                         | 10             | Multi-step orchestration |
+| Agent             | Triggers | Max Complexity | Use Case                 |
+| ----------------- | -------- | --------------- | ------------------------ |
+| `orchestrator-v2` | (any)    | 10              | Multi-step orchestration |
 
 ### Example Complexity Scores
 
-| Task                   | Factors                                | Score | Decision                  |
-| ---------------------- | -------------------------------------- | ----- | ------------------------- |
-| "lint the code"        | None                                   | 0     | → /craft:code:lint        |
-| "fix login bug"        | Multi-step                             | 2     | → /craft:code:debug       |
-| "add OAuth login"      | Multi-step, Planning                   | 4     | → feature-dev agent       |
-| "refactor DB layer"    | Multi-step, Planning, Multi-file       | 6     | → backend-architect agent |
-| "prepare v2.0 release" | Multi-step, Cross-category, Multi-file | 8     | → orchestrator-v2 agent   |
+| Task                   | Factors                                | Score | Decision                              |
+| ---------------------- | --------------------------------------- | ----- | -------------------------------------- |
+| "lint the code"        | None                                    | 0     | → /craft:code:lint                     |
+| "fix login bug"        | Multi-step                              | 2     | → /craft:code:debug                    |
+| "add OAuth login"      | Multi-step, Planning                    | 4     | → arch:plan → test-gen → git:branch    |
+| "refactor DB layer"    | Multi-step, Planning, Multi-file        | 6     | → arch:analyze → arch:plan → refactor  |
+| "prepare v2.0 release" | Multi-step, Cross-category, Multi-file | 8     | → orchestrator-v2 agent                |
 
 ## Output Format
 
@@ -830,14 +805,11 @@ if relevant_friction:
 ### Step 2: Select Execution Strategy
 
 ```
-if score < 4:
-    # Simple task - use traditional command routing
+if score < 8:
+    # Simple (0-3) or medium (4-7) task - same category-based command
+    # sequence either way; medium complexity just means a longer chain
+    # (see Step 3 below). No agent delegation for this tier.
     route_to_commands(task)
-
-elif score >= 4 and score <= 7:
-    # Medium complexity - delegate to specialized agent
-    agent = select_agent(task, score)
-    delegate_to_agent(agent, task)
 
 else:  # score >= 8
     # Complex task - delegate to orchestrator
@@ -888,73 +860,67 @@ if score >= 6 and category == "feature":
 **Key rules:**
 
 - Pipeline suggestion is **advisory only** — user can always decline
-- If user declines: proceed normally with agent routing (Step 3)
+- If user declines: proceed normally with command routing (Step 3)
 - Only trigger for `category == "feature"` with `score >= 6`
 - Never auto-redirect without user confirmation
 
-### Step 2.6: Spec Auto-Load for Agent Delegation (NEW in v2.31.0)
+### Step 2.6: Spec Auto-Load for Routing Context (NEW in v2.31.0)
 
-When routing to an agent (Step 4), check `docs/specs/` for a matching spec:
+Before routing (Step 3 commands, or Step 4 orchestrator delegation for Score ≥ 8), check
+`docs/specs/` for a matching spec:
 
 ```python
-# Auto-load spec context for agent delegation
+# Auto-load spec context for routing
 spec_context = ""
 if matching_specs:  # From Step 2.5
     spec_path = matching_specs[0]
     spec_context = open(spec_path).read()
-    # Include in agent prompt: "Spec context: {spec_context}"
+    # Include as context: "Spec context: {spec_context}"
 
 # Also check for ORCHESTRATE file (from Step 0.5 worktree detection)
 orchestrate_context = ""
 if orchestrate_file:
     orchestrate_context = open(orchestrate_file).read()
-    # Include in agent prompt: "ORCHESTRATE context: {orchestrate_context}"
+    # Include as context: "ORCHESTRATE context: {orchestrate_context}"
 ```
 
-**Behavior:** Spec and ORCHESTRATE context are passed to agents as additional input — they don't change routing, only enrich the agent's context.
+**Behavior:** Spec and ORCHESTRATE context are passed along as additional input — they
+don't change routing, only enrich the executed commands' (or orchestrator's) context.
 
-### Step 3: Agent Selection Logic
+### Step 3: Category-Based Command Routing (Score < 8)
+
+Both simple (0-3) and medium (4-7) tasks route through the same category-based command
+sequence — the only difference is how many commands run. There is no agent-selection or
+keyword-rescan step here; `category` was already determined in Step 1.
 
 ```python
-def select_agent(task, score):
-    # Check keywords for agent triggers
-    keywords = task.lower()
-
-    if score > 7:
-        return "orchestrator-v2"  # Complex, multi-step
-
-    if any(word in keywords for word in ["add", "create", "implement", "build"]):
-        if score <= 7:
-            return "feature-dev"  # Feature development
-
-    if any(word in keywords for word in ["design", "architect", "refactor"]):
-        if score <= 8:
-            return "backend-architect"  # Architecture
-
-    if any(word in keywords for word in ["fix", "debug", "error", "issue"]):
-        if score <= 6:
-            return "bug-detective"  # Debugging
-
-    if any(word in keywords for word in ["quality", "lint", "improve", "clean"]):
-        if score <= 5:
-            return "code-quality-reviewer"  # Code quality
-
-    # Default fallback for medium complexity
-    if score >= 4:
-        return "feature-dev"  # General purpose
-
-    return None  # Route to commands
+def route_to_commands(task, category):
+    if category == "feature":
+        execute(["/craft:arch:plan", "/craft:code:test-gen", "/craft:git:branch"])
+    elif category == "bug":
+        execute(["/craft:code:debug", "/craft:test"])
+    elif category == "quality":
+        execute(["/craft:code:lint", "/craft:test --coverage"])
+    elif category == "docs":
+        execute(["/craft:docs:sync", "/craft:docs:validate", "/craft:docs:changelog"])
+    elif category == "test":
+        execute(["/craft:test", "/craft:test --coverage"])
+    elif category == "release":
+        execute(["/craft:code:deps-audit", "/craft:test release", "/craft:code:lint release"])
+    elif category == "architecture":
+        execute(["/craft:arch:analyze", "/craft:arch:plan", "/craft:arch:diagram"])
+    # ... etc — full mapping in Task Categories above
 ```
 
-### Step 4: Agent Delegation (Score ≥ 4)
+### Step 4: Orchestrator Delegation (Score ≥ 8)
 
-Use the `Task` tool to delegate to the selected agent:
+Use the `Task` tool to delegate to `orchestrator-v2` — the one real agent this command
+delegates to:
 
 ```
-# Example: Delegate to feature-dev agent
 Task(
-    subagent_type="feature-dev",
-    description="Implement OAuth login feature",
+    subagent_type="orchestrator-v2",
+    description="Orchestrate complex multi-step task",
     prompt=f"""
     Task: {user_task}
     Complexity: {score}/10 ({complexity_level})
@@ -978,7 +944,7 @@ Task(
 ### Step 5: Result Synthesis
 
 ```
-1. Receive agent results (automatically synthesized from forked context)
+1. Receive results (command output, or orchestrator results from forked context)
 2. Present results to user in structured format:
 
    ✓ Architecture designed
@@ -1005,32 +971,24 @@ Watch out for: [condition → mitigation]
 Connects to:   [exact artifact or —]
 ```
 
-### Step 6: Fallback to Command Routing
+### Step 6: Fallback if Orchestrator Delegation Fails (Score ≥ 8)
 
-If agent delegation is not available or fails:
+If `orchestrator-v2` delegation is not available or fails, fall back to the same
+category-based command sequence Step 3 already uses for Score < 8:
 
 ```
-1. Log: "Agent delegation unavailable, using command routing"
-2. Route to traditional craft commands based on category:
-
-   if category == "feature":
-       execute(["/craft:arch:plan", "/craft:code:test-gen", "/craft:git:branch"])
-   elif category == "bug":
-       execute(["/craft:code:debug", "/craft:test"])
-   elif category == "quality":
-       execute(["/craft:code:lint", "/craft:test --coverage"])
-   # ... etc
-
+1. Log: "Orchestrator delegation unavailable, using command routing"
+2. route_to_commands(task, category)  # same function as Step 3
 3. Execute commands sequentially
 4. Report results
 ```
 
 ### Implementation Notes
 
-- **Forked Context**: All agent delegations use `context: fork` for isolation
-- **Error Handling**: If agent fails, fall back to command routing
-- **User Preference**: If user says "no agents", skip delegation
-- **Dry-Run Mode**: Show delegation plan without executing
+- **Forked Context**: Orchestrator-v2 delegation (Score ≥ 8) uses `context: fork` for isolation
+- **Error Handling**: If orchestrator delegation fails, fall back to command routing (Step 6)
+- **User Preference**: If user says "no orchestration", skip delegation and route to commands
+- **Dry-Run Mode**: Show routing/delegation plan without executing
 
 ---
 

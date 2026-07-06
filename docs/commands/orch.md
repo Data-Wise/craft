@@ -353,8 +353,8 @@ The orchestrator coordinates complex workflows that include context gathering wi
 Flow:
 
 1. Brainstorm d:8 with categories for comprehensive context
-2. Spawn backend-architect agent for design
-3. Spawn frontend specialist for UI
+2. Spawn a subagent (`general-purpose`, description: "design") for architecture
+3. Spawn a subagent (`general-purpose`, description: "UI") for frontend work
 4. Coordinate test strategy
 5. Synthesize into implementation plan
 

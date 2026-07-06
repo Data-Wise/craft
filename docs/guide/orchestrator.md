@@ -173,10 +173,11 @@ Orchestrate complex features with structured context gathering:
 Flow:
 
 1. `/brainstorm d:8` gathers context (requirements, users, scope, technical)
-2. Spawns backend-architect agent
-3. Spawns frontend specialist
-4. Coordinates test strategy
-5. Synthesizes into implementation plan
+2. Routes architecture and implementation work through the category-based
+   command sequence (`/craft:arch:plan`, `/craft:code:test-gen`, etc.) —
+   no per-domain agent dispatch
+3. Coordinates test strategy
+4. Synthesizes into implementation plan
 
 ### Custom Brainstorm Context
 
