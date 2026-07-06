@@ -77,19 +77,21 @@ When an agent fails after retries, select alternative approach:
 ```markdown
 ## 🔄 FALLBACK AGENT SELECTION
 
-**Original agent**: backend-architect
+**Original agent**: arch-1 (architecture task)
 **Failure**: Exceeded context budget (3 consecutive failures)
 **Root cause**: Task too complex for single agent
 
 ### Fallback Strategy
 1. **Decompose**: Break into smaller subtasks
-2. **Route**: Use simpler specialized agents
+2. **Route**: Dispatch each subtask as its own `general-purpose` agent with a narrower prompt
 3. **Escalate**: Report to orchestrator for replanning
 
-**Action taken**: Decomposing architecture task into 3 subtasks:
-- [AGENT-A1] Data model design → code-quality-reviewer
-- [AGENT-A2] API design → feature-dev
-- [AGENT-A3] Integration → bug-detective
+**Action taken**: Decomposing architecture task into 3 subtasks (task labels below describe
+the role each agent plays, not a named `subagent_type` — all dispatch through
+`general-purpose`, per craft's actual agent roster):
+- [AGENT-A1] Data model design → general-purpose
+- [AGENT-A2] API design → general-purpose
+- [AGENT-A3] Integration → general-purpose
 
 **ETA**: 15 min (vs 8 min original estimate)
 ```

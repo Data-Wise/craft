@@ -31,7 +31,7 @@
 
 - :brain:{ .lg .middle } **8 Specialized Agents**
 
-    Backend architect, docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and orchestrators
+    Docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and 2 orchestrators (default + v2.1)
 
 - :sparkles:{ .lg .middle } **45 Skills**
 
