@@ -5,6 +5,11 @@ description: This skill should be used when a command's --refine flag is set, or
 
 # Prompt Refiner
 
+> **Note:** Chat (claude.ai) may have a differently-scoped skill also named
+> `prompt-refiner` — general-purpose prompt improvement, not craft's `--refine`
+> flag plumbing. Unconfirmed from this repo; if cross-referencing
+> "prompt-refiner" in docs or conversation, specify which one is meant.
+
 Rewrites a raw user request into a sharper prompt, then confirms. Called
 by the `--refine` flag on brainstorm / do / orchestrate / plan:feature /
 arch:plan, or standalone ("refine and print").

@@ -11,7 +11,8 @@ replaced-by: "skills/workflow/prompt-refiner/"
 > `prompt-refiner` skill. This file exists only to preserve the explicit
 > `/craft:workflow:refine` slash entry point through the v2.34.0 → v3.0.0
 > migration (see [ADR-002](../../docs/adr/ADR-002-done-command-skill-consolidation.md),
-> which names `/refine` as one of the seven commands in this consolidation).
+> which treats `/refine` as a separate consolidation into `prompt-refiner`,
+> distinct from the six `adhd-workflow` commands).
 
 ## When invoked
 
@@ -27,11 +28,13 @@ replaced-by: "skills/workflow/prompt-refiner/"
 
 ## Why this is a shim
 
-`/refine` is one of seven `commands/workflow/*.md` commands being consolidated
-into skills under the v2.34.0 → v3.0.0 migration (ADR-002). Both entry paths —
-the explicit `/craft:workflow:refine` slash command and the `--refine` flag on
-brainstorm/do/orchestrate/plan:feature/arch:plan — now route to the same skill.
-At v3.0.0 this shim may be retired; the canonical body in the skill survives.
+`/refine` is consolidated into a skill under the v2.34.0 → v3.0.0 migration
+(ADR-002) — a separate consolidation from the six `commands/workflow/*.md`
+commands (`done`/`recap`/`next`/`focus`/`stuck`/`spec-review`) that route into
+the `adhd-workflow` skill. Both entry paths — the explicit
+`/craft:workflow:refine` slash command and the `--refine` flag on
+brainstorm/do/orchestrate/plan:feature/arch:plan — now route to the same
+`prompt-refiner` skill. The canonical body lives in the skill, not here.
 
 **Scope note:** the pre-consolidation version of this command also had
 clipboard-copy and background-task-execution ("execute in background, check
