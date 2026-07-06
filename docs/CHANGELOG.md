@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`do.md` no longer dispatches to nonexistent agents.** Removed `select_agent()`'s dead
+  `subagent_type` branches (`feature-dev`, `backend-architect`, `bug-detective`,
+  `code-quality-reviewer` — never had backing agent definitions); Score 4-7 tasks now route
+  through the same category-based command sequencing as other score ranges. Swept 24+ docs
+  for stale references to these names, including two surface forms (space-separated,
+  different casing) an earlier hyphenated-only grep missed in `docs/index.md`'s feature grid
+  and `skills/orchestrator-resilience/SKILL.md`'s fallback-dispatch example ([#270](https://github.com/Data-Wise/craft/pull/270)).
+- **`docs/commands/dist/surfaces.md`** (satellite mirror) was missing the `--report-only`/
+  `--version` flags added to `/craft:dist:surfaces` in #270; synced.
+- **Docs staleness false positive**: `docs/commands/orch.md`'s mode-table "4 agents" (an
+  `optimize`/`release` concurrency limit) was flagged against the 8-agent-definitions total;
+  excluded via `scripts/config/exclusions.txt`, same class as an existing `README.md` entry.
+
+### Added
+
+- **`scripts/verify-surfaces.sh --report-only` and `--version <X>`** — a never-blocking
+  diagnostic mode for release-state verification, plus 2 new legs (GitHub release
+  publication, docs-site version). Folded into `/craft:dist:surfaces`; no new command.
+- **`docs/runbooks/release-rollback.md`** — manual per-surface undo steps for a bad release
+  (git tag, GitHub release, Homebrew formula, docs deploy).
+
 ## [2.60.0] - 2026-07-05
 
 ### Added
