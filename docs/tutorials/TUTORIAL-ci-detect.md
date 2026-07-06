@@ -73,4 +73,4 @@ Shows what would be detected without modifying any files. Useful before feeding 
 
 - Use `/craft:ci:generate` to turn detection output into a full GitHub Actions workflow
 - Use `/craft:ci:validate` to check an existing workflow against the detected requirements
-- Run `/craft:code:ci-local` to execute the detected steps locally before pushing
+- Run `/craft:ci:local` to execute the detected steps locally before pushing

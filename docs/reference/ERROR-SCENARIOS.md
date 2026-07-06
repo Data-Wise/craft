@@ -839,7 +839,7 @@ Install with:
 npm install --save-dev jest
 
 # Option 3: Skip tests temporarily
-/craft:code:ci-local --skip-tests
+/craft:ci:local --skip-tests
 ```
 
 ---

@@ -66,12 +66,12 @@ Shows which linter command would run and which files would be checked.
 
 ## Step 5: Auto-Fix
 
-Lint auto-fix is handled via `/craft:code:ci-local --fix` which applies `eslint --fix` (or equivalent) across the whole project. For targeted fixes, run the linter's fix mode directly.
+Lint auto-fix is handled via `/craft:ci:local --fix` which applies `eslint --fix` (or equivalent) across the whole project. For targeted fixes, run the linter's fix mode directly.
 
 ---
 
 ## What's Next
 
 - Add `code:lint` to your pre-push workflow via `/craft:check`
-- Use `/craft:code:ci-local --only lint` for a lint-only CI mirror
+- Use `/craft:ci:local --only lint` for a lint-only CI mirror
 - Use `release` mode before every `/release` run to catch warning debt

@@ -231,7 +231,7 @@ nav:
       - ci:triage Tutorial: tutorials/TUTORIAL-ci-triage.md
       - ci:validate Tutorial: tutorials/TUTORIAL-ci-validate.md
       - ci:watch Tutorial: tutorials/TUTORIAL-ci-watch.md
-      - code:ci-local Tutorial: tutorials/TUTORIAL-code-ci-local.md
+      - ci:local Tutorial: tutorials/TUTORIAL-ci-local.md
       - code:command-audit Tutorial: tutorials/TUTORIAL-code-command-audit.md
       - code:deps-audit Tutorial: tutorials/TUTORIAL-code-deps-audit.md
       - code:desktop-watch Tutorial: tutorials/TUTORIAL-code-desktop-watch.md
@@ -320,7 +320,7 @@ nav:
       - /craft:arch:analyze: commands/arch/analyze.md
       - /craft:code:lint: commands/code/lint.md
       - /craft:code:deps-audit: commands/code/deps-audit.md
-      - /craft:code:ci-local: commands/code/ci-local.md
+      - /craft:ci:local: commands/ci/local.md
       - /craft:code:command-audit: commands/code/command-audit.md
       - /craft:code:release-watch: commands/code/release-watch.md
       - /craft:code:desktop-watch: commands/code/desktop-watch.md
@@ -342,7 +342,7 @@ nav:
       - /craft:ci:validate: commands/ci/validate.md
       - /craft:ci:watch: commands/ci/watch.md
       - /craft:code:fewer-prompts: commands/code/fewer-prompts.md
-      - /craft:code:ci-fix: commands/code/ci-fix.md
+      - /craft:ci:fix: commands/ci/fix.md
       - /craft:code:debug: commands/code/debug.md
       - /craft:code:deps-check: commands/code/deps-check.md
       - /craft:code:docs-check: commands/code/docs-check.md

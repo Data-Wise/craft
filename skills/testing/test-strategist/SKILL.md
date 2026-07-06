@@ -73,4 +73,4 @@ Works with:
 - `/craft:test` - Execute tests
 - `/craft:test --coverage` - Coverage reports
 - `/craft:test debug` - Debug failures
-- `/craft:code:ci-local` - CI validation
+- `/craft:ci:local` - CI validation

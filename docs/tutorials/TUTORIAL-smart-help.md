@@ -55,7 +55,7 @@ Commands matching "ci":
   /craft:ci:triage      — Classify CI failures
   /craft:ci:validate    — Validate existing CI workflow
   /craft:ci:watch       — Poll CI run to completion
-  /craft:code:ci-local  — Run CI mirror locally
+  /craft:ci:local  — Run CI mirror locally
 ```
 
 ---

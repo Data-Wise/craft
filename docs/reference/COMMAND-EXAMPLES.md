@@ -1002,7 +1002,7 @@ SUMMARY: 156/156 passing (2.4s)
 /craft:code:coverage --threshold 85
 
 # 3. Build and test locally
-/craft:code:ci-local
+/craft:ci:local
 
 # 4. Create release
 /craft:code:release

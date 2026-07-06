@@ -35,7 +35,7 @@ This fetches Desktop release notes from Anthropic support docs, scans for plugin
 
 - `/craft:code:release-watch` — Full unified release tracking (Code + Desktop)
 - `/craft:code:release-watch --product desktop` — Direct Desktop tracking
-- `/craft:code:ci-fix` - Fix CI Failures
+- `/craft:ci:fix` - Fix CI Failures
 - `/craft:code:command-audit` - Validate command frontmatter, find deprecated patterns, report health score
 - `/craft:code:coverage` - Test Coverage Report
 - `/craft:code:deps-check` - Dependency Check

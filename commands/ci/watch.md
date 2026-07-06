@@ -104,7 +104,7 @@ nothing to do.
 
 Watch does **lightweight inline triage** for the two clear-cut cases only:
 
-- Failure step touches a file in your PR diff → fix it: `/craft:code:ci-fix`.
+- Failure step touches a file in your PR diff → fix it: `/craft:ci:fix`.
 - `Validate Plugin Structure` stuck/failed alone while others pass → `--admin`
   candidate (confirm unrelated first).
 
@@ -132,4 +132,4 @@ until [ "$(gh run view <run-id> --json status --jq .status)" = "completed" ]; do
 
 - `/craft:ci:triage` — deep triage of a red run (watch forwards the ambiguous case here)
 - `/craft:ci:status` — cross-repo dashboard / `--post-release` verification
-- `/craft:code:ci-fix` — apply a fix once the cause is a DIFF-CAUSED failure
+- `/craft:ci:fix` — apply a fix once the cause is a DIFF-CAUSED failure

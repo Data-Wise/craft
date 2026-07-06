@@ -289,8 +289,8 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:code:coverage`          | Coverage report          | ✓    |
 | `/craft:code:deps-check`        | Dependency health        | ----- |
 | `/craft:code:deps-audit`        | Security scan            | ----- |
-| `/craft:code:ci-local`          | CI checks locally        | ----- |
-| `/craft:code:ci-fix`            | Fix CI failures          | ----- |
+| `/craft:ci:local`          | CI checks locally        | ----- |
+| `/craft:ci:fix`            | Fix CI failures          | ----- |
 | `/craft:code:skill-standards`   | Audit skill quality      | ----- |
 
 ### Test Commands (3)

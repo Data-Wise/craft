@@ -73,7 +73,7 @@ def _check_hub_display():
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
 │   /craft:code:coverage             /craft:code:test-gen                 │
 │   /craft:code:deps-audit                                                │
-│   /craft:code:ci-local                                                  │
+│   /craft:ci:local                                                  │
 │                                                                         │
 │ 📄 DOCS ({stats['categories'].get('docs', 0)})             🏗️ ARCH ({stats['categories'].get('arch', 0)})            │
 │   /craft:docs:sync                 /craft:arch:analyze [mode]           │

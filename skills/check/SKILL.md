@@ -67,7 +67,7 @@ Mode applies to the hot-reload validators too via `$CRAFT_MODE` — see the vali
 2. **Dry-run first when stakes are high.** For `--for release` or `--for deploy`, suggest `/craft:check --for release --dry-run` to preview the validator plan and time estimate before executing.
 3. **Run the appropriate command.** Invoke `/craft:check --for <context> [mode]`. Let the command's Step 0 plan + AskUserQuestion gate handle confirmation.
 4. **On failure, route specifically.** Don't just dump errors — point at the right follow-up:
-   - Lint failures → suggest `/craft:code:ci-fix` or `/craft:code:lint`
+   - Lint failures → suggest `/craft:ci:fix` or `/craft:code:lint`
    - Version drift → suggest `/craft:check --version release` for the focused validator
    - Stale refs from a rename → list the files that need updating
    - CLAUDE.md staleness → suggest `/craft:docs:claude-md:sync`

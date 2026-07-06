@@ -202,7 +202,7 @@ The command is smart about what to run and fails fast if critical issues are fou
 | "Tests failed" | Fix failing tests before committing; use `/craft:test` to run tests only |
 | "Broken links detected" | Fix or remove broken links; use `/craft:site:check` for detailed link report |
 | "Command runs too slowly" | Use `optimize` mode: `/craft:check optimize` |
-| "Check passes but CI fails" | CI might run additional checks; use `/craft:code:ci-local` to match CI environment |
+| "Check passes but CI fails" | CI might run additional checks; use `/craft:ci:local` to match CI environment |
 | "Working directory not clean" | Commit or stash changes; `/craft:check` expects clean state |
 
 ## Related

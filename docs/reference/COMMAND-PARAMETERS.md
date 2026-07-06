@@ -276,7 +276,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:code:ci-local
+### /craft:ci:local
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -285,7 +285,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:code:ci-fix
+### /craft:ci:fix
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|

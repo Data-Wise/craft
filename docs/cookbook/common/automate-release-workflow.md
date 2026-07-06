@@ -46,7 +46,7 @@ I want to automate testing and validation before deployment so broken code never
 4. **Test locally before committing**
 
    ```bash
-   /craft:code:ci-local
+   /craft:ci:local
    ```
 
    Why: Runs the same checks that will run in CI, catching issues before pushing
@@ -117,7 +117,7 @@ The workflow runs on:
 - **Run checks locally without generating workflow:**
 
   ```bash
-  /craft:code:ci-local
+  /craft:ci:local
   ```
 
   Use during development to catch issues early
@@ -154,7 +154,7 @@ The workflow runs on:
 |-------|----------|
 | "No test framework detected" | Install a test framework (pytest, jest, testthat) and retry |
 | "CI workflow already exists" | Use `/craft:ci:validate` to check existing workflow, or backup and regenerate |
-| "Tests pass locally but fail in CI" | Run `/craft:code:ci-local` to reproduce CI environment locally |
+| "Tests pass locally but fail in CI" | Run `/craft:ci:local` to reproduce CI environment locally |
 | "Dependency installation fails" | Check that `package.json`/`requirements.txt`/`DESCRIPTION` lists all dependencies |
 | "Matrix builds taking too long" | Reduce matrix versions in `.github/workflows/ci.yml` |
 | "Workflow not triggering" | Verify `.github/workflows/ci.yml` is committed and pushed to default branch |

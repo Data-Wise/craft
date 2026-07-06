@@ -113,7 +113,7 @@
 - ✅ Always before `git commit` (catches issues early)
 - ✅ Before creating PR (ensures quality)
 - ✅ Before merging to main (final validation)
-- ✅ In CI/CD pipelines (use `/craft:code:ci-local` or `/craft:check --for release`)
+- ✅ In CI/CD pipelines (use `/craft:ci:local` or `/craft:check --for release`)
 
 **See:** [REFCARD-CHECK.md](reference/REFCARD-CHECK.md) for complete reference
 
@@ -899,8 +899,8 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:code:refactor`   | ----- | Refactoring guidance        |
 | `/craft:code:deps-check` | ----- | Dependency health check     |
 | `/craft:code:deps-audit` | ----- | Security vulnerability scan |
-| `/craft:code:ci-local`       | ----- | Run CI checks locally       |
-| `/craft:code:ci-fix`         | ----- | Diagnose and fix CI failures |
+| `/craft:ci:local`       | ----- | Run CI checks locally       |
+| `/craft:ci:fix`         | ----- | Diagnose and fix CI failures |
 | `/craft:code:fewer-prompts`    | ----- | Install read-only Bash allowlist (--dry-run, --global, --reset) |
 | `/craft:code:skill-standards`  | ----- | Audit plugin skills against Anthropic Skill Standards (--fix, --json, --refresh-standards) |
 

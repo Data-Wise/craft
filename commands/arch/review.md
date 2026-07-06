@@ -100,7 +100,7 @@ Status: NEEDS ATTENTION
 Works with:
 
 - `/craft:arch:analyze` - Full analysis
-- `/craft:code:ci-local` - CI checks
+- `/craft:ci:local` - CI checks
 - `/craft:git:sync` - Pre-push validation
 
 ## See Also

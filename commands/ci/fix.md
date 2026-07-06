@@ -10,7 +10,7 @@ Automatically diagnose and fix common CI failures.
 ## Usage
 
 ```bash
-/craft:code:ci-fix [options]
+/craft:ci:fix [options]
 ```
 
 ## What This Does
@@ -42,16 +42,16 @@ Automatically diagnose and fix common CI failures.
 
 ```bash
 # Diagnose and suggest fixes
-/craft:code:ci-fix
+/craft:ci:fix
 
 # Auto-fix everything safe
-/craft:code:ci-fix --auto
+/craft:ci:fix --auto
 
 # Dry run to see changes
-/craft:code:ci-fix --dry-run
+/craft:ci:fix --dry-run
 
 # Fix from GitHub Actions log
-/craft:code:ci-fix --from-log https://github.com/.../runs/123
+/craft:ci:fix --from-log https://github.com/.../runs/123
 ```
 
 ## Output
@@ -84,7 +84,7 @@ Apply auto-fixes? [y/N]
 
 Works with:
 
-- `/craft:code:ci-local` - Run CI locally
+- `/craft:ci:local` - Run CI locally
 - `/craft:test debug` - Debug failing tests
 - `/craft:code:lint --fix` - Fix lint issues
 

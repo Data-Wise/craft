@@ -4,7 +4,7 @@ A check just went red on your PR. Don't guess — classify it, then act.
 
 1. `/craft:ci:triage` — triage the current branch's open PR (or `/craft:ci:triage <pr>`).
 2. Read the verdict:
-   - **DIFF-CAUSED** → the failure is in your changes. `/craft:code:ci-fix`, re-push.
+   - **DIFF-CAUSED** → the failure is in your changes. `/craft:ci:fix`, re-push.
    - **PRE-EXISTING** → error sites are outside your diff. An `--admin` merge may be
      justified — confirm it's unrelated first (the evidence `file:line` list tells you).
    - **INFRA-FLAKE** → rate-limit / runner / timeout. `gh run rerun <run-id> --failed`.

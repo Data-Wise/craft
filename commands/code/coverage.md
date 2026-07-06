@@ -78,12 +78,12 @@ Uncovered lines:
 Works with:
 
 - `/craft:test` - Run tests
-- `/craft:code:ci-local` - Pre-commit checks
+- `/craft:ci:local` - Pre-commit checks
 - `/craft:code:release` - Release validation
 
 ## See Also
 
-- `/craft:code:ci-fix` - Fix CI Failures
+- `/craft:ci:fix` - Fix CI Failures
 - `/craft:code:command-audit` - Validate command frontmatter, find deprecated patterns, report health score
 - `/craft:code:deps-check` - Dependency Check
 - `/craft:code:desktop-watch` - Track Claude Desktop releases and identify plugin integration opportunities

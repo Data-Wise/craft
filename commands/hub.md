@@ -200,8 +200,8 @@ Display template:
 │   /craft:code:debug                                                     │
 │   /craft:code:refactor           ARCH (4)                               │
 │   /craft:code:deps-audit           /craft:arch:analyze [mode]           │
-│   /craft:code:ci-local             /craft:arch:plan                     │
-│   /craft:code:ci-fix               /craft:arch:review                   │
+│   /craft:ci:local             /craft:arch:plan                     │
+│   /craft:ci:fix               /craft:arch:review                   │
 │                                    /craft:arch:diagram                  │
 │ DOCS (21)                                                               │
 │   /craft:docs:update             PLAN (3)                               │
@@ -401,8 +401,8 @@ Command                  | Description                    | Modes
 /craft:code:coverage     | Test coverage report           | yes
 /craft:code:deps-check   | Check dependency health        | -
 /craft:code:deps-audit   | Security vulnerability scan    | -
-/craft:code:ci-local     | Run CI checks locally          | -
-/craft:code:ci-fix       | Fix CI failures                | -
+/craft:ci:local     | Run CI checks locally          | -
+/craft:ci:fix       | Fix CI failures                | -
 /craft:code:debug        | Systematic debugging           | -
 /craft:code:demo         | Create demonstrations          | -
 /craft:code:test-gen     | Generate test files            | -
@@ -715,7 +715,7 @@ SUGGESTED FOR PYTHON PROJECT:
   /craft:do "run all checks"  Smart workflow
   /craft:code:lint            Run ruff/flake8
   /craft:test                 Run pytest
-  /craft:code:ci-local        Pre-push validation
+  /craft:ci:local        Pre-push validation
   /craft:code:release         PyPI release workflow
 ```
 
@@ -757,7 +757,7 @@ SUGGESTED FOR NODE PROJECT:
 │                                                                        │
 │ Development Workflow:                                                  │
 │   /craft:code:lint [mode] -> /craft:test [mode] ->                     │
-│   /craft:code:coverage -> /craft:code:ci-local -> /craft:git:sync      │
+│   /craft:code:coverage -> /craft:ci:local -> /craft:git:sync      │
 │                                                                        │
 │ Feature Development:                                                   │
 │   /craft:git:worktree create feat/x -> [develop] ->                    │

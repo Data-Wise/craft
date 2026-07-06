@@ -234,4 +234,4 @@ if path:
 - `/craft:test:gen` - Generate test suites
 - `/craft:test:template` - Manage test templates
 - `/craft:check` - Pre-flight validation (includes test run)
-- `/craft:code:ci-local` - CI checks
+- `/craft:ci:local` - CI checks

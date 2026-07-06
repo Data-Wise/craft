@@ -34,7 +34,7 @@ Get intelligent help based on your project and question.
 │                                                     │
 │ Quality:                                            │
 │   /craft:code:deps-audit   pip-audit security      │
-│   /craft:code:ci-local     pre-commit simulation   │
+│   /craft:ci:local     pre-commit simulation   │
 │                                                     │
 │ Release:                                            │
 │   /craft:code:release      PyPI workflow           │
@@ -54,7 +54,7 @@ Get intelligent help based on your project and question.
 │   /craft:code:docs-check   roxygen2 validation     │
 │                                                     │
 │ Quality:                                            │
-│   /craft:code:ci-local     R CMD check simulation  │
+│   /craft:ci:local     R CMD check simulation  │
 │   /craft:arch:analyze      package structure       │
 │                                                     │
 │ Release:                                            │
@@ -181,7 +181,7 @@ Get intelligent help based on your project and question.
 │                                                     │
 │ Related:                                            │
 │   /craft:test:gen          Generate test files     │
-│   /craft:code:ci-local     Run full CI checks      │
+│   /craft:ci:local     Run full CI checks      │
 │                                                     │
 ╰─────────────────────────────────────────────────────╯
 ```
@@ -244,7 +244,7 @@ Get intelligent help based on your project and question.
 
 /craft:help "how do I check code quality?"
 → Use /craft:check for quick validation
-→ Use /craft:code:ci-local for full CI simulation
+→ Use /craft:ci:local for full CI simulation
 
 /craft:help "what commands are available?"
 → Use /craft:hub to see all 115 commands

@@ -24,19 +24,19 @@ arguments:
     alias: -n
 ---
 
-# /craft:code:ci-local - Run CI Locally
+# /craft:ci:local - Run CI Locally
 
 Run continuous integration checks locally before pushing.
 
 ## Usage
 
 ```bash
-/craft:code:ci-local                    # Full CI suite
-/craft:code:ci-local --quick            # Skip slow checks
-/craft:code:ci-local --fix              # Auto-fix issues
-/craft:code:ci-local --only tests       # Run specific check
-/craft:code:ci-local --dry-run          # Preview checks
-/craft:code:ci-local --quick -n         # Preview quick mode
+/craft:ci:local                    # Full CI suite
+/craft:ci:local --quick            # Skip slow checks
+/craft:ci:local --fix              # Auto-fix issues
+/craft:ci:local --only tests       # Run specific check
+/craft:ci:local --dry-run          # Preview checks
+/craft:ci:local --quick -n         # Preview quick mode
 ```
 
 ## Dry-Run Mode
@@ -111,7 +111,7 @@ Preview CI checks that will be performed:
 ### Quick Mode Dry-Run
 
 ```bash
-/craft:code:ci-local --quick --dry-run
+/craft:ci:local --quick --dry-run
 ```
 
 ```
@@ -167,16 +167,16 @@ Preview CI checks that will be performed:
 
 ```bash
 # Full CI check
-/craft:code:ci-local
+/craft:ci:local
 
 # Quick check before commit
-/craft:code:ci-local --quick
+/craft:ci:local --quick
 
 # Fix issues automatically
-/craft:code:ci-local --fix
+/craft:ci:local --fix
 
 # Run only tests
-/craft:code:ci-local --only tests
+/craft:ci:local --only tests
 ```
 
 ## Output
@@ -215,5 +215,5 @@ Run with --fix to auto-fix lint issues.
 
 Works with:
 
-- `/craft:code:ci-fix` - Fix CI failures
+- `/craft:ci:fix` - Fix CI failures
 - `/craft:git:sync` - Pre-push validation

@@ -248,6 +248,6 @@ cd ~/.git-worktrees/craft/feature-x
 
 - **Detailed lint:** `/craft:code:lint`
 - **Detailed tests:** `/craft:test`
-- **Auto-fix issues:** `/craft:code:ci-fix`
-- **Full CI simulation:** `/craft:code:ci-local`
+- **Auto-fix issues:** `/craft:ci:fix`
+- **Full CI simulation:** `/craft:ci:local`
 - **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md)

@@ -261,5 +261,5 @@ validators:
 ## See Also
 
 - `/craft:code:lint` - Detailed linting with mode support
-- `/craft:code:ci-fix` - Auto-fix lint issues
+- `/craft:ci:fix` - Auto-fix lint issues
 - `/craft:check` - Run all validators

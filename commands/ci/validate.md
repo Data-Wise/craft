@@ -291,7 +291,7 @@ Works with:
 - `/craft:ci:detect` - Detect project configuration
 - `/craft:ci:generate` - Generate new workflow
 - `/craft:check ci` - Quick validation
-- `/craft:code:ci-local` - Run CI checks locally
+- `/craft:ci:local` - Run CI checks locally
 
 ## See Also
 

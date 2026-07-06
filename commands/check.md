@@ -327,7 +327,7 @@ that command for the full SAFE/TIGHT/DEFER advisory logic.
 
 On issues, use the same box format with per-issue detail lines and a
 `STATUS: N ISSUES FOUND` footer plus a fix suggestion (e.g.
-`/craft:code:ci-fix`).
+`/craft:ci:fix`).
 
 ## Integration
 
@@ -337,7 +337,7 @@ Works with:
 - `/craft:test` - Detailed test results
 - `/craft:docs:lint` - Markdown quality validation
 - `/craft:docs:check-links` - Documentation link validation
-- `/craft:code:ci-fix` - Auto-fix issues
-- `/craft:code:ci-local` - Full CI simulation
+- `/craft:ci:fix` - Auto-fix issues
+- `/craft:ci:local` - Full CI simulation
 - `/craft:orchestrate` - Its Step 1.5 has the full SAFE/TIGHT/DEFER quota advisory (formerly a standalone /craft:quota command)
 - `/craft:check:gen-validator` - Scaffold a new custom validator (see the skill's "Validator Generation" section for the full flow)

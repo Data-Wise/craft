@@ -602,7 +602,7 @@ Development workflow and code manipulation tools.
 
 ---
 
-### /craft:code:ci-local
+### /craft:ci:local
 
 **Category**: CI/CD | **Complexity**: Simple | **Time**: < 60s
 **Description**: Run CI checks locally before committing
@@ -616,15 +616,15 @@ Development workflow and code manipulation tools.
 #### Examples
 
 ```bash
-/craft:code:ci-local
-/craft:code:ci-local --dry-run
+/craft:ci:local
+/craft:ci:local --dry-run
 ```
 
-**File**: `commands/code/ci-local.md`
+**File**: `commands/ci/local.md`
 
 ---
 
-### /craft:code:ci-fix
+### /craft:ci:fix
 
 **Category**: CI/CD | **Complexity**: Simple | **Time**: < 60s
 **Description**: Fix common CI failures locally
@@ -639,11 +639,11 @@ Development workflow and code manipulation tools.
 #### Examples
 
 ```bash
-/craft:code:ci-fix
-/craft:code:ci-fix "lint errors" --apply
+/craft:ci:fix
+/craft:ci:fix "lint errors" --apply
 ```
 
-**File**: `commands/code/ci-fix.md`
+**File**: `commands/ci/fix.md`
 
 ---
 
