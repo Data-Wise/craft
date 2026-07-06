@@ -1,5 +1,5 @@
 ---
-name: orchestrate
+name: orch
 description: Launch orchestrator mode with subagent delegation, monitoring, mode-aware execution, and chat compression
 category: smart
 arguments:
