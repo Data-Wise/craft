@@ -234,7 +234,6 @@ nav:
       - ci:local Tutorial: tutorials/TUTORIAL-ci-local.md
       - code:command-audit Tutorial: tutorials/TUTORIAL-code-command-audit.md
       - code:deps-audit Tutorial: tutorials/TUTORIAL-code-deps-audit.md
-      - code:desktop-watch Tutorial: tutorials/TUTORIAL-code-desktop-watch.md
       - code:fewer-prompts Tutorial: tutorials/TUTORIAL-code-fewer-prompts.md
       - code:lint Tutorial: tutorials/TUTORIAL-code-lint.md
       - code:release-watch Tutorial: tutorials/TUTORIAL-code-release-watch.md
@@ -323,7 +322,6 @@ nav:
       - /craft:ci:local: commands/ci/local.md
       - /craft:code:command-audit: commands/code/command-audit.md
       - /craft:code:release-watch: commands/code/release-watch.md
-      - /craft:code:desktop-watch: commands/code/desktop-watch.md
       - /craft:code:sync-features: commands/code/sync-features.md
       - /craft:test: commands/test.md
       - /craft:git:branch: commands/git/branch.md

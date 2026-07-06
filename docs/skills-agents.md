@@ -30,7 +30,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 | Name | Description | Path |
 |------|-------------|------|
-| sync-features | Chain command-audit, release-watch, and desktop-watch into a prioritized action plan | `skills/code/SKILL.md` |
+| sync-features | Chain command-audit and unified release-watch into a prioritized action plan | `skills/code/SKILL.md` |
 | demonstration-builder | Designs progressive runnable code examples for tutorials, vignettes, presentations, and documentation | `skills/code/demonstration-builder/SKILL.md` |
 | command-skill-token-efficiency | Checks where content belongs (command vs. skill) when authoring/resizing command, skill, or agent files, and runs the quantitative line-ratio check | `skills/code/command-skill-token-efficiency/SKILL.md` |
 | plugin-audit | Diffs installed plugins' command/skill surfaces to flag cross-namespace name collisions (e.g. `workflow` vs. `craft:workflow`) | `skills/code/plugin-audit/SKILL.md` |

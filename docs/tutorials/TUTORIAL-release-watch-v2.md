@@ -135,7 +135,7 @@ The release-watch integrates with Craft's command system:
 /craft:code:release-watch
 
 # Desktop only
-/craft:code:desktop-watch
+/craft:code:release-watch --product desktop
 
 # Full sync pipeline (audit + release watch + action plan)
 /craft:code:sync-features

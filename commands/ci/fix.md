@@ -94,4 +94,3 @@ Works with:
 - `/craft:code:command-audit` - Validate command frontmatter, find deprecated patterns, report health score
 - `/craft:code:coverage` - Test Coverage Report
 - `/craft:code:deps-check` - Dependency Check
-- `/craft:code:desktop-watch` - Track Claude Desktop releases and identify plugin integration opportunities

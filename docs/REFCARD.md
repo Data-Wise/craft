@@ -1754,7 +1754,6 @@ Comprehensive guides and references:
 | `/craft:code:command-audit` | Validate command frontmatter, find deprecated patterns, report health score |
 | `/craft:code:debug` | Systematic debugging support — error interpretation, root cause analysis, bug fixes |
 | `/craft:code:deps-check` | Check for outdated, missing, or unused dependencies |
-| `/craft:code:desktop-watch` | Track Claude Desktop releases and identify plugin integration opportunities |
 | `/craft:code:docs-check` | Documentation & website pre-flight check for any project |
 | `/craft:code:refactor` | Refactoring guidance — improve code structure without changing behavior |
 | `/craft:code:release` | Guide through the package/project release process |

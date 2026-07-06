@@ -114,5 +114,4 @@ Unified tool for monitoring Claude Code and Desktop releases for changes that af
 Works with:
 
 - `/craft:code:release` — Release preparation
-- `/craft:code:desktop-watch` — Redirects to `--product desktop`
 - `/craft:code:deps-check` — Dependency auditing

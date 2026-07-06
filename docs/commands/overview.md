@@ -2,12 +2,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 115 commands organized into 17 categories covering the full development lifecycle
+> - **What:** 114 commands organized into 17 categories covering the full development lifecycle
 > - **Why:** One plugin handles your entire development workflow from docs to deployment
 > - **How:** Use `/craft:hub` to discover all commands by category
 > - **Next:** Start with `/craft:do` for AI-powered task routing or `/craft:check` for pre-flight validation
 
-Craft provides **115 commands** for full-stack development workflows.
+Craft provides **114 commands** for full-stack development workflows.
 
 ## Command Routing
 
@@ -78,7 +78,7 @@ Development workflow tools:
 - Refactoring: `/craft:code:refactor`
 - CI: `ci-local`, `ci-fix`
 - Analysis: `deps-check`, `deps-audit`, `coverage`, `command-audit`
-- Monitoring: `release-watch`, `desktop-watch`
+- Monitoring: `release-watch` (--product all/code/desktop)
 
 [Learn more →](code.md)
 

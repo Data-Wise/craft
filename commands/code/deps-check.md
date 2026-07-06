@@ -85,5 +85,4 @@ Works with:
 - `/craft:ci:fix` - Fix CI Failures
 - `/craft:code:command-audit` - Validate command frontmatter, find deprecated patterns, report health score
 - `/craft:code:coverage` - Test Coverage Report
-- `/craft:code:desktop-watch` - Track Claude Desktop releases and identify plugin integration opportunities
 - `/craft:code:lint` - Code style and quality checks with mode support

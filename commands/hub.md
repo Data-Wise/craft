@@ -411,7 +411,6 @@ Command                  | Description                    | Modes
 /craft:code:docs-check   | Pre-flight doc check           | -
 /craft:code:command-audit| Audit command frontmatter      | -
 /craft:code:release-watch| Track Claude Code/Desktop rels | -
-/craft:code:desktop-watch| Track Claude Desktop releases  | -
 ─────────────────────────────────────────────────────────────────────────
 ```
 
