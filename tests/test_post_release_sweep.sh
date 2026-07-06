@@ -70,6 +70,13 @@ assert_equals() {
     fi
 }
 
+portable_hash() {
+    # cksum is POSIX and ships on both macOS (BSD) and Linux (GNU coreutils)
+    # with identical flag-free invocation, unlike md5/md5sum (name + flags
+    # differ per platform) or shasum/sha256sum (binary name differs).
+    cksum "$1"
+}
+
 assert_contains() {
     local haystack="$1"
     local needle="$2"
@@ -380,13 +387,13 @@ Last release: v2.0.0
 STALE
 
     local before_md5
-    before_md5=$(md5 -q "$SANDBOX/docs/reference/REFCARD-RELEASE.md")
+    before_md5=$(portable_hash "$SANDBOX/docs/reference/REFCARD-RELEASE.md")
 
     local output
     output=$(cd "$SANDBOX" && bash "$SANDBOX/scripts/post-release-sweep.sh" --dry-run --version 2.1.0 2>&1) || true
 
     local after_md5
-    after_md5=$(md5 -q "$SANDBOX/docs/reference/REFCARD-RELEASE.md")
+    after_md5=$(portable_hash "$SANDBOX/docs/reference/REFCARD-RELEASE.md")
 
     assert_equals "$before_md5" "$after_md5" "Dry-run doesn't modify files"
 
