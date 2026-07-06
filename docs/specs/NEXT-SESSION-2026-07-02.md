@@ -1,5 +1,12 @@
 # NEXT-SESSION Plan — 2026-07-02
 
+> **RESOLVED as of v2.60.0 (2026-07-05).** All state below is now historical:
+> dist-surface hardening shipped as v2.58.0 (2026-07-02); the Dependabot
+> batch/target-branch fix and craft-mcp items were closed out the same day;
+> the planning-refactor/orchestrator-consolidation thread this doc points to
+> shipped in Waves 1-3 (`.STATUS` `last_completed`, 2026-07-04) and then in the
+> v2.60.0 command-namespace reorganization. Kept for historical record only.
+
 Handoff for the next Claude session. Entry points + pending work after the
 dist-surface hardening effort (all merged to `dev`, release cut this session).
 
