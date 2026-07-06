@@ -10,6 +10,24 @@ same references/ pattern established for done.md by ADR-002.
 
 Strategies for staying focused and productive with ADHD.
 
+## Table of Contents
+
+- [Core Principle](#core-principle)
+- [Essential Daily Pattern](#essential-daily-pattern)
+- [During Work](#during-work)
+- [Context Switching](#context-switching)
+- [Focus Strategies](#focus-strategies)
+- [Idea Management](#idea-management)
+- [Common ADHD Challenges](#common-adhd-challenges)
+- [Project Management for ADHD](#project-management-for-adhd)
+- [Multi-Project Context](#multi-project-context)
+- [Medication Timing](#medication-timing)
+- [Reducing Cognitive Load](#reducing-cognitive-load)
+- [Crisis Mode (Deadline, High Pressure)](#crisis-mode-deadline-high-pressure)
+- [Recovery Mode (Burnout, Low Energy)](#recovery-mode-burnout-low-energy)
+- [Tools Integration](#tools-integration)
+- [Quick Reference](#quick-reference)
+
 ## Core Principle
 
 **Externalize your memory.** Your brain is for thinking, not remembering.
