@@ -1,5 +1,9 @@
 # Interactive-Commands Implementation Plan
 
+> **STATUS: SHIPPED** — v2.52.0 (PR #217, dev→main merge `c5f704f3`, tag v2.52.0, 2026-06-26):
+> interactive-by-default commands (#215). Checkboxes below left un-ticked at ship time (tracked
+> via `.STATUS` milestone instead).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Make grill/orchestrate ask questions via AskUserQuestion (Recommended-first + per-option consequences) with a `--yes` non-interactive escape hatch, and make `brainstorm`/`do`/`plan:feature`/`grill` run prompt-refiner by default (`--no-refine` to opt out).

@@ -1,5 +1,11 @@
 # Namespace Refactor Token-Cost Probe — Implementation Plan
 
+> **STATUS: COMPLETE** — recommendation appended to
+> [`SPEC-refactor-namespace-2026-06-29.md`](../specs/SPEC-refactor-namespace-2026-06-29.md)
+> ("proceed with Workstream B — docs/site consolidation — but as a modest win, not..."). Probe was
+> disposable/measurement-only by design; no `namespace.json`, no file moves, no command
+> consolidation was ever implemented, matching the plan's own explicit non-goals.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Answer, with real token counts (not estimates), whether consolidating craft's flat

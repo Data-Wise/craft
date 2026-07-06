@@ -1,5 +1,11 @@
 # doc-impact scaffolding — Orchestration Plan
 
+> **STATUS: SHIPPED** — v2.57.0 (PR #241, dev→main merge `ec5797e6`, tag v2.57.0, 2026-07-01):
+> doc-impact rubric extension (4 new scored types, tiered thresholds, arch-doc double-count
+> subtraction rule, advisory Site Consistency checklist). The remote `feature/doc-impact-scaffolding`
+> branch was never deleted post-merge — safe to delete (squash-merged), not done here (out of
+> scope for a docs pass).
+
 > **Branch:** `feature/doc-impact-scaffolding`
 > **Base:** `dev`
 > **Worktree:** `~/.git-worktrees/craft/feature-doc-impact-scaffolding`

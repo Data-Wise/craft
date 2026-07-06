@@ -1,5 +1,10 @@
 # ORCHESTRATE: Orchestrate-Family Simplification — Wave 1
 
+> **STATUS: SHIPPED** — v2.57.0 (PR #239, dev→main merge `ec5797e6`, tag v2.57.0, 2026-07-01):
+> deleted fictional 523-line `resume.md` session-teleportation command (117→116); thin-shimmed
+> `orchestrate:plan` to `plan-orchestrator` skill. The remote `feature/orchestrate-family-wave1`
+> branch was never deleted post-merge — safe to delete (squash-merged), not done here.
+
 **Source proposal:** [PROPOSAL-orchestrate-family-simplification-2026-07-01.md](../specs/PROPOSAL-orchestrate-family-simplification-2026-07-01.md) (approved)
 **Grill (decisions locked):** [GRILL-orchestrate-family-simplification-2026-07-01.md](../specs/GRILL-orchestrate-family-simplification-2026-07-01.md)
 **Date:** 2026-07-01

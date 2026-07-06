@@ -1,5 +1,9 @@
 # `/craft:grill` Implementation Plan
 
+> **STATUS: SHIPPED** — `/craft:grill` and `commands/grill.md` are live (used extensively across
+> later sessions, e.g. the 2026-07-06 orchestrate-token-usage-hooks grill). Checkboxes below left
+> un-ticked at ship time (tracked via `.STATUS` milestone instead).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Status:** ✅ SHIPPED — v2.48.0 (PR #201 → dev 2727c576, PR #202 → main 4dea8ac8, 2026-06-23). W1–W3 + W5 complete. W4 (ADR + CONTEXT.md glossary) deferred as fast-follow.
