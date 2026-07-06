@@ -809,7 +809,7 @@ if score < 8:
     # Simple (0-3) or medium (4-7) task - same category-based command
     # sequence either way; medium complexity just means a longer chain
     # (see Step 3 below). No agent delegation for this tier.
-    route_to_commands(task)
+    route_to_commands(task, category)
 
 else:  # score >= 8
     # Complex task - delegate to orchestrator
