@@ -249,7 +249,6 @@ nav:
       - docs:mermaid Tutorial: tutorials/TUTORIAL-docs-mermaid.md
       - docs:sync Tutorial: tutorials/TUTORIAL-docs-sync.md
       - git:guard Tutorial: tutorials/TUTORIAL-git-guard.md
-      - quota Tutorial: tutorials/TUTORIAL-quota.md
       - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
 
   # 3. TEACHING - Dedicated teaching workflow section
@@ -288,7 +287,6 @@ nav:
       - /craft:orchestrate: commands/orchestrate.md
       - /craft:orchestrate (reference): reference/orchestrate-reference.md
       - /craft:orchestrate:drive: commands/orchestrate-drive.md
-      - /craft:quota: commands/quota.md
       - /craft:orchestrate:workflow: commands/orchestrate-workflow.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:ci:status: commands/ci/status.md

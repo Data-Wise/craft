@@ -298,14 +298,16 @@ if [[ -f "$CACHE" ]]; then
         case "$LEVEL" in
             SAFE)   echo "✅ Quota: SAFE — sufficient tokens for this run" ;;
             TIGHT)  echo "⚠️  Quota: TIGHT — approaching limit; consider batching" ;;
-            DEFER)  echo "💡 Quota: DEFER recommended — low tokens; run /craft:quota first" ;;
+            DEFER)  echo "💡 Quota: DEFER recommended — low tokens; wait before a heavy /craft:orchestrate run" ;;
         esac
     fi
 fi
 ```
 
-Populate the cache with `/craft:quota <run-type>` before `/craft:check`; the
-cache auto-expires after 15 minutes.
+Populate the cache with `scripts/quota-persist.sh` before `/craft:check`; the
+cache auto-expires after 15 minutes. The standalone `/craft:quota` command
+was folded into `/craft:orchestrate`'s own Step 1.5 pre-flight gate — see
+that command for the full SAFE/TIGHT/DEFER advisory logic.
 
 ## Output Format
 
@@ -337,5 +339,5 @@ Works with:
 - `/craft:docs:check-links` - Documentation link validation
 - `/craft:code:ci-fix` - Auto-fix issues
 - `/craft:code:ci-local` - Full CI simulation
-- `/craft:quota` - Standalone pre-flight quota check
+- `/craft:orchestrate` - Its Step 1.5 has the full SAFE/TIGHT/DEFER quota advisory (formerly a standalone /craft:quota command)
 - `/craft:check:gen-validator` - Scaffold a new custom validator (see the skill's "Validator Generation" section for the full flow)
