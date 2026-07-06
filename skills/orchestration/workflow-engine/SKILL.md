@@ -1,11 +1,11 @@
 ---
 name: workflow-engine
-description: This skill should be used when executing a coded, fixed-control-flow workflow — "run the workflow engine", "execute this WORKFLOW yaml", "run the coded orchestration", decompose→cover→verify→synthesize shapes. Owns the reusable body behind /craft:orchestrate:workflow — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents wave by wave under a run-wide semaphore, structurally gate every output, and run a first-class verify gate.
+description: This skill should be used when executing a coded, fixed-control-flow workflow — "run the workflow engine", "execute this WORKFLOW yaml", "run the coded orchestration", decompose→cover→verify→synthesize shapes. Owns the reusable body behind /craft:orch:workflow — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents wave by wave under a run-wide semaphore, structurally gate every output, and run a first-class verify gate.
 ---
 
 # Workflow Engine
 
-The reusable execution body behind `/craft:orchestrate:workflow`. The command
+The reusable execution body behind `/craft:orch:workflow`. The command
 owns args (`--dry-run`, `--resume`, `--refine`); this skill owns the work.
 
 Unlike `drive-engine` (improvises "what next" each turn) the control flow here

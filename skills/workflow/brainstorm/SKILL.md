@@ -117,7 +117,7 @@ with no model pin — see `agents/orchestrator-v2.md` BEHAVIOR 2.
 
 Instead: after a spec is captured (Step 7), offer to hand off to the
 orchestrator via the existing `--orch` flag / `plan-orchestrator` skill /
-`/craft:orchestrate:plan <spec-path>`. One delegation mechanism, already
+`/craft:orch:plan <spec-path>`. One delegation mechanism, already
 hardened, instead of two.
 
 ## Mandatory Interactive Steps

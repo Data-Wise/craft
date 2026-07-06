@@ -87,7 +87,7 @@ Release Workflow:
 
 When a task description reads like a **fixed coded shape** —
 decompose → cover N → verify M → synthesize — **suggest**
-`/craft:orchestrate:workflow`, do **not** silently switch to it.
+`/craft:orch:workflow`, do **not** silently switch to it.
 
 Detect the shape conservatively (the helper
 `workflow_parse.detects_workflow_shape(text)` fires only when ≥3 of the four
@@ -108,7 +108,7 @@ improvised `orchestrate` is the accepted residual risk. On a match, present a
 
 ```
 This looks like a fixed decompose → cover → verify → synthesize shape.
-Consider: /craft:orchestrate:workflow (coded, schema-gated, resumable)
+Consider: /craft:orch:workflow (coded, schema-gated, resumable)
 Or keep going with improvised orchestration. Which do you want?
 ```
 

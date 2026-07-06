@@ -55,12 +55,12 @@ def prompt_user_for_mode() -> str:
     Fallback for mode selection in non-interactive contexts.
 
     IMPORTANT: This function only runs in tests and scripts. The actual
-    interactive mode selection is implemented in commands/orchestrate.md
+    interactive mode selection is implemented in commands/orch.md
     under "Execution Behavior > Step 0: Mode Selection", which instructs
     Claude to use AskUserQuestion with structured options.
 
     When called by Claude Code:
-        - Claude reads commands/orchestrate.md
+        - Claude reads commands/orch.md
         - Step 0 triggers AskUserQuestion (JSON prompt)
         - This Python function is NOT invoked
 
@@ -72,7 +72,7 @@ def prompt_user_for_mode() -> str:
         "default" (always, in non-interactive context)
 
     See Also:
-        commands/orchestrate.md - Step 0: Mode Selection (AskUserQuestion)
+        commands/orch.md - Step 0: Mode Selection (AskUserQuestion)
         agents/orchestrator-v2.md - BEHAVIOR 1: Task Analysis + Plan Confirmation
     """
     # Non-interactive fallback — display modes and return default
@@ -82,7 +82,7 @@ def prompt_user_for_mode() -> str:
     for mode, desc in MODE_DESCRIPTIONS.items():
         print(f"  {mode:10s} - {desc}")
     print("\n💡 In Claude Code, AskUserQuestion prompts mode selection")
-    print("   See: commands/orchestrate.md > Step 0: Mode Selection")
+    print("   See: commands/orch.md > Step 0: Mode Selection")
     print("💡 In scripts/tests, defaulting to 'default' mode")
     print("   Use --orch=<mode> for explicit selection\n")
 
@@ -161,7 +161,7 @@ def spawn_orchestrator(task: str, mode: str, extra_args: str = "") -> bool:
 
     Note:
         In actual Claude Code execution, this invokes:
-        Skill(skill="craft:orchestrate", args=f"{task} {mode} {extra_args}")
+        Skill(skill="craft:orch", args=f"{task} {mode} {extra_args}")
 
         On failure, callers should implement fallback strategy
         (e.g., route to commands instead of orchestration)
@@ -180,8 +180,8 @@ def spawn_orchestrator(task: str, mode: str, extra_args: str = "") -> bool:
             print(f"   Extra args: {extra_args}")
 
         # In actual execution by Claude Code, this would invoke:
-        # Skill(skill="craft:orchestrate", args=f"{task} {mode} {extra_args}")
-        print(f"\n   ✓ Executing: /craft:orchestrate '{task}' {mode} {extra_args}\n")
+        # Skill(skill="craft:orch", args=f"{task} {mode} {extra_args}")
+        print(f"\n   ✓ Executing: /craft:orch '{task}' {mode} {extra_args}\n")
 
         # For documentation/testing, return True to indicate success
         # Real execution will be handled by Claude Code

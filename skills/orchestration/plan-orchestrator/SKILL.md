@@ -240,7 +240,7 @@ Scan spec for paths under `~/projects/dev-tools/<other>/`. If detected:
 | `session-state` | Plans persist into orchestrator session state. |
 | `project-planner` | Strategic advice upstream; this skill writes the file. |
 | `/craft:git:worktree` | Creates the worktree for ORCHESTRATE mode. |
-| `/craft:orchestrate` | Launches orchestrator after plan exists. |
+| `/craft:orch` | Launches orchestrator after plan exists. |
 | `/craft:docs:sync` | Refreshes roadmap docs on `--update`. |
 
 ## Test-plan scaffolding (default-on)

@@ -42,6 +42,6 @@ all three skills point here instead of duplicating the table inline.
 
 | Skill | How it uses this table |
 |-------|-------------------------|
-| `drive-engine` | Runs the resolved command once the `/goal` condition clears; its exit status is the authoritative "done" signal for `/craft:orchestrate:drive`. |
+| `drive-engine` | Runs the resolved command once the `/goal` condition clears; its exit status is the authoritative "done" signal for `/craft:orch:drive`. |
 | `workflow-engine` | Executes it as a first-class `verify` stage (D8) inside a coded WORKFLOW definition — a strict superset of the drive-engine gate. |
 | `plan-orchestrator` | Uses the table at plan-generation time to pre-fill the ORCHESTRATE template's `## Verification` section with the auto-detected command. |

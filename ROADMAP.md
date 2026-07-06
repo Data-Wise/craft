@@ -189,8 +189,8 @@ nav:
 **Usage:**
 
 ```bash
-/craft:orchestrate "add auth" optimize    # Fast parallel
-/craft:orchestrate "prep release" release # Thorough
+/craft:orch "add auth" optimize    # Fast parallel
+/craft:orch "prep release" release # Thorough
 ```
 
 #### Phase 2: State Persistence ✅
@@ -204,9 +204,9 @@ nav:
 **New Commands:**
 
 ```bash
-/craft:orchestrate continue      # Resume from saved state
-/craft:orchestrate save          # Force state save
-/craft:orchestrate history       # Show past sessions
+/craft:orch continue      # Resume from saved state
+/craft:orch save          # Force state save
+/craft:orch history       # Show past sessions
 ```
 
 #### Phase 3: ADHD Enhancements ✅
@@ -230,7 +230,7 @@ code-1        ░░░░████████████░░░ 🟡
 
 Live validation tests completed on aiterm project:
 
-- [x] **Live orchestrator test** - Added `ait hello` command via `/craft:orchestrate` default mode
+- [x] **Live orchestrator test** - Added `ait hello` command via `/craft:orch` default mode
 - [x] **Stress test** - 4 parallel agents in `optimize` mode added `ait info` + enhanced `--version`
 - [x] **Session persistence test** - Added `ait goodbye` via save/resume workflow
 

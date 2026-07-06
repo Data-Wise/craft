@@ -1,11 +1,11 @@
 ---
 name: drive-engine
-description: This skill should be used when driving an approved SPEC to completion — "drive this spec to done", "run the orchestrate drive loop", "implement the spec autonomously until tests pass". Owns the reusable body behind /craft:orchestrate:drive — parse-or-derive ORCHESTRATE phases, dispatch file-scoped subagents, and run the authoritative real verify gate.
+description: This skill should be used when driving an approved SPEC to completion — "drive this spec to done", "run the orchestrate drive loop", "implement the spec autonomously until tests pass". Owns the reusable body behind /craft:orch:drive — parse-or-derive ORCHESTRATE phases, dispatch file-scoped subagents, and run the authoritative real verify gate.
 ---
 
 # Drive Engine
 
-The reusable execution body behind `/craft:orchestrate:drive`. The command
+The reusable execution body behind `/craft:orch:drive`. The command
 owns condition synthesis and gating; this skill owns the work.
 
 ## Responsibilities

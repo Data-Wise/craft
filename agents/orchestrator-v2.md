@@ -103,7 +103,7 @@ Each orchestration creates a **wave** - an independent execution session:
 ```markdown
 Main Conversation (context A)
   │
-  ├─ User: "/craft:orchestrate add auth"
+  ├─ User: "/craft:orch add auth"
   │
   └─→ FORK → Orchestration Wave 1 (context B - isolated)
       │
@@ -741,7 +741,7 @@ The orchestrator adapts behavior based on the mode specified:
 
 ```markdown
 # User invocation:
-/craft:orchestrate "add auth" optimize
+/craft:orch "add auth" optimize
 
 # Orchestrator applies:
 ## 🚀 ORCHESTRATOR v2 — OPTIMIZE MODE
