@@ -558,6 +558,15 @@ and `--resume <run-id>` re-runs only that stage and its downstream. Contrast
 this with the four runs above: identical task, but here the *shape* is fixed and
 only the fan-out *volume* flexes to data.
 
+> `role:` above is a free-text label describing the stage's purpose (it isn't a
+> fixed roster of named agent types) — the underlying spawn still uses a real
+> `subagent_type` (`general-purpose`, etc.). It's unrelated to `/craft:do`'s
+> Score 4-7 routing, which was previously (and incorrectly) hard-coded to 4
+> nonexistent `subagent_type` values (`feature-dev`, `backend-architect`,
+> `bug-detective`, `code-quality-reviewer`) — that dead-code path has been
+> removed; Score 4-7 now routes through the same category-based command
+> sequence as other score ranges.
+
 > **Which mode?** Improvise (the 4 modes above) when the path is unknown;
 > **drive** when you have an approved spec; **workflow** when the shape repeats
 > and you want determinism + resumable replay.

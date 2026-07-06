@@ -29,11 +29,11 @@ This eliminates manual decision-making and ensures optimal resource allocation.
 flowchart TD
     A["Task Input"] -->|Parse & Analyze| B["Calculate Score<br/>7 Factors"]
     B -->|0-3 Points| C["Route: Commands"]
-    B -->|4-7 Points| D["Route: Single Agent"]
+    B -->|4-7 Points| D["Route: Command Sequence"]
     B -->|8-10 Points| E["Route: Orchestrator v2"]
 
     C -->|Fast| F["Execute Command"]
-    D -->|Moderate| G["Delegate to Specialist"]
+    D -->|Moderate| G["Execute Chained Commands"]
     E -->|Comprehensive| H["Multi-Agent Coordination"]
 
     F -->|Success| I["Return Output"]
@@ -237,7 +237,7 @@ graph LR
 - "comprehensive" keyword → +2 complexity
 - No architectural pattern → 0
 
-### Score: 6/10 → Route: Agent
+### Score: 6/10 → Route: Command Sequence
 
 ```mermaid
 graph LR
@@ -253,7 +253,7 @@ graph LR
     C --> I
     G --> I
 
-    I --> J["Route: Single Agent<br/>feature-developer"]
+    I --> J["Route: Command Sequence<br/>(category-based, chained)"]
 
     style A fill:#e1f5ff
     style B fill:#fff9c4
@@ -355,7 +355,7 @@ graph TD
     style G fill:#f1f8e9
 ```
 
-### Zone 2: Agent (4-7 points)
+### Zone 2: Command Sequence (4-7 points)
 
 **When to Use:** Moderate tasks with multiple components
 
@@ -366,7 +366,9 @@ graph TD
 - Some planning or research involved
 - Moderate scope (5-20 files affected)
 
-**Route To:** Specialized agent (feature-developer, bug-detective, docs-architect, etc.)
+**Route To:** Category-based command sequence — same routing mechanism as Zone 1,
+chaining the category's commands (e.g. `/craft:arch:plan`, `/craft:code:test-gen`,
+`/craft:git:branch` for a feature task); no per-domain agent dispatch
 
 **Examples:**
 
@@ -376,7 +378,7 @@ graph TD
 - "design API and create client SDK"
 
 **Time:** 5-30 minutes
-**Reasoning:** Single agent can handle multiple aspects better than individual commands, but not complex enough for full orchestration
+**Reasoning:** Chaining several category commands handles multiple aspects better than a single command, but the task isn't complex enough for full orchestration
 
 ```mermaid
 graph TD
@@ -385,7 +387,7 @@ graph TD
     B --> D["2-3 Categories"]
     B --> E["Some Planning"]
 
-    C --> F["Specialist Agent<br/>feature-developer<br/>bug-detective<br/>docs-architect<br/>api-documenter<br/>tutorial-engineer"]
+    C --> F["Chained Commands<br/>(category-based sequence,<br/>no per-domain agent)"]
     D --> F
     E --> F
 
@@ -482,7 +484,7 @@ flowchart TD
 
     R --> S
     S -->|0-3| T["Route: Command"]
-    S -->|4-7| U["Route: Agent"]
+    S -->|4-7| U["Route: Command Sequence"]
     S -->|8-10| V["Route: Orchestrator"]
 
     style A fill:#e1f5ff

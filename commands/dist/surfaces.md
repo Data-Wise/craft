@@ -5,6 +5,12 @@ arguments:
   - name: json
     description: Emit the surface matrix as machine JSON instead of the formatted human report
     required: false
+  - name: report-only
+    description: Never block — print ALIGNED/DRIFTED/ABSENT/WARN per surface (including the 2 informational legs below) and always exit 0. Pass-through to `scripts/verify-surfaces.sh --report-only` via `scripts/surfaces.sh --verify`.
+    required: false
+  - name: version
+    description: Check surfaces against this version instead of the current `plugin.json` version — diagnose a past release (e.g. `--version v2.58.0`). Pass-through to `scripts/verify-surfaces.sh --version`.
+    required: false
 ---
 
 # /craft:dist:surfaces — Surface Registry View
@@ -12,6 +18,12 @@ arguments:
 Read-only view of the craft surface registry. Runs `scripts/surfaces.sh --report` and presents
 the full surface matrix: every registered surface × version × gate state. No `--propagate` — this
 command never writes or pins; see the `dist-extras` skill for propagation workflows.
+
+> **`--report-only` and `--version`** run the underlying `scripts/verify-surfaces.sh` directly
+> (via `scripts/surfaces.sh --verify --report-only [--version X]`) rather than through
+> `--report`'s registry-mapped 3-surface view — this is the only path that currently carries the
+> 2 new legs below (GitHub release, docs site) and the never-block diagnostic mode. `--report`
+> (no flags) is unaffected and keeps its existing registry-mapped output.
 
 > **Note:** The user-facing "3-surface" model (Code / Cowork / Desktop) collapses the 8 entries
 > in `registry.json` into three logical surfaces. Code aggregates git-tag, marketplace, tap, brew,
@@ -29,6 +41,12 @@ Each surface tracks an independent version pin. A release is "fully shipped" whe
 BLOCK-gated surfaces report the expected version. Advisory surfaces (WARN, INFO) are surfaced
 in the report but do not gate the release pipeline.
 
+**Two additional legs** (M1/M10) are checked as part of the Code surface's aggregate: **GitHub
+release** (is a release published for this version — `gh release list`) and **docs site** (does
+the live deployed docs site show this version — reuses the same live-site poll `.github/workflows/docs.yml`
+already runs post-deploy). Both follow the same BLOCK-on-mismatch / WARN-on-absent contract as
+the other Code-surface legs.
+
 ## Quick Start
 
 ```bash
@@ -37,14 +55,23 @@ in the report but do not gate the release pipeline.
 
 # Machine-readable JSON matrix
 /craft:dist:surfaces --json
+
+# Diagnostic mode — never blocks, prints ALIGNED/DRIFTED per surface (all 7 legs)
+/craft:dist:surfaces --report-only
+
+# Diagnose a PAST release instead of the current plugin.json version
+/craft:dist:surfaces --report-only --version v2.58.0
 ```
 
 ## Execution Steps
 
-1. **Parse arguments** — detect `--json` flag.
+1. **Parse arguments** — detect `--json`, `--report-only`, and `--version <X>` flags.
 2. **Run surfaces.sh** — call `scripts/surfaces.sh` with the appropriate flags:
    - Default: `scripts/surfaces.sh --report`
    - With `--json`: `scripts/surfaces.sh --report --json`
+   - With `--report-only` and/or `--version`: `scripts/surfaces.sh --verify --report-only [--version X]`
+     (pass-through to `scripts/verify-surfaces.sh`; bypasses the `--report` registry collapse so
+     the GitHub-release and docs-site legs and the never-block diagnostic mode are visible)
 3. **Present surface matrix** — display the table from `registry.py report-live`:
 
 ```
@@ -102,6 +129,37 @@ On mismatch:
 └──────────────────────────────────────────────────────────────┘
 ```
 
+### With `--report-only` (raw legs, never blocks)
+
+```
+Surfaces for craft v2.60.0
+  [OK] plugin.json      2.60.0  (source of truth)
+  [OK] marketplace      2.60.0
+  [OK] git tag          2.60.0
+  [OK] tap formula      2.60.0
+  [OK] brew-installed   2.60.0
+  [OK] Code-registered  2.60.0
+  [X ] github release   2.59.0  <- MISMATCH (blocks release)
+  [!] docs site         N/A  (unreadable — not verified)
+  [!] Desktop/Cowork    manual — add once: claude plugin marketplace add Data-Wise/craft
+
+BLOCKED — a craft-controlled surface disagrees with plugin.json (v2.60.0).
+
+--report-only (never blocks):
+  marketplace      ALIGNED
+  git tag          ALIGNED
+  tap formula      ALIGNED
+  brew-installed   ALIGNED
+  Code-registered  ALIGNED
+  github release   DRIFTED
+  docs site        ABSENT
+  cowork           ALIGNED
+```
+
+Exit code is always `0` in `--report-only` mode, even though the `github release` leg drifted —
+this is the diagnostic surfaced by `/craft:dist:surfaces --report-only` for a release
+post-mortem or a rollback check, without failing a calling pipeline.
+
 ## Integration
 
 | Command / Skill | Relationship |
@@ -114,6 +172,8 @@ On mismatch:
 ## See Also
 
 - `scripts/surfaces.sh` — underlying driver (`--verify`, `--report`, `--report --json`, `--json`, `--list`)
+- `scripts/verify-surfaces.sh` — the 7-leg resolver (`--report-only`, `--version X`); see its
+  header comment for the full `SURFACES_*` env-var override list
 - `scripts/surfaces/registry.json` — surface registry (source of truth)
 - `/craft:dist:marketplace` — marketplace distribution
 - `/craft:dist:homebrew` — Homebrew formula automation

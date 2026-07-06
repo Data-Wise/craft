@@ -30,18 +30,18 @@
 ```
 Your Task → Complexity Analysis → Route Decision
                                    ├─ Simple (0-3) → Commands
-                                   ├─ Medium (4-7) → Single Agent
+                                   ├─ Medium (4-7) → Command Sequence (chained)
                                    └─ Complex (8-10) → Orchestrator
 ```
 
-### Agent Types
+### Routing Targets
 
-| Task Type | Agent | Example Task |
-|-----------|-------|--------------|
-| Feature | feature-dev | "add user notifications" |
-| Architecture | backend-architect | "design API architecture" |
-| Bug Fix | bug-detective | "fix login redirect issue" |
-| Multi-step | orchestrator-v2 | "prepare v2.0 release" |
+| Task Type | Handler | Example Task |
+|-----------|---------|--------------|
+| Feature | `/craft:arch:plan` + `/craft:code:test-gen` + `/craft:git:branch` | "add user notifications" |
+| Architecture | `/craft:arch:analyze` + `/craft:code:refactor` | "design API architecture" |
+| Bug Fix | `/craft:code:debug` + `/craft:test` | "fix login redirect issue" |
+| Multi-step | orchestrator-v2 (agent) | "prepare v2.0 release" |
 
 ### Command Format
 

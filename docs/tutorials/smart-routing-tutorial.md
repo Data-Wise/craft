@@ -166,26 +166,23 @@ Based on the complexity score, tasks are routed to different handlers:
 
 ### Zone 2: Medium Tasks (Score 4-7)
 
-**Handler:** Single specialized agent
-**Available agents:**
-
-- `backend-architect` - API design, server-side logic
-- `docs-architect` - System documentation
-- `test-automator` - Test generation
-- `security-auditor` - Security reviews
-- `performance-engineer` - Optimization
+**Handler:** Category-based command sequence — the same routing mechanism as
+Zone 1, chaining several of the category's commands rather than dispatching
+to a named specialist agent (there is no `backend-architect`/`test-automator`/
+`security-auditor`/`performance-engineer` agent — those names never had a
+backing agent definition).
 
 **Examples:**
 
-- Add JWT authentication → `backend-architect`
-- Create tutorial → `docs-architect`
-- Generate test suite → `test-automator`
+- Add JWT authentication → `/craft:arch:plan`, `/craft:code:test-gen`, `/craft:git:branch`
+- Create tutorial → `/craft:docs:*` sequence
+- Generate test suite → `/craft:code:test-gen`, `/craft:test`
 
 **Why this zone:**
 
-- Needs domain expertise
+- Needs multiple coordinated steps
 - Multiple steps but focused area
-- Single agent can handle it
+- A chained command sequence can handle it
 - Moderate complexity
 
 ### Zone 3: Complex Tasks (Score 8-10)
@@ -255,9 +252,9 @@ Based on the complexity score, tasks are routed to different handlers:
 | **Total** | **6/14** | **= 4.3** |
 
 **Routing:** Zone 2 - Medium
-**Handler:** Single agent
-**Delegates to:** `backend-architect`
-**What the agent does:**
+**Handler:** Category-based command sequence
+**Runs:** `/craft:arch:plan`, `/craft:code:test-gen`, `/craft:git:branch` (no agent dispatch)
+**What the sequence does:**
 
 1. Reviews existing auth system
 2. Designs JWT implementation
@@ -494,7 +491,7 @@ Try scoring these tasks yourself before checking the answers:
 | Time | 1 (1-2 hours) |
 | **Total** | **6/14 = 4.3** |
 
-**Routing:** Zone 2 - Medium (backend-architect agent)
+**Routing:** Zone 2 - Medium (category-based command sequence, no agent dispatch)
 </details>
 
 **Task C:** `"migrate from REST to GraphQL across 15 services"`

@@ -6,6 +6,11 @@
 **Priority**: High
 **Effort**: Medium (8-12 hours)
 
+> **Historical note (2026-07-06):** archived example output below names
+> `backend-architect` and `code-quality-reviewer` — neither was ever
+> implemented as a real agent; see the do.md dead-agent-dispatch fix,
+> 2026-07-06. Left as archived historical record.
+
 ## Overview
 
 Add `--orch` flag to selected Craft commands to enable explicit orchestration mode. This provides a shorthand for spawning the orchestrator without requiring separate `/craft:orchestrate` invocation.

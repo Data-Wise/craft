@@ -39,9 +39,9 @@
 /craft:do "lint markdown files"
 # Routes to: /craft:docs:lint
 
-# Medium task (score: 6) → Single agent
+# Medium task (score: 6) → Command sequence
 /craft:do "add user authentication with JWT"
-# Routes to: backend-architect agent
+# Routes to: /craft:arch:plan, /craft:code:test-gen, /craft:git:branch (no agent dispatch)
 
 # Complex task (score: 9) → Orchestrator
 /craft:do "prepare v2.0 release with tests, docs, and changelog"
@@ -1652,7 +1652,7 @@ Auto-triggered expertise:
 | Agent               | Specialty                        |
 | ------------------- | -------------------------------- |
 | `orchestrator-v2`   | Mode-aware execution, monitoring |
-| `backend-architect` | Scalable APIs, microservices     |
+| `orchestrator`      | Legacy multi-step coordination   |
 | `docs-architect`    | Technical documentation          |
 | `api-documenter`    | OpenAPI, developer portals       |
 | `tutorial-engineer` | Step-by-step tutorials           |

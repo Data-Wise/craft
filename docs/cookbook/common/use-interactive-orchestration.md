@@ -76,7 +76,7 @@ I have a complex task that requires multiple steps, different specialized agents
    ╭─ Execution Plan (wave mode) ─────────────────╮
    │                                               │
    │ Wave 1 (parallel):                            │
-   │   • backend-architect: JWT implementation     │
+   │   • JWT implementation (general-purpose)      │
    │   • security-specialist: Auth security review │
    │                                               │
    │ Wave 2 (after wave 1):                        │
@@ -107,7 +107,7 @@ I have a complex task that requires multiple steps, different specialized agents
    ╭─ Wave 1 Progress ────────────────────────────╮
    │ [████████████░░░░░░░░] 60%                    │
    │                                               │
-   │ ✓ backend-architect: JWT implementation done  │
+   │ ✓ JWT implementation done (general-purpose)   │
    │ ⟳ security-specialist: Reviewing...           │
    ╰───────────────────────────────────────────────╯
    ```

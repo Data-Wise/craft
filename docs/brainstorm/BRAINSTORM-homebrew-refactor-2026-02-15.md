@@ -3,6 +3,7 @@
 **Generated:** 2026-02-15
 **Context:** craft plugin, /craft:dist:homebrew + CI + release skill
 **Depth:** max | **Focus:** feature | **Agents:** backend-architect, devops-engineer
+*(Historical — `backend-architect` was never implemented as a real agent; see the do.md dead-agent-dispatch fix, 2026-07-06.)*
 
 ## Overview
 
