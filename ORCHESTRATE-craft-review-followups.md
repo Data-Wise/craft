@@ -20,7 +20,7 @@ this plan does not re-litigate them.
 |---|---|---|---|---|
 | 1 | H3: `do.md` dead-branch removal + 24-doc sweep | High | Med | ✅ Done (`68ba115b`) |
 | 2 | M1/M10: release-state `--report-only` verify + runbook | Med | Med | ✅ Done (`e328d71b`) |
-| 3 | G1: remove stray file | Low | XS | Not started |
+| 3 | G1: remove stray file | Low | XS | ✅ Done (deleted, untracked — no commit) |
 
 ## Phase 1: H3 — `do.md` Dead Agent-Dispatch Removal
 
@@ -106,9 +106,11 @@ rather than building a new script or command. Write a manual rollback runbook al
 **Scope:** per GRILL decision 4 — plain delete, no history-preservation step (file was
 never committed).
 
-- [ ] 3.1 Confirm with the user immediately before this step (SPEC acceptance criteria
+- [x] 3.1 Confirm with the user immediately before this step (SPEC acceptance criteria
       marks this as "pending explicit confirmation at implementation time" — do not delete
       silently even though the decision is locked). On confirmation: `rm Chat-Instructions-v1.3.0.md`.
+      Done — user confirmed; file was untracked (never committed) so this was a plain
+      filesystem delete in the main repo working tree, not a git operation on this branch.
 
 **Key files:** `Chat-Instructions-v1.3.0.md` (DELETE).
 
