@@ -40,26 +40,26 @@ ledger. See [command reference](commands/grill.md) and [tutorial](tutorials/TUTO
 /craft:grill "add OAuth login"                     # skeleton, then grill
 ```
 
-### /craft:orchestrate 🔍
+### /craft:orch 🔍
 
 Multi-agent orchestrator with mode-aware execution.
 
 ```bash
-/craft:orchestrate "add auth" optimize    # Fast parallel
-/craft:orchestrate "prep release" release # Thorough audit
-/craft:orchestrate status                 # Agent dashboard
-/craft:orchestrate "task" --dry-run       # Preview orchestration plan
+/craft:orch "add auth" optimize    # Fast parallel
+/craft:orch "prep release" release # Thorough audit
+/craft:orch status                 # Agent dashboard
+/craft:orch "task" --dry-run       # Preview orchestration plan
 ```
 
 **Modes:** optimize (4 agents), release (comprehensive), debug (verbose)
 **Dry-run:** Preview agent allocation, parallelization waves, and execution time.
 
-### /craft:orchestrate:drive
+### /craft:orch:drive
 
 Drive an approved SPEC to completion via the native `/goal` turn-loop, with a real verify gate; stops at verified green and prints the PR command.
 
 ```bash
-/craft:orchestrate:drive --dry-run        # Preview the derived /goal condition + preconditions
+/craft:orch:drive --dry-run        # Preview the derived /goal condition + preconditions
 ```
 
 **Dry-run:** Print the derived condition + dispatch plan + precondition report; zero side effects.

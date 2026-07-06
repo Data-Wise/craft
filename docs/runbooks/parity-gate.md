@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Before flipping `/craft:orchestrate` to default `--engine=workflow`, run a paired
+Before flipping `/craft:orch` to default `--engine=workflow`, run a paired
 measurement to confirm the cost-weighted token reduction is real and materially large
 (>15% floor). Decision is interval-based, not significance-based.
 
@@ -26,7 +26,7 @@ For each pair `i` (i = 1 … 5):
 1. **Fanout run** — fresh session (cold cache):
 
    ```bash
-   /craft:orchestrate --engine=fanout   # or current default
+   /craft:orch --engine=fanout   # or current default
    # capture the session marker printed at end of run
    MARKER_F=$(...)
    python3 scripts/orchestrate-token-report.py "$MARKER_F" --json > pair_${i}_fanout.json
@@ -35,7 +35,7 @@ For each pair `i` (i = 1 … 5):
 2. **Workflow run** — fresh session (cold cache):
 
    ```bash
-   /craft:orchestrate --engine=workflow
+   /craft:orch --engine=workflow
    MARKER_W=$(...)
    python3 scripts/orchestrate-token-report.py "$MARKER_W" --json > pair_${i}_workflow.json
    ```
@@ -128,7 +128,7 @@ the lower bound above 15% in a future gate.
 
 ### If FLIP
 
-- Update routing rule in `commands/orchestrate.md` (change `--engine=fanout` default
+- Update routing rule in `commands/orch.md` (change `--engine=fanout` default
   to `--engine=workflow`)
 - Update `CHANGELOG.md` with the measured effect:
 

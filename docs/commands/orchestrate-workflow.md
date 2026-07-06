@@ -1,4 +1,4 @@
-# /craft:orchestrate:workflow
+# /craft:orch:workflow
 
 > **Execute a coded, fixed-control-flow workflow — `parallel` / `pipeline` / `loop` / `verify` with schema-gated agents, data-driven fan-out, and cached/resumable replay.**
 
@@ -7,23 +7,23 @@
 ## Synopsis
 
 ```bash
-/craft:orchestrate:workflow [workflow] [flags]
+/craft:orch:workflow [workflow] [flags]
 ```
 
 **Quick examples:**
 
 ```bash
 # Preview the wave plan (stages, fan-out, ceiling) — zero side effects
-/craft:orchestrate:workflow --dry-run
+/craft:orch:workflow --dry-run
 
 # Run the newest WORKFLOW-*.yaml in the worktree root
-/craft:orchestrate:workflow
+/craft:orch:workflow
 
 # Run a specific definition
-/craft:orchestrate:workflow examples/workflow-code-review/WORKFLOW-code-review-sweep.yaml
+/craft:orch:workflow examples/workflow-code-review/WORKFLOW-code-review-sweep.yaml
 
 # Replay a prior run from cache, re-running only changed stages
-/craft:orchestrate:workflow --resume 2026-06-13-a1b2
+/craft:orch:workflow --resume 2026-06-13-a1b2
 ```
 
 ---
@@ -32,9 +32,9 @@
 
 | Mode | Control model | Best for |
 |------|---------------|----------|
-| `/craft:orchestrate` | LLM improvises each turn | exploratory work |
-| `/craft:orchestrate:drive` | drive an approved SPEC to green | spec → done |
-| **`/craft:orchestrate:workflow`** | **fixed coded program** | known shapes: decompose → cover N → verify M → synthesize |
+| `/craft:orch` | LLM improvises each turn | exploratory work |
+| `/craft:orch:drive` | drive an approved SPEC to green | spec → done |
+| **`/craft:orch:workflow`** | **fixed coded program** | known shapes: decompose → cover N → verify M → synthesize |
 
 `workflow` fixes the control flow in the definition; only the *count* of agents
 in a `parallel` stage flexes to upstream data.
@@ -143,7 +143,7 @@ it does **not** re-invoke the model for unchanged stages.
 
 ## See Also
 
-- `/craft:orchestrate` — free-form multi-agent orchestration
-- `/craft:orchestrate:drive` — drive an approved SPEC to green
+- `/craft:orch` — free-form multi-agent orchestration
+- `/craft:orch:drive` — drive an approved SPEC to green
 - `workflow-engine` skill — the compile + dispatch + verify body this command calls
 - Tutorial: `TUTORIAL-orchestrate-workflow.md`

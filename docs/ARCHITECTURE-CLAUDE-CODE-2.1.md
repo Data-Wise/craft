@@ -176,7 +176,7 @@ sequenceDiagram
     participant Cache
     participant Logs
 
-    User->>Orchestrator: Invoke /craft:orchestrate
+    User->>Orchestrator: Invoke /craft:orch
     Orchestrator->>Hook: PreToolUse event
     Hook->>Hook: Check resource limits
     Hook->>Cache: Check active agents

@@ -108,7 +108,7 @@ gifsicle -O3 --colors 128 --lossy=80 \
 
 ## 11. Workflow 10 (docs/gifs/workflow-10-*.gif)
 
-**Command:** `/craft:orchestrate 'prepare v2.0 release' release`
+**Command:** `/craft:orch 'prepare v2.0 release' release`
 
 ---
 

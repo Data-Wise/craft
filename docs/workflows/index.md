@@ -425,6 +425,6 @@ graph LR
 ## Next Steps
 
 - **Try a workflow:** Pick one diagram above and run the first command
-- **Combine workflows:** Use `/craft:orchestrate` to run multiple workflows
+- **Combine workflows:** Use `/craft:orch` to run multiple workflows
 - **Learn more:** Read the [Orchestrator Guide](../guide/orchestrator.md)
 - **Reference:** Check the [Quick Reference Card](../REFCARD.md)

@@ -12,7 +12,7 @@
 
 > **v2.36.0 — Deterministic Workflow Engine** 🚀
 > **115 commands** | **45 skills** | **8 agents** | **1994 tests passing**
-> New `/craft:orchestrate:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orchestrate`), drive (`:drive`), and workflow (`:workflow`).
+> New `/craft:orch:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orch`), drive (`:drive`), and workflow (`:workflow`).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -259,19 +259,19 @@ Specialized workflows for teaching projects with automated validation, semester 
 | Command                            | Description                                                                                      |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------ |
 | `/craft:do <task>`                 | Universal command - routes to appropriate workflow                                               |
-| `/craft:orchestrate <task> [mode]` | **ENHANCED v2.1** Launch orchestrator with mode-aware execution, context tracking, timeline view |
+| `/craft:orch <task> [mode]` | **ENHANCED v2.1** Launch orchestrator with mode-aware execution, context tracking, timeline view |
 | `/craft:check`                     | Pre-flight checks (commit/pr/release)                                                            |
 | `/craft:help`                      | Context-aware help and suggestions                                                               |
 
 #### Orchestrator Modes
 
 ```bash
-/craft:orchestrate "add auth" optimize    # Fast parallel (4 agents)
-/craft:orchestrate "prep release" release # Thorough audit
-/craft:orchestrate status                 # Agent dashboard
-/craft:orchestrate timeline               # Execution timeline
-/craft:orchestrate budget                 # Context tracking
-/craft:orchestrate continue               # Resume session
+/craft:orch "add auth" optimize    # Fast parallel (4 agents)
+/craft:orch "prep release" release # Thorough audit
+/craft:orch status                 # Agent dashboard
+/craft:orch timeline               # Execution timeline
+/craft:orch budget                 # Context tracking
+/craft:orch continue               # Resume session
 ```
 
 ### Code Commands (13)

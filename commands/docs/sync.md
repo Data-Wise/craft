@@ -512,7 +512,7 @@ Spawning orchestrator...
    Task: analyze code changes and update all affected documentation
    Mode: optimize
 
-Executing: /craft:orchestrate 'analyze code changes and update all affected documentation' optimize
+Executing: /craft:orch 'analyze code changes and update all affected documentation' optimize
 ```
 
 ```

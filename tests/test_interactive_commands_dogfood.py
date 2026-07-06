@@ -25,7 +25,7 @@ def test_yes_cascade_documented():
 
 
 def test_orchestrate_clarify_model():
-    text = (PLUGIN_DIR / "commands/orchestrate.md").read_text(encoding="utf-8")
+    text = (PLUGIN_DIR / "commands/orch.md").read_text(encoding="utf-8")
     assert "Step 0.5" in text
     lo = text.lower()
     assert "askuserquestion" in lo and "consequence" in lo, \

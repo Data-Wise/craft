@@ -39,7 +39,7 @@ WORKTREE_CMD = os.path.join(CRAFT_ROOT, "commands", "git", "worktree.md")
 DO_CMD = os.path.join(CRAFT_ROOT, "commands", "do.md")
 SMART_HELP_CMD = os.path.join(CRAFT_ROOT, "commands", "smart-help.md")
 HUB_CMD = os.path.join(CRAFT_ROOT, "commands", "hub.md")
-ORCHESTRATE_CMD = os.path.join(CRAFT_ROOT, "commands", "orchestrate.md")
+ORCHESTRATE_CMD = os.path.join(CRAFT_ROOT, "commands", "orch.md")
 
 # New hook
 PRETOOLUSE_HOOK = os.path.join(CRAFT_ROOT, ".claude-plugin", "hooks", "pretooluse.py")

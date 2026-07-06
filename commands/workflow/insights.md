@@ -171,7 +171,7 @@ Output structured JSON to stdout:
 
 After generating the report:
 
-1. **ORCHESTRATE integration**: If generating an ORCHESTRATE file (via `/craft:orchestrate:plan`), check insights for project-specific friction and auto-add a "Friction Prevention" section
+1. **ORCHESTRATE integration**: If generating an ORCHESTRATE file (via `/craft:orch:plan`), check insights for project-specific friction and auto-add a "Friction Prevention" section
 2. **Brainstorm integration**: When brainstorm starts, check insights for relevant past session patterns and show a summary if related sessions exist
 
 ## Friction Type → Guardrail Mapping

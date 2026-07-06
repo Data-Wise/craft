@@ -1,4 +1,4 @@
-# Help: /craft:orchestrate:workflow
+# Help: /craft:orch:workflow
 
 ## What it does
 
@@ -14,28 +14,28 @@ verify M → synthesize. You want determinism (a reproducible wave plan),
 structural contracts between stages, and the ability to `--resume`.
 
 **Don't use it for** exploratory work where you can't predict the steps — reach
-for `/craft:orchestrate` (LLM improvises each turn). For driving a single
-approved spec to green, use `/craft:orchestrate:drive`.
+for `/craft:orch` (LLM improvises each turn). For driving a single
+approved spec to green, use `/craft:orch:drive`.
 
 ### Which orchestrate mode?
 
 ```mermaid
 flowchart TD
     A[Multi-agent work] --> B{Steps known and repeatable?}
-    B -->|No, exploratory| C[Use /craft:orchestrate]
+    B -->|No, exploratory| C[Use /craft:orch]
     B -->|Yes| D{Driving one approved spec to green?}
-    D -->|Yes| E[Use /craft:orchestrate:drive]
-    D -->|No, fixed shape| F[Use /craft:orchestrate:workflow]
+    D -->|Yes| E[Use /craft:orch:drive]
+    D -->|No, fixed shape| F[Use /craft:orch:workflow]
 ```
 
 ## Quick start
 
 ```bash
 # 1. Always preview first — zero side effects
-/craft:orchestrate:workflow --dry-run
+/craft:orch:workflow --dry-run
 
 # 2. Review the wave plan (stages, fan-out width, ceiling), then run for real
-/craft:orchestrate:workflow
+/craft:orch:workflow
 ```
 
 ## Reading the dry-run plan
@@ -65,7 +65,7 @@ DRY RUN: code-review-sweep  (run-wide ceiling: 16)
 
 ```bash
 # Re-run only the stages whose cache key changed (and everything downstream)
-/craft:orchestrate:workflow --resume <run-id>
+/craft:orch:workflow --resume <run-id>
 ```
 
 The run cache lives in `.craft/workflow-runs/<run-id>/` (gitignored):
@@ -73,6 +73,6 @@ per-agent output JSON, a human-readable `manifest.json`, and `semaphore.count`.
 
 ## See also
 
-- `/craft:orchestrate:workflow` command reference
-- `/craft:orchestrate:drive` — drive an approved SPEC to green
+- `/craft:orch:workflow` command reference
+- `/craft:orch:drive` — drive an approved SPEC to green
 - Tutorial: `TUTORIAL-orchestrate-workflow.md`

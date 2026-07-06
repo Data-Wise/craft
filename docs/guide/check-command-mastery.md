@@ -976,7 +976,7 @@ done
 wait
 
 # Or use craft orchestrator
-/craft:orchestrate "run checks across all projects" optimize
+/craft:orch "run checks across all projects" optimize
 ```
 
 ---

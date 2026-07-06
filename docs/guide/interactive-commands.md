@@ -5,7 +5,7 @@
 > - **What:** Commands now show their plan before executing and ask for confirmation
 > - **Why:** No more skipped steps — you see exactly what will happen
 > - **How:** Step 0 (plan) → Step 0.5 (confirm) → Steps 1-N (execute) → Summary
-> - **Applies to:** `/craft:orchestrate`, `/craft:check`, `/craft:docs:update`, `/craft:git:worktree`
+> - **Applies to:** `/craft:orch`, `/craft:check`, `/craft:docs:update`, `/craft:git:worktree`
 
 ---
 
@@ -66,7 +66,7 @@ Pre-flight Check Plan:
 
 ## Commands Using This Pattern
 
-### /craft:orchestrate
+### /craft:orch
 
 | Step | What happens |
 |------|-------------|
@@ -163,7 +163,7 @@ This shows the full interactive flow from brainstorm to PR, demonstrating how ea
 # → Offers to capture spec
 
 # Step 2: Create orchestration from spec (v2.21.0)
-/craft:orchestrate:plan docs/specs/SPEC-notifications.md
+/craft:orch:plan docs/specs/SPEC-notifications.md
 #
 # Plan:
 #   1. Parse spec for phases (found 3 phases)
@@ -216,7 +216,7 @@ claude
 
 - **First run:** Try each command once to see the preview format
 - **Skip confirmation:** Not currently supported — confirmation is mandatory to prevent skipped steps
-- **Mode flags:** Use explicit mode flags (`/craft:orchestrate "task" debug`) to skip the mode selection prompt
+- **Mode flags:** Use explicit mode flags (`/craft:orch "task" debug`) to skip the mode selection prompt
 - **Dry run:** Use `--dry-run` where available to preview without risk
 
 ---

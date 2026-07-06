@@ -15,7 +15,7 @@ These capture patterns that are implicit in the codebase — the "how we do thin
 | [GROUNDING-craft.md](GROUNDING-craft.md) | Paste-at-session-start prompt — branch workflow, .STATUS/specs convention, verification scripts, sandbox git quirks, response-format preferences |
 | [TOKEN-EFFICIENCY-craft.md](TOKEN-EFFICIENCY-craft.md) | What changed on `feature/token-usage-reduction` and why — thin-command/fat-skill pattern (ADR-002 generalized), model routing, measured before/after line counts |
 | [HOOKS-TOKEN-AUDIT-2026-07-01.md](HOOKS-TOKEN-AUDIT-2026-07-01.md) | Per-turn token cost of always-on hooks — craft hooks = 0 stdout on happy path; the real cost is a global `prompt-optimizer.sh` (+ latent JSON-contract bug) |
-| [TUTORIAL-orchestration-and-skill-eval-loop.md](TUTORIAL-orchestration-and-skill-eval-loop.md) | External-perspective review (Cowork origin) of the skill-eval loop + a full `/craft:orchestrate` execution-mode comparison (fanout · `--swarm` · `--engine=workflow` · `--dispatch`) with a token-cost model and an inconclusive empirical measurement — carries 3 concrete `orchestrate` improvement hooks |
+| [TUTORIAL-orchestration-and-skill-eval-loop.md](TUTORIAL-orchestration-and-skill-eval-loop.md) | External-perspective review (Cowork origin) of the skill-eval loop + a full `/craft:orch` execution-mode comparison (fanout · `--swarm` · `--engine=workflow` · `--dispatch`) with a token-cost model and an inconclusive empirical measurement — carries 3 concrete `orchestrate` improvement hooks |
 
 ## What's NOT here
 

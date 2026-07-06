@@ -88,7 +88,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:orchestrate
+### /craft:orch
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|

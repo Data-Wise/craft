@@ -9,7 +9,7 @@
 | Enhancement | What It Does | Your Benefit |
 |------------|--------------|--------------|
 | **Smart Routing** | `/craft:do` delegates to expert agents | Complex tasks handled automatically |
-| **Resilient Orchestration** | `/craft:orchestrate` continues despite failures | Work doesn't stop if one step fails |
+| **Resilient Orchestration** | `/craft:orch` continues despite failures | Work doesn't stop if one step fails |
 | **Hot-Reload Validators** | `/craft:check` detects new validators instantly | Add checks without restarting |
 
 ---
@@ -61,9 +61,9 @@ Your Task → Complexity Analysis → Route Decision
 
 ```bash
 # Multi-step workflows with dependencies
-/craft:orchestrate "prepare release" release
-/craft:orchestrate "implement auth system" default
-/craft:orchestrate "refactor codebase" optimize
+/craft:orch "prepare release" release
+/craft:orch "implement auth system" default
+/craft:orch "refactor codebase" optimize
 ```
 
 ### How It Works (Before vs After)
@@ -150,7 +150,7 @@ Need to do a task?
         │                   ↓
         │                   Auto-routes to agent or orchestrator
         │
-        ├─ Multi-step workflow? → /craft:orchestrate "workflow" mode
+        ├─ Multi-step workflow? → /craft:orch "workflow" mode
         │                          ↓
         │                          Handles dependencies & failures
         │
@@ -183,12 +183,12 @@ Need to do a task?
 
 ```bash
 # Old Way (Stops on First Failure)
-/craft:orchestrate "prepare release" release
+/craft:orch "prepare release" release
 # → Security scan fails
 # → ❌ Everything stops
 
 # New Way (Continues with Fallback)
-/craft:orchestrate "prepare release" release
+/craft:orch "prepare release" release
 # → Security scan fails (user skips)
 # → ✓ Tests continue
 # → ✓ Build continues
@@ -262,8 +262,8 @@ head -n 10 ~/.craft/validators/your-validator.md
 ### Orchestration
 
 ```bash
-/craft:orchestrate "task" default    # Quick mode
-/craft:orchestrate "task" release    # Thorough mode
+/craft:orch "task" default    # Quick mode
+/craft:orch "task" release    # Thorough mode
 ```
 
 ### Validation
@@ -296,7 +296,7 @@ head -n 10 ~/.craft/validators/your-validator.md
 ### 3. Test Resilient Orchestration (10 minutes)
 
 ```bash
-/craft:orchestrate "analyze codebase" default
+/craft:orch "analyze codebase" default
 # Skip one of the agent prompts
 # Watch it continue with other agents
 ```
@@ -319,7 +319,7 @@ head -n 10 ~/.craft/validators/your-validator.md
 
 - Full Tutorial: `docs/tutorials/TUTORIAL-claude-code-2.1-enhancements.md`
 - Technical Proposal: `docs/brainstorm/PROPOSAL-craft-enhancements-2026-01-17.md`
-- Command Reference: `commands/do.md`, `commands/orchestrate.md`, `commands/check.md`
+- Command Reference: `commands/do.md`, `commands/orch.md`, `commands/check.md`
 
 ---
 

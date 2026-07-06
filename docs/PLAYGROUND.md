@@ -37,7 +37,7 @@ Try these commands yourself and see the magic happen!
 │                                                             │
 │ 🎯 SMART (4 commands)                                       │
 │   /craft:do              - Universal task router            │
-│   /craft:orchestrate     - Multi-agent coordination         │
+│   /craft:orch     - Multi-agent coordination         │
 │   /craft:check           - Pre-flight validation            │
 │   /craft:help            - Context-aware help               │
 │                                                             │

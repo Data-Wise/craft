@@ -1,4 +1,4 @@
-# Help: /craft:orchestrate:drive
+# Help: /craft:orch:drive
 
 ## What it does
 
@@ -14,17 +14,17 @@ stopping at verified green and printing the PR command for you to run.
 in an isolated `feature/*` worktree.
 
 **Don't use it for** free-form, parallel, independent work with no single
-spec — reach for `/craft:orchestrate --swarm` instead (fan-out-and-converge
+spec — reach for `/craft:orch --swarm` instead (fan-out-and-converge
 across isolated worktrees).
 
 ## Quick start
 
 ```bash
 # 1. Always preview first — zero side effects
-/craft:orchestrate:drive --dry-run
+/craft:orch:drive --dry-run
 
 # 2. Review the derived /goal condition + precondition report, then run for real
-/craft:orchestrate:drive
+/craft:orch:drive
 ```
 
 ## Precondition failures + remedies
@@ -52,6 +52,6 @@ verify command:
 
 ## See also
 
-- `/craft:orchestrate:drive` command reference
-- `/craft:orchestrate` — free-form orchestration (`--swarm`)
+- `/craft:orch:drive` command reference
+- `/craft:orch` — free-form orchestration (`--swarm`)
 - Tutorial: `TUTORIAL-orchestrate-drive.md`

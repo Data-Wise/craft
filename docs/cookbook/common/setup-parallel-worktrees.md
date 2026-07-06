@@ -140,7 +140,7 @@ I want to work on a feature branch in isolation without switching branches in my
 
    ```bash
    # Option 1: Use orchestrator with your plan
-   /craft:orchestrate --file ORCHESTRATE.md
+   /craft:orch --file ORCHESTRATE.md
 
    # Option 2: Work phase by phase manually
    # Refer to ORCHESTRATE.md as you work
@@ -254,7 +254,7 @@ Includes sections:
 | "Worktree location hard to remember" | Use the provided alias shown in output |
 | "Want different base branch" | Use --from flag: /craft:git:worktree feature/x --from main |
 | "ORCHESTRATE.md doesn't match my project" | Templates are generic, customize for your needs |
-| "How to use orchestrator with ORCHESTRATE.md?" | Run: /craft:orchestrate --file ORCHESTRATE.md |
+| "How to use orchestrator with ORCHESTRATE.md?" | Run: /craft:orch --file ORCHESTRATE.md |
 
 ## Advanced Workflows
 
@@ -341,7 +341,7 @@ cd ~/.git-worktrees/craft/feature-oauth
 # Edit phase breakdown to match your project structure
 
 # Step 4: Execute with orchestrator
-/craft:orchestrate --file ORCHESTRATE.md --mode phase
+/craft:orch --file ORCHESTRATE.md --mode phase
 
 # Step 5: Work through phases with checkpoints
 # Orchestrator guides you through each phase
@@ -363,4 +363,4 @@ git branch -d feature/oauth
 - [Worktree Setup Tutorial](../../tutorials/TUTORIAL-worktree-setup.md) — Complete tutorial
 - [Git Worktree Quick Reference](../../reference/REFCARD-GIT-WORKTREE.md) — Quick reference
 - [Advanced Worktree Patterns](../../guide/worktree-advanced-patterns.md) — Complex scenarios
-- [Orchestrate Command](../../commands/orchestrate.md) — Using orchestrator with ORCHESTRATE.md
+- [Orchestrate Command](../../commands/orch.md) — Using orchestrator with ORCHESTRATE.md

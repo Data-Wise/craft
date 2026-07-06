@@ -171,7 +171,7 @@ graph LR
 # → Saves BRAINSTORM-auth.md, optionally captures spec
 
 # 2. Create orchestration + worktree from spec
-/craft:orchestrate:plan docs/specs/SPEC-auth.md
+/craft:orch:plan docs/specs/SPEC-auth.md
 # → Generates ORCHESTRATE-auth.md
 # → Creates worktree at ~/.git-worktrees/<project>/feature-auth
 

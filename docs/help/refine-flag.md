@@ -75,8 +75,8 @@ refinement.
 
 | Command | Purpose |
 |---|---|
-| `/craft:orchestrate` | Orchestrate a refined goal |
-| `/craft:orchestrate:workflow` | Workflow-orchestrate a refined goal |
+| `/craft:orch` | Orchestrate a refined goal |
+| `/craft:orch:workflow` | Workflow-orchestrate a refined goal |
 | `/craft:arch:plan` | Architecture plan from a refined prompt |
 
 ## See also

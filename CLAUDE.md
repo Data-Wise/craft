@@ -60,7 +60,7 @@ Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
 | Lint markdown | `/craft:docs:lint` |
 | Release pipeline | `/release` or `/release -n` |
 | Brainstorm | `/craft:brainstorm` |
-| Orchestrate | `/craft:orchestrate` |
+| Orchestrate | `/craft:orch` |
 | CLAUDE.md sync | `/craft:docs:claude-md:sync` |
 
 ## Execution Modes

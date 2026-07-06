@@ -139,7 +139,7 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (17)                         TEST (0)                              │
+│ CODE (14)                         TEST (0)                              │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
 │   /craft:code:coverage [mode]      /craft:test:gen                      │
 │   /craft:code:debug                                                     │
@@ -148,19 +148,19 @@ Display template:
 │   /craft:ci:local             /craft:arch:plan                     │
 │   /craft:ci:fix               /craft:arch:review                   │
 │                                    /craft:arch:diagram                  │
-│ DOCS (21)                                                               │
+│ DOCS (22)                                                               │
 │   /craft:docs:update             PLAN (3)                               │
 │   /craft:docs:sync                 /craft:plan:feature                  │
 │   /craft:docs:lint                 /craft:plan:sprint                   │
 │   /craft:docs:check                /craft:plan:roadmap                  │
 │   /craft:docs:changelog                                                 │
-│   /craft:docs:claude-md          CI (6)                                 │
+│   /craft:docs:claude-md          CI (8)                                 │
 │   /craft:docs:nav-update           /craft:ci:detect                    │
 │   /craft:docs:demo                 /craft:ci:generate                  │
 │   /craft:docs:mermaid              /craft:ci:validate                  │
 │   /craft:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ GIT (15 incl. 4 guides)          WORKFLOW (14)                          │
+│ GIT (15 incl. 4 guides)          WORKFLOW (5)                          │
 │   /craft:git:worktree              /brainstorm [depth|focus] "topic"   │
 │   /craft:git:sync                  /workflow:focus                     │
 │   /craft:git:branch                /workflow:done                      │
@@ -174,7 +174,7 @@ Display template:
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
 │   /craft:site:check              ORCHESTRATE (3)                        │
-│   /craft:site:update               /craft:orchestrate [mode]           │
+│   /craft:site:update               /craft:orch [mode]           │
 │   /craft:site:publish                                                  │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -338,7 +338,7 @@ Many commands support modes for different use cases:
 ### `/craft:hub code`
 
 ```
-CODE COMMANDS (17) - Code Quality & Development
+CODE COMMANDS (14) - Code Quality & Development
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
@@ -383,7 +383,7 @@ Usage:
 ### `/craft:hub docs`
 
 ```
-DOCS COMMANDS (21) - Documentation Automation
+DOCS COMMANDS (22) - Documentation Automation
 ─────────────────────────────────────────────────────────────────────────
 Command                        | Description
 ───────────────────────────────┼─────────────────────────────────────
@@ -453,7 +453,7 @@ Branch Protection (v2.16.0):
 ### `/craft:hub workflow`
 
 ```
-WORKFLOW COMMANDS (14) - ADHD-Friendly Workflow Management
+WORKFLOW COMMANDS (5) - ADHD-Friendly Workflow Management
 ────────────────────────────────────────────────────────────────────────
 Brainstorming:
   /brainstorm "topic"                | Default depth (2 questions)
@@ -519,7 +519,7 @@ Command                  | Description                    | Modes
 ### `/craft:hub ci`
 
 ```
-CI COMMANDS (6) - CI/CD Management
+CI COMMANDS (8) - CI/CD Management
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description
 ─────────────────────────┼────────────────────────────────────────────
@@ -567,9 +567,9 @@ Command                  | Description
 ```
 ORCHESTRATE COMMANDS (3) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
-/craft:orchestrate "task" [mode]     | Launch orchestrator (free-form, fan-out)
-/craft:orchestrate:drive [spec]      | Spec-driven autonomous /goal loop → verified green
-/craft:orchestrate:plan              | (deprecated → plan-orchestrator skill)
+/craft:orch "task" [mode]     | Launch orchestrator (free-form, fan-out)
+/craft:orch:drive [spec]      | Spec-driven autonomous /goal loop → verified green
+/craft:orch:plan              | (deprecated → plan-orchestrator skill)
 
 Modes:
   default   — 2 agents max, quick tasks
@@ -601,14 +601,14 @@ Full catalog with trigger phrases: **[Skills & Agents](../skills-agents.md)**.
 | Code · Testing · Guard&Insights | 2 each | lint/refactor, test-strategist/generator, guard-audit/insights-apply |
 | Architecture · Check · CI · Dev · Modes · Planning · Release | 1 each | architecture, preflight-check, project-detector, git-workflow, mode-controller, project-planner, release |
 
-> Newest: `drive-engine` (powers `/craft:orchestrate:drive`) and `prompt-refiner`
+> Newest: `drive-engine` (powers `/craft:orch:drive`) and `prompt-refiner`
 > (powers the `--refine` flag, replacing the deprecated `/refine`).
 
 ## Agents (8 Specialized)
 
 | Agent | Specialty | Triggers |
 |-------|-----------|----------|
-| `orchestrator-v2` | Complex multi-step tasks with parallel execution | `/craft:orchestrate` |
+| `orchestrator-v2` | Complex multi-step tasks with parallel execution | `/craft:orch` |
 | `orchestrator` | Legacy orchestrator | Direct invocation |
 | `docs-architect` | Technical documentation, architecture guides | Docs requests |
 | `api-documenter` | OpenAPI specs, developer portals | API documentation |
@@ -716,7 +716,7 @@ SUGGESTED FOR NODE PROJECT:
 │   /release --autonomous    -> Fully automated release                 │
 │                                                                        │
 │ Orchestration:                                                         │
-│   /craft:orchestrate "task" optimize -> 4 parallel agents              │
+│   /craft:orch "task" optimize -> 4 parallel agents              │
 │   /craft:do "task" --orch=optimize   -> Quick orchestration            │
 │                                                                        │
 │ Documentation:                                                         │

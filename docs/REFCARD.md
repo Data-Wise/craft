@@ -209,7 +209,7 @@
 ```bash
 /craft:check               # Shows: steps to run, asks confirmation
 /craft:do "task"           # Shows: routing plan, asks confirmation
-/craft:orchestrate "task"  # Shows: mode selection, wave plan, checkpoints
+/craft:orch "task"  # Shows: mode selection, wave plan, checkpoints
 /craft:git:worktree create # Shows: scope detection, file generation plan
 ```
 
@@ -262,7 +262,7 @@ a time to surface gaps before building.
 
 **How it works:** codebase-first sweep → one-at-a-time loop with a Recommended answer per question
 → `/done` halt + milestone checkpoints → durable `GRILL-*` decision ledger → handoff to
-`/craft:plan`. Never overwrites a brainstorm `SPEC-*`. Reused by `/craft:orchestrate` Step 0.5.
+`/craft:plan`. Never overwrites a brainstorm `SPEC-*`. Reused by `/craft:orch` Step 0.5.
 
 **Scaffold defaults (v2.52.0):** emits a tier-inferred test plan + Documentation section by default.
 Use `--no-tests` or `--no-docs` to suppress either.
@@ -282,7 +282,7 @@ plan-orchestrator; all three exist → project-planner. Never phrase-based class
 ```
 
 **Scope:** router only — never re-implements the four tiers' logic, never invokes `/craft:do` or
-`/craft:orchestrate` directly (one-directional seam: `plan` produces, `do`/`orchestrate` consume
+`/craft:orch` directly (one-directional seam: `plan` produces, `do`/`orchestrate` consume
 later).
 
 ### /craft:plan:feature `<feature_description>`
@@ -1222,9 +1222,9 @@ claude plugin update <name>@local-plugins
 
 ```bash
 # Interactive mode (v2.9.0) - Shows mode selection, wave plan, checkpoints
-/craft:orchestrate "add auth"           # Interactive: pick mode + confirm plan
-/craft:orchestrate "add auth" optimize  # Direct mode selection
-/craft:orchestrate "large task" --swarm # Unlimited parallel agents (v2.18.0)
+/craft:orch "add auth"           # Interactive: pick mode + confirm plan
+/craft:orch "add auth" optimize  # Direct mode selection
+/craft:orch "large task" --swarm # Unlimited parallel agents (v2.18.0)
 
 # Orchestrate specific commands with --orch flag (v2.5.0)
 /craft:do "add auth" --orch=optimize      # Quick orchestration
@@ -1234,17 +1234,17 @@ claude plugin update <name>@local-plugins
 /craft:git:worktree "create feat" --orch  # Orchestrated worktree creation
 
 # Session management
-/craft:orchestrate status                 # Agent dashboard
-/craft:orchestrate timeline               # Execution timeline
-/craft:orchestrate continue               # Resume session
+/craft:orch status                 # Agent dashboard
+/craft:orch timeline               # Execution timeline
+/craft:orch continue               # Resume session
 ```
 
 **Spec-driven drive:**
 
 | Command | Purpose |
 |---------|---------|
-| `/craft:orchestrate:drive` | Spec → autonomous /goal loop → verified green |
-| `/craft:orchestrate:workflow` | Coded fixed-control-flow program → schema-gated, resumable ([refcard](reference/REFCARD-WORKFLOW.md)) |
+| `/craft:orch:drive` | Spec → autonomous /goal loop → verified green |
+| `/craft:orch:workflow` | Coded fixed-control-flow program → schema-gated, resumable ([refcard](reference/REFCARD-WORKFLOW.md)) |
 
 **Modes:**
 
@@ -1295,7 +1295,7 @@ graph LR
 |------|---------|--------|
 | 1. Brainstorm | `/brainstorm d:8 "feature"` | `BRAINSTORM-feature.md` |
 | 2. Capture spec | Brainstorm Step 5 (auto) | `docs/specs/SPEC-feature.md` |
-| 3. Create orchestration | `/craft:orchestrate:plan` | `ORCHESTRATE-feature.md` + worktree |
+| 3. Create orchestration | `/craft:orch:plan` | `ORCHESTRATE-feature.md` + worktree |
 | 4. Implement | Work in worktree | Commits on `feature/*` branch |
 | 5. Integrate | `/craft:git:worktree finish` | PR to `dev` |
 
@@ -1304,8 +1304,8 @@ graph LR
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
-| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
+| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 
 **When to use what:**
@@ -1629,7 +1629,7 @@ Auto-triggered expertise:
 
 | Skill                     | Triggers                                            |
 | ------------------------- | --------------------------------------------------- |
-| `drive-engine`            | `/craft:orchestrate:drive` — dispatch + real verify gate (NEW) |
+| `drive-engine`            | `/craft:orch:drive` — dispatch + real verify gate (NEW) |
 | `prompt-refiner`          | the `--refine` flag — sharpen a prompt before running (NEW) |
 | `command-skill-token-efficiency` | writing/resizing a command, skill, or agent file — command-vs-skill split guidance + line-ratio check (NEW) |
 | `release`                 | "release", "ship it", version publishing (CI monitoring in v2.22.0) |
@@ -1783,8 +1783,8 @@ Comprehensive guides and references:
 
 | Command | Description |
 | ------- | ----------- |
-| `/craft:orchestrate:drive` | Drive an approved SPEC to completion via the native /goal turn-loop with a verify gate |
-| `/craft:orchestrate:workflow` | Execute a coded, fixed-control-flow workflow with schema-gated agents and cached replay |
+| `/craft:orch:drive` | Drive an approved SPEC to completion via the native /goal turn-loop with a verify gate |
+| `/craft:orch:workflow` | Execute a coded, fixed-control-flow workflow with schema-gated agents and cached replay |
 
 ### Distribution Commands
 

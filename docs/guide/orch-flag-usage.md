@@ -5,7 +5,7 @@
 
 ## Overview
 
-The `--orch` flag provides a shorthand for spawning the orchestrator without requiring a separate `/craft:orchestrate` command invocation. This enables quick orchestration for complex tasks directly from any supported command.
+The `--orch` flag provides a shorthand for spawning the orchestrator without requiring a separate `/craft:orch` command invocation. This enables quick orchestration for complex tasks directly from any supported command.
 
 ## Supported Commands
 
@@ -350,5 +350,5 @@ The `--orch` flag is opt-in and doesn't affect existing workflows. Commands work
 For more information, see:
 
 - [Complexity Scoring Algorithm](../guide/complexity-scoring-algorithm.md)
-- [Orchestrator Command](../commands/orchestrate.md)
+- [Orchestrator Command](../commands/orch.md)
 - [Version History](../VERSION-HISTORY.md)

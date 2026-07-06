@@ -5,7 +5,7 @@ category: "cookbook"
 level: "intermediate"
 time_estimate: "5-7 minutes"
 related:
-  - ../../commands/orchestrate.md
+  - ../../commands/orch.md
   - ../../tutorials/interactive-orchestration.md
   - ../../reference/REFCARD-INTERACTIVE-COMMANDS.md
 ---
@@ -26,7 +26,7 @@ I have a complex task that requires multiple steps, different specialized agents
 1. **Start orchestration with task description**
 
    ```bash
-   /craft:orchestrate "add user authentication with JWT, update docs, and add tests"
+   /craft:orch "add user authentication with JWT, update docs, and add tests"
    ```
 
    **What happens (v2.9.0 "Show Steps First" pattern):**
@@ -198,7 +198,7 @@ Benefits:
 - **Quick orchestration without mode selection:**
 
   ```bash
-  /craft:orchestrate "simple task" --mode=default
+  /craft:orch "simple task" --mode=default
   ```
 
   Skips mode selection, goes directly to execution
@@ -206,7 +206,7 @@ Benefits:
 - **Preview plan without executing:**
 
   ```bash
-  /craft:orchestrate "task" --dry-run
+  /craft:orch "task" --dry-run
   ```
 
   Shows the execution plan but doesn't run it
@@ -258,7 +258,7 @@ Benefits:
 ### Example 1: Documentation Update (wave mode)
 
 ```bash
-/craft:orchestrate "update all tutorials for v2.9.0 features"
+/craft:orch "update all tutorials for v2.9.0 features"
 
 # Choose mode: 2 (wave)
 
@@ -273,7 +273,7 @@ Benefits:
 ### Example 2: Feature Implementation (phase mode)
 
 ```bash
-/craft:orchestrate "add OAuth2 authentication to API"
+/craft:orch "add OAuth2 authentication to API"
 
 # Choose mode: 3 (phase)
 
@@ -289,7 +289,7 @@ Benefits:
 ### Example 3: Quick Multi-Step (default mode)
 
 ```bash
-/craft:orchestrate "fix markdown lint errors and commit"
+/craft:orch "fix markdown lint errors and commit"
 
 # Choose mode: 1 (default)
 
@@ -303,7 +303,7 @@ Benefits:
 
 ## Related
 
-- [Orchestrate Command](../../commands/orchestrate.md) — Full command reference
+- [Orchestrate Command](../../commands/orch.md) — Full command reference
 - [Interactive Orchestration Tutorial](../../tutorials/interactive-orchestration.md) — Complete guide
 - [Interactive Commands Reference](../../reference/REFCARD-INTERACTIVE-COMMANDS.md) — Quick reference
 - [Do Command](../../commands/do.md) — Automatic routing to orchestrator

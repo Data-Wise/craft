@@ -52,6 +52,6 @@ The `spec-path` and `output` arguments above are parsed here and passed through 
 
 ## See Also
 
-- [/craft:orchestrate](../orchestrate.md) — Launch orchestrator mode
+- [/craft:orchestrate](../orch.md) — Launch orchestrator mode
 - [/craft:git:worktree](../git/worktree.md) — Manual worktree management
 - [Worktree Tutorial](../../docs/tutorials/TUTORIAL-worktree-setup.md) — Step-by-step guide

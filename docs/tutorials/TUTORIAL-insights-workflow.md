@@ -371,7 +371,7 @@ For large features where multiple agents would conflict on the same files, swarm
 **Run:**
 
 ```bash
-/craft:orchestrate --swarm "implement auth"
+/craft:orch --swarm "implement auth"
 ```
 
 **What happens:**
@@ -388,7 +388,7 @@ For large features where multiple agents would conflict on the same files, swarm
 **Preview without creating worktrees:**
 
 ```bash
-/craft:orchestrate --swarm --dry-run "implement auth"
+/craft:orch --swarm --dry-run "implement auth"
 ```
 
 **When to use swarm vs. normal orchestration:**
@@ -424,7 +424,7 @@ flowchart TD
     CLAUDE -->|Next session| Session
 
     Work -->|Ready to release| Release["/release --autonomous"]
-    Work -->|Large feature| Swarm["/craft:orchestrate --swarm"]
+    Work -->|Large feature| Swarm["/craft:orch --swarm"]
 
     style Session fill:#4A90D9,color:#fff
     style Context fill:#8E44AD,color:#fff
@@ -451,7 +451,7 @@ flowchart TD
 | "apply insights" | Apply suggestions to CLAUDE.md | After /insights |
 | `/release --autonomous` | Unattended release | When release is ready |
 | `/release --autonomous --dry-run` | Preview release plan | Before autonomous release |
-| `/craft:orchestrate --swarm` | Isolated agent worktrees | Large parallel features |
+| `/craft:orch --swarm` | Isolated agent worktrees | Large parallel features |
 
 ---
 

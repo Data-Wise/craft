@@ -24,7 +24,7 @@ flowchart TD
     Do --> |"distribute"| Dist["📦 Dist (4)"]
     Do --> |"plan/sprint"| Plan["📋 Plan (3)"]
     Do --> |"workflow"| WF["🔄 Workflow (13)"]
-    Do --> |"complex task"| Orch["/craft:orchestrate (3)"]
+    Do --> |"complex task"| Orch["/craft:orch (3)"]
 
     Hub["/craft:hub"] -.-> |"discover"| Do
     Check["/craft:check (2)"] -.-> |"validate"| Do
@@ -44,7 +44,7 @@ Universal commands with AI-powered routing:
 
 - `/craft:do <task>` — Universal task router
 - `/craft:check [--for]` — Pre-flight checks (+`gen-validator`)
-- `/craft:orchestrate <task> [mode]` — Enhanced orchestrator (+`plan`, `resume`)
+- `/craft:orch <task> [mode]` — Enhanced orchestrator (+`plan`, `resume`)
 - `/craft:hub` — Command discovery
 - `/craft:smart-help` — Context-aware help
 - `/craft:discovery-usage` — Discovery engine guide
@@ -165,16 +165,16 @@ Four key commands use the **"Show Steps First" pattern**:
 
 [Learn more →](check.md) | [Cookbook recipe](../cookbook/common/check-code-quality-before-commit.md) | [Quick reference](../reference/REFCARD-CHECK.md)
 
-### /craft:orchestrate - Multi-Agent Coordination
+### /craft:orch - Multi-Agent Coordination
 
 ```bash
-/craft:orchestrate "complex task"
+/craft:orch "complex task"
 
 # Shows plan → Asks for mode → Confirms → Runs with checkpoints
 # Interactive mode selection (default/wave/phase)
 ```
 
-[Learn more →](orchestrate.md) | [Tutorial](../tutorials/interactive-orchestration.md) | [Modes compared](../tutorials/orchestrator-modes-compared.md)
+[Learn more →](orch.md) | [Tutorial](../tutorials/interactive-orchestration.md) | [Modes compared](../tutorials/orchestrator-modes-compared.md)
 
 ### /craft:git:worktree - Parallel Development
 
@@ -227,7 +227,7 @@ Four key commands use the **"Show Steps First" pattern**:
 **⚡ 5-7 minutes:**
 
 ```bash
-/craft:orchestrate "your task"     # Multi-step workflow with mode selection
+/craft:orch "your task"     # Multi-step workflow with mode selection
 ```
 
 [Cookbook recipe →](../cookbook/common/use-interactive-orchestration.md)
@@ -256,7 +256,7 @@ Four key commands use the **"Show Steps First" pattern**:
 1. **Documentation:** `/craft:docs:update`
 2. **Testing:** `/craft:test`
 3. **Git worktrees:** `/craft:git:worktree setup`
-4. **Orchestration:** `/craft:orchestrate "multi-step task"`
+4. **Orchestration:** `/craft:orch "multi-step task"`
 
 ### Level 3: Advanced (Ongoing)
 

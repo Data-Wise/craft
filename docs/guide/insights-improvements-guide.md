@@ -284,7 +284,7 @@ flowchart TD
 
 ---
 
-### `/craft:orchestrate --swarm` — Isolated Worktree Agents
+### `/craft:orch --swarm` — Isolated Worktree Agents
 
 Instead of forking agent contexts in the same directory (risking file conflicts), creates a separate git worktree per agent with its own branch. Agents work in parallel with complete isolation, then branches merge into a convergence branch.
 
@@ -294,7 +294,7 @@ Instead of forking agent contexts in the same directory (risking file conflicts)
 
 ```mermaid
 flowchart TD
-    Start(["/craft:orchestrate --swarm"]) --> Parse[Step 1: Parse ORCHESTRATE file]
+    Start(["/craft:orch --swarm"]) --> Parse[Step 1: Parse ORCHESTRATE file]
     Parse --> Plan[Extract agent assignments + file scopes]
     Plan --> Base["Step 2: Create convergence branch\nfeature/swarm-task"]
 
@@ -363,8 +363,8 @@ Periodic — incorporate session learnings into your CLAUDE.md.
 For large features that can be split across isolated agents.
 
 ```bash
-/craft:orchestrate --swarm "implement feature"  # Isolated agents in worktrees
-/craft:orchestrate status                       # Monitor progress
+/craft:orch --swarm "implement feature"  # Isolated agents in worktrees
+/craft:orch status                       # Monitor progress
 ```
 
 ### Workflow 5: Unattended Release
@@ -406,7 +406,7 @@ When creating an ORCHESTRATE file, insights data automatically feeds into the "F
 /craft:insights
 
 # 2. Create ORCHESTRATE — friction prevention is auto-populated
-/craft:orchestrate:plan docs/specs/SPEC-feature.md
+/craft:orch:plan docs/specs/SPEC-feature.md
 # → ORCHESTRATE file includes project-specific guardrails
 ```
 

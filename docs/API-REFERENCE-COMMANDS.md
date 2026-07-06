@@ -186,7 +186,7 @@ MAIN MENU
 
 ---
 
-### /craft:orchestrate
+### /craft:orch
 
 **Category**: Coordination | **Complexity**: Complex | **Time**: Variable
 **Description**: Multi-agent task orchestration with background execution
@@ -205,9 +205,9 @@ MAIN MENU
 #### Examples
 
 ```bash
-/craft:orchestrate "add feature X"
-/craft:orchestrate "refactor auth" optimize
-/craft:orchestrate "release prep" release
+/craft:orch "add feature X"
+/craft:orch "refactor auth" optimize
+/craft:orch "release prep" release
 ```
 
 #### Output Format
@@ -222,10 +222,10 @@ Spawning agents:
   [AGENT-4: docs] Updating documentation...
 
 ETA: ~30 minutes (parallel execution)
-Monitor with: /craft:orchestrate status
+Monitor with: /craft:orch status
 ```
 
-**File**: `commands/orchestrate.md`
+**File**: `commands/orch.md`
 
 ---
 
@@ -2405,7 +2405,7 @@ Commands support multiple output formats:
 |-----------|--------------|---------|
 | Simple | < 30s | `/craft:git:status`, `/craft:code:lint` |
 | Moderate | 1-5 min | `/craft:test`, `/craft:docs:api` |
-| Complex | 5-30 min | `/craft:plan:feature`, `/craft:orchestrate` |
+| Complex | 5-30 min | `/craft:plan:feature`, `/craft:orch` |
 
 ### Optimization Tips
 

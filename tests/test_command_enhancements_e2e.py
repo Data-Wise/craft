@@ -22,7 +22,7 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # The 4 enhanced command files
 COMMAND_FILES = {
-    "orchestrate": os.path.join(BASE, "commands", "orchestrate.md"),
+    "orchestrate": os.path.join(BASE, "commands", "orch.md"),
     "check": os.path.join(BASE, "commands", "check.md"),
     "docs_update": os.path.join(BASE, "commands", "docs", "update.md"),
     "git_worktree": os.path.join(BASE, "commands", "git", "worktree.md"),
@@ -30,7 +30,7 @@ COMMAND_FILES = {
 
 # Corresponding help/doc files in docs/commands/
 HELP_FILES = {
-    "orchestrate": os.path.join(BASE, "docs", "commands", "orchestrate.md"),
+    "orchestrate": os.path.join(BASE, "docs", "commands", "orch.md"),
     "check": os.path.join(BASE, "docs", "commands", "check.md"),
     "docs_update": os.path.join(BASE, "docs", "commands", "docs", "update.md"),
     "git_worktree": os.path.join(BASE, "docs", "commands", "git", "worktree.md"),

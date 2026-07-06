@@ -163,23 +163,23 @@ q to quit
 
 ---
 
-### /craft:orchestrate - Multi-Agent Coordination
+### /craft:orch - Multi-Agent Coordination
 
 ```bash
 # Basic orchestration
-/craft:orchestrate "add OAuth authentication"
+/craft:orch "add OAuth authentication"
 
 # With mode selection
-/craft:orchestrate "refactor payment system" optimize
+/craft:orch "refactor payment system" optimize
 
 # Check status
-/craft:orchestrate status
+/craft:orch status
 
 # Resume interrupted task
-/craft:orchestrate resume task-abc123
+/craft:orch resume task-abc123
 
 # Monitor live
-/craft:orchestrate status live
+/craft:orch status live
 ```
 
 **Output Example**:
@@ -205,7 +205,7 @@ AGENT STATUS
   test: 🟡 writing tests (30% done)
   docs: ⏳ queued
 
-Run: /craft:orchestrate task-123 status --live
+Run: /craft:orch task-123 status --live
 ```
 
 ---

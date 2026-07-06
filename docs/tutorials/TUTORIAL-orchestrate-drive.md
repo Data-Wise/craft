@@ -1,4 +1,4 @@
-# Tutorial: Drive a spec to green with /craft:orchestrate:drive
+# Tutorial: Drive a spec to green with /craft:orch:drive
 
 This walkthrough takes a first-timer end-to-end: from an approved toy spec
 to a verified-green handoff, on a tiny example. The golden rule —
@@ -11,12 +11,12 @@ flowchart LR
     A[Have an approved SPEC] --> B{In a feature/* worktree?}
     B -->|no| B1["craft:git:worktree or plan-orchestrator skill"]
     B1 --> C
-    B -->|yes| C["craft:orchestrate:drive --dry-run"]
+    B -->|yes| C["craft:orch:drive --dry-run"]
     C --> D[Read derived /goal condition + precond report]
     D --> E{Looks right?}
     E -->|no| F["Tweak --condition or fix preconds"]
     F --> C
-    E -->|yes| G["craft:orchestrate:drive (confirm gate: enable auto mode?)"]
+    E -->|yes| G["craft:orch:drive (confirm gate: enable auto mode?)"]
     G --> H[Autonomous /goal loop runs]
     H --> I["Real verify gate: tests + git status"]
     I -->|red| H
@@ -38,7 +38,7 @@ cd ~/.git-worktrees/myproj/feature-toy
 ## Step 2: Lead with `--dry-run`
 
 ```bash
-/craft:orchestrate:drive --dry-run
+/craft:orch:drive --dry-run
 ```
 
 This prints — with **zero side effects** — the derived `/goal` condition,
@@ -56,7 +56,7 @@ or fix a precondition, then dry-run again.
 ## Step 3: Run for real — the confirm gate
 
 ```bash
-/craft:orchestrate:drive
+/craft:orch:drive
 ```
 
 You'll see the condition again at the **confirm gate** (defaults to No). If

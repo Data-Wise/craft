@@ -5,7 +5,7 @@ from test_plugin_e2e import PLUGIN_DIR  # reuse existing helper module
 
 pytestmark = pytest.mark.e2e
 
-YES_COMMANDS = ["commands/grill.md", "commands/orchestrate.md"]
+YES_COMMANDS = ["commands/grill.md", "commands/orch.md"]
 
 @pytest.mark.parametrize("rel", YES_COMMANDS)
 def test_yes_flag_declared(rel):

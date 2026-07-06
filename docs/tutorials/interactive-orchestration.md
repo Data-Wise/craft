@@ -4,7 +4,7 @@
 >
 > **Level:** Intermediate
 >
-> **Prerequisites:** Basic familiarity with `/craft:orchestrate`
+> **Prerequisites:** Basic familiarity with `/craft:orch`
 
 ---
 
@@ -25,7 +25,7 @@
 When you run orchestrate without specifying a mode, you'll be prompted:
 
 ```bash
-/craft:orchestrate "add user authentication with OAuth"
+/craft:orch "add user authentication with OAuth"
 ```
 
 The orchestrator asks which mode to use:
@@ -45,7 +45,7 @@ Select **Default** for most tasks. Use **Debug** when troubleshooting, **Optimiz
 Skip the mode prompt by specifying it directly:
 
 ```bash
-/craft:orchestrate "add user authentication" optimize
+/craft:orch "add user authentication" optimize
 ```
 
 This jumps straight to the task analysis.
@@ -191,13 +191,13 @@ Try the same task in different modes to see the difference:
 
 ```bash
 # Minimal output, per-wave checkpoints
-/craft:orchestrate "add auth" default
+/craft:orch "add auth" default
 
 # Verbose output, per-step checkpoints
-/craft:orchestrate "add auth" debug
+/craft:orch "add auth" debug
 
 # Parallel execution, wave-end checkpoints
-/craft:orchestrate "add auth" optimize
+/craft:orch "add auth" optimize
 ```
 
 ---

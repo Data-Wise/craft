@@ -1,7 +1,7 @@
-# /craft:orchestrate — Reference
+# /craft:orch — Reference
 
-> Extended reference for `/craft:orchestrate`. The mandatory execution contract (Steps 0–3-N)
-> lives in the [orchestrate command page](../commands/orchestrate.md); this doc holds the human-read
+> Extended reference for `/craft:orch`. The mandatory execution contract (Steps 0–3-N)
+> lives in the [orchestrate command page](../commands/orch.md); this doc holds the human-read
 > reference material split out to keep the command lean.
 
 ---
@@ -25,7 +25,7 @@ Activates **Orchestrator v2.1** mode which:
 ### Start Orchestrated Workflow
 
 ```bash
-/craft:orchestrate "add user authentication with OAuth"
+/craft:orch "add user authentication with OAuth"
 
 ## 📋 TASK ANALYSIS
 
@@ -49,7 +49,7 @@ Spawning agents...
 ### Fast Parallel Mode
 
 ```bash
-/craft:orchestrate "add tests for all endpoints" optimize
+/craft:orch "add tests for all endpoints" optimize
 
 ## 🚀 ORCHESTRATOR v2.1 — OPTIMIZE MODE
 
@@ -65,7 +65,7 @@ Spawning 4 test agents in parallel...
 ### Check Status
 
 ```bash
-/craft:orchestrate status
+/craft:orch status
 
 ## 🔄 AGENT STATUS
 
@@ -82,7 +82,7 @@ Spawning 4 test agents in parallel...
 ### View Timeline (NEW)
 
 ```bash
-/craft:orchestrate timeline
+/craft:orch timeline
 
 ## ⏱️ EXECUTION TIMELINE
 
@@ -100,7 +100,7 @@ code-2   ░░░░░░░░██████░░░░░░░░░ �
 ### Context Budget (NEW)
 
 ```bash
-/craft:orchestrate budget
+/craft:orch budget
 
 ## 📊 CONTEXT BUDGET
 
@@ -117,7 +117,7 @@ Status: 🟢 Healthy (< 50%)
 ### Force Compression
 
 ```bash
-/craft:orchestrate compress
+/craft:orch compress
 
 ## ⚠️ CONTEXT COMPRESSION
 
@@ -135,7 +135,7 @@ Status: 🟢 Healthy (< 50%)
 ### Resume Previous Session (NEW)
 
 ```bash
-/craft:orchestrate continue
+/craft:orch continue
 
 ## 🔄 RESUMING PREVIOUS SESSION
 
@@ -156,7 +156,7 @@ Resuming...
 ### Abort All Agents
 
 ```bash
-/craft:orchestrate abort
+/craft:orch abort
 
 ## 🛑 ABORTING ALL AGENTS
 
@@ -192,13 +192,13 @@ Sessions persist across disconnects:
 
 ```bash
 # Resume previous session
-/craft:orchestrate continue
+/craft:orch continue
 
 # Force save current state
-/craft:orchestrate save
+/craft:orch save
 
 # View session history
-/craft:orchestrate history
+/craft:orch history
 
 ## 📜 SESSION HISTORY
 
@@ -209,10 +209,10 @@ Sessions persist across disconnects:
 | 3 | Dec 25 | Refactor CLI | abandoned |
 
 # Resume specific session from history
-/craft:orchestrate history 2
+/craft:orch history 2
 
 # Start fresh (archives current session)
-/craft:orchestrate new
+/craft:orch new
 ```
 
 ### State File Location
@@ -239,8 +239,8 @@ The orchestrator works with four types of worktrees:
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orchestrate:plan` or brainstorm | Long-lived | `feature/*` | Always |
-| **Swarm** | `/craft:orchestrate --swarm` | Short-lived | `swarm-*` | Reads existing |
+| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 
 ### When to Use What
@@ -258,17 +258,17 @@ The orchestrator works with four types of worktrees:
 ```text
 Need isolated development?
 │
-├─ No → /craft:orchestrate "task" (agents in forked context)
+├─ No → /craft:orch "task" (agents in forked context)
 │
 ├─ Yes, single feature
-│  ├─ Have a spec? → /craft:orchestrate:plan SPEC.md (Pipeline)
+│  ├─ Have a spec? → /craft:orch:plan SPEC.md (Pipeline)
 │  └─ No spec? → /craft:git:worktree create feature/name (Manual)
 │
 ├─ Yes, parallel agents on separate files
-│  └─ /craft:orchestrate --swarm "task" (Swarm)
+│  └─ /craft:orch --swarm "task" (Swarm)
 │
 └─ Yes, spans multiple repos
-   └─ /craft:orchestrate:plan (auto-detects, Cross-Repo)
+   └─ /craft:orch:plan (auto-detects, Cross-Repo)
 ```
 
 ## Swarm Mode (--swarm) — NEW
@@ -288,7 +288,7 @@ Run agents in isolated git worktrees instead of forked contexts. Each agent gets
 ### Swarm Execution Flow
 
 ```text
-/craft:orchestrate --swarm "implement auth"
+/craft:orch --swarm "implement auth"
 
 Step 1: Parse ORCHESTRATE file for agent assignments
 Step 2: Create base branch: feature/swarm-auth (from dev)
@@ -405,7 +405,7 @@ git branch -d swarm-auth-agent1 swarm-auth-agent2 swarm-auth-agent3
 ### Practical Example: Swarm Dry-Run
 
 ```bash
-/craft:orchestrate --swarm --dry-run "implement auth from ORCHESTRATE"
+/craft:orch --swarm --dry-run "implement auth from ORCHESTRATE"
 
 # Output:
 # ┌───────────────────────────────────────────────────────────────┐
@@ -467,7 +467,7 @@ The orchestrator can coordinate complex brainstorming workflows using `/brainsto
 ### Example: Orchestrate Feature Planning
 
 ```bash
-/craft:orchestrate "plan new authentication feature with full context gathering"
+/craft:orch "plan new authentication feature with full context gathering"
 ```
 
 The orchestrator will:
@@ -482,15 +482,15 @@ The orchestrator will:
 
 ```bash
 # Pattern 1: Quick context then implement
-/craft:orchestrate "add payment integration"
+/craft:orch "add payment integration"
 # → Brainstorm q:2 → backend-architect → code implementation
 
 # Pattern 2: Deep context with multiple agents
-/craft:orchestrate "design microservices architecture" optimize
+/craft:orch "design microservices architecture" optimize
 # → Brainstorm d:8 -C tech,risk,existing → arch-1, arch-2 in parallel
 
 # Pattern 3: Feature with full lifecycle
-/craft:orchestrate "implement user management" release
+/craft:orch "implement user management" release
 # → Brainstorm d:10 -C req,tech,success → arch + code + test + docs agents
 ```
 

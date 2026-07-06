@@ -1,10 +1,10 @@
-# Tutorial: Coded Workflows with /craft:orchestrate:workflow
+# Tutorial: Coded Workflows with /craft:orch:workflow
 
 > **Run a fixed, schema-gated, resumable orchestration** — define it once in YAML (or the shape-DSL), preview the wave plan, execute it, and resume after an edit.
 
 **Level:** Intermediate
 **Time:** 15-20 minutes
-**Prerequisites:** Familiarity with `/craft:orchestrate`; a `feature/*` worktree
+**Prerequisites:** Familiarity with `/craft:orch`; a `feature/*` worktree
 
 ---
 
@@ -20,8 +20,8 @@
 
 ## 1. Why a coded workflow?
 
-`/craft:orchestrate` improvises "what next" each turn — great for exploration.
-`/craft:orchestrate:workflow` runs a **fixed program**: the control flow is
+`/craft:orch` improvises "what next" each turn — great for exploration.
+`/craft:orch:workflow` runs a **fixed program**: the control flow is
 pinned in the definition, and only the *count* of agents in a `parallel` stage
 flexes to upstream data. You get a reproducible wave plan, structural contracts
 between stages, and resumable replay.
@@ -82,7 +82,7 @@ array + `fan(N, …)` are allowed — no lambdas, no arbitrary expressions.
 ## 3. Preview the wave plan (always first)
 
 ```bash
-/craft:orchestrate:workflow --dry-run WORKFLOW-mine.yaml
+/craft:orch:workflow --dry-run WORKFLOW-mine.yaml
 ```
 
 ```
@@ -102,7 +102,7 @@ never spawns an agent.
 ## 4. Run it
 
 ```bash
-/craft:orchestrate:workflow WORKFLOW-mine.yaml
+/craft:orch:workflow WORKFLOW-mine.yaml
 ```
 
 The engine executes wave by wave under the run-wide semaphore. For each agent
@@ -125,7 +125,7 @@ upstream bug, not a silently-skipped stage.
 Say you tweak the `verify` stage's role. Re-run from cache:
 
 ```bash
-/craft:orchestrate:workflow --resume <run-id>
+/craft:orch:workflow --resume <run-id>
 ```
 
 The engine recomputes each stage's cache key (a hash of its resolved input +
@@ -147,13 +147,13 @@ Add a `verify` stage to make a real command the authoritative pass/fail:
 ```
 
 Its **exit status** decides done — a green-looking transcript is never enough.
-This is the same gate `/craft:orchestrate:drive` uses, lifted into the engine.
+This is the same gate `/craft:orch:drive` uses, lifted into the engine.
 
 ---
 
 ## Next Steps
 
-- **Reference:** [/craft:orchestrate:workflow](../commands/orchestrate-workflow.md)
+- **Reference:** [/craft:orch:workflow](../commands/orchestrate-workflow.md)
 - **Refcard:** [REFCARD-WORKFLOW](../reference/REFCARD-WORKFLOW.md)
 - **Compared:** [Orchestrator Modes Compared](orchestrator-modes-compared.md)
 - **Recipe:** [Run a coded workflow](../cookbook/recipes/run-a-coded-workflow.md)

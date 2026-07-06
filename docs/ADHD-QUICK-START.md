@@ -114,7 +114,7 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 ## 💡 Pro Tips
 
 - Use `--quick` flags to skip prompts: `/craft:site:create --quick`
-- Chain workflows with `/craft:orchestrate` for complex tasks
+- Chain workflows with `/craft:orch` for complex tasks
 - Use `debug` mode when learning: `/craft:code:lint debug`
 - Check before committing: `/craft:check --for commit`
 

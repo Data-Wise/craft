@@ -692,7 +692,7 @@ Spawning orchestrator...
    Task: generate comprehensive GitHub Actions workflow for auto-detected project
    Mode: optimize
 
-Executing: /craft:orchestrate 'generate comprehensive GitHub Actions workflow for auto-detected project' optimize
+Executing: /craft:orch 'generate comprehensive GitHub Actions workflow for auto-detected project' optimize
 ```
 
 ```

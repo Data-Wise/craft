@@ -90,7 +90,7 @@ Preview which commands will be executed without actually running them:
 │   1. Command routing (if complexity < 4)                      │
 │      → /craft:arch:plan → /craft:code:test-gen               │
 │   2. Orchestration (if complexity > 7)                        │
-│      → /craft:orchestrate "add user authentication"          │
+│      → /craft:orch "add user authentication"          │
 │                                                               │
 │ ⚠ Notes:                                                      │
 │   • Consider creating spec first: /craft:brainstorm  │
@@ -423,7 +423,7 @@ Spawning orchestrator...
    Task: add user authentication
    Mode: optimize
 
-Executing: /craft:orchestrate 'add user authentication' optimize
+Executing: /craft:orch 'add user authentication' optimize
 ```
 
 ### Mode Selection Prompt
@@ -880,7 +880,7 @@ if score >= 6 and category == "feature":
         #
         # AskUserQuestion:
         #   Options:
-        #     - "Yes — create worktree + ORCHESTRATE" → /craft:orchestrate:plan {spec}
+        #     - "Yes — create worktree + ORCHESTRATE" → /craft:orch:plan {spec}
         #     - "No — proceed with spec context" → load spec, continue to Step 3
         pass
 ```

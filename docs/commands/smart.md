@@ -128,7 +128,7 @@ Tasks are scored on 7 factors (each 0-2 points):
 /craft:do "fix CI failures"        # Good - diagnostic needed
 ```
 
-## /craft:orchestrate
+## /craft:orch
 
 **Purpose:** Enhanced orchestrator v2 with interactive mode selection, wave checkpoints, and subagent monitoring.
 
@@ -143,20 +143,20 @@ Tasks are scored on 7 factors (each 0-2 points):
 
 ```bash
 # Interactive (prompts for mode)
-/craft:orchestrate "implement auth"
+/craft:orch "implement auth"
 
 # Explicit mode
-/craft:orchestrate "implement auth" --mode=wave
+/craft:orch "implement auth" --mode=wave
 
 # Control commands
-/craft:orchestrate status          # Agent dashboard
-/craft:orchestrate timeline        # Execution timeline
-/craft:orchestrate continue        # Resume session
+/craft:orch status          # Agent dashboard
+/craft:orch timeline        # Execution timeline
+/craft:orch continue        # Resume session
 ```
 
 ### Mode Selection (v2.9.0)
 
-When you run `/craft:orchestrate` without specifying a mode, you'll see:
+When you run `/craft:orch` without specifying a mode, you'll see:
 
 ```
 ╭─ Task Analysis ──────────────────────────────╮
@@ -196,7 +196,7 @@ Which mode? (1/2/3)
 **Example 1: Default Mode (Simple Multi-Step)**
 
 ```bash
-/craft:orchestrate "update docs and commit"
+/craft:orch "update docs and commit"
 
 # Mode: default (auto-selected for simple task)
 # Steps:
@@ -211,7 +211,7 @@ Which mode? (1/2/3)
 **Example 2: Wave Mode (Parallel Work)**
 
 ```bash
-/craft:orchestrate "update all tutorials for v2.9.0"
+/craft:orch "update all tutorials for v2.9.0"
 
 # Mode: wave (selected interactively)
 # Wave 1 (parallel):
@@ -231,7 +231,7 @@ Which mode? (1/2/3)
 **Example 3: Phase Mode (Complex Dependencies)**
 
 ```bash
-/craft:orchestrate "add OAuth2 authentication"
+/craft:orch "add OAuth2 authentication"
 
 # Mode: phase (selected for complexity)
 # Phase 1: Design
@@ -488,7 +488,7 @@ Learn More:
 | Command | Purpose | When to Use | Complexity Handled |
 |---------|---------|-------------|-------------------|
 | `/craft:do` | Universal router | Unsure which command to use | All (0-10) |
-| `/craft:orchestrate` | Multi-agent coordination | Complex multi-step tasks | High (8-10) |
+| `/craft:orch` | Multi-agent coordination | Complex multi-step tasks | High (8-10) |
 | `/craft:check` | Validation | Before commit/PR/release | N/A (validation) |
 | `/craft:help` | Guidance | Need suggestions | N/A (informational) |
 
@@ -502,7 +502,7 @@ flowchart TD
     D -->|Yes| E[Use specific command]
     D -->|No| F{Complexity?}
     F -->|Unknown| G["/craft:do"]
-    F -->|High 8-10| H["/craft:orchestrate"]
+    F -->|High 8-10| H["/craft:orch"]
     F -->|Medium 4-7| G
     F -->|Low 0-3| E
 
@@ -525,14 +525,14 @@ flowchart TD
 
 - ✅ Use `/craft:do` for multi-faceted tasks
 - ✅ Use `/craft:check` before every commit
-- ✅ Use `/craft:orchestrate` for complex workflows
+- ✅ Use `/craft:orch` for complex workflows
 - ✅ Use `/craft:help` when learning the system
 
 **DON'T:**
 
 - ❌ Use `/craft:do` for simple, known commands
 - ❌ Skip `/craft:check` before committing
-- ❌ Use `/craft:orchestrate` for single-step tasks
+- ❌ Use `/craft:orch` for single-step tasks
 - ❌ Guess - use `/craft:help` instead
 
 ---

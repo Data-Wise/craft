@@ -36,7 +36,7 @@ G-2 for the full reasoning.
 This command is a **router only** — it invokes exactly one of craft's existing
 planning surfaces and then stops. It never re-implements brainstorm/grill/
 plan-orchestrator/project-planner logic itself, and it never invokes `/craft:do` or
-`/craft:orchestrate` directly: the seam is one-directional (`plan` produces an
+`/craft:orch` directly: the seam is one-directional (`plan` produces an
 artifact; `do`/`orchestrate` consume it in a later, separate invocation — see
 `SPEC-planning-refactor-2026-06-22.md` §4).
 
@@ -98,5 +98,5 @@ Show which tier would be selected and why, without invoking it:
   tiers this router dispatches to. This command owns none of their internal logic.
 - `/craft:do --plan <topic>` — pure sugar forwarding to `/craft:plan <topic>` (an
   alias, not a separate mode) — see `commands/do.md`.
-- `/craft:do` / `/craft:orchestrate` — the one-directional seam this hands off to once
+- `/craft:do` / `/craft:orch` — the one-directional seam this hands off to once
   an artifact exists; never invoked directly by this command.

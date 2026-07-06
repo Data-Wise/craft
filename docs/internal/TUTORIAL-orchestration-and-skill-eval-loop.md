@@ -4,7 +4,7 @@
 > **Origin:** a Cowork / Claude Desktop session (2026-07-02) that built two skills
 > (`prompt-engineer` / `prompt-refiner`) end-to-end, then reverse-engineered
 > craft's orchestration surface from the outside.
-> **Why it's in `docs/internal/`:** §10–§11 compare `/craft:orchestrate`
+> **Why it's in `docs/internal/`:** §10–§11 compare `/craft:orch`
 > (fanout · `--swarm` · `--engine=workflow`) and the new `--dispatch`
 > (`orchestrate-dispatch`, v2.57.0 #240) against a hand-rolled subagent loop,
 > with a token-cost model and an honest (inconclusive) empirical-measurement
@@ -217,16 +217,16 @@ return), and writes to the real filesystem (give absolute paths).
 
 ## 10. Doing this with craft (it already has orchestration)
 
-Craft ships a **more mature version of the manual fan-out** (`commands/orchestrate.md`,
+Craft ships a **more mature version of the manual fan-out** (`commands/orch.md`,
 `agents/orchestrator-v2.md`, `skills/orchestration/`, `scripts/orchestrate-token-report.py`):
 
 ```bash
-/craft:orchestrate "<task>"              # fan-out subagents, monitor, synthesize
-/craft:orchestrate "<task>" --dry-run    # preview the plan; spawn nothing
-/craft:orchestrate "<task>" --swarm      # each agent in its OWN worktree, then converge
-/craft:orchestrate "<task>" --refine     # pre-run the task through prompt-refiner first
-/craft:orchestrate "<task>" --engine=workflow   # YAML DAG instead of parallel fan-out
-/craft:orchestrate status | timeline | compress | continue | abort
+/craft:orch "<task>"              # fan-out subagents, monitor, synthesize
+/craft:orch "<task>" --dry-run    # preview the plan; spawn nothing
+/craft:orch "<task>" --swarm      # each agent in its OWN worktree, then converge
+/craft:orch "<task>" --refine     # pre-run the task through prompt-refiner first
+/craft:orch "<task>" --engine=workflow   # YAML DAG instead of parallel fan-out
+/craft:orch status | timeline | compress | continue | abort
 ```
 
 Over the hand-rolled loop in §3, craft adds: **dry-run planning**; **`--swarm`
@@ -248,7 +248,7 @@ execute it,"* so self-containment is inherited from the durable file.
 | Mode | Executor | Same session? | Worktree isolation | Human gate | Resume / failure |
 |---|---|---|---|---|---|
 | **Manual fan-out** | you spawn `Agent`s | yes | no (shared FS) | none | none |
-| **`/craft:orchestrate`** (fanout) | orchestrator spawns agents | yes | no | plan confirm | monitor + synthesize |
+| **`/craft:orch`** (fanout) | orchestrator spawns agents | yes | no | plan confirm | monitor + synthesize |
 | **`--swarm`** | agents in own worktrees | yes | **yes, per-agent** | plan confirm | branch convergence |
 | **`--engine=workflow`** | YAML DAG waves | yes | optional | plan confirm | **cache-replay `--resume`** |
 | **`plan` STOP-new-session** | a **fresh human session** | **no** | yes (one worktree) | plan confirm | manual resume |
@@ -297,7 +297,7 @@ data availability**: markers store no token counts (only `engine`/timestamps/
 headless `claude -p`); and summing `usage` over each run's `[start_ts,end_ts]`
 window caught 0 records for every fanout run and only 2 near-zero-output turns for
 two workflow windows (contamination, not the orchestration). **To get real
-numbers:** run a fresh `/craft:orchestrate` once `--engine=fanout` and once
+numbers:** run a fresh `/craft:orch` once `--engine=fanout` and once
 `--engine=workflow`, then **immediately** run `orchestrate-token-report.py` before
 `agent-*.jsonl` rotate; `quota_estimate.py` needs K≥3 same-engine runs for
 p05/p95, so plan ~3–5 paired runs (exactly `parity-gate.md`).
@@ -306,7 +306,7 @@ p05/p95, so plan ~3–5 paired runs (exactly `parity-gate.md`).
 > concrete `orchestrate` improvements worth grilling — (1) have every engine write
 > a **token-usage field into the run marker itself** (self-contained; no reliance
 > on transcript retention / `agent-*.jsonl`), (2) a `--report` convenience flag on
-> `/craft:orchestrate` that runs `orchestrate-token-report.py` for the just-finished
+> `/craft:orch` that runs `orchestrate-token-report.py` for the just-finished
 > run, and (3) surface the fanout-vs-workflow `cost_weighted` delta in
 > `orchestrate status`. Grounded against **v2.57.0** (`CHANGELOG.md` #240;
 > `skills/orchestration/plan-orchestrator/SKILL.md`).
@@ -322,4 +322,4 @@ p05/p95, so plan ~3–5 paired runs (exactly `parity-gate.md`).
 | **Review+submit** | **`generate_review.py` (served) → feedback.json** | same |
 | Iterate | edit SKILL.md, bump iteration | `run_loop.py` |
 | Repackage | `zip … .skill` | `package_skill.py` |
-| Orchestrate (real) | — | `/craft:orchestrate [--swarm\|--engine=workflow\|--dispatch]` |
+| Orchestrate (real) | — | `/craft:orch [--swarm\|--engine=workflow\|--dispatch]` |

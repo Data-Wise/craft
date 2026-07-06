@@ -65,7 +65,7 @@ grill itself never executes — it interrogates and hands the artifact onward.
 
 ## Embedded use
 
-`/craft:orchestrate` reuses grill in its **Step 0.5 Clarify**: on an ambiguous task it runs
+`/craft:orch` reuses grill in its **Step 0.5 Clarify**: on an ambiguous task it runs
 `/craft:grill --bound 2 --no-capture` to lock the plan-shaping decisions before building the
 orchestration plan — no `GRILL-*` file is written mid-orchestration.
 

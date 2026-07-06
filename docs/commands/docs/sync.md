@@ -71,4 +71,4 @@ When `--orch` is enabled, coordinates multi-agent documentation updates:
 
 - [/craft:docs:check](check.md) — Documentation health check
 - [/craft:docs:changelog](changelog.md) — Auto-update changelog
-- [/craft:orchestrate](../orchestrate.md) — Multi-agent coordination
+- [/craft:orch](../orch.md) — Multi-agent coordination

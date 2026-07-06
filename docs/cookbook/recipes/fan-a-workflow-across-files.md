@@ -21,8 +21,8 @@ stages:
     output_schema: { report: "string" }
 ```
 
-1. `/craft:orchestrate:workflow WORKFLOW-audit-changed.yaml --dry-run` — preview the per-file fan-out width (`xN` = one `audit` agent per file, known at runtime).
-2. `/craft:orchestrate:workflow WORKFLOW-audit-changed.yaml` — audit every file in parallel under the run-wide ceiling; each result is schema-gated, and an empty `list.files` is a hard error (never a silent no-op).
+1. `/craft:orch:workflow WORKFLOW-audit-changed.yaml --dry-run` — preview the per-file fan-out width (`xN` = one `audit` agent per file, known at runtime).
+2. `/craft:orch:workflow WORKFLOW-audit-changed.yaml` — audit every file in parallel under the run-wide ceiling; each result is schema-gated, and an empty `list.files` is a hard error (never a silent no-op).
 3. Re-run after a fix with `--resume <run-id>` — only the stage you changed (and its downstream) re-runs.
 
 > **vs. the [code-review sweep](run-a-coded-workflow.md) recipe:** same engine,

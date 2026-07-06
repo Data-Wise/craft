@@ -162,10 +162,10 @@ class TestCommandFrontmatter:
         expected = {
             "commands/brainstorm.md",
             "commands/do.md",
-            "commands/orchestrate.md",
+            "commands/orch.md",
             "commands/plan/feature.md",
             "commands/arch/plan.md",
-            "commands/orchestrate/workflow.md",  # FR6: --refine parity (workflow-engine)
+            "commands/orch/workflow.md",  # FR6: --refine parity (workflow-engine)
             "commands/grill.md",  # Task 3: refine default-on for topic, skip on path
             "commands/plan.md",  # D1b: /craft:plan router, SPEC-orchestrator-consolidation-2026-07-04
         }

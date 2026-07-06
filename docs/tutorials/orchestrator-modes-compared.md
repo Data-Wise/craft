@@ -4,7 +4,7 @@
 
 **Level:** Intermediate
 **Time:** 20-30 minutes
-**Prerequisites:** Basic understanding of `/craft:orchestrate`
+**Prerequisites:** Basic understanding of `/craft:orch`
 
 ---
 
@@ -14,21 +14,21 @@ Two different axes share the word "mode":
 
 - **Orchestration mode** = *which command* (what control model) — there are
   **three**.
-- **Execution mode** = *how intensely* `/craft:orchestrate` runs (default /
+- **Execution mode** = *how intensely* `/craft:orch` runs (default /
   debug / optimize / release) — there are **four**, covered in depth below.
 
 ### The three orchestration modes
 
 | Mode | Control model | When to use |
 |------|---------------|-------------|
-| `/craft:orchestrate` | LLM **improvises** "what next" each turn | exploratory work; you can't predict the steps |
-| `/craft:orchestrate:drive` | drives an approved **SPEC** to green via a `/goal` loop | one spec → autonomous completion |
-| `/craft:orchestrate:workflow` | executes a **fixed coded program**; only fan-out *volume* flexes to data | known shapes: decompose → cover N → verify M → synthesize |
+| `/craft:orch` | LLM **improvises** "what next" each turn | exploratory work; you can't predict the steps |
+| `/craft:orch:drive` | drives an approved **SPEC** to green via a `/goal` loop | one spec → autonomous completion |
+| `/craft:orch:workflow` | executes a **fixed coded program**; only fan-out *volume* flexes to data | known shapes: decompose → cover N → verify M → synthesize |
 
 **Rule of thumb:** improvise when the path is unknown (`orchestrate`), drive
 when you have an approved spec (`drive`), code it when the shape repeats and you
 want determinism + resumable replay (`workflow`). The four **execution** modes
-below apply to `/craft:orchestrate`.
+below apply to `/craft:orch`.
 
 ---
 
@@ -61,7 +61,7 @@ We'll execute this task in all 4 modes to compare behavior:
 ### Execution
 
 ```bash
-/craft:orchestrate "implement user authentication with OAuth 2.0" default
+/craft:orch "implement user authentication with OAuth 2.0" default
 ```
 
 ### Step-by-Step Output
@@ -230,7 +230,7 @@ Next steps:
 ### Execution
 
 ```bash
-/craft:orchestrate "implement user authentication with OAuth 2.0" debug
+/craft:orch "implement user authentication with OAuth 2.0" debug
 ```
 
 ### Key Differences
@@ -308,7 +308,7 @@ Agent arch-1 has completed design.
 ### Execution
 
 ```bash
-/craft:orchestrate "implement user authentication with OAuth 2.0" optimize
+/craft:orch "implement user authentication with OAuth 2.0" optimize
 ```
 
 ### Key Differences
@@ -388,7 +388,7 @@ Results summary:
 ### Execution
 
 ```bash
-/craft:orchestrate "implement user authentication with OAuth 2.0" release
+/craft:orch "implement user authentication with OAuth 2.0" release
 ```
 
 ### Key Differences
@@ -512,10 +512,10 @@ release     ~28,000        ~5,600          High (85% threshold)
 ## When the shape is fixed: the same task as a `workflow`
 
 The four modes above are all flavors of the **improvising** orchestrator
-(`/craft:orchestrate`) — the LLM decides "what next" each turn. But the OAuth
+(`/craft:orch`) — the LLM decides "what next" each turn. But the OAuth
 reference task has a shape that's actually fixed and repeatable — *design →
 build each component → test → document*. When that's true, you can **code it**
-as a deterministic program with `/craft:orchestrate:workflow`: the control flow
+as a deterministic program with `/craft:orch:workflow`: the control flow
 lives in a definition instead of the model's judgement, so the run is
 reproducible and resumable.
 
@@ -541,7 +541,7 @@ stages:
 Preview the wave plan before anything runs:
 
 ```bash
-/craft:orchestrate:workflow WORKFLOW-oauth.yaml --dry-run
+/craft:orch:workflow WORKFLOW-oauth.yaml --dry-run
 ```
 
 ```
@@ -605,23 +605,23 @@ Start: Need to orchestrate a task
 
 ```bash
 # Start with default
-/craft:orchestrate "complex task" default
+/craft:orch "complex task" default
 
 # Wave 1 completes successfully
 # Wave 2 fails with unclear error
 
 # Abort
-/craft:orchestrate abort
+/craft:orch abort
 
 # Restart in debug mode to see traces
-/craft:orchestrate "complex task" debug
+/craft:orch "complex task" debug
 ```
 
 **Future feature request:** Mid-task mode switching
 
 ```bash
 # Hypothetical future feature
-/craft:orchestrate mode debug  # Switch current session to debug mode
+/craft:orch mode debug  # Switch current session to debug mode
 ```
 
 ---
@@ -632,17 +632,17 @@ Start: Need to orchestrate a task
 
 ```bash
 # Default: Shows mode selection prompt
-/craft:orchestrate "task"
+/craft:orch "task"
 
 # Explicit: Skips mode selection, faster
-/craft:orchestrate "task" default
+/craft:orch "task" default
 ```
 
 ### Use --dry-run to Preview
 
 ```bash
 # See orchestration plan without spawning agents
-/craft:orchestrate "task" default --dry-run
+/craft:orch "task" default --dry-run
 
 Output:
   ✓ Task analysis
@@ -660,7 +660,7 @@ Output:
 | **< 50% context** | `optimize` | Fast execution, lower token overhead |
 | **50-70% context** | `default` | Balanced usage |
 | **70-90% context** | `debug` (if needed) | High compression threshold |
-| **> 90% context** | Compress first | Run `/craft:orchestrate compress` before starting |
+| **> 90% context** | Compress first | Run `/craft:orch compress` before starting |
 
 ### When to Use Each Mode by Project Phase
 
@@ -684,8 +684,8 @@ Output:
 
 ```bash
 # Re-run in debug mode to see full traces
-/craft:orchestrate abort
-/craft:orchestrate "same task" debug
+/craft:orch abort
+/craft:orch "same task" debug
 ```
 
 ### Debug Mode: Reading Verbose Output
@@ -696,10 +696,10 @@ Output:
 
 ```bash
 # Use grep to filter agent output
-/craft:orchestrate status | grep "ERROR"
+/craft:orch status | grep "ERROR"
 
 # Or redirect to file for later review
-/craft:orchestrate "task" debug > orchestration-log.txt 2>&1
+/craft:orch "task" debug > orchestration-log.txt 2>&1
 ```
 
 ### Optimize Mode: Parallel Conflicts
@@ -710,7 +710,7 @@ Output:
 
 ```bash
 # Switch to default mode (limits parallelization)
-/craft:orchestrate "same task" default
+/craft:orch "same task" default
 
 # Or manually coordinate agent dependencies
 # (Not currently supported — future feature)
@@ -724,7 +724,7 @@ Output:
 
 ```bash
 # Use default mode for most of orchestration
-/craft:orchestrate "task" default
+/craft:orch "task" default
 
 # Then switch to release mode for final validation
 /craft:check thorough --for release
@@ -761,4 +761,4 @@ Output:
 - **Guide:** [Orchestrator Deep Dive](../guide/orchestrator.md) — Full reference
 - **Tutorial:** [Interactive Orchestration](interactive-orchestration.md) — Basic flow
 - **Pattern guide:** [Interactive Commands](../guide/interactive-commands.md) — How the pattern works
-- **Command:** [/craft:orchestrate](../commands/orchestrate.md) — All flags and options
+- **Command:** [/craft:orch](../commands/orch.md) — All flags and options
