@@ -788,8 +788,18 @@ if [[ "$PROTECTION" == "smart" ]]; then
       # ---------------------------------------------------------------
       BASH_TARGET=""
 
+      # Heredoc bodies (e.g. `git commit -m "$(cat <<'EOF' ... EOF)"`) are
+      # free-form text that can contain a literal '>' with no relation to a
+      # real redirect (e.g. "orchestrate->orch" in a commit message) — skip
+      # Pattern 1 when a heredoc marker is present to avoid false-positiving
+      # on prose text scanned as if it were shell syntax.
+      HAS_HEREDOC=false
+      if echo "$COMMAND" | grep -qE '<<-?["'"'"']?[A-Za-z_][A-Za-z0-9_]*["'"'"']?'; then
+        HAS_HEREDOC=true
+      fi
+
       # Pattern 1: redirect to file (>, >>)  e.g. "echo x > file.py", "cat > file.py"
-      if echo "$COMMAND" | grep -qE '>[[:space:]]*[^>]'; then
+      if [[ "$HAS_HEREDOC" == false ]] && echo "$COMMAND" | grep -qE '>[[:space:]]*[^>]'; then
         # Extract the target after the last >
         BASH_TARGET="$(echo "$COMMAND" | grep -oE '>[[:space:]]*[^>|&;[:space:]]+' | tail -1 | sed 's/^>[[:space:]]*//')"
       fi
