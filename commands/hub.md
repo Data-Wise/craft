@@ -170,7 +170,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.60.0                          │
+│  CRAFT - Full Stack Developer Toolkit v2.61.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -617,7 +617,7 @@ Command                  | Description
 ─────────────────────────────────────────────────────────────────────────
 ```
 
-### `/craft:hub orchestrate`
+### `/craft:hub orch`
 
 ```
 ORCHESTRATE COMMANDS (3) - Multi-Agent Coordination

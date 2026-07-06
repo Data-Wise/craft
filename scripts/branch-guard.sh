@@ -162,11 +162,9 @@ fi
 PROJECT_NAME="$(basename "$PROJECT_ROOT")"
 
 # ---------------------------------------------------------------------------
-# 4. Check bypass marker
+# 4. (Bypass-marker check moved to step 8e, after the universal catastrophic
+#    checks in 8d — allow-dev-edit must never be able to skip those.)
 # ---------------------------------------------------------------------------
-if [[ -f "${PROJECT_ROOT}/.claude/allow-dev-edit" ]]; then
-  exit 0
-fi
 
 # ---------------------------------------------------------------------------
 # 5. Check dry-run marker
@@ -533,6 +531,14 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
   fi
 fi
 
+# ---------------------------------------------------------------------------
+# 8e. Check bypass marker (after 8d — allow-dev-edit can skip smart-mode
+#     risk classification below, but never the catastrophic checks above)
+# ---------------------------------------------------------------------------
+if [[ -f "${PROJECT_ROOT}/.claude/allow-dev-edit" ]]; then
+  exit 0
+fi
+
 # No protection for this branch — allow everything
 [[ -z "$PROTECTION" ]] && exit 0
 
@@ -605,8 +611,12 @@ fi
 #     LOW = allow + optional note, MEDIUM = confirm + teaching, HIGH = hard block
 # ---------------------------------------------------------------------------
 if [[ "$PROTECTION" == "smart" ]]; then
-  # Code file extensions (shared by Write handler and Bash write-through detection)
-  CODE_EXTENSIONS="py sh js ts jsx tsx json yml yaml toml cfg ini r R zsh"
+  # Non-code / safe-to-create extensions (shared by Write handler and Bash
+  # write-through detection). Denylist-of-safe, not allowlist-of-code: an
+  # unrecognized extension (e.g. .swift, .rb, .go) now defaults to a MEDIUM
+  # confirm rather than silently allowed — a fixed allowlist misses every
+  # language it doesn't enumerate.
+  NONCODE_EXTENSIONS="txt csv tsv log lock example sample css html htm png jpg jpeg gif svg webp ico bmp pdf woff woff2 ttf eot otf mp3 mp4 mov wav zip gz tar tgz"
 
   case "$TOOL_NAME" in
     Edit|edit)
@@ -635,6 +645,12 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "Modifying guard config changes protection rules" \
             "/craft:git:protect --level <level> (safe config update)" \
             "/craft:git:unprotect (temporary bypass instead)"
+          ;;
+        */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
+          _confirm "edit_guard_bypass" \
+            "Edit guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
+            "This file self-approves a bypass of branch-guard's own protection — never editable silently" \
+            "/craft:git:unprotect (the sanctioned way to request this bypass)"
           ;;
       esac
       # Editing existing files is always allowed on dev (LOW)
@@ -667,6 +683,12 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "Modifying guard config changes protection rules" \
             "/craft:git:protect --level <level> (safe config update)" \
             "/craft:git:unprotect (temporary bypass instead)"
+          ;;
+        */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
+          _confirm "write_guard_bypass" \
+            "Write guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
+            "Creating this file self-approves a bypass of branch-guard's own protection — must be a deliberate, confirmed action, never a silent allow" \
+            "/craft:git:unprotect (the sanctioned way to request this bypass)"
           ;;
       esac
 
@@ -703,14 +725,14 @@ if [[ "$PROTECTION" == "smart" ]]; then
         _low_note "write_existing" "Overwriting existing file on ${BRANCH} (allowed)"
       fi
 
-      # New code file — determine extension
+      # New code file — determine extension. Default-suspect: everything
+      # not in NONCODE_EXTENSIONS is treated as code (see definition above).
       EXT="${FILE_PATH##*.}"
-      CODE_EXTENSIONS="py sh js ts jsx tsx json yml yaml toml cfg ini r R zsh"
 
-      IS_CODE=false
-      for ext in $CODE_EXTENSIONS; do
+      IS_CODE=true
+      for ext in $NONCODE_EXTENSIONS; do
         if [[ "$EXT" == "$ext" ]]; then
-          IS_CODE=true
+          IS_CODE=false
           break
         fi
       done
@@ -725,7 +747,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
           "/craft:git:unprotect for bulk maintenance"
       fi
 
-      # Non-code extension or unrecognized — allow
+      # Known-safe non-code extension (NONCODE_EXTENSIONS) — allow
       exit 0
       ;;
 
@@ -766,8 +788,18 @@ if [[ "$PROTECTION" == "smart" ]]; then
       # ---------------------------------------------------------------
       BASH_TARGET=""
 
+      # Heredoc bodies (e.g. `git commit -m "$(cat <<'EOF' ... EOF)"`) are
+      # free-form text that can contain a literal '>' with no relation to a
+      # real redirect (e.g. "orchestrate->orch" in a commit message) — skip
+      # Pattern 1 when a heredoc marker is present to avoid false-positiving
+      # on prose text scanned as if it were shell syntax.
+      HAS_HEREDOC=false
+      if echo "$COMMAND" | grep -qE '<<-?["'"'"']?[A-Za-z_][A-Za-z0-9_]*["'"'"']?'; then
+        HAS_HEREDOC=true
+      fi
+
       # Pattern 1: redirect to file (>, >>)  e.g. "echo x > file.py", "cat > file.py"
-      if echo "$COMMAND" | grep -qE '>[[:space:]]*[^>]'; then
+      if [[ "$HAS_HEREDOC" == false ]] && echo "$COMMAND" | grep -qE '>[[:space:]]*[^>]'; then
         # Extract the target after the last >
         BASH_TARGET="$(echo "$COMMAND" | grep -oE '>[[:space:]]*[^>|&;[:space:]]+' | tail -1 | sed 's/^>[[:space:]]*//')"
       fi
@@ -782,6 +814,19 @@ if [[ "$PROTECTION" == "smart" ]]; then
         BASH_TARGET="$(echo "$COMMAND" | grep -oE 'cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}')"
       fi
 
+      # Pattern 4: touch <file>  e.g. "touch .claude/allow-once"
+      # (extensionless targets like guard-bypass markers use touch, not
+      # redirection — patterns 1-3 alone never see them)
+      if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*touch[[:space:]]'; then
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'touch[[:space:]]+[^|;&[:space:]]+' | tail -1 | sed 's/^touch[[:space:]]*//')"
+      fi
+
+      # Device/pseudo-file targets (2>/dev/null, >/dev/tty, etc.) are stream
+      # redirects, not file creation — never classify these as new code.
+      if [[ "$BASH_TARGET" == /dev/* ]]; then
+        BASH_TARGET=""
+      fi
+
       # If we found a target, check if it's a new code file
       if [[ -n "$BASH_TARGET" ]]; then
         # Skip if target contains variables ($, backticks) — can't resolve
@@ -791,13 +836,23 @@ if [[ "$PROTECTION" == "smart" ]]; then
           BASH_BASENAME="$(basename "$BASH_TARGET")"
           BASH_EXT="${BASH_BASENAME##*.}"
 
+          # Guard-bypass marker — never a silent shell-created allow (H1 fix)
+          case "$BASH_BASENAME" in
+            allow-once|allow-dev-edit)
+              _confirm "bash_guard_bypass" \
+                "Bash creates guard-bypass marker on ${BRANCH}: ${BASH_BASENAME}" \
+                "Creating this file via shell self-approves a bypass of branch-guard's own protection" \
+                "/craft:git:unprotect (the sanctioned way to request this bypass)"
+              ;;
+          esac
+
           # Skip markdown — always allowed
           if [[ "$BASH_EXT" != "md" ]]; then
-            # Check if it's a code extension
-            BASH_IS_CODE=false
-            for ext in $CODE_EXTENSIONS; do
+            # Default-suspect: code unless in NONCODE_EXTENSIONS (see above)
+            BASH_IS_CODE=true
+            for ext in $NONCODE_EXTENSIONS; do
               if [[ "$BASH_EXT" == "$ext" ]]; then
-                BASH_IS_CODE=true
+                BASH_IS_CODE=false
                 break
               fi
             done

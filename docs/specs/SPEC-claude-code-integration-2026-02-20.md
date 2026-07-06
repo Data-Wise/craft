@@ -5,6 +5,13 @@
 **From Brainstorm:** `BRAINSTORM-claude-code-integration-2026-02-20.md`
 **Author:** DT + Claude
 
+> **Historical note (2026-07-06):** This spec's examples name `feature-dev` and
+> `backend-architect` as agents to add `isolation`/`skills` fields to. Those two
+> names were never implemented as real agents (no backing agent definition) and
+> were later found hard-coded as dead `subagent_type` values in `do.md`'s
+> Score 4-7 routing — see the do.md dead-agent-dispatch fix, 2026-07-06. Left
+> as historical record below; do not treat as current agent inventory.
+
 ---
 
 ## Overview

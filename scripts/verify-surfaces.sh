@@ -4,16 +4,22 @@
 # Asserts ONE version across every surface craft controls and reports each
 # surface's status in an ADHD-friendly one-line-per-surface format.
 #
-# Legs (all compared against plugin.json — the source of truth):
+# Legs (all compared against plugin.json — the source of truth, or against
+# --version when overridden):
 #   marketplace.json · git tag vX.Y.Z · tap Formula/<name>.rb · brew-installed
-#   · Code-registered (installed_plugins.json). Desktop/Cowork is warn-only
-#   (one-time manual `claude plugin marketplace add`, not auto-verifiable).
+#   · Code-registered (installed_plugins.json) · GitHub release · docs site.
+#   Desktop/Cowork is warn-only (one-time manual `claude plugin marketplace
+#   add`, not auto-verifiable).
 #
 # Behavior (spec D1/D2 + absent-leg decision):
 #   present + match    -> ✅ aligned
 #   present + mismatch -> ❌ BLOCK (exit 1)   [craft-controlled legs only]
 #   absent/unreadable  -> ⚠️  warn (does NOT block)
 #   Desktop/Cowork     -> ⚠️  warn (always manual)
+#
+# --report-only: runs the SAME checks but NEVER exits 1 — prints an
+#   ALIGNED/DRIFTED/ABSENT/WARN line per surface and always exits 0. Purely
+#   additive: default (no flag) behavior is unchanged.
 #
 # D1 trigger: only meaningful when .claude-plugin/plugin.json is present; absent
 #   -> nothing to verify (exit 0). The release pipeline gates this on the same
@@ -26,14 +32,22 @@
 #   SURFACES_INSTALLED_PLUGINS path to installed_plugins.json
 #   SURFACES_REPO_DIR          repo root holding .claude-plugin/ (default: $PWD)
 #   SURFACES_COWORK_STORE      path to a cowork_plugins/ dir (overrides live glob)
+#   SURFACES_GH_RELEASE_VERSION override the GitHub-release leg (e.g. 2.37.0)
+#   SURFACES_GH_REPO           owner/repo for the GitHub-release leg
+#                              (default: Data-Wise/<plugin-name>)
+#   SURFACES_DOCS_SITE_VERSION override the docs-site leg (e.g. 2.37.0)
+#   SURFACES_DOCS_SITE_URL     docs site URL to poll
+#                              (default: https://data-wise.github.io/<plugin-name>/)
 #
 # Usage:
 #   ./scripts/verify-surfaces.sh            # human report (default)
 #   ./scripts/verify-surfaces.sh --json     # machine-readable
 #   ./scripts/verify-surfaces.sh --aggregator Data-Wise/claude-plugins
+#   ./scripts/verify-surfaces.sh --report-only            # never blocks, exit 0
+#   ./scripts/verify-surfaces.sh --version v2.58.0 --report-only  # diagnose a past release
 #
 # Exit codes: 0 = all craft legs aligned (or absent/warn), 1 = a craft leg
-#             mismatched (block), 2 = usage error.
+#             mismatched (block), 2 = usage error. --report-only always exits 0.
 
 set -uo pipefail
 
@@ -53,13 +67,19 @@ fi
 # ---------------------------------------------------------------------------
 JSON_MODE=false
 WRITE_STATUS=false
+REPORT_ONLY=false
 AGGREGATOR=""
 AGGREGATOR_FILE=""
+VERSION_OVERRIDE=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --json) JSON_MODE=true ;;
         --write-status) WRITE_STATUS=true ;;
+        --report-only) REPORT_ONLY=true ;;
+        --version)
+            [[ $# -lt 2 ]] && { echo -e "${RED}Error: --version requires a value (e.g. v2.58.0)${NC}"; exit 2; }
+            VERSION_OVERRIDE="$2"; shift ;;
         --aggregator)
             [[ $# -lt 2 ]] && { echo -e "${RED}Error: --aggregator requires owner/repo${NC}"; exit 2; }
             AGGREGATOR="$2"; shift ;;
@@ -67,10 +87,13 @@ while [[ $# -gt 0 ]]; do
             [[ $# -lt 2 ]] && { echo -e "${RED}Error: --aggregator-file requires a path${NC}"; exit 2; }
             AGGREGATOR_FILE="$2"; shift ;;
         --help|-h)
-            echo "Usage: $0 [--json] [--write-status] [--aggregator OWNER/REPO] [--aggregator-file PATH]"
+            echo "Usage: $0 [--json] [--write-status] [--report-only] [--version X.Y.Z]"
+            echo "          [--aggregator OWNER/REPO] [--aggregator-file PATH]"
             echo ""
             echo "  --json             Machine-readable output"
             echo "  --write-status     Update the surfaces matrix in the repo's .STATUS"
+            echo "  --report-only      Never exit 1 on mismatch; print ALIGNED/DRIFTED per surface, always exit 0"
+            echo "  --version X.Y.Z    Check surfaces against this version instead of plugin.json's current version"
             echo "  --aggregator       Data-Wise aggregator marketplace for the Desktop add step"
             echo "  --aggregator-file  Aggregator marketplace.json to verify this plugin's entry (D5 leg)"
             exit 0 ;;
@@ -121,6 +144,14 @@ if [[ -z "$SOT_VERSION" ]]; then
     exit 2
 fi
 [[ -z "$PLUGIN_NAME" ]] && PLUGIN_NAME="plugin"
+
+# --version promotes what was previously only reachable via env-var overrides
+# on individual legs to a first-class "check surfaces against THIS version"
+# flag — e.g. `--report-only --version v2.58.0` to diagnose a past release
+# without touching plugin.json.
+if [[ -n "$VERSION_OVERRIDE" ]]; then
+    SOT_VERSION="${VERSION_OVERRIDE#v}"
+fi
 
 # ---------------------------------------------------------------------------
 # Resolve each leg's version. Echo the version, or empty string if the source
@@ -173,6 +204,33 @@ resolve_code_registered() {
     local store="${SURFACES_INSTALLED_PLUGINS:-$HOME/.claude/plugins/installed_plugins.json}"
     [[ -f "$store" ]] || return 0
     json_get "$store" "next((e.get('version') for k,entries in d.get('plugins',{}).items() if k.split('@')[0]=='${PLUGIN_NAME}' for e in entries), '')"
+}
+
+# GitHub release: report the LATEST published release, not just "does a
+# release for vX.Y.Z exist". Same rationale as resolve_git_tag above — asking
+# only about the SOT tag can never surface a lagging release as a mismatch.
+resolve_github_release() {
+    if [[ -n "${SURFACES_GH_RELEASE_VERSION:-}" ]]; then
+        echo "${SURFACES_GH_RELEASE_VERSION#v}"; return 0
+    fi
+    command -v gh >/dev/null 2>&1 || return 0
+    local repo="${SURFACES_GH_REPO:-Data-Wise/${PLUGIN_NAME}}"
+    gh release list --repo "$repo" --limit 1 --json tagName -q '.[0].tagName' 2>/dev/null \
+        | sed 's/^v//'
+}
+
+# Docs site: reuse the exact live-site version-poll mechanism from
+# .github/workflows/docs.yml's "Verify live site matches deployed version"
+# step (single-shot here — this is a report tool, not a deploy gate, so no
+# retry/timeout loop like the workflow's 30x30s poll).
+resolve_docs_site() {
+    if [[ -n "${SURFACES_DOCS_SITE_VERSION:-}" ]]; then
+        echo "${SURFACES_DOCS_SITE_VERSION#v}"; return 0
+    fi
+    command -v curl >/dev/null 2>&1 || return 0
+    local url="${SURFACES_DOCS_SITE_URL:-https://data-wise.github.io/${PLUGIN_NAME}/}"
+    curl -s --max-time 10 "$url" 2>/dev/null | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 \
+        | sed 's/^v//'
 }
 
 # D5: the aggregator marketplace entry is a 5th craft-controlled leg — only
@@ -277,6 +335,8 @@ add_leg "git tag"         "$(resolve_git_tag)"
 add_leg "tap formula"     "$(resolve_tap_formula)"
 add_leg "brew-installed"  "$(resolve_brew)"
 add_leg "Code-registered" "$(resolve_code_registered)"
+add_leg "github release"  "$(resolve_github_release)"
+add_leg "docs site"       "$(resolve_docs_site)"
 [[ -n "$AGG_FILE" ]] && add_leg "aggregator" "$(resolve_aggregator)"
 # Cowork: WARN-only leg (manual surface, separate GUI store).
 add_warn_leg "cowork" "$(resolve_cowork)"
@@ -309,6 +369,7 @@ if [[ "$JSON_MODE" == true ]]; then
     done
     printf '  ],\n'
     printf '  "desktop": "warn",\n'
+    printf '  "reportOnly": %s,\n' "$([[ "$REPORT_ONLY" == true ]] && echo true || echo false)"
     printf '  "blocked": %s\n' "$([[ $BLOCK -eq 1 ]] && echo true || echo false)"
     printf '}\n'
 else
@@ -336,6 +397,23 @@ else
         echo -e "${RED}BLOCKED${NC} — a craft-controlled surface disagrees with plugin.json (v${SOT_VERSION})."
     else
         echo -e "${GREEN}ALIGNED${NC} — all verifiable craft-controlled surfaces match v${SOT_VERSION}."
+    fi
+
+    # --report-only: same checks, additive per-surface ALIGNED/DRIFTED/ABSENT/WARN
+    # line for EVERY surface (not just the craft-controlled blocking ones) —
+    # never affects the BLOCK/ALIGNED summary above, only the exit code (see EOF).
+    if [[ "$REPORT_ONLY" == true ]]; then
+        echo ""
+        echo -e "${CYAN}--report-only (never blocks):${NC}"
+        for i in "${!LEG_LABEL[@]}"; do
+            case "${LEG_STATE[$i]}" in
+                ok)                            word="ALIGNED" ;;
+                mismatch|corrupt|name-mismatch) word="DRIFTED" ;;
+                absent)                        word="ABSENT" ;;
+                warn|corrupt-warn)             word="WARN" ;;
+            esac
+            printf '  %-16s %s\n' "${LEG_LABEL[$i]}" "$word"
+        done
     fi
 fi
 
@@ -370,4 +448,8 @@ PY
     [[ "$JSON_MODE" != true ]] && echo -e "${CYAN}.STATUS surfaces matrix updated${NC}"
 fi
 
+# --report-only never blocks the caller — the checks above all still ran and
+# reported real state (including in --json's "blocked" field), but the exit
+# code is forced to 0 so this can run as a diagnostic without failing a pipeline.
+[[ "$REPORT_ONLY" == true ]] && exit 0
 exit "$BLOCK"

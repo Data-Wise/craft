@@ -304,7 +304,7 @@ flowchart TD
 
     BACKEND --> ROUTE1{Choose<br/>Tool}
     ROUTE1 -->|Simple| CMD1["Direct<br/>command"]
-    ROUTE1 -->|Complex| AGENT1["backend-architect<br/>agent"]
+    ROUTE1 -->|Complex| AGENT1["Chained command<br/>sequence"]
 
     TEST --> ROUTE2{Choose<br/>Tool}
     ROUTE2 -->|Unit tests| CMD2["/craft:test"]
@@ -353,8 +353,8 @@ flowchart TD
    - `/craft:test` - Test execution
    - `/craft:code:lint` - Code quality checks
 
-3. **Agents** (7 specialized) - Long-running complex tasks
-   - `backend-architect` - Scalable API design
+3. **Agents** (8 specialized, under `agents/`) - Long-running complex tasks
+   - `orchestrator-v2` - Multi-agent coordination
    - `docs-architect` - Comprehensive documentation
    - `api-documenter` - OpenAPI spec generation
 

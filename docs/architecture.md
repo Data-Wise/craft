@@ -30,10 +30,14 @@ User-Friendly Output
 The `/craft:do` command uses AI to route tasks to appropriate workflows:
 
 ```
-"add authentication" → backend-architect + security-specialist
-"optimize queries" → performance-engineer + database-architect
-"prepare release" → orchestrator (release mode, all agents)
+"add authentication" → category-based command sequence (arch:plan, test-gen, git:branch)
+"optimize queries" → category-based command sequence (code:refactor, test)
+"prepare release" → orchestrator (release mode, multi-agent)
 ```
+
+(Medium-complexity tasks route through chained craft commands, not named
+specialist agents — `backend-architect`/`security-specialist`/etc. never had
+a backing agent definition.)
 
 ### 2. Orchestrator v2
 

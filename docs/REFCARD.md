@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.60.0 (released 2026-06-19)                       │
+│  Version: 2.61.0 (released 2026-06-19)                       │
 │  Commands: 117 | Agents: 8 | Skills: 45                     │
 │  Documentation: 99% complete | Tests: 142 passing            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.60.0: Documentation Coverage — Tutorial Suite            │
+│  v2.61.0: Documentation Coverage — Tutorial Suite            │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -39,9 +39,9 @@
 /craft:do "lint markdown files"
 # Routes to: /craft:docs:lint
 
-# Medium task (score: 6) → Single agent
+# Medium task (score: 6) → Command sequence
 /craft:do "add user authentication with JWT"
-# Routes to: backend-architect agent
+# Routes to: /craft:arch:plan, /craft:code:test-gen, /craft:git:branch (no agent dispatch)
 
 # Complex task (score: 9) → Orchestrator
 /craft:do "prepare v2.0 release with tests, docs, and changelog"
@@ -1599,7 +1599,7 @@ graph LR
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
 #   Offers to run /craft:docs:sync if drift found
-# NEW in v2.60.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
+# NEW in v2.61.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
 #   Worktree branch ahead/behind shown in summary
@@ -1652,7 +1652,7 @@ Auto-triggered expertise:
 | Agent               | Specialty                        |
 | ------------------- | -------------------------------- |
 | `orchestrator-v2`   | Mode-aware execution, monitoring |
-| `backend-architect` | Scalable APIs, microservices     |
+| `orchestrator`      | Legacy multi-step coordination   |
 | `docs-architect`    | Technical documentation          |
 | `api-documenter`    | OpenAPI, developer portals       |
 | `tutorial-engineer` | Step-by-step tutorials           |
@@ -1813,4 +1813,4 @@ Comprehensive guides and references:
 
 - **[Full Documentation](guide/getting-started.md)** (99% complete)
 - **[GitHub Issues](https://github.com/Data-Wise/craft/issues)**
-- **[ROADMAP](https://github.com/Data-Wise/craft/blob/main/ROADMAP.md)**
+- **[ROADMAP](https://github.com/Data-Wise/craft/blob/main/docs/archive/ROADMAP.md)**

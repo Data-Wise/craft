@@ -210,13 +210,17 @@ Runs feature-focused brainstorm and captures as spec:
 
 8 expert questions, detailed architecture output with Mermaid diagrams.
 
-### Maximum Depth with Agents
+### Deep Analysis + Orchestration
+
+There is no more `max` depth and brainstorm no longer spawns agents itself
+(the old max-depth agent delegation used names — `backend-architect`,
+`database-architect`, etc. — that were never real agents; removed). Use
+`deep` for the full question set, then `--orch` for multi-agent
+implementation planning (routes to the real `orchestrator-v2` agent):
 
 ```bash
-/brainstorm m a s "event-driven microservices"
+/brainstorm d a s "event-driven microservices" --orch
 ```
-
-Launches backend-architect and database-architect agents for comprehensive analysis.
 
 ### Power User (v2.4.0)
 
@@ -311,18 +315,15 @@ When using `save` action, generates comprehensive spec:
 
 ---
 
-## Agent Delegation (Max Mode)
+## Agent Delegation (Removed — Use `--orch`)
 
-When depth is `max`, launches relevant agents:
-
-| Focus | Agents Launched |
-|-------|-----------------|
-| feature | product-strategist |
-| architecture | backend-architect, database-architect |
-| ux | ux-ui-designer |
-| api | backend-architect, security-specialist |
-| ui | frontend-specialist, performance-engineer |
-| ops | devops-engineer |
+There is no more `max` depth, and brainstorm no longer spawns agents
+in-skill. The table of per-focus agent names this section used to list
+(`backend-architect`, `database-architect`, `security-specialist`,
+`frontend-specialist`, `devops-engineer`, etc.) never had real backing agent
+definitions. Deep analysis needing multiple agents now goes through
+`--orch` after a spec is captured, which routes to the real `orchestrator-v2`
+agent — see "Deep Analysis + Orchestration" above.
 
 ---
 
@@ -361,7 +362,7 @@ When depth is `max`, launches relevant agents:
 | Issue | Solution |
 |-------|----------|
 | No context detected | Provide topic explicitly: `/brainstorm "topic"` |
-| Agents timing out | Use `deep` instead of `max` mode |
+| Orchestration taking too long | Use `deep` without `--orch` for ideation only |
 | Spec not saved | Use `save` action: `/brainstorm s "topic"` |
 | Wrong focus | Specify focus: `/brainstorm arch "topic"` |
 
