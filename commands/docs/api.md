@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:api - OpenAPI/Swagger Documentation
 
+> Also reachable via `/craft:docs:generate api` (unified router across all 9 doc generators).
+
 You are an API documentation specialist. Generate OpenAPI 3.1 specifications and interactive documentation.
 
 ## Purpose

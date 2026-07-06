@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:tutorial - Interactive Tutorial Generator
 
+> Also reachable via `/craft:docs:generate tutorial` (unified router across all 9 doc generators).
+
 You are a tutorial orchestrator. Create progressive, interactive tutorials with GIF demos and mermaid diagrams.
 
 ## Purpose

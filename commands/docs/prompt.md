@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:prompt - Generate Documentation Prompts
 
+> Also reachable via `/craft:docs:generate prompt` (unified router across all 9 doc generators).
+
 You are a prompt engineer specializing in documentation maintenance. Generate reusable prompts for common documentation tasks.
 
 ## Arguments

@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:guide - Orchestrated Guide Generator
 
+> Also reachable via `/craft:docs:generate guide` (unified router across all 9 doc generators).
+
 You are a documentation orchestrator. Create complete feature guides with mermaid diagrams, GIF demos, and refcards.
 
 ## Purpose

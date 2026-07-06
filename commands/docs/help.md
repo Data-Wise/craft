@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:help - Help Page Generator
 
+> Also reachable via `/craft:docs:generate help` (unified router across all 9 doc generators).
+
 Generate comprehensive help documentation for commands using ADHD-friendly templates.
 
 ## Purpose

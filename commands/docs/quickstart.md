@@ -5,6 +5,8 @@ category: docs
 
 # /craft:docs:quickstart - Quick Start Generator
 
+> Also reachable via `/craft:docs:generate quickstart` (unified router across all 9 doc generators).
+
 Generate a 5-minute quickstart guide for any project.
 
 ## Purpose

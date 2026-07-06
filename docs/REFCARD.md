@@ -1765,6 +1765,7 @@ Comprehensive guides and references:
 
 | Command | Description |
 | ------- | ----------- |
+| `/craft:docs:generate` | Unified router across all 9 doc generators (api, guide, help, prompt, quickstart, site, tutorial, website, workflow) |
 | `/craft:docs:api` | Generate OpenAPI 3.1 specifications and interactive documentation |
 | `/craft:docs:changelog` | Auto-update CHANGELOG.md based on git commits |
 | `/craft:docs:check-links` | Internal link validation for documentation |

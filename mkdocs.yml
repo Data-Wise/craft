@@ -289,6 +289,7 @@ nav:
       - /craft:orchestrate:workflow: commands/orchestrate-workflow.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:ci:status: commands/ci/status.md
+      - /craft:docs:generate: commands/docs/generate.md
       - /craft:docs:api: commands/docs/api.md
       - /craft:docs:changelog: commands/docs/changelog.md
       - /craft:docs:check: commands/docs/check.md
