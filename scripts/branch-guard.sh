@@ -16,7 +16,9 @@ _CRAFT_LIB="$(dirname "$_SCRIPT_REAL")/../lib"
 
 # Protection levels:
 #   block-all       — Hard block everything (main)
-#   smart           — 3-tier: LOW (note) + MEDIUM (confirm) + HIGH (block) (dev / research draft)
+#   smart           — always-confirm on writes (dev / research draft); MEDIUM/HIGH still
+#                     distinguish risk in the confirm message, but nothing writes silently
+#                     anymore (LOW-risk silent-allow retired 2026-07-07)
 #   block-new-code  — DEPRECATED alias for smart (backward compat)
 #   confirm         — Alias for smart
 #   (empty)         — No protection (feature/*)
@@ -98,13 +100,31 @@ fi
 # If no cwd provided, fall back to PWD
 CWD="${CWD:-$PWD}"
 
+# Prefer the target file's own directory over the session cwd when resolving
+# git context (Edit/Write only). A session whose cwd isn't itself a git repo
+# (e.g. a non-repo dotfiles dir) would otherwise exit 0 below before ever
+# looking at FILE_PATH — silently bypassing protection for edits to files
+# that ARE inside a protected repo elsewhere on disk. Bash commands (no
+# FILE_PATH) are unaffected — they still resolve from CWD as before.
+GIT_CTX_DIR="$CWD"
+if [[ -n "$FILE_PATH" ]]; then
+  _fp_dir="$FILE_PATH"
+  if [[ "$FILE_PATH" != /* ]]; then
+    _fp_dir="${CWD}/${FILE_PATH}"
+  fi
+  _fp_dir="$(dirname "$_fp_dir")"
+  if [[ -d "$_fp_dir" ]] && (cd "$_fp_dir" 2>/dev/null && git rev-parse --show-toplevel &>/dev/null); then
+    GIT_CTX_DIR="$_fp_dir"
+  fi
+fi
+
 # Check if we're in a git repo
-PROJECT_ROOT="$(cd "$CWD" 2>/dev/null && git rev-parse --show-toplevel 2>/dev/null)" || {
+PROJECT_ROOT="$(cd "$GIT_CTX_DIR" 2>/dev/null && git rev-parse --show-toplevel 2>/dev/null)" || {
   # Not a git repo — allow everything
   exit 0
 }
 
-BRANCH="$(cd "$CWD" 2>/dev/null && git branch --show-current 2>/dev/null)" || {
+BRANCH="$(cd "$GIT_CTX_DIR" 2>/dev/null && git branch --show-current 2>/dev/null)" || {
   # Detached HEAD or other edge case — allow
   exit 0
 }
@@ -653,8 +673,13 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "/craft:git:unprotect (the sanctioned way to request this bypass)"
           ;;
       esac
-      # Editing existing files is always allowed on dev (LOW)
-      _low_note "edit_existing" "Editing existing file on ${BRANCH} (allowed)"
+      # Editing existing files on dev/draft now requires explicit confirmation
+      # (smart mode no longer silently allows LOW-risk actions — 2026-07-07).
+      _confirm "edit_existing" \
+        "Edit existing file on ${BRANCH}: ${FILE_PATH}" \
+        "smart mode now asks before every write on ${BRANCH}, not just new-code files" \
+        "Confirm to proceed" \
+        "/craft:git:worktree feature/<name> to isolate instead"
       ;;
 
     Write|write)
@@ -692,21 +717,31 @@ if [[ "$PROTECTION" == "smart" ]]; then
           ;;
       esac
 
-      # Markdown files — always allowed (LOW)
+      # Smart mode no longer silently allows LOW-risk writes (2026-07-07) —
+      # markdown, extensionless, tests/, and existing-file overwrites all now
+      # confirm like everything else on dev/draft.
       if [[ "$FILE_PATH" == *.md ]]; then
-        _low_note "write_md" "New markdown on ${BRANCH} (always allowed)"
+        _confirm "write_md" \
+          "Write markdown file on ${BRANCH}: ${FILE_PATH}" \
+          "smart mode now asks before every write on ${BRANCH}" \
+          "Confirm to proceed"
       fi
 
-      # Extension-less files (no dot in basename) — allowed (LOW)
-      # Examples: .STATUS, Makefile, Dockerfile, LICENSE
+      # Extension-less files (no dot in basename) — e.g. .STATUS, Makefile, Dockerfile, LICENSE
       BASENAME="$(basename "$FILE_PATH")"
       if [[ "$BASENAME" != *.* ]] || [[ "$BASENAME" == .* && "${BASENAME#.}" != *.* ]]; then
-        _low_note "write_extensionless" "Extension-less file (allowed): ${BASENAME}"
+        _confirm "write_extensionless" \
+          "Write extension-less file on ${BRANCH}: ${BASENAME}" \
+          "smart mode now asks before every write on ${BRANCH}" \
+          "Confirm to proceed"
       fi
 
-      # Files in tests/ directory — allowed (LOW)
+      # Files in tests/ directory
       if echo "$FILE_PATH" | grep -qE '(^|/)tests/'; then
-        _low_note "write_test" "Test files on ${BRANCH} (always allowed)"
+        _confirm "write_test" \
+          "Write test file on ${BRANCH}: ${FILE_PATH}" \
+          "smart mode now asks before every write on ${BRANCH}" \
+          "Confirm to proceed"
       fi
 
       # Determine the actual file path (could be relative or absolute)
@@ -715,14 +750,20 @@ if [[ "$PROTECTION" == "smart" ]]; then
         ACTUAL_PATH="${CWD}/${FILE_PATH}"
       fi
 
-      # Existing file (overwrite/fixup) — allowed (LOW)
+      # Existing file (overwrite/fixup)
       if [[ -f "$ACTUAL_PATH" ]]; then
-        _low_note "write_existing" "Overwriting existing file on ${BRANCH} (allowed)"
+        _confirm "write_existing" \
+          "Overwrite existing file on ${BRANCH}: ${FILE_PATH}" \
+          "smart mode now asks before every write on ${BRANCH}" \
+          "Confirm to proceed"
       fi
 
       # Also check relative to project root
       if [[ -f "${PROJECT_ROOT}/${FILE_PATH}" ]]; then
-        _low_note "write_existing" "Overwriting existing file on ${BRANCH} (allowed)"
+        _confirm "write_existing" \
+          "Overwrite existing file on ${BRANCH}: ${FILE_PATH}" \
+          "smart mode now asks before every write on ${BRANCH}" \
+          "Confirm to proceed"
       fi
 
       # New code file — determine extension. Default-suspect: everything
