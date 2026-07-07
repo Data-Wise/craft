@@ -16,9 +16,7 @@ _CRAFT_LIB="$(dirname "$_SCRIPT_REAL")/../lib"
 
 # Protection levels:
 #   block-all       — Hard block everything (main)
-#   smart           — always-confirm on writes (dev / research draft); MEDIUM/HIGH still
-#                     distinguish risk in the confirm message, but nothing writes silently
-#                     anymore (LOW-risk silent-allow retired 2026-07-07)
+#   smart           — 3-tier: LOW (note) + MEDIUM (confirm) + HIGH (block) (dev / research draft)
 #   block-new-code  — DEPRECATED alias for smart (backward compat)
 #   confirm         — Alias for smart
 #   (empty)         — No protection (feature/*)
@@ -673,13 +671,8 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "/craft:git:unprotect (the sanctioned way to request this bypass)"
           ;;
       esac
-      # Editing existing files on dev/draft now requires explicit confirmation
-      # (smart mode no longer silently allows LOW-risk actions — 2026-07-07).
-      _confirm "edit_existing" \
-        "Edit existing file on ${BRANCH}: ${FILE_PATH}" \
-        "smart mode now asks before every write on ${BRANCH}, not just new-code files" \
-        "Confirm to proceed" \
-        "/craft:git:worktree feature/<name> to isolate instead"
+      # Editing existing files is always allowed on dev (LOW)
+      _low_note "edit_existing" "Editing existing file on ${BRANCH} (allowed)"
       ;;
 
     Write|write)
@@ -717,31 +710,21 @@ if [[ "$PROTECTION" == "smart" ]]; then
           ;;
       esac
 
-      # Smart mode no longer silently allows LOW-risk writes (2026-07-07) —
-      # markdown, extensionless, tests/, and existing-file overwrites all now
-      # confirm like everything else on dev/draft.
+      # Markdown files — always allowed (LOW)
       if [[ "$FILE_PATH" == *.md ]]; then
-        _confirm "write_md" \
-          "Write markdown file on ${BRANCH}: ${FILE_PATH}" \
-          "smart mode now asks before every write on ${BRANCH}" \
-          "Confirm to proceed"
+        _low_note "write_md" "New markdown on ${BRANCH} (always allowed)"
       fi
 
-      # Extension-less files (no dot in basename) — e.g. .STATUS, Makefile, Dockerfile, LICENSE
+      # Extension-less files (no dot in basename) — allowed (LOW)
+      # Examples: .STATUS, Makefile, Dockerfile, LICENSE
       BASENAME="$(basename "$FILE_PATH")"
       if [[ "$BASENAME" != *.* ]] || [[ "$BASENAME" == .* && "${BASENAME#.}" != *.* ]]; then
-        _confirm "write_extensionless" \
-          "Write extension-less file on ${BRANCH}: ${BASENAME}" \
-          "smart mode now asks before every write on ${BRANCH}" \
-          "Confirm to proceed"
+        _low_note "write_extensionless" "Extension-less file (allowed): ${BASENAME}"
       fi
 
-      # Files in tests/ directory
+      # Files in tests/ directory — allowed (LOW)
       if echo "$FILE_PATH" | grep -qE '(^|/)tests/'; then
-        _confirm "write_test" \
-          "Write test file on ${BRANCH}: ${FILE_PATH}" \
-          "smart mode now asks before every write on ${BRANCH}" \
-          "Confirm to proceed"
+        _low_note "write_test" "Test files on ${BRANCH} (always allowed)"
       fi
 
       # Determine the actual file path (could be relative or absolute)
@@ -750,20 +733,14 @@ if [[ "$PROTECTION" == "smart" ]]; then
         ACTUAL_PATH="${CWD}/${FILE_PATH}"
       fi
 
-      # Existing file (overwrite/fixup)
+      # Existing file (overwrite/fixup) — allowed (LOW)
       if [[ -f "$ACTUAL_PATH" ]]; then
-        _confirm "write_existing" \
-          "Overwrite existing file on ${BRANCH}: ${FILE_PATH}" \
-          "smart mode now asks before every write on ${BRANCH}" \
-          "Confirm to proceed"
+        _low_note "write_existing" "Overwriting existing file on ${BRANCH} (allowed)"
       fi
 
       # Also check relative to project root
       if [[ -f "${PROJECT_ROOT}/${FILE_PATH}" ]]; then
-        _confirm "write_existing" \
-          "Overwrite existing file on ${BRANCH}: ${FILE_PATH}" \
-          "smart mode now asks before every write on ${BRANCH}" \
-          "Confirm to proceed"
+        _low_note "write_existing" "Overwriting existing file on ${BRANCH} (allowed)"
       fi
 
       # New code file — determine extension. Default-suspect: everything
