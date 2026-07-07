@@ -466,6 +466,41 @@ run_registry "test_registry_corrupt_failopen"    ask    CORRUPT      "git switch
 echo ""
 
 # ============================================================================
+# --classify / GUARD_DRY_RUN=1 ground-truth mode
+# (SPEC-branch-protection-consolidation-2026-07-07 §4.6 #3 / §6 dogfood tier)
+# ============================================================================
+echo -e "${T_BLUE}--- --classify / GUARD_DRY_RUN=1 ground-truth mode ---${T_NC}"
+
+CLASSIFY_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/scripts/no-switch-guard.sh"
+
+run_classify_test() {
+    local name="$1"
+    local expected_pattern="$2"
+    local cmd="$3"
+
+    TOTAL=$((TOTAL + 1))
+    local out
+    out=$(json_bash "$cmd" | GUARD_DRY_RUN=1 bash "$CLASSIFY_SCRIPT" 2>&1)
+
+    if echo "$out" | grep -qE "$expected_pattern"; then
+        PASS=$((PASS + 1))
+        echo -e "  ${T_GREEN}PASS${T_NC}  $name  ${T_BOLD}($out)${T_NC}"
+    else
+        FAIL=$((FAIL + 1))
+        FAILED_NAMES+=("$name")
+        echo -e "  ${T_RED}FAIL${T_NC}  $name  ${T_BOLD}(expected match /$expected_pattern/, got: $out)${T_NC}"
+    fi
+}
+
+run_classify_test "test_classify_status_is_ALLOW" "^ALLOW:" "git status"
+run_classify_test "test_classify_switch_main_is_ASK" "^ASK:" "git switch main"
+run_classify_test "test_classify_new_branch_create_is_ASK" "^ASK:" "git switch -c foo"
+run_classify_test "test_classify_worktree_add_is_YELLOW" "^YELLOW:" "git worktree add ../x feature/x"
+run_classify_test "test_classify_worktree_remove_is_ASK" "^ASK:" "git worktree remove ../x"
+
+echo ""
+
+# ============================================================================
 # Summary
 # ============================================================================
 

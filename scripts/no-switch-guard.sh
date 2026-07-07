@@ -29,21 +29,40 @@
 
 set -uo pipefail
 
+# --classify / GUARD_DRY_RUN=1: additive ground-truth mode, mirrors
+# branch-guard.sh's identically-named mode (SPEC-branch-protection-consolidation
+# -2026-07-07 §4.6 #3). Prints the tier (ALLOW/YELLOW/ASK) that would fire
+# instead of emitting the real permissionDecision JSON / systemMessage. Reuses
+# ask()/announce()'s existing call sites — no separate classification logic.
+CLASSIFY_MODE=false
+if [ "${GUARD_DRY_RUN:-0}" = "1" ] || [ "${1:-}" = "--classify" ]; then
+  CLASSIFY_MODE=true
+fi
+
 input=$(cat)
 cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""' 2>/dev/null || true)
-[ -z "$cmd" ] && exit 0
+if [ -z "$cmd" ]; then
+  [ "$CLASSIFY_MODE" = true ] && echo "ALLOW: no command in payload"
+  exit 0
+fi
 
 # --- Registry: check if this guard is enabled/muted -----------------------
 _GUARD_REG="${HOME}/.claude/guards.json"
 if command -v jq &>/dev/null && [[ -f "$_GUARD_REG" ]]; then
   _guard_enabled=$(jq -r '.guards["no-switch-guard"].enabled' "$_GUARD_REG" 2>/dev/null || true)
   _guard_muted=$(jq -r '.guards["no-switch-guard"].muted_until // "null"' "$_GUARD_REG" 2>/dev/null || echo "null")
-  [[ "$_guard_enabled" == "false" ]] && exit 0
+  if [[ "$_guard_enabled" == "false" ]]; then
+    [ "$CLASSIFY_MODE" = true ] && echo "SKIP: guard disabled"
+    exit 0
+  fi
   if [[ "$_guard_muted" != "null" && "$_guard_muted" != "" ]]; then
     _now=$(date -u +%s)
     # BSD date first, GNU `date -d` fallback (Linux/CI)
     _until=$(date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$_guard_muted" +%s 2>/dev/null || date -u -d "$_guard_muted" +%s 2>/dev/null || echo 0)
-    [[ "$_now" -lt "$_until" ]] && exit 0
+    if [[ "$_now" -lt "$_until" ]]; then
+      [ "$CLASSIFY_MODE" = true ] && echo "SKIP: guard muted"
+      exit 0
+    fi
   fi
 fi
 # --------------------------------------------------------------------------
@@ -51,11 +70,19 @@ fi
 # --- output helpers -------------------------------------------------------
 # Statusline: /craft:git:guard list shows guard state; claude-hud renders guards.json if available
 ask() {       # $1 = reason → confirmation prompt
+  if [ "$CLASSIFY_MODE" = true ]; then
+    echo "ASK: $1"
+    exit 0
+  fi
   jq -nc --arg r "$1" \
     '{hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"ask",permissionDecisionReason:($r + "\n\nTo mute this guard: /craft:git:guard disable no-switch-guard")}}'
   exit 0
 }
 announce() {  # $1 = notice → allowed, but shown to the user
+  if [ "$CLASSIFY_MODE" = true ]; then
+    echo "YELLOW: $1"
+    exit 0
+  fi
   jq -nc --arg m "$1" '{systemMessage:$m}'
   exit 0
 }
@@ -135,4 +162,5 @@ if [ -n "$is_switch" ]; then
 fi
 
 # === GREEN: everything else (read-only, cd, etc.) — allow silently ======
+[ "$CLASSIFY_MODE" = true ] && echo "ALLOW: no rule matched (GREEN — read-only or unclassified)"
 exit 0

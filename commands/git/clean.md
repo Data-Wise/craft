@@ -11,75 +11,54 @@ deprecated: true
 replaced-by: "skills/dev/git/"
 ---
 
-# Git Clean - Remove merged branches
+# /craft:git:clean - Remove merged branches
 
-This command safely removes branches that have been merged.
+> **This command is a thin shim.** The canonical behavior lives in the
+> `git-workflow` skill (`skills/dev/git/SKILL.md`, Operation 4: Branch
+> Cleanup). This file exists only to preserve the explicit
+> `/craft:git:clean` slash entry point through the v2.34.0 → v3.0.0
+> migration.
 
-## What I'll do
+> **Naming note:** this command governs **branch deletion** (removing merged
+> `git branch`es). It is unrelated to `git clean -f` (removing untracked
+> *working-tree files*), which `branch-guard.sh` gates separately as a
+> MEDIUM-risk Bash command on protected branches. Same word, two different
+> operations — no behavioral conflict, just a naming collision worth knowing
+> about (found during `SPEC-branch-protection-consolidation-2026-07-07`'s
+> `commands/git/*.md` sweep).
 
-1. **Analyze merged branches** - Identify branches that have been merged
-2. **Check for ORCHESTRATE files** - Warn if any `ORCHESTRATE-*.md` files remain on `dev` after merge (working artifacts that should have been removed by `/craft:git:worktree finish`)
-3. **Check for issues** - Detect uncommitted changes or other blockers
-4. **Preview or execute** - Show what will be deleted (dry-run) or delete branches
-5. **Confirm deletion** - Ask before deleting (unless --dry-run)
-
-## Safety
-
-- Never deletes current branch
-- Never deletes protected branches (main/master/dev/develop)
-- Skips branches with uncommitted changes
-- Always confirms before deletion
-- Supports `--dry-run` to preview without executing
-
-## Usage
+## Flags
 
 ```bash
-# Preview what would be deleted
-/craft:git:clean --dry-run
+/craft:git:clean --dry-run   # Preview what would be deleted
 /craft:git:clean -n
-
-# Actually delete merged branches (with confirmation)
-/craft:git:clean
+/craft:git:clean              # Delete merged branches (with confirmation)
 ```
 
-## Implementation
+## When invoked
 
-The command:
+1. **Load the canonical procedure:** read
+   [`skills/dev/git/SKILL.md`](../../skills/dev/git/SKILL.md), Operation 4
+   (Branch Cleanup), and follow it exactly — the two-pass merged-branch
+   detection (`git branch --merged` + `is_squash_merged`), the ORCHESTRATE
+   stray-file warning, and the safety rules in Cross-Operation Patterns.
+2. **Do not reimplement here.** Protected-branch exclusion, the
+   uncommitted/unpushed skip checks, and the confirm-before-delete gate all
+   live in Operation 4 and the skill's Cross-Operation Patterns section — do
+   not restate them in this shim.
 
-1. Lists all local branches using `git branch --merged`
-2. Filters out protected branches and current branch
-3. Checks each branch for uncommitted changes
-4. In dry-run mode: Displays preview with warnings
-5. In normal mode: Asks for confirmation, then deletes branches
+## Why this is a shim
 
-## Dry-Run Output Example
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│ 🔍 DRY RUN: Clean Merged Branches                              │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│ ✓ Delete 3 local branches (merged to dev):                    │
-│   - feature/auth-system                                       │
-│   - fix/login-bug                                             │
-│   - refactor/api-cleanup                                      │
-│                                                               │
-│ ⊘ Skip 1 branch:                                              │
-│   - feature/wip (uncommitted changes)                         │
-│                                                               │
-│ ⚠ Warnings:                                                   │
-│   • Branch feature/wip has uncommitted changes                 │
-│                                                               │
-│ 📊 Summary: 3 branches to delete, 1 skipped                    │
-│                                                               │
-├───────────────────────────────────────────────────────────────┤
-│ Run without --dry-run to execute                              │
-└───────────────────────────────────────────────────────────────┘
-```
+`/craft:git:clean` was a standalone 85-line command that already claimed
+`replaced-by: "skills/dev/git/"` in its frontmatter without actually being
+thinned — a stale-shim drift found and fixed by
+`SPEC-branch-protection-consolidation-2026-07-07` §4.7. Both entry paths —
+the explicit `/craft:git:clean` slash command and natural-language triggers
+("clean merged branches", "delete merged") — route to the same skill
+Operation.
 
 ## See Also
 
-- Template: `templates/dry-run-pattern.md`
-- Utility: `utils/dry_run_output.py`
-- Specification: `docs/specs/_archive/SPEC-dry-run-feature-2026-01-15.md`
+- `/craft:git:branch` - Branch management
+- `/craft:git:worktree` - Worktree cleanup (`clean`/`finish` sub-actions)
 - `/craft:git:protect-baseline` - Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo
