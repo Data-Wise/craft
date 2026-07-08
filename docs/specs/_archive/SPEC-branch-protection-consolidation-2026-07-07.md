@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Status** | grilled — ready for `/craft:plan` (see `GRILL-branch-protection-consolidation-2026-07-07.md`) |
+| **Status** | done — shipped via PR #272 (squash-merged to `dev` 2026-07-08) |
 | **Created** | 2026-07-07 |
 | **Owner** | dt |
 | **From** | `docs/brainstorm/BRAINSTORM-branch-protection-consolidation-2026-07-07.md` (deep brainstorm, arch focus) |
