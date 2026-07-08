@@ -26,6 +26,7 @@ Activate when the user's prompt matches any of these concerns:
 | "how do I undo X?", "fix a git mistake", "I messed up git" | Undo reference |
 | "teach me git", "learn git workflow", "git refcard" | Learning material |
 | "what are the safety rails?", "is this safe?" | Safety reference |
+| "list guards", "enable/disable guard", "explain what this command would do", "guard profile" | Guard registry CLI |
 
 If the prompt is ambiguous, default to **enhanced status** (cheapest) and offer follow-ups.
 
@@ -52,6 +53,14 @@ Bootstrap a new git repo with craft's workflow conventions.
 4. If `remote` provided: `gh repo create <remote>` (private by default), set origin, push both branches.
 5. Apply local branch-guard rules (see Operation 8) and optionally GitHub-side baseline (Operation 9).
 6. Write a starter `.gitignore`, `README.md` skeleton, and `CLAUDE.md` template if absent.
+7. **Offer the protection audit/wizard immediately after creating the repo** (added by
+   SPEC-branch-protection-consolidation-2026-07-07 §4.5): one `AskUserQuestion` — "Set up branch
+   protection now?" with "Yes, run the audit (Recommended)" listed first and reasoned ("a
+   freshly-scaffolded repo is unprotected until something enables it — cheapest to do now"). On
+   yes, run **Operation 8's `--audit` flow exactly as documented there** — do not re-implement or
+   re-describe the wizard here, this is the same logic invoked at a second trigger point. On no
+   (or non-interactive `--yes` init), skip silently; the repo is left with whatever step 5 already
+   applied.
 
 **Default workflow:** `main-dev` (craft's recommended pattern). Switch to `simple` only when the user explicitly opts out of the dev integration branch.
 
@@ -70,7 +79,7 @@ Create, switch, and delete branches safely.
 
 ### 3. Enhanced Status
 
-`git status` with extra context: current branch, ahead/behind, worktree-aware path, teaching-mode hints if a `_teaching/` directory exists.
+`git status` with extra context: current branch, ahead/behind, worktree-aware path, teaching-mode hints if a `_teaching/` directory exists, and a guard-status line (protection level, session-confirm count, one-shot-pending state, or `BYPASSED (reason: ...)` — sourced from Operation 8's config/auto-detect, not re-derived here).
 
 **Modes:** `--verbose` (full `git status` after the summary), `--compact` (one-line summary only).
 
@@ -154,9 +163,11 @@ Lightweight summary: today's commits, this week's commits, branch ahead/behind, 
 
 ### 8. Local Branch Protection
 
-Re-enable or configure craft's local `branch-guard.sh` hook (the layer that blocks commits to `main` / new code on `dev` / etc.).
+Re-enable or configure craft's local `branch-guard.sh` hook (the layer that blocks commits to `main` / new code on `dev` / etc.). Absorbs the former `commands/git/protect.md` (now a thin shim — see Integration table).
 
-**Sub-actions:** `--show` (display current config), `--level <smart|block-all|block-new-code>`, `--reset` (revert to auto-detect), `--no-hard-deny` (skip the hard_deny installation prompt).
+**Sub-actions:** `--show` (display current config), `--level <smart|block-all|block-new-code>`, `--reset` (revert to auto-detect), `--no-hard-deny` (skip the hard_deny installation prompt), `--audit` (gap-diff wizard, described below; **default action when invoked with no args and protection is already active** — bare `protect` with an active bypass still re-enables first, per Step 2 below, then offers `--audit`).
+
+**Config file:** `.claude/branch-guard.json` (per-repo, protection *level* — a separate file from the global `~/.claude/guards.json` registry Operation 12 mutates; see that Operation's note on scope). Use one consistent variable name throughout any implementation — `CONFIG_FILE` — never a second alias (`CONFIG`); this fixes a drift bug carried in the pre-consolidation `protect.md`.
 
 **Three protection levels:**
 
@@ -164,7 +175,29 @@ Re-enable or configure craft's local `branch-guard.sh` hook (the layer that bloc
 - `block-all` — paranoid; nothing flows through `main` or `dev` without explicit unprotect.
 - `block-new-code` — allows .md and config edits, blocks new code files on `dev`.
 
-This operation manages the **local hook only**. For GitHub-side protection, see Operation 9.
+**Steps (bare invocation, no bypass active):**
+
+1. Detect current branch (`git branch --show-current`) and current level: read `CONFIG_FILE`'s entry for the branch if present, else auto-detect from `docs/specs/baseline.json`'s `local_hook.recommended_level_by_branch_role` (main/master → block-all, dev/develop/draft → smart if that integration branch exists, feature/* and everything else → none).
+2. If a bypass marker (`.claude/allow-dev-edit`) is active, remove it (`rm -f .claude/allow-dev-edit`) and report "Branch protection RE-ENABLED."
+3. Run the hard_deny detection/install flow (unchanged from the former `protect.md`, skip entirely if `--no-hard-deny` or `~/.claude/.craft-hard-deny-declined` exists): `bash scripts/install-hard-deny.sh --check --json`, offer to install via `AskUserQuestion` (Yes install / Skip this time / Never offer again) if `would_add` is non-empty, run `bash scripts/install-hard-deny.sh --install` on yes.
+4. If no bypass was active (protection already on), skip straight to the `--audit` wizard below unless `--show`/`--level`/`--reset` was explicitly passed instead.
+
+**`--show`:** display branch, detected/configured level, session-confirm count, one-shot-pending state, bypass state — no changes made.
+
+**`--level <level>`:** write `CONFIG_FILE`'s entry for the current branch (`jq --arg branch "$BRANCH" --arg level "$LEVEL" '.[$branch] = $level' "$CONFIG_FILE"`, creating the file if absent).
+
+**`--reset`:** remove the current branch's entry from `CONFIG_FILE` (`jq --arg branch "$BRANCH" 'del(.[$branch])' "$CONFIG_FILE"`), reverting to auto-detect.
+
+**`--audit` — gap-diff-then-ask wizard (added by SPEC-branch-protection-consolidation-2026-07-07 §4.5):**
+
+1. Read local state: `CONFIG_FILE` entry (or auto-detect) for the current branch.
+2. Read GitHub-side state by reusing Operation 9's existing `gh api` check — **do not re-implement**, call the same lookup Operation 9 already documents.
+3. Diff both against `docs/specs/baseline.json` (local `recommended_level_by_branch_role`, GitHub `recommended_settings`).
+4. For each gap found, walk it **one `AskUserQuestion` at a time** (never a single dump of every gap) — Recommended-first, with the reason stated (matches this skill's own grilling pattern, not a batch confirm). Example gaps: local level below baseline for this branch role, GitHub PR-required missing, force-push/deletion allowed.
+5. Apply only what the user confirms per-gap. Never silently apply, never silently skip — the whole point of this wizard is asking, not automating past a prior always-confirm mistake this project already made and reverted once.
+6. If no gaps found: report "Branch protection matches the recommended baseline — nothing to do."
+
+This operation manages the **local hook config** (`.claude/branch-guard.json`) directly, and diffs GitHub-side state (via Operation 9) for the audit — but does not itself mutate GitHub-side settings; that write still goes through Operation 9. For GitHub-side protection application/removal, see Operation 9.
 
 ### 9. GitHub-Side Baseline Protection
 
@@ -203,6 +236,44 @@ When the user wants to **read** rather than **act**, surface the reference docs 
 (`refcard.md` stays under `commands/git/docs/` — it wasn't flagged by the deprecated-command body-size audit and isn't part of this consolidation batch.)
 
 For undo specifically, prefer the doc over speculating — it has scripted recovery flows for the common "oh no" scenarios (wrong commit message, wrong branch, accidental push, deleted work, merge conflicts).
+
+### 12. Guard Registry CLI
+
+Inspect, enable, disable, and profile the craft guard suite (`branch-guard.sh` + `no-switch-guard.sh`). Absorbs the former `commands/git/guard.md` (now a thin shim — see Integration table). Guards live in `~/.claude/settings.json` as `PreToolUse` hooks; their toggle state is persisted in `~/.claude/guards.json`.
+
+**This Operation is the sole sanctioned mutator of `~/.claude/guards.json`** (descriptive, not test-enforced — matches current practice, revisit only if a second writer appears). It does **not** own `.claude/branch-guard.json` (per-repo protection level) — that file is written directly by Operation 8's `--level`/`--reset`, a separate mutation surface for a separate file. The read path (`branch-guard.sh`/`no-switch-guard.sh` reading `guards.json` at hook-invocation time) is unchanged and has no LLM in it — a PreToolUse hook fires before any model turn.
+
+**Sub-actions:** `list`, `status`, `explain <cmd>`, `test`, `enable <name|#>`, `disable <name|#> [--permanent|--session]`, `profile <focus|yolo|spec>`.
+
+**Prerequisite:** verify `jq` is on PATH before any action; verify `~/.claude/guards.json` exists (point at `install-guards.sh` if not). Sweep and auto-clear expired mutes (`muted_until` in the past → set back to `null`) before displaying any state, for every sub-action.
+
+**`list` / `status`:** read `~/.claude/guards.json` + `~/.claude/settings.json`, build a numbered table (alphabetical). **Generate this table from `guards.json` at render time — never hardcode it** (a third registered guard would otherwise go stale in the docs; this was a real gap in the former `guard.md`). State icons: `🛡️ enabled`, `⚠️ muted (Nm)`, `⛔ disabled`. `status` additionally shows registry path + mtime, active/muted counts.
+
+**`explain <cmd>` — unified dry-run across both hooks (NEW, generalizes the former `guard.md`'s reasoning-only `explain`):** run the command text through **both scripts' real classification logic**, not LLM narration, via each script's `--classify` / `GUARD_DRY_RUN=1` mode (added to `scripts/branch-guard.sh` and `scripts/no-switch-guard.sh` by this consolidation):
+
+```bash
+echo '{"tool_name":"Bash","tool_input":{"command":"<cmd>"},"cwd":"<pwd>"}' \
+  | GUARD_DRY_RUN=1 bash scripts/branch-guard.sh
+echo '{"tool_input":{"command":"<cmd>"}}' \
+  | GUARD_DRY_RUN=1 bash scripts/no-switch-guard.sh
+```
+
+Each script's classify mode prints a single line — `ALLOW: <reason>` / `ASK: <reason>` / `BLOCK: <reason>` (branch-guard) or `ALLOW:` / `YELLOW:` / `ASK:` (no-switch-guard) / `SKIP: <reason>` (muted/disabled) — reusing the existing `block()`/`ask()`/`announce()`/`_low_note()` call sites, so the printed tier is ground truth, not a re-derivation. **The CLI presents a single unified table from these two independent lines — it does not, and must not, unify the two scripts' actual emission mechanisms** (exit 2+stderr for branch-guard vs. `permissionDecision` JSON for no-switch-guard stay separate; already litigated and rejected in `SPEC-craft-guard-suite-2026-06-19.md` §2). Example combined output:
+
+```
+Dry-run: git switch main
+─────────────────────────────────
+branch-guard     → (not evaluated — Bash/switch is no-switch-guard's concern)
+no-switch-guard  → ASK: Switch ONTO 'main' detected. main/master is protected.
+
+Result: would prompt for confirmation
+```
+
+**`test`:** run `tests/test_branch_guard.sh` and `tests/test_no_switch_guard.sh` if present, report pass/fail/missing per script.
+
+**`enable <name|#>` / `disable <name|#> [--permanent|--session]` / `profile <focus|yolo|spec>`:** unchanged from the former `guard.md` — `jq`-mutate `guards.json` (`enabled`, `muted_until`), never raw `cat >`. `focus` enables all; `yolo` mutes all 30 min; `spec` enables branch-guard and mutes no-switch-guard 30 min.
+
+**`guards.json` schema:** `{"guards": {"<name>": {"enabled": bool, "muted_until": iso8601|null, "mute_window_min": int}}}`. `enabled: false` = permanently off; `muted_until` in the future = muted; both null/false-mute = active. Guard *logic* lives in the shell scripts — this file stores toggle state only.
 
 ## Cross-Operation Patterns
 
@@ -243,30 +314,31 @@ Operation 8 is the everyday enforcer; Operation 9 is the backstop. Apply both fo
 
 ## Integration
 
-This skill replaces the 10 commands and 4 reference docs under `commands/git/` during the v2.34.0 → v3.0.0 migration:
+This skill replaces the 11 commands and 4 reference docs under `commands/git/` during the v2.34.0 → v3.0.0 migration (SPEC-branch-protection-consolidation-2026-07-07 folded `guard.md` in as a new Operation and thinned the 4 stale shims found during its own review sweep):
 
 | Command | Operation |
 |---------|-----------|
-| `/craft:git:init` | 1 (Repo Init) |
+| `/craft:git:init` | 1 (Repo Init — now also offers the Op 8 audit wizard) |
 | `/craft:git:branch` | 2 (Branch Management) |
 | `/craft:git:status` | 3 (Enhanced Status) |
 | `/craft:git:clean` | 4 (Branch Cleanup) |
 | `/craft:git:worktree` | 5 (Worktree Management) |
 | `/craft:git:sync` | 6 (Remote Sync) |
 | `/craft:git:git-recap` | 7 (Git Activity Recap) |
-| `/craft:git:protect` | 8 (Local Protection) |
-| `/craft:git:protect-baseline` | 9 (GitHub-Side Protection) |
-| `/craft:git:unprotect` | 10 (Session Bypass) |
+| `/craft:git:protect` | 8 (Local Protection — now includes the `--audit` gap-diff wizard, absorbed from the standalone `protect.md`) |
+| `/craft:git:protect-baseline` | 9 (GitHub-Side Protection — unchanged, stays a separate cross-linked command, not folded) |
+| `/craft:git:unprotect` | 10 (Session Bypass — unchanged, already a thin shim) |
 | `commands/git/docs/learning-guide.md` (shim → `skills/dev/git/references/learning-guide.md`) | 11 (Reference: learning) |
 | `commands/git/docs/refcard.md` | 11 (Reference: refcard) |
 | `commands/git/docs/safety-rails.md` (shim → `skills/dev/git/references/safety-rails.md`) | 11 (Reference: safety rails) |
 | `commands/git/docs/undo-guide.md` (shim → `skills/dev/git/references/undo-guide.md`) | 11 (Reference: undo) |
+| `/craft:git:guard` | 12 (Guard Registry CLI — new, absorbed from the standalone `guard.md`) |
 
 Both invocation paths work during the deprecation cycle. The skill auto-fires on natural-language match; explicit `/craft:git:*` paths continue to function until v3.0.0.
 
 ## Related Skills
 
 - `release` — when the next action is "ship it" or "cut a release".
-- `guard-audit` — when the user wants to tune guard config (false positives), not toggle protection.
+- `guard-audit` — when the user wants to tune guard config (false positives), not toggle protection. Distinct from this skill's Operation 12 registry CLI: `guard-audit` proposes config changes for friction; Operation 12 toggles guards on/off/muted and explains what a command would do.
 - `adhd-workflow` — session-scope recap and next-task; this skill is git-scope.
 - `project-planner` — multi-week project breakdowns; this skill handles the git lifecycle that planning eventually flows into.
