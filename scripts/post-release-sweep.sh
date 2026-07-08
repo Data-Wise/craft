@@ -20,6 +20,16 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
 
+# Portable in-place sed: BSD sed (macOS) requires an empty-string suffix after
+# -i; GNU sed (Linux/CI) rejects it, silently misinterpreting the following
+# arguments as the sed script/files instead. Detect the flavor once (same
+# pattern as bump-version.sh), expose `sedi`.
+if sed --version >/dev/null 2>&1; then
+    sedi() { sed -i "$@"; }      # GNU
+else
+    sedi() { sed -i '' "$@"; }   # BSD / macOS
+fi
+
 source "$SCRIPT_DIR/formatting.sh"
 RED="$FMT_RED"
 GREEN="$FMT_GREEN"
@@ -187,9 +197,9 @@ if [[ -n "$PREV_VERSION" ]]; then
 
             if [[ "$FIX_MODE" == true ]]; then
                 # Auto-fix: replace old version with current in known patterns
-                sed -i '' "s|v${PREV_VERSION}|v${CHECK_VERSION}|g" "$file"
-                sed -i '' "s|version-${PREV_VERSION}|version-${CHECK_VERSION}|g" "$file"
-                sed -i '' "s|\"${PREV_VERSION}\"|\"${CHECK_VERSION}\"|g" "$file"
+                sedi "s|v${PREV_VERSION}|v${CHECK_VERSION}|g" "$file"
+                sedi "s|version-${PREV_VERSION}|version-${CHECK_VERSION}|g" "$file"
+                sedi "s|\"${PREV_VERSION}\"|\"${CHECK_VERSION}\"|g" "$file"
                 TIER2_FIXED=$((TIER2_FIXED + STALE_COUNT))
                 add_finding "2" "$file" "${STALE_COUNT} stale v${PREV_VERSION} ref(s) — FIXED" "auto"
                 if [[ "$JSON_MODE" != true ]]; then

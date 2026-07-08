@@ -279,5 +279,83 @@ class TestBranchGuardAutoDetect(unittest.TestCase):
         self.assertEqual(result.returncode, 0, "New .py on 'working' branch should be allowed")
 
 
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BRANCH_GUARD_SCRIPT = os.path.join(REPO_ROOT, "scripts", "branch-guard.sh")
+NO_SWITCH_GUARD_SCRIPT = os.path.join(REPO_ROOT, "scripts", "no-switch-guard.sh")
+
+
+class TestGuardsJsonMutationObservedNextInvocation(unittest.TestCase):
+    """SPEC-branch-protection-consolidation-2026-07-07 §6 integration tier:
+
+    a guards.json mutation (enable/disable) must be observed by both
+    branch-guard.sh and no-switch-guard.sh on their NEXT invocation — the
+    registry is read fresh each time, there is no caching. Exercises the
+    repo copy of both scripts directly (not the installed ~/.claude/hooks
+    copy) with a fake HOME so the real registry is never touched.
+    """
+
+    def setUp(self):
+        self.repo = tempfile.mkdtemp(prefix="bg-registry-")
+        _init_repo(self.repo)
+        self.fake_home = tempfile.mkdtemp(prefix="bg-fakehome-")
+        os.makedirs(os.path.join(self.fake_home, ".claude"), exist_ok=True)
+        self.registry_path = os.path.join(self.fake_home, ".claude", "guards.json")
+
+    def tearDown(self):
+        shutil.rmtree(self.repo, ignore_errors=True)
+        shutil.rmtree(self.fake_home, ignore_errors=True)
+
+    def _write_registry(self, branch_guard_enabled: bool, no_switch_guard_enabled: bool):
+        with open(self.registry_path, "w") as f:
+            json.dump(
+                {
+                    "guards": {
+                        "branch-guard": {"enabled": branch_guard_enabled, "muted_until": None, "mute_window_min": 30},
+                        "no-switch-guard": {"enabled": no_switch_guard_enabled, "muted_until": None, "mute_window_min": 30},
+                    }
+                },
+                f,
+            )
+
+    def test_disabling_branch_guard_in_registry_is_observed_next_call(self):
+        # Enabled: commit on main should be blocked.
+        self._write_registry(branch_guard_enabled=True, no_switch_guard_enabled=True)
+        payload = {"tool_name": "Bash", "tool_input": {"command": "git commit -m x"}, "cwd": self.repo}
+        result = subprocess.run(
+            ["bash", BRANCH_GUARD_SCRIPT], input=json.dumps(payload),
+            capture_output=True, text=True, timeout=10,
+            env={**os.environ, "HOME": self.fake_home},
+        )
+        self.assertEqual(result.returncode, 2, "branch-guard enabled: commit on main should block")
+
+        # Mutate the registry (simulates Operation 12's disable action) — disabled now.
+        self._write_registry(branch_guard_enabled=False, no_switch_guard_enabled=True)
+        result = subprocess.run(
+            ["bash", BRANCH_GUARD_SCRIPT], input=json.dumps(payload),
+            capture_output=True, text=True, timeout=10,
+            env={**os.environ, "HOME": self.fake_home},
+        )
+        self.assertEqual(result.returncode, 0, "branch-guard disabled: same command must now pass through")
+
+    def test_disabling_no_switch_guard_in_registry_is_observed_next_call(self):
+        payload = {"tool_input": {"command": "git switch main"}}
+
+        self._write_registry(branch_guard_enabled=True, no_switch_guard_enabled=True)
+        result = subprocess.run(
+            ["bash", NO_SWITCH_GUARD_SCRIPT], input=json.dumps(payload),
+            capture_output=True, text=True, timeout=10,
+            env={**os.environ, "HOME": self.fake_home},
+        )
+        self.assertIn("ask", result.stdout, "no-switch-guard enabled: switch onto main should ask")
+
+        self._write_registry(branch_guard_enabled=True, no_switch_guard_enabled=False)
+        result = subprocess.run(
+            ["bash", NO_SWITCH_GUARD_SCRIPT], input=json.dumps(payload),
+            capture_output=True, text=True, timeout=10,
+            env={**os.environ, "HOME": self.fake_home},
+        )
+        self.assertEqual(result.stdout.strip(), "", "no-switch-guard disabled: should emit nothing (silent allow)")
+
+
 if __name__ == "__main__":
     unittest.main()

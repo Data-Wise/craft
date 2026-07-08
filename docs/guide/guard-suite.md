@@ -1,5 +1,13 @@
 # Guard Suite
 
+> **Command surface note:** `/craft:git:guard` and `/craft:git:protect` are now thin shims over
+> `skills/dev/git/SKILL.md` — Operation 12 (Guard Registry CLI) and Operation 8 (Local Branch
+> Protection), respectively (`SPEC-branch-protection-consolidation-2026-07-07`). This guide
+> documents the guard suite's architecture and behavior, which is unchanged; for the exact
+> command/flag contract, see the skill's Operations directly. Operation 12 also adds a unified
+> `explain` dry-run across both hooks via each script's new `--classify` / `GUARD_DRY_RUN=1`
+> ground-truth mode (see "The `--classify` / `GUARD_DRY_RUN=1` Mode" below).
+
 The Guard Suite is a two-hook safety layer that intercepts destructive git operations before Claude executes them. It replaces the single monolithic `branch-guard.sh` with a purpose-built pair of hooks, a shared registry for enable/disable/muting, and a `/craft:git:guard` command for runtime management.
 
 ## Architecture Overview
@@ -299,6 +307,29 @@ Keeps commit/push protection active but silences the branch-switch guard. Use wh
 | `spec` | Spec review on dev, need to browse branches freely |
 
 ---
+
+## The `--classify` / `GUARD_DRY_RUN=1` Mode
+
+Both scripts (`scripts/branch-guard.sh`, `scripts/no-switch-guard.sh`) gained an additive
+ground-truth dry-run mode (SPEC-branch-protection-consolidation-2026-07-07 §4.6 #3), separate from
+the pre-existing `.claude/branch-guard-dryrun` marker-file mechanism:
+
+```bash
+echo '{"tool_name":"Bash","tool_input":{"command":"git commit -m x"},"cwd":"'"$PWD"'"}' \
+  | GUARD_DRY_RUN=1 bash scripts/branch-guard.sh
+# → BLOCK: ... / ASK: ... / ALLOW: ...
+
+echo '{"tool_input":{"command":"git switch main"}}' \
+  | GUARD_DRY_RUN=1 bash scripts/no-switch-guard.sh
+# → ASK: ... / YELLOW: ... / ALLOW: ...
+```
+
+This reuses each script's real classification call sites (`block()`/`_confirm()`/`_low_note()` in
+branch-guard.sh; `ask()`/`announce()` in no-switch-guard.sh) — it prints the tier instead of
+emitting the real blocking contract, so `/craft:git:guard explain` and the dogfood test tier get
+ground truth instead of LLM narration. It does **not** change either script's actual emission
+mechanism (exit 2+stderr vs. `permissionDecision` JSON stay separate, per the rejected-unification
+decision in `SPEC-craft-guard-suite-2026-06-19.md` §2).
 
 ## Fail-Open Guarantee
 
