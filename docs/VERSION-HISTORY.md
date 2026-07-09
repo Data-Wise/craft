@@ -2,13 +2,29 @@
 
 > **Evolution of Craft**: From command automation tool to intelligent orchestration platform
 
-**Latest Release:** v2.61.0 (2026-07-06)
-**Total Releases:** 67+ versions | **Development Time:** 2+ years
-**Community:** 115 commands documented, 1994 tests passing, 90%+ coverage
+**Latest Release:** v2.61.1 (2026-07-08)
+**Total Releases:** 68+ versions | **Development Time:** 2+ years
+**Community:** 115 commands documented, 1994+ tests passing, 90%+ coverage
 
 ---
 
 ## Release Timeline
+
+### v2.61.1 (2026-07-08) — Patch: Guard Suite Consolidation
+
+**Status:** Released
+**Stats:** 115 commands | 45 skills | 8 agents | 2056+ tests passing
+
+- Guard suite consolidated into `skills/dev/git/` (PR #272): `guard.md`/`protect.md` replaced
+  by skill-driven operations layer with `baseline.json` drift detection.
+- `--classify` / `GUARD_DRY_RUN=1` ground-truth mode added to both guard hooks.
+- Portable `sedi()` wrapper replaces inline `sed -i` for GNU/BSD compatibility.
+- 4 stale shims thinned, 3 orphan docs archived, 62 new tests added.
+
+### v2.61.0 (2026-07-06) — Minor: Token-Usage Reduction & Post-Release Follow-ups
+
+**Status:** Released
+**Stats:** 115 commands | 45 skills | 8 agents | 1994 tests passing
 
 ### v2.38.2 (2026-06-15) — Patch: surfaces/branch-guard hardening
 

@@ -9,6 +9,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.61.1] - 2026-07-08
+
+### Changed
+
+- **Guard suite consolidated into `skills/dev/git/`** ([#272](https://github.com/Data-Wise/craft/pull/272)).
+  `guard.md` and `protect.md` command files replaced by a single skill-driven
+  operations layer; `baseline.json` added for drift detection.
+- **4 stale shims thinned** — `git/branch.md`, `git/clean.md`, `git/status.md`,
+  `git/sync.md` reduced to redirect-only stubs pointing at the new skill.
+
+### Added
+
+- **`--classify` mode and `GUARD_DRY_RUN=1`** — unified ground-truth output
+  across both `branch-guard.sh` and `no-switch-guard.sh` for testing and
+  debugging guard rules without side effects.
+- **Portable `sedi()` wrapper** — detects GNU/BSD sed at runtime; replaces all
+  inline `sed -i` calls for cross-platform compatibility.
+- **62 new tests** — branch-guard classification, no-switch-guard, shim
+  correctness, and integration coverage.
+
+### Fixed
+
+- **Stale doc counts** — `claude-md-out-of-sync.md` updated from 94/18/6 to
+  115/45/8.
+- **3 orphan docs archived** — `FEATURE-RELEASE-CLAUDE-MD.md`,
+  `GIF-REGENERATION-CHECKLIST.md`, `PHASE2-CONSOLIDATION.md` moved to
+  `docs/archive/`.
+- **`VALIDATOR-BEST-PRACTICES.md`** added to nav and 3 stale `.claude-plugin`
+  paths corrected.
+
 ## [2.61.0] - 2026-07-06
 
 ### Fixed
