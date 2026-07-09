@@ -2,6 +2,8 @@
 
 **Teaching-first branch protection** — 3-tier risk classification with progressive trust, layered with an unconditional hard_deny tier (NEW in v2.33.0) and GitHub-side server protection.
 
+`branch-guard.sh` is now part of the **two-hook Guard Suite**, alongside `no-switch-guard.sh`. Both share a registry (`~/.claude/guards.json`) and support a unified `--classify`/`GUARD_DRY_RUN=1` ground-truth mode. See the [Guard Suite Guide](../guide/guard-suite.md) and [Guard Suite Tutorial](../tutorials/TUTORIAL-guard-suite.md) for the full picture.
+
 **Version:** 2.33.0 | **Hook:** `~/.claude/hooks/branch-guard.sh` | **Catalog:** `scripts/hard-deny-rules.json`
 
 ---
@@ -262,6 +264,7 @@ Only listed branches are protected. Unlisted = unrestricted.
 | `.claude/allow-once` | One-shot approval marker |
 | `.claude/guard-session-counts` | Verbosity fade counter |
 | `.claude/branch-guard-dryrun` | Dry-run mode (log only) |
+| `--classify` flag / `GUARD_DRY_RUN=1` env var | Ground-truth classification sweep (no-op mode) |
 
 ---
 
@@ -277,6 +280,10 @@ Only listed branches are protected. Unlisted = unrestricted.
 | `/craft:git:protect --reset` | Reset session counters |
 | `/craft:git:unprotect` | Session-wide bypass |
 | `/craft:git:status` | Shows guard indicator |
+| `/craft:git:guard status` | Guard Suite status (both hooks + registry) |
+| `/craft:git:guard test` | Coverage audit against known operation taxonomy |
+| `/craft:git:guard explain branch-guard` | Classification table for current branch |
+| `GUARD_DRY_RUN=1 bash scripts/branch-guard.sh` | Ground-truth classification (no-op sweep) |
 
 ### GitHub-side
 
@@ -304,7 +311,9 @@ Everything else (`.txt`, `.csv`, `.html`, `.md`) — allowed without confirm.
 ## See Also
 
 - **Guide:** [Smart Mode Guide](../guide/branch-guard-smart-mode.md) — Full documentation
-- **Tutorial:** [Branch Guard Setup](../tutorials/TUTORIAL-branch-guard-setup.md) — Step-by-step
+- **Guide:** [Guard Suite Guide](../guide/guard-suite.md) — Two-hook registry, profiles, fail-open
+- **Tutorial:** [Guard Suite Tutorial](../tutorials/TUTORIAL-guard-suite.md) — Step-by-step walkthrough
+- **Tutorial:** [Branch Guard Setup](../tutorials/TUTORIAL-branch-guard-setup.md) — Original single-hook setup
 - **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — How guard fits in
-- **Commands:** [/craft:git:protect](../commands/git/protect.md) | [/craft:git:protect-baseline](../commands/git/protect-baseline.md) | [/craft:git:unprotect](../commands/git/unprotect.md)
+- **Commands:** [/craft:git:protect](../commands/git/protect.md) | [/craft:git:protect-baseline](../commands/git/protect-baseline.md) | [/craft:git:unprotect](../commands/git/unprotect.md) | [/craft:git:guard](../commands/git/guard.md)
 - **Refcard:** [REFCARD-PROTECT-BASELINE](REFCARD-PROTECT-BASELINE.md) — GitHub-side companion quick reference

@@ -80,6 +80,8 @@ The release executes 13 steps sequentially:
 | 12. Verify CI on main | MANDATORY gate -- CI must be green on main | Fix if red |
 | 13. Downstream verification | Checks deploy docs, homebrew, live site, formula, badges | Investigate failures |
 | 13.5. Post-release sweep | Detects stale version refs, counts, content drift | Review report, commit fixes |
+| 13.6. Verify surfaces | Asserts one version across all surfaces — blocks on craft-leg drift, warns Desktop | Fix lagging surface or use `--skip-surfaces` |
+| 13.7. Prune version cache | GC stale `local-plugins` dirs, keep current + 2 | Nothing (automatic, never blocks) |
 
 If any step fails, the pipeline stops and reports the error.
 
@@ -104,6 +106,42 @@ git add -u && git commit -m "chore: fix post-release drift detected by sweep"
 ```
 
 See the [Post-Release Sweep Reference](../reference/REFCARD-POST-RELEASE-SWEEP.md) for the full three-tier detection model.
+
+### Step 13.6: Verify Surfaces
+
+After the sweep, the pipeline asserts that every surface (Code registry, Cowork store, Desktop app, Homebrew tap, git tag) carries the same version:
+
+```bash
+# What the pipeline runs
+scripts/verify-surfaces.sh
+```
+
+If a surface is lagging, the pipeline **blocks** (craft-controlled surfaces) or **warns** (Desktop). To inspect drift without blocking:
+
+```bash
+scripts/verify-surfaces.sh --report-only
+```
+
+To check a specific expected version:
+
+```bash
+scripts/verify-surfaces.sh --version 2.61.0
+```
+
+Surfaces that fail are surfaced in the release report for manual remediation. See the [Surfaces Tutorial](TUTORIAL-dist-surfaces.md) for the full surface-registry workflow.
+
+### Step 13.7: Prune Version Cache
+
+The final step garbage-collects stale `local-plugins` version directories, keeping the current version plus two older backups:
+
+```bash
+# What the pipeline runs
+scripts/cache-prune.sh
+```
+
+This is a maintenance step that never blocks the release. If pruning fails (e.g., a version dir is in use), it logs a warning and continues.
+
+If a bad release needs manual undo steps, see the [Release Rollback Runbook](../runbooks/release-rollback.md).
 
 ---
 
