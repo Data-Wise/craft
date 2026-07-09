@@ -34,12 +34,12 @@ declare -A SHIMS=(
   [protect.md]=70
   [status.md]=70
   [clean.md]=70
-  [git-recap.md]=70
   [branch.md]=80
-  [sync.md]=60
   [worktree.md]=260
   [unprotect.md]=160
 )
+# NOTE: git-recap.md + sync.md removed in the v3.0.0 native-first prune
+# (deleted, zero external callers). init.md also deleted (never in this list).
 
 # Files unchanged by this SPEC (already thin shims per prior migrations) that
 # don't necessarily cite "Operation N" by that literal string — skip the
