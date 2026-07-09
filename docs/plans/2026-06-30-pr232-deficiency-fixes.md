@@ -1,5 +1,9 @@
 # PR #232 Deficiency Fixes — Implementation Plan
 
+> **STATUS: SHIPPED** — PR #232 squashed as `e6c24a27`, released v2.56.0 (PR #234, dev→main merge
+> `43beb7b3`, tag v2.56.0, 2026-07-01): orchestrator model pinning, `/refine` 631→42 lines,
+> `/brainstorm` redesign, new `command-skill-token-efficiency` skill.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Fix the 8 confirmed/plausible findings from the PR #232 adversarial review, correct the

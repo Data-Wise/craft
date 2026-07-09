@@ -48,6 +48,12 @@ Files with broken links:
 
 - Reason: Archived specs contain stale relative links to brainstorm files, sibling specs, and docs that moved. These are frozen historical documents and won't be updated.
 
+### 2b. Archived Docs (Frozen References)
+Files with broken links:
+- `docs/archive/*.md`
+
+- Reason: Archived standalone docs contain stale relative links from when they lived at docs/ root. These are frozen historical documents and won't be updated.
+
 ### 3. README References (Outside Docs)
 Files with broken links:
 - `docs/TEACHING-DOCS-INDEX.md`

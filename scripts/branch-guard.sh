@@ -98,13 +98,31 @@ fi
 # If no cwd provided, fall back to PWD
 CWD="${CWD:-$PWD}"
 
+# Prefer the target file's own directory over the session cwd when resolving
+# git context (Edit/Write only). A session whose cwd isn't itself a git repo
+# (e.g. a non-repo dotfiles dir) would otherwise exit 0 below before ever
+# looking at FILE_PATH — silently bypassing protection for edits to files
+# that ARE inside a protected repo elsewhere on disk. Bash commands (no
+# FILE_PATH) are unaffected — they still resolve from CWD as before.
+GIT_CTX_DIR="$CWD"
+if [[ -n "$FILE_PATH" ]]; then
+  _fp_dir="$FILE_PATH"
+  if [[ "$FILE_PATH" != /* ]]; then
+    _fp_dir="${CWD}/${FILE_PATH}"
+  fi
+  _fp_dir="$(dirname "$_fp_dir")"
+  if [[ -d "$_fp_dir" ]] && (cd "$_fp_dir" 2>/dev/null && git rev-parse --show-toplevel &>/dev/null); then
+    GIT_CTX_DIR="$_fp_dir"
+  fi
+fi
+
 # Check if we're in a git repo
-PROJECT_ROOT="$(cd "$CWD" 2>/dev/null && git rev-parse --show-toplevel 2>/dev/null)" || {
+PROJECT_ROOT="$(cd "$GIT_CTX_DIR" 2>/dev/null && git rev-parse --show-toplevel 2>/dev/null)" || {
   # Not a git repo — allow everything
   exit 0
 }
 
-BRANCH="$(cd "$CWD" 2>/dev/null && git branch --show-current 2>/dev/null)" || {
+BRANCH="$(cd "$GIT_CTX_DIR" 2>/dev/null && git branch --show-current 2>/dev/null)" || {
   # Detached HEAD or other edge case — allow
   exit 0
 }
@@ -346,8 +364,37 @@ _verbosity() {
 # ---------------------------------------------------------------------------
 # 8. Helper: block or dry-run
 # ---------------------------------------------------------------------------
+# --classify / GUARD_DRY_RUN=1: a SEPARATE, additive ground-truth mode (not to
+# be confused with the existing .claude/branch-guard-dryrun marker file above).
+# When active, block()/_confirm()/_low_note() print the tier that WOULD have
+# fired (BLOCK/ASK/ALLOW) to stdout and return/exit 0 without ever emitting the
+# real stderr+exit-2 blocking contract. This reuses the existing call sites —
+# it does not duplicate the classification logic — so skills/dev/git/ Op 12's
+# `explain` subcommand and the dogfood test tier get ground truth instead of
+# LLM narration (SPEC-branch-protection-consolidation-2026-07-07 §4.6 #3).
+CLASSIFY_MODE=false
+if [[ "${GUARD_DRY_RUN:-0}" == "1" ]] || [[ "${1:-}" == "--classify" ]]; then
+  CLASSIFY_MODE=true
+fi
+CLASSIFY_EMITTED=false
+if [[ "$CLASSIFY_MODE" == true ]]; then
+  # Safety net: every path in the script eventually does a bare `exit 0`
+  # ("allow"). Rather than instrument each call site, print a fallback ALLOW
+  # line on exit if block()/_low_note() haven't already emitted a classify line.
+  trap '[[ "$CLASSIFY_EMITTED" == true ]] || echo "ALLOW: no rule matched (fell through to default allow)"' EXIT
+fi
+
 block() {
   local message="$1"
+  local tier="${2:-BLOCK}"
+  if [[ "$CLASSIFY_MODE" == true ]]; then
+    # Print only the tier + first non-empty text line — keeps classify output terse.
+    local summary
+    summary="$(printf '%b' "$message" | sed -E 's/\x1b\[[0-9;]*m//g' | grep -m1 '[A-Za-z0-9]')"
+    CLASSIFY_EMITTED=true
+    echo "${tier}: ${summary}"
+    exit 0
+  fi
   if [[ "$DRY_RUN" == true ]]; then
     echo "[DRY-RUN] branch-guard would block: $message" >&2
     exit 0
@@ -473,7 +520,7 @@ _confirm() {
 
   msg+=$'\n'"To mute: /craft:git:guard disable branch-guard"
 
-  block "$msg"
+  block "$msg" "ASK"
 }
 
 # _low_note: LOW risk — brief note on first encounter, then silent
@@ -481,6 +528,11 @@ _confirm() {
 _low_note() {
   local action_type="$1"
   local note="$2"
+  if [[ "$CLASSIFY_MODE" == true ]]; then
+    CLASSIFY_EMITTED=true
+    echo "ALLOW: ${note}"
+    exit 0
+  fi
   local count
   count=$(_session_count "$action_type") || true
   if (( count == 0 )); then
@@ -493,7 +545,7 @@ _low_note() {
 # _hard_block: HIGH risk — hard block, no [CONFIRM] (not confirmable)
 # Usage: _hard_block box_lines...
 _hard_block() {
-  block "$(_box "$@")"
+  block "$(_box "$@")" "BLOCK"
 }
 
 # ---------------------------------------------------------------------------

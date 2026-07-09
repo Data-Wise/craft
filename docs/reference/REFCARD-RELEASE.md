@@ -50,7 +50,7 @@ Ready to release?
 | 12 | Verify downstream CI (docs) | Read-only (polls docs deploy workflow) |
 | 13 | Verify downstream CI (Homebrew) | Read-only (polls tap CI) |
 | 13.5 | Post-release sweep | Auto-fixes Tier 2 drift, reports Tier 3 |
-| 13.6 | Verify surfaces | Asserts one version across all surfaces — **blocks** on craft-leg drift, **warns** Desktop (`--skip-surfaces` to bypass) |
+| 13.6 | Verify surfaces | Asserts one version across all surfaces — **blocks** on craft-leg drift, **warns** Desktop (`--skip-surfaces` to bypass). Use `--report-only` for never-blocking drift inspection, `--version <X>` to check a specific version. |
 | 13.7 | Prune version cache | GC stale `local-plugins` dirs, keep current + 2 (maintenance, never blocks) |
 
 ### Release Pipeline Flow
@@ -208,6 +208,8 @@ Poll → Diagnose → Fix/Ask → Retry (up to 3x)
 |------|--------|
 | `--dry-run` / `-n` | Preview only, no execution |
 | `--skip-surfaces` | Skip Step 13.6 multi-surface version assertion |
+| `--report-only` | Never-blocking surface drift inspection (Step 13.6) |
+| `--version <X>` | Check a specific expected version (Step 13.6) |
 | `v2.18.0` | Use this specific version |
 | (no args) | Auto-detect and suggest version |
 
@@ -222,6 +224,7 @@ Poll → Diagnose → Fix/Ask → Retry (up to 3x)
 | Branch protection blocks merge | `--admin` with user confirmation |
 | Tag already exists | Delete stale tag, retry |
 | Docs deploy fails | `mkdocs build` to check errors first |
+| Bad release landed | Follow [`release-rollback.md`](../runbooks/release-rollback.md) per-surface undo steps |
 
 ---
 
@@ -239,4 +242,6 @@ Poll → Diagnose → Fix/Ask → Retry (up to 3x)
 - [Release Checklist](https://github.com/Data-Wise/craft/blob/dev/skills/release/references/release-checklist.md) - Per-project-type checklists
 - [Release Workflow](../workflows/release-workflow.md) - Full workflow documentation
 - [Release Pipeline Tutorial](../tutorials/TUTORIAL-release-pipeline.md) - Step-by-step guide
+- [Release Rollback Runbook](../runbooks/release-rollback.md) - Manual per-surface undo steps
+- [Surfaces Tutorial](../tutorials/TUTORIAL-dist-surfaces.md) - Surface-registry workflow
 - [Branch Guard Reference](REFCARD-BRANCH-GUARD.md) - Branch protection during releases

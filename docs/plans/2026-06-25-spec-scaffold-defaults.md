@@ -1,5 +1,9 @@
 # Spec-Scaffold-Defaults Implementation Plan
 
+> **STATUS: SHIPPED** — v2.52.0 (PR #217, dev→main merge `c5f704f3`, tag v2.52.0, 2026-06-26):
+> default-on test/docs scaffolding (#216). Checkboxes below left un-ticked at ship time (tracked
+> via `.STATUS` milestone instead).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Make `brainstorm`/`plan:feature`/`grill` emit a tier-inferred test-plan section and a doc-scorer-derived Documentation section into every spec by default, with `--no-tests`/`--no-docs` opt-outs; `arch:plan`/`spec-review` get the same as opt-in (`--tests`/`--docs`).

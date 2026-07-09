@@ -244,7 +244,7 @@ def test_readme_7_agents():
 
 def test_roadmap_orchestrator_enhancements():
     """Test that ROADMAP includes orchestrator enhancements."""
-    roadmap_path = PLUGIN_DIR / "ROADMAP.md"
+    roadmap_path = PLUGIN_DIR / "docs" / "archive" / "ROADMAP.md"
     assert roadmap_path.exists(), "File not found"
 
     content = roadmap_path.read_text()

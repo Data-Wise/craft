@@ -223,7 +223,46 @@ For a deeper audit that includes guard-suite consistency across the full hook re
 
 ---
 
-## Quick Reference
+## Step 7: Classify Operations with Dry-Run Mode
+
+Both guards support a `--classify` flag (or `GUARD_DRY_RUN=1` env var) that runs a ground-truth
+classification sweep — labeling every operation GREEN/YELLOW/RED without executing anything.
+
+This is useful for:
+
+- **Verifying** that a guard update didn't change expected behavior
+- **Auditing** what a guard would do in a given repo before committing
+- **Debugging** unexpected guard behavior
+
+Run it on either hook directly:
+
+```bash
+# Via env var
+GUARD_DRY_RUN=1 bash scripts/branch-guard.sh
+
+# Via --classify flag (equivalent)
+bash scripts/branch-guard.sh --classify
+```
+
+Expected output:
+
+```
+[branch-guard] DRY-RUN — classifying operations:
+  edit existing file on dev         → LOW    (auto-allow)
+  write new .py on dev              → MEDIUM (would confirm)
+  force push to dev                 → MEDIUM (would confirm)
+  anything on main                  → HIGH   (would block)
+```
+
+Or via the guard command:
+
+```
+/craft:git:guard explain branch-guard
+```
+
+This shows the full classification table for the selected guard — what tier each operation on the current branch would trigger, without actually running the operation.
+
+---
 
 | Action | Command |
 |--------|---------|
@@ -235,6 +274,8 @@ For a deeper audit that includes guard-suite consistency across the full hook re
 | Re-enable one | `/craft:git:guard enable no-switch-guard` |
 | Disable one | `/craft:git:guard disable no-switch-guard` |
 | Explain a guard | `/craft:git:guard explain no-switch-guard` |
+| Classify (env var) | `GUARD_DRY_RUN=1 bash scripts/branch-guard.sh` |
+| Classify (flag) | `bash scripts/branch-guard.sh --classify` |
 | Run coverage test | `/craft:git:guard test` |
 
 ---

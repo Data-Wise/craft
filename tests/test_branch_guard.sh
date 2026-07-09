@@ -1380,6 +1380,68 @@ run_test \
 echo ""
 
 # ============================================================================
+# Group 21: GUARD_DRY_RUN=1 / --classify ground-truth mode
+# (SPEC-branch-protection-consolidation-2026-07-07 §4.6 #3 / §6 dogfood tier)
+# ============================================================================
+echo -e "${T_BLUE}--- Group 21: --classify / GUARD_DRY_RUN=1 ground-truth mode ---${T_NC}"
+
+# This mode is additive to the repo script and is not installed system-wide,
+# so exercise scripts/branch-guard.sh directly regardless of HOOK_SCRIPT.
+CLASSIFY_SCRIPT="$SCRIPT_DIR/../scripts/branch-guard.sh"
+
+run_classify_test() {
+    local name="$1"
+    local expected_pattern="$2"
+    local json="$3"
+    local cwd="$4"
+
+    TOTAL=$((TOTAL + 1))
+    local out
+    out=$(cd "$cwd" && echo "$json" | GUARD_DRY_RUN=1 bash "$CLASSIFY_SCRIPT" 2>&1)
+
+    if echo "$out" | grep -qE "$expected_pattern"; then
+        PASS=$((PASS + 1))
+        echo -e "  ${T_GREEN}PASS${T_NC}  $name  ${T_BOLD}($out)${T_NC}"
+    else
+        FAIL=$((FAIL + 1))
+        FAILED_NAMES+=("$name")
+        echo -e "  ${T_RED}FAIL${T_NC}  $name  ${T_BOLD}(expected match /$expected_pattern/, got: $out)${T_NC}"
+    fi
+}
+
+REPO_CLASSIFY=$(init_repo)
+
+run_classify_test \
+    "test_classify_commit_on_main_is_BLOCK" \
+    "^BLOCK:" \
+    "$(json_bash "git commit -m test" "$REPO_CLASSIFY")" \
+    "$REPO_CLASSIFY"
+
+switch_branch "$REPO_CLASSIFY" "dev"
+
+run_classify_test \
+    "test_classify_new_code_on_dev_is_ASK" \
+    "^ASK:" \
+    "$(json_write "$REPO_CLASSIFY/newfile.py" "$REPO_CLASSIFY")" \
+    "$REPO_CLASSIFY"
+
+run_classify_test \
+    "test_classify_edit_existing_on_dev_is_ALLOW" \
+    "^ALLOW:" \
+    "$(json_write "$REPO_CLASSIFY/README.md" "$REPO_CLASSIFY")" \
+    "$REPO_CLASSIFY"
+
+create_and_switch "$REPO_CLASSIFY" "feature/classify-test"
+
+run_classify_test \
+    "test_classify_feature_branch_is_ALLOW" \
+    "^ALLOW:" \
+    "$(json_write "$REPO_CLASSIFY/anything.py" "$REPO_CLASSIFY")" \
+    "$REPO_CLASSIFY"
+
+echo ""
+
+# ============================================================================
 # Summary
 # ============================================================================
 

@@ -1,5 +1,9 @@
 # /usage Checkpoint Tooling Implementation Plan
 
+> **STATUS: SHIPPED** — v2.56.0 (2026-07-01): broken `/usage` scheduled-trigger replaced with
+> `ccusage` + `claude-monitor`. Checkboxes below left un-ticked at ship time (tracked via
+> `.STATUS` milestone instead).
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Install and smoke-test the two tools `SPEC-token-efficiency-research-2026-06-30.md` §9

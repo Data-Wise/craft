@@ -1,5 +1,11 @@
 # Linear Implementation Plan — Token-Efficiency Follow-on Work
 
+> **STATUS: PARTIAL, STALLED since 2026-07-01** — see the linked SPEC's own status line for the
+> authoritative task-by-task state (Task 1 done, Task 2 clear to implement, Task 3 blocked on MCP
+> install, Task 4 resolved) — not duplicated here to avoid the two drifting apart. Neither this
+> plan nor its SPEC has been touched since 2026-07-01; no `.STATUS` entry references it since.
+> Pick up by re-reading the SPEC's current status line first, not this note.
+
 **Spec:** [`docs/specs/SPEC-token-efficiency-and-context-tooling-2026-07-01.md`](../specs/SPEC-token-efficiency-and-context-tooling-2026-07-01.md)
 **Date:** 2026-07-01
 **Execution model:** LINEAR / in-line — single session, sequential steps, **no subagent dispatch** (deliberate: this whole work stream is about token frugality; multi-agent orchestration would undercut the point). Each step is self-contained and verifiable before the next begins.

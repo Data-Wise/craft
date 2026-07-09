@@ -1,5 +1,9 @@
 ## Ready-to-file GitHub issue (could not file automatically — see note at bottom)
 
+> **STATUS: FILED, STILL OPEN** — filed as
+> [craft#233](https://github.com/Data-Wise/craft/issues/233), open as of 2026-07-06. This draft's
+> job (get it filed) is done; the tracked work itself is not.
+
 **Repo:** Data-Wise/craft
 **Suggested title:** Track: deprecated-command audit findings + session handoff/grounding docs (feature/token-usage-reduction)
 
@@ -14,17 +18,20 @@ This issue tracks follow-up on `docs/specs/SPEC-craft-audit-and-next-steps-2026-
 **Context:** while shrinking `/refine` and redesigning `/brainstorm` for token efficiency, a full repo scan of all 56 `deprecated: true` commands found real, ranked findings worth tracking independently of that branch.
 
 **Headline findings:**
+
 - `skills/dev/git/` (250 lines) is the `replaced-by:` target for 6 commands totaling **4185 source lines** (`commands/git/worktree.md` 1010, `commands/git/init.md` 597, `commands/git/sync.md` 539, `commands/git/docs/safety-rails.md` 723, `commands/git/docs/learning-guide.md` 722, `commands/git/docs/undo-guide.md` 594). Highest-leverage place to start a consolidation pass before any v3.0.0 cutover.
 - `commands/check.md` (1132 lines → 127-line `skills/check/`, ratio **8.9**) is the single worst body-size ratio in the repo — not previously flagged by the earlier git/site-focused audit.
 - A reusable script is committed: `scripts/audit-deprecated-commands.py --threshold 2.0` (exit 0/1, `--json` for scripting).
 
 **Proposed next steps** (full detail in the SPEC, §4):
+
 - [ ] §4.1 — new WARN-only governance checker generalizing the audit script into `governance/checks/` (R03/R04 FIXTURE+LIVE pattern)
 - [ ] §4.2 — consolidate count-of-record checking (currently `validate-counts.sh` and `bump-version.sh --verify` check different files independently; ~14 others were hand-fixed with no ongoing check)
 - [ ] §4.4 — decide port-vs-drop for the top-ratio commands before v3.0.0 deletes their bodies
 - [ ] §4.5 — dedicated session to consolidate `skills/dev/git/`'s 6 source commands
 
 **Also added this session, for reference:**
+
 - `docs/plans/2026-06-30-token-usage-reduction-handoff.md` — session-continuation prompt for resuming `feature/token-usage-reduction` (6 commits, unmerged, blocked on GitHub auth)
 - `docs/internal/GROUNDING-craft.md` — durable paste-at-session-start context prompt (branch workflow, verification scripts, response-format conventions)
 - `docs/specs/SPEC-craft-audit-and-next-steps-2026-06-30-REVIEW.md` — review companion to the SPEC
