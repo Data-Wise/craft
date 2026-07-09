@@ -19,11 +19,11 @@ Your `CLAUDE.md` contains outdated information -- wrong command counts, missing 
 
 ```markdown
 # Example of stale CLAUDE.md header
-**94 commands** · **18 skills** · **6 agents**
-**Current Version:** v2.8.0
+**115 commands** · **45 skills** · **8 agents**
+**Current Version:** v2.61.0
 ```
 
-When the project is actually at v2.18.0 with 107 commands, 26 skills, and 8 agents.
+When the project is actually at v2.61.0 with 115 commands, 45 skills, and 8 agents.
 
 ## Common Causes & Solutions
 

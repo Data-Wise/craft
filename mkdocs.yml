@@ -31,10 +31,7 @@ exclude_docs: |
   internal/HOOKS-TOKEN-AUDIT-*.md
   internal/TUTORIAL-rtk-cli-token-proxy.md
   internal/TUTORIAL-orchestration-and-skill-eval-loop.md
-  # Stale standalone docs
-  FEATURE-RELEASE-CLAUDE-MD.md
-  GIF-REGENERATION-CHECKLIST.md
-  PHASE2-CONSOLIDATION.md
+  # Stale standalone docs (moved to archive/)
   VALIDATOR-BEST-PRACTICES.md
 
 theme:
