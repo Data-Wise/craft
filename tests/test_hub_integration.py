@@ -83,7 +83,7 @@ def _check_hub_display():
 │                                                                         │
 │ 🔀 GIT ({stats['categories'].get('git', 0)}+4 guides)      📖 SITE ({stats['categories'].get('site', 0)})            │
 │   /craft:git:worktree              /craft:site:build                    │
-│   /craft:git:sync                  /craft:site:publish                  │
+│   /craft:git:status                  /craft:site:publish                  │
 │   /craft:git:clean                 /craft:site:deploy                   │
 │   /craft:git:branch                /craft:site:check                    │
 │                                                                         │
@@ -95,7 +95,7 @@ def _check_hub_display():
 ├─────────────────────────────────────────────────────────────────────────┤
 │ 🎯 Quick Actions:                                                       │
 │    /craft:do "fix bug"    /craft:check --for pr    /craft:smart-help   │
-│    /craft:test debug      /craft:arch:analyze      /craft:git:sync     │
+│    /craft:test debug      /craft:arch:analyze      /craft:git:status     │
 │                                                                         │
 │ 💡 TIP: Say "/craft:hub <category>" to see all commands in category    │
 │         Example: /craft:hub code                                        │
@@ -111,13 +111,15 @@ def _check_hub_display():
     print("=" * 70)
 
     checks = [
-        (f"Total commands: {stats['total']}", stats['total'] >= 100),
+        # Floors reflect the native-first prune (v3.0.0): 24 dead cmds removed,
+        # workflow/task/check namespaces gone, git/site trimmed to keep-aliases.
+        (f"Total commands: {stats['total']}", stats['total'] >= 59),
         (f"CODE category: {stats['categories'].get('code', 0)}", stats['categories'].get('code', 0) >= 12),
         (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) >= 0),
         (f"DOCS category: {stats['categories'].get('docs', 0)}", stats['categories'].get('docs', 0) >= 19),
-        (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) >= 11),
-        (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) >= 16),
-        (f"All categories present", len(stats['categories']) >= 12)
+        (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) >= 8),
+        (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) >= 8),
+        (f"All categories present", len(stats['categories']) >= 9)
     ]
 
     all_pass = True
