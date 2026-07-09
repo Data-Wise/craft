@@ -1116,6 +1116,68 @@ run_test \
 echo ""
 
 # --------------------------------------------------------------------------
+# Group 14b: stderr-redirect false-crash regression (2026-07-09)
+#
+# "cat file 2>&1" passes the coarse '>' guard (grep -qE '>[[:space:]]*[^>]'
+# — '&' satisfies "any non-'>' char") but the fine extraction pattern
+# (grep -oE '>[[:space:]]*[^>|&;[:space:]]+') explicitly excludes '&', so
+# it matches nothing. Under this script's `set -euo pipefail`, a bare
+# VAR=$(pipeline) assignment where the pipeline's last non-zero exit is
+# grep's "no match" (exit 1) kills the whole hook — silently, no stderr,
+# exit 1 instead of the normal 0 (allow) or 2 (block/confirm). Any command
+# containing 2>&1, 1>&2, etc. triggered this. Fixed by appending `|| true`
+# to each of the four BASH_TARGET extraction pipelines so a real no-match
+# behaves like the empty-string fallback the `[[ -z "$BASH_TARGET" ]]`
+# checks already handle, instead of crashing.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Stderr-Redirect False-Crash Regression ---${T_NC}"
+
+REPO_SR=$(init_repo)
+switch_branch "$REPO_SR" "dev"
+
+# The exact crash trigger: fine-extraction zero-match under set -e/pipefail.
+run_test \
+    "test_bash_stderr_redirect_2to1_no_crash" \
+    0 \
+    "$(json_bash "cat README.md 2>&1 | head -5" "$REPO_SR")" \
+    "$REPO_SR"
+
+# Same failure mode, different redirect direction.
+run_test \
+    "test_bash_stderr_redirect_1to2_no_crash" \
+    0 \
+    "$(json_bash "echo err 1>&2" "$REPO_SR")" \
+    "$REPO_SR"
+
+# /dev/null already had explicit handling (BASH_TARGET == /dev/* -> "") —
+# confirm it still works alongside the || true change.
+run_test \
+    "test_bash_stderr_redirect_devnull_allowed" \
+    0 \
+    "$(json_bash "ls nonexistent 2>/dev/null" "$REPO_SR")" \
+    "$REPO_SR"
+
+# A real write-through target MUST still be caught even when the same
+# command also contains a 2>&1 that would otherwise zero-match — the fix
+# must not weaken detection, only stop the crash.
+run_test \
+    "test_bash_stderr_redirect_plus_real_writethrough_still_blocked" \
+    2 \
+    "$(json_bash "echo x > new_file.py 2>&1" "$REPO_SR")" \
+    "$REPO_SR"
+
+# tee/cp/touch edge cases where the coarse guard matches but the fine
+# extraction can plausibly zero-match — must not crash either.
+run_test \
+    "test_bash_tee_no_target_no_crash" \
+    0 \
+    "$(json_bash "echo x | tee" "$REPO_SR")" \
+    "$REPO_SR"
+
+echo ""
+
+# --------------------------------------------------------------------------
 # Group 15: One-shot marker + Session counter (v2.17.0)
 # --------------------------------------------------------------------------
 

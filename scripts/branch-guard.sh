@@ -851,26 +851,36 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # Pattern 1: redirect to file (>, >>)  e.g. "echo x > file.py", "cat > file.py"
+      # The `|| true` on each extraction below is load-bearing under this
+      # script's `set -euo pipefail`: the coarse guard (grep -q, above) and
+      # the fine extraction pattern (grep -o, below) aren't always in sync —
+      # e.g. "cat file 2>&1" passes the coarse '>' check but the fine
+      # pattern excludes '&', so grep -o matches nothing and exits 1. In a
+      # bare `VAR=$(pipeline)` assignment, pipefail propagates that 1 and
+      # set -e kills the whole hook silently (no stderr) — exactly the
+      # "no match" case the `[[ -z "$BASH_TARGET" ]]` checks below already
+      # handle correctly. `|| true` makes a real no-match behave like the
+      # empty-string fallback it was always meant to be, instead of a crash.
       if [[ "$HAS_HEREDOC" == false ]] && echo "$COMMAND" | grep -qE '>[[:space:]]*[^>]'; then
         # Extract the target after the last >
-        BASH_TARGET="$(echo "$COMMAND" | grep -oE '>[[:space:]]*[^>|&;[:space:]]+' | tail -1 | sed 's/^>[[:space:]]*//')"
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE '>[[:space:]]*[^>|&;[:space:]]+' | tail -1 | sed 's/^>[[:space:]]*//' || true)"
       fi
 
       # Pattern 2: tee <file>  e.g. "echo x | tee file.py"
       if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'tee[[:space:]]+[^-]'; then
-        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'tee[[:space:]]+(-a[[:space:]]+)?[^|;&[:space:]]+' | head -1 | sed 's/^tee[[:space:]]*\(-a[[:space:]]*\)\{0,1\}//')"
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'tee[[:space:]]+(-a[[:space:]]+)?[^|;&[:space:]]+' | head -1 | sed 's/^tee[[:space:]]*\(-a[[:space:]]*\)\{0,1\}//' || true)"
       fi
 
       # Pattern 3: cp <src> <dst>  e.g. "cp template.py new.py"
       if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'cp[[:space:]]'; then
-        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}')"
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}' || true)"
       fi
 
       # Pattern 4: touch <file>  e.g. "touch .claude/allow-once"
       # (extensionless targets like guard-bypass markers use touch, not
       # redirection — patterns 1-3 alone never see them)
       if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*touch[[:space:]]'; then
-        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'touch[[:space:]]+[^|;&[:space:]]+' | tail -1 | sed 's/^touch[[:space:]]*//')"
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'touch[[:space:]]+[^|;&[:space:]]+' | tail -1 | sed 's/^touch[[:space:]]*//' || true)"
       fi
 
       # Device/pseudo-file targets (2>/dev/null, >/dev/tty, etc.) are stream
