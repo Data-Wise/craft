@@ -5,7 +5,17 @@
 > **Worktree:** `~/.git-worktrees/craft/feature-craft-native-first-breakup` (not yet created — ORCHESTRATE-only)
 > **Spec:** `docs/specs/SPEC-craft-native-first-breakup-2026-07-09.md`
 > **Grill:** `docs/specs/GRILL-craft-refactor-2026-07-09.md`
-> **Status:** PLAN — not started. Exploration/planning only; no code touched.
+> **Status:** ⏹ CLOSED (2026-07-09). Phase 1 SHIPPED (PR #279 → dev, `4fa44fbb`);
+> Phases 2–3 DROPPED — native-first thinning refuted. See the OUTCOME block in the
+> [SPEC](../specs/SPEC-craft-native-first-breakup-2026-07-09.md) and memory
+> `native-first-thinning-refuted-for-craft-dev-ops`.
+
+> **OUTCOME:** Phase 0 recon revised "delete 39" → delete 24, then ADR-002 held 3
+> rich-body → **21 pruned (115→94)**. Phase 1b excluded dead docs from the built
+> site. A Stage-2 workflow (3 pilots × 4-axis gate + routing test) returned **NO-GO
+> on Phase 2** (router can't dispatch cross-plugin; 3/3 replacements not ≥ craft).
+> Phase 3 `folio` split dropped with it. The phase table below is the *original*
+> plan, retained for the record — it is NOT a live checklist.
 
 ## Objective
 
