@@ -104,7 +104,7 @@ docs/reference/REFCARD-DOCS-STALENESS.md:97 commands
 docs/reference/REFCARD-DOCS-STALENESS.md:99 commands
 
 # Excluded from mkdocs site (working artifacts)
-docs/FEATURE-RELEASE-CLAUDE-MD.md
+docs/archive/FEATURE-RELEASE-CLAUDE-MD.md
 docs/internal/PROPOSAL-superpowers-claude-context-workflows.md
 
 # ---------------------------------------------------------------------------

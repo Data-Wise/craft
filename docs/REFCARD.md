@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.61.0 (released 2026-06-19)                       │
-│  Commands: 117 | Agents: 8 | Skills: 45                     │
-│  Documentation: 99% complete | Tests: 142 passing            │
+│  Version: 2.61.2 (released 2026-07-09)                       │
+│  Commands: 115 | Agents: 8 | Skills: 45                     │
+│  Documentation: 99% complete | Tests: 2056+ passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.61.0: Documentation Coverage — Tutorial Suite            │
+│  v2.61.2: Guard Suite Consolidation                          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
