@@ -427,4 +427,4 @@ After completing this tutorial:
 - [Badge Management Guide](../guide/badge-management.md) - Comprehensive reference
 - [Site Commands](../commands/site.md) - Site update and deployment
 - [CI Generate Command](../commands/ci/generate.md) - CI validation reference
-- [SPEC: Badge System](../specs/_archive/SPEC-badge-system-2026-01-30.md) - Implementation spec
+- [SPEC: Badge System](https://github.com/Data-Wise/craft/blob/main/docs/specs/_archive/SPEC-badge-system-2026-01-30.md) - Implementation spec
