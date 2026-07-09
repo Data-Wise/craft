@@ -429,14 +429,14 @@ mytool --config "$CONFIG"
 
 ```bash
 # Test in all modes
-CRAFT_MODE=debug bash .claude-plugin/skills/validation/my-validator.md
-CRAFT_MODE=default bash .claude-plugin/skills/validation/my-validator.md
-CRAFT_MODE=optimize bash .claude-plugin/skills/validation/my-validator.md
-CRAFT_MODE=release bash .claude-plugin/skills/validation/my-validator.md
+CRAFT_MODE=debug bash commands/my-validator.md
+CRAFT_MODE=default bash commands/my-validator.md
+CRAFT_MODE=optimize bash commands/my-validator.md
+CRAFT_MODE=release bash commands/my-validator.md
 
 # Test with missing tools
 mv $(which mytool) $(which mytool).bak
-bash .claude-plugin/skills/validation/my-validator.md
+bash commands/my-validator.md
 mv $(which mytool).bak $(which mytool)
 
 # Test with different project types
@@ -519,7 +519,7 @@ my-craft-validator/
 ## Installation
 
 ```bash
-curl -o .claude-plugin/skills/validation/my-validator.md \
+curl -o commands/my-validator.md \
   https://raw.githubusercontent.com/user/repo/main/validator.md
 ```
 
@@ -536,7 +536,7 @@ curl -o .claude-plugin/skills/validation/my-validator.md \
 
 ```bash
 # Test the validator
-CRAFT_MODE=default bash .claude-plugin/skills/validation/my-validator.md
+CRAFT_MODE=default bash commands/my-validator.md
 
 # Use with /craft:check
 /craft:check

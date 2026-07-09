@@ -488,6 +488,7 @@ nav:
     - Documentation Quality Development: guide/documentation-quality-development.md
     - CI/CD Templates: CI-TEMPLATES.md
     - CI Detection Rollout: CI-DETECTION-ROLLOUT.md
+    - Validator Best Practices: VALIDATOR-BEST-PRACTICES.md
     - Internal Conventions:
       - Overview: internal/README.md
       - CLAUDE.md Conventions: internal/CLAUDE-MD-CONVENTIONS.md
