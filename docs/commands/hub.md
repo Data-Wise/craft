@@ -160,7 +160,7 @@ Display template:
 │   /craft:docs:mermaid              /craft:ci:validate                  │
 │   /craft:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ GIT (15 incl. 4 guides)          WORKFLOW (5)                          │
+│ GIT (9 incl. 4 guides)          WORKFLOW (1)                          │
 │   /craft:git:worktree              /brainstorm [depth|focus] "topic"   │
 │   /craft:git:sync                  /workflow:focus                     │
 │   /craft:git:branch                /workflow:done                      │
@@ -170,7 +170,7 @@ Display template:
 │   /craft:git:protect             DIST (5)                               │
 │   /craft:git:unprotect             /craft:dist:marketplace             │
 │                                    /craft:dist:homebrew                 │
-│ SITE (16)                          /craft:dist:curl-install             │
+│ SITE (8)                          /craft:dist:curl-install             │
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
 │   /craft:site:check              ORCHESTRATE (3)                        │
@@ -453,7 +453,7 @@ Branch Protection (v2.16.0):
 ### `/craft:hub workflow`
 
 ```
-WORKFLOW COMMANDS (5) - ADHD-Friendly Workflow Management
+WORKFLOW COMMANDS (1) - ADHD-Friendly Workflow Management
 ────────────────────────────────────────────────────────────────────────
 Brainstorming:
   /brainstorm "topic"                | Default depth (2 questions)
@@ -485,7 +485,7 @@ Insights (v2.21.0):
 ### `/craft:hub site`
 
 ```
-SITE COMMANDS (16) - Documentation Sites
+SITE COMMANDS (8) - Documentation Sites
 ─────────────────────────────────────────────────────────────────────────
 Command                  | R Package        | Other (MkDocs)
 ─────────────────────────┼──────────────────┼─────────────────────

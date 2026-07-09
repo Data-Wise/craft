@@ -328,10 +328,10 @@ This skill replaces the 11 commands and 4 reference docs under `commands/git/` d
 | `/craft:git:protect` | 8 (Local Protection — now includes the `--audit` gap-diff wizard, absorbed from the standalone `protect.md`) |
 | `/craft:git:protect-baseline` | 9 (GitHub-Side Protection — unchanged, stays a separate cross-linked command, not folded) |
 | `/craft:git:unprotect` | 10 (Session Bypass — unchanged, already a thin shim) |
-| `commands/git/docs/learning-guide.md` (shim → `skills/dev/git/references/learning-guide.md`) | 11 (Reference: learning) |
+| `skills/dev/git/references/learning-guide.md` (command shim removed in v3.0.0 prune; content lives here) | 11 (Reference: learning) |
 | `commands/git/docs/refcard.md` | 11 (Reference: refcard) |
-| `commands/git/docs/safety-rails.md` (shim → `skills/dev/git/references/safety-rails.md`) | 11 (Reference: safety rails) |
-| `commands/git/docs/undo-guide.md` (shim → `skills/dev/git/references/undo-guide.md`) | 11 (Reference: undo) |
+| `skills/dev/git/references/safety-rails.md` (command shim removed in v3.0.0 prune; content lives here) | 11 (Reference: safety rails) |
+| `skills/dev/git/references/undo-guide.md` (command shim removed in v3.0.0 prune; content lives here) | 11 (Reference: undo) |
 | `/craft:git:guard` | 12 (Guard Registry CLI — new, absorbed from the standalone `guard.md`) |
 
 Both invocation paths work during the deprecation cycle. The skill auto-fires on natural-language match; explicit `/craft:git:*` paths continue to function until v3.0.0.
