@@ -413,6 +413,7 @@ nav:
     - CLAUDE.md API Reference: API-REFERENCE-CLAUDE-MD.md
     - Commands API Reference: API-REFERENCE-COMMANDS.md
     - Instruction Enforcement: reference/claude-code-instruction-enforcement.md
+    - News: NEWS.md
     - Changelog: CHANGELOG.md
     - Version History: VERSION-HISTORY.md
     - Release Notes v2.8.0: RELEASE-v2.8.0.md
