@@ -1,12 +1,37 @@
 ---
 title: "SPEC — Craft Native-First Breakup (craft + folio)"
 date: 2026-07-09
-status: draft
+status: partial — Phase 1 shipped; Phases 2–3 dropped (premise refuted)
 type: spec
 supersedes: GRILL-craft-refactor-2026-07-09.md (consolidates its 7 branches + 4 new)
 source: docs/ideas/craft-refactor-proposal.html (Reviews #1, #2, Proposal v2)
 next: /craft:plan tier 4 → ORCHESTRATE-craft-native-first-breakup.md
 ---
+
+> ## ⏹ OUTCOME (2026-07-09) — native-first thinning REFUTED; ship Phase 1 only
+>
+> A Stage-2 workflow empirically tested the native-first premise (3 pilots + 4-axis
+> gate + cross-plugin routing test). **Result: NO-GO on Phase 2**, two independent blockers:
+>
+> 1. **The `do`/`hub` router structurally cannot dispatch cross-plugin** — it routes only
+>    craft's own commands + own skills (`guard:audit`/`insights:apply`); no path to native
+>    (`/simplify`) or third-party (`agent-skills:*`) skills.
+> 2. **3/3 pilots = thin-keep, none thin-route** — the "better plugin" replacements aren't
+>    ≥ craft on all 4 axes: native reviewers/refactor are weaker or auto-apply; the complete
+>    matches are third-party; `ci:generate` fails 4/4 (craft ships 11 language templates, the
+>    skill generates nothing). Delegating also loses craft's ADHD UX.
+>
+> **The "craft reinvents worse wheels" hypothesis was tested and refuted for these commands** —
+> craft's dev-ops commands are better-tuned than the generic alternatives. The 4-axis gate did
+> its job: it stopped deletion of working, superior functionality.
+>
+> **SHIPPED (v3.0.0 increment, feature/craft-native-first-breakup):**
+>
+> - Phase 1a — pruned 21 dead-namespace commands (115→94); 3 rich-body held per ADR-002.
+> - Phase 1b — dead docs (specs/plans/archive) excluded from built site.
+>
+> **DROPPED:** Phase 2 (cascade thinning — premise refuted); Phase 3 folio split (rationale
+> was partly native-first; any revisit must stand purely on docs-maintenance merits, grilled fresh).
 
 # SPEC — Craft Native-First Breakup
 
