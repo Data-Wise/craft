@@ -2,6 +2,14 @@
 
 > **Repo:** `~/projects/dev-tools/craft` · **Branch:** `dev` · **Date:** 2026-07-09
 > **Status:** Proposed, not yet implemented. Scoped narrowly on purpose — see §0.
+> **QUEUED BEHIND the v4 surface work (sequencing note, 2026-07-09 dev session):** grill this
+> spec only AFTER the v4 surface consolidation roster is pinned —
+> `BRAINSTORM-craft-v4-skills-first-surface-2026-07-09.md` proposes orch 3→1 (`orch` absorbs
+> `drive`/`workflow` as flags), which relocates this spec's §6 file targets
+> (`commands/orch/drive.md` may cease to exist as a file). The `domain-gate` CONCEPT is
+> unaffected; only §6's paths go stale. Grill angles to add when its turn comes: §6 staleness
+> against the post-v4 surface, and the external-content dependency policy (vendored vs fetched
+> agent-skills content — staleness/drift/licensing undecided).
 > **Builds on:** `SPEC-orchestrator-consolidation-2026-07-04.md` (SPEC-C) and the
 > pending agent-skills-as-4th-mode ADR (referenced there, not yet filed as an
 > ADR file). Does not reopen or contradict either.
