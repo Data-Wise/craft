@@ -167,14 +167,28 @@ not an orchestration of moved subcommands.
 - [ ] **GATE 3** (ask): all green at 69 → but the PR holds for the 3.5 rider (one breaking
       train).
 
-## Phase 3.5: v4 Surface Rider (~22 commands) — NEEDS ROSTER GRILL FIRST
+## Phase 3.5: v4 Surface Rider (26 commands) — ✅ ROSTER GRILLED + LOCKED
 
-Per `BRAINSTORM-craft-v4-skills-first-surface-2026-07-09.md`: kill the 27 deprecated shims
-(ADR-002 salvage gate — ~12% rich-body base rate; per-skill slash-invocability check, nested
-skills excepted) · kill 2 teaching-residue utils · demote discovery-usage · subcommand
-consolidation (ci 8→1, arch 4→1, code-audits 5→1, orch 3→1, plan 2→1). Re-baseline
-`ci.yml:92` to `-lt 18`. **Blocked on:** the 22-roster grill + salvage list.
-Same feature-branch family, same MIGRATION-v4.md, same cascade run.
+Roster locked 2026-07-09: `GRILL-craft-v4-roster-2026-07-09.md` (R1–R4) + full disposition
+table `ROSTER-craft-v4-disposition-2026-07-09.md`. **18 keep + 5 micro-shims (next, done,
+refine, brainstorm, check) + 3 new routers (ci, arch, code:audit) = 26.**
+
+- [ ] 3.5.1 The **12 salvage diffs** (R2 gate: every dying shim >150L, body-vs-skill →
+      unique logic into `references/` first): dist:{pypi, marketplace, curl-install},
+      claude-md trio, check (315L→micro-shim), check:gen-validator, git:{docs:refcard,
+      worktree}, code:demo, workflow:insights.
+- [ ] 3.5.2 Kill 22 shims + 2 teaching utils; demote discovery-usage → docs page.
+- [ ] 3.5.3 The 5 consolidations (R3 shape: ~60L router + verbatim bodies →
+      `skills/<x>/references/<sub>.md`, ADR-002 line-conservation diff each):
+      ci(8), arch(4), code:audit(5) new; orch absorbs drive+workflow; plan absorbs feature.
+- [ ] 3.5.4 Cascade: `bump-version.sh --counts-only` at 26 · **hub.md regenerated against the
+      26** · `ci.yml:92` re-baselined `-lt 18` · MIGRATION-v4 rows for every killed/
+      consolidated name.
+- [ ] 3.5.5 Suites (pytest + bash) green at 26; per-skill slash-invocability spot-checks for
+      the killed shims' skills (nested skills excepted — keep micro-shim if not invocable).
+
+Same feature-branch family, same MIGRATION-v4.md, same v4.0.0 train. Tolerance ±2 with
+ledger-recorded deviations.
 
 ---
 
