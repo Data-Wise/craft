@@ -1178,6 +1178,81 @@ run_test \
 echo ""
 
 # --------------------------------------------------------------------------
+# Group 14c: heredoc-prose false-positive regression (2026-07-10)
+#
+# HAS_HEREDOC was only wired to Pattern 1 (redirect). grep is line-oriented,
+# so a heredoc body (e.g. a `git commit -m "$(cat <<'EOF' ... EOF)"` message)
+# containing a prose line that happens to start with "touch "/"tee "/match
+# "cp <word> <word>" was scanned as if it were real shell syntax by Patterns
+# 2-4, extracting a bogus BASH_TARGET and firing bash_write_through on plain
+# commit-message text. Fixed by gating Patterns 2-4 on HAS_HEREDOC == false,
+# same as Pattern 1.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Heredoc-Prose False-Positive Regression ---${T_NC}"
+
+REPO_HP=$(init_repo)
+switch_branch "$REPO_HP" "dev"
+
+# jq -Rn (not json_bash's raw printf interpolation) to correctly escape the
+# embedded newlines/quotes a real multi-line heredoc command contains.
+json_bash_multiline() {
+    local command="$1"
+    local cwd="$2"
+    jq -Rn --arg cmd "$command" --arg cwd "$cwd" \
+        '{tool_name:"Bash",tool_input:{command:$cmd},cwd:$cwd}'
+}
+
+# The exact false-positive trigger: "touch " as prose inside a heredoc body.
+HEREDOC_TOUCH_CMD='git commit -m "$(cat <<'"'"'EOF'"'"'
+fix: repro test
+
+touch exit code was verified as part of this fix
+EOF
+)"'
+run_test \
+    "test_bash_heredoc_prose_touch_no_false_confirm" \
+    0 \
+    "$(json_bash_multiline "$HEREDOC_TOUCH_CMD" "$REPO_HP")" \
+    "$REPO_HP"
+
+# Same class, tee prose.
+HEREDOC_TEE_CMD='git commit -m "$(cat <<'"'"'EOF'"'"'
+fix: pipeline change
+
+tee output to the log for visibility
+EOF
+)"'
+run_test \
+    "test_bash_heredoc_prose_tee_no_false_confirm" \
+    0 \
+    "$(json_bash_multiline "$HEREDOC_TEE_CMD" "$REPO_HP")" \
+    "$REPO_HP"
+
+# Same class, cp prose.
+HEREDOC_CP_CMD='git commit -m "$(cat <<'"'"'EOF'"'"'
+fix: docs move
+
+cp old-name to new-name in the changelog entry
+EOF
+)"'
+run_test \
+    "test_bash_heredoc_prose_cp_no_false_confirm" \
+    0 \
+    "$(json_bash_multiline "$HEREDOC_CP_CMD" "$REPO_HP")" \
+    "$REPO_HP"
+
+# Regression must not weaken real detection: a genuine touch of a new code
+# file OUTSIDE any heredoc must still be caught.
+run_test \
+    "test_bash_touch_real_writethrough_still_blocked" \
+    2 \
+    "$(json_bash "touch new_file.py" "$REPO_HP")" \
+    "$REPO_HP"
+
+echo ""
+
+# --------------------------------------------------------------------------
 # Group 15: One-shot marker + Session counter (v2.17.0)
 # --------------------------------------------------------------------------
 

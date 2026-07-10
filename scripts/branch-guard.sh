@@ -867,19 +867,23 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # Pattern 2: tee <file>  e.g. "echo x | tee file.py"
-      if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'tee[[:space:]]+[^-]'; then
+      # HAS_HEREDOC gate (see Pattern 1 comment above) applies here too —
+      # grep is line-oriented, so a heredoc body line that happens to start
+      # with "tee "/"touch "/contain "cp <word> <word>" as prose is
+      # indistinguishable from real shell syntax without it.
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'tee[[:space:]]+[^-]'; then
         BASH_TARGET="$(echo "$COMMAND" | grep -oE 'tee[[:space:]]+(-a[[:space:]]+)?[^|;&[:space:]]+' | head -1 | sed 's/^tee[[:space:]]*\(-a[[:space:]]*\)\{0,1\}//' || true)"
       fi
 
       # Pattern 3: cp <src> <dst>  e.g. "cp template.py new.py"
-      if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'cp[[:space:]]'; then
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'cp[[:space:]]'; then
         BASH_TARGET="$(echo "$COMMAND" | grep -oE 'cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}' || true)"
       fi
 
       # Pattern 4: touch <file>  e.g. "touch .claude/allow-once"
       # (extensionless targets like guard-bypass markers use touch, not
       # redirection — patterns 1-3 alone never see them)
-      if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*touch[[:space:]]'; then
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*touch[[:space:]]'; then
         BASH_TARGET="$(echo "$COMMAND" | grep -oE 'touch[[:space:]]+[^|;&[:space:]]+' | tail -1 | sed 's/^touch[[:space:]]*//' || true)"
       fi
 
