@@ -75,11 +75,23 @@ At Step 13.6, the pipeline:
 
 ## Step 4: Manual Cowork update (WARN — non-blocking)
 
-The Cowork store requires a manual update after each release:
+The Cowork store requires a manual update after each release. **In-app "Update" reliably
+no-ops** once the marketplace clone has gone stale (craft#199) — don't rely on it as the fix.
+The path that actually works:
 
-1. Open the Cowork app
-2. Navigate to Plugins → craft → Update
-3. Confirm the version matches the release
+1. Open the Cowork app → Plugins → craft
+2. **Uninstall** craft (not "Update")
+3. Reinstall it from its marketplace
+4. Fully quit the app: `Cmd-Q` (an in-app restart is not enough)
+5. Relaunch and confirm the version matches the release
+
+Run `scripts/cowork-recover.sh` first to check whether this is even needed — it diagnoses the
+drift, quantifies it as N releases behind, and prints these same steps only if a mismatch is
+actually found:
+
+```bash
+./scripts/cowork-recover.sh
+```
 
 The Cowork WARN in the release report will clear once the store is updated and the next
 `/craft:dist:surfaces` run detects alignment.
@@ -117,7 +129,7 @@ Expected output when all surfaces are aligned:
 |---------|-----------|-----|
 | Aggregator CI fails | `gh run list --workflow=aggregator-sync.yml` | Check App permissions; re-run workflow |
 | BLOCK surface mismatch | `scripts/verify-surfaces.sh` output | Fix lagging surface; re-run verify |
-| Cowork WARN persistent | Manual update pending | Update Cowork store manually |
+| Cowork WARN persistent | Manual update pending, or in-app Update no-op'd (craft#199) | `scripts/cowork-recover.sh` — diagnoses + prints the uninstall/reinstall/Cmd-Q steps |
 | `--skip-surfaces` used | Surfaces not verified | Re-run `scripts/verify-surfaces.sh` manually |
 
 ---

@@ -203,7 +203,26 @@ These are informational — they are recorded in the `.STATUS` surfaces matrix v
 
 The Cowork surface tracks craft via its own plugin registry (separate GUI store). The pipeline
 generates a Cowork report and queues a remind. A mismatch here is WARN only — the Cowork store
-requires a manual `claude plugin marketplace add` update outside the automated pipeline.
+requires a manual `claude plugin marketplace add` update outside the automated pipeline. A
+mismatch is now quantified as **N releases behind** (not just "mismatch") in both the human
+report and `--json`'s `releasesBehind` field on the `cowork` leg — a bare WARN is easy to let
+ride silently for months; a number forces attention (craft#199).
+
+> **Do not conflate this with the "Code-registered" / `@local-plugins` leg above.** They are
+> different surfaces on different machines: Code-registered is the **CLI**'s own plugin registry
+> (`~/.claude/plugins/installed_plugins.json`), fixed automatically by `claude plugin update` —
+> Cowork/Claude Desktop is a **separate GUI app** with its own registry and no automated update
+> path. craft#199 was closed as "resolved" once, citing a release that only fixed the
+> Code-registered/`@local-plugins` leg's verification — the actual Cowork/Desktop bug went
+> unnoticed for 10 releases because the two surfaces share the confusingly similar
+> `@local-plugins` naming. When writing a CHANGELOG entry or closing an issue about either
+> surface, name it explicitly (e.g. "Code-registered (`@local-plugins`)" vs. "Cowork/Desktop") —
+> never a bare "Cowork" label pointing at code that doesn't touch the Cowork surface.
+
+**Recovery when the Cowork leg warns:** run `scripts/cowork-recover.sh <plugin-name>` — it
+reuses this same diagnosis and prints the exact manual steps (uninstall → reinstall → full
+`Cmd-Q` relaunch in the Desktop app; a same-session in-app "Update" reliably no-ops on this
+surface). See the script's own header for detail.
 
 **Pre-ship gate (manual, one-time per App setup):**
 
@@ -242,7 +261,7 @@ fi
 | brew-installed | WARN | `brew list --versions <name>` | warn only | `SURFACES_BREW_VERSION` |
 | Code-registered | WARN | `~/.claude/plugins/installed_plugins.json` | warn only | `SURFACES_INSTALLED_PLUGINS` |
 | aggregator | BLOCK | aggregator `marketplace.json` entry | exit 1 | `--aggregator-file` |
-| Cowork | WARN | `cowork_plugins/` store | warn only | `SURFACES_COWORK_STORE` |
+| Cowork | WARN | `cowork_plugins/` store | warn only, quantified as N releases behind | `SURFACES_COWORK_STORE` |
 | Desktop | INFO | DXT store | info only | — |
 
 An **absent/unreadable** source is `⚠️ not verified` — it does NOT block. Only a

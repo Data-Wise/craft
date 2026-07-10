@@ -176,6 +176,33 @@ resolve_git_tag() {
     git -C "$REPO_DIR" tag --list 'v[0-9]*' 2>/dev/null | sed 's/^v//' | sort -rV | head -1
 }
 
+# count_releases_behind <lagging_version> <current_version> — how many release
+# tags separate the two, by position in the sorted-ascending tag list. Prints
+# nothing (not "0") if either version has no matching tag — e.g. a repo that
+# isn't tagged yet, or a version older than tagging started — so callers can
+# tell "no count available" apart from "zero releases behind".
+#
+# Why this exists: a WARN-only leg (e.g. Cowork) reporting bare "mismatch" is
+# easy to let ride silently for a long time — a quantified "10 releases behind"
+# is the detail that forces attention. See craft#199's reopen: the Cowork leg
+# sat mismatched across ~10 releases before anyone noticed.
+count_releases_behind() {
+    local lagging="$1" current="$2"
+    [[ -z "$lagging" || -z "$current" ]] && return 0
+    local tags
+    tags="$(git -C "$REPO_DIR" tag --list 'v[0-9]*' 2>/dev/null | sed 's/^v//' | sort -V)"
+    [[ -z "$tags" ]] && return 0
+    local lagging_idx="" current_idx="" idx=0 t
+    while IFS= read -r t; do
+        idx=$((idx + 1))
+        [[ "$t" == "$lagging" ]] && lagging_idx=$idx
+        [[ "$t" == "$current" ]] && current_idx=$idx
+    done <<< "$tags"
+    [[ -z "$lagging_idx" || -z "$current_idx" ]] && return 0
+    local behind=$((current_idx - lagging_idx))
+    [[ $behind -gt 0 ]] && echo "$behind"
+}
+
 resolve_tap_formula() {
     local formula="${SURFACES_TAP_FORMULA:-}"
     if [[ -z "$formula" ]]; then
@@ -339,7 +366,14 @@ add_leg "github release"  "$(resolve_github_release)"
 add_leg "docs site"       "$(resolve_docs_site)"
 [[ -n "$AGG_FILE" ]] && add_leg "aggregator" "$(resolve_aggregator)"
 # Cowork: WARN-only leg (manual surface, separate GUI store).
-add_warn_leg "cowork" "$(resolve_cowork)"
+COWORK_VERSION="$(resolve_cowork)"
+add_warn_leg "cowork" "$COWORK_VERSION"
+# Quantify a genuine mismatch (not absent, not corrupt) with a releases-behind
+# count — see count_releases_behind's own comment for why this matters.
+COWORK_BEHIND=""
+if [[ -n "$COWORK_VERSION" && "$COWORK_VERSION" != "__CORRUPT__" && "$COWORK_VERSION" != "$SOT_VERSION" ]]; then
+    COWORK_BEHIND="$(count_releases_behind "$COWORK_VERSION" "$SOT_VERSION")"
+fi
 
 # ---------------------------------------------------------------------------
 # Render
@@ -364,8 +398,14 @@ if [[ "$JSON_MODE" == true ]]; then
     printf '  "legs": [\n'
     for i in "${!LEG_LABEL[@]}"; do
         sep=","; [[ $i -eq $((${#LEG_LABEL[@]} - 1)) ]] && sep=""
-        printf '    {"surface": "%s", "version": "%s", "state": "%s"}%s\n' \
-            "${LEG_LABEL[$i]}" "${LEG_VERSION[$i]}" "${LEG_STATE[$i]}" "$sep"
+        if [[ "${LEG_LABEL[$i]}" == "cowork" ]]; then
+            behind_json="null"; [[ -n "$COWORK_BEHIND" ]] && behind_json="$COWORK_BEHIND"
+            printf '    {"surface": "%s", "version": "%s", "state": "%s", "releasesBehind": %s}%s\n' \
+                "${LEG_LABEL[$i]}" "${LEG_VERSION[$i]}" "${LEG_STATE[$i]}" "$behind_json" "$sep"
+        else
+            printf '    {"surface": "%s", "version": "%s", "state": "%s"}%s\n' \
+                "${LEG_LABEL[$i]}" "${LEG_VERSION[$i]}" "${LEG_STATE[$i]}" "$sep"
+        fi
     done
     printf '  ],\n'
     printf '  "desktop": "warn",\n'
@@ -383,7 +423,12 @@ else
             corrupt)      note="  <- CORRUPT JSON (blocks release)" ;;
             name-mismatch) note="  <- NAME MISMATCH (blocks release)" ;;
             absent)       note="  (unreadable — not verified)"; local_ver="N/A" ;;
-            warn)         note="  (warn only — manual surface)" ;;
+            warn)
+                note="  (warn only — manual surface)"
+                if [[ "${LEG_LABEL[$i]}" == "cowork" && -n "$COWORK_BEHIND" ]]; then
+                    note="  (warn only — manual surface, ${COWORK_BEHIND} release(s) behind)"
+                fi
+                ;;
             corrupt-warn) note="  (unparseable — warn only)"; local_ver="N/A" ;;
         esac
         printf '  %b %-16s %s%s\n' "$(glyph_for "${LEG_STATE[$i]}")" "${LEG_LABEL[$i]}" "$local_ver" "$note"
