@@ -235,16 +235,9 @@ Specialized workflows for teaching projects with automated validation, semester 
 | Command                                | Description                                                                                   |
 | -------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `/brainstorm [depth] [focus] [action]` | Enhanced brainstorming with smart detection, design modes, time budgets, and agent delegation |
-| `/spec-review <file>`                  | Interactive spec review with validation, status updates, and archival                         |
-| `/focus [task]`                        | Enter focus mode for deep work on a specific task                                             |
 | `/next`                                | Get next task recommendation                                                                  |
 | `/done [message]`                      | Mark current task as complete                                                                 |
-| `/recap`                               | Generate session summary and progress report                                                  |
-| `/stuck [description]`                 | Get help when blocked on a task                                                               |
 | `/refine <spec-file>`                  | Refine and improve existing spec documents                                                    |
-| `/task-status [task-id]`               | Check status of background tasks                                                              |
-| `/task-output <task-id>`               | Get output from completed task                                                                |
-| `/task-cancel <task-id>`               | Cancel running background task                                                                |
 
 **Brainstorming Modes:**
 
@@ -368,35 +361,24 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 | Command                   | Description                                                              |
 | ------------------------- | ------------------------------------------------------------------------ |
-| `/craft:site:create`      | Full documentation site wizard with 8 design presets                     |
-| `/craft:site:nav`         | **NEW v1.9.0** Navigation reorganization (ADHD-friendly, max 7 sections) |
-| `/craft:site:audit`       | **NEW v1.9.0** Content inventory & audit (outdated, duplicates, gaps)    |
-| `/craft:site:consolidate` | **NEW v1.9.0** Merge duplicate/overlapping documentation files           |
 | `/craft:site:update`      | Update site content from code changes                                    |
 | `/craft:site:status`      | Dashboard and health check                                               |
-| `/craft:site:theme`       | Quick theme changes (colors, presets, fonts)                             |
-| `/craft:site:add`         | Add new documentation pages                                              |
 | `/craft:site:build`       | Build site                                                               |
-| `/craft:site:preview`     | Preview locally                                                          |
 | `/craft:site:deploy`      | Deploy to GitHub Pages                                                   |
-| `/craft:site:init`        | Basic initialization (use `create` for full wizard)                      |
 
 ### Git Commands (10 + 4 guides)
 
 | Command                       | Description                                                                                  |
 | ----------------------------- | -------------------------------------------------------------------------------------------- |
-| `/craft:git:init`             | Initialize repository with craft workflow                                                    |
 | `/craft:git:branch`           | Branch management                                                                            |
 | `/craft:git:status`           | Enhanced git status (teaching-aware)                                                         |
-| `/craft:git:sync`             | Smart git sync                                                                               |
 | `/craft:git:clean`            | Clean merged branches                                                                        |
-| `/craft:git:recap`            | Activity summary                                                                             |
 | `/craft:git:worktree`         | **NEW v1.8.0** Parallel development with git worktrees                                       |
 | `/craft:git:protect`          | Manage local hook (`branch-guard.sh`) — 3-tier risk classification                           |
 | `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side branch protection (PR required, no force-push, no delete)        |
 | `/craft:git:unprotect`        | Session-scoped bypass for the local hook                                                     |
 
-**Git Guides:** refcard, undo-guide, safety-rails, learning-guide
+**Git Guides:** refcard
 
 ### CI Commands (3)
 
@@ -458,7 +440,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ### Daily Development
 
 ```
-/craft:check → /craft:test unit → /craft:git:sync
+/craft:check → /craft:test unit
 ```
 
 ### Release Preparation
@@ -499,16 +481,6 @@ Specialized workflows for teaching projects with automated validation, semester 
 ### Site Workflow
 
 ```
-# Create new documentation site with design preset
-/craft:site:create --preset adhd-focus
-
-# Change theme quickly
-/craft:site:theme --preset adhd-calm
-/craft:site:theme --primary "#1a73e8"
-
-# Add new pages
-/craft:site:add guide "Getting Started"
-
 # Update content from code changes
 /craft:site:update
 

@@ -308,7 +308,6 @@ validation:
 
 **Site commands:**
 
-- [Site Create](commands/site.md#craftsitecreate) - Documentation site wizard
 - [Site Deploy](commands/site.md#craftsitedeploy) - Direct GitHub Pages deployment
 - [Site Check](commands/site.md#craftsitecheck) - Health validation
 
@@ -316,4 +315,3 @@ validation:
 
 - [Git Worktree](commands/git.md#craftgitworktree) - Parallel development
 - [Git Branch](commands/git.md) - Branch management
-- [Git Sync](commands/git.md#craftgitsync) - Smart synchronization

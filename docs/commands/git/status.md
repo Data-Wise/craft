@@ -120,7 +120,6 @@ Automatically highlights:
 
 ## See Also
 
-- [/craft:git:sync](sync.md) — Smart git synchronization
 - [/craft:git:branch](branch.md) — Branch management
 - [/craft:git:protect](protect.md) — Branch protection management
 - [/craft:git:unprotect](unprotect.md) — Temporary bypass

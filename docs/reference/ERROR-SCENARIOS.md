@@ -126,10 +126,7 @@ Ensure .craft/config.yml exists
 **Recovery**:
 
 ```bash
-# Initialize Craft config
-/craft:git:init
-
-# Or manually create config
+# Manually create config
 mkdir -p .craft
 echo "version: 1" > .craft/config.yml
 ```
@@ -563,68 +560,6 @@ Uncovered:
 
 ## Git Commands Error Scenarios
 
-### /craft:git:sync
-
-#### Error: Merge Conflict
-
-**Code**: `1300` | **Severity**: Error | **Frequency**: Common
-
-```
-Error: Merge conflict detected
-
-Conflicted files:
-  - src/auth.ts (2 conflicts)
-  - package.json (1 conflict)
-
-Resolve manually or use: git mergetool
-```
-
-**Recovery**:
-
-```bash
-# Option 1: Use visual merge tool
-git mergetool
-
-# Option 2: Abort and retry with rebase
-git merge --abort
-/craft:git:sync --rebase
-
-# Option 3: Keep current version
-git checkout --ours .
-git add .
-git commit -m "merge: keep our version"
-```
-
----
-
-#### Error: Diverged Branch
-
-**Code**: `1300` | **Severity**: Error | **Frequency**: Common
-
-```
-Error: Branch has diverged from origin
-Local: 5 commits ahead
-Remote: 3 commits ahead
-
-Sync would lose history
-```
-
-**Recovery**:
-
-```bash
-# Option 1: Rebase onto remote
-/craft:git:sync --rebase
-
-# Option 2: Merge remote branch
-/craft:git:sync --no-rebase
-
-# Option 3: Force local (DANGEROUS)
-/craft:git:sync --force
-# Only use if you're sure!
-```
-
----
-
 ### /craft:git:worktree
 
 #### Error: Worktree Already Exists
@@ -895,10 +830,7 @@ Fix the markdown and retry
 # Option 1: Fix markdown syntax
 # Edit docs/guides/index.md
 
-# Option 2: Preview to see issues
-/craft:site:preview
-
-# Option 3: Use dry-run to get details
+# Option 2: Use dry-run to get details
 /craft:site:build --dry-run
 ```
 
@@ -920,14 +852,8 @@ Available themes:
 **Recovery**:
 
 ```bash
-# Option 1: Use available theme
-/craft:site:init mkdocs
-
-# Option 2: Install theme
+# Install the theme
 pip install mkdocs-material
-
-# Option 3: Use default theme
-/craft:site:init
 ```
 
 ---
@@ -1073,7 +999,6 @@ Line 12: Invalid YAML syntax
 
 # Option 2: Restore defaults
 rm .craft/config.yml
-/craft:git:init
 
 # Option 3: Show correct syntax
 /craft:smart-help
@@ -1121,7 +1046,6 @@ npm install missing-package
 
 # Reset to defaults
 rm -rf .craft
-/craft:git:init
 
 # Reconfigure
 /craft:docs:claude-md --sync

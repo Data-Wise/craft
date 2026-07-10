@@ -100,13 +100,6 @@ The AI routes your task to the best workflow automatically.
 /craft:docs:check               # Full validation with auto-fixes
 ```
 
-### Create Documentation Site
-
-```bash
-/craft:site:create              # Interactive wizard
-/craft:site:create --preset data-wise --quick
-```
-
 ## Next Steps
 
 !!! abstract "Progress: Step 4 of 4 - You're Done! 🎉"

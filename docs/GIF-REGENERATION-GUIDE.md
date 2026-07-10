@@ -134,7 +134,6 @@ open docs/demos/*.gif docs/gifs/*.gif
 | GIF | Command | What to Test |
 |-----|---------|--------------|
 | 01 | `/craft:docs:update` | Output format, file counts, timing |
-| 02 | `/craft:site:create --preset adhd-focus --quick` | Interactive prompts, preset output |
 | 03 | `/craft:check --for release` | Validation results, checklist format |
 | 04 | `/craft:do add user authentication with JWT` | Task breakdown, agent spawning |
 | 05 | `/craft:test debug` | Test output, pass/fail format |

@@ -104,7 +104,7 @@ Quick Actions:
    /craft:do "fix bug"          /craft:check --for pr
    /brainstorm d f s "auth"     /craft:git:worktree create feat/x
    /craft:test debug            /release --dry-run
-   /craft:git:sync              /craft:insights --since 7
+   /craft:git:status            /craft:insights --since 7
 ```
 
 These are static suggestions — curated examples of common workflows.

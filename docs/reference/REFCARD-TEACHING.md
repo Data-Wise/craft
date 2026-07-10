@@ -8,7 +8,6 @@
 
 ```bash
 /craft:site:build          # Build preview (current branch)
-/craft:site:preview        # Open preview in browser
 /craft:site:publish        # Validate → Switch to main → Deploy
 /craft:site:progress       # Semester progress dashboard
 /craft:git:status          # Teaching-aware git status
@@ -49,7 +48,6 @@ EOF
 git checkout dev           # Start on preview
 # ... edit content ...
 /craft:site:build          # Preview changes
-/craft:site:preview        # Check in browser
 /craft:site:publish        # Deploy to production
 ```
 

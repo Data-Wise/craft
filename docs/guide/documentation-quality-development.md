@@ -559,26 +559,6 @@ if [ -d "docs/" ]; then
 fi
 ```
 
-### Extend Pre-commit Hooks
-
-Add to `/craft:git:init` hook template:
-
-```bash
-# In commands/git/init.md (around line 250)
-if [ -n "$STAGED_MD" ]; then
-  echo "📚 Checking documentation quality..."
-
-  # Existing hooks
-  claude "/craft:docs:lint --fix" || exit 1
-  claude "/craft:docs:check-links default" || exit 1
-
-  # Your new check
-  claude "/craft:docs:my-command default" || exit 1
-
-  git add $STAGED_MD
-fi
-```
-
 ### Extend CI Workflow
 
 Add to `.github/workflows/docs-quality.yml`:

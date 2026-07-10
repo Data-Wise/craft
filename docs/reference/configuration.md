@@ -12,7 +12,7 @@ Craft plugin configuration and customization.
 
 | File | Purpose | Created By |
 |------|---------|-----------|
-| `.craft/site-design.yaml` | Site design preferences | `/craft:site:create` |
+| `.craft/site-design.yaml` | Site design preferences | Manual |
 | `.craft/homebrew.json` | Homebrew formula name and tap | Manual |
 | `.claude-plugin/plugin.json` | Plugin manifest (version, name) | Plugin init |
 | `.claude-plugin/marketplace.json` | Marketplace distribution metadata | `/craft:dist:marketplace init` |
@@ -22,7 +22,7 @@ Craft plugin configuration and customization.
 
 ### .craft/site-design.yaml
 
-Created by `/craft:site:create`, stores site design preferences:
+Stores site design preferences:
 
 ```yaml
 preset: "data-wise"

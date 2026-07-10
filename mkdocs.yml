@@ -195,11 +195,6 @@ nav:
         - Test Architecture: guide/test-architecture.md
         - Test Migration Guide: guide/test-migration.md
       - Test Wrapper Pattern Guide: guide/test-wrapper-pattern.md
-      - Git Repository Init:
-        - Command Reference: commands/git-init-reference.md
-        - Tutorial: guide/git-init-tutorial.md
-        - Architecture: architecture/git-init-flow.md
-        - Documentation Index: git-init-docs-index.md
       - Orchestrate Pipeline Guide: guide/pipeline-orchestrate-guide.md
       - Orchestration & Agents: guide/orchestrator.md
       - --orch Flag Quick Start: guide/orch-flag-usage.md
@@ -317,7 +312,6 @@ nav:
       - /craft:git:branch: commands/git/branch.md
       - /craft:git:clean: commands/git/clean.md
       - /craft:git:status: commands/git/status.md
-      - /craft:git:sync: commands/git/sync.md
       - /craft:git:protect: commands/git/protect.md
       - /craft:git:protect-baseline: commands/git/protect-baseline.md
       - /craft:git:unprotect: commands/git/unprotect.md

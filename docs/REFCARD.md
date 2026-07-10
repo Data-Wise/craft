@@ -135,7 +135,7 @@
 # Help in specific context
 # (in a Git repository with uncommitted changes)
 /craft:help
-# Suggests: /craft:check, /craft:git:status, /craft:git:sync
+# Suggests: /craft:check, /craft:git:status, /craft:git:worktree
 
 # (in a documentation directory)
 /craft:help
@@ -589,51 +589,6 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 
 ### Core Site Commands
 
-#### /craft:site:create
-
-**Purpose:** Interactive site creation wizard with 8 ADHD-friendly presets.
-
-**Examples:**
-
-```bash
-# Interactive wizard (recommended)
-/craft:site:create
-# Prompts: Project type, color scheme, features
-# Generates: Full site structure, config, theme
-
-# Quick start with preset
-/craft:site:create --preset data-wise
-# Uses: DT's preferred colors (blue/orange)
-# Includes: All standard features
-
-# Ultra-quick (skip all prompts)
-/craft:site:create --preset data-wise --quick
-# Fastest: Uses all defaults
-# Time: ~10 seconds
-
-# Custom configuration
-/craft:site:create --features docs,blog,search
-# Selective: Only specified features
-
-# Preview before creating
-/craft:site:create --preset adhd-focus --dry-run
-# Shows: What would be created
-# Safe: No files written
-```
-
-**Available presets:**
-
-| Preset       | Colors              | Best For                  |
-| ------------ | ------------------- | ------------------------- |
-| `data-wise`  | Blue/Orange         | DT's standard (energetic) |
-| `adhd-focus` | Forest Green        | Calm, focused work        |
-| `adhd-calm`  | Warm Earth Tones    | Reduced stimulation       |
-| `adhd-dark`  | Dark Mode First     | Eye strain reduction      |
-| `adhd-light` | Warm Light          | Never harsh white         |
-| `academic`   | Navy/Gray           | Professional, formal      |
-| `tech`       | Cyan/Purple         | Modern, technical         |
-| `minimal`    | Black/White         | Clean, distraction-free   |
-
 #### /craft:site:build
 
 **Purpose:** Build documentation site (MkDocs, Quarto, pkgdown).
@@ -928,11 +883,8 @@ Layer 3: /craft:check     → catches anything that slipped through
 
 | Command                       | Description                                                                  |
 | ----------------------------- | ---------------------------------------------------------------------------- |
-| `/craft:git:init`             | Initialize repository with craft workflow                                    |
 | `/craft:git:worktree`         | Parallel development with git worktrees                                      |
-| `/craft:git:sync`             | Smart git sync                                                               |
 | `/craft:git:clean`            | Clean merged branches                                                        |
-| `/craft:git:git-recap`            | Activity summary                                                             |
 | `/craft:git:branch`           | Branch management                                                            |
 | `/craft:git:status`           | Enhanced git status (teaching-aware)                                         |
 | `/craft:git:protect`          | Re-enable local hook (branch-guard) protection                               |
@@ -1126,11 +1078,8 @@ npm test
 **Quick examples:**
 
 ```bash
-/craft:git:init                      # Interactive wizard
-/craft:git:init --dry-run            # Preview changes
 /craft:git:worktree create feat/auth # Create feature worktree
 /craft:git:worktree move             # Move current work to worktree
-/craft:git:sync                      # Sync with remote
 /craft:git:clean                     # Clean merged branches
 ```
 
@@ -1576,20 +1525,10 @@ graph LR
 **Other Workflow Commands:**
 
 ```bash
-# Start focused work session
-/workflow:focus
-# Sets: Timer, goal, distraction blocking
-# Prompts: Every 25 minutes (Pomodoro)
-
 # Get next step
 /workflow:next
 # Analyzes: Current state, recent changes
 # Suggests: Next logical step
-
-# Get unstuck
-/workflow:stuck
-# Asks: What's blocking you?
-# Provides: 3-5 concrete solutions
 
 # Complete session
 /workflow:done

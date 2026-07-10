@@ -35,7 +35,6 @@ Practical examples and real-world usage patterns for all Craft commands.
 | **Detailed testing** | `/craft:test release` | Full suite with coverage |
 | **Publish docs** | `/craft:site:publish` | Build + deploy |
 | **Release new version** | `/craft:code:release` | Full workflow |
-| **Get unstuck** | `/craft:workflow:stuck --problem "..."` | Guided help |
 
 ---
 
@@ -596,24 +595,6 @@ Proceed? (yes/no)
 
 ## Git Workflow Examples
 
-### /craft:git:init - Repository Setup
-
-```bash
-# Initialize with defaults
-/craft:git:init
-
-# Monorepo template
-/craft:git:init monorepo
-
-# Minimal setup
-/craft:git:init minimal
-
-# Without git hooks
-/craft:git:init --no-hooks
-```
-
----
-
 ### /craft:git:worktree - Parallel Development
 
 ```bash
@@ -651,24 +632,6 @@ npm test
 # Meanwhile, work on something else in main repo
 cd /original/craft
 /craft:git:worktree create feature/docs
-```
-
----
-
-### /craft:git:sync - Keep In Sync
-
-```bash
-# Sync with defaults (pull + rebase)
-/craft:git:sync
-
-# Preview changes
-/craft:git:sync --dry-run
-
-# Merge instead of rebase
-/craft:git:sync --no-rebase
-
-# Force sync (dangerous!)
-/craft:git:sync --force
 ```
 
 ---
@@ -895,21 +858,6 @@ SUMMARY: 156/156 passing (2.4s)
 
 ## Site Management Examples
 
-### /craft:site:init - Create Site
-
-```bash
-# MkDocs site
-/craft:site:init
-
-# Hugo site
-/craft:site:init hugo
-
-# With theme
-/craft:site:init mkdocs --theme material
-```
-
----
-
 ### /craft:site:build - Build Site
 
 ```bash
@@ -1012,9 +960,6 @@ SUMMARY: 156/156 passing (2.4s)
 
 # 6. Verify in production
 # ... manual testing ...
-
-# 7. Recap accomplishments
-/craft:workflow:recap --detail
 ```
 
 ---
@@ -1022,19 +967,16 @@ SUMMARY: 156/156 passing (2.4s)
 ### Debugging a Complex Issue
 
 ```bash
-# 1. Get unstuck
-/craft:workflow:stuck --problem "Tests failing intermittently"
-
-# 2. Debug specific test
+# 1. Debug specific test
 /craft:test debug "should process payment"
 
-# 3. Check code quality
+# 2. Check code quality
 /craft:code:debug "npm start"
 
-# 4. Analyze architecture
+# 3. Analyze architecture
 /craft:arch:review --detailed
 
-# 5. Get next steps
+# 4. Get next steps
 /craft:next
 ```
 

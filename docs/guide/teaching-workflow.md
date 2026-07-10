@@ -74,9 +74,6 @@ teaching:
 ```bash
 # Build preview (on dev branch)
 /craft:site:build
-
-# Preview in browser
-/craft:site:preview
 ```
 
 ### 3. Publish to Production
@@ -346,7 +343,6 @@ git checkout dev
 
 # 3. Preview changes
 /craft:site:build
-/craft:site:preview
 
 # 4. Check if it looks good
 # Review in browser at localhost:8000
@@ -436,7 +432,6 @@ EOF
 │ Building preview site...                                │
 │ ✓ Built successfully                                    │
 │                                                         │
-│ Preview: /craft:site:preview                            │
 │ Publish: /craft:site:publish                            │
 │                                                         │
 ╰─────────────────────────────────────────────────────────╯

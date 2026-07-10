@@ -162,10 +162,8 @@ Display template:
 │                                                                         │
 │ GIT (9 incl. 4 guides)          WORKFLOW (1)                          │
 │   /craft:git:worktree              /brainstorm [depth|focus] "topic"   │
-│   /craft:git:sync                  /workflow:focus                     │
 │   /craft:git:branch                /workflow:done                      │
-│   /craft:git:clean                 /workflow:spec-review               │
-│   /craft:git:git-recap                 /craft:insights                     │
+│   /craft:git:clean                 /craft:insights                     │
 │   /craft:git:status                                                     │
 │   /craft:git:protect             DIST (5)                               │
 │   /craft:git:unprotect             /craft:dist:marketplace             │
@@ -182,7 +180,7 @@ Display template:
 │    /craft:do "fix bug"          /craft:check --for pr                    │
 │    /brainstorm deep feat "auth" /craft:git:worktree create feat/x       │
 │    /craft:test debug            /release --dry-run                       │
-│    /craft:git:sync              /craft:insights --since 7                │
+│    /craft:git:worktree          /craft:insights --since 7                │
 │                                                                         │
 │  Recently Used: [if facets data exists — omit section if no data]       │
 │    /craft:do (3x) · /craft:check (2x) · /workflow:done (2x)           │
@@ -282,7 +280,6 @@ Display:
 ```
 Intelligently routes your task to the right workflow:
 
- /craft:do initialize project    -> git:init (interactive wizard)
  /craft:do add authentication    -> arch:plan + code:test-gen + git:branch
  /craft:do fix login bug         -> code:debug + test + test debug
  /craft:do improve quality       -> code:lint + test --coverage + code:refactor
@@ -427,21 +424,16 @@ GIT COMMANDS (14: 10 commands + 4 guides)
 ────────────────────────────────────────────────────────────────────────
 Commands:
   /craft:git:worktree     Parallel development (create/move/finish/clean)
-  /craft:git:sync         Smart sync with remote (pull, rebase, push)
   /craft:git:branch       Branch management (create, switch, delete)
   /craft:git:clean        Clean up merged branches safely
-  /craft:git:git-recap        Git activity summary (what changed?)
   /craft:git:status       Enhanced status with protection level
   /craft:git:protect      Re-enable branch protection
   /craft:git:unprotect    Session-scoped bypass (auto-expires)
   /craft:git:protect-baseline  Apply GitHub-side baseline protection (any repo)
-  /craft:git:init         Initialize repo with craft workflow
+  /craft:git:guard        Manage guard suite (list, enable, disable, profile)
 
 Guides:
   /craft:git:refcard        Quick reference card
-  /craft:git:undo-guide     Emergency undo guide
-  /craft:git:safety-rails   Safety rails guide
-  /craft:git:learning-guide Learning guide
 
 Branch Protection (v2.16.0):
   main   = block all (code + docs + commits)
@@ -466,14 +458,8 @@ Brainstorming:
   Action: s(ave) — capture as SPEC file
 
 Session Management:
-  /workflow:focus                    | Start focused work session
   /workflow:next                     | Get next step
-  /workflow:stuck                    | Get unstuck help
   /workflow:done                     | Complete session + capture context
-
-Spec Management:
-  /workflow:spec-review              | List, review, approve, archive specs
-  /workflow:spec-review approve X    | Quick approval
 
 Insights (v2.21.0):
   /craft:insights                    | Generate session insights report
@@ -493,10 +479,7 @@ Command                  | R Package        | Other (MkDocs)
 /craft:site:deploy       | gh-pages push    | mkdocs gh-deploy
 /craft:site:check        | validate site    | validate site
 /craft:site:update       | sync code->docs  | sync code->docs
-/craft:site:preview      | preview locally  | mkdocs serve
 /craft:site:publish      | teaching site    | teaching site
-/craft:site:init         | pkgdown/altdoc   | mkdocs init
-/craft:site:create       | new site wizard  | new site wizard
 /craft:site:status       | site health      | site health
 /craft:site:progress     | semester dash    | semester dash
 ─────────────────────────────────────────────────────────────────────────
@@ -669,7 +652,7 @@ SUGGESTED FOR R PACKAGE:
   /craft:do "check package"   Smart workflow
   /craft:test                 Run testthat
   /craft:code:release         CRAN submission prep
-  /craft:site:init            Setup pkgdown/altdoc
+  /craft:site:build           Build pkgdown/altdoc site
   /craft:arch:analyze         Check package structure
 ```
 
@@ -699,7 +682,7 @@ SUGGESTED FOR NODE PROJECT:
 │                                                                        │
 │ Development Workflow:                                                  │
 │   /craft:code:lint [mode] -> /craft:test [mode] ->                     │
-│   /craft:code:coverage -> /craft:ci:local -> /craft:git:sync      │
+│   /craft:code:coverage -> /craft:ci:local -> /craft:git:worktree  │
 │                                                                        │
 │ Feature Development:                                                   │
 │   /craft:git:worktree create feat/x -> [develop] ->                    │
@@ -742,6 +725,6 @@ SUGGESTED FOR NODE PROJECT:
 │   /craft:ci:detect         -> Detect project type + build tools        │
 │                                                                        │
 │ Daily:                                                                 │
-│   /craft:git:git-recap -> /craft:check -> /craft:git:sync                  │
+│   /craft:git:status -> /craft:check -> /craft:git:worktree             │
 └────────────────────────────────────────────────────────────────────────┘
 ```

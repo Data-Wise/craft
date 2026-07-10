@@ -160,63 +160,7 @@ Try these commands yourself and see the magic happen!
 
 ---
 
-## Scenario 4: Create a Documentation Site
-
-**Goal:** Create an ADHD-friendly docs site in under 5 minutes
-
-**Commands:**
-
-```bash
-# Option 1: Interactive wizard
-/craft:site:create
-
-# Option 2: Quick mode (no prompts)
-/craft:site:create --preset adhd-focus --quick
-```
-
-**What Happens (Quick Mode):**
-
-```
-🚀 Creating documentation site...
-
-📊 Detected:
-   - Project: myproject
-   - Type: Python package (pyproject.toml)
-   - Repo: github.com/user/myproject
-
-🎨 Applying preset: adhd-focus
-   - Colors: Calm forest green (#2d6a4f)
-   - Theme: Material with ADHD optimizations
-   - Features: TL;DR boxes, time estimates, visual workflows
-
-📝 Creating files:
-   ✅ mkdocs.yml (site configuration)
-   ✅ docs/index.md (homepage with features)
-   ✅ docs/QUICK-START.md (30-second guide)
-   ✅ docs/REFCARD.md (command reference)
-   ✅ docs/stylesheets/extra.css (ADHD-friendly styles)
-   ✅ .github/workflows/docs.yml (auto-deploy)
-
-🔨 Building site...
-   ✅ Site built successfully in 0.7s
-
-🎉 Done! Your ADHD-friendly docs site is ready!
-
-Next steps:
-  • Preview: mkdocs serve (or /craft:site:preview)
-  • Edit content: docs/index.md
-  • Deploy: git push (auto-deploys via GitHub Actions)
-```
-
-**What You Learn:**
-
-- Site creation is fully automated
-- 8 ADHD-friendly presets available
-- Auto-deployment included
-
----
-
-## Scenario 5: Update All Documentation
+## Scenario 4: Update All Documentation
 
 **Goal:** Update docs after adding a new feature
 
@@ -277,7 +221,7 @@ Changed files:
 
 ---
 
-## Scenario 6: Release Workflow
+## Scenario 5: Release Workflow
 
 **Goal:** Run a full release audit before publishing
 
@@ -354,9 +298,6 @@ Now that you've seen how commands work, try these challenges:
 
 !!! example "Challenge 4: Documentation"
     Run `/craft:docs:sync` to see if your docs are stale
-
-!!! example "Challenge 5: Site Creation"
-    Run `/craft:site:create --preset adhd-focus --quick` to create a docs site
 
 ---
 

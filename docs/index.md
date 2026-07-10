@@ -149,12 +149,6 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 
     → [Learn more](workflows/index.md#documentation-workflow)
 
-- :globe_with_meridians:{ .lg .middle } **Site Creation**
-
-    Zero to deployed docs site in < 5 minutes
-
-    → [Learn more](workflows/index.md#site-creation-workflow)
-
 - :rocket:{ .lg .middle } **Release Management**
 
     Pre-release checks to published in one flow

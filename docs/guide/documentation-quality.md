@@ -4,7 +4,6 @@
 >
 > - **Step 1**: Run `/craft:docs:lint --fix` to auto-fix markdown issues
 > - **Step 2**: Run `/craft:docs:check-links` to validate all links
-> - **Step 3**: Enable pre-commit hooks with `/craft:git:init` for automatic validation
 > - **Goal**: Zero broken links and consistent markdown quality
 
 Complete tutorial for using Craft's documentation quality automation system.
@@ -435,26 +434,6 @@ git commit -m "docs: update tutorial guide"
 
 ## Pre-commit Hook Automation
 
-### Step 6: Enable Pre-commit Hooks
-
-Automate documentation validation before every commit:
-
-```bash
-/craft:git:init
-```
-
-**During setup, choose Step 6.5:**
-
-```
-Step 6.5: Pre-commit Hooks
-Would you like to auto-validate docs before commits? (y/n): y
-
-✅ Created .git/hooks/pre-commit
-   → Auto-lint with --fix on staged docs
-   → Validate links before commit
-   → Abort commit if errors found
-```
-
 ### How Pre-commit Hooks Work
 
 **When you commit:**
@@ -796,7 +775,6 @@ gh pr create
 | Auto-fix safe issues | `/craft:docs:lint --fix` |
 | Check all links | `/craft:docs:check-links` |
 | Comprehensive check | `/craft:docs:lint release && /craft:docs:check-links release` |
-| Enable pre-commit hooks | `/craft:git:init` (choose Step 6.5) |
 | Test with violations | `/craft:docs:lint docs/test-violations.md` |
 | Debug specific file | `/craft:docs:lint debug docs/file.md` |
 | Preview auto-fixes | `/craft:docs:lint --fix --dry-run` |
@@ -811,7 +789,6 @@ gh pr create
 
 - [API Reference](../reference/documentation-quality.md) - Complete command reference
 - [Developer Guide](./documentation-quality-development.md) - Extend the system
-- [Git Init Tutorial](./git-init-tutorial.md) - Pre-commit hook setup
 
 ### Get Help
 

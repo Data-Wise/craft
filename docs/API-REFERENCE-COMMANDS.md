@@ -1329,30 +1329,6 @@ Documentation generation, maintenance, and publication.
 
 Version control and collaboration workflows.
 
-### /craft:git:init
-
-**Category**: Setup | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Initialize git repository with best practices
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `template` | string | No | `default` | Template: `default`, `monorepo`, `minimal` |
-| `--hooks` | boolean | No | true | Install git hooks |
-
-#### Examples
-
-```bash
-/craft:git:init
-/craft:git:init monorepo
-/craft:git:init --no-hooks
-```
-
-**File**: `commands/git/init.md`
-
----
-
 ### /craft:git:status
 
 **Category**: Inspection | **Complexity**: Simple | **Time**: < 5s
@@ -1373,31 +1349,6 @@ Version control and collaboration workflows.
 ```
 
 **File**: `commands/git/status.md`
-
----
-
-### /craft:git:sync
-
-**Category**: Synchronization | **Complexity**: Moderate | **Time**: 1-5 min
-**Description**: Sync with remote repository (push/pull/rebase)
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--force` | boolean | No | false | Force sync (dangerous) |
-| `--rebase` | boolean | No | true | Rebase instead of merge |
-| `--dry-run` | boolean | No | false | Preview changes |
-
-#### Examples
-
-```bash
-/craft:git:sync
-/craft:git:sync --dry-run
-/craft:git:sync --no-rebase
-```
-
-**File**: `commands/git/sync.md`
 
 ---
 
@@ -1476,53 +1427,18 @@ Version control and collaboration workflows.
 
 ---
 
-### /craft:git:git-recap
-
-**Category**: Learning | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Learn git concepts with interactive lessons
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `topic` | string | No | - | Topic: `basics`, `branching`, `merging`, `rebasing` |
-| `--interactive` | boolean | No | true | Interactive mode |
-
-#### Examples
-
-```bash
-/craft:git:git-recap
-/craft:git:git-recap branching --interactive
-```
-
-**File**: `commands/git/git-recap.md`
-
----
-
-### /craft:git:docs (Learning Guide)
+### /craft:git:docs:refcard
 
 **Category**: Documentation | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Git learning and reference documentation
-
-#### Subcommands
-
-| Subcommand | Purpose |
-|------------|---------|
-| `learning-guide` | Comprehensive git learning guide |
-| `refcard` | Quick reference card |
-| `safety-rails` | Safety best practices |
-| `undo-guide` | How to undo mistakes |
+**Description**: Git quick reference card
 
 #### Examples
 
 ```bash
-/craft:git:docs learning-guide
 /craft:git:docs refcard
-/craft:git:docs safety-rails
-/craft:git:docs undo-guide
 ```
 
-**Files**: `commands/git/docs/*.md`
+**File**: `commands/git/docs/refcard.md`
 
 ---
 
@@ -1604,30 +1520,6 @@ Project planning and roadmap tools.
 
 Static site generation and website management.
 
-### /craft:site:init
-
-**Category**: Setup | **Complexity**: Moderate | **Time**: 2-5 min
-**Description**: Initialize documentation site
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `template` | string | No | `mkdocs` | Template: `mkdocs`, `hugo`, `jekyll`, `vuepress` |
-| `--theme` | string | No | `default` | Theme name |
-
-#### Examples
-
-```bash
-/craft:site:init
-/craft:site:init hugo
-/craft:site:init mkdocs --theme material
-```
-
-**File**: `commands/site/init.md`
-
----
-
 ### /craft:site:build
 
 **Category**: Build | **Complexity**: Simple | **Time**: 1-3 min
@@ -1648,30 +1540,6 @@ Static site generation and website management.
 ```
 
 **File**: `commands/site/build.md`
-
----
-
-### /craft:site:preview
-
-**Category**: Workflow | **Complexity**: Simple | **Time**: < 30s
-**Description**: Preview site locally
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--port` | number | No | 8000 | Server port |
-| `--watch` | boolean | No | true | Watch for changes |
-
-#### Examples
-
-```bash
-/craft:site:preview
-/craft:site:preview --port 3000
-/craft:site:preview --no-watch
-```
-
-**File**: `commands/site/preview.md`
 
 ---
 
@@ -1718,29 +1586,6 @@ Static site generation and website management.
 ```
 
 **File**: `commands/site/publish.md`
-
----
-
-### /craft:site:add
-
-**Category**: Content | **Complexity**: Simple | **Time**: < 30s
-**Description**: Add new page/section to site
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `path` | string | Yes | - | Page path |
-| `--template` | string | No | - | Template to use |
-
-#### Examples
-
-```bash
-/craft:site:add docs/guides/getting-started
-/craft:site:add blog/post --template post
-```
-
-**File**: `commands/site/add.md`
 
 ---
 
@@ -1829,119 +1674,6 @@ Static site generation and website management.
 ```
 
 **File**: `commands/site/progress.md`
-
----
-
-### /craft:site:audit
-
-**Category**: Validation | **Complexity**: Moderate | **Time**: 2-5 min
-**Description**: Comprehensive site audit (links, performance, SEO)
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--external` | boolean | No | false | Check external links |
-| `--performance` | boolean | No | true | Include performance metrics |
-
-#### Examples
-
-```bash
-/craft:site:audit
-/craft:site:audit --external --performance
-```
-
-**File**: `commands/site/audit.md`
-
----
-
-### /craft:site:consolidate
-
-**Category**: Maintenance | **Complexity**: Moderate | **Time**: 2-5 min
-**Description**: Consolidate and deduplicate site content
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--dry-run` | boolean | No | false | Preview consolidation |
-
-#### Examples
-
-```bash
-/craft:site:consolidate
-/craft:site:consolidate --dry-run
-```
-
-**File**: `commands/site/consolidate.md`
-
----
-
-### /craft:site:nav
-
-**Category**: Navigation | **Complexity**: Simple | **Time**: < 30s
-**Description**: Manage site navigation structure
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--auto` | boolean | No | true | Auto-generate from files |
-
-#### Examples
-
-```bash
-/craft:site:nav
-/craft:site:nav --manual
-```
-
-**File**: `commands/site/nav.md`
-
----
-
-### /craft:site:theme
-
-**Category**: Customization | **Complexity**: Moderate | **Time**: 1-3 min
-**Description**: Configure and customize site theme
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `theme` | string | No | - | Theme name to set |
-| `--custom` | boolean | No | false | Use custom theme |
-
-#### Examples
-
-```bash
-/craft:site:theme material
-/craft:site:theme --custom
-```
-
-**File**: `commands/site/theme.md`
-
----
-
-### /craft:site:create
-
-**Category**: Setup | **Complexity**: Moderate | **Time**: 2-5 min
-**Description**: Create new site from template
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `name` | string | Yes | - | Site name |
-| `--template` | string | No | `default` | Template name |
-
-#### Examples
-
-```bash
-/craft:site:create my-docs
-/craft:site:create api-reference --template api
-```
-
-**File**: `commands/site/create.md`
 
 ---
 
@@ -2066,29 +1798,6 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:focus
-
-**Category**: Productivity | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Focus mode - minimize distractions
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `duration` | number | Yes | - | Focus duration (minutes) |
-| `--task` | string | No | - | Task to focus on |
-
-#### Examples
-
-```bash
-/craft:workflow:focus 60
-/craft:workflow:focus 90 --task "implement auth"
-```
-
-**File**: `commands/workflow/focus.md`
-
----
-
 ### /craft:next
 
 **Category**: Planning | **Complexity**: Simple | **Time**: < 5 min
@@ -2108,28 +1817,6 @@ Development workflow and productivity tools.
 ```
 
 **File**: `commands/next.md`
-
----
-
-### /craft:workflow:stuck
-
-**Category**: Support | **Complexity**: Simple | **Time**: < 10 min
-**Description**: Get unstuck with guided troubleshooting
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--problem` | string | No | - | Describe the problem |
-
-#### Examples
-
-```bash
-/craft:workflow:stuck
-/craft:workflow:stuck --problem "tests failing"
-```
-
-**File**: `commands/workflow/stuck.md`
 
 ---
 
@@ -2157,28 +1844,6 @@ Development workflow and productivity tools.
 
 ---
 
-### /craft:workflow:recap
-
-**Category**: Learning | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Recap session accomplishments
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--detail` | boolean | No | false | Show detailed recap |
-
-#### Examples
-
-```bash
-/craft:workflow:recap
-/craft:workflow:recap --detail
-```
-
-**File**: `commands/workflow/recap.md`
-
----
-
 ### /craft:refine
 
 **Category**: Planning | **Complexity**: Simple | **Time**: 5-10 min
@@ -2197,95 +1862,6 @@ Development workflow and productivity tools.
 ```
 
 **File**: `commands/refine.md`
-
----
-
-### /craft:workflow:spec-review
-
-**Category**: Review | **Complexity**: Moderate | **Time**: 2-5 min
-**Description**: Review implementation specification
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `spec` | string | No | - | Spec file to review |
-| `--detailed` | boolean | No | false | Detailed review |
-
-#### Examples
-
-```bash
-/craft:workflow:spec-review
-/craft:workflow:spec-review docs/specs/AUTH.md --detailed
-```
-
-**File**: `commands/workflow/spec-review.md`
-
----
-
-### /craft:task:status
-
-**Category**: Tracking | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Show task status and progress
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--format` | enum | No | `summary` | Format: `summary`, `detailed`, `json` |
-
-#### Examples
-
-```bash
-/craft:task:status
-/craft:task:status --format detailed
-```
-
-**File**: `commands/task/status.md`
-
----
-
-### /craft:task:output
-
-**Category**: Tracking | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Show task output and logs
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `task` | string | No | - | Specific task |
-| `--tail` | number | No | 50 | Last N lines |
-
-#### Examples
-
-```bash
-/craft:task:output
-/craft:task:output feature-auth --tail 100
-```
-
-**File**: `commands/task/output.md`
-
----
-
-### /craft:task:cancel
-
-**Category**: Management | **Complexity**: Simple | **Time**: < 30s
-**Description**: Cancel running task
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `task` | string | Yes | - | Task ID to cancel |
-
-#### Examples
-
-```bash
-/craft:task:cancel task-123
-```
-
-**File**: `commands/task/cancel.md`
 
 ---
 
@@ -2368,7 +1944,7 @@ Commands that make changes support `--dry-run` or `-n`:
 
 ```bash
 /craft:code:lint --dry-run        # Preview changes
-/craft:git:sync --dry-run         # Preview sync
+/craft:git:clean --dry-run        # Preview branch cleanup
 /craft:site:deploy --dry-run      # Preview deployment
 ```
 
@@ -2389,11 +1965,10 @@ Commands support multiple output formats:
 
 | If you want to... | Try these commands |
 |------|---|
-| Setup a new project | `/craft:git:init` → `/craft:site:init` → `/craft:docs:claude-md` |
 | Create a feature | `/craft:plan:feature` → `/craft:git:worktree` → `/craft:code:test-gen` |
 | Release a project | `/craft:code:lint` → `/craft:test release` → `/craft:code:release` |
 | Document code | `/craft:docs:api` → `/craft:docs:guide` → `/craft:docs:site publish` |
-| Debug issues | `/craft:workflow:stuck` → `/craft:code:debug` → `/craft:test debug` |
+| Debug issues | `/craft:code:debug` → `/craft:test debug` |
 
 ---
 

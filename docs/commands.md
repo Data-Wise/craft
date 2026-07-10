@@ -322,30 +322,9 @@ Enhanced git status with branch guard indicator.
 /craft:git:status --verbose # Additional details
 ```
 
-### /craft:git:git-recap
-
-Git activity summary — recent commits, branch status, and productivity insights.
-
-```bash
-/craft:git:git-recap
-/craft:git:git-recap --since "3 days ago"
-```
-
-### /craft:git:docs:learning-guide
-
-Interactive Git commands learning guide.
-
 ### /craft:git:docs:refcard
 
 Git commands quick reference card.
-
-### /craft:git:docs:safety-rails
-
-Git safety rails guide — guardrails for safe operations.
-
-### /craft:git:docs:undo-guide
-
-Git undo guide — emergency reference for reverting mistakes.
 
 ## Test Commands (test/)
 
@@ -382,44 +361,12 @@ Manage Jinja2 templates for test generation.
 
 ## Workflow Commands (workflow/)
 
-### /craft:workflow:recap
-
-Context restoration — summarize what happened in the current or previous session.
-
-```bash
-/craft:workflow:recap
-```
-
 ### /craft:refine
 
 Prompt optimizer — improve and refine prompts interactively.
 
 ```bash
 /craft:refine "my prompt text"
-```
-
-### /craft:task:status
-
-Show status of background tasks launched by the orchestrator.
-
-```bash
-/craft:task:status
-```
-
-### /craft:task:output
-
-View results from completed background tasks.
-
-```bash
-/craft:task:output <task-id>
-```
-
-### /craft:task:cancel
-
-Cancel a running background task.
-
-```bash
-/craft:task:cancel <task-id>
 ```
 
 ## Utility Commands (utils/)
@@ -476,9 +423,6 @@ All applicable commands support 4 execution modes:
 
 - `git:branch` - Preview branch operations
 - `git:clean` - Preview merged branch deletion (CRITICAL)
-- `git:init` - Preview repository initialization
-- `git:recap` - Preview git activity summary
-- `git:sync` - Preview sync operations
 - `git:worktree` - Preview worktree operations (HIGH)
 
 ### CI/CD Commands (3/3) — 100% ✅

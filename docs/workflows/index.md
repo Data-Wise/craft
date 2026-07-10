@@ -4,7 +4,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 5 visual workflow diagrams showing how craft commands work together
+> - **What:** 4 visual workflow diagrams showing how craft commands work together
 > - **Why:** Understand the complete flow from start to finish for common tasks
 > - **How:** Click any diagram to see the step-by-step process
 > - **Next:** Try the [Documentation Workflow](#documentation-workflow) to automate your docs
@@ -22,19 +22,16 @@ graph TD
     Start["🎯 What do you need to do?"] --> Goal{Choose Your Goal}
 
     Goal -->|"📚 Update docs"| Docs["Documentation Workflow"]
-    Goal -->|"🌐 Create docs site"| Site["Site Creation Workflow"]
     Goal -->|"📦 Release version"| Release["Release Workflow"]
     Goal -->|"✨ Build feature"| Dev["Development Workflow"]
     Goal -->|"🤖 Route a task"| Route["AI Routing Workflow"]
 
     Docs --> DocsCmd["🔧 /craft:docs:update"]
-    Site --> SiteCmd["🔧 /craft:site:create --quick"]
     Release --> RelCmd["🔧 /craft:check --for release"]
     Dev --> DevCmd["🔧 /craft:git:worktree add name"]
     Route --> RouteCmd["🔧 /craft:do 'task description'"]
 
     DocsCmd --> DocsTime["⏱️ &lt; 30 seconds"]
-    SiteCmd --> SiteTime["⏱️ &lt; 5 minutes"]
     RelCmd --> RelTime["⏱️ &lt; 2 minutes"]
     DevCmd --> DevTime["⏱️ Varies"]
     RouteCmd --> RouteTime["⏱️ Varies"]
@@ -42,7 +39,6 @@ graph TD
     style Start fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
     style Goal fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style Docs fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style Site fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
     style Release fill:#fce4ec,stroke:#c2185b,stroke-width:2px
     style Dev fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     style Route fill:#ede7f6,stroke:#512da8,stroke-width:2px
@@ -107,68 +103,6 @@ flowchart TD
 
 !!! success "Quick Win"
     Run `/craft:docs:update` right now - it takes < 30 seconds and shows instant results. No configuration needed!
-
----
-
-## Site Creation Workflow
-
-**Zero to deployed documentation site in under 5 minutes.**
-
-```mermaid
-flowchart LR
-    START(["🌐 Need Docs Site"]) --> CREATE["/craft:site:create"]
-
-    CREATE --> DETECT["🔍 Detect<br/>project type"]
-    DETECT --> WIZARD{⚙️ Interactive<br/>Wizard}
-
-    WIZARD -->|Preset| PRESET["Choose from<br/>8 presets"]
-    WIZARD -->|Branding| BRAND["Set name<br/>& tagline"]
-    WIZARD -->|Nav| NAV["Pick nav<br/>structure"]
-
-    PRESET --> GEN["📝 Generate<br/>config files"]
-    BRAND --> GEN
-    NAV --> GEN
-
-    GEN --> FILES["✅ Creates:<br/>mkdocs.yml<br/>docs/index.md<br/>CI workflow"]
-
-    FILES --> BUILD["/craft:site:build"]
-    BUILD --> PREVIEW["/craft:site:preview"]
-    PREVIEW --> REVIEW{👀 Looks<br/>good?}
-
-    REVIEW -->|❌ No| THEME["/craft:site:theme"]
-    THEME --> BUILD
-    REVIEW -->|✅ Yes| DEPLOY["/craft:site:deploy"]
-
-    DEPLOY --> DONE(["🎉 Site Live"])
-
-    click CREATE "../commands/site#craftcreate" "Click to see site creation wizard"
-    click THEME "../commands/site#craftcreatecraftsitetheme" "Click to see theme options"
-    click DEPLOY "../commands/site#craftcreatecraftsitedeploy" "Click to see deployment options"
-    click PRESET "../reference/presets" "Click to see all 8 presets"
-
-    style START fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style CREATE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
-    style WIZARD fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style FILES fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style DEPLOY fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style DONE fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
-```
-
-**8 ADHD-Friendly Presets:**
-
-- `adhd-focus` - Calm forest green
-- `adhd-calm` - Warm earth tones
-- `adhd-dark` - Dark-first mode
-- `adhd-light` - Warm off-white
-- `data-wise` - DT's standard (blue/orange)
-- `minimal` - Clean and simple
-- `open-source` - Community-friendly
-- `corporate` - Professional
-
-**Time to Deploy:** < 5 minutes with `--quick` flag
-
-!!! tip "Pro Tip: Use --quick for Zero Prompts"
-    Add `--quick` to skip all wizard prompts and use smart defaults: `/craft:site:create --preset adhd-focus --quick`
 
 ---
 
@@ -310,9 +244,7 @@ flowchart TD
     ROUTE2 -->|Unit tests| CMD2["/craft:test"]
     ROUTE2 -->|Strategy| AGENT2["test-strategist<br/>skill"]
 
-    DOCS --> ROUTE3{Choose<br/>Tool}
-    ROUTE3 -->|Update| CMD3["/craft:docs:update"]
-    ROUTE3 -->|Site| CMD4["/craft:site:create"]
+    DOCS --> CMD3["/craft:docs:update"]
 
     ORCHESTRATE --> PARALLEL["⚡ Run in<br/>parallel"]
     PARALLEL --> SUB1["Backend agent"]
@@ -324,7 +256,6 @@ flowchart TD
     CMD2 --> DONE
     AGENT2 --> DONE
     CMD3 --> DONE
-    CMD4 --> DONE
     SUB1 --> DONE
     SUB2 --> DONE
     SUB3 --> DONE
@@ -332,7 +263,6 @@ flowchart TD
     click START "../commands/smart#craftdo" "Click to see universal command docs"
     click ORCHESTRATE "../guide/orchestrator" "Click to learn about orchestrator"
     click CMD3 "../commands/docs#craftdocsupdate" "Click to see docs automation"
-    click CMD4 "../commands/site#craftcreate" "Click to see site creation"
 
     style START fill:#ede7f6,stroke:#512da8,stroke-width:2px
     style ANALYZE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
@@ -371,16 +301,12 @@ flowchart TD
 
 ## Workflow Comparison Overview
 
-High-level comparison of all five workflows - choose based on your task type.
+High-level comparison of all four workflows - choose based on your task type.
 
 ```mermaid
 graph LR
     subgraph docs["📚 Documentation Workflow"]
         d1["Code Changes<br/>↓<br/>Detect & Fix<br/>↓<br/>Deploy"]
-    end
-
-    subgraph site["🌐 Site Workflow"]
-        s1["Create Site<br/>↓<br/>Configure<br/>↓<br/>Build & Deploy"]
     end
 
     subgraph release["📦 Release Workflow"]
@@ -396,7 +322,6 @@ graph LR
     end
 
     style docs fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style site fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
     style release fill:#fce4ec,stroke:#c2185b,stroke-width:2px
     style dev fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     style route fill:#ede7f6,stroke:#512da8,stroke-width:2px
@@ -405,7 +330,6 @@ graph LR
 | Workflow | Best For | Start Command | Time | Complexity |
 |----------|----------|---------------|------|------------|
 | **Documentation** | Auto-sync docs | `/craft:docs:update` | < 30s | Simple |
-| **Site Creation** | New docs site | `/craft:site:create --quick` | < 5m | Simple |
 | **Release** | Publishing | `/craft:check --for release` | < 2m | Medium |
 | **Development** | New features | `/craft:git:worktree add name` | Varies | Medium |
 | **AI Routing** | Complex tasks | `/craft:do "description"` | Varies | Complex |
@@ -417,7 +341,6 @@ graph LR
 | Workflow | Start Command | Time | ADHD Score |
 |----------|--------------|------|------------|
 | Documentation | `/craft:docs:update` | < 30s | ⭐⭐⭐⭐⭐ |
-| Site Creation | `/craft:site:create --quick` | < 5m | ⭐⭐⭐⭐⭐ |
 | Release | `/craft:check --for release` | < 2m | ⭐⭐⭐⭐ |
 | Development | `/craft:git:worktree add name` | varies | ⭐⭐⭐⭐ |
 | AI Routing | `/craft:do "task"` | varies | ⭐⭐⭐⭐⭐ |

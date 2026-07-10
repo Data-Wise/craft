@@ -574,31 +574,12 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Git Commands Parameters
 
-### /craft:git:init
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| template | enum | No | `default` | - | `default`, `monorepo`, `minimal` |
-| hooks | boolean | No | true | `--no-hooks` | Install hooks |
-
----
-
 ### /craft:git:status
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
 | detailed | boolean | No | false | `-d` | Detailed info |
 | suggest | boolean | No | true | `--no-suggest` | Show suggestions |
-
----
-
-### /craft:git:sync
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| force | boolean | No | false | `--dangerous-force` | Force sync |
-| rebase | boolean | No | true | `--merge` | Rebase vs merge |
-| dry-run | boolean | No | false | `-n` | Preview |
 
 ---
 
@@ -628,15 +609,6 @@ Comprehensive parameter reference for all 97 Craft commands.
 |-----------|------|----------|---------|---------|-------------|
 | dry-run | boolean | No | false | `-n` | Preview |
 | remote | boolean | No | false | `--clean-remote` | Clean remote |
-
----
-
-### /craft:git:git-recap
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| topic | enum | No | - | - | `basics`, `branching`, `merging`, `rebasing` |
-| interactive | boolean | No | true | `--no-interactive` | Interactive |
 
 ---
 
@@ -672,30 +644,12 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Site Commands Parameters
 
-### /craft:site:init
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| template | enum | No | `mkdocs` | - | `mkdocs`, `hugo`, `jekyll`, `vuepress` |
-| theme | string | No | `default` | - | Theme name |
-
----
-
 ### /craft:site:build
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
 | production | boolean | No | false | `--prod` | Production build |
 | minify | boolean | No | false | `--compress` | Minify assets |
-
----
-
-### /craft:site:preview
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| port | number | No | 8000 | `-p` | Server port |
-| watch | boolean | No | true | `--no-watch` | Watch files |
 
 ---
 
@@ -713,15 +667,6 @@ Comprehensive parameter reference for all 97 Craft commands.
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
 | skip-build | boolean | No | false | - | Skip build |
-
----
-
-### /craft:site:add
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| path | string | Yes | - | - | Page path |
-| template | string | No | - | - | Template name |
 
 ---
 
@@ -754,49 +699,6 @@ Comprehensive parameter reference for all 97 Craft commands.
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
 | breakdown | boolean | No | false | `--by-section` | Show breakdown |
-
----
-
-### /craft:site:audit
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| external | boolean | No | false | `--check-external` | Check external |
-| performance | boolean | No | true | `--no-perf` | Performance metrics |
-
----
-
-### /craft:site:consolidate
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| dry-run | boolean | No | false | `-n` | Preview |
-
----
-
-### /craft:site:nav
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| auto | boolean | No | true | `--manual` | Auto-generate |
-
----
-
-### /craft:site:theme
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| theme | string | No | - | - | Theme name |
-| custom | boolean | No | false | - | Use custom theme |
-
----
-
-### /craft:site:create
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| name | string | Yes | - | - | Site name |
-| template | string | No | `default` | - | Template name |
 
 ---
 
@@ -852,28 +754,11 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:focus
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| duration | number | Yes | - | - | Duration (minutes) |
-| task | string | No | - | - | Task name |
-
----
-
 ### /craft:next
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
 | context | string | No | auto | - | Current context |
-
----
-
-### /craft:workflow:stuck
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| problem | string | No | - | - | Problem description |
 
 ---
 
@@ -886,53 +771,11 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:workflow:recap
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| detail | boolean | No | false | `-d` | Detailed |
-
----
-
 ### /craft:refine
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
 | task | string | Yes | - | - | Task to refine |
-
----
-
-### /craft:workflow:spec-review
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| spec | string | No | - | - | Spec file |
-| detailed | boolean | No | false | `-d` | Detailed |
-
----
-
-### /craft:task:status
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| format | enum | No | `summary` | - | `summary`, `detailed`, `json` |
-
----
-
-### /craft:task:output
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| task | string | No | - | - | Task ID |
-| tail | number | No | 50 | - | Last N lines |
-
----
-
-### /craft:task:cancel
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| task | string | Yes | - | - | Task ID |
 
 ---
 

@@ -63,9 +63,8 @@ Smart documentation generation and validation:
 
 Full documentation site management:
 
-- `/craft:site:create` — Wizard with 8 ADHD-friendly presets
-- Navigation and audit: `nav`, `audit`, `consolidate`
 - Management: `status`, `update`, `deploy`, `build`, `publish`
+- Validation: `check`, `progress`
 
 [Learn more →](site.md)
 
@@ -95,9 +94,9 @@ Development workflow tools:
 Version control and worktree management:
 
 - Worktrees: `worktree`, `branch`, `clean`
-- Sync: `sync`, `git-recap`, `status`
-- Safety: `protect`, `unprotect`, `init`
-- Docs: `safety-rails`, `undo-guide`, `learning-guide`, `refcard`
+- Status: `status`
+- Safety: `protect`, `unprotect`, `protect-baseline`, `guard`
+- Docs: `refcard`
 
 [Learn more →](git.md)
 
@@ -115,7 +114,7 @@ Continuous integration automation:
 - **Architecture** (4): `analyze`, `diagram`, `plan`, `review`
 - **Distribution** (4): Marketplace, Homebrew (formula+cask), PyPI, curl installers — [Learn more →](dist.md)
 - **Planning** (3): `feature`, `sprint`, `roadmap`
-- **Workflow** (13): Brainstorming, task management, focus mode, spec review
+- **Workflow** (13): Brainstorming, task management, insights
 - **Utilities** (2): Teaching config parser, semester progress
 
 ## Mode System
@@ -141,7 +140,7 @@ Many commands support execution modes:
 | I want to... | Use this command |
 |--------------|------------------|
 | Generate docs | `/craft:docs:update` |
-| Create a site | `/craft:site:create` |
+| Build a site | `/craft:site:build` |
 | Run tests | `/craft:test` |
 | Manage git worktrees | `/craft:git:worktree` |
 | Check before commit | `/craft:check` |
@@ -260,7 +259,7 @@ Four key commands use the **"Show Steps First" pattern**:
 
 ### Level 3: Advanced (Ongoing)
 
-1. **Site creation:** `/craft:site:create`
+1. **Site building:** `/craft:site:build`
 2. **CI/CD setup:** `/craft:ci:generate`
 3. **Architecture analysis:** `/craft:arch:analyze`
 4. **Distribution:** `/craft:dist:homebrew`

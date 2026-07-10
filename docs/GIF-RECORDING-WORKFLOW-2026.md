@@ -172,7 +172,6 @@ ls -lh docs/demos/teaching-workflow.gif
 DEMOS=(
     "teaching-workflow:/craft:git:status /craft:site:build /craft:site:progress"
     "workflow-01:/craft:docs:update"
-    "workflow-02:/craft:site:create --preset adhd-focus --quick"
     # ... etc
 )
 

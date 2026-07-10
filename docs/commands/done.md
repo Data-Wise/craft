@@ -154,7 +154,6 @@ If 3+ friction events: shows summary and suggests `/craft:workflow:insights`.
 ## Typical Session Flow
 
 ```
-START:  /workflow:recap      # "Where was I?"
         [work happens]
 END:    /workflow:done       # "Save context"
 ```
@@ -169,7 +168,5 @@ END:    /workflow:done       # "Save context"
 
 ## See Also
 
-- **Start session:** `/workflow:recap` - Restore context
 - **Decision support:** `/workflow:next` - What to do next
 - **Insights:** `/craft:workflow:insights` - Friction analysis
-- **Git sync:** `/craft:git:sync` - Manual push

@@ -139,7 +139,6 @@ Task Analysis:
 # Routes to:
 # 1. /craft:code:debug - Analyze the issue
 # 2. /craft:test - Run related tests
-# 3. /craft:git:sync - Commit fix
 ```
 
 ### Release Preparation
