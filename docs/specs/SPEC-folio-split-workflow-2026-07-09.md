@@ -1,6 +1,8 @@
 # Spec: folio Split — Dynamic-Workflow Execution
 
-> **Status:** SPECIFY phase — awaiting human review (gated; no implementation yet).
+> **Status:** AMENDED post-review (2026-07-09) — 3-lens adversarial review (6 blockers + 9
+> majors) + border filter + v4-target all folded in; see the ORCHESTRATE for the task-level
+> detail. Awaiting CP-A approval; no implementation yet.
 > **Executes:** `docs/plans/ORCHESTRATE-folio-split.md` (Phases 1–4; Phase 0 ✅ complete + verified)
 > **Architecture grill:** `docs/specs/GRILL-folio-split-2026-07-09.md` (B1–B5 locked)
 > **Execution grill:** `docs/specs/GRILL-folio-split-workflow-2026-07-09.md` (W1–W2 locked; W3–W5
@@ -11,9 +13,12 @@
 
 Execute the folio split (craft v4.0.0 / folio v1.0.0) using Claude Code's native dynamic
 `Workflow()` tool for the parallelizable work inside each phase, while the live parent session
-owns the serial phase spine, every go/no-go gate, and all git operations. Success = the
-ORCHESTRATE's acceptance criteria met, with each gate cleared on schema-validated,
-adversarially-verified Workflow evidence — the same method that shipped Phase 0.
+owns the serial phase spine, every go/no-go gate, and all git operations. Post-border-filter
+shape: **craft 69** after the split (→ **~22** after the Phase 3.5 v4 rider), **folio ≈15
+commands + 6 agents + 6 skills**; 7 already-deprecated commands die at the border with ADR-002
+salvage. Success = the ORCHESTRATE's acceptance criteria met, with each gate cleared on
+schema-validated, adversarially-verified Workflow evidence — the same method that shipped
+Phase 0.
 
 ## Locked Execution Decisions
 
@@ -24,7 +29,9 @@ all-phases Workflow script — breaking steps (new repo, craft v4.0.0) keep a hu
 
 ### W2 — cross-repo execution (LOCKED, grill)
 
-Parent runs ALL git ops (worktree add, `subtree split`, repo create, commits, pushes).
+Parent runs ALL git ops (worktree add, **`git filter-repo`** — NOT `subtree split`, which takes
+one prefix and cannot express the scattered moves-set (review blocker B1) — repo create,
+commits, pushes).
 Agents receive explicit absolute paths — `~/.git-worktrees/craft/feature-folio-split` (craft)
 or `~/projects/dev-tools/folio` (folio) — and do only file-content work. NO
 `isolation:'worktree'` anywhere (conflicts with history preservation; matches the proven
@@ -35,8 +42,8 @@ or `~/projects/dev-tools/folio` (folio) — and do only file-content work. NO
 | Phase | Parent inline | Workflow fan-out |
 |---|---|---|
 | 1 scaffold | repo create (public!), branches, protect-baseline, plugin.json, CLAUDE.md | **wf-p1-tooling**: 5 agents adapt the 5 count/bump scripts to folio + 1 adversarial verifier |
-| 2 extraction | `git subtree split` + graft, commits | **wf-p2-repoint**: `pipeline(movedFiles, rewrite → verify)` per file (`/craft:*`→`/folio:*`, docs-standards contract); **wf-p2-verify**: counts + structure + spot-E2E fan-out after parent wires CI |
-| 3 amputation | `git rm` moves-set, do.md/hub.md routing edits, test-floor edits, all suite runs | **wf-p3-sweep**: 4 batch agents for the ~30-file count cascade + stale-advice cleanup (the P0 follow-ups); **wf-p3-gate**: 3 adversarial verifiers attack gate 3.4 evidence ("craft builds its own site") |
+| 2 extraction | `git filter-repo` + graft, commits, CI + release-choreography authoring, `/folio:hub` | **wf-p2-repoint**: `pipeline(movedFiles ≈16, rewrite → verify)`; **wf-p2-verify**: counts + structure + spot-E2E fan-out |
+| 3 amputation | `git rm` leaving-set, hub/do rebuild (staying-set + breadcrumb), enumerated test edits, **ci.yml floor edit**, `bump-version.sh` counts (parent-only), suites | **wf-p3-sweep**: docs-content grep-sweep agents on DISJOINT non-count files (grep-zero gate); **wf-p3-gate**: 3 adversarial verifiers on the self-build evidence |
 | 4 release | version bumps, PRs, releases, tap/marketplace | **wf-p4-verify**: post-release surface checks (both suites, brew audit, site deploys) |
 
 Rationale: Workflows go where ≥3 independent same-shaped work items exist (script adaptation,
@@ -55,9 +62,10 @@ Every `agent()` call uses a structured-output schema (P0 pattern). Three canonic
 
 ### W5 — budget + concurrency (spec decision)
 
-Reference: P0 = 7 agents / ~510k subagent tokens. Estimates: P1 ~6 agents, P2 ~30–80 (pipeline
-over ~29 moved commands + agents + skills, 2 stages each), P3 ~10, P4 ~4. Total ≈ **1.5–2.5M
-subagent tokens** across the initiative. Per-Workflow default concurrency cap applies; no
+Reference: P0 = 7 agents / ~510k subagent tokens. Post-border-filter estimates: P1 ~6 agents,
+P2 ~15–35 (pipeline over ≈16 moved files, 2 stages each — the kill-list cut this ~40%),
+P3 ~10, P4 ~4. Total ≈ **1–1.8M subagent tokens** (excl. the Phase 3.5 rider, budgeted at its
+own roster grill). Per-Workflow default concurrency cap applies; no
 `model` overrides (inherit session model). If a Workflow errors mid-run, resume via
 `resumeFromRunId` (never re-run completed agents; check `journal.jsonl` first).
 
@@ -117,9 +125,11 @@ every craft gate (memory `pytest-doesnt-cover-craft-ci-bash-suites`).
 ## Boundaries
 
 - **Always:** agents get absolute paths + "never run git" in every prompt · schema on every
-  agent call · adversarial verify before any gate clears · ADR-002 rich-body check before any
-  craft deletion (`test_skill_referenced_commands_exist`) · leak-scan before every push ·
-  record each phase outcome into the ORCHESTRATE immediately.
+  agent call · adversarial verify before any gate clears · ADR-002 salvage-then-delete for
+  every removal (border kills AND 3.5 shim-kills) — MIGRATION-v4.md is the cross-repo safety
+  net (the ADR-002 *test* can't see targets in another repo) · **parent commits after each
+  completed Workflow batch** (dirty-tree recovery) · counts via bump-version.sh only ·
+  leak-scan before every push · record each phase outcome into the ORCHESTRATE immediately.
 - **Ask first (AskUserQuestion, Recommended-first):** create the folio repo · every push ·
   every PR merge · protection changes · entering each next phase · both releases (v4.0.0/v1.0.0)
   · any budget overrun beyond the W5 estimate.
@@ -131,15 +141,19 @@ every craft gate (memory `pytest-doesnt-cover-craft-ci-bash-suites`).
 1. Each of Phases 1–4 exits only on its ORCHESTRATE gate with parent transcripts +
    verifier `sound: true`.
 2. `git log --follow` shows craft-era history on ≥3 sampled moved files (Phase 2).
-3. craft full suite (pytest AND bash) green at ~64 commands; folio green at ~28 (±the
-   `claude-md:*` trio decision).
-4. craft builds + deploys its own site with zero moved authoring commands (3.4).
-5. `MIGRATION-v4.md` maps every moved command; both repos release independently.
+3. craft full suite (pytest AND bash, **incl. the edited ci.yml floors**) green at **69**
+   post-P3 (→ ~22 after the 3.5 rider); folio green at **≈15/6/6**.
+4. craft builds + deploys its own site with zero moved commands AND **grep-zero prose refs**
+   to the leaving-set across docs/ (the strict build alone is a false-green — review B6).
+5. `MIGRATION-v4.md` maps every moved/killed command, breadcrumbed from README/CHANGELOG/hub;
+   both repos release independently — **folio first, craft tag last**, rollback runbook
+   written before either.
 6. Total subagent spend within the W5 envelope (report actuals per phase).
 
-## Open Questions (blocking Phase 1 start, not this spec)
+## Resolved (were Open Questions)
 
-- `docs:claude-md:*` trio: STAYS (leaning) or MOVES — decide at Phase 1.1.
-- folio's mkdocs site: own docs site at v1.0.0, or README-only until v1.1? (Recommend
-  README-only at launch — the split's point is less doc surface, and folio's site can be built
-  BY folio later as dogfood.)
+- `docs:claude-md:*` trio: **STAYS in craft as one unit** (border filter — craft-internal
+  CLAUDE.md governance; fixes review B5's double-booking).
+- folio's docs site: **minimal folio-built site at v1.0.0** — Phase 2.4's own exit criterion
+  requires it, and launching the docs-authoring plugin without a dogfooded site was
+  self-contradictory (review UX-F6). README-only recommendation withdrawn.
