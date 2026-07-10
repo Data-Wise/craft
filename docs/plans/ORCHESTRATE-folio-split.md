@@ -8,9 +8,11 @@
 > **Execution spec:** `docs/specs/SPEC-folio-split-workflow-2026-07-09.md` (W1–W5)
 > **Border filter:** `docs/specs/BRAINSTORM-folio-border-filter-2026-07-09.md` (kill/move/merge)
 > **v4 rider:** `docs/specs/BRAINSTORM-craft-v4-skills-first-surface-2026-07-09.md` (Phase 3.5)
-> **Status:** ✅ PHASE 0 COMPLETE + ✅ ADVERSARIALLY REVIEWED + AMENDED (2026-07-09).
-> 3-lens review (UX/backend/devops): 6 blockers + 9 majors — ALL folded in below.
-> Phases 1–4 NOT STARTED; no code written; no worktree/repo created.
+> **Status:** ✅ PLANNING COMPLETE + **HUMAN-APPROVED (2026-07-09)** — Phase 0 verified,
+> 3-lens review folded in (6 blockers + 9 majors), border filter + v4 roster locked (R1–R4),
+> execution breakdown approved (33 tasks, `tasks/plan.md` + `tasks/todo.md` on the future
+> feature branch). Phases 1–4 NOT STARTED; no code written; no worktree/repo created.
+> Next action on explicit go: Phase 1 T1.1 (worktree) + T1.2 (public repo, asks first).
 
 > **This is a NEW initiative.** Supersedes the dropped Phase 3 of
 > `ORCHESTRATE-craft-native-first-breakup.md` (CLOSED). The cross-plugin router wall is a
