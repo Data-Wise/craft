@@ -5,7 +5,9 @@
 > **Worktree:** `~/.git-worktrees/craft/feature-folio-split` (not yet created)
 > **Second repo:** `~/projects/dev-tools/folio` (NEW — created in Phase 1)
 > **Grill:** `docs/specs/GRILL-folio-split-2026-07-09.md` (5 branches B1–B5 LOCKED — the spec input)
-> **Status:** ☐ NOT STARTED (2026-07-09). Plan-ready; no code written; no worktree/repo created.
+> **Status:** ✅ PHASE 0 COMPLETE (2026-07-09) — caller-audit ran via dynamic Workflow (7 agents,
+> adversarially verified, `partition_sound: true`, 30/30 coverage). Partition recorded below +
+> in the grill. Phases 1–4 NOT STARTED; no code written; no worktree/repo created.
 
 > **This is a NEW initiative.** It supersedes the dropped Phase 3 of
 > `ORCHESTRATE-craft-native-first-breakup.md` (which stays CLOSED). Native-first thinning was
@@ -23,7 +25,7 @@ ends at ~64 commands; folio launches at ~28.
 
 | Phase | Increment | Repo | Version | Priority | Effort | Status |
 |-------|-----------|------|---------|----------|--------|--------|
-| 0 | Caller-audit — finalize the exact stays/moves set (read-only) | craft | — | P0 (gates the cut) | Low | ☐ |
+| 0 | Caller-audit — finalize the exact stays/moves set (read-only) | craft | — | P0 (gates the cut) | Low | ✅ 2026-07-09 |
 | 1 | folio scaffold + docs-standards contract + duplicate count tooling | folio | folio v0.1.0 | P0 | Med | ☐ |
 | 2 | History-preserving extraction of the moving-set + folio CI | folio | folio v1.0.0-rc | P0 | High | ☐ |
 | 3 | craft amputation — remove moved cmds, collapse site:deploy, drop DOCS from /do+/hub | craft | craft v4.0.0 | P0 | High | ☐ |
@@ -57,6 +59,32 @@ ends at ~64 commands; folio launches at ~28.
 
 **Exit:** a concrete stays-set + moves-set. No exit → do not enter Phase 2/3.
 
+### ✅ PHASE 0 OUTCOME (2026-07-09 — dynamic Workflow `wf_bf0549a1`, adversarially verified)
+
+7 agents (5 region-audits → synthesize → adversarial verify). Verdict: **`partition_sound: true`,
+0 misclassified moves, 30/30 coverage.** The verifier independently re-grepped every MOVES
+command against craft-core and confirmed the release-critical path is safe: `docs:update
+--post-merge` implements its logic INLINE (`update.md:379–500` — regex version/count fixes +
+direct `docs-staleness-check.sh` call), not by orchestrating the moved subcommands.
+
+- **STAYS in craft (3):** `docs:update` (release Step 3b + 3 skill callers) · `docs:changelog`
+  (do.md routing ×4 + task-analyzer + dist/homebrew ref) · `site:deploy` — as the raw
+  `mkdocs gh-deploy` shell (release Step 9); the alias command itself is deleted.
+- **MOVES to folio (26):** `docs:{api, check, check-links, claude-md:edit, claude-md:init, demo,
+  generate, guide, help, lint, mermaid, nav-update, prompt, quickstart, site, sync, tutorial,
+  website, workflow}` + `site:{build, check, docs:frameworks, progress, publish, status, update}`.
+- **JUDGMENT CALL (resolve at Phase 1):** the `docs:claude-md:*` trio — `sync` has no
+  stays-plumbing caller but its only craft-core refs are CLAUDE.md-governance gates
+  (`claude-md-budget-check.sh:70`, `claude-md-health.sh:100`) printing it as remediation advice.
+  It is craft-internal CLAUDE.md tooling, not docs authoring — decide the trio as ONE unit;
+  leaning STAYS in craft.
+- **Non-blocking follow-ups for Phase 3:** (1) `do.md:905` dispatches `docs:sync` for the "docs"
+  category — handled by 3.3's B3 drop-DOCS task; (2) ~6 craft-core scripts hold advice-string
+  refs to `docs:demo` (dependency-manager.sh:490, version-check.sh:310, consent-prompt.sh:235,
+  test-fix-flag.sh:137 + check.md cross-refs) — clean or repoint at 3.1; (3) `update.md`'s
+  "Orchestrates these commands internally" Integration section = narrative staleness, rewrite at
+  3.1; (4) `site:create` in `capture-craft-output.sh:27` is a phantom (no such command) — drop.
+
 ---
 
 ## Phase 1: folio Scaffold + Contracts (folio v0.1.0)
@@ -64,9 +92,15 @@ ends at ~64 commands; folio launches at ~28.
 **Scope:** Stand up an empty-but-valid `folio` plugin repo. No craft changes; no command content
 moved yet.
 
-- [ ] 1.1 Create `~/projects/dev-tools/folio` as a git repo (multi-branch: `main` ← `dev` ←
-      `feature/*`, matching the ecosystem norm). Add `.claude-plugin/plugin.json` (strict schema),
-      `commands/`, `agents/`, `skills/`, `docs/`, `scripts/`, `tests/`, `CLAUDE.md`.
+- [ ] 1.1 Create `~/projects/dev-tools/folio` as a **PUBLIC** git repo (multi-branch: `main` ←
+      `dev` ← `feature/*`, matching the ecosystem norm). Add `.claude-plugin/plugin.json` (strict
+      schema), `commands/`, `agents/`, `skills/`, `docs/`, `scripts/`, `tests/`, `CLAUDE.md`.
+      **⚠️ PUBLIC is load-bearing (zero-CI impact analysis, 2026-07-09):** private-repo Actions
+      bill against the account pool (and self-hosted runners are no longer free post-2026-03) —
+      a private folio would make Phase 2.4's CI contradict the account's zero-CI budget strategy.
+      Public = CI free forever. No secrets concern: folio's subtree history is extracted from
+      public craft. Use `gh repo create --public` explicitly (gh defaults to private).
+      Also decide the `docs:claude-md:*` trio here (Phase 0 judgment call — leaning STAYS).
 - [ ] 1.2 **folio ↔ docs-standards contract (Open Q #2):** decide how folio's tools reference the
       existing `~/projects/dev-tools/docs-standards` repo (path convention vs. bundled templates vs.
       submodule). Recommended: path convention + a documented fallback — no hard submodule coupling.
@@ -75,6 +109,10 @@ moved yet.
       `exclusions.txt`, `pre-release-check.sh`, `post-release-sweep.sh` into `folio/scripts/`, tuned
       to folio's (smaller) surface. Wire `validate-counts.sh` to folio's namespaces.
 - [ ] 1.4 Add folio to the marketplace/tap generator inputs (entry only — not yet published).
+- [ ] 1.5 Apply the branch-protection baseline to folio `main` (PR-only, 0 reviews, no
+      force-push/deletions; required check = folio's structure-validation job name once CI
+      exists in Phase 2.4): `/craft:git:protect-baseline --repo Data-Wise/folio`. `dev` stays
+      GitHub-unprotected (local branch-guard hook covers it, same posture as craft).
 
 **Key files:** all NEW under `~/projects/dev-tools/folio/`.
 

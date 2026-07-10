@@ -110,10 +110,17 @@ independently (the whole point of the split).
 
 ## Open Questions (resolve at SPEC/plan time, not blocking)
 
-- **Exact caller-based staying-set (B2):** audit *every* craft-core invocation of a `docs:*` /
-  `site:*` command before finalizing which few stay. `docs:update`, `docs:changelog` are
-  confirmed; sweep `skills/release/`, `skills/distribution/`, `commands/dist/`, `commands/ci/`
-  for any others.
+- **Exact caller-based staying-set (B2):** ✅ **RESOLVED 2026-07-09** — Phase 0 caller-audit ran
+  via dynamic Workflow (7 agents, adversarial verify: `partition_sound: true`, 0 misclassified,
+  30/30 coverage). **STAYS (3):** `docs:update`, `docs:changelog`, `site:deploy`-as-raw-shell.
+  **MOVES (26):** all other `docs:*`/`site:*`. Release safety proven: `docs:update --post-merge`
+  is inline logic (`update.md:379–500`), not an orchestration of moved subcommands. One judgment
+  call left to Phase 1: the `docs:claude-md:*` trio (craft-internal CLAUDE.md governance —
+  leaning STAYS as a unit). Full partition + follow-ups: ORCHESTRATE Phase 0 OUTCOME block.
+- **folio visibility (NEW, from the zero-CI impact analysis 2026-07-09):** ✅ folio must be
+  **PUBLIC** — private-repo Actions bill against the account pool (zero-CI strategy, memory
+  `github-actions-zero-ci-strategy-2026-07`); public = CI free; history is public content
+  already. Recorded in ORCHESTRATE Phase 1.1 (+ new 1.5 protection-baseline task).
 - **folio ↔ docs-standards contract (B1):** how folio's tools reference the existing
   `docs-standards` repo (submodule? path convention? bundled templates?).
 - **craft's own docs after split (B1):** craft keeps its content but now authors it with folio —
