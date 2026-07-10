@@ -371,6 +371,110 @@ test_cowork_absent_is_warn_not_block() {
     destroy_sandbox
 }
 
+test_cowork_mismatch_shows_releases_behind() {
+    echo -e "${T_BLUE}[TEST]${T_NC} COWORK: quantified mismatch shows N release(s) behind (craft#199)"
+    make_sandbox "2.40.0"; SBX_VERSION="2.40.0"
+    git -C "$SANDBOX" init -q
+    git -C "$SANDBOX" -c user.email=t@t -c user.name=t commit -q --allow-empty -m init
+    for v in 2.36.0 2.37.0 2.38.0 2.39.0 2.40.0; do git -C "$SANDBOX" tag "v$v"; done
+
+    local cowork_dir="$SANDBOX/cowork_plugins"
+    mkdir -p "$cowork_dir"
+    cat > "$cowork_dir/installed_plugins.json" <<'JSON'
+{ "plugins": { "craft@my-mkt": [ { "version": "2.36.0" } ] } }
+JSON
+
+    local exit_code=0 output
+    output=$(SURFACES_GIT_TAG="" SURFACES_COWORK_STORE="$cowork_dir" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Quantified cowork mismatch still does not block"
+    assert_contains "$stripped" "4 release(s) behind" "Human report shows the releases-behind count"
+
+    local json_output
+    json_output=$(SURFACES_GIT_TAG="" SURFACES_COWORK_STORE="$cowork_dir" run_verify --json)
+    assert_contains "$json_output" '"releasesBehind": 4' "JSON carries releasesBehind on the cowork leg"
+
+    destroy_sandbox
+}
+
+test_cowork_aligned_has_no_releases_behind() {
+    echo -e "${T_BLUE}[TEST]${T_NC} COWORK: aligned cowork leg reports releasesBehind null, no count in human output"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local cowork_dir="$SANDBOX/cowork_plugins"
+    mkdir -p "$cowork_dir"
+    cat > "$cowork_dir/installed_plugins.json" <<'JSON'
+{ "plugins": { "craft@my-mkt": [ { "version": "2.37.0" } ] } }
+JSON
+
+    local output
+    output=$(SURFACES_COWORK_STORE="$cowork_dir" run_verify)
+    local stripped; stripped=$(strip_ansi "$output")
+    assert_not_contains "$stripped" "release(s) behind" "Aligned cowork leg shows no releases-behind note"
+
+    local json_output
+    json_output=$(SURFACES_COWORK_STORE="$cowork_dir" run_verify --json)
+    assert_contains "$json_output" '"releasesBehind": null' "JSON reports releasesBehind null when aligned"
+
+    destroy_sandbox
+}
+
+test_cowork_recover_script_reports_no_store() {
+    echo -e "${T_BLUE}[TEST]${T_NC} COWORK-RECOVER: no Cowork store on this machine -> exit 0, no drift claimed"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local exit_code=0 output
+    output=$(SURFACES_COWORK_STORE="$SANDBOX/no-such-store" bash "$PROJECT_ROOT/scripts/cowork-recover.sh" "$SANDBOX" 2>&1) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "No Cowork store -> exit 0"
+    assert_contains "$stripped" "nothing to recover" "Reports nothing to recover"
+
+    destroy_sandbox
+}
+
+test_cowork_recover_script_prints_manual_steps_on_drift() {
+    echo -e "${T_BLUE}[TEST]${T_NC} COWORK-RECOVER: drift -> exit 1 + the 5 manual recovery steps"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local cowork_dir="$SANDBOX/cowork_plugins"
+    mkdir -p "$cowork_dir"
+    cat > "$cowork_dir/installed_plugins.json" <<'JSON'
+{ "plugins": { "craft@my-mkt": [ { "version": "1.8.0" } ] } }
+JSON
+
+    local exit_code=0 output
+    output=$(SURFACES_COWORK_STORE="$cowork_dir" bash "$PROJECT_ROOT/scripts/cowork-recover.sh" "$SANDBOX" 2>&1) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "1" "$exit_code" "Drifted Cowork install exits 1"
+    assert_contains "$stripped" "Uninstall it" "Recovery steps mention uninstall"
+    assert_contains "$stripped" "Cmd-Q" "Recovery steps mention the full Cmd-Q relaunch"
+
+    destroy_sandbox
+}
+
+test_cowork_recover_script_aligned_is_noop() {
+    echo -e "${T_BLUE}[TEST]${T_NC} COWORK-RECOVER: aligned install -> exit 0, nothing to do"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    local cowork_dir="$SANDBOX/cowork_plugins"
+    mkdir -p "$cowork_dir"
+    cat > "$cowork_dir/installed_plugins.json" <<'JSON'
+{ "plugins": { "craft@my-mkt": [ { "version": "2.37.0" } ] } }
+JSON
+
+    local exit_code=0 output
+    output=$(SURFACES_COWORK_STORE="$cowork_dir" bash "$PROJECT_ROOT/scripts/cowork-recover.sh" "$SANDBOX" 2>&1) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Aligned Cowork install exits 0"
+    assert_contains "$stripped" "Nothing to do" "Reports nothing to do"
+
+    destroy_sandbox
+}
+
 test_aggregator_name_mismatch_blocks() {
     echo -e "${T_BLUE}[TEST]${T_NC} AGGREGATOR NAME: aggregator entry with wrong name -> BLOCK"
     make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
@@ -572,6 +676,12 @@ main() {
     # Task 2 additions
     test_cowork_mismatch_is_warn_only
     test_cowork_absent_is_warn_not_block
+    # craft#199 reopen: quantified Cowork WARN + cowork-recover.sh
+    test_cowork_mismatch_shows_releases_behind
+    test_cowork_aligned_has_no_releases_behind
+    test_cowork_recover_script_reports_no_store
+    test_cowork_recover_script_prints_manual_steps_on_drift
+    test_cowork_recover_script_aligned_is_noop
     test_aggregator_name_mismatch_blocks
     test_aggregator_correct_name_and_version_passes
     test_cowork_glob_maxdepth
