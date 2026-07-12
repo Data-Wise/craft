@@ -4,54 +4,57 @@
 > `docs/plans/ORCHESTRATE-folio-split.md`. Working artifact — delete from branch before final merge.
 > Paths: WT = `~/.git-worktrees/craft/feature-folio-split` · FO = `~/projects/dev-tools/folio`.
 
-## Phase 1 — folio scaffold
+## Phase 1 — folio scaffold ✅ COMPLETE (merged, see .STATUS 2026-07-10)
 
-- [ ] **T1.1** Create craft worktree + move ORCHESTRATE there — **XS** (parent git)
+- [x] **T1.1** Create craft worktree + move ORCHESTRATE there — **XS** (parent git)
   - Acceptance: `feature/folio-split` off dev; ORCHESTRATE at WT root
   - Verify: `git worktree list`; `git -C WT branch --show-current`
-- [ ] **T1.2** `gh repo create Data-Wise/folio --public` + clone + `main`←`dev` — **S** (ASK first)
+- [x] **T1.2** `gh repo create Data-Wise/folio --public` + clone + `main`←`dev` — **S** (ASK first)
   - Acceptance: visibility PUBLIC; dev default working branch
   - Verify: `gh repo view Data-Wise/folio --json visibility`
-- [ ] **T1.3** folio skeleton: plugin.json (strict), dirs, CLAUDE.md w/ docs-standards contract — **S**
+- [x] **T1.3** folio skeleton: plugin.json (strict), dirs, CLAUDE.md w/ docs-standards contract — **S**
   - Acceptance: `npx @anthropic-ai/claude-code plugin validate .` passes
   - Verify: validate transcript · Files: FO/{.claude-plugin,CLAUDE.md,commands,agents,skills,docs,scripts,tests}
-- [ ] **T1.4** wf-p1-tooling: schema-owner agent first, then 4 script adapters + 1 verifier — **M**
+- [x] **T1.4** wf-p1-tooling: schema-owner agent first, then 4 script adapters + 1 verifier — **M**
   - Acceptance: bump-version/validate-counts/exclusions(config/)/pre-release/post-sweep green on empty surface; floors 15/6/6; SKILL.md-only keys
   - Verify: parent runs each script; VERDICT sound=true · Files: FO/scripts/*
-- [ ] **T1.5** Tap manifest `formulas['folio']` + generate.py support + marketplace row (entries only) — **S**
+- [x] **T1.5** Tap manifest `formulas['folio']` + generate.py support + marketplace row (entries only) — **S**
   - Acceptance: `generate.py folio` emits a valid formula locally (not pushed)
   - Verify: dry-run output · Files: homebrew-tap/generator/*, claude-plugins marketplace.json
-- [ ] **T1.6** Bare protection (NO contexts) + GitHub App install on folio — **S**
+  - ⚠️ UNVERIFIED per .STATUS 2026-07-10: fix reworked onto local-only `feature/folio-formula` in homebrew-tap, never pushed/PR'd — re-check before Phase 4.
+- [x] **T1.6** Bare protection (NO contexts) + GitHub App install on folio — **S**
   - Acceptance: PR-only/no-force/no-delete; contexts []; APP_ID+APP_PRIVATE_KEY secrets set
   - Verify: `gh api .../branches/main/protection`; secrets list
-- [ ] **CP-1** (ASK): all above + record outcome in ORCHESTRATE
+  - ⚠️ UNVERIFIED per .STATUS 2026-07-10: claimed done, not yet re-confirmed with `gh secret list --repo Data-Wise/folio`.
+- [x] **CP-1** (ASK): all above + record outcome in ORCHESTRATE
 
-## Phase 2 — extraction + folio CI + choreography
+## Phase 2 — extraction + folio CI + choreography ✅ COMPLETE (merged, folio PR #1, 2026-07-10)
 
-- [ ] **T2.1** Build filter-repo path list FROM the disposition table; dry-run — **S** (parent)
+- [x] **T2.1** Build filter-repo path list FROM the disposition table; dry-run — **S** (parent)
   - Acceptance: path list = 16 command files + agents/docs + 6 skill dirs; dry-run file count matches
   - Verify: dry-run manifest vs ROSTER-*.md
-- [ ] **T2.2** `git filter-repo` split + graft into FO preserving authorship — **M** (parent git)
+- [x] **T2.2** `git filter-repo` split + graft into FO preserving authorship — **M** (parent git)
   - Acceptance: files at same relative paths; craft-era commits present
   - Verify: `git -C FO log --follow` on 3 samples
-- [ ] **T2.3** wf-p2-repoint pipeline (≈16 files): /craft:→/folio: + docs-standards repoint → per-file verify — **M**
+- [x] **T2.3** wf-p2-repoint pipeline (≈16 files): /craft:→/folio: + docs-standards repoint → per-file verify — **M**
   - Acceptance: zero /craft: self-refs; all VERDICT sound; parent commit per batch
   - Verify: pipeline results + parent spot-grep
-- [ ] **T2.4** Salvage 7 killed site cmds → site-management/navigation references/ (line-conservation diff vs 284L router); merge check-links→docs:check; demote frameworks.md — **M**
+- [x] **T2.4** Salvage 7 killed site cmds → site-management/navigation references/ (line-conservation diff vs 284L router); merge check-links→docs:check; demote frameworks.md — **M**
   - Acceptance: Σ-lines conserved per ADR-002; docs:check has links section/flag
   - Verify: diff audit transcript · Files: FO/skills/docs/*/references/*, FO/commands/docs/check.md
-- [ ] **T2.5** folio ci.yml (pytest+structure+counts, floors ~15/6/6) — **S**
+- [x] **T2.5** folio ci.yml (pytest+structure+counts, floors ~15/6/6) — **S**
   - Acceptance: actionlint clean; floors match surface
-  - Verify: actionlint; first run green
-- [ ] **T2.6** folio homebrew-release.yml + aggregator-sync.yml (parameterized mirrors); after first green PR run: add required context to main protection — **M**
+  - Verify: actionlint; first run green — 38/38 pytest, confirmed on real folio GitHub CI
+- [x] **T2.6** folio homebrew-release.yml + aggregator-sync.yml (parameterized mirrors); after first green PR run: add required context to main protection — **M**
   - Acceptance: actionlint clean; protection contexts = [folio's check name] (byte-match)
   - Verify: actionlint; `gh api` protection readback
-- [ ] **T2.7** `/folio:hub` index + minimal folio-built docs site — **M**
+- [x] **T2.7** `/folio:hub` index + minimal folio-built docs site — **M**
   - Acceptance: hub lists ~15 cmds/6 agents/6 skills; `mkdocs build --strict` clean
   - Verify: build transcript · Files: FO/commands/hub.md, FO/mkdocs.yml, FO/docs/*
-- [ ] **T2.8** wf-p2-verify fan-out: counts + structure + spot-E2E (docs:tutorial equivalence) — **S**
-  - Acceptance: all VERDICT sound=true
-- [ ] **CP-2** (ASK): folio suites green + history proof + hub → record outcome
+- [x] **T2.8** wf-p2-verify fan-out: counts + structure + spot-E2E (docs:tutorial equivalence) — **S**
+  - Acceptance: all VERDICT sound=true — validate-counts 16/6/6, mkdocs --strict clean, git log --follow history proof
+- [x] **CP-2** (ASK): folio suites green + history proof + hub → record outcome
+  - ⚠️ RELEASE READINESS GAP per .STATUS 2026-07-10: folio has zero e2e/dogfood tests, only 3 stub doc pages, `plugin.json` still 0.1.0 — deliberately deferred until Phase 3 confirms folio is sole owner.
 
 ## Phase 3 — craft amputation (@69)
 
