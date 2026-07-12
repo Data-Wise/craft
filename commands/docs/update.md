@@ -536,7 +536,7 @@ git diff --name-only HEAD~10
 git log --oneline -10
 
 # Classify what docs are needed
-# (uses scoring algorithm from doc-classifier)
+# (uses utils/complexity_scorer.py)
 ```text
 
 **Interactive Mode:**
@@ -781,15 +781,10 @@ Doc types are generated based on classification scores:
 **Orchestrates these commands internally:**
 
 - `/craft:docs:sync` - Change detection and classification
-- `/craft:docs:guide` - Guide generation
-- `/craft:docs:tutorial` - Tutorial generation
-- `/craft:docs:demo` - VHS tape generation
-- `/craft:docs:mermaid` - Diagram generation
-- `/craft:docs:check` - Validation and auto-fix
-- `/craft:docs:lint` - **NEW:** Markdown linting with auto-fix
 - `/craft:docs:changelog` - Changelog updates
 - `/craft:docs:claude-md` - CLAUDE.md updates
-- `/craft:docs:nav-update` - mkdocs navigation
+- `/folio:docs:guide` / `tutorial` / `demo` / `mermaid` / `check` / `lint` - generation,
+  validation, and linting (moved to `folio`)
 
 **Uses utilities:**
 

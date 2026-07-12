@@ -2,9 +2,9 @@
 
 > **TL;DR**: 45 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
 
-Craft includes 45 auto-activating skills and 8 specialized agents for comprehensive development support.
+Craft includes 39 auto-activating skills and 2 specialized agents for comprehensive development support.
 
-## Skills (45 total)
+## Skills (39 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -26,7 +26,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | project-detector | Smart detection of project types, build tools, and CI requirements | `skills/ci/SKILL.md` |
 
-### Code (4)
+### Code (3)
 
 | Name | Description | Path |
 |------|-------------|------|
@@ -60,7 +60,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 | homebrew-setup-wizard | Implementation logic for the Homebrew automation setup wizard | `skills/distribution/homebrew-setup-wizard/SKILL.md` |
 | homebrew-workflow-expert | GitHub Actions workflows for automated Homebrew formula updates and releases | `skills/distribution/homebrew-workflow-expert/SKILL.md` |
 
-### Documentation (8)
+### Documentation (3)
 
 | Name | Description | Path |
 |------|-------------|------|
@@ -141,11 +141,11 @@ directory), but is cataloged here for discoverability:*
 | background-task-manager | Manage already-launched background tasks — status inspection, output retrieval, cancellation | `skills/workflow/task-management/SKILL.md` |
 | prompt-refiner | Refine a vague request into a sharp prompt using project context (before/after + Accept/Edit/Use-original) — the engine behind the `--refine` flag; replaces the deprecated `/refine` | `skills/workflow/prompt-refiner/SKILL.md` |
 
-## Agents (8 total)
+## Agents (2 total)
 
 Specialized agents can be invoked explicitly or delegated to by the orchestrator.
 
-### Documentation Agents (6)
+### Documentation Agents (0)
 
 | Name | Description | Path |
 |------|-------------|------|

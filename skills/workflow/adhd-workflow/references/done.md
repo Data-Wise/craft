@@ -246,12 +246,12 @@ done
   ⚠  scripts/version-sync.sh added → consider adding docs reference
   ✅ commands/done.md → docs already up to date
 
-  Run /craft:docs:sync to update? [Y/n]
+  Run /folio:docs:sync to update? [Y/n]
 ```
 
 **Behavior:**
 
-- If drift detected: offer to run `/craft:docs:sync` before committing
+- If drift detected: offer to run `/folio:docs:sync` before committing
 - If no drift: show green checkmark, proceed normally
 - Skippable with `SKIP_DOC_DRIFT=1` environment variable
 

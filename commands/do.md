@@ -319,9 +319,8 @@ If orchestrator-v2 delegation fails or is denied:
 /craft:do update documentation
 
 # Routes to:
-# 1. /craft:docs:sync - Sync docs with code
-# 2. /craft:docs:validate - Check links
-# 3. /craft:docs:changelog - Update changelog
+# 1. /craft:docs:changelog - Update changelog
+# (docs building/linting/tutorials moved to /folio:docs:*)
 ```
 
 ### Guard Audit
@@ -465,7 +464,7 @@ mapping, not a general intent classification:
 | **Feature**      | arch:plan, code:test-gen, git:branch     |
 | **Bug**          | code:debug, test, test debug             |
 | **Quality**      | code:lint, test --coverage, code:refactor|
-| **Docs**         | docs:sync, docs:validate, docs:changelog |
+| **Docs**         | docs:changelog (build/lint/tutorial moved to `folio`) |
 | **Test**         | test, test --coverage, test debug        |
 | **Release**      | deps-audit, lint, test, code:release     |
 | **Architecture** | arch:analyze, arch:plan, arch:diagram    |
@@ -902,7 +901,7 @@ def route_to_commands(task, category):
     elif category == "quality":
         execute(["/craft:code:lint", "/craft:test --coverage"])
     elif category == "docs":
-        execute(["/craft:docs:sync", "/craft:docs:validate", "/craft:docs:changelog"])
+        execute(["/craft:docs:changelog"])
     elif category == "test":
         execute(["/craft:test", "/craft:test --coverage"])
     elif category == "release":

@@ -7,8 +7,6 @@ arguments:
     required: false
     default: false
     alias: -n
-deprecated: true
-replaced-by: "skills/docs/site-management/"
 ---
 
 # /craft:site:deploy - Deploy to GitHub Pages
@@ -215,17 +213,7 @@ Or run: gh repo edit --enable-pages
 
 ## See Also
 
-- `/craft:site:build` - Build site locally
-- `/craft:site:check` - Check site for issues
-- `/craft:site:add` - Add Pages with Navigation Sync
-- `/craft:site:audit` - Content Inventory & Audit
-- `/craft:site:consolidate` - Merge Duplicate Content
-- `/craft:site:create` - Full Documentation Site Wizard
-- `/craft:site:nav` - Navigation Reorganization
-- `/craft:site:progress` - Display comprehensive semester progress dashboard
-- `/craft:site:publish` - Publish teaching site with preview workflow
-- `/craft:site:status` - Documentation Site Dashboard
-- `/craft:site:theme` - Quick Theme Changes
+- `/folio:docs:site` - Build, audit, and manage documentation sites (moved to `folio`)
 - Template: `templates/dry-run-pattern.md`
 - Utility: `utils/dry_run_output.py`
 - Specification: `docs/specs/SPEC-dry-run-feature-2026-01-15.md`

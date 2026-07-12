@@ -203,7 +203,7 @@ Display template:
 │   /craft:ci:local             /craft:arch:plan                     │
 │   /craft:ci:fix               /craft:arch:review                   │
 │                                    /craft:arch:diagram                  │
-│ DOCS (22)                                                               │
+│ DOCS (5)                                                               │
 │   /craft:docs:update             PLAN (3)                               │
 │   /craft:docs:sync                 /craft:plan:feature                  │
 │   /craft:docs:lint                 /craft:plan:sprint                   │
@@ -225,7 +225,7 @@ Display template:
 │   /craft:git:protect             DIST (5)                               │
 │   /craft:git:unprotect             /craft:dist:marketplace             │
 │                                    /craft:dist:homebrew                 │
-│ SITE (8)                          /craft:dist:curl-install             │
+│ SITE (1)                          /craft:dist:curl-install             │
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
 │   /craft:site:check              ORCHESTRATE (3)                        │
@@ -438,7 +438,7 @@ Usage:
 ### `/craft:hub docs`
 
 ```
-DOCS COMMANDS (22) - Documentation Automation
+DOCS COMMANDS (5) - Documentation Automation
 ─────────────────────────────────────────────────────────────────────────
 Command                        | Description
 ───────────────────────────────┼─────────────────────────────────────
@@ -540,7 +540,7 @@ Insights (v2.21.0):
 ### `/craft:hub site`
 
 ```
-SITE COMMANDS (8) - Documentation Sites
+SITE COMMANDS (1) - Documentation Sites
 ─────────────────────────────────────────────────────────────────────────
 Command                  | R Package        | Other (MkDocs)
 ─────────────────────────┼──────────────────┼─────────────────────

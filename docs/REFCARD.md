@@ -1562,7 +1562,7 @@ Use `--no-tests` or `--no-docs` to suppress either.
 
 **See:** [Brainstorm Documentation](commands/brainstorm.md) for complete guide
 
-## Skills (45 total)
+## Skills (39 total)
 
 Auto-triggered expertise:
 
@@ -1586,7 +1586,7 @@ Auto-triggered expertise:
 | `session-state`           | Orchestrator state tracking                         |
 | ...and 23 more            | See [Skills & Agents Guide](skills-agents.md) |
 
-## Agents (8 specialized)
+## Agents (2 specialized)
 
 | Agent               | Specialty                        |
 | ------------------- | -------------------------------- |
