@@ -1,18 +1,18 @@
 # folio Split — Orchestration Plan
 
-> **Branch:** `feature/folio-split` (create when implementation starts — ORCHESTRATE-only for now)
+> **Branch:** `feature/folio-split` (live — created 2026-07-09)
 > **Base:** `dev`
-> **Worktree:** `~/.git-worktrees/craft/feature-folio-split` (not yet created)
-> **Second repo:** `~/projects/dev-tools/folio` (NEW, **PUBLIC** — created in Phase 1)
+> **Worktree:** `~/.git-worktrees/craft/feature-folio-split` (live)
+> **Second repo:** `~/projects/dev-tools/folio` (PUBLIC, created Phase 1 — live)
 > **Grill:** `docs/specs/GRILL-folio-split-2026-07-09.md` (B1–B5 LOCKED)
 > **Execution spec:** `docs/specs/SPEC-folio-split-workflow-2026-07-09.md` (W1–W5)
 > **Border filter:** `docs/specs/BRAINSTORM-folio-border-filter-2026-07-09.md` (kill/move/merge)
 > **v4 rider:** `docs/specs/BRAINSTORM-craft-v4-skills-first-surface-2026-07-09.md` (Phase 3.5)
-> **Status:** ✅ PLANNING COMPLETE + **HUMAN-APPROVED (2026-07-09)** — Phase 0 verified,
-> 3-lens review folded in (6 blockers + 9 majors), border filter + v4 roster locked (R1–R4),
-> execution breakdown approved (33 tasks, `tasks/plan.md` + `tasks/todo.md` on the future
-> feature branch). Phases 1–4 NOT STARTED; no code written; no worktree/repo created.
-> Next action on explicit go: Phase 1 T1.1 (worktree) + T1.2 (public repo, asks first).
+> **Status:** This file is the frozen plan-of-record. **Live execution tracker:** `tasks/todo.md`
+> on the `feature/folio-split` branch — Phase 1 (T1.1–T1.6, CP-1) and Phase 2 (T2.1–T2.8, CP-2)
+> are ✅ COMPLETE and merged (folio PR #1, 2026-07-10; see `.STATUS`). Phase 3 (craft amputation)
+> is NOT STARTED — two pre-req claims from Phase 1 (T1.5 tap formula, T1.6 secrets) are flagged
+> unverified in `tasks/todo.md` and should be re-checked before starting Phase 3.
 
 > **This is a NEW initiative.** Supersedes the dropped Phase 3 of
 > `ORCHESTRATE-craft-native-first-breakup.md` (CLOSED). The cross-plugin router wall is a

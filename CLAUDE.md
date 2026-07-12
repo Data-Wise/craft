@@ -87,7 +87,7 @@ performance) · `release` (<300s, thorough). Example: `/craft:code:lint debug`.
 
 | Directory | Purpose |
 |-----------|---------|
-| `commands/` | 115 commands (auto-discovered, one `.md` per command) |
+| `commands/` | 94 commands (auto-discovered, one `.md` per command) |
 | `skills/` | 45 skills (`SKILL.md` pattern) |
 | `agents/` | 8 agent definitions |
 | `tests/` | Unit, e2e, dogfood, and integration test suites |
