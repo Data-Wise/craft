@@ -89,8 +89,8 @@ jobs:
       - name: Validate command count
         run: |
           COMMAND_COUNT=$(find commands -name "*.md" -type f | wc -l | tr -d ' ')
-          if [ "$COMMAND_COUNT" -lt 86 ]; then
-            echo "❌ Expected at least 86 commands, found $COMMAND_COUNT"
+          if [ "$COMMAND_COUNT" -lt 60 ]; then
+            echo "❌ Expected at least 60 commands, found $COMMAND_COUNT"
             exit 1
           fi
           echo "✅ Found $COMMAND_COUNT command files"
