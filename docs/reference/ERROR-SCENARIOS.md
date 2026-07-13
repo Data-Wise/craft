@@ -526,7 +526,7 @@ brew install asciinema
 
 ---
 
-### /craft:code:coverage
+### /craft:test --coverage
 
 #### Error: Coverage Threshold Not Met
 
@@ -550,7 +550,7 @@ Uncovered:
 /craft:code:test-gen unit src/utils/helpers.ts
 
 # Option 2: Lower threshold temporarily
-/craft:code:coverage --threshold 75
+/craft:test --coverage --threshold 75
 
 # Option 3: Skip coverage check
 /craft:check --scope code tests
@@ -1133,7 +1133,7 @@ grep "code:lint" ~/.craft/logs/craft.log
 ```bash
 # Gather diagnostics
 /craft:check --verbose
-/craft:code:coverage --report json
+/craft:test --coverage --report json
 
 # Save environment info
 env > environment.txt

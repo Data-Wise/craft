@@ -197,7 +197,7 @@ Estimated subtasks: 5
 ? Proceed with this orchestration plan?
   › Yes - Start Wave 1 (Recommended)
 
-Spawning Wave 1 agents...
+Spawning Wave 2 agents...
 ```
 
 ### Check Status

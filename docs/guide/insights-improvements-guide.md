@@ -406,7 +406,7 @@ When creating an ORCHESTRATE file, insights data automatically feeds into the "F
 /craft:insights
 
 # 2. Create ORCHESTRATE — friction prevention is auto-populated
-/craft:orch:plan docs/specs/SPEC-feature.md
+/craft:plan docs/specs/SPEC-feature.md
 # → ORCHESTRATE file includes project-specific guardrails
 ```
 

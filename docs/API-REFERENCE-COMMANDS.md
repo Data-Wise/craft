@@ -256,26 +256,9 @@ Monitor with: /craft:orch status
 
 ---
 
-### /craft:discovery-usage
-
-**Category**: Documentation | **Complexity**: Simple | **Time**: < 5s
-**Description**: Generate discovery interface documentation for developers
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `format` | enum | No | `markdown` | Output format: `markdown`, `json`, `html` |
-
-#### Examples
-
-```bash
-/craft:discovery-usage
-/craft:discovery-usage json
-/craft:discovery-usage html
-```
-
-**File**: `commands/discovery-usage.md`
+> `discovery-usage` was never a user-invocable slash command (`internal: true`) — demoted to
+> a plain docs page in the v4 consolidation (2026-07). See
+> [`docs/internal/DISCOVERY-ENGINE-USAGE.md`](internal/DISCOVERY-ENGINE-USAGE.md).
 
 ---
 
@@ -530,7 +513,7 @@ Development workflow and code manipulation tools.
 
 ---
 
-### /craft:code:coverage
+### /craft:test --coverage
 
 **Category**: Testing | **Complexity**: Simple | **Time**: 1-3 min
 **Description**: Analyze and report test coverage
@@ -546,9 +529,9 @@ Development workflow and code manipulation tools.
 #### Examples
 
 ```bash
-/craft:code:coverage
-/craft:code:coverage --threshold 85
-/craft:code:coverage --report html
+/craft:test --coverage
+/craft:test --coverage --threshold 85
+/craft:test --coverage --report html
 ```
 
 **File**: `commands/code/coverage.md`
@@ -1470,49 +1453,11 @@ Project planning and roadmap tools.
 
 ---
 
-### /craft:plan:sprint
-
-**Category**: Planning | **Complexity**: Moderate | **Time**: 1-2 hours
-**Description**: Plan sprint with task breakdown
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `duration` | string | No | `1w` | Sprint duration: `1w`, `2w`, `custom` |
-| `--capacity` | number | No | 40 | Team capacity (hours) |
-
-#### Examples
-
-```bash
-/craft:plan:sprint
-/craft:plan:sprint 2w --capacity 80
-```
-
-**File**: `commands/plan/sprint.md`
-
----
-
-### /craft:plan:roadmap
-
-**Category**: Planning | **Complexity**: Complex | **Time**: 2-4 hours
-**Description**: Create and manage project roadmap
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--horizon` | string | No | `1y` | Planning horizon: `6m`, `1y`, `2y` |
-| `--format` | enum | No | `timeline` | Format: `timeline`, `kanban`, `swimlanes` |
-
-#### Examples
-
-```bash
-/craft:plan:roadmap
-/craft:plan:roadmap --horizon 2y --format swimlanes
-```
-
-**File**: `commands/plan/roadmap.md`
+> Sprint planning and roadmap generation (formerly `/craft:plan:sprint` and
+> `/craft:plan:roadmap`) were folded into the `plan-orchestrator` skill
+> (Modes 3–4) in the v4 command consolidation (2026-07). Invoke `/craft:plan`
+> and describe the sprint/roadmap need, or read
+> [`skills/orchestration/plan-orchestrator/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/orchestration/plan-orchestrator/SKILL.md).
 
 ---
 
@@ -1869,47 +1814,8 @@ Development workflow and productivity tools.
 
 Helper utilities and reference tools.
 
-### /craft:utils:readme-teach-config
-
-**Category**: Reference | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Teaching configuration documentation
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--examples` | boolean | No | false | Show examples |
-
-#### Examples
-
-```bash
-/craft:utils:readme-teach-config
-/craft:utils:readme-teach-config --examples
-```
-
-**File**: `commands/utils/readme-teach-config.md`
-
----
-
-### /craft:utils:readme-semester-progress
-
-**Category**: Reference | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Semester progress tracking documentation
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--template` | boolean | No | false | Show template |
-
-#### Examples
-
-```bash
-/craft:utils:readme-semester-progress
-/craft:utils:readme-semester-progress --template
-```
-
-**File**: `commands/utils/readme-semester-progress.md`
+> `readme-teach-config` and `readme-semester-progress` (teaching-residue commands) were
+> removed in the v4 command consolidation (2026-07) — no replacement, no longer needed.
 
 ---
 

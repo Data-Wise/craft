@@ -194,9 +194,9 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (14)                         TEST (0)                              │
+│ CODE (13)                         TEST (0)                              │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
-│   /craft:code:coverage [mode]      /craft:test:gen                      │
+│   /craft:test --coverage [mode]      /craft:test:gen                      │
 │   /craft:code:debug                                                     │
 │   /craft:code:refactor           ARCH (4)                               │
 │   /craft:code:deps-audit           /craft:arch:analyze [mode]           │
@@ -204,10 +204,10 @@ Display template:
 │   /craft:ci:fix               /craft:arch:review                   │
 │                                    /craft:arch:diagram                  │
 │ DOCS (2)                                                               │
-│   /craft:docs:update             PLAN (3)                               │
+│   /craft:docs:update             PLAN (1)                               │
 │   /craft:docs:sync                 /craft:plan:feature                  │
-│   /craft:docs:lint                 /craft:plan:sprint                   │
-│   /craft:docs:check                /craft:plan:roadmap                  │
+│   /craft:docs:lint                                                      │
+│   /craft:docs:check                                                     │
 │   /craft:docs:changelog                                                 │
 │   /craft:docs:claude-md          CI (8)                                 │
 │   /craft:docs:nav-update           /craft:ci:detect                    │
@@ -228,7 +228,7 @@ Display template:
 │ SITE (1)                          /craft:dist:curl-install             │
 │   /craft:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
-│   /craft:site:check              ORCHESTRATE (3)                        │
+│   /craft:site:check              ORCHESTRATE (2)                        │
 │   /craft:site:update               /craft:orch [mode]           │
 │   /craft:site:publish                                                  │
 │                                                                         │
@@ -393,12 +393,12 @@ Many commands support modes for different use cases:
 ### `/craft:hub code`
 
 ```
-CODE COMMANDS (14) - Code Quality & Development
+CODE COMMANDS (13) - Code Quality & Development
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
 /craft:code:lint         | Code style & quality checks    | yes
-/craft:code:coverage     | Test coverage report           | yes
+/craft:test --coverage     | Test coverage report           | yes
 /craft:code:deps-check   | Check dependency health        | -
 /craft:code:deps-audit   | Security vulnerability scan    | -
 /craft:ci:local     | Run CI checks locally          | -
@@ -607,20 +607,21 @@ Recommended Install Hierarchy:
 ### `/craft:hub plan`
 
 ```
-PLAN COMMANDS (3) - Planning & Project Management
+PLAN COMMANDS (1) - Planning & Project Management
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description
 ─────────────────────────┼────────────────────────────────────────────
 /craft:plan:feature      | Plan features with tasks and estimates
-/craft:plan:sprint       | Sprint planning with capacity
-/craft:plan:roadmap      | Generate project roadmaps
 ─────────────────────────────────────────────────────────────────────────
 ```
+
+Sprint planning and roadmap generation moved into the `plan-orchestrator`
+skill (Modes 3–4) — invoke `/craft:plan` and describe the need.
 
 ### `/craft:hub orch`
 
 ```
-ORCHESTRATE COMMANDS (3) - Multi-Agent Coordination
+ORCHESTRATE COMMANDS (2) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
 /craft:orch "task" [mode]     | Launch orchestrator (free-form, fan-out)
 /craft:orch:drive [spec]      | Spec-driven autonomous /goal loop → verified green
@@ -756,7 +757,7 @@ SUGGESTED FOR NODE PROJECT:
 │                                                                        │
 │ Development Workflow:                                                  │
 │   /craft:code:lint [mode] -> /craft:test [mode] ->                     │
-│   /craft:code:coverage -> /craft:ci:local -> /craft:git:sync      │
+│   /craft:test --coverage -> /craft:ci:local -> /craft:git:sync      │
 │                                                                        │
 │ Feature Development:                                                   │
 │   /craft:git:worktree create feat/x -> [develop] ->                    │

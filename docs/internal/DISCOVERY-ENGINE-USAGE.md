@@ -1,9 +1,8 @@
----
-description: Discovery Engine Usage Guide
-internal: true
----
-
 # Discovery Engine Usage Guide
+
+> Internal reference — moved from `commands/discovery-usage.md` (v4 command consolidation,
+> 2026-07). Was never a user-invocable slash command (`internal: true`); demoted to a plain
+> docs page since it doesn't need a command entry point.
 
 ## Overview
 
@@ -165,7 +164,7 @@ python3 commands/_discovery.py
 ```text
 Discovering commands...
 
-Found 97 commands
+Found 53 commands
 
 Categories:
   arch: 4
@@ -281,9 +280,9 @@ If frontmatter is missing:
 | `commands/_discovery.py` | Discovery engine implementation |
 | `commands/_schema.json` | Metadata schema documentation |
 | `commands/_cache.json` | Generated cache (gitignored) |
-| `commands/_discovery_usage.md` | This usage guide |
+| `docs/internal/DISCOVERY-ENGINE-USAGE.md` | This usage guide |
 
 ## See Also
 
-- [SPEC-craft-hub-v2-2026-01-15.md](../docs/specs/_archive/SPEC-craft-hub-v2-2026-01-15.md) - Full Hub v2.0 specification
-- [_schema.json](_schema.json) - Complete metadata schema
+- [SPEC-craft-hub-v2-2026-01-15.md](../specs/_archive/SPEC-craft-hub-v2-2026-01-15.md) - Full Hub v2.0 specification
+- [`commands/_schema.json`](https://github.com/Data-Wise/craft/blob/dev/commands/_schema.json) - Complete metadata schema

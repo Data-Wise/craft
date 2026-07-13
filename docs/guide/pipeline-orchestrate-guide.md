@@ -16,7 +16,7 @@ brainstorm → spec → [grill] → ORCHESTRATE → worktree → implement → P
 |---------|------|---------|
 | `/craft:brainstorm` | Command | **Divergent** — generates options, captures a SPEC |
 | `/craft:grill` | Command | **Convergent** — interrogates a spec/plan/topic one question at a time until every branch is resolved; captures a `GRILL-*.md` ledger |
-| `/craft:orch:plan` | Command | Spec (+ optional grill ledger) → ORCHESTRATE → worktree pipeline |
+| `/craft:plan` | Command | Spec (+ optional grill ledger) → ORCHESTRATE → worktree pipeline |
 | `/craft:orch:workflow` | Command | Coded fixed-control-flow program → schema-gated, resumable ([guide](../commands/orch/workflow.md)) |
 | `/craft:insights` | Command | Session friction reports from facets data |
 | Brainstorm Step 6 | Enhancement | Offer ORCHESTRATE creation after spec capture |
@@ -40,7 +40,7 @@ brainstorm → spec → [grill] → ORCHESTRATE → worktree → implement → P
 
 **Output:** `docs/specs/GRILL-<topic>-<date>.md` — its own file, never rewriting the brainstorm SPEC's body (only an idempotent one-line back-link is added to the SPEC). Contains a Decision Ledger (each resolved branch, with reasoning) and an Open Questions section for anything explicitly deferred.
 
-**Handoff:** one-directional, same as brainstorm — `grill` never executes. It hands the locked `GRILL-*.md` forward to `/craft:orch:plan`, which reads both the SPEC and the grill ledger together.
+**Handoff:** one-directional, same as brainstorm — `grill` never executes. It hands the locked `GRILL-*.md` forward to `/craft:plan`, which reads both the SPEC and the grill ledger together.
 
 ```bash
 # After brainstorm captures a SPEC with unresolved design questions
@@ -54,12 +54,13 @@ brainstorm → spec → [grill] → ORCHESTRATE → worktree → implement → P
 
 ## New Commands
 
-### `/craft:orch:plan` — Spec to Worktree Pipeline
+### `/craft:plan` — Spec to Worktree Pipeline
 
 > The canonical behavior lives in the `plan-orchestrator` skill
-> (`skills/orchestration/plan-orchestrator/SKILL.md` in the repo — not part of this site's nav);
-> `/craft:orch:plan` is a thin shim over it (`deprecated: true` / `replaced-by`). The flow
-> below still describes the behavior accurately — it's just implemented in the skill now.
+> (`skills/orchestration/plan-orchestrator/SKILL.md` in the repo — not part of this site's nav).
+> The dedicated `/craft:orch:plan` shim was removed in the v4 command consolidation
+> (2026-07) — `/craft:plan` (the universal planning router) now routes spec-driven
+> work to this same skill mode. The flow below still describes the behavior accurately.
 
 Discovers specs, parses phases, generates ORCHESTRATE files, and creates worktrees — all in one flow.
 
@@ -67,23 +68,23 @@ Discovers specs, parses phases, generates ORCHESTRATE files, and creates worktre
 
 ```bash
 # Interactive: scan for specs and choose
-/craft:orch:plan
+/craft:plan
 
 # Direct: specify spec path
-/craft:orch:plan docs/specs/SPEC-auth-2026-02-15.md
+/craft:plan docs/specs/SPEC-auth-2026-02-15.md
 
 # ORCHESTRATE only (no worktree)
-/craft:orch:plan docs/specs/SPEC-auth.md --output orchestrate-only
+/craft:plan docs/specs/SPEC-auth.md --output orchestrate-only
 
 # ORCHESTRATE + worktree + dispatch to a background Agent from this session
-/craft:orch:plan docs/specs/SPEC-auth.md --output orchestrate-dispatch
+/craft:plan docs/specs/SPEC-auth.md --output orchestrate-dispatch
 ```
 
 **8-Step Execution:**
 
 ```mermaid
 flowchart TD
-    Start(["/craft:orch:plan"]) --> D[Step 1: Discover Specs]
+    Start(["/craft:plan"]) --> D[Step 1: Discover Specs]
     D --> D1{Specs found?}
     D1 -->|Yes| Choose[User picks spec]
     D1 -->|No brainstorms| Err[Suggest /brainstorm first]
@@ -219,7 +220,7 @@ A consistent 4-type taxonomy used across all documentation:
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Pipeline** | `/craft:plan` or brainstorm | Long-lived | `feature/*` | Always |
 | **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 
@@ -282,11 +283,11 @@ claude
 
 ```bash
 # Already have a spec, no open design questions? Go directly to orchestration
-/craft:orch:plan docs/specs/SPEC-dashboard.md
+/craft:plan docs/specs/SPEC-dashboard.md
 
 # Spec has unresolved judgment calls? Grill first
 /craft:grill docs/specs/SPEC-dashboard.md
-/craft:orch:plan docs/specs/SPEC-dashboard.md
+/craft:plan docs/specs/SPEC-dashboard.md
 ```
 
 ### Workflow 3: Insights-Driven Planning
@@ -296,7 +297,7 @@ claude
 /craft:insights --project craft
 
 # 2. Create ORCHESTRATE — friction prevention auto-populated
-/craft:orch:plan docs/specs/SPEC-feature.md
+/craft:plan docs/specs/SPEC-feature.md
 # → ORCHESTRATE includes guardrails from insights
 ```
 

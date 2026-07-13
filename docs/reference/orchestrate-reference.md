@@ -239,7 +239,7 @@ The orchestrator works with four types of worktrees:
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Pipeline** | `/craft:plan` or brainstorm | Long-lived | `feature/*` | Always |
 | **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 
@@ -261,14 +261,14 @@ Need isolated development?
 ├─ No → /craft:orch "task" (agents in forked context)
 │
 ├─ Yes, single feature
-│  ├─ Have a spec? → /craft:orch:plan SPEC.md (Pipeline)
+│  ├─ Have a spec? → /craft:plan SPEC.md (Pipeline)
 │  └─ No spec? → /craft:git:worktree create feature/name (Manual)
 │
 ├─ Yes, parallel agents on separate files
 │  └─ /craft:orch --swarm "task" (Swarm)
 │
 └─ Yes, spans multiple repos
-   └─ /craft:orch:plan (auto-detects, Cross-Repo)
+   └─ /craft:plan (auto-detects, Cross-Repo)
 ```
 
 ## Swarm Mode (--swarm) — NEW
@@ -413,7 +413,7 @@ git branch -d swarm-auth-agent1 swarm-auth-agent2 swarm-auth-agent3
 # ├───────────────────────────────────────────────────────────────┤
 # │                                                               │
 # │ ORCHESTRATE file: ORCHESTRATE-auth.md                         │
-# │ Swarm Configuration found: 8 agents                           │
+# │ Swarm Configuration found: 2 agents                           │
 # │                                                               │
 # │ Worktree Creation Plan:                                       │
 # │                                                               │

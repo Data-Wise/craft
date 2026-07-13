@@ -851,7 +851,7 @@ if score >= 6 and category == "feature":
         #
         # AskUserQuestion:
         #   Options:
-        #     - "Yes — create worktree + ORCHESTRATE" → /craft:orch:plan {spec}
+        #     - "Yes — create worktree + ORCHESTRATE" → /craft:plan {spec}
         #     - "No — proceed with spec context" → load spec, continue to Step 3
         pass
 ```

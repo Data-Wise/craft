@@ -132,8 +132,8 @@ def test_discovery_finds_all_commands():
     plugin_dir = Path(__file__).parent.parent
     commands = stub_discover_commands(plugin_dir)
 
-    # Expected: at least 100 commands (count grows as features are added)
-    min_expected = 59
+    # Floor reflects the v4 command consolidation (2026-07) — see docs/MIGRATION-v4.md
+    min_expected = 50
     found = len(commands)
 
     assert found >= min_expected, f"Expected at least {min_expected} commands, found {found}"

@@ -115,8 +115,10 @@ def _check_hub_display():
         # (Phase 3.5): 24 docs/site-authoring commands moved to `folio`, then the
         # claude-md trio (edit/init/sync) folded into the docs/claude-md skill,
         # leaving docs at 2 (changelog + update, release-plumbing only) and
-        # site at 1 (deploy, un-deprecated).
-        (f"Total commands: {stats['total']}", stats['total'] >= 55),
+        # site at 1 (deploy, un-deprecated). Further lowered as T3.5.2 kills the
+        # remaining deprecated shims (plan:sprint/roadmap, orch:plan, code:coverage,
+        # teaching-residue utils, discovery-usage demoted) — see docs/MIGRATION-v4.md.
+        (f"Total commands: {stats['total']}", stats['total'] >= 45),
         (f"CODE category: {stats['categories'].get('code', 0)}", stats['categories'].get('code', 0) >= 12),
         (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) >= 0),
         (f"DOCS category: {stats['categories'].get('docs', 0)}", stats['categories'].get('docs', 0) >= 2),

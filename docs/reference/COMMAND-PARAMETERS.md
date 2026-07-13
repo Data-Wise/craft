@@ -116,14 +116,6 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:discovery-usage
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| format | enum | No | `markdown` | - | `markdown`, `json`, `html` |
-
----
-
 ## Architecture Commands Parameters
 
 ### /craft:arch:analyze
@@ -244,7 +236,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:code:coverage
+### /craft:test --coverage
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -624,21 +616,9 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:plan:sprint
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| duration | string | No | `1w` | - | Sprint duration |
-| capacity | number | No | 40 | - | Team capacity (hours) |
-
----
-
-### /craft:plan:roadmap
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| horizon | enum | No | `1y` | - | `6m`, `1y`, `2y` |
-| format | enum | No | `timeline` | - | `timeline`, `kanban`, `swimlanes` |
+> Sprint planning and roadmap generation moved into the `plan-orchestrator`
+> skill (Modes 3–4) — no longer separate slash commands. Invoke `/craft:plan`
+> and describe the sprint/roadmap need.
 
 ---
 
@@ -776,24 +756,6 @@ Comprehensive parameter reference for all 97 Craft commands.
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
 | task | string | Yes | - | - | Task to refine |
-
----
-
-## Utility Commands Parameters
-
-### /craft:utils:readme-teach-config
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| examples | boolean | No | false | `-e` | Show examples |
-
----
-
-### /craft:utils:readme-semester-progress
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| template | boolean | No | false | `-t` | Show template |
 
 ---
 

@@ -463,20 +463,20 @@ Next: Edit tests/unit/auth.test.ts and implement test bodies
 
 ---
 
-### /craft:code:coverage - Test Coverage
+### /craft:test --coverage - Test Coverage
 
 ```bash
 # Check coverage
-/craft:code:coverage
+/craft:test --coverage
 
 # With threshold
-/craft:code:coverage --threshold 85
+/craft:test --coverage --threshold 85
 
 # HTML report
-/craft:code:coverage --report html
+/craft:test --coverage --report html
 
 # JSON for CI
-/craft:code:coverage --report json > coverage.json
+/craft:test --coverage --report json > coverage.json
 ```
 
 **Output Example**:
@@ -947,7 +947,7 @@ SUMMARY: 156/156 passing (2.4s)
 
 # 2. Validate everything
 /craft:code:lint release
-/craft:code:coverage --threshold 85
+/craft:test --coverage --threshold 85
 
 # 3. Build and test locally
 /craft:ci:local
@@ -1020,7 +1020,7 @@ cs          # Run /craft:git:status
 
 ```bash
 /craft:test                 # ~2 min
-/craft:code:coverage            # ~1 min
+/craft:test --coverage            # ~1 min
 /folio:docs:check-links         # ~2 min
 ```
 
@@ -1029,7 +1029,7 @@ cs          # Run /craft:git:status
 ```bash
 /craft:test release         # ~5 min
 /craft:code:lint release        # ~3 min
-/craft:code:coverage --threshold 90  # ~1 min
+/craft:test --coverage --threshold 90  # ~1 min
 /folio:site:build --production  # ~5 min
 ```
 

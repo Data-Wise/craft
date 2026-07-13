@@ -188,7 +188,7 @@
 **Categories:**
 
 - Smart Commands (do, check, orchestrate, hub)
-- Documentation (21 commands)
+- Documentation (53 commands)
 - Site Management (16 commands)
 - Code (15 commands) & Testing (3 commands)
 - Git (14 commands incl. guides) & CI (4 commands)
@@ -1244,7 +1244,7 @@ graph LR
 |------|---------|--------|
 | 1. Brainstorm | `/brainstorm d:8 "feature"` | `BRAINSTORM-feature.md` |
 | 2. Capture spec | Brainstorm Step 5 (auto) | `docs/specs/SPEC-feature.md` |
-| 3. Create orchestration | `/craft:orch:plan` | `ORCHESTRATE-feature.md` + worktree |
+| 3. Create orchestration | `/craft:plan` | `ORCHESTRATE-feature.md` + worktree |
 | 4. Implement | Work in worktree | Commits on `feature/*` branch |
 | 5. Integrate | `/craft:git:worktree finish` | PR to `dev` |
 
@@ -1253,7 +1253,7 @@ graph LR
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Pipeline** | `/craft:plan` or brainstorm | Long-lived | `feature/*` | Always |
 | **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 

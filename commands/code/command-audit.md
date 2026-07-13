@@ -127,5 +127,5 @@ Works with:
 ## See Also
 
 - `/craft:ci:fix` - Fix CI Failures
-- `/craft:code:coverage` - Test Coverage Report
+- `/craft:test --coverage` - Test Coverage Report
 - `/craft:code:deps-check` - Dependency Check

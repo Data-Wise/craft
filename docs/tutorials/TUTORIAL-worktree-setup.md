@@ -700,7 +700,7 @@ If you used `/brainstorm` to plan a feature and captured a spec, you can create 
 # → docs/specs/SPEC-notifications-2026-02-15.md saved
 
 # 2. Create ORCHESTRATE + worktree from the spec
-/craft:orch:plan docs/specs/SPEC-notifications-2026-02-15.md
+/craft:plan docs/specs/SPEC-notifications-2026-02-15.md
 
 # Output:
 # Orchestration Plan:
@@ -739,10 +739,10 @@ The generated ORCHESTRATE file includes:
 
 ### Without a Spec
 
-If you don't have a spec, `/craft:orch:plan` will scan for available specs and brainstorms:
+If you don't have a spec, `/craft:plan` will scan for available specs and brainstorms:
 
 ```bash
-/craft:orch:plan
+/craft:plan
 
 # Output:
 # Available specs:

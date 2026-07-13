@@ -70,5 +70,5 @@ produces text ready to paste into a new GitHub issue.
 ## See Also
 
 - [`/craft:plan:feature`](../commands/plan/feature.md) — command reference
-- `/craft:plan:sprint` — sprint planning
+- `/craft:plan` — sprint/roadmap planning (`plan-orchestrator` skill, Modes 3–4)
 - `/craft:arch:plan` — architecture planning

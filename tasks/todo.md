@@ -128,7 +128,7 @@ task if/when this tooling matters again.
 
 ## Phase 3.5 — v4 rider (@26)
 
-- [ ] **T3.5.1** The 12 salvage diffs (R2): dist×3, claude-md×3, check(→micro), gen-validator, git:{refcard,worktree}, code:demo, insights — unique logic → references/ — **M** (splittable per family)
+- [x] **T3.5.1** The 12 salvage diffs (R2): dist×3, claude-md×3, check(→micro), gen-validator, git:{refcard,worktree}, code:demo, insights — unique logic → references/ — **M** (splittable per family)
   - Verify: per-diff line-conservation note in ledger
   - Progress (2026-07-12): **family 1/4 done** — dist×3 (pypi/curl-install/marketplace) salvaged
     verbatim into `skills/distribution/dist-extras/references/`, commands deleted, 2 tests
@@ -150,8 +150,34 @@ task if/when this tooling matters again.
     confirm gate, --orch, CRAFT_MODE binding) in the command file; recorded in
     MIGRATION-v4.md. Counts synced 64->63. Committed `88efc1ca`. Remaining:
     git:{refcard,worktree}, insights.
+  - Progress (2026-07-13): **family 4/4 done — T3.5.1 complete.** git:worktree (229L) +
+    git:docs:refcard (350L) salvaged verbatim into `skills/dev/git/references/`;
+    workflow:insights (176L) salvaged into `skills/workflow/brainstorm-insights/references/`.
+    3 commands + 2 docs-site mirror pages deleted, mkdocs.yml nav trimmed, 12+ cross-tree
+    links repointed to absolute GitHub blob URLs (mkdocs docs_dir can't resolve links
+    escaping docs/ — see `cross-tree-link-resolution-commands-vs-docs` pattern), 8 test
+    files repointed (test_command_enhancements_e2e, test_hub_discovery/integration/layer3,
+    test_insights_improvements_dogfood/e2e, test_facet_parsing_defensive,
+    test_brief_command_dogfood/e2e — the last two also dropped the now-stale "N workflow"
+    plugin.json description breakdown since `commands/workflow/` is empty). Counts synced
+    63->60. Committed `318be7d0`. Full pytest: 2575 passed / 4 failed (3 known dev-baseline
+    - 1 expected local branch-guard.sh install-drift from this commit's own content change)
+    / 43 skipped. `mkdocs build --strict` clean.
 - [ ] **T3.5.2** Kill 22 shims + 2 utils; demote discovery-usage → docs — **S**
   - Verify: tripwire tests; `ls commands/git/` empty
+  - Progress (2026-07-13): **batch 1/2 done** — plan:sprint/roadmap + orch:plan folded into
+    `plan-orchestrator` skill (Modes 3-4), code:coverage folded into `test-strategist` skill,
+    2 teaching-residue utils (readme-teach-config, readme-semester-progress) deleted (no
+    replacement), discovery-usage demoted to `docs/internal/DISCOVERY-ENGINE-USAGE.md`
+    (was `internal: true`, never a real slash command). 60->53 commands (counts-only sync +
+    2 rounds of `docs-staleness-check.sh --fix`, 57 items auto-fixed). ~35 caller refs
+    repointed across docs/guide, docs/reference, docs/tutorials, skills/workflow. 3 test
+    floors lowered (test_hub_discovery min_expected, test_hub_integration total>=45,
+    test_teaching_documentation utility-readme check removed). Full pytest: 2575 passed /
+    4 failed (3 known dev-baseline + 1 install-drift, same as T3.5.1 baseline). `mkdocs
+    build --strict` clean. Remaining for batch 2: git×7 (guard/protect/unprotect/status/
+    clean/branch/protect-baseline) — last, since emptying `commands/git/` re-triggers the
+    category-mapping tests fixed in T3.5.1/batch-1.
 - [ ] **T3.5.3** Five consolidations (∥ families, disjoint): ci(8→router+refs) **M** · arch(4) **S** · code:audit(5) **M** · orch absorbs drive/workflow **S** · plan absorbs feature **XS**
   - Acceptance: each router ≤~60L; bodies verbatim in skills/*/references/; line-conservation per family
   - Verify: dispatch-table dogfood per family

@@ -2,12 +2,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 60 commands organized into 17 categories covering the full development lifecycle
+> - **What:** 53 commands organized into 17 categories covering the full development lifecycle
 > - **Why:** One plugin handles your entire development workflow from docs to deployment
 > - **How:** Use `/craft:hub` to discover all commands by category
 > - **Next:** Start with `/craft:do` for AI-powered task routing or `/craft:check` for pre-flight validation
 
-Craft provides **60 commands** for full-stack development workflows.
+Craft provides **53 commands** for full-stack development workflows.
 
 ## Command Routing
 
@@ -43,11 +43,10 @@ flowchart TD
 Universal commands with AI-powered routing:
 
 - `/craft:do <task>` — Universal task router
-- `/craft:check [--for]` — Pre-flight checks (+`gen-validator`)
+- `/craft:check [--for]` — Pre-flight checks
 - `/craft:orch <task> [mode]` — Enhanced orchestrator (+`plan`, `resume`)
 - `/craft:hub` — Command discovery
 - `/craft:smart-help` — Context-aware help
-- `/craft:discovery-usage` — Discovery engine guide
 
 ### 📚 Documentation Commands (21)
 

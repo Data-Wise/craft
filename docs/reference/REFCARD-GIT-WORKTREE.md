@@ -28,7 +28,7 @@ Need to work on something else?
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Pipeline** | `/craft:plan` or brainstorm | Long-lived | `feature/*` | Always |
 | **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 

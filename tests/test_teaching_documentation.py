@@ -236,17 +236,8 @@ class TestTeachingDocumentation:
                     assert target.exists(), f"Broken link in {doc_path.name}: {link_url}"
 
     def test_teaching_utilities_have_readme(self):
-        """Teaching utilities should have documentation"""
-        utils_dir = Path(__file__).parent.parent / "commands" / "utils"
-
-        readme_files = [
-            "readme-teach-config.md",
-            "readme-semester-progress.md"
-        ]
-
-        for readme in readme_files:
-            readme_path = utils_dir / readme
-            assert readme_path.exists(), f"Missing utility readme: {readme}"
+        """readme-teach-config / readme-semester-progress were removed as teaching
+        residue in the v4 command consolidation (2026-07) — no replacement needed."""
 
     def test_teaching_examples_exist(self):
         """Teaching config examples should exist"""

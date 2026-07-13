@@ -163,7 +163,7 @@ This shows the full interactive flow from brainstorm to PR, demonstrating how ea
 # → Offers to capture spec
 
 # Step 2: Create orchestration from spec (v2.21.0)
-/craft:orch:plan docs/specs/SPEC-notifications.md
+/craft:plan docs/specs/SPEC-notifications.md
 #
 # Plan:
 #   1. Parse spec for phases (found 3 phases)

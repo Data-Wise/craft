@@ -1,6 +1,6 @@
 # Code & Testing Commands
 
-Development workflow tools with mode support - 21 commands.
+Development workflow tools with mode support - 53 commands.
 
 ## When to Use What
 

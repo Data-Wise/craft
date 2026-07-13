@@ -92,5 +92,5 @@ Works with:
 
 - `/craft:ci:triage` - Classify a failing check before fixing: diff-caused vs pre-existing/infra
 - `/craft:code:command-audit` - Validate command frontmatter, find deprecated patterns, report health score
-- `/craft:code:coverage` - Test Coverage Report
+- `/craft:test --coverage` - Test Coverage Report
 - `/craft:code:deps-check` - Dependency Check
