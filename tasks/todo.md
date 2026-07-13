@@ -143,6 +143,13 @@ task if/when this tooling matters again.
     deleted, DOCS category floor 5->2, 9 broken links fixed, 8 advice-string call sites
     repointed, counts synced 67->64. Committed `ee1645d5`. Remaining:
     check(→micro)+gen-validator, git:{refcard,worktree}, insights.
+  - Progress (2026-07-12): **family 3/4 done** — gen-validator (447L) salvaged verbatim into
+    `skills/check/references/`, command deleted, skill re-pointed. **check.md plan
+    deviation**: NOT collapsed to micro-shim — its own header + the token-efficiency
+    skill's classification test justify keeping invocation-mandatory content (Step 0,
+    confirm gate, --orch, CRAFT_MODE binding) in the command file; recorded in
+    MIGRATION-v4.md. Counts synced 64->63. Committed `88efc1ca`. Remaining:
+    git:{refcard,worktree}, insights.
 - [ ] **T3.5.2** Kill 22 shims + 2 utils; demote discovery-usage → docs — **S**
   - Verify: tripwire tests; `ls commands/git/` empty
 - [ ] **T3.5.3** Five consolidations (∥ families, disjoint): ci(8→router+refs) **M** · arch(4) **S** · code:audit(5) **M** · orch absorbs drive/workflow **S** · plan absorbs feature **XS**
