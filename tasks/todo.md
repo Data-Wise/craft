@@ -87,6 +87,17 @@
     a clear reason rather than guessing at a redesign.
 - [ ] **T3.4** ci.yml:92 floor 86→60 (skills floor 26 OK) — **XS**, SAME PR
   - Verify: grep the floor; CI green on PR run
+
+**BACKLOG (2026-07-12, user-decided, not a Phase 3 blocker):** `scripts/dependency-manager.sh`
+
+- `tool-detector.sh` + `health-check.sh` + `installers/` (1,327 lines total) are now orphaned —
+they exist only to serve `docs:demo.md`'s asciinema/vhs tooling, which moved to folio in T3.1.
+Folio's copy of `demo.md` is otherwise identical, so these scripts would work there unchanged
+(just the 2 `/craft:docs:demo` mentions need `/folio:` swap). Explicitly left dormant in craft
+per user decision — not deleted, not migrated. `tests/test_integration_dependency_system.py`'s
+one live-execution test is skip-guarded with this same reasoning. Revisit as its own dedicated
+task if/when this tooling matters again.
+
 - [ ] **T3.5** wf-p3-sweep: docs-content grep-sweep for 24 leaving names (repoint→/folio: or MIGRATION) — batched disjoint agents; incl. Phase-0 follow-ups (advice strings, update.md narrative, capture-output phantom) — **M**
   - Acceptance: **grep-zero** on leaving names in docs/ (excl. archives/changelogs)
   - Verify: parent grep transcript
