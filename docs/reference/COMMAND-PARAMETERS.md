@@ -396,7 +396,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Documentation Commands Parameters
 
-### /craft:docs:api
+### /folio:docs:api
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -418,7 +418,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:check-links
+### /folio:docs:check-links
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -429,7 +429,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:check
+### /folio:docs:check
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -445,7 +445,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:demo
+### /folio:docs:demo
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -454,7 +454,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:guide
+### /folio:docs:guide
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -464,7 +464,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:help
+### /folio:docs:help
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -473,7 +473,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:lint
+### /folio:docs:lint
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -482,7 +482,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:mermaid
+### /folio:docs:mermaid
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -492,7 +492,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:nav-update
+### /folio:docs:nav-update
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -500,7 +500,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:prompt
+### /folio:docs:prompt
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -508,7 +508,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:quickstart
+### /folio:docs:quickstart
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -517,7 +517,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:site
+### /folio:docs:site
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -527,7 +527,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:sync
+### /folio:docs:sync
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -535,7 +535,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:tutorial
+### /folio:docs:tutorial
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -554,7 +554,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:workflow
+### /folio:docs:workflow
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -563,7 +563,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:website
+### /folio:docs:website
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -644,7 +644,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Site Commands Parameters
 
-### /craft:site:build
+### /folio:site:build
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -662,7 +662,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:publish
+### /folio:site:publish
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -670,7 +670,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:check
+### /folio:site:check
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -678,7 +678,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:update
+### /folio:site:update
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -686,7 +686,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:status
+### /folio:site:status
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -694,7 +694,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:progress
+### /folio:site:progress
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|

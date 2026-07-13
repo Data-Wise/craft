@@ -63,8 +63,8 @@ Welcome to Craft! Find the path that matches your experience level and goals.
 ### Common Tasks
 
 - **Check code quality:** `/craft:code:lint` or `/craft:ci:local`
-- **Update documentation:** `/craft:docs:update` or `/craft:docs:sync`
-- **Create a site:** `/craft:site:build` → `/craft:site:deploy`
+- **Update documentation:** `/craft:docs:update` or `/folio:docs:sync` (moved to folio)
+- **Create a site:** `/folio:site:build` (moved to folio) → `/craft:site:deploy`
 - **Manage git workflow:** `/craft:git:worktree` → `/craft:git:branch`
 - **Smart routing:** `/craft:do <task>` (auto-detects the right command)
 

@@ -154,7 +154,7 @@ Linting project...
 
 ## Step 6: Check Documentation Health
 
-**Run:** `/craft:docs:check`
+**Run:** `/folio:docs:check`
 
 This validates internal links, checks for missing pages, and flags stale references. A clean run means your documentation is consistent and navigable.
 

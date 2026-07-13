@@ -39,9 +39,10 @@ class TestTeachingDocumentation:
         assert refcard_path.exists(), "Teaching refcard not found"
 
         content = refcard_path.read_text()
-        assert "/craft:site:publish" in content, "Missing publish command"
-        assert "/craft:site:progress" in content, "Missing progress command"
-        assert "/craft:site:build" in content, "Missing build command"
+        # site:publish/progress/build moved to folio in the folio split (Phase 3, 2026-07-12)
+        assert "/folio:site:publish" in content, "Missing publish command"
+        assert "/folio:site:progress" in content, "Missing progress command"
+        assert "/folio:site:build" in content, "Missing build command"
 
     def test_teaching_demo_exists(self):
         """VHS demo tape should exist"""
@@ -98,8 +99,9 @@ class TestTeachingDocumentation:
         assert refcard_path.exists(), "Main REFCARD.md not found"
 
         content = refcard_path.read_text()
-        assert "/craft:site:publish" in content, "Publish command not in main refcard"
-        assert "/craft:site:progress" in content, "Progress command not in main refcard"
+        # site:publish/progress moved to folio in the folio split (Phase 3, 2026-07-12)
+        assert "/folio:site:publish" in content, "Publish command not in main refcard"
+        assert "/folio:site:progress" in content, "Progress command not in main refcard"
         assert "Teaching Mode" in content, "Teaching mode section missing"
 
     def test_changelog_includes_v122(self):

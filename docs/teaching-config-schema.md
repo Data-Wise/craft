@@ -517,7 +517,7 @@ branches:
 
 ## See Also
 
-- **`/craft:site:publish`** - Publish teaching site with preview workflow
+- **`/folio:site:publish`** (moved to folio) - Publish teaching site with preview workflow
 - **`utils/detect_teaching_mode.py`** - Teaching mode detection utility
 - **`commands/utils/teaching_validation.py`** - Content validation utility
 - **[Configuration Reference](reference/configuration.md)** - General Craft config

@@ -25,7 +25,7 @@ I want to safely publish course website updates to GitHub Pages without breaking
 1. **Preview changes locally**
 
    ```bash
-   /craft:site:build
+   /folio:site:build
    ```
 
    Why: Builds the site locally so you can review changes before publishing
@@ -33,7 +33,7 @@ I want to safely publish course website updates to GitHub Pages without breaking
 2. **Check for issues**
 
    ```bash
-   /craft:site:check
+   /folio:site:check
    ```
 
    Why: Validates links, images, and common issues that could break the site
@@ -86,7 +86,7 @@ I want to safely publish course website updates to GitHub Pages without breaking
 - **Preview without deploying:**
 
   ```bash
-  /craft:site:build && /craft:site:check
+  /folio:site:build && /folio:site:check
   ```
 
   Use when you want to review changes but not publish yet
@@ -119,7 +119,7 @@ I want to safely publish course website updates to GitHub Pages without breaking
 
 | Issue | Solution |
 |-------|----------|
-| "Broken links detected" | Run `/craft:site:check` to see which links are broken, fix them, then retry |
+| "Broken links detected" | Run `/folio:site:check` to see which links are broken, fix them, then retry |
 | "Working directory not clean" | Commit or stash your changes before deploying |
 | "Build failed" | Check build output for errors, fix issues, then retry |
 | "Permission denied (GitHub Pages)" | Verify repository settings: Settings → Pages → Source is set to `gh-pages` branch |

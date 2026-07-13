@@ -635,7 +635,7 @@ Planning commands work best with:
 | `/craft:arch:plan` | Architecture needed before feature planning |
 | `/craft:code:refactor` | Implement planned features |
 | `/craft:test` | Validate task completion |
-| `/craft:docs:sync` | Keep documentation aligned with roadmap |
+| `/folio:docs:sync` | Keep documentation aligned with roadmap |
 | `/craft:git:branch` | Create feature branches from plans |
 | `/craft:check` | Verify sprint goals before delivery |
 

@@ -24,10 +24,10 @@ I want to update the documentation for one specific area of my project without r
 1. **Check which docs are outdated**
 
    ```bash
-   /craft:docs:lint
+   /folio:docs:lint
    ```
 
-   Why: Scans all documentation files and reports stale content, broken links, and formatting issues so you know where to focus
+   Why: Scans all documentation files and reports stale content, broken links, and formatting issues so you know where to focus (moved to folio)
 
 2. **Update a specific documentation category**
 
@@ -53,7 +53,7 @@ I want to update the documentation for one specific area of my project without r
 4. **Verify the result**
 
    ```bash
-   /craft:docs:lint
+   /folio:docs:lint
    ```
 
    Why: Re-running the linter confirms the issues are resolved and no new problems were introduced

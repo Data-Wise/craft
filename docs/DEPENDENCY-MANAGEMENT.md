@@ -1,4 +1,4 @@
-# Dependency Management for /craft:docs:demo
+# Dependency Management for /folio:docs:demo
 
 Complete guide to the dependency management system for demo GIF generation.
 
@@ -16,7 +16,7 @@ Complete guide to the dependency management system for demo GIF generation.
 
 ## Overview
 
-The `/craft:docs:demo` command includes a comprehensive dependency management system
+The `/folio:docs:demo` command includes a comprehensive dependency management system
 that automatically detects, validates, and installs required tools for terminal
 GIF generation using either asciinema or VHS workflows.
 
@@ -34,16 +34,16 @@ GIF generation using either asciinema or VHS workflows.
 
 ```bash
 # Check all dependencies
-/craft:docs:demo --check
+/folio:docs:demo --check
 
 # Check specific method
-/craft:docs:demo --check --method asciinema
+/folio:docs:demo --check --method asciinema
 
 # Install missing dependencies
-/craft:docs:demo --fix
+/folio:docs:demo --fix
 
 # Get JSON output for CI/CD
-/craft:docs:demo --check --json
+/folio:docs:demo --check --json
 ```
 
 ## Flags Reference
@@ -52,22 +52,22 @@ GIF generation using either asciinema or VHS workflows.
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--check` | Validate all dependencies | `/craft:docs:demo --check` |
-| `--check --method <method>` | Check specific method (asciinema/vhs) | `/craft:docs:demo --check --method vhs` |
-| `--check --json` | JSON output for CI/CD | `/craft:docs:demo --check --json` |
-| `--fix` | Auto-install missing dependencies | `/craft:docs:demo --fix` |
-| `--fix --method <method>` | Install for specific method | `/craft:docs:demo --fix --method asciinema` |
-| `--force` | Overwrite existing files | `/craft:docs:demo --convert demo.cast --force` |
+| `--check` | Validate all dependencies | `/folio:docs:demo --check` |
+| `--check --method <method>` | Check specific method (asciinema/vhs) | `/folio:docs:demo --check --method vhs` |
+| `--check --json` | JSON output for CI/CD | `/folio:docs:demo --check --json` |
+| `--fix` | Auto-install missing dependencies | `/folio:docs:demo --fix` |
+| `--fix --method <method>` | Install for specific method | `/folio:docs:demo --fix --method asciinema` |
+| `--force` | Overwrite existing files | `/folio:docs:demo --convert demo.cast --force` |
 
 ### Conversion Flags
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--convert <cast> [output]` | Convert single .cast to .gif | `/craft:docs:demo --convert demo.cast` |
-| `--convert ... --force` | Overwrite existing GIF | `/craft:docs:demo --convert demo.cast --force` |
-| `--batch` | Convert all .cast files | `/craft:docs:demo --batch` |
-| `--batch --dry-run` | Preview batch conversion | `/craft:docs:demo --batch --dry-run` |
-| `--batch --method <method>` | Batch convert with specific method | `/craft:docs:demo --batch --method asciinema` |
+| `--convert <cast> [output]` | Convert single .cast to .gif | `/folio:docs:demo --convert demo.cast` |
+| `--convert ... --force` | Overwrite existing GIF | `/folio:docs:demo --convert demo.cast --force` |
+| `--batch` | Convert all .cast files | `/folio:docs:demo --batch` |
+| `--batch --dry-run` | Preview batch conversion | `/folio:docs:demo --batch --dry-run` |
+| `--batch --method <method>` | Batch convert with specific method | `/folio:docs:demo --batch --method asciinema` |
 
 ## Methods
 
@@ -91,10 +91,10 @@ Two methods are supported for creating terminal GIFs:
 asciinema rec demo.cast
 
 # 2. Convert to GIF
-/craft:docs:demo --convert demo.cast
+/folio:docs:demo --convert demo.cast
 
 # 3. Batch convert all recordings
-/craft:docs:demo --batch
+/folio:docs:demo --batch
 ```
 
 **Benefits:**
@@ -173,7 +173,7 @@ agg --version
 gifsicle --version
 
 # Check all dependencies and versions
-/craft:docs:demo --check
+/folio:docs:demo --check
 ```
 
 ## CI/CD Integration
@@ -215,7 +215,7 @@ To automatically install dependencies in your CI pipeline:
 - name: Install demo dependencies
   run: |
     # Install with auto-confirmation
-    yes | /craft:docs:demo --fix --method asciinema
+    yes | /folio:docs:demo --fix --method asciinema
 ```
 
 ### JSON Output Format
@@ -270,7 +270,7 @@ When using `--check --json`, the output follows this structure:
 
 ```bash
 # Check and parse JSON output
-/craft:docs:demo --check --json > deps.json
+/folio:docs:demo --check --json > deps.json
 
 # Extract status
 status=$(jq -r '.status' deps.json)
@@ -326,7 +326,7 @@ ls -la $(which asciinema)
 
 # Reinstall from scratch
 brew uninstall asciinema
-/craft:docs:demo --fix --method asciinema
+/folio:docs:demo --fix --method asciinema
 ```
 
 #### 3. Version Mismatch Warnings
@@ -358,7 +358,7 @@ brew install asciinema@2.3.0
 
 ```bash
 # Use sudo for system-wide installation
-sudo /craft:docs:demo --fix
+sudo /folio:docs:demo --fix
 
 # Or install to user directory
 cargo install --root ~/.local agg
@@ -413,7 +413,7 @@ gifsicle -O2 --colors 256 output.gif -o output.gif
 
 ```bash
 # Enable debug mode
-DEBUG=1 /craft:docs:demo --check
+DEBUG=1 /folio:docs:demo --check
 
 # Check individual components
 ./scripts/dependency-manager.sh parse_frontmatter
@@ -438,13 +438,13 @@ DEBUG=1 /craft:docs:demo --check
 
 ```bash
 # View command help
-/craft:docs:demo --help
+/folio:docs:demo --help
 
 # Check specific script help
 ./scripts/dependency-manager.sh help
 
 # Test dependencies with verbose output
-/craft:docs:demo --check --verbose
+/folio:docs:demo --check --verbose
 
 # Generate diagnostic report
 ./scripts/dependency-manager.sh diagnose
@@ -455,7 +455,7 @@ DEBUG=1 /craft:docs:demo --check
 ### System Components
 
 ```
-/craft:docs:demo (command entry point)
+/folio:docs:demo (command entry point)
     │
     ├─ Phase 1: Dependency Checking
     │   ├─ dependency-manager.sh     - Orchestrator, main logic
@@ -483,7 +483,7 @@ DEBUG=1 /craft:docs:demo --check
 ### Data Flow
 
 ```
-User runs: /craft:docs:demo --check
+User runs: /folio:docs:demo --check
     ↓
 Parse frontmatter from demo.md command file
     ↓
@@ -521,7 +521,7 @@ vhs method:
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
-| `dependency-manager.sh` | Main orchestrator | Called by /craft:docs:demo |
+| `dependency-manager.sh` | Main orchestrator | Called by /folio:docs:demo |
 | `tool-detector.sh` | Find installed tools | `detect asciinema asciinema` |
 | `health-check.sh` | Validate tool health | `check asciinema` |
 | `version-check.sh` | Check tool versions | `check asciinema` |
@@ -549,7 +549,7 @@ vhs method:
 
 - Dependency checks cached per shell session (5-minute TTL)
 - Reduces repeated checks during rapid-fire commands
-- Cache invalidated on /craft:docs:demo --check with --force
+- Cache invalidated on /folio:docs:demo --check with --force
 - Cache stored in `$TMPDIR/.craft-demo-cache-*`
 
 **Parallel Operations:**
@@ -563,7 +563,7 @@ vhs method:
 ### Example 1: Check All Dependencies
 
 ```bash
-$ /craft:docs:demo --check
+$ /folio:docs:demo --check
 Checking demo dependencies...
 
 ✅ asciinema method
@@ -582,7 +582,7 @@ Summary: asciinema method ready, vhs optional
 ### Example 2: Fix Missing Dependencies
 
 ```bash
-$ /craft:docs:demo --fix
+$ /folio:docs:demo --fix
 Installing missing dependencies...
 
 Would install:
@@ -600,7 +600,7 @@ All dependencies installed. Ready to record!
 ### Example 3: Check Specific Method with JSON
 
 ```bash
-$ /craft:docs:demo --check --method asciinema --json
+$ /folio:docs:demo --check --method asciinema --json
 {
   "status": "ok",
   "method": "asciinema",
@@ -619,7 +619,7 @@ $ /craft:docs:demo --check --method asciinema --json
 ### Example 4: Batch Convert with Dry-Run
 
 ```bash
-$ /craft:docs:demo --batch --dry-run
+$ /folio:docs:demo --batch --dry-run
 Found 3 .cast files:
   demo1.cast → demo1.gif
   demo2.cast → demo2.gif
@@ -629,7 +629,7 @@ Total GIFs to generate: 3
 Estimated time: ~45 seconds
 Disk space required: ~15 MB
 
-Run with: /craft:docs:demo --batch
+Run with: /folio:docs:demo --batch
 ```
 
 ---

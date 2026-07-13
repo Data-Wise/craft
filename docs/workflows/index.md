@@ -66,7 +66,7 @@ flowchart TD
     FEAT --> REFCARD
     API --> REFCARD
 
-    REFCARD --> CHECK["/craft:docs:check"]
+    REFCARD --> CHECK["/folio:docs:check"]
     CHECK --> LINKS{🔗 Validate Links}
     LINKS -->|Broken| FIX["Auto-fix links"]
     LINKS -->|Valid| NAV["Check navigation"]
@@ -95,7 +95,7 @@ flowchart TD
 **Key Commands:**
 
 - `/craft:docs:update` - Smart detection → full execution
-- `/craft:docs:check` - Validation with auto-fixes
+- `/folio:docs:check` - Validation with auto-fixes
 - `/craft:docs:changelog` - Generate changelog from commits
 - `/craft:site:deploy` - Deploy to GitHub Pages
 

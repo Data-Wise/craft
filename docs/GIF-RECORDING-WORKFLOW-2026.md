@@ -14,7 +14,7 @@
 - Easy to re-record if output changes
 - High-quality GIF conversion with gifski
 
-**Alternative:** VHS for scripted/repeatable demos (`/craft:docs:demo --method vhs`)
+**Alternative:** VHS for scripted/repeatable demos (`/folio:docs:demo --method vhs`)
 
 ---
 
@@ -52,8 +52,8 @@ asciinema rec teaching-workflow.cast
 
 # Now run your /craft commands in Claude Code:
 /craft:git:status
-/craft:site:build
-/craft:site:progress
+/folio:site:build
+/folio:site:progress
 # ... etc
 
 # Stop recording (Ctrl+D or exit)
@@ -133,10 +133,10 @@ asciinema rec docs/demos/teaching-workflow.cast
 
 # In Claude Code, run:
 # /craft:git:status
-# /craft:site:build
-# /craft:site:progress
-# /craft:site:publish --dry-run
-# /craft:site:publish
+# /folio:site:build
+# /folio:site:progress
+# /folio:site:publish --dry-run
+# /folio:site:publish
 # Ctrl+D to stop
 
 # 2. Preview the recording
@@ -170,7 +170,7 @@ ls -lh docs/demos/teaching-workflow.gif
 # record-all-workflows.sh
 
 DEMOS=(
-    "teaching-workflow:/craft:git:status /craft:site:build /craft:site:progress"
+    "teaching-workflow:/craft:git:status /folio:site:build /folio:site:progress"
     "workflow-01:/craft:docs:update"
     # ... etc
 )

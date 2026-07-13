@@ -140,7 +140,7 @@ Many commands support execution modes:
 | I want to... | Use this command |
 |--------------|------------------|
 | Generate docs | `/craft:docs:update` |
-| Build a site | `/craft:site:build` |
+| Build a site | `/folio:site:build` |
 | Run tests | `/craft:test` |
 | Manage git worktrees | `/craft:git:worktree` |
 | Check before commit | `/craft:check` |
@@ -259,7 +259,7 @@ Four key commands use the **"Show Steps First" pattern**:
 
 ### Level 3: Advanced (Ongoing)
 
-1. **Site building:** `/craft:site:build`
+1. **Site building:** `/folio:site:build`
 2. **CI/CD setup:** `/craft:ci:generate`
 3. **Architecture analysis:** `/craft:arch:analyze`
 4. **Distribution:** `/craft:dist:homebrew`

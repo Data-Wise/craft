@@ -57,7 +57,7 @@ The `--orch` flag enables orchestration directly from supported commands:
 | `/craft:do` | `/craft:do "task" --orch=[mode]` |
 | `/craft:brainstorm` | `/brainstorm "topic" --orch=[mode]` |
 | `/craft:check` | `/craft:check --orch=[mode]` |
-| `/craft:docs:sync` | `/craft:docs:sync --orch=[mode]` |
+| `/folio:docs:sync` (moved to folio) | `/folio:docs:sync --orch=[mode]` |
 | `/craft:ci:generate` | `/craft:ci:generate --orch=[mode]` |
 
 **Benefits:**

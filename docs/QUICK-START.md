@@ -96,8 +96,8 @@ The AI routes your task to the best workflow automatically.
 
 ```bash
 /craft:docs:update              # Smart detection → full execution
-/craft:docs:sync                # Quick stale docs check
-/craft:docs:check               # Full validation with auto-fixes
+/folio:docs:sync                # Quick stale docs check (moved to folio)
+/folio:docs:check               # Full validation with auto-fixes (moved to folio)
 ```
 
 ## Next Steps
@@ -119,7 +119,7 @@ The AI routes your task to the best workflow automatically.
 /craft:docs:update
 
 # 2. Check for issues
-/craft:docs:check
+/folio:docs:check
 
 # 3. Deploy
 /craft:site:deploy

@@ -4,11 +4,11 @@
 
 ## Overview
 
-The badge management system ensures version, CI status, and documentation coverage badges stay in sync across README.md and docs/index.md. Badge sync integrates into existing commands (`/craft:site:update`, `/craft:docs:update`) and provides CI-specific validation.
+The badge management system ensures version, CI status, and documentation coverage badges stay in sync across README.md and docs/index.md. Badge sync integrates into existing commands (`/folio:site:update`, `/craft:docs:update`) and provides CI-specific validation.
 
 ### Key Features
 
-- **Auto-sync during site updates** - Step 3.5 in `/craft:site:update`
+- **Auto-sync during site updates** - Step 3.5 in `/folio:site:update`
 - **Version badge generation** - Extracts from plugin.json, package.json, pyproject.toml
 - **CI badge generation** - Scans `.github/workflows/*.yml` files
 - **Coverage badges** - Calculates from `.STATUS` file
@@ -30,10 +30,10 @@ The badge management system ensures version, CI status, and documentation covera
 
 ### 1. Site Update (Primary Integration)
 
-Badge sync runs automatically during `/craft:site:update` as **Step 3.5**:
+Badge sync runs automatically during `/folio:site:update` as **Step 3.5**:
 
 ```bash
-/craft:site:update
+/folio:site:update
 ```
 
 #### Flow
@@ -543,7 +543,7 @@ syncer.sync_badges(auto_confirm=True, dry_run=False)
 ```bash
 /craft:ci:validate --fix
 # Or
-/craft:site:update  # Step 3.5 will fix
+/folio:site:update  # Step 3.5 will fix
 ```
 
 ### Coverage Not Calculated
@@ -632,7 +632,7 @@ if issues:
 
 ✅ **Sync automatically during**:
 
-- Site updates (`/craft:site:update`)
+- Site updates (`/folio:site:update`)
 - Version bumps (changing plugin.json/package.json)
 - CI workflow changes (adding/modifying workflows)
 - Documentation updates (`/craft:docs:update`)
@@ -736,7 +736,7 @@ syncer.sync_badges(calculate_coverage=False)
 
 | Command | Badge Integration |
 | --------- | ------------------- |
-| `/craft:site:update` | Step 3.5: Badge sync |
+| `/folio:site:update` | Step 3.5: Badge sync |
 | `/craft:docs:update` | Badges in metadata group |
 | `/craft:ci:validate` | CI badge validation |
 | `/craft:ci:generate` | CI badge generation offer |

@@ -295,17 +295,17 @@ python3 tests/test_docs_utilities.py
 
 **Works with:**
 
-- `/craft:docs:sync` - Change detection
-- `/craft:docs:check` - Validation
-- `/craft:docs:lint` - Markdown linting
+- `/folio:docs:sync` - Change detection (moved to folio)
+- `/folio:docs:check` - Validation (moved to folio)
+- `/folio:docs:lint` - Markdown linting (moved to folio)
 - `/craft:check` - Pre-flight validation
 
 **Orchestrated internally:**
 
-- `/craft:docs:guide` - Guide generation
+- `/folio:docs:guide` - Guide generation (moved to folio)
 - `/craft:docs:changelog` - Changelog updates
 - `/craft:docs:claude-md` - CLAUDE.md updates
-- `/craft:docs:nav-update` - Navigation updates
+- `/folio:docs:nav-update` - Navigation updates (moved to folio)
 
 ## See Also
 

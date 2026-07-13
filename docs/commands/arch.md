@@ -264,7 +264,7 @@ The review evaluates:
 │                                                      │
 │ NEXT STEPS                                           │
 │ → Run /craft:code:refactor to implement changes     │
-│ → Use /craft:docs:api to improve documentation      │
+│ → Use /folio:docs:api to improve documentation      │
 ╰──────────────────────────────────────────────────────╯
 ```
 
@@ -326,7 +326,7 @@ Architecture commands work well with:
 | Command | Use Case |
 |---------|----------|
 | `/craft:code:refactor` | Implement architecture changes |
-| `/craft:docs:api` | Document architecture decisions |
+| `/folio:docs:api` | Document architecture decisions |
 | `/craft:test` | Validate architecture changes |
 | `/craft:check` | Pre-flight before major refactors |
 | `/craft:do` | AI routes architecture tasks |

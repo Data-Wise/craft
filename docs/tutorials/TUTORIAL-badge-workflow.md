@@ -40,7 +40,7 @@ vim package.json
 ### Step 2: Run Site Update
 
 ```bash
-/craft:site:update
+/folio:site:update
 ```
 
 **Expected Output**:
@@ -194,7 +194,7 @@ grep "badge.svg" README.md
 **Option B**: Sync via site:update
 
 ```bash
-/craft:site:update
+/folio:site:update
 # Step 3.5 will fix the branch parameter
 ```
 
@@ -367,7 +367,7 @@ print(f"Generation (no coverage): {time.time() - start:.3f}s")
 
 ```bash
 # Auto-sync badges during site update
-/craft:site:update
+/folio:site:update
 
 # Validate CI badges
 /craft:ci:validate

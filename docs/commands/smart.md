@@ -60,7 +60,7 @@ Tasks are scored on 7 factors (each 0-2 points):
 # Total: 2/14 = 1.4 → Score: 2
 
 # Routing: Direct command
-# Executes: /craft:docs:lint
+# Executes: /folio:docs:lint
 ```
 
 **Example 2: Medium Task (Score: 6)**

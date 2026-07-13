@@ -33,7 +33,7 @@ Practical examples and real-world usage patterns for all Craft commands.
 | **Quick linting** | `/craft:code:lint` | Default mode |
 | **Run tests** | `/craft:test` | Quick smoke tests |
 | **Detailed testing** | `/craft:test release` | Full suite with coverage |
-| **Publish docs** | `/craft:site:publish` | Build + deploy |
+| **Publish docs** | `/folio:site:publish` | Build + deploy |
 | **Release new version** | `/craft:code:release` | Full workflow |
 
 ---
@@ -659,20 +659,20 @@ cd /original/craft
 
 ## Documentation Examples
 
-### /craft:docs:api - Generate API Docs
+### /folio:docs:api - Generate API Docs
 
 ```bash
 # Generate OpenAPI spec
-/craft:docs:api
+/folio:docs:api
 
 # Generate Swagger spec
-/craft:docs:api swagger
+/folio:docs:api swagger
 
 # Save to file
-/craft:docs:api openapi --output api-spec.yaml
+/folio:docs:api openapi --output api-spec.yaml
 
 # Include security schemes
-/craft:docs:api --with-security
+/folio:docs:api --with-security
 ```
 
 **Output Example** (OpenAPI 3.1):
@@ -756,35 +756,35 @@ paths:
 
 ---
 
-### /craft:docs:check-links - Validate Links
+### /folio:docs:check-links - Validate Links
 
 ```bash
 # Check internal links only
-/craft:docs:check-links
+/folio:docs:check-links
 
 # Include external URLs
-/craft:docs:check-links --external
+/folio:docs:check-links --external
 
 # Auto-fix broken links
-/craft:docs:check-links --fix
+/folio:docs:check-links --fix
 
 # Save report
-/craft:docs:check-links --report json > links.json
+/folio:docs:check-links --report json > links.json
 ```
 
 ---
 
-### /craft:docs:guide - Generate Guides
+### /folio:docs:guide - Generate Guides
 
 ```bash
 # Generate getting started guide
-/craft:docs:guide "getting started"
+/folio:docs:guide "getting started"
 
 # Intermediate level
-/craft:docs:guide "advanced testing" intermediate
+/folio:docs:guide "advanced testing" intermediate
 
 # Expert level
-/craft:docs:guide "deployment and devops" advanced
+/folio:docs:guide "deployment and devops" advanced
 ```
 
 ---
@@ -858,17 +858,17 @@ SUMMARY: 156/156 passing (2.4s)
 
 ## Site Management Examples
 
-### /craft:site:build - Build Site
+### /folio:site:build - Build Site
 
 ```bash
 # Development build
-/craft:site:build
+/folio:site:build
 
 # Production build
-/craft:site:build --production
+/folio:site:build --production
 
 # With minification
-/craft:site:build --production --minify
+/folio:site:build --production --minify
 ```
 
 ---
@@ -891,14 +891,14 @@ SUMMARY: 156/156 passing (2.4s)
 
 ---
 
-### /craft:site:publish - Build + Deploy
+### /folio:site:publish - Build + Deploy
 
 ```bash
 # One-command publish
-/craft:site:publish
+/folio:site:publish
 
 # Skip build (if already built)
-/craft:site:publish --skip-build
+/folio:site:publish --skip-build
 ```
 
 ---
@@ -930,7 +930,7 @@ SUMMARY: 156/156 passing (2.4s)
 /craft:code:lint release
 
 # 8. Generate docs
-/craft:docs:api --output api-spec.yaml
+/folio:docs:api --output api-spec.yaml
 
 # 9. Complete and create PR
 /craft:git:worktree finish
@@ -956,7 +956,7 @@ SUMMARY: 156/156 passing (2.4s)
 /craft:code:release
 
 # 5. Deploy
-/craft:site:publish
+/folio:site:publish
 
 # 6. Verify in production
 # ... manual testing ...
@@ -1021,7 +1021,7 @@ cs          # Run /craft:git:status
 ```bash
 /craft:test                 # ~2 min
 /craft:code:coverage            # ~1 min
-/craft:docs:check-links         # ~2 min
+/folio:docs:check-links         # ~2 min
 ```
 
 ### Full Pre-Release (5-30 min)
@@ -1030,7 +1030,7 @@ cs          # Run /craft:git:status
 /craft:test release         # ~5 min
 /craft:code:lint release        # ~3 min
 /craft:code:coverage --threshold 90  # ~1 min
-/craft:site:build --production  # ~5 min
+/folio:site:build --production  # ~5 min
 ```
 
 ---

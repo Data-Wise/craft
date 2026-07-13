@@ -11,6 +11,8 @@
 
 This guide helps you transition from manual teaching site workflows to Craft's automated teaching mode.
 
+> `site:publish`, `site:status`, and `site:progress` below moved to the `folio` plugin; `site:validate` remains in craft.
+
 ## Before and After
 
 ### Old Manual Workflow
@@ -51,7 +53,7 @@ git push origin production
 
 ```bash
 # One command does everything
-/craft:site:publish
+/folio:site:publish
 ```
 
 **What happens automatically:**
@@ -126,7 +128,7 @@ progress:
 **Test configuration:**
 
 ```bash
-/craft:site:status
+/folio:site:status
 ```
 
 **Expected output:**
@@ -170,7 +172,7 @@ Status: Ready to publish ✅
 Verify semester progress calculation:
 
 ```bash
-/craft:site:progress
+/folio:site:progress
 ```
 
 **Check output:**
@@ -194,7 +196,7 @@ Run your first automated publish:
 git checkout draft
 
 # Run publish workflow
-/craft:site:publish
+/folio:site:publish
 ```
 
 **What to expect:**
@@ -233,7 +235,7 @@ mv publish.sh archive/
 mv validate-syllabus.sh archive/
 
 # Update team documentation
-# Replace manual steps with /craft:site:publish
+# Replace manual steps with /folio:site:publish
 ```
 
 **Update `.gitignore` (optional):**
@@ -281,7 +283,7 @@ git add lectures/week-05.qmd
 git commit -m "Add week 5 lecture"
 
 # Publish with safety checks
-/craft:site:publish
+/folio:site:publish
 ```
 
 ### Pattern 2: Assignment Releases
@@ -328,7 +330,7 @@ git commit -m "Add HW 5"
 # Shows: "Assignment HW 5 referenced but file missing link"
 
 # Fix link, then publish
-/craft:site:publish
+/folio:site:publish
 # Preview shows assignment in CRITICAL CHANGES
 # Verify before students see it
 ```
@@ -365,7 +367,7 @@ git add schedule.qmd
 git commit -m "Move HW 3 due date"
 
 # Preview shows CRITICAL CHANGE
-/craft:site:publish
+/folio:site:publish
 # Highlights: schedule.qmd in CRITICAL section
 # Review diff before confirming
 
@@ -393,7 +395,7 @@ vim syllabus.qmd
 
 ```bash
 # One command shows everything
-/craft:site:progress
+/folio:site:progress
 
 # Output:
 # Week 8 of 16 (50% complete)
@@ -455,7 +457,7 @@ Update your teaching team's workflow documentation:
 
 Run the publish command:
 ```bash
-/craft:site:publish
+/folio:site:publish
 ```
 
 The command will:
@@ -485,7 +487,7 @@ What changed:
 New workflow:
 
 1. Edit content on draft branch
-2. Run: /craft:site:publish
+2. Run: /folio:site:publish
 3. Review preview and confirm
 
 Benefits:
@@ -607,8 +609,8 @@ brew install craft
 Then use teaching workflows:
 
 ```bash
-/craft:site:publish
-/craft:site:progress
+/folio:site:publish
+/folio:site:progress
 /craft:site:validate
 ```
 ````
@@ -631,7 +633,7 @@ Use this checklist to track migration progress:
 - [ ] Add semester dates (start, end, breaks)
 - [ ] Configure deployment (branches, URL)
 - [ ] Set validation rules
-- [ ] Test config with `/craft:site:status`
+- [ ] Test config with `/folio:site:status`
 
 **Validation:**
 
@@ -642,7 +644,7 @@ Use this checklist to track migration progress:
 
 **Publishing:**
 
-- [ ] Test `/craft:site:publish` on draft branch
+- [ ] Test `/folio:site:publish` on draft branch
 - [ ] Review preview output carefully
 - [ ] Confirm publish and monitor deployment
 - [ ] Verify live site is correct
@@ -650,7 +652,7 @@ Use this checklist to track migration progress:
 
 **Progress Tracking:**
 
-- [ ] Run `/craft:site:progress`
+- [ ] Run `/folio:site:progress`
 - [ ] Verify current week calculation
 - [ ] Check break countdown accuracy
 - [ ] Test `--week` manual override
@@ -718,8 +720,8 @@ After successful migration:
 
 - **[Teaching Mode Setup Tutorial](tutorials/teaching-mode-setup.md)** - First-time setup guide
 - **[Config Schema](teaching-config-schema.md)** - Complete YAML reference
-- **[Command Reference: `/craft:site:publish`](commands/site.md)** - Publishing workflow with validation
-- **[Command Reference: `/craft:site:progress`](commands/site.md)** - Progress dashboard
+- **[Command Reference: `/folio:site:publish`](commands/site.md)** - Publishing workflow with validation
+- **[Command Reference: `/folio:site:progress`](commands/site.md)** - Progress dashboard
 - **[GitHub Issues](https://github.com/Data-Wise/craft/issues)** - Report problems or suggest features
 
 ## Get Help

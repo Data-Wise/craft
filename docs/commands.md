@@ -209,25 +209,25 @@ Read-only view of the multi-surface release registry — verify gate states and 
 
 | Command | Description | Help |
 |---------|-------------|------|
-| `/craft:docs:generate` | Unified router across all 9 doc generators | [Ref](commands/docs/generate.md) |
+| `/folio:docs:generate` | Unified router across all 9 doc generators | (moved to folio) |
 | `/craft:docs:update` | Smart full-cycle documentation generator | [Ref](commands/docs/update.md) |
-| `/craft:docs:sync` | Change detection and classification | [Ref](commands/docs/sync.md) |
-| `/craft:docs:check` | Documentation health check with auto-fix | [Ref](commands/docs/check.md) |
-| `/craft:docs:lint` | Markdown quality validation with auto-fix | [Ref](commands/docs/lint.md) |
-| `/craft:docs:check-links` | Internal link validation | [Ref](commands/docs/check-links.md) |
+| `/folio:docs:sync` | Change detection and classification | (moved to folio) |
+| `/folio:docs:check` | Documentation health check with auto-fix | (moved to folio) |
+| `/folio:docs:lint` | Markdown quality validation with auto-fix | (moved to folio) |
+| `/folio:docs:check-links` | Internal link validation | (moved to folio) |
 | `/craft:docs:changelog` | Auto-update CHANGELOG from commits | [Ref](commands/docs/changelog.md) |
-| `/craft:docs:nav-update` | Update mkdocs.yml navigation | [Ref](commands/docs/nav-update.md) |
-| `/craft:docs:guide` | Feature guide + demo + refcard generator | [Ref](commands/docs/guide.md) |
-| `/craft:docs:tutorial` | Interactive tutorial generator | [Ref](commands/docs/tutorial.md) |
-| `/craft:docs:workflow` | Workflow documentation generator | [Ref](commands/docs/workflow.md) |
-| `/craft:docs:demo` | Terminal recording and GIF generator | [Ref](commands/docs/demo.md) |
-| `/craft:docs:mermaid` | Mermaid diagram templates and NL creation | [Ref](commands/docs/mermaid.md) |
-| `/craft:docs:website` | ADHD-friendly website enhancement | [Ref](commands/docs/website.md) |
-| `/craft:docs:api` | OpenAPI/Swagger documentation | [Ref](commands/docs/api.md) |
-| `/craft:docs:help` | Help page generator | [Ref](commands/docs/help.md) |
-| `/craft:docs:prompt` | Generate reusable maintenance prompts | [Ref](commands/docs/prompt.md) |
-| `/craft:docs:quickstart` | Quick start guide generator | [Ref](commands/docs/quickstart.md) |
-| `/craft:docs:site` | Site-wide documentation updates | [Ref](commands/docs/site.md) |
+| `/folio:docs:nav-update` | Update mkdocs.yml navigation | (moved to folio) |
+| `/folio:docs:guide` | Feature guide + demo + refcard generator | (moved to folio) |
+| `/folio:docs:tutorial` | Interactive tutorial generator | (moved to folio) |
+| `/folio:docs:workflow` | Workflow documentation generator | (moved to folio) |
+| `/folio:docs:demo` | Terminal recording and GIF generator | (moved to folio) |
+| `/folio:docs:mermaid` | Mermaid diagram templates and NL creation | (moved to folio) |
+| `/folio:docs:website` | ADHD-friendly website enhancement | (moved to folio) |
+| `/folio:docs:api` | OpenAPI/Swagger documentation | (moved to folio) |
+| `/folio:docs:help` | Help page generator | (moved to folio) |
+| `/folio:docs:prompt` | Generate reusable maintenance prompts | (moved to folio) |
+| `/folio:docs:quickstart` | Quick start guide generator | (moved to folio) |
+| `/folio:docs:site` | Site-wide documentation updates | (moved to folio) |
 | `/craft:docs:claude-md` | CLAUDE.md management hub | [Ref](commands/docs/claude-md.md) |
 | `/craft:docs:claude-md:edit` | Interactive CLAUDE.md editing | [Ref](commands/docs/claude-md/edit.md) |
 | `/craft:docs:claude-md:init` | Create CLAUDE.md from template | [Ref](commands/docs/claude-md/init.md) |
@@ -235,9 +235,9 @@ Read-only view of the multi-surface release registry — verify gate states and 
 
 ```bash
 /craft:docs:update              # Full-cycle doc generation
-/craft:docs:lint --fix          # Auto-fix markdown issues
-/craft:docs:mermaid "show the release pipeline"  # NL diagram
-/craft:docs:check               # Health check with auto-fix
+/folio:docs:lint --fix          # Auto-fix markdown issues
+/folio:docs:mermaid "show the release pipeline"  # NL diagram
+/folio:docs:check               # Health check with auto-fix
 ```
 
 ## Git Commands (git/)

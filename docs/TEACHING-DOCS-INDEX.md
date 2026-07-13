@@ -72,12 +72,14 @@ Complete documentation for Craft's teaching mode feature.
 
 ### Command Reference
 
+> `publish`, `progress`, and `build` below moved to the `folio` plugin; `validate` remains in craft.
+
 | Command | Description | Link |
 |---------|-------------|------|
-| `/craft:site:publish` | Publish draft → production with preview | [Documentation](commands/site.md) |
-| `/craft:site:progress` | Semester progress dashboard | [Documentation](commands/site.md) |
+| `/folio:site:publish` | Publish draft → production with preview | [Documentation](commands/site.md) |
+| `/folio:site:progress` | Semester progress dashboard | [Documentation](commands/site.md) |
 | `/craft:site:validate` | Content validation (syllabus, schedule) | [Documentation](commands/site.md) |
-| `/craft:site:build` | Build site with teaching mode support | [Documentation](commands/site.md#craftsitebuild) |
+| `/folio:site:build` | Build site with teaching mode support | [Documentation](commands/site.md#craftsitebuild) |
 
 ## Documentation by Use Case
 
@@ -93,13 +95,13 @@ Complete documentation for Craft's teaching mode feature.
 
 ```bash
 # Setup
-/craft:site:status      # Verify detection
+/folio:site:status      # Verify detection
 
 # Validate
 /craft:site:validate    # Check content
 
 # Publish
-/craft:site:publish     # Deploy to production
+/folio:site:publish     # Deploy to production
 ```
 
 ### I'm Migrating from Manual Workflows
@@ -113,7 +115,7 @@ Complete documentation for Craft's teaching mode feature.
 **Migration checklist:**
 
 - [ ] Create `.flow/teach-config.yml`
-- [ ] Test detection with `/craft:site:status`
+- [ ] Test detection with `/folio:site:status`
 - [ ] Run validation and fix errors
 - [ ] Test publish workflow on draft
 - [ ] Archive old deployment scripts

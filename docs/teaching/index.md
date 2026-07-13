@@ -21,7 +21,7 @@ The teaching workflow spans three tools. Each has clear ownership:
 - :shield:{ .lg .middle } **Craft** *(Site Safety)*
 
     Preview-before-publish, validation, progress tracking.
-    `/craft:site:publish`, `/craft:site:progress`
+    `/folio:site:publish`, `/folio:site:progress`
 
 </div>
 
@@ -33,9 +33,9 @@ The teaching workflow spans three tools. Each has clear ownership:
 | Deploy the course site | flow-cli | `teach deploy` |
 | Check if content is ready | All three | `teach check` |
 | See what week it is | flow-cli | `teach status` or `tst` |
-| Publish with CI safety | Craft | `/craft:site:publish` |
+| Publish with CI safety | Craft | `/folio:site:publish` |
 | See all teaching commands | flow-cli | `teach map` |
-| Track semester progress | Craft | `/craft:site:progress` |
+| Track semester progress | Craft | `/folio:site:progress` |
 
 ## Getting Started
 
@@ -75,14 +75,14 @@ The teaching workflow spans three tools. Each has clear ownership:
 
 </div>
 
-## Craft Commands
+## Site Commands (moved to folio)
 
 | Command | What it does |
 |---------|-------------|
-| `/craft:site:publish` | Preview → Validate → Switch branch → Build → Deploy (5-step safety) |
-| `/craft:site:progress` | Semester dashboard with week tracking, break countdown, completion % |
-| `/craft:site:build` | Build site with teaching-aware context (branch, week, course info) |
-| `/craft:site:check` | Content validation (syllabus sections, schedule completeness, assignments) |
+| `/folio:site:publish` | Preview → Validate → Switch branch → Build → Deploy (5-step safety) |
+| `/folio:site:progress` | Semester dashboard with week tracking, break countdown, completion % |
+| `/folio:site:build` | Build site with teaching-aware context (branch, week, course info) |
+| `/folio:site:check` | Content validation (syllabus sections, schedule completeness, assignments) |
 | `/craft:git:status` | Teaching-aware git status (shows deployment context, what students see) |
 
 ## Config Compatibility
@@ -107,19 +107,19 @@ No migration needed. Both schemas work transparently. See [Config Schema](../tea
 ```bash
 # 1. Edit content on draft branch
 # 2. Preview changes
-/craft:site:build
+/folio:site:build
 # 3. Validate and publish
-/craft:site:publish
+/folio:site:publish
 ```
 
 ### Semester Check-In
 
 ```bash
 # See where you are
-/craft:site:progress
+/folio:site:progress
 
 # Validate everything
-/craft:site:publish --dry-run --validate-only
+/folio:site:publish --dry-run --validate-only
 ```
 
 ### Deploy Course Website

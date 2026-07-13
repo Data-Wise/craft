@@ -150,15 +150,15 @@ Display template:
 │                                    /craft:arch:diagram                  │
 │ DOCS (5)                                                               │
 │   /craft:docs:update             PLAN (3)                               │
-│   /craft:docs:sync                 /craft:plan:feature                  │
-│   /craft:docs:lint                 /craft:plan:sprint                   │
-│   /craft:docs:check                /craft:plan:roadmap                  │
+│   /folio:docs:sync                 /craft:plan:feature                  │
+│   /folio:docs:lint                 /craft:plan:sprint                   │
+│   /folio:docs:check                /craft:plan:roadmap                  │
 │   /craft:docs:changelog                                                 │
 │   /craft:docs:claude-md          CI (8)                                 │
-│   /craft:docs:nav-update           /craft:ci:detect                    │
-│   /craft:docs:demo                 /craft:ci:generate                  │
-│   /craft:docs:mermaid              /craft:ci:validate                  │
-│   /craft:docs:check-links          /craft:ci:status                    │
+│   /folio:docs:nav-update           /craft:ci:detect                    │
+│   /folio:docs:demo                 /craft:ci:generate                  │
+│   /folio:docs:mermaid              /craft:ci:validate                  │
+│   /folio:docs:check-links          /craft:ci:status                    │
 │                                                                         │
 │ GIT (9 incl. 4 guides)          WORKFLOW (1)                          │
 │   /craft:git:worktree              /brainstorm [depth|focus] "topic"   │
@@ -169,11 +169,11 @@ Display template:
 │   /craft:git:unprotect             /craft:dist:marketplace             │
 │                                    /craft:dist:homebrew                 │
 │ SITE (1)                          /craft:dist:curl-install             │
-│   /craft:site:build                /craft:dist:pypi                    │
+│   /folio:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
-│   /craft:site:check              ORCHESTRATE (3)                        │
-│   /craft:site:update               /craft:orch [mode]           │
-│   /craft:site:publish                                                  │
+│   /folio:site:check              ORCHESTRATE (3)                        │
+│   /folio:site:update               /craft:orch [mode]           │
+│   /folio:site:publish                                                  │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  Quick Actions:                                                          │
@@ -380,28 +380,28 @@ Usage:
 ### `/craft:hub docs`
 
 ```
-DOCS COMMANDS (5) - Documentation Automation
+DOCS COMMANDS (5) - Documentation Automation (most moved to folio)
 ─────────────────────────────────────────────────────────────────────────
 Command                        | Description
 ───────────────────────────────┼─────────────────────────────────────
 /craft:docs:update             | Smart doc generator (detect + generate)
-/craft:docs:sync               | Detect changes, classify doc needs
-/craft:docs:lint               | Markdown quality checks
-/craft:docs:check              | Documentation health check (links, stale, nav, mermaid)
-/craft:docs:check-links        | Internal link validation
+/folio:docs:sync               | Detect changes, classify doc needs
+/folio:docs:lint               | Markdown quality checks
+/folio:docs:check              | Documentation health check (links, stale, nav, mermaid)
+/folio:docs:check-links        | Internal link validation
 /craft:docs:changelog          | Auto-update CHANGELOG.md
-/craft:docs:nav-update         | Update mkdocs.yml navigation
-/craft:docs:demo               | Terminal recording & GIF generator
-/craft:docs:mermaid            | Mermaid diagrams: templates, NL creation, MCP validation
-/craft:docs:guide              | Generate feature guides
-/craft:docs:tutorial           | Generate step-by-step tutorials
-/craft:docs:api                | Generate API documentation
-/craft:docs:quickstart         | Generate quickstart guides
-/craft:docs:help               | Generate help pages
-/craft:docs:prompt             | Generate documentation prompts
-/craft:docs:site               | Website documentation focus
-/craft:docs:website            | ADHD-friendly website enhancement
-/craft:docs:workflow           | Workflow documentation generator
+/folio:docs:nav-update         | Update mkdocs.yml navigation
+/folio:docs:demo               | Terminal recording & GIF generator
+/folio:docs:mermaid            | Mermaid diagrams: templates, NL creation, MCP validation
+/folio:docs:guide              | Generate feature guides
+/folio:docs:tutorial           | Generate step-by-step tutorials
+/folio:docs:api                | Generate API documentation
+/folio:docs:quickstart         | Generate quickstart guides
+/folio:docs:help               | Generate help pages
+/folio:docs:prompt             | Generate documentation prompts
+/folio:docs:site               | Website documentation focus
+/folio:docs:website            | ADHD-friendly website enhancement
+/folio:docs:workflow           | Workflow documentation generator
 
 CLAUDE.md Management:
   /craft:docs:claude-md:init   | Create from lean template (< 150 lines)
@@ -471,17 +471,17 @@ Insights (v2.21.0):
 ### `/craft:hub site`
 
 ```
-SITE COMMANDS (1) - Documentation Sites
+SITE COMMANDS (1) - Documentation Sites (most moved to folio)
 ─────────────────────────────────────────────────────────────────────────
 Command                  | R Package        | Other (MkDocs)
 ─────────────────────────┼──────────────────┼─────────────────────
-/craft:site:build        | pkgdown::build   | mkdocs build
+/folio:site:build        | pkgdown::build   | mkdocs build
 /craft:site:deploy       | gh-pages push    | mkdocs gh-deploy
-/craft:site:check        | validate site    | validate site
-/craft:site:update       | sync code->docs  | sync code->docs
-/craft:site:publish      | teaching site    | teaching site
-/craft:site:status       | site health      | site health
-/craft:site:progress     | semester dash    | semester dash
+/folio:site:check        | validate site    | validate site
+/folio:site:update       | sync code->docs  | sync code->docs
+/folio:site:publish      | teaching site    | teaching site
+/folio:site:status       | site health      | site health
+/folio:site:progress     | semester dash    | semester dash
 ─────────────────────────────────────────────────────────────────────────
 ```
 
@@ -652,7 +652,7 @@ SUGGESTED FOR R PACKAGE:
   /craft:do "check package"   Smart workflow
   /craft:test                 Run testthat
   /craft:code:release         CRAN submission prep
-  /craft:site:build           Build pkgdown/altdoc site
+  /folio:site:build           Build pkgdown/altdoc site
   /craft:arch:analyze         Check package structure
 ```
 
@@ -705,8 +705,8 @@ SUGGESTED FOR NODE PROJECT:
 │ Documentation:                                                         │
 │   /craft:docs:update       -> Smart detection + generation             │
 │   /craft:docs:claude-md:sync -> 4-phase CLAUDE.md pipeline            │
-│   /craft:docs:lint         -> Markdown quality checks                  │
-│   /craft:docs:check-links  -> Internal link validation                 │
+│   /folio:docs:lint         -> Markdown quality checks                  │
+│   /folio:docs:check-links  -> Internal link validation                 │
 │                                                                        │
 │ Brainstorming:                                                         │
 │   /brainstorm "topic"              -> Default depth                   │

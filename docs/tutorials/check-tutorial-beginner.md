@@ -446,7 +446,7 @@ npx markdownlint-cli2 --fix "docs/guide.md"
 
 # Option 3: Run only specific checks later
 /craft:test              # Just tests
-/craft:docs:check-links      # Just link validation
+/folio:docs:check-links      # Just link validation (moved to folio)
 ```
 
 ## Step 8: Best Practices

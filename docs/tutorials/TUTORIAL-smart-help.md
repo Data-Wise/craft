@@ -29,7 +29,7 @@ Suggested commands for your situation:
   /craft:ci:status     — View CI dashboard across repos
 
 Based on recent activity:
-  /craft:docs:check    — docs/ modified 2 hours ago, no check run
+  /folio:docs:check    — docs/ modified 2 hours ago, no check run
   /craft:check         — Last check: 47 commits ago
 
 General:

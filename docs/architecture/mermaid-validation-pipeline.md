@@ -8,7 +8,7 @@ How Mermaid diagram validation flows through the craft plugin, from authoring to
 flowchart TD
     A["Author writes diagram"] --> B{"Trigger?"}
     B -->|"git commit"| C["Pre-commit Hook"]
-    B -->|"/craft:docs:check"| D["Phase 5 Validation"]
+    B -->|"/folio:docs:check"| D["Phase 5 Validation"]
     B -->|"/craft:site:deploy"| E["Release Gate"]
     B -->|"Manual"| F["CLI Validation"]
 
@@ -30,7 +30,7 @@ flowchart TD
 ```mermaid
 flowchart LR
     subgraph "Entry Points"
-        CMD["/craft:docs:check"]
+        CMD["/folio:docs:check"]
         HOOK["Pre-commit Hook"]
         CLI["mermaid-validate.py"]
         DEPLOY["/craft:site:deploy"]
@@ -126,13 +126,13 @@ mermaid-autofix.py <paths...>
 ```mermaid
 flowchart TD
     subgraph "Authoring"
-        NL["/craft:docs:mermaid NL"]
-        TPL["/craft:docs:mermaid template"]
+        NL["/folio:docs:mermaid NL"]
+        TPL["/folio:docs:mermaid template"]
         EXPERT["mermaid-expert agent"]
     end
 
     subgraph "Validation"
-        CHECK["/craft:docs:check Phase 5"]
+        CHECK["/folio:docs:check Phase 5"]
         LINT["mermaid-linter skill"]
         HOOK["Pre-commit hook"]
     end

@@ -94,7 +94,7 @@ Update all documentation:
 Check for stale docs:
 
 ```bash
-/craft:docs:sync
+/folio:docs:sync
 ```
 
 ## Complex Feature Workflow

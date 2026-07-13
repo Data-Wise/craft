@@ -153,7 +153,7 @@ Based on the complexity score, tasks are routed to different handlers:
 **Handler:** Direct command execution
 **Examples:**
 
-- Lint markdown files → `/craft:docs:lint`
+- Lint markdown files → `/folio:docs:lint` (moved to folio)
 - Run tests → `/craft:test`
 - Check code → `/craft:check`
 
@@ -229,7 +229,7 @@ backing agent definition).
 
 **Routing:** Zone 1 - Simple
 **Handler:** Direct command
-**Executes:** `/craft:docs:lint`
+**Executes:** `/folio:docs:lint`
 **Time:** 3-5 seconds
 
 ---
@@ -353,7 +353,7 @@ backing agent definition).
 
 ```bash
 # Instead of guessing:
-/craft:docs:update? /craft:docs:sync? /craft:docs:check?
+/craft:docs:update? /folio:docs:sync? /folio:docs:check?
 
 # Just describe the goal:
 /craft:do "update documentation for new API endpoints"
@@ -421,7 +421,7 @@ for file in *.md; do
 done
 
 # ✅ Batch operation:
-/craft:docs:lint
+/folio:docs:lint
 ```
 
 ## Decision Tree

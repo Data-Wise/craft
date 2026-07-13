@@ -36,7 +36,7 @@ Craft has comprehensive integration tests that validate the entire system end-to
 
 **What It Tests:**
 
-- ✅ Full dependency check workflow (`/craft:docs:demo --check`)
+- ✅ Full dependency check workflow (`/folio:docs:demo --check`)
 - ✅ Health check validation of installed tools
 - ✅ Tool detection across multiple methods (PATH, homebrew, npm, cargo)
 - ✅ Version comparison logic for upgrade decisions
@@ -296,7 +296,7 @@ class Test[Category]Integration(unittest.TestCase):
 
 ### Dependency System Tests Validate
 
-The dependency management system is critical for the `/craft:docs:demo` command. Tests verify:
+The dependency management system is critical for the `/folio:docs:demo` command. Tests verify:
 
 1. **Detection** - Finding installed tools using 4 methods (PATH, homebrew, npm, cargo)
 2. **Health** - Validating tool functionality
