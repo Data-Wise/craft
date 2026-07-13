@@ -59,6 +59,7 @@ Quickly answer "where did I leave off?" — the opener for any returning session
 2. Recent git activity (last 48h) — `git log --oneline --since="48 hours ago"`.
 3. Open PRs / issues via `gh pr list --author @me --state open` and `gh issue list --assignee @me`.
 4. Project planning files — `TODO.md`, `PLAN.md`, `ROADMAP.md`, `CLAUDE.md`.
+5. **Obsidian sync config** — run `obs doctor --layer flow --json` (if `.flow/` exists). Report `flow-sync-missing` as ⚠️ + suggest `obs flow init`; report `flow-sync-stale` as ⚠️ + suggest `obs flow init` to update. Never block on flow warnings — they are informational.
 
 **Output:** Short, scannable summary — what was completed, what's next, what's blocked. Aim for under 20 lines.
 
