@@ -76,16 +76,16 @@ def _check_hub_display():
 │   /craft:ci:local                                                  │
 │                                                                         │
 │ 📄 DOCS ({stats['categories'].get('docs', 0)})             🏗️ ARCH ({stats['categories'].get('arch', 0)})            │
-│   /craft:docs:sync                 /craft:arch:analyze [mode]           │
+│   /craft:docs:update               /craft:arch:analyze [mode]           │
 │   /craft:docs:changelog            /craft:arch:plan                     │
-│   /craft:docs:check-links          /craft:arch:review                   │
-│   /craft:docs:lint                 /craft:arch:diagram                  │
+│   /craft:docs:claude-md:*          /craft:arch:review                   │
+│   (site-building moved to folio)   /craft:arch:diagram                  │
 │                                                                         │
 │ 🔀 GIT ({stats['categories'].get('git', 0)}+4 guides)      📖 SITE ({stats['categories'].get('site', 0)})            │
-│   /craft:git:worktree              /craft:site:build                    │
-│   /craft:git:status                  /craft:site:publish                  │
-│   /craft:git:clean                 /craft:site:deploy                   │
-│   /craft:git:branch                /craft:site:check                    │
+│   /craft:git:worktree              /craft:site:deploy                   │
+│   /craft:git:status                  (rest moved to folio)                │
+│   /craft:git:clean                                                      │
+│   /craft:git:branch                                                     │
 │                                                                         │
 │ 📋 PLAN ({stats['categories'].get('plan', 0)})              🎯 MORE CATEGORIES                    │
 │   /craft:plan:feature              • CI ({stats['categories'].get('ci', 0)}) • DIST ({stats['categories'].get('dist', 0)}) • WORKFLOW ({stats['categories'].get('workflow', 0)})     │
@@ -111,14 +111,15 @@ def _check_hub_display():
     print("=" * 70)
 
     checks = [
-        # Floors reflect the native-first prune (v3.0.0): 24 dead cmds removed,
-        # workflow/task/check namespaces gone, git/site trimmed to keep-aliases.
+        # Floors reflect the folio split (Phase 3, 2026-07-12): 24 docs/site-authoring
+        # commands moved to the `folio` plugin, leaving docs at 5 (release-plumbing +
+        # claude-md trio only) and site at 1 (deploy, un-deprecated).
         (f"Total commands: {stats['total']}", stats['total'] >= 59),
         (f"CODE category: {stats['categories'].get('code', 0)}", stats['categories'].get('code', 0) >= 12),
         (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) >= 0),
-        (f"DOCS category: {stats['categories'].get('docs', 0)}", stats['categories'].get('docs', 0) >= 19),
+        (f"DOCS category: {stats['categories'].get('docs', 0)}", stats['categories'].get('docs', 0) >= 5),
         (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) >= 8),
-        (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) >= 8),
+        (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) >= 1),
         (f"All categories present", len(stats['categories']) >= 9)
     ]
 
