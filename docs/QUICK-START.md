@@ -10,7 +10,7 @@
 > - **How:** Install via Homebrew or `claude plugin add github:Data-Wise/craft`, then run `/craft:hub`
 > - **Next:** Try `/craft:do "your first task"` to see AI routing in action
 
-**94 commands** · **45 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/)
+**70 commands** · **39 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/)
 
 Get craft running in 30 seconds.
 
@@ -53,7 +53,7 @@ Expected output:
 │ /craft:hub - Command Discovery                              │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ 94 commands available across 10 categories                   │
+│ 70 commands available across 10 categories                   │
 │                                                             │
 │ [Command listing...]                                        │
 └─────────────────────────────────────────────────────────────┘
@@ -105,7 +105,7 @@ The AI routes your task to the best workflow automatically.
 !!! abstract "Progress: Step 4 of 4 - You're Done! 🎉"
     Choose your learning path
 
-- **[Commands Overview](commands/overview.md)** - Explore all 94 commands
+- **[Commands Overview](commands/overview.md)** - Explore all 70 commands
 - **[Skills & Agents](skills-agents.md)** - Understand the AI system
 - **[Orchestrator](guide/orchestrator.md)** - Advanced mode-aware execution
 - **[Quick Reference](REFCARD.md)** - Command cheat sheet

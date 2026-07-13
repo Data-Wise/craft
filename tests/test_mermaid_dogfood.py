@@ -117,33 +117,10 @@ class TestHealthScore:
 # ─── Documentation Structure ────────────────────────────────────────────────
 
 
-@pytest.mark.structure
-class TestDocumentation:
-    """Verify all documentation components are updated."""
-
-    def test_mermaid_command_has_mcp_docs(self):
-        """/craft:docs:mermaid documents MCP validation."""
-        cmd = COMMANDS_DIR / "docs" / "mermaid.md"
-        assert cmd.exists()
-        content = cmd.read_text()
-        assert "mcp-mermaid" in content.lower() or "MCP" in content
-        assert "--validate" in content
-
-    def test_mermaid_linter_skill_has_mcp_rules(self):
-        """Skill file includes MCP validation rules."""
-        skill = SKILLS_DIR / "docs" / "mermaid-linter" / "SKILL.md"
-        assert skill.exists()
-        content = skill.read_text()
-        assert "mcp-mermaid" in content.lower() or "MCP" in content
-        assert "health" in content.lower()
-
-    def test_docs_check_command_mentions_mermaid(self):
-        """Check command docs include mermaid phase."""
-        cmd = COMMANDS_DIR / "docs" / "check.md"
-        assert cmd.exists()
-        content = cmd.read_text()
-        assert "Mermaid Validation" in content or "mermaid" in content.lower()
-
+# NOTE: TestDocumentation (docs:mermaid MCP docs, mermaid-linter skill, docs:check
+# mermaid-phase mentions) removed 2026-07-12 — those 3 files moved to the `folio`
+# plugin in the folio split (Phase 3); that coverage is folio's responsibility now,
+# not craft's. See ORCHESTRATE-folio-split.md / tasks/todo.md T3.3.
 
 # ─── Infrastructure ──────────────────────────────────────────────────────────
 
