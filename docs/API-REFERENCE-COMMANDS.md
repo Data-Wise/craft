@@ -16,7 +16,7 @@ Complete OpenAPI-style documentation for all 97 Craft commands organized by cate
 4. **[CI/CD Commands](#cicd-commands)** (3 commands) - Continuous integration
 5. **[Check Commands](#check-commands)** (1 command) - Pre-flight validation
 6. **[Distribution Commands](#distribution-commands)** (4 commands) - Release & packaging
-7. **[Documentation Commands](#documentation-commands)** (19 commands) - Docs & tutorials
+7. **[Documentation Commands](#documentation-commands)** (46 commands) - Docs & tutorials
 8. **[Git Commands](#git-commands)** (11 commands) - Version control workflows
 9. **[Plan Commands](#plan-commands)** (3 commands) - Project planning
 10. **[Site Commands](#site-commands)** (16 commands) - Static site generation
@@ -178,7 +178,7 @@ MAIN MENU
 │  ├─ /craft:code:test-gen
 │  └─ ... more
 ├─ Tests (7 commands)
-├─ Documentation (19 commands)
+├─ Documentation (46 commands)
 └─ ... more categories
 ```
 
@@ -1312,51 +1312,14 @@ Documentation generation, maintenance, and publication.
 
 Version control and collaboration workflows.
 
-### /craft:git:status
+### Git status, branch, protect, unprotect, clean, guard, protect-baseline
 
-**Category**: Inspection | **Complexity**: Simple | **Time**: < 5s
-**Description**: Show enhanced git status with suggestions
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--detailed` | boolean | No | false | Show detailed information |
-| `--suggest` | boolean | No | true | Show suggested next actions |
-
-#### Examples
-
-```bash
-/craft:git:status
-/craft:git:status --detailed
-```
-
-**File**: `commands/git/status.md`
-
----
-
-### /craft:git:branch
-
-**Category**: Branching | **Complexity**: Simple | **Time**: < 30s
-**Description**: Create and manage feature branches
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `action` | enum | Yes | - | Action: `create`, `list`, `delete`, `rename` |
-| `name` | string | No | - | Branch name |
-| `--type` | enum | No | `feature` | Type: `feature`, `hotfix`, `release` |
-
-#### Examples
-
-```bash
-/craft:git:branch create my-feature
-/craft:git:branch list
-/craft:git:branch delete old-branch
-```
-
-**File**: `commands/git/branch.md`
+**Folded into the `dev/git` skill (2026-07 v4 consolidation)** — these are no
+longer separate slash commands. Ask naturally ("show git status", "create
+feature branch my-feature", "protect this branch", "unprotect for a merge
+conflict", "clean up merged branches", "manage guards", "apply baseline
+protection") or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
 ---
 
@@ -1383,30 +1346,6 @@ Version control and collaboration workflows.
 ```
 
 **File**: `commands/git/worktree.md`
-
----
-
-### /craft:git:clean
-
-**Category**: Maintenance | **Complexity**: Simple | **Time**: < 30s
-**Description**: Clean up merged branches and stale refs
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--dry-run` | boolean | No | false | Preview cleanup |
-| `--remote` | boolean | No | false | Clean remote branches too |
-
-#### Examples
-
-```bash
-/craft:git:clean
-/craft:git:clean --dry-run
-/craft:git:clean --remote
-```
-
-**File**: `commands/git/clean.md`
 
 ---
 
@@ -1850,7 +1789,7 @@ Commands that make changes support `--dry-run` or `-n`:
 
 ```bash
 /craft:code:lint --dry-run        # Preview changes
-/craft:git:clean --dry-run        # Preview branch cleanup
+# ask "clean up merged branches --dry-run" (dev/git skill) — preview branch cleanup
 /craft:site:deploy --dry-run      # Preview deployment
 ```
 
@@ -1884,7 +1823,7 @@ Commands support multiple output formats:
 
 | Complexity | Typical Time | Example |
 |-----------|--------------|---------|
-| Simple | < 30s | `/craft:git:status`, `/craft:code:lint` |
+| Simple | < 30s | ask "git status" (dev/git skill), `/craft:code:lint` |
 | Moderate | 1-5 min | `/craft:test`, `/folio:docs:api` |
 | Complex | 5-30 min | `/craft:plan:feature`, `/craft:orch` |
 

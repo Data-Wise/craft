@@ -12,7 +12,7 @@
 /folio:site:build          # Build preview (current branch)
 /folio:site:publish        # Validate → Switch to main → Deploy
 /folio:site:progress       # Semester progress dashboard
-/craft:git:status          # Teaching-aware git status
+ask "git status" (dev/git skill) # Teaching-aware git status
 ```
 
 ## Quick Start
@@ -33,7 +33,7 @@ teaching:
 EOF
 
 # 2. Test
-/craft:git:status          # Should show teaching mode
+ask "git status" (dev/git skill) # Should show teaching mode
 
 # 3. Preview
 /folio:site:build
@@ -105,7 +105,7 @@ dev (preview) ← You edit here
 - Edit on `dev`
 - Preview with `/folio:site:build`
 - Publish with `/folio:site:publish` (auto-switches branches)
-- `/craft:git:status` shows which branch you're on
+- Asking "git status" (dev/git skill) shows which branch you're on
 
 ## Configuration
 
@@ -200,13 +200,13 @@ ls .flow/teach-config.yml
 grep "enabled: true" .flow/teach-config.yml
 
 # Test detection
-/craft:git:status              # Should show teaching context
+ask "git status" (dev/git skill) # Should show teaching context
 ```
 
 ### Wrong Branch
 
 ```bash
-/craft:git:status              # Shows current branch + context
+ask "git status" (dev/git skill) # Shows current branch + context
 git checkout dev               # Switch to preview
 git checkout main              # Switch to production
 ```

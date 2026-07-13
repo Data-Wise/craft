@@ -21,7 +21,7 @@ By the end of this tutorial you will have:
 |------|----------------|-------------------|
 | `gh` CLI | `gh auth status` | `brew install gh && gh auth login` |
 | `git` | `git --version` | Comes with macOS Xcode CLI tools |
-| `craft` plugin | `/craft:git:status` runs | See [installation guide](../guide/getting-started.md) |
+| `craft` plugin | asking "git status" (dev/git skill) works | See [installation guide](../guide/getting-started.md) |
 
 ---
 
@@ -54,7 +54,7 @@ Cloning into 'protection-tutorial'...
 Before applying anything, see what's there:
 
 ```bash
-/craft:git:protect-baseline --show
+ask "show baseline protection status" (dev/git skill)
 ```
 
 You should see:
@@ -72,7 +72,7 @@ A brand-new repo has no protection — anyone with write access can push directl
 ## Step 3: Apply the GitHub-side baseline
 
 ```bash
-/craft:git:protect-baseline
+ask "apply baseline protection to this repo" (dev/git skill)
 ```
 
 What you should see:
@@ -93,7 +93,7 @@ Applied successfully.
 ### Verify
 
 ```bash
-/craft:git:protect-baseline --show
+ask "show baseline protection status" (dev/git skill)
 ```
 
 You should now see the full protection JSON:
@@ -126,7 +126,7 @@ git -c commit.gpgsign=false commit -m "test: direct push attempt"
 git push origin main
 ```
 
-> **Note:** If you have craft's local hook (`branch-guard.sh`) installed, it may block the commit on `main` before you reach the push — you'll see the hook's `[CONFIRM]` prompt instead of GitHub's rejection. To exercise the GitHub-side rule specifically, run `/craft:git:unprotect maintenance` first to bypass the local hook (then re-enable with `/craft:git:protect` when done).
+> **Note:** If you have craft's local hook (`branch-guard.sh`) installed, it may block the commit on `main` before you reach the push — you'll see the hook's `[CONFIRM]` prompt instead of GitHub's rejection. To exercise the GitHub-side rule specifically, ask "unprotect for maintenance" first to bypass the local hook (then re-enable by asking "protect" when done) — both are dev/git skill operations.
 
 You should see GitHub reject the push:
 
@@ -190,7 +190,7 @@ Done — the change landed via the PR-required workflow.
 GitHub-side protection catches anything that reaches the remote. The **local hook** catches accidents earlier — before they leave your machine.
 
 ```bash
-/craft:git:protect --show
+ask "show protection status" (dev/git skill)
 ```
 
 If you see "Branch protection is already active," you're good. Otherwise, the hook is installed via the craft installer and runs as a `PreToolUse` hook in Claude Code.
@@ -221,7 +221,7 @@ If your repo has CI workflows, gate merges on them:
 gh run list --limit 5 --json name -q '.[] | .name' | sort -u
 
 # Then apply with --check
-/craft:git:protect-baseline --check "test" --check "lint" --strict
+ask 'apply baseline protection with status checks "test", "lint", strict mode' (dev/git skill)
 ```
 
 > **Warning:** Don't add a `--check` for a workflow that doesn't exist or hasn't run yet — GitHub will block all merges since the check never reports success.
@@ -239,7 +239,7 @@ gh repo delete "$OWNER/$NAME" --yes
 If you want to remove protection (e.g., before reverting to a different workflow):
 
 ```bash
-/craft:git:protect-baseline --remove
+ask "remove baseline protection from this repo" (dev/git skill)
 ```
 
 ---
@@ -249,7 +249,7 @@ If you want to remove protection (e.g., before reverting to a different workflow
 - **Two complementary layers**: local hook (machine-level shield) + GitHub-side (remote-level shield)
 - **PR-required ≠ approval-required**: 0 reviews still blocks direct pushes
 - **`--show` and `--dry-run`** let you inspect and preview before changing anything
-- **`/craft:git:unprotect` only affects the local hook** — to remove GitHub-side rules use `--remove`
+- **Asking "unprotect" only affects the local hook** — to remove GitHub-side rules ask "remove baseline protection"
 
 ---
 
@@ -294,8 +294,6 @@ Use the **repeatable** `--check` flag, not comma-separated:
 
 ## See Also
 
-- [/craft:git:protect-baseline](../commands/git/protect-baseline.md) — Full command reference
-- [/craft:git:protect](../commands/git/protect.md) — Local hook companion
-- [/craft:git:unprotect](../commands/git/unprotect.md) — Local hook bypass
+- [dev/git skill](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) — protect-baseline, protect, and unprotect operations (folded from `/craft:git:*`, 2026-07 v4 consolidation)
 - [REFCARD-PROTECT-BASELINE](../reference/REFCARD-PROTECT-BASELINE.md) — Quick reference
 - [Bulk Branch Protection](../cookbook/common/bulk-branch-protection.md) — Apply to many repos at once

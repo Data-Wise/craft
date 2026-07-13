@@ -146,7 +146,7 @@ Current content (16 lines):
 | Validate | `/craft:check` |
 | Build docs | `/craft:docs:update` |
 | Lint code | `/craft:code:lint` |
-| Git status | `/craft:git:status` |
+| Git status | ask "git status" (dev/git skill) |
 
 ─────────────────────────────────────────
 

@@ -206,8 +206,8 @@ Ran 16 tests in ~0.07 seconds (14 passed, 2 skipped)
 
 - `scripts/branch-guard.sh` - PreToolUse hook with `_json_get` function
 - `.claude/branch-guard.json` - Per-project config
-- `commands/git/protect.md` - Re-enable protection
-- `commands/git/unprotect.md` - Bypass protection
+- `skills/dev/git/SKILL.md` - Protect/unprotect operations (folded from
+  `commands/git/protect.md`/`unprotect.md`, 2026-07 v4 consolidation)
 
 **Run It:**
 
@@ -376,8 +376,7 @@ The teaching workflow system enables course management and publishing. Tests ver
 | **Branch Guard** | | |
 | Hook script | `scripts/branch-guard.sh` | PreToolUse hook with jq parsing |
 | Config | `.claude/branch-guard.json` | Per-project branch protection config |
-| Protect command | `commands/git/protect.md` | Re-enable protection |
-| Unprotect command | `commands/git/unprotect.md` | Bypass protection |
+| Protect/unprotect | `skills/dev/git/SKILL.md` | Re-enable protection / bypass (folded from commands/git/, 2026-07 v4) |
 | Unit tests | `tests/test_branch_guard.sh` | 49 bash unit tests |
 | E2E tests | `tests/test_branch_guard_e2e.sh` | 31 end-to-end tests |
 | Dogfooding tests | `tests/test_branch_guard_dogfood.py` | 52 dogfooding tests (real repo) |

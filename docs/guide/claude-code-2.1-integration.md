@@ -244,8 +244,9 @@ flowchart TD
 
 When a task scores 4-7 points, `/craft:do` routes through the same category-based
 command sequence as a score under 4 — it chains the category's commands
-(e.g. `/craft:arch:plan`, `/craft:code:test-gen`, `/craft:git:branch` for a feature
-task) rather than dispatching to a per-domain specialist agent. There is no
+(e.g. `/craft:arch:plan`, `/craft:code:test-gen`, asking the dev/git skill to
+create a feature branch) rather than dispatching to a per-domain specialist
+agent. There is no
 `feature-dev`/`backend-architect`/`bug-detective`/`code-quality-reviewer` agent —
 those names never had a backing agent definition.
 
@@ -259,7 +260,7 @@ complexity routing; they're invoked directly by the docs commands that need them
 graph TD
     A["Task Routed<br/>Score 4-7"] --> B{{"Determine category<br/>from Step 1"}}
 
-    B -->|"add", "feature", "implement"| C["/craft:arch:plan<br/>/craft:code:test-gen<br/>/craft:git:branch"]
+    B -->|"add", "feature", "implement"| C["/craft:arch:plan<br/>/craft:code:test-gen<br/>dev/git skill: create branch"]
     B -->|"fix", "bug", "issue", "investigate"| D["/craft:code:debug<br/>/craft:test"]
     B -->|"doc", "guide", "tutorial"| E["/craft:docs:* sequence"]
     B -->|"quality", "lint", "improve"| F["/craft:code:lint<br/>/craft:code:refactor"]
@@ -545,7 +546,7 @@ Result aggregation: < 1 minute
 - [Complexity Scoring Algorithm](complexity-scoring-algorithm.md) - Deep dive into 7 factors
 - [Teaching Workflow Guide](teaching-workflow.md) - Specialized workflow for courses
 - [Orchestrator Documentation](orchestrator.md) - Advanced multi-agent features
-- [Commands Reference](../commands.md) - All 53 commands
+- [Commands Reference](../commands.md) - All 46 commands
 
 ---
 

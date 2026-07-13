@@ -1,16 +1,25 @@
 # Git & CI Commands
 
-Version control and continuous integration - 14 commands total.
+Version control and continuous integration.
+
+> **Note (2026-07 v4 consolidation):** All git commands — worktree, sync, recap,
+> init, branch protection, guard management, status, cleanup, and quick-branch
+> creation — were folded into the `dev/git` skill; there are no longer separate
+> slash commands under `/craft:git:*`. Ask naturally ("create a worktree for
+> feature-auth", "protect this branch", "check guard status", "clean up merged
+> branches") or see
+> [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md)
+> directly.
 
 ## Worktree vs Branch: When to Use What
 
-| Scenario | Command | Why |
-|----------|---------|-----|
-| Start a new feature | `/craft:git:worktree` | Isolated directory, no branch switching |
-| Quick one-file fix | `/craft:git:branch` | Lightweight, stays in same directory |
-| Work on 2+ features at once | `/craft:git:worktree` | Each feature gets its own directory |
-| Clean up after merge | `/craft:git:clean` | Removes merged branches safely |
-| See what's going on | `/craft:git:status` | Enhanced status with teaching mode support |
+| Scenario | Ask | Why |
+|----------|-----|-----|
+| Start a new feature | "create a worktree for feature-x" | Isolated directory, no branch switching |
+| Quick one-file fix | "create feature branch x" | Lightweight, stays in same directory |
+| Work on 2+ features at once | "create a worktree for feature-x" | Each feature gets its own directory |
+| Clean up after merge | "clean up merged branches" | Removes merged branches safely |
+| See what's going on | "show git status" | Enhanced status with teaching mode support |
 
 **Decision rule:** If the change takes more than one commit or you need to context-switch, use **worktree**. For quick fixes you'll commit immediately, use **branch**.
 
@@ -24,71 +33,14 @@ Version control and continuous integration - 14 commands total.
 
 ---
 
-## Git Commands (11)
+## Git Commands (0)
 
-### /craft:git:worktree
-
-**Purpose:** Parallel development with git worktrees.
-
-```bash
-/craft:git:worktree add feature-auth
-/craft:git:worktree list
-/craft:git:worktree remove feature-auth
-```
-
-### /craft:git:protect
-
-Re-enable branch protection, configure levels, view status.
-
-```bash
-/craft:git:protect              # Re-enable protection
-/craft:git:protect --show       # Show current level + session counters
-/craft:git:protect --level smart  # Set protection level
-/craft:git:protect --reset      # Reset session counters (verbosity restarts)
-```
-
-**Protection levels:**
-
-| Level | Behavior | Default For |
-|-------|----------|-------------|
-| `block-all` | Hard block everything | main, master |
-| `smart` | 3-tier risk: LOW (allow) / MEDIUM (confirm) / HIGH (block) | dev, develop |
-
-### /craft:git:unprotect
-
-Session-wide bypass for branch protection with reason logging.
-
-```bash
-/craft:git:unprotect                 # Interactive (asks for reason)
-/craft:git:unprotect merge-conflict  # Bypass for merge conflicts
-/craft:git:unprotect ci-fix          # Bypass for CI fixes
-/craft:git:unprotect maintenance     # Bypass for maintenance
-```
-
-**Two bypass mechanisms:**
-
-| Mechanism | Scope | Duration |
-|-----------|-------|----------|
-| One-shot (approve `[CONFIRM]`) | Single action | Consumed immediately |
-| `/craft:git:unprotect` | All actions | Until `/craft:git:protect` |
-
-### /craft:git:status
-
-Enhanced git status with branch guard indicator.
-
-```bash
-/craft:git:status           # Shows guard level, session confirms, one-shot status
-/craft:git:status --verbose # Additional details
-```
-
-### /craft:git:clean
-
-Clean merged branches
-
-### Other Git Commands
-
-- `/craft:git:branch` - Branch management
-- Git guides: refcard
+Worktree, sync, recap, init, protect, unprotect, status, clean, branch, and
+guard were all folded into the `dev/git` skill (2026-07 v4 consolidation) —
+ask naturally ("create a worktree for feature-auth", "protect this branch",
+"unprotect for a merge conflict", "check guard status", "clean up merged
+branches", "create feature branch x") or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
 ## CI Commands (3)
 

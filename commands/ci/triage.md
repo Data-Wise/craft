@@ -173,4 +173,4 @@ When `--json` is set, skip the box and emit:
 
 - `/craft:ci:status` — the broader cross-repo CI dashboard
 - `/craft:ci:fix` — apply a fix once the cause is known (DIFF-CAUSED)
-- `/craft:git:unprotect` — needed before an `--admin` merge on a protected branch
+- dev/git skill (ask "unprotect") — needed before an `--admin` merge on a protected branch

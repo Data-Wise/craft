@@ -104,7 +104,7 @@ The guard shows a teaching box explaining the risk, suggests alternatives, and p
 ║ Safe alternatives:                                          ║
 ║   → /craft:git:worktree feature/<name>                      ║
 ║   → Edit an existing file instead (fixups allowed)          ║
-║   → /craft:git:unprotect for bulk maintenance               ║
+║   → ask "unprotect for bulk maintenance" (dev/git skill)    ║
 ║                                                             ║
 ╚═════════════════════════════════════════════════════════════╝
 [CONFIRM] New code files on dev should go in a feature branch
@@ -112,7 +112,7 @@ Action:    Write new .py file: utils/helper.py
 Risk:      New code files on dev should go in a feature branch
 Suggest:   /craft:git:worktree feature/<name>
 Suggest:   Edit an existing file instead (fixups allowed)
-Suggest:   /craft:git:unprotect for bulk maintenance
+Suggest:   ask "unprotect for bulk maintenance" (dev/git skill)
 Branch:    dev (smart mode)
 Verbosity: full (1st encounter)
 ```
@@ -206,7 +206,7 @@ Action types tracked:
 
 ## One-Shot Approval
 
-When Claude shows a `[CONFIRM]` prompt and the user approves, Claude creates a one-shot marker file (`.claude/allow-once`) that the guard consumes on the next tool call. This allows the approved action to proceed without requiring `/craft:git:unprotect`.
+When Claude shows a `[CONFIRM]` prompt and the user approves, Claude creates a one-shot marker file (`.claude/allow-once`) that the guard consumes on the next tool call. This allows the approved action to proceed without requiring "unprotect" (dev/git skill).
 
 ### How It Works
 
@@ -222,7 +222,7 @@ When Claude shows a `[CONFIRM]` prompt and the user approves, Claude creates a o
 | Mechanism | Scope | Duration | Use Case |
 |-----------|-------|----------|----------|
 | One-shot (`.claude/allow-once`) | Single action | Consumed immediately | Quick one-off confirm |
-| `/craft:git:unprotect` (`.claude/allow-dev-edit`) | All actions | Until `/craft:git:protect` | Bulk maintenance, merge conflicts |
+| ask "unprotect" (`.claude/allow-dev-edit`, dev/git skill) | All actions | Until ask "protect" | Bulk maintenance, merge conflicts |
 
 ---
 
@@ -334,7 +334,7 @@ Files with other extensions (`.txt`, `.csv`, `.html`, etc.) are allowed without 
 
 | File | Purpose | Lifecycle |
 |------|---------|-----------|
-| `.claude/allow-dev-edit` | Session bypass marker | Created by `/craft:git:unprotect`, removed by `/craft:git:protect` |
+| `.claude/allow-dev-edit` | Session bypass marker | Created by asking "unprotect", removed by asking "protect" (dev/git skill) |
 | `.claude/allow-once` | One-shot approval marker | Created by Claude on confirm, consumed on next tool call |
 | `.claude/guard-session-counts` | Verbosity fade counter | Auto-created, resets after 8h inactivity |
 | `.claude/branch-guard-dryrun` | Dry-run mode marker | Created manually, logs blocks without enforcing |
@@ -357,8 +357,6 @@ Smart mode implements the same progressive trust philosophy as the [Safety Rails
 
 - [Branch Guard Quick Reference](../reference/REFCARD-BRANCH-GUARD.md) — At-a-glance reference card
 - [Branch Guard Setup Tutorial](../tutorials/TUTORIAL-branch-guard-setup.md) — Step-by-step setup
-- [/craft:git:protect](../commands/git/protect.md) — Re-enable protection
-- [/craft:git:unprotect](../commands/git/unprotect.md) — Session bypass
-- [/craft:git:status](../commands/git/status.md) — Guard indicator
+- [dev/git skill](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) — protect, unprotect, git status (folded from `/craft:git:*`, 2026-07 v4 consolidation)
 - [Safety Rails Guide](https://github.com/Data-Wise/craft/blob/dev/commands/git/docs/safety-rails.md) — Progressive trust philosophy
 - [Git Feature Workflow](../workflows/git-feature-workflow.md) — How guard fits in the workflow

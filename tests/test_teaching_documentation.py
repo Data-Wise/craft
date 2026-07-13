@@ -74,12 +74,11 @@ class TestTeachingDocumentation:
 
         site/publish.md, site/progress.md, site/build.md moved to the `folio`
         plugin in the folio split (Phase 3, 2026-07-12) — folio now owns that
-        surface. git/status.md is craft's only remaining teaching-adjacent
-        command (still carries teaching-specific context per the open
-        teaching-residue-audit backlog item — unrelated to this split)."""
-        commands = [
-            "git/status.md"
-        ]
+        surface. git/status.md (formerly craft's only remaining
+        teaching-adjacent command) was folded entirely into the dev/git skill
+        in the v4 consolidation (Phase 3.5, 2026-07) — commands/git/ is now
+        empty, so no teaching-adjacent commands remain to check here."""
+        commands: list[str] = []
 
         for cmd in commands:
             cmd_path = COMMANDS_DIR / cmd

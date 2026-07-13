@@ -41,7 +41,7 @@
 
 # Medium task (score: 6) → Command sequence
 /craft:do "add user authentication with JWT"
-# Routes to: /craft:arch:plan, /craft:code:test-gen, /craft:git:branch (no agent dispatch)
+# Routes to: /craft:arch:plan, /craft:code:test-gen, dev/git skill (create branch) (no agent dispatch)
 
 # Complex task (score: 9) → Orchestrator
 /craft:do "prepare v2.0 release with tests, docs, and changelog"
@@ -135,7 +135,7 @@
 # Help in specific context
 # (in a Git repository with uncommitted changes)
 /craft:help
-# Suggests: /craft:check, /craft:git:status, /craft:git:worktree
+# Suggests: /craft:check, ask "git status" (dev/git skill), /craft:git:worktree
 
 # (in a documentation directory)
 /craft:help
@@ -188,7 +188,7 @@
 **Categories:**
 
 - Smart Commands (do, check, orchestrate, hub)
-- Documentation (53 commands)
+- Documentation (46 commands)
 - Site Management (16 commands)
 - Code (15 commands) & Testing (3 commands)
 - Git (14 commands incl. guides) & CI (4 commands)
@@ -842,7 +842,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
 
-## Code & Testing (18 commands)
+## Code & Testing (46 commands)
 
 **Core Commands** (15 code + 2 test; core subset shown):
 
@@ -884,13 +884,11 @@ Layer 3: /craft:check     → catches anything that slipped through
 | Command                       | Description                                                                  |
 | ----------------------------- | ---------------------------------------------------------------------------- |
 | `/craft:git:worktree`         | Parallel development with git worktrees                                      |
-| `/craft:git:clean`            | Clean merged branches                                                        |
-| `/craft:git:branch`           | Branch management                                                            |
-| `/craft:git:status`           | Enhanced git status (teaching-aware)                                         |
-| `/craft:git:protect`          | Re-enable local hook (branch-guard) protection                               |
-| `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side protection (PR required, no force-push, no delete) |
-| `/craft:git:unprotect`        | Temporarily bypass local hook                                                |
-| `/craft:git:guard`            | Manage guard suite (list, enable, disable, mute, profile)                    |
+
+Clean, branch, git status, protect, protect-baseline, unprotect, and guard
+management were folded into the `dev/git` skill (2026-07 v4 consolidation) —
+ask naturally or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
 **Worktree Subcommands:**
 
@@ -1080,7 +1078,7 @@ npm test
 ```bash
 /craft:git:worktree create feat/auth # Create feature worktree
 /craft:git:worktree move             # Move current work to worktree
-/craft:git:clean                     # Clean merged branches
+# ask "clean up merged branches" (dev/git skill)
 ```
 
 **See:** [Git Worktree Reference](reference/REFCARD-GIT-WORKTREE.md) | [Advanced Patterns](guide/worktree-advanced-patterns.md)

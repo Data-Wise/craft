@@ -518,7 +518,7 @@ _confirm() {
       ;;
   esac
 
-  msg+=$'\n'"To mute: /craft:git:guard disable branch-guard"
+  msg+=$'\n'"To mute: ask \"disable branch-guard\" (dev/git skill)"
 
   block "$msg" "ASK"
 }
@@ -695,14 +695,14 @@ if [[ "$PROTECTION" == "smart" ]]; then
           _confirm "edit_guard_config" \
             "Edit branch-guard.json on ${BRANCH}" \
             "Modifying guard config changes protection rules" \
-            "/craft:git:protect --level <level> (safe config update)" \
-            "/craft:git:unprotect (temporary bypass instead)"
+            "ask \"set branch protection level <level>\" — safe config update (dev/git skill)" \
+            "ask \"unprotect for a temporary bypass\" (dev/git skill)"
           ;;
         */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
           _confirm "edit_guard_bypass" \
             "Edit guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "This file self-approves a bypass of branch-guard's own protection — never editable silently" \
-            "/craft:git:unprotect (the sanctioned way to request this bypass)"
+            "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)"
           ;;
       esac
       # Editing existing files is always allowed on dev (LOW)
@@ -733,14 +733,14 @@ if [[ "$PROTECTION" == "smart" ]]; then
           _confirm "write_guard_config" \
             "Write branch-guard.json on ${BRANCH}" \
             "Modifying guard config changes protection rules" \
-            "/craft:git:protect --level <level> (safe config update)" \
-            "/craft:git:unprotect (temporary bypass instead)"
+            "ask \"set branch protection level <level>\" — safe config update (dev/git skill)" \
+            "ask \"unprotect for a temporary bypass\" (dev/git skill)"
           ;;
         */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
           _confirm "write_guard_bypass" \
             "Write guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "Creating this file self-approves a bypass of branch-guard's own protection — must be a deliberate, confirmed action, never a silent allow" \
-            "/craft:git:unprotect (the sanctioned way to request this bypass)"
+            "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)"
           ;;
       esac
 
@@ -796,7 +796,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
           "New code files on ${BRANCH} should go in a feature branch" \
           "Ask Claude to create a worktree (dev/git skill): feature/<name>" \
           "Edit an existing file instead (fixups allowed)" \
-          "/craft:git:unprotect for bulk maintenance"
+          "ask \"unprotect for bulk maintenance\" (dev/git skill)"
       fi
 
       # Known-safe non-code extension (NONCODE_EXTENSIONS) — allow
@@ -908,7 +908,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
               _confirm "bash_guard_bypass" \
                 "Bash creates guard-bypass marker on ${BRANCH}: ${BASH_BASENAME}" \
                 "Creating this file via shell self-approves a bypass of branch-guard's own protection" \
-                "/craft:git:unprotect (the sanctioned way to request this bypass)"
+                "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)"
               ;;
           esac
 

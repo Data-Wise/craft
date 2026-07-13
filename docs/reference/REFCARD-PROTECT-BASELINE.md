@@ -1,21 +1,28 @@
-# Quick Reference: /craft:git:protect-baseline
+# Quick Reference: Protect-Baseline (dev/git skill)
 
 **GitHub-side branch protection** — companion to the local hook (`branch-guard.sh`).
 
-**Command:** `/craft:git:protect-baseline` | **Script:** `scripts/protect-baseline.sh`
+> **Folded into the `dev/git` skill (2026-07 v4 consolidation).** `/craft:git:protect-baseline`
+> is no longer a separate slash command — ask "protect-baseline ..." naturally
+> and the skill runs the underlying script. See
+> [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
+
+**Ask:** `"protect-baseline"` (dev/git skill) | **Script:** `scripts/protect-baseline.sh`
 
 ---
 
 ## TL;DR
 
-```bash
-/craft:git:protect-baseline                                   # Current repo, default branch
-/craft:git:protect-baseline --repo OWNER/REPO                 # Any repo
-/craft:git:protect-baseline --check "test" --check "lint"     # With status checks
-/craft:git:protect-baseline --show                            # Inspect current state
-/craft:git:protect-baseline --dry-run                         # Preview, no API call
-/craft:git:protect-baseline --remove                          # Remove protection
+```text
+ask "protect-baseline"                                          # Current repo, default branch
+ask "protect-baseline --repo OWNER/REPO"                        # Any repo
+ask 'protect-baseline --check "test" --check "lint"'            # With status checks
+ask "protect-baseline --show"                                   # Inspect current state
+ask "protect-baseline --dry-run"                                # Preview, no API call
+ask "protect-baseline --remove"                                 # Remove protection
 ```
+
+Or invoke the script directly: `./scripts/protect-baseline.sh [flags]` — same flags apply.
 
 ---
 
@@ -53,22 +60,22 @@
 What do you need to do?
 │
 ├─ Protect a brand-new repo?
-│   └─ /craft:git:protect-baseline
+│   └─ ask "protect-baseline"
 │
 ├─ Protect a repo with existing CI?
-│   └─ /craft:git:protect-baseline --check "your-check-name"
+│   └─ ask 'protect-baseline --check "your-check-name"'
 │
 ├─ Inspect current state before changing?
-│   └─ /craft:git:protect-baseline --show
+│   └─ ask "protect-baseline --show"
 │
 ├─ See what would happen without changing?
-│   └─ /craft:git:protect-baseline --dry-run
+│   └─ ask "protect-baseline --dry-run"
 │
 ├─ Bulk-protect many repos?
 │   └─ Loop in shell — see Cookbook recipe
 │
 ├─ Remove protection (release CI repo, etc.)?
-│   └─ /craft:git:protect-baseline --remove
+│   └─ ask "protect-baseline --remove"
 │
 └─ Repo uses `master` instead of `main`?
     └─ Auto-detected from default_branch — no flag needed
@@ -81,13 +88,13 @@ What do you need to do?
 ### Brand-new repo, no CI
 
 ```bash
-/craft:git:protect-baseline --repo Data-Wise/myrepo
+./scripts/protect-baseline.sh --repo Data-Wise/myrepo
 ```
 
 ### Repo with test/lint CI workflows
 
 ```bash
-/craft:git:protect-baseline \
+./scripts/protect-baseline.sh \
   --repo Data-Wise/myrepo \
   --check "test" \
   --check "lint" \
@@ -99,7 +106,7 @@ What do you need to do?
 GitHub check names like `test (ubuntu-latest, 3.12)` contain commas. The repeatable `--check` flag handles these safely (comma-separated values would corrupt them):
 
 ```bash
-/craft:git:protect-baseline \
+./scripts/protect-baseline.sh \
   --repo Data-Wise/nexus-cli \
   --check "test (ubuntu-latest, 3.11)" \
   --check "test (ubuntu-latest, 3.12)" \
@@ -143,12 +150,12 @@ The local hook (`branch-guard.sh`) and GitHub-side protection cover different fa
 
 Apply both for full coverage:
 
-```bash
-/craft:git:protect              # Local hook (per-machine)
-/craft:git:protect-baseline     # GitHub-side (per-repo)
+```text
+ask "protect"              # Local hook (per-machine)
+ask "protect-baseline"     # GitHub-side (per-repo)
 ```
 
-**Important:** `/craft:git:unprotect` only bypasses the local hook. To remove GitHub-side protection, use `/craft:git:protect-baseline --remove`.
+**Important:** asking "unprotect" only bypasses the local hook. To remove GitHub-side protection, ask "protect-baseline --remove".
 
 ---
 
@@ -172,9 +179,7 @@ Apply both for full coverage:
 
 ## See Also
 
-- **Command:** [/craft:git:protect-baseline](../commands/git/protect-baseline.md) --- Full command reference
-- **Companion:** [/craft:git:protect](../commands/git/protect.md) --- Local hook management
-- **Bypass:** [/craft:git:unprotect](../commands/git/unprotect.md) --- Local hook bypass
+- **Skill:** [dev/git](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) --- protect-baseline, protect, unprotect operations (folded from `/craft:git:*`, 2026-07 v4 consolidation)
 - **Refcard:** [REFCARD-BRANCH-GUARD](REFCARD-BRANCH-GUARD.md) --- Local hook quick reference
 - **Cookbook:** [Bulk Branch Protection](../cookbook/common/bulk-branch-protection.md) --- Apply across many repos
 - **Tutorial:** [TUTORIAL-protect-new-repo](../tutorials/TUTORIAL-protect-new-repo.md) --- Step-by-step walkthrough

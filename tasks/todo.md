@@ -163,7 +163,7 @@ task if/when this tooling matters again.
     63->60. Committed `318be7d0`. Full pytest: 2575 passed / 4 failed (3 known dev-baseline
     - 1 expected local branch-guard.sh install-drift from this commit's own content change)
     / 43 skipped. `mkdocs build --strict` clean.
-- [ ] **T3.5.2** Kill 22 shims + 2 utils; demote discovery-usage → docs — **S**
+- [x] **T3.5.2** Kill 22 shims + 2 utils; demote discovery-usage → docs — **S**
   - Verify: tripwire tests; `ls commands/git/` empty
   - Progress (2026-07-13): **batch 1/2 done** — plan:sprint/roadmap + orch:plan folded into
     `plan-orchestrator` skill (Modes 3-4), code:coverage folded into `test-strategist` skill,
@@ -175,9 +175,14 @@ task if/when this tooling matters again.
     floors lowered (test_hub_discovery min_expected, test_hub_integration total>=45,
     test_teaching_documentation utility-readme check removed). Full pytest: 2575 passed /
     4 failed (3 known dev-baseline + 1 install-drift, same as T3.5.1 baseline). `mkdocs
-    build --strict` clean. Remaining for batch 2: git×7 (guard/protect/unprotect/status/
-    clean/branch/protect-baseline) — last, since emptying `commands/git/` re-triggers the
-    category-mapping tests fixed in T3.5.1/batch-1.
+    build --strict` clean.
+  - Progress (2026-07-13): **batch 2/2 done — T3.5.2 complete.** git×7 (guard/protect/
+    unprotect/status/clean/branch/protect-baseline) deleted — all fully covered by
+    `skills/dev/git/SKILL.md` Operations 1/3/6/8/9/10/12 (verified before deletion; all 7
+    already carried `deprecated: true`/`replaced-by: skills/dev/git/`). `commands/git/` now
+    empty. 53->46 commands. Callers repointed to skill-based phrasing across CLAUDE.md,
+    hub.md, docs/. Full pytest: 2575 passed / 4 failed (same known baseline). `mkdocs build
+    --strict` clean.
 - [ ] **T3.5.3** Five consolidations (∥ families, disjoint): ci(8→router+refs) **M** · arch(4) **S** · code:audit(5) **M** · orch absorbs drive/workflow **S** · plan absorbs feature **XS**
   - Acceptance: each router ≤~60L; bodies verbatim in skills/*/references/; line-conservation per family
   - Verify: dispatch-table dogfood per family

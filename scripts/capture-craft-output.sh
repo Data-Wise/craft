@@ -22,7 +22,7 @@ echo ""
 
 # Commands to capture
 declare -A COMMANDS=(
-    ["teaching-workflow"]="/craft:git:status|/craft:site:build|/craft:site:progress|/craft:site:publish --dry-run|/craft:site:publish"
+    ["teaching-workflow"]="/craft:site:build|/craft:site:progress|/craft:site:publish --dry-run|/craft:site:publish"
     ["workflow-01"]="/craft:docs:update"
     ["workflow-02"]="/craft:site:build --preset adhd-focus --quick"
     ["workflow-03"]="/craft:check --for release"

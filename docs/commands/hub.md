@@ -160,13 +160,13 @@ Display template:
 │   /folio:docs:mermaid              /craft:ci:validate                  │
 │   /folio:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ GIT (7 incl. 4 guides)          WORKFLOW (0)                          │
-│   /craft:git:worktree              /brainstorm [depth|focus] "topic"   │
-│   /craft:git:branch                /workflow:done                      │
-│   /craft:git:clean                 /craft:insights                     │
-│   /craft:git:status                                                     │
-│   /craft:git:protect             DIST (2)                               │
-│   /craft:git:unprotect             /craft:dist:marketplace             │
+│ GIT (0, folded into dev/git skill) WORKFLOW (0)                       │
+│   worktree/sync/recap/init/            /brainstorm [depth|focus] "topic"   │
+│   protect/unprotect/status/            /workflow:done                      │
+│   clean/branch/guard: ask              /craft:insights                     │
+│   dev/git skill                                                          │
+│                                   DIST (2)                               │
+│                                     /craft:dist:marketplace             │
 │                                    /craft:dist:homebrew                 │
 │ SITE (1)                          /craft:dist:curl-install             │
 │   /folio:site:build                /craft:dist:pypi                    │
@@ -178,9 +178,9 @@ Display template:
 ├─────────────────────────────────────────────────────────────────────────┤
 │  Quick Actions:                                                          │
 │    /craft:do "fix bug"          /craft:check --for pr                    │
-│    /brainstorm deep feat "auth" /craft:git:worktree create feat/x       │
+│    /brainstorm deep feat "auth" ask "create a worktree for feat/x"      │
 │    /craft:test debug            /release --dry-run                       │
-│    /craft:git:worktree          /craft:insights --since 7                │
+│    ask "sync with remote"       /craft:insights --since 7                │
 │                                                                         │
 │  Recently Used: [if facets data exists — omit section if no data]       │
 │    /craft:do (3x) · /craft:check (2x) · /workflow:done (2x)           │
@@ -420,17 +420,11 @@ Reference Files (.claude/reference/):
 ### `/craft:hub git`
 
 ```
-GIT COMMANDS (14: 10 commands + 4 guides)
+GIT COMMANDS (0: all folded into the dev/git skill, 2026-07 v4 consolidation)
 ────────────────────────────────────────────────────────────────────────
-Commands:
-  /craft:git:worktree     Parallel development (create/move/finish/clean)
-  /craft:git:branch       Branch management (create, switch, delete)
-  /craft:git:clean        Clean up merged branches safely
-  /craft:git:status       Enhanced status with protection level
-  /craft:git:protect      Re-enable branch protection
-  /craft:git:unprotect    Session-scoped bypass (auto-expires)
-  /craft:git:protect-baseline  Apply GitHub-side baseline protection (any repo)
-  /craft:git:guard        Manage guard suite (list, enable, disable, profile)
+Worktree, sync, recap, init, branch protection, unprotect, status,
+cleanup, quick-branch, and guard management: ask naturally or see
+skills/dev/git/SKILL.md.
 
 Guides:
   /craft:git:refcard        Quick reference card
@@ -683,16 +677,16 @@ SUGGESTED FOR NODE PROJECT:
 │                                                                        │
 │ Development Workflow:                                                  │
 │   /craft:code:lint [mode] -> /craft:test [mode] ->                     │
-│   /craft:test --coverage -> /craft:ci:local -> /craft:git:worktree  │
+│   /craft:test --coverage -> /craft:ci:local -> ask "sync with remote"  │
 │                                                                        │
-│ Feature Development:                                                   │
-│   /craft:git:worktree create feat/x -> [develop] ->                    │
-│   /craft:git:worktree finish -> /craft:git:worktree clean              │
+│ Feature Development (dev/git skill — ask naturally):                  │
+│   "create a worktree for feat/x" -> [develop] ->                       │
+│   "finish worktree" -> "clean up worktree"                             │
 │                                                                        │
-│ Branch Protection:                                                     │
-│   /craft:git:protect       -> Re-enable guard                         │
-│   /craft:git:unprotect     -> Temporary bypass (auto-expires)         │
-│   /craft:git:status        -> Show protection level                   │
+│ Branch Protection (dev/git skill — ask naturally):                    │
+│   "protect this branch"    -> Re-enable guard                         │
+│   "unprotect"               -> Temporary bypass (auto-expires)         │
+│   "show git status"        -> Show protection level                   │
 │                                                                        │
 │ Release Pipeline:                                                      │
 │   /release                 -> Full 13-step pipeline                   │
@@ -726,6 +720,6 @@ SUGGESTED FOR NODE PROJECT:
 │   /craft:ci:detect         -> Detect project type + build tools        │
 │                                                                        │
 │ Daily:                                                                 │
-│   /craft:git:status -> /craft:check -> /craft:git:worktree             │
+│   ask "git status" -> /craft:check -> ask "sync with remote"           │
 └────────────────────────────────────────────────────────────────────────┘
 ```

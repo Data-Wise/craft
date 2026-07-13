@@ -83,7 +83,7 @@ The teaching workflow spans three tools. Each has clear ownership:
 | `/folio:site:progress` | Semester dashboard with week tracking, break countdown, completion % |
 | `/folio:site:build` | Build site with teaching-aware context (branch, week, course info) |
 | `/folio:site:check` | Content validation (syllabus sections, schedule completeness, assignments) |
-| `/craft:git:status` | Teaching-aware git status (shows deployment context, what students see) |
+| ask "git status" (dev/git skill) | Teaching-aware git status (shows deployment context, what students see) |
 
 ## Config Compatibility
 

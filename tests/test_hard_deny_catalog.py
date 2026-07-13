@@ -2,7 +2,8 @@
 """
 Contract test for scripts/hard-deny-rules.json (v2.33.0).
 
-The catalog is the canonical source consumed by /craft:git:protect (Phase 3)
+The catalog is the canonical source consumed by the `dev/git` skill's protect
+operation (formerly /craft:git:protect, folded in 2026-07 v4 consolidation)
 to merge prose rules into ~/.claude/settings.json autoMode.hard_deny.
 A broken catalog breaks the installer, so we lock the shape here.
 """

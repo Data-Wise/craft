@@ -19,21 +19,22 @@ related:
 
 I want to create a feature branch that follows the project's branch architecture: `main` (protected) <- `dev` (integration) <- `feature/*` (work).
 
+> **Note (2026-07 v4 consolidation):** worktree/status/branch commands were
+> folded into the `dev/git` skill — there's no longer a separate
+> `/craft:git:*` slash command for these steps. Ask naturally as shown below,
+> or see [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
+
 ## Solution
 
 1. **Verify you are on the dev branch**
 
-   ```bash
-   /craft:git:status
-   ```
+   Ask: "show git status"
 
    Why: Feature branches must be created from `dev`, not from `main` or another feature branch
 
 2. **Create the feature branch as a worktree**
 
-   ```bash
-   /craft:git:worktree feature/add-search
-   ```
+   Ask: "create a worktree for feature/add-search"
 
    Why: Worktrees give you an isolated directory for the feature without switching branches in your main repo. The branch is automatically created from `dev`
 
@@ -67,6 +68,6 @@ Craft enforces a three-tier branch architecture. The `main` branch is protected 
 
 ## What's Next
 
-- [Git Commands Reference](../../commands/git.md) -- Branch, worktree, sync, and clean commands
+- [Git Commands Reference](../../commands/git.md) -- Branch, worktree, sync, and clean, now handled by the dev/git skill
 - [Worktree Advanced Patterns](../../guide/worktree-advanced-patterns.md) -- Multi-worktree workflows and team collaboration
 - [Setup Parallel Worktrees](setup-parallel-worktrees.md) -- Work on multiple features simultaneously

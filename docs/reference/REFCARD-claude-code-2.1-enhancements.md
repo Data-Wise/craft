@@ -38,7 +38,7 @@ Your Task → Complexity Analysis → Route Decision
 
 | Task Type | Handler | Example Task |
 |-----------|---------|--------------|
-| Feature | `/craft:arch:plan` + `/craft:code:test-gen` + `/craft:git:branch` | "add user notifications" |
+| Feature | `/craft:arch:plan` + `/craft:code:test-gen` + dev/git skill (branch) | "add user notifications" |
 | Architecture | `/craft:arch:analyze` + `/craft:code:refactor` | "design API architecture" |
 | Bug Fix | `/craft:code:debug` + `/craft:test` | "fix login redirect issue" |
 | Multi-step | orchestrator-v2 (agent) | "prepare v2.0 release" |
@@ -171,7 +171,7 @@ Need to do a task?
 # ... read output ...
 /craft:code:test-gen
 # ... review tests ...
-/craft:git:branch feature/my-feature
+ask "create feature branch feature/my-feature"  # dev/git skill
 # ... switch branch ...
 
 # New Way (Automated)

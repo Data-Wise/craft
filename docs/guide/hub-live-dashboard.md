@@ -102,9 +102,9 @@ Command counts next to category names are live from `stats['categories']`.
 ```
 Quick Actions:
    /craft:do "fix bug"          /craft:check --for pr
-   /brainstorm d f s "auth"     /craft:git:worktree create feat/x
+   /brainstorm d f s "auth"     ask "create a worktree for feat/x"
    /craft:test debug            /release --dry-run
-   /craft:git:status            /craft:insights --since 7
+   ask "git status"             /craft:insights --since 7
 ```
 
 These are static suggestions — curated examples of common workflows.
@@ -116,7 +116,7 @@ These are static suggestions — curated examples of common workflows.
 ### Typical Healthy State
 
 ```
-53 commands | 39 skills | 2 agents | 112 tests passing
+46 commands | 39 skills | 2 agents | 112 tests passing
 
 NEXT ACTION:
    A) Start Phase 3 implementation
@@ -133,7 +133,7 @@ Everything populated, no staleness warnings.
 ### Degraded State (Missing Data)
 
 ```
-53 commands | 39 skills | 2 agents | ? tests passing
+46 commands | 39 skills | 2 agents | ? tests passing
 ```
 
 Only the banner line shows — no Next Action (no .STATUS), no Worktrees (none exist), no Recently Used (no facets). The hub still works; sections appear as data becomes available.

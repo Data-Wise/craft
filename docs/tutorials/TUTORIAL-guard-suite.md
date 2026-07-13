@@ -28,14 +28,12 @@ Expected output:
 [install-guards] Registering no-switch-guard.sh as PreToolUse hook... done
 [install-guards] Writing ~/.claude/guards.json... done
 [install-guards] jq found at /usr/local/bin/jq
-[install-guards] Guard Suite installed. Run /craft:git:guard status to verify.
+[install-guards] Guard Suite installed. Ask "guard status" to verify.
 ```
 
 Verify the install:
 
-```
-/craft:git:guard status
-```
+Ask "guard status" (dev/git skill)
 
 You should see:
 
@@ -101,13 +99,13 @@ The switch does not proceed until you answer. Type `N` to cancel. The working tr
 Sometimes you know you'll be switching branches repeatedly and don't want to approve each one. Mute `no-switch-guard` for 30 minutes:
 
 ```
-/craft:git:guard disable no-switch-guard
+ask "guard disable no-switch-guard"
 ```
 
 Wait — "disable" is permanent. For a temporary bypass, use muting via a profile:
 
 ```
-/craft:git:guard profile yolo
+ask "guard profile yolo"
 ```
 
 This mutes both guards for 30 minutes:
@@ -135,7 +133,7 @@ After your session, the mute expires automatically. No cleanup needed.
 At any point, check what is active:
 
 ```
-/craft:git:guard status
+ask "guard status"
 ```
 
 Mid-mute output:
@@ -157,7 +155,7 @@ Guard Suite status:
 To re-enable guards immediately without waiting for expiry:
 
 ```
-/craft:git:guard profile focus
+ask "guard profile focus"
 ```
 
 ---
@@ -169,7 +167,7 @@ The `spec` profile is designed for the common pattern of doing spec or doc work 
 Set the spec profile:
 
 ```
-/craft:git:guard profile spec
+ask "guard profile spec"
 ```
 
 Output:
@@ -185,7 +183,7 @@ Output:
 When you are done with spec work, return to full protection:
 
 ```
-/craft:git:guard profile focus
+ask "guard profile focus"
 ```
 
 ---
@@ -195,7 +193,7 @@ When you are done with spec work, return to full protection:
 The `test` action runs a dry-run coverage sweep — it checks that the installed guards correctly handle all known GREEN/YELLOW/RED operations without actually executing them.
 
 ```
-/craft:git:guard test
+ask "guard test"
 ```
 
 Expected output:
@@ -257,7 +255,7 @@ Expected output:
 Or via the guard command:
 
 ```
-/craft:git:guard explain branch-guard
+ask "guard explain branch-guard"
 ```
 
 This shows the full classification table for the selected guard — what tier each operation on the current branch would trigger, without actually running the operation.
@@ -266,17 +264,17 @@ This shows the full classification table for the selected guard — what tier ea
 
 | Action | Command |
 |--------|---------|
-| Check status | `/craft:git:guard status` |
-| List all guards | `/craft:git:guard list` |
-| Enable all | `/craft:git:guard profile focus` |
-| Mute all 30m | `/craft:git:guard profile yolo` |
-| Spec mode | `/craft:git:guard profile spec` |
-| Re-enable one | `/craft:git:guard enable no-switch-guard` |
-| Disable one | `/craft:git:guard disable no-switch-guard` |
-| Explain a guard | `/craft:git:guard explain no-switch-guard` |
+| Check status | `ask "guard status"` |
+| List all guards | `ask "guard list"` |
+| Enable all | `ask "guard profile focus"` |
+| Mute all 30m | `ask "guard profile yolo"` |
+| Spec mode | `ask "guard profile spec"` |
+| Re-enable one | `ask "guard enable no-switch-guard"` |
+| Disable one | `ask "guard disable no-switch-guard"` |
+| Explain a guard | `ask "guard explain no-switch-guard"` |
 | Classify (env var) | `GUARD_DRY_RUN=1 bash scripts/branch-guard.sh` |
 | Classify (flag) | `bash scripts/branch-guard.sh --classify` |
-| Run coverage test | `/craft:git:guard test` |
+| Run coverage test | `ask "guard test"` |
 
 ---
 

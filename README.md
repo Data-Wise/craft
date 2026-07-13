@@ -14,7 +14,7 @@
 > [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
 >
 > **v2.36.0 — Deterministic Workflow Engine** 🚀
-> **53 commands** | **39 skills** | **2 agents** | **1994 tests passing**
+> **46 commands** | **39 skills** | **2 agents** | **1994 tests passing**
 > New `/craft:orch:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orch`), drive (`:drive`), and workflow (`:workflow`).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
@@ -153,7 +153,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 53 commands, 2 agents, 39 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 46 commands, 2 agents, 39 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -370,17 +370,15 @@ skill (Modes 3–4) — invoke `/craft:plan` and describe the need.
 | `/craft:site:build`       | Build site                                                               |
 | `/craft:site:deploy`      | Deploy to GitHub Pages                                                   |
 
-### Git Commands (10 + 4 guides)
+### Git (0 commands, 4 guides) — folded into the `dev/git` skill
 
-| Command                       | Description                                                                                  |
-| ----------------------------- | -------------------------------------------------------------------------------------------- |
-| `/craft:git:branch`           | Branch management                                                                            |
-| `/craft:git:status`           | Enhanced git status (teaching-aware)                                                         |
-| `/craft:git:clean`            | Clean merged branches                                                                        |
-| `/craft:git:worktree`         | **NEW v1.8.0** Parallel development with git worktrees                                       |
-| `/craft:git:protect`          | Manage local hook (`branch-guard.sh`) — 3-tier risk classification                           |
-| `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side branch protection (PR required, no force-push, no delete)        |
-| `/craft:git:unprotect`        | Session-scoped bypass for the local hook                                                     |
+Branch management, git status, cleanup, worktree, protect, protect-baseline,
+unprotect, and guard management were all folded into the `dev/git` skill
+(2026-07 v4 consolidation) — there are no remaining `/craft:git:*` slash
+commands. Ask naturally ("create feature branch x", "show git status",
+"clean up merged branches", "protect this branch", "apply baseline
+protection") or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
 **Git Guides:** refcard
 

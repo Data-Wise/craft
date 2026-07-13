@@ -598,15 +598,16 @@ Error: Branch 'feature/nonexistent' not found
 
 **Recovery**:
 
-```bash
+```text
+# All git branch/worktree operations: dev/git skill (ask naturally)
 # Option 1: Create new branch
-/craft:git:worktree create feature/auth
+ask "create a worktree for feature/auth"
 
 # Option 2: List existing branches
-/craft:git:branch list
+ask "list branches"
 
 # Option 3: Checkout existing branch
-/craft:git:branch checkout feature/auth
+ask "checkout feature/auth"
 ```
 
 ---

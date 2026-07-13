@@ -51,7 +51,7 @@ brew install gifsicle
 asciinema rec teaching-workflow.cast
 
 # Now run your /craft commands in Claude Code:
-/craft:git:status
+ask "git status" (dev/git skill)
 /folio:site:build
 /folio:site:progress
 # ... etc
@@ -132,7 +132,7 @@ asciinema play teaching-workflow.cast
 asciinema rec docs/demos/teaching-workflow.cast
 
 # In Claude Code, run:
-# /craft:git:status
+# ask "git status" (dev/git skill)
 # /folio:site:build
 # /folio:site:progress
 # /folio:site:publish --dry-run
@@ -170,7 +170,7 @@ ls -lh docs/demos/teaching-workflow.gif
 # record-all-workflows.sh
 
 DEMOS=(
-    "teaching-workflow:/craft:git:status /folio:site:build /folio:site:progress"
+    "teaching-workflow:ask git status (dev/git skill) /folio:site:build /folio:site:progress"
     "workflow-01:/craft:docs:update"
     # ... etc
 )

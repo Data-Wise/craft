@@ -232,8 +232,8 @@ directly for the canonical procedure (options, output formats, examples).
 # Step 1: Plan the feature
 /craft:plan:feature "search functionality" --scope mvp --include-tests
 
-# Step 2: Create feature branch
-/craft:git:branch feature/search
+# Step 2: Create feature branch (dev/git skill — ask naturally)
+# ask "create feature branch feature/search"
 
 # Step 3: Assign to sprint (plan-orchestrator skill, Mode 3)
 /craft:plan "sprint plan: add search to v0.2"
@@ -277,7 +277,7 @@ Planning commands work best with:
 | `/craft:code:refactor` | Implement planned features |
 | `/craft:test` | Validate task completion |
 | `/folio:docs:sync` | Keep documentation aligned with roadmap |
-| `/craft:git:branch` | Create feature branches from plans |
+| dev/git skill (ask "create feature branch") | Create feature branches from plans |
 | `/craft:check` | Verify sprint goals before delivery |
 
 ---

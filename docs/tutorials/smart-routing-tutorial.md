@@ -174,7 +174,7 @@ backing agent definition).
 
 **Examples:**
 
-- Add JWT authentication → `/craft:arch:plan`, `/craft:code:test-gen`, `/craft:git:branch`
+- Add JWT authentication → `/craft:arch:plan`, `/craft:code:test-gen`, the dev/git skill
 - Create tutorial → `/craft:docs:*` sequence
 - Generate test suite → `/craft:code:test-gen`, `/craft:test`
 
@@ -253,7 +253,7 @@ backing agent definition).
 
 **Routing:** Zone 2 - Medium
 **Handler:** Category-based command sequence
-**Runs:** `/craft:arch:plan`, `/craft:code:test-gen`, `/craft:git:branch` (no agent dispatch)
+**Runs:** `/craft:arch:plan`, `/craft:code:test-gen`, the dev/git skill (no agent dispatch)
 **What the sequence does:**
 
 1. Reviews existing auth system

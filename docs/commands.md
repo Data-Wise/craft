@@ -5,14 +5,14 @@ Complete reference for all 116 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 53 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 46 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement (default-on):** `/brainstorm`, `/craft:do`, `/craft:plan:feature`, `/craft:grill` run the `prompt-refiner` skill automatically before acting. Use `--no-refine` to skip; pass `--yes` to auto-accept the refined prompt without a confirm step.
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
 Use `/craft:hub` to discover all available commands interactively.
 
 !!! tip "Preview Before Executing"
-    53 commands now support dry-run mode. Add `--dry-run` or `-n` to preview actions before executing. See [Dry-Run Commands](#dry-run-commands) below.
+    46 commands now support dry-run mode. Add `--dry-run` or `-n` to preview actions before executing. See [Dry-Run Commands](#dry-run-commands) below.
 
 ## Smart Commands
 
@@ -202,7 +202,7 @@ Read-only view of the multi-surface release registry — verify gate states and 
 
 ## Documentation Commands (docs/)
 
-53 commands for documentation generation, validation, and site management.
+46 commands for documentation generation, validation, and site management.
 
 | Command | Description | Help |
 |---------|-------------|------|
@@ -236,85 +236,14 @@ Read-only view of the multi-surface release registry — verify gate states and 
 
 ## Git Commands (git/)
 
-### /craft:git:worktree
-
-Git worktree management for parallel development.
-
-```bash
-/craft:git:worktree list
-/craft:git:worktree add feature-branch
-/craft:git:worktree remove feature-branch
-```
-
-### /craft:git:clean
-
-Clean up merged branches safely.
-
-```bash
-/craft:git:clean              # Interactive mode
-/craft:git:clean --force      # Auto-delete merged branches
-```
-
-### /craft:git:protect
-
-Re-enable branch protection, configure levels, view status.
-
-```bash
-/craft:git:protect              # Re-enable protection
-/craft:git:protect --show       # Show current level + counters
-/craft:git:protect --level smart  # Set protection level
-/craft:git:protect --reset      # Reset session counters
-```
-
-### /craft:git:unprotect
-
-Session-wide bypass for branch protection with reason logging.
-
-```bash
-/craft:git:unprotect                 # Interactive
-/craft:git:unprotect merge-conflict  # For merge conflicts
-/craft:git:unprotect maintenance     # For bulk maintenance
-```
-
-### /craft:git:guard
-
-Manage the guard suite — view state, enable, disable, mute, and apply profiles.
-
-```bash
-/craft:git:guard list                        # Show all guards + state
-/craft:git:guard status                      # One-line guard health summary
-/craft:git:guard enable branch-guard         # Re-enable a guard
-/craft:git:guard disable no-switch-guard     # Mute for 30 min (default)
-/craft:git:guard disable no-switch-guard 60  # Mute for 60 min
-/craft:git:guard profile spec                # branch-guard on, no-switch-guard muted
-/craft:git:guard profile yolo                # All guards muted 30 min
-/craft:git:guard profile focus               # All guards on
-/craft:git:guard explain                     # Show harm taxonomy (GREEN/YELLOW/RED)
-/craft:git:guard test                        # Run guard self-tests
-```
-
-### /craft:git:protect-baseline
-
-Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo.
-
-```bash
-/craft:git:protect-baseline                                   # Current repo, default branch
-/craft:git:protect-baseline --repo OWNER/REPO                 # Explicit repo
-/craft:git:protect-baseline --check "test" --check "lint"     # Add status checks (repeatable)
-/craft:git:protect-baseline --strict                          # Require up-to-date branches
-/craft:git:protect-baseline --show                            # Display current protection
-/craft:git:protect-baseline --dry-run                         # Preview payload, no API call
-/craft:git:protect-baseline --remove                          # Remove protection
-```
-
-### /craft:git:status
-
-Enhanced git status with branch guard indicator.
-
-```bash
-/craft:git:status           # Shows guard level + session info
-/craft:git:status --verbose # Additional details
-```
+All git commands — worktree, clean, protect, unprotect, guard, protect-baseline,
+status, and branch — were folded into the `dev/git` skill in the 2026-07 v4
+consolidation. There are no remaining `/craft:git:*` slash commands; ask
+naturally ("create a worktree for feature-x", "clean up merged branches",
+"protect this branch", "unprotect for a merge conflict", "manage guards",
+"apply baseline protection to this repo", "show git status") or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md)
+directly.
 
 ### /craft:git:docs:refcard
 
@@ -401,7 +330,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 53 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 46 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 
@@ -454,7 +383,7 @@ All applicable commands support 4 execution modes:
 **Example usage:**
 
 ```bash
-/craft:git:clean --dry-run           # Preview branch cleanup
+# ask "clean up merged branches --dry-run" (dev/git skill) — preview branch cleanup
 /craft:code:lint release -n          # Preview comprehensive linting
 /craft:dist:pypi publish --dry-run   # Preview PyPI publish (CRITICAL)
 ```

@@ -4,7 +4,7 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**53 commands** · **39 skills** · **2 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**46 commands** · **39 skills** · **2 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 > `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (7 commands)
 
@@ -37,7 +37,7 @@ feature/* (worktrees) ← All implementation work
 | `dev` | New: BLOCKED, Existing: allowed | ALLOWED | Commit/push allowed |
 | `feature/*` | ALLOWED | ALLOWED | All allowed |
 
-Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
+Override local hook: ask "unprotect dev" / "bypass branch guard" (`dev/git` skill, Operation 10 — session-scoped, auto-expires).
 
 ## Quick Commands
 
@@ -53,7 +53,7 @@ Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
 | Post-release sweep | `./scripts/post-release-sweep.sh` or `--fix` |
 | Docs staleness check | `./scripts/docs-staleness-check.sh` or `--fix` |
 | Build docs | `mkdocs build` |
-| Apply GitHub-side protection | `/craft:git:protect-baseline [--repo OWNER/REPO]` |
+| Apply GitHub-side protection | ask "apply GitHub branch protection [--repo OWNER/REPO]" (`dev/git` skill, Operation 9) |
 | Smart routing | `/craft:do <task>` |
 | Pre-flight check | `/craft:check` |
 | Lint code | `/craft:code:lint` |
@@ -87,7 +87,7 @@ performance) · `release` (<300s, thorough). Example: `/craft:code:lint debug`.
 
 | Directory | Purpose |
 |-----------|---------|
-| `commands/` | 53 commands (auto-discovered, one `.md` per command) |
+| `commands/` | 46 commands (auto-discovered, one `.md` per command) |
 | `skills/` | 39 skills (`SKILL.md` pattern) |
 | `agents/` | 8 agent definitions |
 | `tests/` | Unit, e2e, dogfood, and integration test suites |

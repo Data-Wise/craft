@@ -164,7 +164,7 @@ python3 commands/_discovery.py
 ```text
 Discovering commands...
 
-Found 53 commands
+Found 46 commands
 
 Categories:
   arch: 4

@@ -152,7 +152,7 @@ MAIN MENU
 │  ├─ /craft:code:test-gen - Generate test stubs
 │  └─ ... more
 ├─ Tests (7 commands) ............................... /craft:test:*
-├─ Documentation (19 commands) ....................... /craft:docs:*
+├─ Documentation (46 commands) ....................... /craft:docs:*
 └─ ... more categories
 
 Press UP/DOWN to browse
@@ -636,23 +636,25 @@ cd /original/craft
 
 ---
 
-### /craft:git:branch - Branch Management
+### Branch Management (dev/git skill)
 
-```bash
+Folded into the `dev/git` skill (2026-07 v4 consolidation) — ask naturally:
+
+```text
 # Create feature branch
-/craft:git:branch create feature/auth
+ask "create feature branch feature/auth"
 
 # Create hotfix branch
-/craft:git:branch create hotfix/security-patch --type hotfix
+ask "create hotfix branch hotfix/security-patch"
 
 # List all branches
-/craft:git:branch list
+ask "list branches"
 
 # Delete merged branch
-/craft:git:branch delete old-feature
+ask "delete branch old-feature"
 
 # Rename branch
-/craft:git:branch rename old-name new-name
+ask "rename branch old-name to new-name"
 ```
 
 ---
@@ -991,7 +993,6 @@ SUMMARY: 156/156 passing (2.4s)
 alias cc='/craft:check'
 alias ct='/craft:test'
 alias cl='/craft:code:lint'
-alias cs='/craft:git:status'
 alias cw='cd ~/.git-worktrees/craft'
 ```
 
@@ -1001,8 +1002,10 @@ Usage:
 cc          # Run /craft:check
 ct release  # Run /craft:test release
 cl --fix    # Run /craft:code:lint --fix
-cs          # Run /craft:git:status
 ```
+
+Git status is now a `dev/git` skill operation — ask "git status" naturally
+instead of aliasing a slash command (folded from `/craft:git:status`, 2026-07 v4).
 
 ---
 
@@ -1013,7 +1016,7 @@ cs          # Run /craft:git:status
 ```bash
 /craft:check                    # < 30s
 /craft:code:lint                # < 10s
-/craft:git:status               # < 5s
+# ask "git status" (dev/git skill) — < 5s
 ```
 
 ### Normal Development (1-5 min)

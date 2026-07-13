@@ -200,7 +200,7 @@ removal, then runs `git worktree prune` for stale references.
 
 - `/craft:check` - Detects worktree context
 - `/craft:git:sync` - Works in worktrees too
-- `/craft:git:clean` - Cleans branches (not worktrees)
+- dev/git skill (ask "clean up merged branches") - Cleans branches (not worktrees); folded from `/craft:git:clean`, 2026-07 v4 consolidation
 
 **Workflow summary:**
 
@@ -222,8 +222,10 @@ supports `--dry-run`/`-n` — preview the plan without executing. `list`,
 
 ## See Also
 
-- `skills/dev/git/SKILL.md` — canonical operation logic (Operation 5)
-- `/craft:git:branch` - Interactive git branch management assistant
-- `/craft:git:status` - Enhanced git status with teaching-specific context
-- `/craft:git:unprotect` - Session-scoped bypass for branch protection with reason logging
-- `/craft:git:protect-baseline` - Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo
+- `skills/dev/git/SKILL.md` — canonical operation logic (Operation 5); also covers
+  branch management, git status, unprotect, and protect-baseline (all folded
+  from `/craft:git:*`, 2026-07 v4 consolidation) — ask naturally:
+  - "create feature branch x" - Interactive git branch management
+  - "show git status" - Enhanced git status with teaching-specific context
+  - "unprotect for a reason" - Session-scoped bypass for branch protection
+  - "apply baseline protection" - GitHub-side branch protection (PR required, no force-push, no delete) to any repo

@@ -15,7 +15,7 @@
 asciinema rec docs/demos/teaching-workflow.cast
 
 # In Claude Code, run your commands:
-# /craft:git:status
+# ask "git status" (dev/git skill)
 # /folio:site:build
 # ... etc
 # Press Ctrl+D when done
@@ -99,7 +99,7 @@ open docs/demos/*.gif docs/gifs/*.gif
 **Commands to test:**
 
 ```bash
-/craft:git:status
+# ask "git status" (dev/git skill)
 /folio:site:build
 /folio:site:progress
 /folio:site:publish --dry-run

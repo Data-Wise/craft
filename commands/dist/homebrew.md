@@ -1058,9 +1058,9 @@ When issues are found, the audit command automatically applies known fixes:
 ```ruby
 # Fix 1: Description too long (> 80 chars)
 # Before:
-desc "Full-stack developer toolkit - 53 commands, 2 agents, 39 skills - Claude Code plugin"
+desc "Full-stack developer toolkit - 46 commands, 2 agents, 39 skills - Claude Code plugin"
 # After:
-desc "Full-stack developer toolkit for Claude Code with 53 commands"
+desc "Full-stack developer toolkit for Claude Code with 46 commands"
 
 # Fix 2: Array comparison (use Array#include?)
 # Before:

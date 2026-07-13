@@ -566,41 +566,13 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Git Commands Parameters
 
-### /craft:git:status
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| detailed | boolean | No | false | `-d` | Detailed info |
-| suggest | boolean | No | true | `--no-suggest` | Show suggestions |
-
----
-
-### /craft:git:branch
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| action | enum | Yes | - | - | `create`, `list`, `delete`, `rename` |
-| name | string | No | - | - | Branch name |
-| type | enum | No | `feature` | - | `feature`, `hotfix`, `release` |
-
----
-
-### /craft:git:worktree
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| action | enum | Yes | - | - | `setup`, `create`, `move`, `list`, `clean`, `install`, `finish` |
-| branch | string | No | - | - | Branch name |
-| dry-run | boolean | No | false | `-n` | Preview |
-
----
-
-### /craft:git:clean
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| dry-run | boolean | No | false | `-n` | Preview |
-| remote | boolean | No | false | `--clean-remote` | Clean remote |
+All git commands — status, branch, worktree, clean, protect, unprotect, and
+guard — were folded into the `dev/git` skill (2026-07 v4 consolidation);
+there are no remaining `/craft:git:*` slash commands or their parameter
+tables. Ask naturally and the skill infers equivalent options from context,
+or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md)
+for the full operation list.
 
 ---
 

@@ -79,7 +79,7 @@ Tasks are scored on 7 factors (each 0-2 points):
 # Total: 6/14 = 4.3 → Score: 6
 
 # Routing: Command sequence
-# Runs: /craft:arch:plan, /craft:code:test-gen, /craft:git:branch (no agent dispatch)
+# Runs: /craft:arch:plan, /craft:code:test-gen, dev/git skill (create branch) (no agent dispatch)
 ```
 
 **Example 3: Complex Task (Score: 9)**

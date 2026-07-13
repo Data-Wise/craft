@@ -342,7 +342,7 @@ The command will:
 
 💡 Next Steps:
    • Review the live site: https://yourname.github.io/stat-440/
-   • Clean up worktree with /craft:git:clean
+   • Clean up worktree by asking "clean up merged branches" (dev/git skill)
    • Continue editing on draft branch
 
 ⏱ Deployment may take 1-2 minutes to fully propagate.

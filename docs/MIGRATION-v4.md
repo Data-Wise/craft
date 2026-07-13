@@ -13,7 +13,7 @@ claude plugin install folio@data-wise-marketplace
 
 ## Commands moved to folio
 
-53 commands moved. Slash-command syntax unchanged except the plugin prefix
+46 commands moved. Slash-command syntax unchanged except the plugin prefix
 (`/craft:X` → `/folio:X`) — some were consolidated into other folio commands
 or demoted to skill references along the way (destination column notes this).
 
@@ -123,5 +123,5 @@ for tool names (asciinema, vhs, ffmpeg). Left as a flagged backlog item
 
 ## Counts
 
-craft: 53 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split; also was 70 as of
+craft: 46 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split; also was 70 as of
 CP-3, before the v4 command-consolidation slices began).

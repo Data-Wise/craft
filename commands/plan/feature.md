@@ -132,4 +132,4 @@ Works with:
 
 - `/craft:plan` - Sprint planning and roadmap generation (`plan-orchestrator` skill, Modes 3–4)
 - `/craft:arch:plan` - Architecture planning
-- `/craft:git:branch` - Create feature branch
+- dev/git skill (ask "create feature branch") - Create feature branch (folded from `/craft:git:branch`, 2026-07 v4)

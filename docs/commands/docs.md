@@ -7,7 +7,7 @@
 > - **How:** Use `/craft:docs:update --interactive` for category-level prompts (NEW v2.7.0)
 > - **Next:** Try `/craft:docs:update --interactive --dry-run` to preview what would change
 
-Smart documentation generation, validation, and enhancement - 53 commands.
+Smart documentation generation, validation, and enhancement - 46 commands.
 
 ## Which Docs Command for What
 

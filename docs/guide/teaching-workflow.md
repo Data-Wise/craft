@@ -90,7 +90,7 @@ teaching:
 | `/folio:site:build` | Build site | Branch validation, teaching-aware output |
 | `/folio:site:publish` | Publish to production | Preview → Validate → Switch → Deploy |
 | `/folio:site:progress` | Semester dashboard | Week-by-week completion tracking |
-| `/craft:git:status` | Git status | Shows deployment context, branch safety |
+| ask "git status" (dev/git skill) | Git status | Shows deployment context, branch safety |
 
 ## How It Works
 
@@ -391,7 +391,7 @@ teaching:
 EOF
 
 # 2. Test detection
-/craft:git:status
+# ask "git status" — folded into the dev/git skill, 2026-07 v4 consolidation
 
 # 3. Build preview
 /folio:site:build
@@ -437,35 +437,13 @@ EOF
 ╰─────────────────────────────────────────────────────────╯
 ```
 
-### `/craft:git:status`
+### Git status (dev/git skill)
 
-**Standard mode:**
-
-- Shows git branch, changes, remote status
-
-**Teaching mode:**
-
-```
-╭─ Git Status (Teaching Mode) ────────────────────────────╮
-│                                                         │
-│ Branch: dev (Preview) ← You are here                    │
-│                                                         │
-│ Deployment Context:                                     │
-│   Production branch: main                               │
-│   Students see: Week 7 content                          │
-│   You're editing: Week 8 content                        │
-│                                                         │
-│ Safety: ✅ Safe to experiment                           │
-│                                                         │
-│ Modified: 3 files                                       │
-│   - schedule.qmd                                        │
-│   - lectures/week-08.qmd                                │
-│   - assignments/hw3.qmd                                 │
-│                                                         │
-│ Next: /folio:site:build (preview changes)               │
-│                                                         │
-╰─────────────────────────────────────────────────────────╯
-```
+Folded into the `dev/git` skill (2026-07 v4 consolidation) — ask "git status"
+naturally instead of `/craft:git:status`. In teaching mode it still shows
+deployment context (production branch, what students see, what you're
+editing), safety assessment, and modified files. See
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
 ## Troubleshooting
 
@@ -502,7 +480,7 @@ EOF
 
 ```bash
 # Teaching-aware status
-/craft:git:status
+# ask "git status" (dev/git skill)
 
 # Shows:
 # - Current branch (dev/main)
@@ -570,7 +548,7 @@ For detailed configuration options, see [`docs/teaching-config-schema.md`](../te
 
 ```bash
 # Validate teach-config.yml syntax
-/craft:git:status
+# ask "git status" (dev/git skill)
 
 # This command will:
 # - Check if file exists
@@ -597,7 +575,7 @@ git branch --show-current
 # Should show: dev
 
 # Use teaching-aware status
-/craft:git:status
+# ask "git status" (dev/git skill)
 # Will show: ✅ Safe to experiment (if on preview branch)
 ```
 
@@ -731,7 +709,7 @@ teaching:
 EOF
 
 # Verify
-/craft:git:status
+# ask "git status" (dev/git skill)
 ```
 
 ## Debug Commands
@@ -744,7 +722,7 @@ cat .flow/teach-config.yml
 python3 -m yaml .flow/teach-config.yml
 
 # Check detection
-/craft:git:status --verbose
+# ask "git status --verbose" (dev/git skill)
 
 # Dry-run publish (see what would happen)
 /folio:site:publish --dry-run --validate-only
@@ -753,7 +731,7 @@ python3 -m yaml .flow/teach-config.yml
 /folio:site:build --verbose
 
 # Check git branch (teaching-aware)
-/craft:git:status
+# ask "git status" (dev/git skill)
 ```
 
 ## Migration Guide
