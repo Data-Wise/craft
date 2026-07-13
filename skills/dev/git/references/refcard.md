@@ -1,11 +1,9 @@
----
-description: Git Commands Quick Reference
-category: git
-deprecated: true
-replaced-by: "skills/dev/git/"
----
 
 # Git Commands Quick Reference
+
+## Table of Contents
+
+<!-- Sections in this reference; keep in sync. -->
 
 **ADHD-Friendly Git Workflow for Claude Code**
 
@@ -90,8 +88,6 @@ AI: Analyzed changes...
 **When:** Any time you want to save progress
 **Time:** ~30 seconds
 
----
-
 ### /done
 
 **Purpose:** Graceful session end with git integration
@@ -114,8 +110,6 @@ AI: [Creates commit, offers to push]
 **When:** Every time you stop work
 **Time:** 1-2 minutes
 
----
-
 ### /git-recap
 
 **Purpose:** Quick git activity overview
@@ -136,8 +130,6 @@ Shows: Today's commits, unpushed changes, open PRs
 
 **When:** Morning check-in, mid-session status
 **Time:** 5 seconds
-
----
 
 ### /sync
 
@@ -160,8 +152,6 @@ AI: 🔄 SYNC STATUS CHECK
 **When:** Start of day, before creating PR
 **Time:** 10-30 seconds (or 2-5 minutes if conflicts)
 
----
-
 ### /branch
 
 **Purpose:** Safe branch management
@@ -182,8 +172,6 @@ AI: ✅ Ready! Run /next
 
 **When:** Starting new work, switching contexts
 **Time:** 20 seconds
-
----
 
 ### /pr-create
 
@@ -207,8 +195,6 @@ AI: 📝 SUGGESTED TITLE:
 
 **When:** Feature complete, tests pass
 **Time:** 1-2 minutes
-
----
 
 ### /pr-review
 
@@ -354,8 +340,6 @@ All commands stored in:
     ├── pr-create.md     # PR creation
     └── pr-review.md     # PR self-review
 ```
-
----
 
 **Print this and keep it visible until commands become automatic!**
 

@@ -120,7 +120,9 @@ def _check_hub_display():
         (f"CODE category: {stats['categories'].get('code', 0)}", stats['categories'].get('code', 0) >= 12),
         (f"TEST category: {stats['categories'].get('test', 0)}", stats['categories'].get('test', 0) >= 0),
         (f"DOCS category: {stats['categories'].get('docs', 0)}", stats['categories'].get('docs', 0) >= 2),
-        (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) >= 8),
+        # git:worktree folded into a skill reference in the v4 consolidation
+        # (Phase 3.5) — see docs/MIGRATION-v4.md — dropping the floor from 8 to 7.
+        (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) >= 7),
         (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) >= 1),
         (f"All categories present", len(stats['categories']) >= 9)
     ]

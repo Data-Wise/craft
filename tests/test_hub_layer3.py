@@ -63,7 +63,7 @@ def test_get_command_detail_all_categories():
         'code:lint',
         'test',
         'docs:changelog',
-        'git:worktree',
+        'git:branch',
         'site:deploy'
     ]
 

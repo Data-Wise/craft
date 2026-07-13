@@ -380,6 +380,6 @@ python -c "import pkg" 2>/dev/null && echo "✅ Package installed" || echo "❌ 
 ## See Also
 
 - **Tutorial:** [Worktree Setup Tutorial](../tutorials/TUTORIAL-worktree-setup.md) — Step-by-step guide
-- **Command docs:** [/craft:git:worktree](../commands/git/worktree.md) — Full documentation
+- **Command docs:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Full documentation
 - **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — Complete workflow
 - **Pattern guide:** [Interactive Commands Guide](../guide/interactive-commands.md) — How the pattern works

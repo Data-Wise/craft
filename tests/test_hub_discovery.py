@@ -148,7 +148,7 @@ def test_category_inference():
     # Note: discovery module returns relative filenames, not full paths
     test_cases = {
         "code/lint.md": "code",
-        "git/worktree.md": "git",
+        "git/branch.md": "git",
         "hub.md": "hub",
     }
 
@@ -347,9 +347,11 @@ def test_all_categories_present():
     stats = stub_get_command_stats(commands)
 
     # Expected categories based on directory structure
+    # "workflow" category dropped from commands/ in the v4 consolidation
+    # (workflow:insights folded into a skill reference) — see docs/MIGRATION-v4.md.
     expected_categories = {
         "code", "test", "docs", "git", "site",
-        "arch", "ci", "dist", "workflow", "hub"
+        "arch", "ci", "dist", "hub"
     }
 
     found_categories = set(stats["categories"].keys())

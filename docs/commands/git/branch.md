@@ -104,7 +104,7 @@ Recommended patterns:
 
 ## See Also
 
-- [/craft:git:worktree](worktree.md) — Worktree management (recommended for features)
+- [Worktree reference (dev/git skill)](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Worktree management (recommended for features)
 - [/craft:git:status](status.md) — Enhanced git status
 - [/craft:git:clean](clean.md) — Remove merged branches
 - [Git Workflow Guide](../../guide/worktree-advanced-patterns.md) — Branch workflow patterns

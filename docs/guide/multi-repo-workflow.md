@@ -481,4 +481,4 @@ This is the hardest case. Options:
 - [Git Worktree Setup Tutorial](../tutorials/TUTORIAL-worktree-setup.md) — Getting started with worktrees
 - [Orchestrate Pipeline Guide](pipeline-orchestrate-guide.md) — Full orchestration reference
 - [/craft:ci:status](../commands/ci/status.md) — CI status command reference
-- [/craft:git:worktree](../commands/git/worktree.md) — Worktree command reference
+- [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Worktree command reference

@@ -5,7 +5,7 @@ category: "cookbook"
 level: "intermediate"
 time_estimate: "8-10 minutes"
 related:
-  - ../../commands/git/worktree.md
+  - https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md
   - ../../tutorials/TUTORIAL-worktree-setup.md
   - ../../reference/REFCARD-GIT-WORKTREE.md
 ---
@@ -359,7 +359,7 @@ git branch -d feature/oauth
 
 ## Related
 
-- [Git Worktree Command](../../commands/git/worktree.md) — Full command reference
+- [Git Worktree Command](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Full command reference
 - [Worktree Setup Tutorial](../../tutorials/TUTORIAL-worktree-setup.md) — Complete tutorial
 - [Git Worktree Quick Reference](../../reference/REFCARD-GIT-WORKTREE.md) — Quick reference
 - [Advanced Worktree Patterns](../../guide/worktree-advanced-patterns.md) — Complex scenarios

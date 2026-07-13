@@ -229,11 +229,12 @@ When the user wants to **read** rather than **act**, surface the reference docs 
 | User intent | Doc to surface |
 |-------------|----------------|
 | "teach me git", "how does this workflow work", "learning path" | `skills/dev/git/references/learning-guide.md` |
-| "quick reference", "git refcard", "cheat sheet" | `commands/git/docs/refcard.md` |
+| "quick reference", "git refcard", "cheat sheet" | `skills/dev/git/references/refcard.md` |
 | "is this safe?", "what are the safety rails?", "won't this break things?" | `skills/dev/git/references/safety-rails.md` |
 | "I messed up", "how do I undo X", "git emergency" | `skills/dev/git/references/undo-guide.md` |
 
-(`refcard.md` stays under `commands/git/docs/` — it wasn't flagged by the deprecated-command body-size audit and isn't part of this consolidation batch.)
+(`refcard.md` moved to `skills/dev/git/references/` in the v4 consolidation, Phase 3.5,
+2026-07-12 — it crossed the deprecated-command body-size audit threshold at 363 lines.)
 
 For undo specifically, prefer the doc over speculating — it has scripted recovery flows for the common "oh no" scenarios (wrong commit message, wrong branch, accidental push, deleted work, merge conflicts).
 
@@ -329,7 +330,7 @@ This skill replaces the 11 commands and 4 reference docs under `commands/git/` d
 | `/craft:git:protect-baseline` | 9 (GitHub-Side Protection — unchanged, stays a separate cross-linked command, not folded) |
 | `/craft:git:unprotect` | 10 (Session Bypass — unchanged, already a thin shim) |
 | `skills/dev/git/references/learning-guide.md` (command shim removed in v3.0.0 prune; content lives here) | 11 (Reference: learning) |
-| `commands/git/docs/refcard.md` | 11 (Reference: refcard) |
+| `skills/dev/git/references/refcard.md` | 11 (Reference: refcard) |
 | `skills/dev/git/references/safety-rails.md` (command shim removed in v3.0.0 prune; content lives here) | 11 (Reference: safety rails) |
 | `skills/dev/git/references/undo-guide.md` (command shim removed in v3.0.0 prune; content lives here) | 11 (Reference: undo) |
 | `/craft:git:guard` | 12 (Guard Registry CLI — new, absorbed from the standalone `guard.md`) |

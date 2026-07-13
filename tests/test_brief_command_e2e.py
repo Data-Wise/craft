@@ -234,13 +234,19 @@ class TestWorkflowCommandCount:
     """plugin.json description must reflect the actual workflow command count."""
 
     def test_workflow_command_count_matches_files(self):
+        """The '(N) workflow' breakdown only applies while commands/workflow/ exists.
+        It was folded away in the v4 consolidation (workflow:insights moved to a skill
+        reference) — see docs/MIGRATION-v4.md — so this check is a no-op unless the
+        breakdown reappears in the description.
+        """
         workflow_dir = COMMANDS_DIR / "workflow"
-        actual = len(list(workflow_dir.glob("*.md")))
+        actual = len(list(workflow_dir.glob("*.md"))) if workflow_dir.exists() else 0
         plugin_json = json.loads(PLUGIN_JSON.read_text())
         desc = plugin_json.get("description", "")
 
         m = re.search(r"(\d+) workflow", desc)
-        assert m, f"plugin.json description does not contain '(N) workflow': {desc}"
+        if not m:
+            return
 
         documented = int(m.group(1))
         assert documented == actual, (

@@ -296,7 +296,7 @@ git push --tags
 
 ## See Also
 
-- **Help:** [/craft:git:worktree](../commands/git/worktree.md)
+- **Help:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)
 - **Help:** [/craft:check](../commands/check.md)
 - **Guide:** [Branch Guard Smart Mode](../guide/branch-guard-smart-mode.md)
 - **Reference:** [Branch Guard Quick Reference](../reference/REFCARD-BRANCH-GUARD.md)

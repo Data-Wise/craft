@@ -1027,6 +1027,6 @@ Merge library first, consumer second. See [Multi-Repo Workflow Guide](multi-repo
 
 - **Tutorial:** [Worktree Setup Tutorial](../tutorials/TUTORIAL-worktree-setup.md) — Beginner guide
 - **Quick reference:** [Worktree Refcard](../reference/REFCARD-GIT-WORKTREE.md) — Common commands
-- **Command docs:** [/craft:git:worktree](../commands/git/worktree.md) — Full documentation
+- **Command docs:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Full documentation
 - **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — Complete git workflow
 - **Cross-repo:** [Multi-Repo Workflow Guide](multi-repo-workflow.md) — Features spanning multiple repositories

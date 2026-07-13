@@ -35,7 +35,11 @@ RELEASE_SKILL = os.path.join(CRAFT_ROOT, "skills", "release", "SKILL.md")
 
 # Enhanced commands
 CHECK_CMD = os.path.join(CRAFT_ROOT, "commands", "check.md")
-WORKTREE_CMD = os.path.join(CRAFT_ROOT, "commands", "git", "worktree.md")
+# git:worktree folded into a skill reference in the v4 consolidation (Phase 3.5) —
+# see docs/MIGRATION-v4.md. It has no YAML frontmatter anymore.
+WORKTREE_CMD = os.path.join(
+    CRAFT_ROOT, "skills", "dev", "git", "references", "worktree.md"
+)
 DO_CMD = os.path.join(CRAFT_ROOT, "commands", "do.md")
 SMART_HELP_CMD = os.path.join(CRAFT_ROOT, "commands", "smart-help.md")
 HUB_CMD = os.path.join(CRAFT_ROOT, "commands", "hub.md")
@@ -291,11 +295,14 @@ class TestWorktreeValidateAction(unittest.TestCase):
     """Verify validate action was added to worktree command."""
 
     def test_validate_in_frontmatter(self):
-        """validate appears in action enum in frontmatter."""
-        # Check first 30 lines for frontmatter
-        with open(WORKTREE_CMD) as f:
-            header = "".join(f.readlines()[:30])
-        self.assertIn("validate", header)
+        """validate appears as a documented action.
+
+        Was originally a frontmatter-enum check; the skill reference (post v4
+        consolidation, see docs/MIGRATION-v4.md) has no YAML frontmatter, so this
+        checks the Usage section instead.
+        """
+        content = _read_file(WORKTREE_CMD)
+        self.assertIn("validate", content)
 
     def test_validate_section_exists(self):
         """Validate section exists in the command body."""

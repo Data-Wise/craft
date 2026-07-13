@@ -1,21 +1,3 @@
----
-description: Git worktree management for parallel development workflows
-category: git
-arguments:
-  - name: action
-    description: Action to perform (setup|create|move|list|clean|install|finish|validate)
-    required: true
-  - name: branch
-    description: Branch name (for create/move actions)
-    required: false
-  - name: dry-run
-    description: Preview changes without executing (for setup/create/move/clean/finish actions)
-    required: false
-    default: false
-    alias: -n
-deprecated: true
-replaced-by: "skills/dev/git/"
----
 
 # /craft:git:worktree - Parallel Development with Git Worktrees
 
@@ -164,7 +146,7 @@ create workflow files (`ORCHESTRATE-<name>.md`, and for larger scope a
 
 Confirm the detected scope via `AskUserQuestion` before creating any file —
 full operation detail (exact templates, flow) lives in
-[`skills/dev/git/SKILL.md`](../../skills/dev/git/SKILL.md), Operation 5.
+[`skills/dev/git/SKILL.md`](../SKILL.md), Operation 5.
 
 ## move - Move Current Branch to Worktree
 

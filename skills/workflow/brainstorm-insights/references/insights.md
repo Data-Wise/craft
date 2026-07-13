@@ -1,21 +1,3 @@
----
-description: Generate insights report from session facets data with friction patterns, goal categories, and CLAUDE.md suggestions
-category: workflow
-arguments:
-  - name: format
-    description: "Output format: terminal (default), html, json"
-    required: false
-    default: terminal
-  - name: since
-    description: "Time range: number of days to include (default: 30)"
-    required: false
-    default: 30
-  - name: project
-    description: "Filter to specific project (default: all projects)"
-    required: false
-deprecated: true
-replaced-by: "skills/workflow/brainstorm-insights/"
----
 
 # /craft:insights — Session Insights Report
 
@@ -189,6 +171,6 @@ When insights data feeds into ORCHESTRATE generation:
 
 ## See Also
 
-- [/craft:insights-apply](../../skills/insights-apply/SKILL.md) — Apply suggestions to CLAUDE.md
-- [/craft:check --context](../check.md) — Context-aware phase detection
-- [Insights Guide](../../docs/guide/insights-improvements-guide.md) — Full documentation
+- [/craft:insights-apply](../../../insights-apply/SKILL.md) — Apply suggestions to CLAUDE.md
+- [/craft:check --context](../../../../commands/check.md) — Context-aware phase detection
+- [Insights Guide](../../../../docs/guide/insights-improvements-guide.md) — Full documentation

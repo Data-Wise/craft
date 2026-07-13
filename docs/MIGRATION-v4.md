@@ -82,6 +82,9 @@ into skill references before deletion):
 | `docs:claude-md:sync` | `skills/docs/claude-md/references/sync.md` |
 | `docs:claude-md:init` | `skills/docs/claude-md/references/init.md` |
 | `check:gen-validator` | `skills/check/references/gen-validator.md` |
+| `git:worktree` | `skills/dev/git/references/worktree.md` |
+| `git:docs:refcard` | `skills/dev/git/references/refcard.md` |
+| `workflow:insights` | `skills/workflow/brainstorm-insights/references/insights.md` |
 
 ## Plan deviations from the original ROSTER (2026-07-09)
 
@@ -120,5 +123,5 @@ for tool names (asciinema, vhs, ffmpeg). Left as a flagged backlog item
 
 ## Counts
 
-craft: 63 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split; also was 70 as of
+craft: 60 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split; also was 70 as of
 CP-3, before the v4 command-consolidation slices began).

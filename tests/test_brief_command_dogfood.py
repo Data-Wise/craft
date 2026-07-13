@@ -108,13 +108,19 @@ class TestPluginJsonParity:
     """After adding brief.md, plugin.json description must match file counts."""
 
     def test_workflow_count_in_description(self):
+        """The '(N craft + M workflow)' breakdown only applies while commands/workflow/
+        exists. It was folded away in the v4 consolidation (workflow:insights moved to a
+        skill reference) — see docs/MIGRATION-v4.md — so this check is a no-op unless the
+        breakdown reappears in the description.
+        """
         desc = json.loads(PLUGIN_JSON.read_text())["description"]
         m = re.search(r"(\d+) workflow", desc)
-        assert m, "plugin.json description must contain '(N) workflow'"
+        if not m:
+            return
         documented = int(m.group(1))
 
         workflow_dir = PLUGIN_DIR / "commands" / "workflow"
-        actual = len(list(workflow_dir.glob("*.md")))
+        actual = len(list(workflow_dir.glob("*.md"))) if workflow_dir.exists() else 0
 
         assert documented == actual, (
             f"plugin.json says {documented} workflow commands, "

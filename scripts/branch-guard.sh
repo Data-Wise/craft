@@ -794,7 +794,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
         _confirm "write_new_code" \
           "Write new .${EXT} file: ${FILE_PATH}" \
           "New code files on ${BRANCH} should go in a feature branch" \
-          "/craft:git:worktree feature/<name>" \
+          "Ask Claude to create a worktree (dev/git skill): feature/<name>" \
           "Edit an existing file instead (fixups allowed)" \
           "/craft:git:unprotect for bulk maintenance"
       fi
@@ -811,7 +811,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
           "Force push overwrites remote history for all collaborators" \
           "git push origin ${BRANCH} (regular push)" \
           "git push --force-with-lease (safer — checks remote)" \
-          "/craft:git:worktree feature/<name> (isolate changes)"
+          "Ask Claude to create a worktree (dev/git skill) to isolate changes"
       fi
 
       # git reset --hard — MEDIUM risk (discards uncommitted changes)
@@ -933,7 +933,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
                   "Bash creates new .${BASH_EXT} file: ${BASH_TARGET}" \
                   "Shell redirection creates a new code file on ${BRANCH}" \
                   "Use the Write tool instead (tracked by guard)" \
-                  "/craft:git:worktree feature/<name> (isolate changes)"
+                  "Ask Claude to create a worktree (dev/git skill) to isolate changes"
               fi
             fi
           fi

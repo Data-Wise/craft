@@ -160,7 +160,7 @@ Display template:
 │   /folio:docs:mermaid              /craft:ci:validate                  │
 │   /folio:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ GIT (9 incl. 4 guides)          WORKFLOW (1)                          │
+│ GIT (7 incl. 4 guides)          WORKFLOW (0)                          │
 │   /craft:git:worktree              /brainstorm [depth|focus] "topic"   │
 │   /craft:git:branch                /workflow:done                      │
 │   /craft:git:clean                 /craft:insights                     │
@@ -445,7 +445,7 @@ Branch Protection (v2.16.0):
 ### `/craft:hub workflow`
 
 ```
-WORKFLOW COMMANDS (1) - ADHD-Friendly Workflow Management
+WORKFLOW COMMANDS (0) - ADHD-Friendly Workflow Management
 ────────────────────────────────────────────────────────────────────────
 Brainstorming:
   /brainstorm "topic"                | Default depth (2 questions)

@@ -227,4 +227,4 @@ claude
 - **Tutorial:** [Interactive Orchestration Tutorial](../tutorials/interactive-orchestration.md)
 - **Check command:** [/craft:check](../commands/check.md)
 - **Docs update:** [/craft:docs:update](../commands/docs/update.md)
-- **Worktree:** [/craft:git:worktree](../commands/git/worktree.md)
+- **Worktree:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)

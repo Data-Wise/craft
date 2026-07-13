@@ -2,12 +2,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 63 commands organized into 17 categories covering the full development lifecycle
+> - **What:** 60 commands organized into 17 categories covering the full development lifecycle
 > - **Why:** One plugin handles your entire development workflow from docs to deployment
 > - **How:** Use `/craft:hub` to discover all commands by category
 > - **Next:** Start with `/craft:do` for AI-powered task routing or `/craft:check` for pre-flight validation
 
-Craft provides **63 commands** for full-stack development workflows.
+Craft provides **60 commands** for full-stack development workflows.
 
 ## Command Routing
 
@@ -184,7 +184,7 @@ Four key commands use the **"Show Steps First" pattern**:
 # Scope detection and auto-setup
 ```
 
-[Learn more →](git/worktree.md) | [Tutorial](../tutorials/TUTORIAL-worktree-setup.md) | [Quick reference](../reference/REFCARD-GIT-WORKTREE.md)
+[Learn more →](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) | [Tutorial](../tutorials/TUTORIAL-worktree-setup.md) | [Quick reference](../reference/REFCARD-GIT-WORKTREE.md)
 
 ### /craft:docs:update - Documentation Generator
 
