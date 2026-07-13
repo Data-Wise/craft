@@ -116,8 +116,15 @@ task if/when this tooling matters again.
   - Verify: `docs/MIGRATION-v4.md` created (24 cmds + 6 agents + 6 skills, each destination
     confirmed to exist in folio via direct file check); README.md + CHANGELOG.md breadcrumbs
     added; mkdocs.yml nav entry added; `mkdocs build --strict` clean.
-- [ ] **T3.8** Full gates: pytest + ALL bash suites + strict build + wf-p3-gate (3 refuters) — **S**
-- [ ] **CP-3** (ASK): all green @69; branch holds (no PR yet — 3.5 rides the same train)
+- [x] **T3.8** Full gates: pytest + ALL bash suites + strict build + wf-p3-gate (3 refuters) — **S**
+  - Verify: `python3 -m pytest tests/` → 2601 passed / 3 failed / 41 skipped (the 3 failures are
+    the pre-existing `dev`-baseline `test_v115_adhd_enhancements.py` trio, confirmed by direct
+    dev-branch run — 0 regressions). CI-required bash suites all green: `test_branch_guard.sh`
+    (117/117), `test_branch_guard_e2e.sh` (30/30, 1 known-flaky perf test passed on rerun),
+    `test_no_switch_guard.sh` (36/36), `test_git_shim_correctness.sh` (21/21),
+    `test_bump_version.sh` (45/45), `test_post_release_sweep.sh` (21/21). `mkdocs build --strict`
+    clean (0 errors/warnings beyond pre-existing excluded-nav INFO lines).
+- [x] **CP-3** (ASK): all green @70; branch holds (no PR yet — 3.5 rides the same train)
 
 ## Phase 3.5 — v4 rider (@26)
 
