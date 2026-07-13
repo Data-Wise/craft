@@ -183,38 +183,68 @@ task if/when this tooling matters again.
     empty. 53->46 commands. Callers repointed to skill-based phrasing across CLAUDE.md,
     hub.md, docs/. Full pytest: 2575 passed / 4 failed (same known baseline). `mkdocs build
     --strict` clean.
-- [ ] **T3.5.3** Five consolidations (∥ families, disjoint): ci(8→router+refs) **M** · arch(4) **S** · code:audit(5) **M** · orch absorbs drive/workflow **S** · plan absorbs feature **XS**
-  - Acceptance: each router ≤~60L; bodies verbatim in skills/*/references/; line-conservation per family
-  - Verify: dispatch-table dogfood per family
-  - **HANDOFF (2026-07-13, session end):** Not started. Worktree clean, T3.5.1+T3.5.2
-    committed (`318be7d0`, `d57468b0`, `d62ce973`). 46 commands, tests at baseline (2561
-    passed / 4 known: 3 dev-baseline + 1 branch-guard.sh local-install-drift from this
-    session's own CLAUDE.md content edit), `mkdocs build --strict` clean. Line counts to
-    move (current, verified via `wc -l`): ci×8 = detect 292 · fix 96 · generate 730 ·
-    local 219 · status 166 · triage 176 · validate 303 · watch 135 (Σ2117); arch×4 =
-    analyze 147 · diagram 130 · plan 133 · review 109 (Σ519); code:audit×5 = command-audit
-    131 · deps-audit 170 · deps-check 88 · docs-check 248 · skill-standards 167 (Σ804);
-    orch family = orch.md 369 + drive 114 + workflow 126; plan family = plan.md 102 +
-    feature 135. Do smallest-first (plan absorbs feature XS → orch absorbs drive/workflow
-    S → arch S → the two M ones), same pattern as T3.5.1/T3.5.2: router ≤~60L, bodies
-    verbatim into `skills/*/references/`, fix callers, `bump-version.sh --counts-only` +
-    `docs-staleness-check.sh --fix` (×2), full pytest + `mkdocs build --strict`, commit
-    per family. Do NOT dispatch large exhaustive-fix background agents by default — user
-    flagged token cost 2026-07-13; prefer direct sequential edits, minimal doc polish
-    (only what tests/build require), and only delegate a single well-scoped mechanical
-    batch if it's genuinely faster than doing it inline.
-- [ ] **T3.5.4** Cascade @26: bump-version + hub REGEN against 26 + ci.yml floor→18 + MIGRATION rows for every killed/consolidated name — **M** (parent)
-- [ ] **T3.5.5** Suites green @26 + slash-invocability spot-checks (nested-skill exceptions → keep micro-shim, record ±deviation) — **S**
-- [ ] **CP-3.5** (ASK): craft@26 all green → ONE PR feature/folio-split→dev (leak-scan, evidence in body) → merge on your go
-  - **Resume command for next session:**
+- [x] **Phase 3.5 — CLOSED at T3.5.2** (2026-07-13, user decision). T3.5.1+T3.5.2 are the
+  full scope of "salvage-gated kills of already-deprecated shims" — both landed clean at
+  46 commands, tests at baseline, `mkdocs build --strict` clean. T3.5.3 (originally
+  planned as part of this phase) turned out to be a materially different, riskier class
+  of work — see Phase 3.6 below — and is deliberately deferred to its own properly-scoped
+  phase/goal rather than rushed. **CP-3.5's original PR-at-@26 gate does not apply**; no
+  PR was opened this phase (per design — @26 was never reached, @46 is the real landing
+  point). Craft's command count is 46, not the original @26 target — see Phase 3.6.
 
-    ```
-    /goal tasks/todo.md on feature/folio-split shows Phase 3.5 (T3.5.1-T3.5.5) and CP-3.5 all checked off, final pytest run clean (only the 3 known dev-baseline failures), mkdocs build --strict clean, and no PR opened — CP-3.5 stops at presenting the PR command for my approval, not executing it
-    ```
+## Phase 3.6 — router consolidations (deferred, not yet scoped for execution)
 
-    Worktree: `~/.git-worktrees/craft/feature-folio-split` (branch `feature/folio-split`).
-    Start by reading this HANDOFF note (T3.5.3, above) and the T3.5.1/T3.5.2 progress
-    notes earlier in this section for full context before resuming.
+> Split out from Phase 3.5 (2026-07-13) after discovering all 5 target families are
+> **live, non-deprecated commands** (unlike T3.5.1/T3.5.2's confirmed-redundant shims) —
+> checked via `deprecated: true` frontmatter, all 5 came back negative. `orch:drive` is
+> called out by name in `CLAUDE.md`'s own TL;DR as active; `plan:feature` carries a
+> **locked prior decision** (`SPEC-orchestrator-consolidation-2026-07-04.md` D2,
+> enforced by `tests/test_scaffold_defaults_e2e.py::test_logic_lives_in_skills_not_deprecated_commands`)
+> that it was deliberately *un-deprecated* — NOT a redirect, genuine independent content.
+> This means "consolidate into a router" here means real architecture design (preserve
+> full argument surfaces while restructuring), not simple shim deletion. Do not execute
+> under time/token pressure — needs its own grill/spec pass before implementation.
+
+- [ ] **T3.6.0** (before any implementation) Re-grill this phase: for EACH of the 5
+  families below, confirm against current repo state whether consolidation is still the
+  right call (re-check `deprecated:` frontmatter, cross-reference any newer specs/ADRs,
+  and specifically re-verify `plan:feature`'s D2 exclusion still holds) — do not assume
+  the 2026-07-09 ROSTER's assumptions are current.
+- [ ] **T3.6.1** `plan` absorbs `plan:feature` — **XS** — **LIKELY N/A**: superseded by
+  the locked D2 decision (see above); `plan/feature.md` was left untouched this session.
+  Re-confirm before touching.
+- [ ] **T3.6.2** `orch` absorbs `orch:drive` + `orch:workflow` — **S** — drive.md (114L)
+  has its own full arg surface (spec/dry-run/yes/max-turns/no-auto/agents/condition) and
+  delegates to a separate `drive-engine` skill already; workflow.md (126L) not yet
+  inspected. Neither carries `deprecated: true`.
+- [ ] **T3.6.3** NEW `arch` router (4→router+refs) — **S** — analyze 147 · diagram 130 ·
+  plan 133 · review 109 (Σ519L), none deprecated.
+- [ ] **T3.6.4** NEW `code:audit` router (5→router+refs) — **M** — command-audit 131 ·
+  deps-audit 170 · deps-check 88 · docs-check 248 · skill-standards 167 (Σ804L), none
+  deprecated.
+- [ ] **T3.6.5** NEW `ci` router (8→router+refs) — **M** — detect 292 · fix 96 ·
+  generate 730 · local 219 · status 166 · triage 176 · validate 303 · watch 135
+  (Σ2117L), none deprecated. Largest family — do last.
+- [ ] **T3.6.6** Cascade @26 (only if T3.6.1–5 land): bump-version + hub REGEN + ci.yml
+  floor→18 + MIGRATION-v4.md rows for every consolidated name — **M** (parent)
+- [ ] **T3.6.7** Suites green @26 + slash-invocability spot-checks — **S**
+- [ ] **CP-3.6** (ASK): craft@26 all green → ONE PR feature/folio-split→dev (leak-scan,
+  evidence in body) → merge on your go. Same PR-approval-only gate as the old CP-3.5.
+
+**To start Phase 3.6 in a future session**, use a freshly-scoped `/goal` — do NOT reuse
+the old Phase-3.5 condition (it references CP-3.5/T3.5.x names that no longer map to
+open work). Suggested starting point:
+
+```
+/goal tasks/todo.md on feature/folio-split shows Phase 3.6 (T3.6.0-T3.6.7) and CP-3.6
+all checked off, final pytest run clean (only the 3 known dev-baseline failures),
+mkdocs build --strict clean, and no PR opened — CP-3.6 stops at presenting the PR
+command for my approval, not executing it
+```
+
+Worktree: `~/.git-worktrees/craft/feature-folio-split` (branch `feature/folio-split`).
+Start with T3.6.0 (re-grill) before touching any files — do not assume this note's
+line counts or deprecation findings are still current by the time you resume.
 
 ## Phase 4 — coordinated release
 
