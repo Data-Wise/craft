@@ -68,11 +68,14 @@ class TestTeachingDocumentation:
         assert migration_path.exists(), "Teaching migration guide not found"
 
     def test_teaching_commands_documented(self):
-        """All teaching commands should be documented"""
+        """All teaching commands should be documented.
+
+        site/publish.md, site/progress.md, site/build.md moved to the `folio`
+        plugin in the folio split (Phase 3, 2026-07-12) — folio now owns that
+        surface. git/status.md is craft's only remaining teaching-adjacent
+        command (still carries teaching-specific context per the open
+        teaching-residue-audit backlog item — unrelated to this split)."""
         commands = [
-            "site/publish.md",
-            "site/progress.md",
-            "site/build.md",
             "git/status.md"
         ]
 

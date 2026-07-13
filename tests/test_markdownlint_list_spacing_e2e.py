@@ -279,49 +279,9 @@ class TestBaselineReport:
         )
 
 
-class TestDocumentationIntegration:
-    """Tests for documentation integration."""
-
-    def get_config_path(self):
-        """Get config file path."""
-        return Path(__file__).parent.parent / ".markdownlint.json"
-
-    def test_docs_lint_md_exists(self):
-        """Documentation file should exist."""
-        docs_path = Path(__file__).parent.parent / "commands" / "docs" / "lint.md"
-        assert docs_path.exists(), "Documentation not found: {0}".format(docs_path)
-
-    def test_docs_lint_md_mentions_md030(self):
-        """Documentation should mention MD030."""
-        docs_path = Path(__file__).parent.parent / "commands" / "docs" / "lint.md"
-        content = docs_path.read_text()
-
-        assert "MD030" in content, "Documentation should mention MD030"
-
-    def test_docs_lint_md_mentions_md004(self):
-        """Documentation should mention MD004."""
-        docs_path = Path(__file__).parent.parent / "commands" / "docs" / "lint.md"
-        content = docs_path.read_text()
-
-        assert "MD004" in content, "Documentation should mention MD004"
-
-    def test_docs_lint_md_has_examples(self):
-        """Documentation should have before/after examples."""
-        docs_path = Path(__file__).parent.parent / "commands" / "docs" / "lint.md"
-        content = docs_path.read_text()
-
-        assert "Before" in content and "After" in content, (
-            "Documentation should have before/after examples"
-        )
-
-    def test_docs_lint_md_mentions_spacing(self):
-        """Documentation should mention list spacing."""
-        docs_path = Path(__file__).parent.parent / "commands" / "docs" / "lint.md"
-        content = docs_path.read_text()
-
-        assert "list spacing" in content.lower() or "List Spacing" in content, (
-            "Documentation should mention list spacing"
-        )
+# NOTE: TestDocumentationIntegration removed 2026-07-12 — commands/docs/lint.md
+# moved to the `folio` plugin in the folio split (Phase 3); that coverage is
+# folio's now. See ORCHESTRATE-folio-split.md / tasks/todo.md T3.3.
 
     def test_docs_lint_md_complies_with_rules(self):
         """Documentation file should comply with its own rules."""

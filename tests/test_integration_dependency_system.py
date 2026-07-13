@@ -37,6 +37,15 @@ class TestDependencySystemIntegration(unittest.TestCase):
 
     def test_01_full_check_workflow(self):
         """Test: /craft:docs:demo --check shows dependency status."""
+        if not self.demo_command.exists():
+            self.skipTest(
+                "commands/docs/demo.md moved to the `folio` plugin in the folio split "
+                "(Phase 3, 2026-07-12) — scripts/dependency-manager.sh hardcodes that file "
+                "as its dependency source and has no craft-owned equivalent to fall back to. "
+                "Open question: this whole subsystem (dependency-manager.sh, tool-detector.sh, "
+                "health-check.sh, installers/*.sh) may belong in folio now, not craft — flagged, "
+                "not decided here. See ORCHESTRATE-folio-split.md / tasks/todo.md T3.5."
+            )
         # Arrange: Run dependency check
         result = subprocess.run(
             [str(self.scripts_dir / "dependency-manager.sh"), "display_status_json", "asciinema"],
