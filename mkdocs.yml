@@ -273,29 +273,12 @@ nav:
       - /craft:orch:workflow: commands/orch/workflow.md
       - /craft:ci:generate: commands/ci/generate.md
       - /craft:ci:status: commands/ci/status.md
-      - /craft:docs:generate: commands/docs/generate.md
-      - /craft:docs:api: commands/docs/api.md
       - /craft:docs:changelog: commands/docs/changelog.md
-      - /craft:docs:check: commands/docs/check.md
-      - /craft:docs:check-links: commands/docs/check-links.md
       - /craft:docs:claude-md: commands/docs/claude-md.md
       - /craft:docs:claude-md:edit: commands/docs/claude-md/edit.md
       - /craft:docs:claude-md:init: commands/docs/claude-md/init.md
       - /craft:docs:claude-md:sync: commands/docs/claude-md/sync.md
-      - /craft:docs:demo: commands/docs/demo.md
-      - /craft:docs:guide: commands/docs/guide.md
-      - /craft:docs:help: commands/docs/help.md
-      - /craft:docs:lint: commands/docs/lint.md
-      - /craft:docs:mermaid: commands/docs/mermaid.md
-      - /craft:docs:nav-update: commands/docs/nav-update.md
-      - /craft:docs:prompt: commands/docs/prompt.md
-      - /craft:docs:quickstart: commands/docs/quickstart.md
-      - /craft:docs:site: commands/docs/site.md
-      - /craft:docs:sync: commands/docs/sync.md
-      - /craft:docs:tutorial: commands/docs/tutorial.md
       - /craft:docs:update: commands/docs/update.md
-      - /craft:docs:website: commands/docs/website.md
-      - /craft:docs:workflow: commands/docs/workflow.md
       - /craft:git:worktree: commands/git/worktree.md
       - /craft:brainstorm: commands/brainstorm.md
       - /craft:brief: commands/brief.md
@@ -338,7 +321,6 @@ nav:
       - /craft:orch:workflow: commands/orch/workflow.md
       - /craft:plan: commands/plan.md
       - /craft:plan:feature: commands/plan/feature.md
-      - /craft:site:docs:frameworks: commands/site/docs/frameworks.md
       - /craft:smart-help: commands/smart-help.md
 
   # 5. COOKBOOK & EXAMPLES - Use case driven recipes
