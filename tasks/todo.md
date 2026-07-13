@@ -130,6 +130,14 @@ task if/when this tooling matters again.
 
 - [ ] **T3.5.1** The 12 salvage diffs (R2): dist×3, claude-md×3, check(→micro), gen-validator, git:{refcard,worktree}, code:demo, insights — unique logic → references/ — **M** (splittable per family)
   - Verify: per-diff line-conservation note in ledger
+  - Progress (2026-07-12): **family 1/4 done** — dist×3 (pypi/curl-install/marketplace) salvaged
+    verbatim into `skills/distribution/dist-extras/references/`, commands deleted, 2 tests
+    repointed, counts synced 70->67, 17-file docs count-sweep, 1 checker exclusion added
+    (README's historical "26 commands" crossed the 40%-floor as canonical shrank). Committed
+    `840e57d8`. **Plan deviation**: `code:demo` was already un-deprecated in T3.1 (its skill
+    moved to folio) — no longer a shim to salvage-and-kill; moved to the keep-as-is set (see
+    `docs/MIGRATION-v4.md`). Remaining: claude-md×3, check(→micro)+gen-validator,
+    git:{refcard,worktree}, insights.
 - [ ] **T3.5.2** Kill 22 shims + 2 utils; demote discovery-usage → docs — **S**
   - Verify: tripwire tests; `ls commands/git/` empty
 - [ ] **T3.5.3** Five consolidations (∥ families, disjoint): ci(8→router+refs) **M** · arch(4) **S** · code:audit(5) **M** · orch absorbs drive/workflow **S** · plan absorbs feature **XS**
