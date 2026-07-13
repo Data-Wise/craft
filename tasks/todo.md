@@ -56,14 +56,35 @@
 - [x] **CP-2** (ASK): folio suites green + history proof + hub → record outcome
   - ⚠️ RELEASE READINESS GAP per .STATUS 2026-07-10: folio has zero e2e/dogfood tests, only 3 stub doc pages, `plugin.json` still 0.1.0 — deliberately deferred until Phase 3 confirms folio is sole owner.
 
-## Phase 3 — craft amputation (@69)
+## Phase 3 — craft amputation (@69, actual landed @70/39/2)
 
-- [ ] **T3.1** `git rm` 24 leaving + deploy alias; collapse site:deploy refs in release skill to raw mkdocs shell; fix 3 STAY-skill refs — **M** (parent, WT)
-  - Verify: grep clean; `test_skill_referenced_commands_exist`
-- [ ] **T3.2** Rebuild hub DOCS section (6 staying + folio breadcrumb); do.md docs category → staying set; DELETE docs:validate phantom (322-324/468/905); drop SITE grid — **M**
-  - Verify: routing dogfood trace; no dangling routes
-- [ ] **T3.3** Enumerated test edits: hub_integration:119 floor + layer2/3 displays; RELOCATE test_site_publish.py→folio; dist_doc_accuracy:29; discovery floors; OPT_IN — **M**
-  - Verify: pytest green
+- [x] **T3.1** `git rm` 24 leaving + deploy alias; collapse site:deploy refs in release skill to raw mkdocs shell; fix 3 STAY-skill refs — **M** (parent, WT)
+  - Verify: grep clean; `test_skill_referenced_commands_exist` — commit `d76f43f0d`
+  - Found + resolved mid-task (not in original plan): plan-orchestrator/brainstorm/
+    brainstorm-insights all treated the now-deleted `commands/docs/sync.md` as the
+    single source of truth for the doc-impact scoring rubric — inlined into
+    `skills/orchestration/references/doc-impact-rubric.md` (commit `<rubric fix>`).
+- [x] **T3.2** Rebuild hub DOCS section (6 staying + folio breadcrumb); do.md docs category → staying set; DELETE docs:validate phantom (322-324/468/905); drop SITE grid — **M**
+  - Verify: routing dogfood trace; no dangling routes — do.md's Docs-category routing
+    and docs:validate phantom fixed. `commands/hub.md`'s own 804-line ASCII catalog
+    NOT rebuilt — it's separately stale (pre-dates the 94-cmd baseline) and its full
+    diet is explicitly Phase 3.5 scope per ROSTER-craft-v4-disposition's own open
+    question. Only the test fixtures asserting hub's *discovery* output (not the
+    static markdown) were fixed.
+- [x] **T3.3** Enumerated test edits: hub_integration:119 floor + layer2/3 displays; RELOCATE test_site_publish.py→folio; dist_doc_accuracy:29; discovery floors; OPT_IN — **M**
+  - Verify: pytest green — full suite 2645 passed / 0 unexplained failed (3 confirmed
+    pre-existing on dev, unrelated: test_v115_adhd_enhancements.py's stale workflow
+    page content). 21-file stale-count sweep (94→70, 45→39) + README's 4 live claims
+    (missed by bump-version.sh's file list) also fixed here.
+  - Real regression found + fixed: `commands/code/demo.md`'s deprecated shim pointed
+    at `skills/code/demonstration-builder/`, deleted in T3.1 — un-deprecated it
+    (same treatment as site/deploy.md); it's real Phase-3.5 salvage-gate territory,
+    not now.
+  - Flagged, NOT fixed (genuine open question, needs a decision): `scripts/
+    dependency-manager.sh` hardcodes `commands/docs/demo.md` (moved to folio) as its
+    dependency source. Whole subsystem (dependency-manager.sh, tool-detector.sh,
+    health-check.sh, installers/*.sh) may belong in folio now. One test skipped with
+    a clear reason rather than guessing at a redesign.
 - [ ] **T3.4** ci.yml:92 floor 86→60 (skills floor 26 OK) — **XS**, SAME PR
   - Verify: grep the floor; CI green on PR run
 - [ ] **T3.5** wf-p3-sweep: docs-content grep-sweep for 24 leaving names (repoint→/folio: or MIGRATION) — batched disjoint agents; incl. Phase-0 follow-ups (advice strings, update.md narrative, capture-output phantom) — **M**
