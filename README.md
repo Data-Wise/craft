@@ -10,6 +10,9 @@
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
 [![Version](https://img.shields.io/badge/version-2.61.2-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
+> **Docs/publishing commands moved to [`folio`](https://github.com/Data-Wise/folio)** — see
+> [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
+>
 > **v2.36.0 — Deterministic Workflow Engine** 🚀
 > **70 commands** | **39 skills** | **2 agents** | **1994 tests passing**
 > New `/craft:orch:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orch`), drive (`:drive`), and workflow (`:workflow`).

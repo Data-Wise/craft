@@ -110,6 +110,7 @@ nav:
     - Choose Your Path: getting-started/choose-path.md
     - Visual Workflows: workflows/index.md
     - Playground: PLAYGROUND.md
+    - Migrating to v4 (folio split): MIGRATION-v4.md
 
   # 2. GUIDES & TUTORIALS - Task-oriented learning
   - 📖 Guides & Tutorials:

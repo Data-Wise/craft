@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **BREAKING**: docs/publishing surface (24 commands, 6 agents, 6 skills) moved to the new
+  `folio` plugin — see [docs/MIGRATION-v4.md](docs/MIGRATION-v4.md) for the full command
+  migration table. Counts: 70 commands / 39 skills / 2 agents (was 94 / 45 / 8).
+
 ## [2.61.1] - 2026-07-08
 
 ### Changed

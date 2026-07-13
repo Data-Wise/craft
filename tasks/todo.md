@@ -109,8 +109,13 @@ task if/when this tooling matters again.
     literal `/craft:site:publish`). Full suite: all pass except the 3 pre-existing `dev`-baseline
     failures in `test_v115_adhd_enhancements.py` (confirmed via direct dev-branch run).
     `mkdocs build --strict`: 0 errors.
-- [ ] **T3.6** Counts: bump-version.sh --counts-only @69 + validate-counts — **XS** (parent only)
-- [ ] **T3.7** MIGRATION-v4.md (all moved/killed → destinations) + breadcrumbs in README/CHANGELOG — **S**
+- [x] **T3.6** Counts: bump-version.sh --counts-only @69 + validate-counts — **XS** (parent only)
+  - Verify: `./scripts/validate-counts.sh` — 70/39/2 actual == 70/39/2 documented, all green
+    (already satisfied by T3.1's bump-version.sh run; no drift found, no action needed)
+- [x] **T3.7** MIGRATION-v4.md (all moved/killed → destinations) + breadcrumbs in README/CHANGELOG — **S**
+  - Verify: `docs/MIGRATION-v4.md` created (24 cmds + 6 agents + 6 skills, each destination
+    confirmed to exist in folio via direct file check); README.md + CHANGELOG.md breadcrumbs
+    added; mkdocs.yml nav entry added; `mkdocs build --strict` clean.
 - [ ] **T3.8** Full gates: pytest + ALL bash suites + strict build + wf-p3-gate (3 refuters) — **S**
 - [ ] **CP-3** (ASK): all green @69; branch holds (no PR yet — 3.5 rides the same train)
 
