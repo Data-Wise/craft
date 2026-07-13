@@ -179,7 +179,6 @@ nav:
       - Refine Flag Tutorial: tutorials/TUTORIAL-refine-flag.md
       - Refine Flag Help: help/refine-flag.md
       - Workflow Brief Tutorial: tutorials/TUTORIAL-workflow-brief.md
-      - Docs Generate Tutorial: tutorials/TUTORIAL-docs-generate.md
       - Plan Feature Tutorial: tutorials/TUTORIAL-plan-feature.md
       - Orchestrate Drive Tutorial: tutorials/TUTORIAL-orch-drive.md
       - Orchestrate Drive Help: help/orch-drive.md
@@ -229,11 +228,6 @@ nav:
       - dist:homebrew Tutorial: tutorials/TUTORIAL-dist-homebrew.md
       - dist:surfaces Tutorial: tutorials/TUTORIAL-dist-surfaces.md
       - docs:changelog Tutorial: tutorials/TUTORIAL-docs-changelog.md
-      - docs:check-links Tutorial: tutorials/TUTORIAL-docs-check-links.md
-      - docs:check Tutorial: tutorials/TUTORIAL-docs-check.md
-      - docs:lint Tutorial: tutorials/TUTORIAL-docs-lint.md
-      - docs:mermaid Tutorial: tutorials/TUTORIAL-docs-mermaid.md
-      - docs:sync Tutorial: tutorials/TUTORIAL-docs-sync.md
       - git:guard Tutorial: tutorials/TUTORIAL-git-guard.md
       - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
 
