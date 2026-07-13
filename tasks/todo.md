@@ -138,6 +138,11 @@ task if/when this tooling matters again.
     moved to folio) — no longer a shim to salvage-and-kill; moved to the keep-as-is set (see
     `docs/MIGRATION-v4.md`). Remaining: claude-md×3, check(→micro)+gen-validator,
     git:{refcard,worktree}, insights.
+  - Progress (2026-07-12): **family 2/4 done** — claude-md×3 (edit/sync/init) salvaged
+    verbatim into `skills/docs/claude-md/references/`, commands + 4 docs-site mirror pages
+    deleted, DOCS category floor 5->2, 9 broken links fixed, 8 advice-string call sites
+    repointed, counts synced 67->64. Committed `ee1645d5`. Remaining:
+    check(→micro)+gen-validator, git:{refcard,worktree}, insights.
 - [ ] **T3.5.2** Kill 22 shims + 2 utils; demote discovery-usage → docs — **S**
   - Verify: tripwire tests; `ls commands/git/` empty
 - [ ] **T3.5.3** Five consolidations (∥ families, disjoint): ci(8→router+refs) **M** · arch(4) **S** · code:audit(5) **M** · orch absorbs drive/workflow **S** · plan absorbs feature **XS**
