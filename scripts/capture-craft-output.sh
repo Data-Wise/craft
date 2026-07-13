@@ -24,7 +24,7 @@ echo ""
 declare -A COMMANDS=(
     ["teaching-workflow"]="/craft:git:status|/craft:site:build|/craft:site:progress|/craft:site:publish --dry-run|/craft:site:publish"
     ["workflow-01"]="/craft:docs:update"
-    ["workflow-02"]="/craft:site:create --preset adhd-focus --quick"
+    ["workflow-02"]="/craft:site:build --preset adhd-focus --quick"
     ["workflow-03"]="/craft:check --for release"
     ["workflow-04"]="/craft:do add user authentication with JWT"
     ["workflow-05"]="/craft:test:run debug"

@@ -51,7 +51,8 @@ class TestTeachingDocumentation:
 
         content = demo_path.read_text()
         assert "Output" in content, "Missing output directive"
-        assert "/craft:site:publish" in content, "Demo doesn't show publish workflow"
+        # site:publish moved to folio in the folio split (Phase 3, 2026-07-12)
+        assert "/folio:site:publish" in content, "Demo doesn't show publish workflow"
 
     def test_teaching_tutorial_exists(self):
         """Teaching mode setup tutorial should exist (from PR)"""

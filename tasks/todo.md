@@ -98,9 +98,17 @@ per user decision — not deleted, not migrated. `tests/test_integration_depende
 one live-execution test is skip-guarded with this same reasoning. Revisit as its own dedicated
 task if/when this tooling matters again.
 
-- [ ] **T3.5** wf-p3-sweep: docs-content grep-sweep for 24 leaving names (repoint→/folio: or MIGRATION) — batched disjoint agents; incl. Phase-0 follow-ups (advice strings, update.md narrative, capture-output phantom) — **M**
-  - Acceptance: **grep-zero** on leaving names in docs/ (excl. archives/changelogs)
-  - Verify: parent grep transcript
+- [x] **T3.5** wf-p3-sweep: docs-content grep-sweep for 24 leaving names (repoint→/folio: or MIGRATION) — batched disjoint agents; incl. Phase-0 follow-ups (advice strings, update.md narrative, capture-output phantom) — **M**
+  - Acceptance: **grep-zero** on leaving names in docs/ (excl. archives/changelogs) — ✅ verified
+  - Verify: 9-agent Workflow dispatch repointed 63 docs files; +11 orphaned mirror/tutorial pages
+    deleted (mkdocs.yml nav pruned); Phase-0 follow-ups closed: `capture-craft-output.sh:27`
+    phantom `/craft:site:create` fixed → `/folio:site:build`; 4 "advice string" scripts
+    (`test-fix-flag.sh`, `consent-prompt.sh`, `version-check.sh`, `test-demo-check.sh`)
+    repointed `/craft:docs:demo` → `/folio:docs:demo`; 2 VHS tapes + `ci/local.md`'s phantom
+    `docs:validate` fixed. 1 real regression caught+fixed (`test_teaching_demo_exists` expected
+    literal `/craft:site:publish`). Full suite: all pass except the 3 pre-existing `dev`-baseline
+    failures in `test_v115_adhd_enhancements.py` (confirmed via direct dev-branch run).
+    `mkdocs build --strict`: 0 errors.
 - [ ] **T3.6** Counts: bump-version.sh --counts-only @69 + validate-counts — **XS** (parent only)
 - [ ] **T3.7** MIGRATION-v4.md (all moved/killed → destinations) + breadcrumbs in README/CHANGELOG — **S**
 - [ ] **T3.8** Full gates: pytest + ALL bash suites + strict build + wf-p3-gate (3 refuters) — **S**

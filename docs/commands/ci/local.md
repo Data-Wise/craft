@@ -58,7 +58,7 @@ Runs continuous integration checks locally before pushing to catch issues early.
 | **Tests** | `/craft:test` | 100% pass | ~15s |
 | **Coverage** | `/craft:code:coverage` | 80% minimum | ~20s |
 | **Security** | `/craft:code:deps-audit` | No critical | ~8s |
-| **Docs** | `/craft:docs:validate` | 0 errors | ~5s |
+| **Docs** | `/craft:docs:changelog` | 0 errors | ~5s |
 
 ---
 

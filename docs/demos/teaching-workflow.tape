@@ -27,7 +27,7 @@ Enter
 Enter
 
 # Step 2
-Type "$ /craft:site:build"
+Type "$ /folio:site:build"
 Enter
 Sleep 300ms
 Type "Course: STAT 545 Fall 2024 | Week 8/15 (53%)"
@@ -38,7 +38,7 @@ Enter
 Enter
 
 # Step 3
-Type "$ /craft:site:progress"
+Type "$ /folio:site:progress"
 Enter
 Sleep 300ms
 Type "████████░░░░░░░ 8/15 weeks (53%)"
@@ -49,7 +49,7 @@ Enter
 Enter
 
 # Step 4
-Type "$ /craft:site:publish --dry-run"
+Type "$ /folio:site:publish --dry-run"
 Enter
 Sleep 300ms
 Type "✓ Schedule validated | ✓ Syllabus complete"
@@ -60,7 +60,7 @@ Enter
 Enter
 
 # Step 5
-Type "$ /craft:site:publish"
+Type "$ /folio:site:publish"
 Enter
 Sleep 300ms
 Type "✓ Switch to main | ✓ Build | ✓ Deploy"
