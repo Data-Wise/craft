@@ -1,47 +1,9 @@
----
-description: Interactive section-by-section CLAUDE.md editing with preview
-category: docs
-arguments:
-  - name: section
-    description: "Specific section to edit (auto-detected if not specified)"
-    required: false
-  - name: optimize
-    description: Have Claude suggest optimizations after editing
-    required: false
-    default: false
-    alias: -o
-  - name: editor
-    description: "Editor to use: ia, code, sublime, cursor (default: ia)"
-    required: false
-    default: ia
-    alias: -e
-  - name: hints
-    description: Add TODO optimization comments before opening
-    required: false
-    default: true
-  - name: no-hints
-    description: Open without annotations
-    required: false
-    default: false
-  - name: global
-    description: Target ~/.claude/CLAUDE.md
-    required: false
-    default: false
-    alias: -g
-  - name: validate
-    description: Run audit after edit completes
-    required: false
-    default: true
-  - name: no-validate
-    description: Skip post-edit validation
-    required: false
-    default: false
-tags: [documentation, claude-md, editing, interactive]
-deprecated: true
-replaced-by: "skills/docs/claude-md/"
----
 
 # /craft:docs:claude-md:edit - Interactive CLAUDE.md Editing
+
+## Table of Contents
+
+<!-- Sections in this reference; keep in sync. -->
 
 Edit CLAUDE.md sections interactively with optional Claude optimization suggestions.
 Enhanced with iA Writer TODO hints, sync-back validation, and budget display.

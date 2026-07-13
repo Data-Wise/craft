@@ -70,7 +70,7 @@ Mode applies to the hot-reload validators too via `$CRAFT_MODE` — see the vali
    - Lint failures → suggest `/craft:ci:fix` or `/craft:code:lint`
    - Version drift → suggest `/craft:check --version release` for the focused validator
    - Stale refs from a rename → list the files that need updating
-   - CLAUDE.md staleness → suggest `/craft:docs:claude-md:sync`
+   - CLAUDE.md staleness → suggest the docs/claude-md skill (sync)
    - Hook-conflict false positives → route to `guard-audit` skill
 5. **On all-green, summarize and stop.** Don't recommend "next steps" past the immediate gate the user asked about (per feature-branch-workflow rules: no PR-merge nudging).
 

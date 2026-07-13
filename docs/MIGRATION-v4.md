@@ -78,6 +78,9 @@ into skill references before deletion):
 | `dist:pypi` | `skills/distribution/dist-extras/references/pypi.md` |
 | `dist:curl-install` | `skills/distribution/dist-extras/references/curl-install.md` |
 | `dist:marketplace` | `skills/distribution/dist-extras/references/marketplace.md` |
+| `docs:claude-md:edit` | `skills/docs/claude-md/references/edit.md` |
+| `docs:claude-md:sync` | `skills/docs/claude-md/references/sync.md` |
+| `docs:claude-md:init` | `skills/docs/claude-md/references/init.md` |
 
 ## What stayed in craft
 
@@ -104,4 +107,5 @@ for tool names (asciinema, vhs, ffmpeg). Left as a flagged backlog item
 
 ## Counts
 
-craft: 67 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split).
+craft: 64 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split; also was 70 as of
+CP-3, before the v4 command-consolidation slices began).

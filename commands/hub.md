@@ -203,7 +203,7 @@ Display template:
 │   /craft:ci:local             /craft:arch:plan                     │
 │   /craft:ci:fix               /craft:arch:review                   │
 │                                    /craft:arch:diagram                  │
-│ DOCS (5)                                                               │
+│ DOCS (2)                                                               │
 │   /craft:docs:update             PLAN (3)                               │
 │   /craft:docs:sync                 /craft:plan:feature                  │
 │   /craft:docs:lint                 /craft:plan:sprint                   │
@@ -438,7 +438,7 @@ Usage:
 ### `/craft:hub docs`
 
 ```
-DOCS COMMANDS (5) - Documentation Automation
+DOCS COMMANDS (2) - Documentation Automation
 ─────────────────────────────────────────────────────────────────────────
 Command                        | Description
 ───────────────────────────────┼─────────────────────────────────────

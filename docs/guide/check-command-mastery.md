@@ -235,7 +235,7 @@ Pre-flight Check Plan:
   ✓ No known CVEs in dependencies
 
 [7/12] Documentation validation...
-  ✓ All command docs present (67 commands)
+  ✓ All command docs present (64 commands)
   ✓ All help files valid YAML
   ✓ mkdocs builds without warnings
 

@@ -1,29 +1,3 @@
----
-description: Create CLAUDE.md from lean project-type template with auto-population
-category: docs
-arguments:
-  - name: type
-    description: "Template type: plugin, teaching, r-package (auto-detected if not specified)"
-    required: false
-  - name: force
-    description: Overwrite existing CLAUDE.md
-    required: false
-    default: false
-    alias: -f
-  - name: dry-run
-    description: Preview template without creating file
-    required: false
-    default: false
-    alias: -n
-  - name: global
-    description: Target ~/.claude/CLAUDE.md instead of project
-    required: false
-    default: false
-    alias: -g
-tags: [documentation, claude-md, scaffolding, templates]
-deprecated: true
-replaced-by: "skills/docs/claude-md/"
----
 
 # /craft:docs:claude-md:init - Create Lean CLAUDE.md
 

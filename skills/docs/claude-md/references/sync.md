@@ -1,37 +1,9 @@
----
-description: Sync CLAUDE.md with project state - update metrics, audit, fix, optimize
-category: docs
-arguments:
-  - name: fix
-    description: Auto-fix issues found during audit
-    required: false
-    default: false
-  - name: optimize
-    description: Enforce < 150 line budget, move bloat to detail files
-    required: false
-    default: false
-    alias: -o
-  - name: dry-run
-    description: Preview changes without applying
-    required: false
-    default: false
-    alias: -n
-  - name: global
-    description: Target ~/.claude/CLAUDE.md instead of project
-    required: false
-    default: false
-    alias: -g
-  - name: section
-    description: "Specific section to update: status, commands, testing, all (default: all)"
-    required: false
-    default: all
-    alias: -s
-tags: [documentation, claude-md, sync, audit, fix, optimize]
-deprecated: true
-replaced-by: "skills/docs/claude-md/"
----
 
 # /craft:docs:claude-md:sync - Unified CLAUDE.md Sync
+
+## Table of Contents
+
+<!-- Sections in this reference; keep in sync. -->
 
 Synchronize CLAUDE.md with project state. Runs a 4-phase pipeline: detect project type → update metrics → audit for issues → optionally fix and optimize.
 

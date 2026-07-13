@@ -148,7 +148,7 @@ Display template:
 │   /craft:ci:local             /craft:arch:plan                     │
 │   /craft:ci:fix               /craft:arch:review                   │
 │                                    /craft:arch:diagram                  │
-│ DOCS (5)                                                               │
+│ DOCS (2)                                                               │
 │   /craft:docs:update             PLAN (3)                               │
 │   /folio:docs:sync                 /craft:plan:feature                  │
 │   /folio:docs:lint                 /craft:plan:sprint                   │
@@ -380,7 +380,7 @@ Usage:
 ### `/craft:hub docs`
 
 ```
-DOCS COMMANDS (5) - Documentation Automation (most moved to folio)
+DOCS COMMANDS (2) - Documentation Automation (most moved to folio)
 ─────────────────────────────────────────────────────────────────────────
 Command                        | Description
 ───────────────────────────────┼─────────────────────────────────────

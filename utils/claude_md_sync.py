@@ -1521,7 +1521,7 @@ def sync_claude_md(
 
     if not claude_md_path.exists():
         empty_result = SyncResult(project_info=None)
-        return empty_result, "CLAUDE.md not found. Use /craft:docs:claude-md:init to create."
+        return empty_result, "CLAUDE.md not found. Ask Claude to run the CLAUDE.md init (docs/claude-md skill) to create."
 
     syncer = CLAUDEMDSync(claude_md_path)
     result = syncer.sync(

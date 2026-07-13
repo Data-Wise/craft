@@ -226,7 +226,4 @@ Targets: `docs/brainstorm/*.md`
 | `/folio:docs:prompt` | Generate reusable maintenance prompts | (moved to folio) |
 | `/folio:docs:quickstart` | Quick start guide generator | (moved to folio) |
 | `/folio:docs:site` | Site-wide documentation updates | (moved to folio) |
-| `/craft:docs:claude-md` | CLAUDE.md management hub | [Help](docs/claude-md.md) |
-| `/craft:docs:claude-md:edit` | Interactive CLAUDE.md editing | [Help](docs/claude-md/edit.md) |
-| `/craft:docs:claude-md:init` | Create CLAUDE.md from template | [Help](docs/claude-md/init.md) |
-| `/craft:docs:claude-md:sync` | Sync CLAUDE.md with project state | [Help](docs/claude-md/sync.md) |
+| CLAUDE.md management (init/edit/sync) | folded into a skill in the v4 consolidation | `skills/docs/claude-md/` |

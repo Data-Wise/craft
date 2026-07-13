@@ -97,7 +97,7 @@ if [[ "$QUIET" == false ]]; then
         echo -e "${GREEN}CLAUDE.md is healthy${NC}"
     else
         echo -e "${YELLOW}${ISSUES} issue(s) found${NC}"
-        echo "Run /craft:docs:claude-md:sync to fix"
+        echo "Ask Claude to sync CLAUDE.md (docs/claude-md skill) to fix"
     fi
 fi
 
