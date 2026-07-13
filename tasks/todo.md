@@ -186,9 +186,35 @@ task if/when this tooling matters again.
 - [ ] **T3.5.3** Five consolidations (∥ families, disjoint): ci(8→router+refs) **M** · arch(4) **S** · code:audit(5) **M** · orch absorbs drive/workflow **S** · plan absorbs feature **XS**
   - Acceptance: each router ≤~60L; bodies verbatim in skills/*/references/; line-conservation per family
   - Verify: dispatch-table dogfood per family
+  - **HANDOFF (2026-07-13, session end):** Not started. Worktree clean, T3.5.1+T3.5.2
+    committed (`318be7d0`, `d57468b0`, `d62ce973`). 46 commands, tests at baseline (2561
+    passed / 4 known: 3 dev-baseline + 1 branch-guard.sh local-install-drift from this
+    session's own CLAUDE.md content edit), `mkdocs build --strict` clean. Line counts to
+    move (current, verified via `wc -l`): ci×8 = detect 292 · fix 96 · generate 730 ·
+    local 219 · status 166 · triage 176 · validate 303 · watch 135 (Σ2117); arch×4 =
+    analyze 147 · diagram 130 · plan 133 · review 109 (Σ519); code:audit×5 = command-audit
+    131 · deps-audit 170 · deps-check 88 · docs-check 248 · skill-standards 167 (Σ804);
+    orch family = orch.md 369 + drive 114 + workflow 126; plan family = plan.md 102 +
+    feature 135. Do smallest-first (plan absorbs feature XS → orch absorbs drive/workflow
+    S → arch S → the two M ones), same pattern as T3.5.1/T3.5.2: router ≤~60L, bodies
+    verbatim into `skills/*/references/`, fix callers, `bump-version.sh --counts-only` +
+    `docs-staleness-check.sh --fix` (×2), full pytest + `mkdocs build --strict`, commit
+    per family. Do NOT dispatch large exhaustive-fix background agents by default — user
+    flagged token cost 2026-07-13; prefer direct sequential edits, minimal doc polish
+    (only what tests/build require), and only delegate a single well-scoped mechanical
+    batch if it's genuinely faster than doing it inline.
 - [ ] **T3.5.4** Cascade @26: bump-version + hub REGEN against 26 + ci.yml floor→18 + MIGRATION rows for every killed/consolidated name — **M** (parent)
 - [ ] **T3.5.5** Suites green @26 + slash-invocability spot-checks (nested-skill exceptions → keep micro-shim, record ±deviation) — **S**
 - [ ] **CP-3.5** (ASK): craft@26 all green → ONE PR feature/folio-split→dev (leak-scan, evidence in body) → merge on your go
+  - **Resume command for next session:**
+
+    ```
+    /goal tasks/todo.md on feature/folio-split shows Phase 3.5 (T3.5.1-T3.5.5) and CP-3.5 all checked off, final pytest run clean (only the 3 known dev-baseline failures), mkdocs build --strict clean, and no PR opened — CP-3.5 stops at presenting the PR command for my approval, not executing it
+    ```
+
+    Worktree: `~/.git-worktrees/craft/feature-folio-split` (branch `feature/folio-split`).
+    Start by reading this HANDOFF note (T3.5.3, above) and the T3.5.1/T3.5.2 progress
+    notes earlier in this section for full context before resuming.
 
 ## Phase 4 — coordinated release
 
