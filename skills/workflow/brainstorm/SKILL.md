@@ -184,7 +184,7 @@ Documentation section by default. Pass `--no-docs` to suppress the section.
 ### Which docs to emit
 
 Derive which documentation artifacts are needed by running the existing
-doc-scorer rubric from `commands/docs/sync.md` (threshold ≥3). Do **not**
+doc-scorer rubric from [`skills/orchestration/references/doc-impact-rubric.md`](../../orchestration/references/doc-impact-rubric.md) (threshold ≥3). Do **not**
 invent a new rubric — reuse the scorer as the single source of truth. For
 each doc type the scorer evaluates (guide, refcard, demo, mermaid),
 pre-check (`[x]`) boxes that meet the threshold, mark the rest

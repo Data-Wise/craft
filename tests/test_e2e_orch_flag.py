@@ -126,14 +126,13 @@ class TestOrchFlagE2E:
             assert len(MODE_DESCRIPTIONS[mode]) > 0
 
     def test_command_files_have_orch_args(self):
-        """Test all 5 commands have --orch arguments in frontmatter"""
+        """Test all commands with --orch support have it (4 as of the folio split — docs:sync moved out)"""
         import yaml
 
         commands = [
             "commands/do.md",
             "commands/brainstorm.md",
             "commands/check.md",
-            "commands/docs/sync.md",
             "commands/ci/generate.md",
         ]
 

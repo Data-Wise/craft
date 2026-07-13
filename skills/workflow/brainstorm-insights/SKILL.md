@@ -143,7 +143,7 @@ When this skill emits a BRAINSTORM or SPEC artifact, it also emits a Documentati
 
 ### Which docs to emit
 
-Derive which documentation artifacts are needed by running the existing doc-scorer rubric from `commands/docs/sync.md` (threshold ≥3). Do **not** invent a new rubric — reuse the scorer as the single source of truth.
+Derive which documentation artifacts are needed by running the existing doc-scorer rubric from [`skills/orchestration/references/doc-impact-rubric.md`](../../orchestration/references/doc-impact-rubric.md) (threshold ≥3). Do **not** invent a new rubric — reuse the scorer as the single source of truth.
 
 For each doc type the scorer evaluates (guide, refcard, demo, mermaid), pre-check (`[x]`) boxes that meet the threshold, and mark the rest `N/A — score <N>`. The template for the Documentation section lives in `references/scaffold-templates.md`.
 

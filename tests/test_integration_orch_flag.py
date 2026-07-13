@@ -77,14 +77,13 @@ class TestOrchFlagIntegration:
         assert should_orch is True
 
     def test_all_commands_support_orch(self):
-        """Test all 5 commands support --orch flag"""
+        """Test all commands with --orch support have it (4 as of the folio split — docs:sync moved out)"""
         import yaml
 
         commands = [
             "commands/do.md",
             "commands/brainstorm.md",
             "commands/check.md",
-            "commands/docs/sync.md",
             "commands/ci/generate.md",
         ]
 
@@ -119,8 +118,12 @@ class TestOrchFlagIntegration:
         assert should_orch is True
         assert mode == "release"
 
-    def test_docs_sync_orch_integration(self):
-        """Test /craft:docs:sync --orch integration"""
+    def test_documentation_workflow_orch_integration(self):
+        """Test --orch mode selection for a documentation-workflow task
+        (command-agnostic: exercises handle_orch_flag's task-description
+        routing, not a specific command file — see test_all_commands_support_orch
+        for the frontmatter-level check, which docs:sync no longer appears in
+        since the folio split)"""
         from utils.orch_flag_handler import handle_orch_flag
 
         should_orch, mode = handle_orch_flag(
