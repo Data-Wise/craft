@@ -66,6 +66,19 @@ or demoted to skill references along the way (destination column notes this).
 | `skills/docs/openapi-spec-generation/` | `skills/docs/openapi-spec-generation/` |
 | `skills/docs/site-management/` | `skills/docs/site-management/` |
 
+## Commands folded into craft skill references (v4 consolidation, Phase 3.5)
+
+These stayed in craft but lost their standalone slash-command form — the content moved into
+the `dist-extras` skill (already `deprecated`/`replaced-by` shims pointing there; the salvage
+gate extracted their unique content — workflow templates, dry-run examples, check tables —
+into skill references before deletion):
+
+| Old command | New location |
+|---|---|
+| `dist:pypi` | `skills/distribution/dist-extras/references/pypi.md` |
+| `dist:curl-install` | `skills/distribution/dist-extras/references/curl-install.md` |
+| `dist:marketplace` | `skills/distribution/dist-extras/references/marketplace.md` |
+
 ## What stayed in craft
 
 Two commands whose scoring/rubric logic had cross-skill dependents were
@@ -91,4 +104,4 @@ for tool names (asciinema, vhs, ffmpeg). Left as a flagged backlog item
 
 ## Counts
 
-craft: 70 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split).
+craft: 67 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split).

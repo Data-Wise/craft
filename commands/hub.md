@@ -222,7 +222,7 @@ Display template:
 │   /craft:git:clean                 /workflow:spec-review               │
 │   /craft:git:git-recap                 /craft:insights                     │
 │   /craft:git:status                                                     │
-│   /craft:git:protect             DIST (5)                               │
+│   /craft:git:protect             DIST (2)                               │
 │   /craft:git:unprotect             /craft:dist:marketplace             │
 │                                    /craft:dist:homebrew                 │
 │ SITE (1)                          /craft:dist:curl-install             │
@@ -588,7 +588,7 @@ Command                  | Description
 ### `/craft:hub dist`
 
 ```
-DIST COMMANDS (5) - Distribution & Packaging
+DIST COMMANDS (2) - Distribution & Packaging
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description
 ─────────────────────────┼────────────────────────────────────────────

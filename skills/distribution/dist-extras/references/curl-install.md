@@ -1,21 +1,3 @@
----
-description: Generate curl-based installation scripts for GitHub releases
-category: dist
-arguments:
-  - name: action
-    description: Action to perform (create|update|preview)
-    required: false
-    default: create
-  - name: type
-    description: Installation type (binary|source|auto)
-    required: false
-    default: auto
-  - name: update-readme
-    description: Add installation instructions to README
-    required: false
-deprecated: true
-replaced-by: "skills/distribution/dist-extras/"
----
 
 # /craft:dist:curl-install - Installation Script Generator
 

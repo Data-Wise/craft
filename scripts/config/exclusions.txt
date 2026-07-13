@@ -52,6 +52,11 @@ docs/tutorials/interactive-docs-update-tutorial.md:99 commands
 docs/architecture/HUB-V2-ARCHITECTURE.md:200 commands
 docs/architecture/HUB-V2-ARCHITECTURE.md:500 commands
 
+# README embedded changelog: v1.0.0's actual initial-release count (historical
+# fact, not a live claim). Crossed the 40%-of-canonical floor after the v4
+# command consolidation shrank the total (Phase 3.5, 2026-07-12).
+README.md:26 commands
+
 # ---------------------------------------------------------------------------
 # Orchestrator mode descriptions (agent counts = mode limits, not totals)
 # ---------------------------------------------------------------------------

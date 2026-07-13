@@ -17,7 +17,7 @@ related:
 
 ## Problem
 
-I want to find the right Craft command for a task without memorizing all 70 commands.
+I want to find the right Craft command for a task without memorizing all 67 commands.
 
 ## Solution
 
@@ -45,7 +45,7 @@ I want to find the right Craft command for a task without memorizing all 70 comm
      workflow  Workflow tools (5 commands)
    ```
 
-   Why: Progressive disclosure keeps the list manageable instead of showing all 70 commands at once
+   Why: Progressive disclosure keeps the list manageable instead of showing all 67 commands at once
 
 3. **Drill into a category**
 

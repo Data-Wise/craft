@@ -1,16 +1,9 @@
----
-description: Claude Code marketplace distribution - init, validate, test, and publish
-category: dist
-arguments:
-  - name: subcommand
-    description: "Subcommand: init|validate|test|publish"
-    required: false
-    default: validate
-deprecated: true
-replaced-by: "skills/distribution/dist-extras/"
----
 
 # /craft:dist:marketplace - Marketplace Distribution
+
+## Table of Contents
+
+<!-- Sections in this reference; keep in sync. -->
 
 Claude Code marketplace distribution management. Generate, validate, test, and publish marketplace listings.
 
@@ -38,8 +31,6 @@ Claude Code marketplace distribution management. Generate, validate, test, and p
 # Publish to marketplace
 /craft:dist:marketplace publish
 ```
-
----
 
 ## /craft:dist:marketplace init
 
@@ -110,8 +101,6 @@ Generate `.claude-plugin/marketplace.json` from existing `plugin.json`.
 └─────────────────────────────────────────────────────────────┘
 ```
 
----
-
 ## /craft:dist:marketplace validate
 
 Validate marketplace configuration and plugin structure.
@@ -177,8 +166,6 @@ Validate marketplace configuration and plugin structure.
 │ Fix errors before publishing.                               │
 └─────────────────────────────────────────────────────────────┘
 ```
-
----
 
 ## /craft:dist:marketplace test
 
@@ -266,8 +253,6 @@ Run a local install/uninstall cycle to verify the plugin works via marketplace.
 - The test always attempts cleanup (Steps 5-6) even if earlier steps fail
 - Local install uses `./` path, not the remote GitHub URL
 - If `claude` CLI is not available, report and skip Steps 2-6
-
----
 
 ## /craft:dist:marketplace publish
 
@@ -367,8 +352,6 @@ After confirmation:
 └─────────────────────────────────────────────────────────────┘
 ```
 
----
-
 ## Integration
 
 | Command | Relationship |
@@ -392,8 +375,6 @@ The `/release` skill handles marketplace automatically:
 | New users (all platforms) | Marketplace | `/plugin marketplace add {owner}/{repo}` |
 | Power users (macOS) | Homebrew | `brew install {tap}/{formula}` |
 | Contributors | Manual clone | `git clone ... && ln -sf ...` |
-
----
 
 ## Dependencies
 

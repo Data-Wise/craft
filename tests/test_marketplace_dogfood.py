@@ -26,7 +26,11 @@ pytestmark = [pytest.mark.e2e, pytest.mark.marketplace]
 CRAFT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MARKETPLACE_JSON = os.path.join(CRAFT_ROOT, ".claude-plugin", "marketplace.json")
 PLUGIN_JSON = os.path.join(CRAFT_ROOT, ".claude-plugin", "plugin.json")
-MKT_COMMAND = os.path.join(CRAFT_ROOT, "commands", "dist", "marketplace.md")
+# dist:marketplace was folded into the dist-extras skill in the v4 command
+# consolidation (Phase 3.5, 2026-07-12) — content moved to a skill reference.
+MKT_COMMAND = os.path.join(
+    CRAFT_ROOT, "skills", "distribution", "dist-extras", "references", "marketplace.md"
+)
 HOMEBREW_COMMAND = os.path.join(CRAFT_ROOT, "commands", "dist", "homebrew.md")
 RELEASE_SKILL = os.path.join(CRAFT_ROOT, "skills", "release", "SKILL.md")
 PRE_RELEASE_SCRIPT = os.path.join(CRAFT_ROOT, "scripts", "pre-release-check.sh")
@@ -236,31 +240,16 @@ class TestVersionConsistency(unittest.TestCase):
 # Group 3: Marketplace Command
 # ============================================================================
 class TestMarketplaceCommand(unittest.TestCase):
-    """Validate the dist:marketplace command file."""
+    """Validate the dist-extras skill's marketplace reference (was commands/dist/marketplace.md
+    before the v4 consolidation folded it into the dist-extras skill, Phase 3.5, 2026-07-12)."""
 
     @classmethod
     def setUpClass(cls):
         cls.content = _read_file(MKT_COMMAND)
-        cls.frontmatter = _read_frontmatter(MKT_COMMAND)
 
     def test_command_file_exists(self):
-        """commands/dist/marketplace.md exists."""
+        """skills/distribution/dist-extras/references/marketplace.md exists."""
         self.assertTrue(os.path.isfile(MKT_COMMAND))
-
-    def test_has_frontmatter(self):
-        """Command file starts with --- frontmatter delimiter."""
-        self.assertTrue(self.content.startswith("---"),
-                        "Command file should start with --- frontmatter")
-
-    def test_frontmatter_has_description(self):
-        """Frontmatter contains a description field."""
-        self.assertIn("description", self.frontmatter,
-                      "Frontmatter should have 'description'")
-
-    def test_frontmatter_has_arguments(self):
-        """Frontmatter contains an arguments field."""
-        self.assertIn("arguments", self.frontmatter,
-                      "Frontmatter should have 'arguments'")
 
     def test_documents_init(self):
         """Command documents the 'init' subcommand."""

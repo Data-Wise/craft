@@ -2,12 +2,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 70 commands organized into 17 categories covering the full development lifecycle
+> - **What:** 67 commands organized into 17 categories covering the full development lifecycle
 > - **Why:** One plugin handles your entire development workflow from docs to deployment
 > - **How:** Use `/craft:hub` to discover all commands by category
 > - **Next:** Start with `/craft:do` for AI-powered task routing or `/craft:check` for pre-flight validation
 
-Craft provides **70 commands** for full-stack development workflows.
+Craft provides **67 commands** for full-stack development workflows.
 
 ## Command Routing
 

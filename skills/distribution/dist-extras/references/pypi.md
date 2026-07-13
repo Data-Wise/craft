@@ -1,24 +1,9 @@
----
-description: Complete PyPI automation - build, publish, and workflow generation
-category: dist
-arguments:
-  - name: subcommand
-    description: "Subcommand: publish|workflow|validate|setup|check"
-    required: false
-    default: publish
-  - name: version
-    description: "Specific version to publish (default: from pyproject.toml)"
-    required: false
-  - name: dry-run
-    description: Preview actions without executing (build, publish, file creation)
-    required: false
-    default: false
-    alias: -n
-deprecated: true
-replaced-by: "skills/distribution/dist-extras/"
----
 
 # /craft:dist:pypi - PyPI Automation Hub
+
+## Table of Contents
+
+<!-- Sections in this reference; keep in sync. -->
 
 Complete PyPI publishing automation with GitHub Actions workflows.
 
@@ -203,8 +188,6 @@ Preview PyPI operations without executing them:
 
 **Note**: Dry-run shows the complete setup/build/publish plan without creating files or publishing packages. Use this to understand what will happen before executing CRITICAL publishing operations.
 
----
-
 ## /craft:dist:pypi publish
 
 Build and publish package to PyPI.
@@ -234,8 +217,6 @@ uv publish --repository testpypi
 # Publish to PyPI
 uv publish
 ```
-
----
 
 ## /craft:dist:pypi workflow
 
@@ -306,8 +287,6 @@ jobs:
 - **Publishing**: Trusted publishing (no API tokens needed)
 - **Safety**: `skip-existing: true` prevents accidental overwrites
 
----
-
 ## /craft:dist:pypi validate
 
 Validate package structure and metadata before publishing.
@@ -347,8 +326,6 @@ Validate package structure and metadata before publishing.
 │ ✅ Ready to publish                                         │
 ╰─────────────────────────────────────────────────────────────╯
 ```
-
----
 
 ## /craft:dist:pypi setup
 
@@ -391,8 +368,6 @@ After running setup, configure PyPI:
    - **Workflow**: `pypi-release.yml`
    - **Environment**: `pypi`
 
----
-
 ## /craft:dist:pypi check
 
 Pre-flight checks before publishing.
@@ -432,8 +407,6 @@ Pre-flight checks before publishing.
 ╰─────────────────────────────────────────────────────────────╯
 ```
 
----
-
 ## When to Use
 
 ### Use `/craft:dist:pypi workflow` When
@@ -452,16 +425,12 @@ You're about to create a release and want to ensure everything is in order.
 
 Setting up a new project for PyPI publishing for the first time.
 
----
-
 ## Related Commands
 
 - `/craft:dist:homebrew` - Homebrew formula automation
 - `/craft:dist:curl-install` - curl installer generation
 - `/craft:check --for release` - Release readiness check
 - `/craft:git:tag` - Create release tags
-
----
 
 ## Implementation Notes
 
