@@ -1,22 +1,9 @@
----
-description: Generate a new custom validator template for /craft:check
-category: check
-arguments:
-  - name: name
-    description: Validator name (e.g., security-audit, performance-check)
-    required: true
-  - name: languages
-    description: Comma-separated list of languages (e.g., python,javascript,go)
-    required: false
-  - name: interactive
-    description: Interactive mode with guided prompts
-    required: false
-    default: false
-deprecated: true
-replaced-by: "skills/check/"
----
 
 # /craft:check:gen-validator - Validator Template Generator
+
+## Table of Contents
+
+<!-- Sections in this reference; keep in sync. -->
 
 Generate a custom validator template for the `/craft:check` hot-reload system.
 
@@ -46,7 +33,6 @@ Creates a new validator in `.claude-plugin/skills/validation/` with:
 ## Generated Template Structure
 
 ```markdown
----
 name: check:<validator-name>
 description: <description>
 category: validation
@@ -59,7 +45,6 @@ languages:
 tools:
   - <tool1>
   - <tool2>
----
 
 # <Validator Name> Validator
 
@@ -131,7 +116,6 @@ When using `--interactive`, you'll be prompted for:
 Generates:
 
 ```markdown
----
 name: check:security-audit
 description: Security vulnerability scanning for Python and JavaScript
 category: validation
@@ -145,7 +129,6 @@ tools:
   - bandit
   - semgrep
   - npm-audit
----
 
 # Security Audit Validator
 

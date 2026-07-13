@@ -31,7 +31,6 @@ This skill is broader than its siblings — understand the seams:
 ## Backing Commands
 
 - `/craft:check` — primary entry point; mode-aware, context-aware orchestrator
-- `/craft:check:gen-validator` — scaffold a new validator into `.claude-plugin/skills/validation/`
 
 The skill should prefer invoking the commands rather than re-implementing their logic. The commands handle dry-run, orchestration, and hot-reload validator discovery.
 
@@ -81,11 +80,16 @@ Generating a new custom validator is a *distinct* workflow from running checks. 
 - User says "create a validator", "add a custom validator", "generate a validator template"
 - User wants to extend `/craft:check` with project-specific validation logic
 
+`check:gen-validator` was folded into this skill in the v4 consolidation (Phase 3.5,
+2026-07-12) — no standalone command remains. Full scaffolding walkthrough (template
+structure, interactive-mode prompts, mode-aware threshold examples, the community
+validator marketplace convention): `references/gen-validator.md`.
+
 In that flow:
 
-1. Use `/craft:check:gen-validator <name> [--languages ...] [--interactive]`
-2. The command scaffolds a file under `.claude-plugin/skills/validation/<name>.md` with `hot_reload: true` so `/craft:check` picks it up on next run with no restart.
-3. After generation, suggest a smoke test: `CRAFT_MODE=default bash .claude-plugin/skills/validation/<name>.md` then `/craft:check` to confirm auto-discovery.
+1. Generate the validator file directly under `.claude-plugin/skills/validation/<name>.md`
+   with `hot_reload: true` (see `references/gen-validator.md` for the full template).
+2. After generation, suggest a smoke test: `CRAFT_MODE=default bash .claude-plugin/skills/validation/<name>.md` then `/craft:check` to confirm auto-discovery.
 
 **Do not** auto-generate a validator while the user is running checks — these are independent concerns. If both are in flight, finish the check pass first.
 
@@ -120,7 +124,8 @@ Keep summaries terse. The command's own output is the system of record.
 ## See Also
 
 - `commands/check.md` — full check command spec (validators, modes, dry-run output)
-- `commands/check/gen-validator.md` — validator scaffolding
+- `references/gen-validator.md` — validator scaffolding (folded from a command into this
+  skill in the v4 consolidation)
 - `.claude-plugin/skills/validation/` — hot-reload validator directory
 - `skills/release/SKILL.md` — orchestrates this skill at Step 2 of releases
 - `skills/ci/SKILL.md` — project detection (used internally to pick check set)

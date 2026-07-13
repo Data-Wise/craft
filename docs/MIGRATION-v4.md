@@ -81,6 +81,19 @@ into skill references before deletion):
 | `docs:claude-md:edit` | `skills/docs/claude-md/references/edit.md` |
 | `docs:claude-md:sync` | `skills/docs/claude-md/references/sync.md` |
 | `docs:claude-md:init` | `skills/docs/claude-md/references/init.md` |
+| `check:gen-validator` | `skills/check/references/gen-validator.md` |
+
+## Plan deviations from the original ROSTER (2026-07-09)
+
+- **`check.md` was NOT collapsed to a micro-shim.** The original ROSTER (written before
+  this file's own prior salvage pass) called for shrinking `commands/check.md` to a
+  ≤5-line shim. Its current header already explains why the Step 0 plan display, confirm
+  gate, `--orch` handling, and `CRAFT_MODE` binding are invocation-mandatory, not
+  deferrable procedure — `skills/check/SKILL.md` itself defers back to `commands/check.md`
+  as "the full check command spec." `skills/code/command-skill-token-efficiency/SKILL.md`'s
+  own classification test ("does the command always run, even before skill-routing
+  fires?") confirms this content belongs in the command. Left as-is.
+- **`code:demo.md`** — see "What stayed in craft" below (T3.1 finding).
 
 ## What stayed in craft
 
@@ -107,5 +120,5 @@ for tool names (asciinema, vhs, ffmpeg). Left as a flagged backlog item
 
 ## Counts
 
-craft: 64 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split; also was 70 as of
+craft: 63 commands · 39 skills · 2 agents (was 94 / 45 / 8 before the split; also was 70 as of
 CP-3, before the v4 command-consolidation slices began).
