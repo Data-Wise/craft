@@ -5,7 +5,7 @@ description: This skill should be used when the user asks to "init a repo", "set
 
 # Git Workflow
 
-End-to-end git lifecycle for craft users: initialize a repo, manage branches and worktrees, sync with remotes, protect (or temporarily bypass) main/dev, and surface the learning/safety reference material when users ask "how do I undo X?". Consolidates the 10 `commands/git/*.md` commands and 4 `commands/git/docs/*.md` reference docs into one coherent skill.
+End-to-end git lifecycle for craft users: initialize a repo, manage branches and worktrees, sync with remotes, protect (or temporarily bypass) main/dev, check whether an open issue's premise still holds, and surface the learning/safety reference material when users ask "how do I undo X?". Consolidates the 9 `commands/git/*.md` commands and 4 `commands/git/docs/*.md` reference docs into one coherent skill.
 
 ## When to Use
 
@@ -27,6 +27,7 @@ Activate when the user's prompt matches any of these concerns:
 | "teach me git", "learn git workflow", "git refcard" | Learning material |
 | "what are the safety rails?", "is this safe?" | Safety reference |
 | "list guards", "enable/disable guard", "explain what this command would do", "guard profile" | Guard registry CLI |
+| "check if this issue still applies", "is issue #N still valid", "premise check before I fix this" | Issue premise check |
 
 If the prompt is ambiguous, default to **enhanced status** (cheapest) and offer follow-ups.
 
@@ -275,6 +276,30 @@ Result: would prompt for confirmation
 
 **`guards.json` schema:** `{"guards": {"<name>": {"enabled": bool, "muted_until": iso8601|null, "mute_window_min": int}}}`. `enabled: false` = permanently off; `muted_until` in the future = muted; both null/false-mute = active. Guard *logic* lives in the shell scripts — this file stores toggle state only.
 
+### 13. Issue Premise Check
+
+Before implementing a fix an open GitHub issue requests, check whether the
+issue's own premise still holds against current code. Absorbs
+`commands/git/issue-check.md`.
+
+**Returns:** a structured verdict — `valid` (fix still needed), `moot`
+(already resolved or closed), or `unclear` (cannot be mechanically
+verified) — always with cited evidence (file path + note), never a bare
+label.
+
+**Never caches:** every invocation re-fetches the issue via `gh issue view`
+fresh; no verdict is stored or reused across runs or trigger points.
+
+**Never mutates:** read-only — no `gh issue close`/`edit`/`comment`/reopen`
+call exists anywhere in the implementation.
+
+**Consumers:** standalone (`/craft:git:issue-check <N>`) and
+`/craft:orch:drive`'s pre-filter (only runs when a driven task's SPEC cites
+a `#NNN` issue — zero cost otherwise).
+
+See `commands/git/issue-check.md` for the classifier logic
+(`classify_issue()`).
+
 ## Cross-Operation Patterns
 
 ### Always verify CWD and branch before destructive ops
@@ -333,6 +358,7 @@ This skill replaces the 11 commands and 4 reference docs under `commands/git/` d
 | `skills/dev/git/references/safety-rails.md` (command shim removed in v3.0.0 prune; content lives here) | 11 (Reference: safety rails) |
 | `skills/dev/git/references/undo-guide.md` (command shim removed in v3.0.0 prune; content lives here) | 11 (Reference: undo) |
 | `/craft:git:guard` | 12 (Guard Registry CLI — new, absorbed from the standalone `guard.md`) |
+| `/craft:git:issue-check` | 13 (Issue Premise Check — new, standalone command) |
 
 Both invocation paths work during the deprecation cycle. The skill auto-fires on natural-language match; explicit `/craft:git:*` paths continue to function until v3.0.0.
 
