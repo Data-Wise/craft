@@ -24,6 +24,34 @@ last_session: 2026-07-14
   inside the worktree — verify current task state there directly before continuing, this
   recap is a sync pass, not a re-derivation of the worktree's own task ledger.
 
+## Session Recap — 2026-07-14 — github-attention-triage shipped, PR reviews, CI-cost check closed
+
+- `/craft:git:issue-check <N>` SHIPPED to dev (PR #283, squash `057ea6785` — full detail already
+  in the `milestone:` field above, not repeated here).
+- Reviewed PR #282 (`/code-review 282`) and PR #283 (`/code-review 283`) independently; #282's
+  review flagged a real merge conflict against #283's already-merged `commands/orch/drive.md`
+  step-renumbering (both PRs touched the same file's step sequence). Conflict was resolved
+  (squash + `--admin`, confirmed pre-existing CI baseline) and PR #282 merged to dev
+  (`80013dbf5`).
+- `/craft:git:clean` removed the stale `feature/craft-native-first-breakup` local branch ref
+  attempt (branch-guard force-delete deadlock — left as documented harmless precedent) and a
+  stray leftover `ORCHESTRATE-github-attention-triage.md` at repo root (post-merge artifact,
+  `89d4ca0c4`).
+- 3 failing tests in `test_v115_adhd_enhancements.py` root-caused (not just re-confirmed as
+  pre-existing) to PR #279's native-first prune removing the Site Creation Workflow section;
+  fixed with documented rationale + 5 stale "94 commands" doc refs the count-cascade tooling
+  missed also fixed (`1f57b93d9`).
+- Investigated a user-raised premise that GitHub Actions costs money for craft and should be
+  replaced with local/external CI — verified live (`gh repo view` = public) and via WebSearch
+  against GitHub's current pricing docs that Actions remains fully free for public repos.
+  Premise was false for this repo; user chose "stop here for craft" — no local-CI rework done,
+  no action needed.
+- PR #278 (dependabot `mcp/` TS 6.0.3→7.0.2) merged (`e2d7ecf90`), all 3 CI checks were GREEN.
+- Squash-merge/dev-divergence reconciliation happened twice this session (after #283 and after
+  #282) via `git merge`/`git pull --rebase` — no force-push, no data loss.
+- Tree clean, `dev` even with `origin/dev` at `e2d7ecf90`. `feature/folio-split` worktree
+  untouched this session (still at `79ad0f81e`, Phase 3.6 pending per the recap above).
+
 ## Session Recap — 2026-07-12 — folio-split Phase 3 T3.1-T3.3 COMPLETE (on feature/folio-split, not yet PR'd)
 
 - Verified the two Phase-1 pre-reqs flagged 2026-07-10 as unverified: folio's GitHub secrets
