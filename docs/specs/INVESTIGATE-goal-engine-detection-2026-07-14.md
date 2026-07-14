@@ -6,6 +6,8 @@ Claude Code CLI). No `/goal` tool, skill, or mechanism was available; the comman
 table gave no way to detect this cleanly, so the executing agent had to infer unavailability by
 absence rather than by any documented check.
 
+**Grilled:** [GRILL-goal-engine-detection-2026-07-14.md](GRILL-goal-engine-detection-2026-07-14.md) — the initial detection idea (tool-introspection) was overturned mid-grill; the final fix is empirical (observe the real `/goal` attempt), not predictive. Read it first.
+
 ## Finding
 
 `commands/orch/drive.md`'s precondition table (Step 2) lists:
