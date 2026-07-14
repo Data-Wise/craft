@@ -299,6 +299,15 @@ Manage the guard suite — view state, enable, disable, mute, and apply profiles
 /craft:git:guard test                        # Run guard self-tests
 ```
 
+### /craft:git:issue-check
+
+Check whether an open GitHub issue's premise still holds against current code — before implementing its fix.
+
+```bash
+/craft:git:issue-check 199              # Verdict box with cited evidence
+/craft:git:issue-check 199 --json       # Structured JSON output
+```
+
 ### /craft:git:protect-baseline
 
 Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo.

@@ -235,6 +235,7 @@ nav:
       - docs:mermaid Tutorial: tutorials/TUTORIAL-docs-mermaid.md
       - docs:sync Tutorial: tutorials/TUTORIAL-docs-sync.md
       - git:guard Tutorial: tutorials/TUTORIAL-git-guard.md
+      - git:issue-check Tutorial: tutorials/TUTORIAL-issue-check.md
       - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
 
   # 3. TEACHING - Dedicated teaching workflow section
