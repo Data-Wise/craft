@@ -1427,6 +1427,30 @@ Version control and collaboration workflows.
 
 ---
 
+### /craft:git:issue-check
+
+**Category**: Inspection | **Complexity**: Simple | **Time**: < 10s
+**Description**: Check whether an open GitHub issue's premise still holds against current code
+
+#### Arguments
+
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `issue` | string | Yes | - | Issue number (e.g. `199`) |
+| `--repo` | string | No | `Data-Wise/craft` | Repo in `OWNER/NAME` form |
+| `--json` | boolean | No | false | Output structured JSON instead of the verdict box |
+
+#### Examples
+
+```bash
+/craft:git:issue-check 199
+/craft:git:issue-check 199 --json
+```
+
+**File**: `commands/git/issue-check.md`
+
+---
+
 ### /craft:git:docs:refcard
 
 **Category**: Documentation | **Complexity**: Simple | **Time**: < 5 min
