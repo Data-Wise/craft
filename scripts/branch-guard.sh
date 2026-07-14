@@ -549,6 +549,71 @@ _hard_block() {
 }
 
 # ---------------------------------------------------------------------------
+# 8d0. Bash cross-context target resolution (leading cd / -C) — 2026-07-14
+# ---------------------------------------------------------------------------
+# Everything below classifies $COMMAND against the SESSION's own
+# BRANCH/PROTECTION/PROJECT_ROOT. That's wrong when the command itself
+# retargets a different directory via a leading `cd <path> &&`/`cd <path>;`
+# or a `git -C <path>` flag — a worktree push, or a genuinely different
+# repository. The session's own branch is not the right gate for someone
+# else's checkout. This block detects that shape, resolves the ACTUAL
+# target, and rebinds classification context to it.
+#
+# Scope (v1, documented — see GRILL-branch-guard-target-resolution-
+# 2026-07-14.md open questions): a single LEADING cd/-C override only, not
+# full multi-clause parsing of arbitrary compound chains. Custom per-repo
+# `.claude/branch-guard.json` in the OTHER repo is not consulted here
+# (auto-detect protection only) — a documented limitation, not a silent gap.
+IS_CROSS_REPO_TARGET=false
+if [[ ( "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ) && -n "$COMMAND" ]]; then
+  _BG_TARGET_DIR=""
+
+  # `git -C <path>` — explicit target override, clause-scoped in spirit
+  _bg_c_path="$(echo "$COMMAND" | grep -oE '(^|[[:space:]])-C[[:space:]]+[^[:space:]]+' | head -1 | sed -E 's/^[[:space:]]*-C[[:space:]]+//' || true)"
+  if [[ -n "$_bg_c_path" ]]; then
+    _BG_TARGET_DIR="$_bg_c_path"
+    [[ "$_BG_TARGET_DIR" != /* ]] && _BG_TARGET_DIR="${CWD}/${_BG_TARGET_DIR}"
+  fi
+
+  # Leading `cd <path> &&` / `cd <path>;` — the shell would actually retarget
+  if [[ -z "$_BG_TARGET_DIR" ]] && echo "$COMMAND" | grep -qE '^[[:space:]]*cd[[:space:]]+[^[:space:]]+[[:space:]]*(&&|;)'; then
+    _bg_cd_path="$(echo "$COMMAND" | sed -E 's/^[[:space:]]*cd[[:space:]]+//' | awk '{print $1}')"
+    if [[ -n "$_bg_cd_path" && "$_bg_cd_path" != *'$'* && "$_bg_cd_path" != *'`'* ]]; then
+      _BG_TARGET_DIR="$_bg_cd_path"
+      [[ "$_BG_TARGET_DIR" != /* ]] && _BG_TARGET_DIR="${CWD}/${_BG_TARGET_DIR}"
+    fi
+  fi
+
+  if [[ -n "$_BG_TARGET_DIR" && -d "$_BG_TARGET_DIR" ]]; then
+    _BG_TARGET_ROOT="$(cd "$_BG_TARGET_DIR" 2>/dev/null && git rev-parse --show-toplevel 2>/dev/null || true)"
+    if [[ -n "$_BG_TARGET_ROOT" ]]; then
+      _BG_TARGET_BRANCH="$(cd "$_BG_TARGET_DIR" 2>/dev/null && git branch --show-current 2>/dev/null || true)"
+      if [[ -n "$_BG_TARGET_BRANCH" && ( "$_BG_TARGET_ROOT" != "$PROJECT_ROOT" || "$_BG_TARGET_BRANCH" != "$BRANCH" ) ]]; then
+        [[ "$_BG_TARGET_ROOT" != "$PROJECT_ROOT" ]] && IS_CROSS_REPO_TARGET=true
+
+        BRANCH="$_BG_TARGET_BRANCH"
+        PROJECT_ROOT="$_BG_TARGET_ROOT"
+        PROJECT_NAME="$(basename "$PROJECT_ROOT")"
+
+        _bg_dev=false _bg_draft=false
+        ( cd "$PROJECT_ROOT" 2>/dev/null && git rev-parse --verify refs/heads/dev   &>/dev/null ) && _bg_dev=true
+        ( cd "$PROJECT_ROOT" 2>/dev/null && git rev-parse --verify refs/heads/draft &>/dev/null ) && _bg_draft=true
+        INTEGRATION_BRANCH="dev"
+        [[ "$_bg_dev" == false && "$_bg_draft" == true ]] && INTEGRATION_BRANCH="draft"
+
+        _bg_main_p="block-all" _bg_dev_p=""
+        [[ "$_bg_dev" == true || "$_bg_draft" == true ]] && _bg_dev_p="smart"
+        case "$BRANCH" in
+          main|master) PROTECTION="$_bg_main_p" ;;
+          dev|develop|draft) PROTECTION="$_bg_dev_p" ;;
+          *) PROTECTION="" ;;
+        esac
+      fi
+    fi
+  fi
+fi
+
+# ---------------------------------------------------------------------------
 # 8d. Universal catastrophic checks (ALL branches, before protection filter)
 # ---------------------------------------------------------------------------
 if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
@@ -627,19 +692,33 @@ if [[ "$PROTECTION" == "block-all" ]]; then
 
     Bash|bash)
       # Check for destructive git commands
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(commit|push)'; then
-        block "$(_box \
-          "${_R}${_B}BRANCH PROTECTION${_N}" \
-          "---" \
-          "Cannot commit/push on ${_B}${BRANCH}${_N}." \
-          "" \
-          "Use the PR workflow:" \
-          "  ${_Y}1.${_N} git checkout ${INTEGRATION_BRANCH}" \
-          "  ${_Y}2.${_N} Create worktree for changes" \
-          "  ${_Y}3.${_N} PR: feature → ${INTEGRATION_BRANCH} → main" \
-        )"
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?(commit|push)'; then
+        if [[ "$IS_CROSS_REPO_TARGET" == true ]]; then
+          # Cross-repo target resolved to a protected branch (e.g. another
+          # repo's main) — confirm, never hard-block. The originating
+          # session's own branch never authorized this, but a hard block
+          # would also disrupt legitimate cross-repo work (explicit
+          # decision: BRAINSTORM-branch-guard-target-resolution-2026-07-14,
+          # "I do not want hard gate to disrupt").
+          _confirm "cross_repo_protected_push" \
+            "git commit/push on ${BRANCH} in a different repository (${PROJECT_NAME})" \
+            "This command targets another repository's protected ${BRANCH} branch — the session's own branch is not a valid gate for that repo's state" \
+            "Run this from a session/worktree already cd'd into ${PROJECT_ROOT}" \
+            "Split into a separate Bash call scoped to that repo"
+        else
+          block "$(_box \
+            "${_R}${_B}BRANCH PROTECTION${_N}" \
+            "---" \
+            "Cannot commit/push on ${_B}${BRANCH}${_N}." \
+            "" \
+            "Use the PR workflow:" \
+            "  ${_Y}1.${_N} git checkout ${INTEGRATION_BRANCH}" \
+            "  ${_Y}2.${_N} Create worktree for changes" \
+            "  ${_Y}3.${_N} PR: feature → ${INTEGRATION_BRANCH} → main" \
+          )"
+        fi
       fi
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+reset[[:space:]]+--hard'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?reset[[:space:]]+--hard'; then
         _confirm "reset_hard_main" \
           "git reset --hard on ${BRANCH} (protected branch)" \
           "Resets working tree and index to specified commit — discards all uncommitted changes" \
@@ -805,7 +884,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
 
     Bash|bash)
       # Force push — MEDIUM risk
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+push[[:space:]].*(--force|--force-with-lease|-f)([[:space:]]|$)'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push[[:space:]].*(--force|--force-with-lease|-f)([[:space:]]|$)'; then
         _confirm "force_push" \
           "git push --force on ${BRANCH}" \
           "Force push overwrites remote history for all collaborators" \
@@ -815,7 +894,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # git reset --hard — MEDIUM risk (discards uncommitted changes)
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+reset[[:space:]]+--hard'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?reset[[:space:]]+--hard'; then
         _confirm "reset_hard" \
           "git reset --hard on ${BRANCH}" \
           "Discards all uncommitted changes — cannot be undone" \
@@ -825,7 +904,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # git clean -f (remove untracked files) — MEDIUM risk
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+clean[[:space:]]+(-[fdxFDX]+|--force)'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?clean[[:space:]]+(-[fdxFDX]+|--force)'; then
         _confirm "clean_force" \
           "git clean -f (remove untracked files) on ${BRANCH}" \
           "Permanently removes untracked files — cannot be undone" \

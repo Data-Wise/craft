@@ -72,12 +72,14 @@ What do you need to do?
 | Clean force | `git clean -f`, `-fd`, `-fx` |
 | Branch force-delete | `git branch -D` (all branches) |
 | Critical files | `.env*`, `*.pem`, `*.key`, `*.secret`, `branch-guard.json` |
+| Repository deletion | `rm -rf .git` (universal catastrophic check, all branches — moved out of hard_deny 2026-07-14, see below) |
 
 ### HIGH (Hard Block)
 
-| Action | Trigger | Scope |
-|--------|---------|-------|
-| Repository deletion | `rm -rf .git` | All branches |
+branch-guard.sh currently defines a hard-block helper but does not call it
+for any live rule — the previously-documented `rm -rf .git` row belongs in
+MEDIUM below; it has always used `_confirm` (ASK tier), not a hard block,
+in the actual hook code.
 
 ---
 
@@ -100,7 +102,6 @@ A fourth tier sits **above** the LOW/MEDIUM/HIGH classification — `autoMode.ha
 | Rule ID | Blocks |
 |---------|--------|
 | `force-push-main` | Force pushes to `main`/`master`/protected primary branch |
-| `delete-git-dir` | Recursive deletion of the `.git` directory |
 | `delete-github-repo` | `gh repo delete` and GitHub API equivalents |
 | `destroy-claude-config` | Recursive deletion of `~/.claude` |
 
@@ -114,6 +115,7 @@ The installer also prepends `"$defaults"` so Claude Code's built-in catastrophic
 | `find . -delete` | Legitimate with filters; classifier can't see filter args |
 | Pipeline-driven removal (`... \| xargs rm`) | Decision depends on upstream pipeline, classifier can't see it |
 | Discard uncommitted (`git checkout .`, `git restore .`) | Annoying but recoverable from local stash/reflog |
+| `rm -rf .git` (moved 2026-07-14) | hard_deny's classifier has no git execution context, so it can't verify "same repo" for a confirm-not-block carve-out. branch-guard.sh's own universal catastrophic check already confirms this on every branch — see `GRILL-branch-guard-target-resolution-2026-07-14.md` decision 4 |
 
 See `scripts/hard-deny-rules.json` for full rationale per rule.
 

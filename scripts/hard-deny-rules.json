@@ -19,18 +19,6 @@
       ]
     },
     {
-      "id": "delete-git-dir",
-      "rule": "Never remove the .git directory. rm -rf .git, rm -r .git, find .git -delete, or any operation that recursively deletes the .git directory destroys all local history, refs, hooks, and stash. The action is irreversible without a remote backup.",
-      "category": "hard_deny",
-      "rationale": "Deleting .git is never the right answer to a git problem. Even legitimate 'start over' workflows clone fresh into a new directory rather than wiping .git in place. This is the canonical catastrophic Bash operation.",
-      "patterns_caught": [
-        "rm -rf .git",
-        "rm -r .git",
-        "find .git -delete",
-        "find . -name .git -type d -exec rm -rf {} +"
-      ]
-    },
-    {
       "id": "delete-github-repo",
       "rule": "Never delete a GitHub repository. gh repo delete, gh api -X DELETE /repos/..., or any GitHub API call that removes a repository is publicly visible, breaks every fork and clone, and cannot be undone (only restored within a short grace window via support).",
       "category": "hard_deny",
@@ -55,6 +43,12 @@
     }
   ],
   "left_to_branch_guard_smart_mode": [
+    {
+      "id": "delete-git-dir",
+      "category": "branch-guard-smart",
+      "rationale": "Moved OUT of hard_deny 2026-07-14 (GRILL-branch-guard-target-resolution-2026-07-14.md decision 4). hard_deny is enforced by the Claude Code classifier against command TEXT ONLY, with no git execution context — it cannot verify whether `rm -rf .git` targets the session's own repo vs. a cross-repo/main-adjacent target, so a same-repo carve-out is structurally unimplementable at that layer. branch-guard.sh's own universal catastrophic check (8d in the hook) already calls `_confirm \"git_destroy\"` for this pattern on every branch, including main — removing it from hard_deny lets that existing confirm flow actually surface instead of being pre-empted by hard_deny's unconditional, bypass-proof block. Trade-off accepted knowingly: this loses the 'survives a forgotten session bypass' guarantee for rm -rf .git everywhere, not just the same-repo-dev case that motivated the change.",
+      "patterns_caught": ["rm -rf .git", "rm -r .git", "find .git -delete", "find . -name .git -type d -exec rm -rf {} +"]
+    },
     {
       "id": "git-reset-hard-origin-main",
       "category": "branch-guard-smart",
