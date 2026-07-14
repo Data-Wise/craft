@@ -1,13 +1,15 @@
 # GRILL: GitHub-Attention Triage (issue-premise-check)
 
 **Date:** 2026-07-14 · **Target:** [BRAINSTORM-github-attention-triage-2026-07-14.md](../../BRAINSTORM-github-attention-triage-2026-07-14.md)
-**Branches interrogated:** 5 (deep, attack angles: weakest recommendation, riskiest assumption, implementation regret, blast radius, benefit honesty)
+**Branches interrogated:** 9 (5 from the deep grill loop — weakest recommendation, riskiest assumption, implementation regret, blast radius, benefit honesty — plus 4 raised by an adversarial-review pass and resolved after)
 
 Adversarial review (subagent, post-checkpoint) found decision 5 as originally
 locked was factually wrong — see Branch 6 below for the correction. Locked
 brainstorm decisions #2, #3, #6 (trigger points wired, advisory-only,
 recap-gets-a-pointer) stand as written EXCEPT the pointer wording, corrected
-in Branch 7.
+in Branch 7. Branch 9 (issue-state staleness) was left open by the review and
+resolved in this follow-up pass — all 9 branches are now locked; only the
+final command name and #199's suitability as a calibration case remain open.
 
 ## Decision Ledger
 
@@ -21,12 +23,11 @@ in Branch 7.
 | 6 | correction to Branch 5 (adversarial review finding) | gh issue view 199 confirms #199 is OPEN with 6 unmet acceptance criteria (Cowork/Desktop verify command, Step 13.6 WARN->remediate upgrade, recovery docs) -- none shipped. The memory cited (post-install-marketplace-refresh-before-update) fixed a DIFFERENT narrower bug (CLI-formula post_install ordering), not #199's scope. FIX: keep #199 as the v1 acceptance target, but flip the asserted verdict to valid, citing the specific unmet acceptance criteria as evidence. Tests the citation-based verdict format (Branch 2) without requiring a second hand-verified issue. |
 | 7 | recap-pointer wording (adversarial review finding) | Brainstorm Locked Decision #6's recap-pointer text assumed the broader 5-scan skill; since v1 is narrowed (Branch 1), recap's suggested pointer text must say 'check issue premise', not gesture at a 5-scan skill that does not exist yet. |
 | 8 | verdict schema (adversarial review finding) | Lock a structured return type for the verdict (e.g. {status: valid\|moot\|unclear, evidence: [{file, lines, note}], reasoning: str}) before implementation -- prose-only citation guidance (Branch 2) is not machine-checkable by unit tests. Mirrors commands/ci/triage.md's typed-dict classify_failure() pattern. |
-| 9 | issue-state staleness (adversarial review finding, OPEN not locked) | No TTL / re-check-before-merge guidance exists yet for issue state changing between premise-check and actual implementation. Flagged as an open question for /craft:plan to resolve, not locked here. |
+| 9 | issue-state staleness (RESOLVED) | Never cache verdicts across trigger points. The standalone command (Branch 4) and the orch:drive gate (Branch 3) each always fetch live issue state and re-run their own check when they fire — no TTL, no cross-trigger reuse. Consistent with Branch 3's pre-filter already re-evaluating "does this task cite #NNN" fresh at drive-time rather than from a stored flag. Avoids the accidental-complexity a v1-narrow feature (Branch 1) was scoped to avoid. |
 
 ## Open Questions (not locked, hand to /craft:plan)
 
 - Final command name (`/craft:git:issue-check` is a working name only).
-- Issue-state staleness / re-check-before-merge policy (Branch 9).
 - Whether #199's own hardness (infra/process bug, not a code-fix) makes it a
   poor calibration case for the verdict format generally, independent of the
   Branch 6 correction -- flagged by review, not resolved.
@@ -44,8 +45,8 @@ in Branch 7.
   (Branch 7 correction).
 - New tutorial stub under `docs/` (mkdocs nav entry), per the Documentation
   Coverage precedent (.STATUS v2.41.1: one stub per new command).
-- Managed-file cascade: `bump-version.sh --counts-only` + plugin.json subtotal
-  - ~29 doc refs, per memory `adding-a-command-cascades-30-file-count-bump`.
+- Managed-file cascade: `bump-version.sh --counts-only`, plugin.json subtotal,
+  and roughly 29 doc refs, per memory `adding-a-command-cascades-30-file-count-bump`.
 
 ## Test Plan
 
