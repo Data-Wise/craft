@@ -59,10 +59,15 @@ referenced by the worktree's `ORCHESTRATE-*.md`. Report which was chosen.
 | Check | Block reason | Remedy shown |
 |-------|--------------|--------------|
 | Worktree on `feature/*` | Not isolated | `git worktree add … -b feature/<topic> dev` |
-| `/goal` available (Claude Code ≥ v2.1.139) | Engine missing | Upgrade Claude Code |
 | Hooks not blocking `/goal` (`disableAllHooks` / `allowManagedHooksOnly`) | `/goal` disabled by policy | Adjust hook policy |
 | Workspace trust accepted | `/goal` needs trust | Accept workspace trust |
 | Auto mode on (unless `--no-auto`) | Loop can't run unattended | Offer to enable in confirm gate |
+
+**Whether the `/goal` engine exists at all (Claude Code CLI vs. any other harness) is NOT
+checkable here** — `/goal` is a native slash command, not an introspectable tool, so no prose
+instruction at this step can reliably detect its absence ahead of time (see
+`GRILL-goal-engine-detection-2026-07-14.md`). That check is empirical and happens at Step 6
+instead — do not attempt to predict it in this table.
 
 ### Step 3: Synthesize the `/goal` condition
 
@@ -87,8 +92,19 @@ enable it here (never silent). Proceed only on explicit Yes or `--yes`.
 
 ### Step 6: Drive the loop
 
-Emit `/goal <condition>`. Per turn, invoke the `drive-engine` skill to
-dispatch `--agents N` (default 1) file-scoped subagents.
+Emit `/goal <condition>`. **This emission IS the `/goal`-availability check** — no separate
+probe (a probe would either be redundant in a working session or would itself set a real goal
+state, which defeats the point of "harmless"). If there is no observable effect (no goal-status
+echo, no state change reported back), STOP immediately and report: "No observable effect after
+emitting `/goal` — this harness likely doesn't support the native `/goal` engine. For a
+single-scope spec, implement it directly in the worktree (same as any other feature work); use
+`/craft:orch --swarm` only if the spec genuinely decomposes into independent parallel scopes."
+Do not fall back to `drive-engine`'s dispatch loop without a working `/goal` — that loop's
+termination depends on the `/goal` evaluator clearing, which never happens if the engine isn't
+there.
+
+Otherwise (goal set successfully), per turn invoke the `drive-engine` skill to dispatch
+`--agents N` (default 1) file-scoped subagents.
 
 ### Step 7: Real verify gate (authoritative)
 
