@@ -3,7 +3,7 @@
 > **Branch:** `feature/github-attention-triage`
 > **Base:** `dev`
 > **Worktree:** `~/.git-worktrees/craft/feature-github-attention-triage`
-> **Spec:** [`docs/specs/GRILL-github-attention-triage-2026-07-14.md`](docs/specs/GRILL-github-attention-triage-2026-07-14.md) (no separate SPEC — brainstorm produced [`BRAINSTORM-github-attention-triage-2026-07-14.md`](../../../projects/dev-tools/craft/BRAINSTORM-github-attention-triage-2026-07-14.md), never captured to SPEC; grill targeted it directly and is the authoritative locked-decision source)
+> **Spec:** [`docs/specs/GRILL-github-attention-triage-2026-07-14.md`](docs/specs/GRILL-github-attention-triage-2026-07-14.md) (no separate SPEC — brainstorm produced [`BRAINSTORM-github-attention-triage-2026-07-14.md`](BRAINSTORM-github-attention-triage-2026-07-14.md), never captured to SPEC; grill targeted it directly and is the authoritative locked-decision source)
 
 ## Objective
 
