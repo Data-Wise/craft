@@ -18,11 +18,11 @@ never auto-closes.
 
 | Phase | Increment | Priority | Effort | Status |
 |---|---|---|---|---|
-| 1 | Verdict schema + classifier | High | Med | Not started |
-| 2 | `/craft:git:issue-check` command + docs + tests | High | Med | Not started |
-| 3 | `orch:drive` pre-filtered gate | Med | Small | Not started |
-| 4 | `/recap` pointer wording | Low | Small | Not started |
-| 5 | Dogfood (#199) + non-goal test + count-cascade | High | Small-Med | Not started |
+| 1 | Verdict schema + classifier | High | Med | Done |
+| 2 | `/craft:git:issue-check` command + docs + tests | High | Med | Done |
+| 3 | `orch:drive` pre-filtered gate | Med | Small | Done |
+| 4 | `/recap` pointer wording | Low | Small | Done |
+| 5 | Dogfood (#199) + non-goal test + count-cascade | High | Small-Med | Done |
 
 ## Phase 1: Verdict Schema + Classifier
 
@@ -32,9 +32,9 @@ pattern (see `tests/test_ci_triage_unit.py` for how that pattern is tested —
 function extracted from the command `.md` file's fenced code block, exec'd
 directly, no network calls).
 
-- [ ] 1.1 Define the verdict schema: `{status: "valid"|"moot"|"unclear", evidence: [{file, lines, note}], reasoning: str}`.
-- [ ] 1.2 Implement the classifier logic: given issue title/body (from `gh issue view <N> --json title,body,state,updatedAt`) and a code-search pass over the repo, produce a verdict per GRILL Branch 2 (verdict + cited evidence, never a bare label).
-- [ ] 1.3 Enforce GRILL Branch 9 (never cache): the classifier always takes freshly-fetched issue JSON as input — no stored/memoized verdict path anywhere in the implementation.
+- [x] 1.1 Define the verdict schema: `{status: "valid"|"moot"|"unclear", evidence: [{file, lines, note}], reasoning: str}`.
+- [x] 1.2 Implement the classifier logic: given issue title/body (from `gh issue view <N> --json title,body,state,updatedAt`) and a code-search pass over the repo, produce a verdict per GRILL Branch 2 (verdict + cited evidence, never a bare label).
+- [x] 1.3 Enforce GRILL Branch 9 (never cache): the classifier always takes freshly-fetched issue JSON as input — no stored/memoized verdict path anywhere in the implementation.
 
 **Key files:** `commands/git/issue-check.md` (NEW — classifier lives in its fenced Python block, per the `ci:triage` precedent).
 
@@ -44,13 +44,13 @@ directly, no network calls).
 new command under `git:` namespace, working name `/craft:git:issue-check`,
 confirm final name at this phase).
 
-- [ ] 2.1 Write `commands/git/issue-check.md` — frontmatter, argument parsing (`<issue-number>` required), invocation of the Phase 1 classifier, terminal output showing verdict + cited evidence.
-- [ ] 2.2 Update `skills/dev/git/SKILL.md` — new "When to Use" row + bump the "Consolidates the 10 `commands/git/*.md` commands" count in the intro line to reflect the new command.
-- [ ] 2.3 Update `docs/API-REFERENCE-COMMANDS.md` — new `### /craft:git:issue-check` section matching existing per-git-command entries.
-- [ ] 2.4 Update `docs/commands.md` — new entry in the git: command listing.
-- [ ] 2.5 New tutorial stub under `docs/` + `mkdocs.yml` nav entry, per the Documentation Coverage precedent (`.STATUS` v2.41.1: one stub per new command).
-- [ ] 2.6 Unit tests: `tests/test_issue_check_unit.py`, mirroring `tests/test_ci_triage_unit.py`'s extraction pattern, asserting against the Phase 1 schema.
-- [ ] 2.7 E2E test: extend `tests/test_plugin_e2e.py` with a fixture-repo case covering all three verdicts (valid / moot / unclear) — confirms `unclear` is a real third state, not forced into valid/moot.
+- [x] 2.1 Write `commands/git/issue-check.md` — frontmatter, argument parsing (`<issue-number>` required), invocation of the Phase 1 classifier, terminal output showing verdict + cited evidence.
+- [x] 2.2 Update `skills/dev/git/SKILL.md` — new "When to Use" row + bump the "Consolidates the 10 `commands/git/*.md` commands" count in the intro line to reflect the new command.
+- [x] 2.3 Update `docs/API-REFERENCE-COMMANDS.md` — new `### /craft:git:issue-check` section matching existing per-git-command entries.
+- [x] 2.4 Update `docs/commands.md` — new entry in the git: command listing.
+- [x] 2.5 New tutorial stub under `docs/` + `mkdocs.yml` nav entry, per the Documentation Coverage precedent (`.STATUS` v2.41.1: one stub per new command).
+- [x] 2.6 Unit tests: `tests/test_issue_check_unit.py`, mirroring `tests/test_ci_triage_unit.py`'s extraction pattern, asserting against the Phase 1 schema.
+- [x] 2.7 E2E test: extend `tests/test_plugin_e2e.py` with a fixture-repo case covering all three verdicts (valid / moot / unclear) — confirms `unclear` is a real third state, not forced into valid/moot.
 
 **Key files:** `commands/git/issue-check.md` (NEW), `skills/dev/git/SKILL.md` (update), `docs/API-REFERENCE-COMMANDS.md` (update), `docs/commands.md` (update), `docs/tutorials/<name>.md` (NEW), `tests/test_issue_check_unit.py` (NEW), `tests/test_plugin_e2e.py` (update).
 
@@ -61,9 +61,9 @@ but ONLY when the driven task/SPEC metadata cites a `#NNN` issue. Never runs
 unconditionally (avoids the "unnecessary tax" pattern the token-usage-hooks
 backlog was closed to avoid — see GRILL doc for the citation).
 
-- [ ] 3.1 Add the `#NNN`-citation pre-filter check to `commands/orch/drive.md` / `skills/orchestration/drive-engine/SKILL.md` — detect an issue reference in the task's SPEC/metadata before invoking the classifier at all.
-- [ ] 3.2 When a citation is found: run the classifier, surface verdict + evidence, never block (advisory only, GRILL Branch 6/original decision #3) — proceed regardless of verdict, just make it visible.
-- [ ] 3.3 When no citation is found: skip entirely, zero added cost (confirms the pre-filter actually elides the check, not just skips display).
+- [x] 3.1 Add the `#NNN`-citation pre-filter check to `commands/orch/drive.md` / `skills/orchestration/drive-engine/SKILL.md` — detect an issue reference in the task's SPEC/metadata before invoking the classifier at all.
+- [x] 3.2 When a citation is found: run the classifier, surface verdict + evidence, never block (advisory only, GRILL Branch 6/original decision #3) — proceed regardless of verdict, just make it visible.
+- [x] 3.3 When no citation is found: skip entirely, zero added cost (confirms the pre-filter actually elides the check, not just skips display).
 
 **Key files:** `commands/orch/drive.md` (update), `skills/orchestration/drive-engine/SKILL.md` (update).
 
@@ -73,7 +73,7 @@ backlog was closed to avoid — see GRILL doc for the citation).
 narrowed v1 scope (issue-premise-check only, not a 5-scan skill that doesn't
 exist).
 
-- [ ] 4.1 Update `skills/workflow/adhd-workflow/SKILL.md`'s Context Restoration section: when `gh issue list --assignee @me` returns results, the recap output should suggest "run `/craft:git:issue-check <N>` to check if this issue's premise still holds" — not reference a broader GitHub-attention skill.
+- [x] 4.1 Update `skills/workflow/adhd-workflow/SKILL.md`'s Context Restoration section: when `gh issue list --assignee @me` returns results, the recap output should suggest "run `/craft:git:issue-check <N>` to check if this issue's premise still holds" — not reference a broader GitHub-attention skill.
 
 **Key files:** `skills/workflow/adhd-workflow/SKILL.md` (update).
 
@@ -83,10 +83,10 @@ exist).
 real-world validation against craft's own issue #199, plus the safety
 invariant that this feature never mutates GitHub state.
 
-- [ ] 5.1 Dogfood test in `tests/test_plugin_dogfood.py`: run `/craft:git:issue-check 199` against this repo, assert `verdict.status == "valid"`, and assert the evidence cites the specific unmet acceptance criteria (Cowork/Desktop verify command, Step 13.6 WARN→remediate upgrade, recovery docs — none shipped, per the GRILL Branch 6 correction). This is a REAL run, not a mock — assert on actual `gh issue view 199` output shape.
-- [ ] 5.2 Non-goal test: assert the check never calls `gh issue close`/`gh issue edit`/any mutating `gh` subcommand — mutate-and-revert style test per memory `verify-gate-trigger-wired-not-just-logic`.
-- [ ] 5.3 Run `bump-version.sh --counts-only` to sync the managed-file list (plugin.json subtotal, command counts across ~14 files).
-- [ ] 5.4 Run `./scripts/docs-staleness-check.sh --fix` to sweep the ~29 doc refs that mention the git: command count/list.
+- [x] 5.1 Dogfood test in `tests/test_plugin_dogfood.py`: run `/craft:git:issue-check 199` against this repo, assert `verdict.status == "valid"`, and assert the evidence cites the specific unmet acceptance criteria (Cowork/Desktop verify command, Step 13.6 WARN→remediate upgrade, recovery docs — none shipped, per the GRILL Branch 6 correction). This is a REAL run, not a mock — assert on actual `gh issue view 199` output shape.
+- [x] 5.2 Non-goal test: assert the check never calls `gh issue close`/`gh issue edit`/any mutating `gh` subcommand — mutate-and-revert style test per memory `verify-gate-trigger-wired-not-just-logic`.
+- [x] 5.3 Run `bump-version.sh --counts-only` to sync the managed-file list (plugin.json subtotal, command counts across ~14 files).
+- [x] 5.4 Run `./scripts/docs-staleness-check.sh --fix` to sweep the ~29 doc refs that mention the git: command count/list.
 
 **Key files:** `tests/test_plugin_dogfood.py` (update), managed count files (bump-version-driven).
 
@@ -100,13 +100,13 @@ invariant that this feature never mutates GitHub state.
 
 ## Acceptance Criteria
 
-- [ ] `/craft:git:issue-check <N>` runs, fetches live issue state, returns a structured verdict with cited evidence — never a bare label.
-- [ ] Verdict is never cached across invocations (GRILL Branch 9).
-- [ ] `orch:drive` only invokes the classifier when a task cites `#NNN`; zero cost otherwise.
-- [ ] `/recap`'s pointer text matches the narrow v1 scope.
-- [ ] Dogfood test against real issue #199 passes with `verdict.status == "valid"` and cited evidence.
-- [ ] Non-goal test confirms zero mutating `gh` calls anywhere in the implementation.
-- [ ] Full test suite passes (unit + e2e + dogfood); count-cascade files synced.
+- [x] `/craft:git:issue-check <N>` runs, fetches live issue state, returns a structured verdict with cited evidence — never a bare label.
+- [x] Verdict is never cached across invocations (GRILL Branch 9).
+- [x] `orch:drive` only invokes the classifier when a task cites `#NNN`; zero cost otherwise.
+- [x] `/recap`'s pointer text matches the narrow v1 scope.
+- [x] Dogfood test against real issue #199 passes with `verdict.status == "valid"` and cited evidence.
+- [x] Non-goal test confirms zero mutating `gh` calls anywhere in the implementation.
+- [x] Full test suite passes (unit + e2e + dogfood); count-cascade files synced.
 
 ## Commit Strategy
 
