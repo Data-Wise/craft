@@ -877,7 +877,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 /craft:test release --coverage  # Full coverage analysis
 ```
 
-## Git Commands (11 commands)
+## Git Commands (9 commands)
 
 **Core Git Commands:**
 
@@ -891,6 +891,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side protection (PR required, no force-push, no delete) |
 | `/craft:git:unprotect`        | Temporarily bypass local hook                                                |
 | `/craft:git:guard`            | Manage guard suite (list, enable, disable, mute, profile)                    |
+| `/craft:git:issue-check`      | Check whether an open issue's premise still holds against current code       |
 
 **Worktree Subcommands:**
 

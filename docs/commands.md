@@ -5,7 +5,7 @@ Complete reference for all 116 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 94 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 95 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement (default-on):** `/brainstorm`, `/craft:do`, `/craft:plan:feature`, `/craft:grill` run the `prompt-refiner` skill automatically before acting. Use `--no-refine` to skip; pass `--yes` to auto-accept the refined prompt without a confirm step.
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
@@ -299,6 +299,15 @@ Manage the guard suite — view state, enable, disable, mute, and apply profiles
 /craft:git:guard test                        # Run guard self-tests
 ```
 
+### /craft:git:issue-check
+
+Check whether an open GitHub issue's premise still holds against current code — before implementing its fix.
+
+```bash
+/craft:git:issue-check 199              # Verdict box with cited evidence
+/craft:git:issue-check 199 --json       # Structured JSON output
+```
+
 ### /craft:git:protect-baseline
 
 Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo.
@@ -417,7 +426,7 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 94 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 95 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 

@@ -40,3 +40,11 @@ committed tree.
 A structured verify result: `{ command, exit_code, passed: bool, summary }`.
 On `passed: true`, the caller stops at verified-green and prints the
 `gh pr create` command — this skill never opens a PR.
+
+## Not this skill's job
+
+The `#NNN` issue-premise pre-filter (does the spec cite an open issue? if
+so, run `/craft:git:issue-check <N>` and surface the verdict) lives in
+`/craft:orch:drive`'s own Step 2, not here — it's part of the command's
+gating responsibility, run once before any dispatch begins. It never
+blocks and never runs unless a citation is found.

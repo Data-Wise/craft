@@ -542,5 +542,79 @@ class TestV249SprintArtifacts:
             assert section in text, f"ADR-001 missing {section}"
 
 
+# ============================================================================
+# Issue-Check E2E: all three verdicts reachable, command wired correctly
+# ============================================================================
+
+class TestIssueCheckE2E:
+    """Fixture-based coverage of the three verdicts /craft:git:issue-check
+    can return -- confirms `unclear` is a real third state, not forced into
+    valid/moot, and that the command is wired (frontmatter, see-also links)."""
+
+    ISSUE_CHECK_MD = PLUGIN_DIR / "commands" / "git" / "issue-check.md"
+
+    @staticmethod
+    def _classify_issue():
+        text = TestIssueCheckE2E.ISSUE_CHECK_MD.read_text(encoding="utf-8")
+        blocks = re.findall(r"```python\n(.*?)```", text, re.DOTALL)
+        src = next(b for b in blocks if "def classify_issue" in b)
+        ns: dict = {}
+        exec(compile(src, str(TestIssueCheckE2E.ISSUE_CHECK_MD), "exec"), ns)
+        return ns["classify_issue"]
+
+    def test_command_file_exists_with_expected_frontmatter(self):
+        assert self.ISSUE_CHECK_MD.exists(), "commands/git/issue-check.md missing"
+        fm = _extract_frontmatter(self.ISSUE_CHECK_MD)
+        arg_names = [a.get("name") for a in fm.get("arguments", [])]
+        assert "issue" in arg_names
+        assert fm.get("category") == "git"
+
+    def test_fixture_repo_valid_verdict(self):
+        classify_issue = self._classify_issue()
+        issue = {
+            "number": 1, "state": "OPEN",
+            "body": "- [ ] add `/craft:dist:not-a-real-command`\n",
+        }
+        r = classify_issue(issue, set())  # fixture repo: no such command file
+        assert r["status"] == "valid"
+
+    def test_fixture_repo_moot_verdict_closed(self):
+        classify_issue = self._classify_issue()
+        issue = {"number": 2, "state": "CLOSED", "body": "- [ ] anything\n"}
+        r = classify_issue(issue, set())
+        assert r["status"] == "moot"
+
+    def test_fixture_repo_moot_verdict_all_checked(self):
+        classify_issue = self._classify_issue()
+        issue = {
+            "number": 3, "state": "OPEN",
+            "body": "- [x] add `/craft:git:status`\n",
+        }
+        r = classify_issue(issue, {"commands/git/status.md"})
+        assert r["status"] == "moot"
+
+    def test_fixture_repo_unclear_verdict_no_checkboxes(self):
+        classify_issue = self._classify_issue()
+        issue = {"number": 4, "state": "OPEN", "body": "Just prose, no checkboxes."}
+        r = classify_issue(issue, set())
+        assert r["status"] == "unclear"
+
+    def test_all_three_verdicts_are_distinct_reachable_states(self):
+        """`unclear` must be a genuine third state -- not silently collapsed
+        into valid or moot by the classifier."""
+        classify_issue = self._classify_issue()
+        valid = classify_issue({"state": "OPEN", "body": "- [ ] ship `/craft:x:y`\n"}, set())
+        moot = classify_issue({"state": "CLOSED", "body": "- [ ] ship `/craft:x:y`\n"}, set())
+        unclear = classify_issue({"state": "OPEN", "body": "no checkboxes"}, set())
+        assert {valid["status"], moot["status"], unclear["status"]} == {"valid", "moot", "unclear"}
+
+    def test_ci_triage_cross_reference_present(self):
+        """Both classify_failure() (ci:triage) and classify_issue() (this
+        command) share the same typed-verdict pattern -- confirm the doc
+        cross-links the precedent it mirrors."""
+        text = self.ISSUE_CHECK_MD.read_text(encoding="utf-8")
+        assert "ci:triage" in text
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

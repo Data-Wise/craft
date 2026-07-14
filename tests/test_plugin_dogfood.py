@@ -746,5 +746,124 @@ class TestSessionFacetHookDogfood:
         assert (tmp_path / ".claude" / "hooks" / "session-facet.sh").exists()
 
 
+class TestIssueCheckDogfood:
+    """Real dogfood run against craft's own issue #199 (GRILL Branch 6).
+
+    #199 is an infra/process issue (Cowork/Desktop plugin-update overhaul),
+    not a code-fix -- flagged by the GRILL adversarial review as a possibly
+    imperfect calibration case for the verdict format generally, but it's
+    the only hand-verified issue this feature has, so it stays the v1
+    acceptance target (open question, not resolved -- see
+    ORCHESTRATE-github-attention-triage.md's Friction Prevention section).
+
+    This is a REAL run: it shells out to `gh issue view 199`, not a mock.
+    Skips gracefully if `gh` is unavailable or unauthenticated so the suite
+    doesn't go red in a sandboxed/offline CI runner.
+    """
+
+    ISSUE_CHECK_MD = PLUGIN_DIR / "commands" / "git" / "issue-check.md"
+
+    @staticmethod
+    def _classify_issue():
+        text = TestIssueCheckDogfood.ISSUE_CHECK_MD.read_text(encoding="utf-8")
+        blocks = re.findall(r"```python\n(.*?)```", text, re.DOTALL)
+        src = next(b for b in blocks if "def classify_issue" in b)
+        ns: dict = {}
+        exec(compile(src, str(TestIssueCheckDogfood.ISSUE_CHECK_MD), "exec"), ns)
+        return ns["classify_issue"]
+
+    @staticmethod
+    def _gh_available():
+        if shutil.which("gh") is None:
+            return False
+        auth = subprocess.run(["gh", "auth", "status"], capture_output=True,
+                               text=True, timeout=15)
+        return auth.returncode == 0
+
+    def test_real_issue_199_is_valid_with_cited_evidence(self):
+        if not self._gh_available():
+            pytest.skip("gh CLI not available/authenticated in this environment")
+
+        result = subprocess.run(
+            ["gh", "issue", "view", "199", "--repo", "Data-Wise/craft",
+             "--json", "number,title,body,state,updatedAt"],
+            capture_output=True, text=True, timeout=30,
+        )
+        if result.returncode != 0:
+            pytest.skip(f"gh issue view 199 failed (network/auth?): {result.stderr[:200]}")
+
+        issue = json.loads(result.stdout)
+        repo_files = subprocess.run(
+            ["git", "ls-files"], capture_output=True, text=True, cwd=PLUGIN_DIR,
+        ).stdout.splitlines()
+
+        classify_issue = self._classify_issue()
+        verdict = classify_issue(issue, repo_files)
+
+        # GRILL Branch 6 correction: #199 is OPEN with unmet acceptance
+        # criteria (Cowork/Desktop verify command, Step 13.6 WARN->remediate
+        # upgrade, recovery docs -- none shipped), not the originally-locked
+        # (and factually wrong) "moot".
+        assert verdict["status"] == "valid", (
+            f"expected 'valid' per GRILL Branch 6, got {verdict['status']!r}. "
+            "If a maintainer has since closed/resolved #199, this is expected "
+            "to flip -- update the GRILL doc and this assertion together."
+        )
+        assert verdict["evidence"], "verdict must cite evidence, never a bare label"
+        assert any(e.get("note") for e in verdict["evidence"])
+
+
+class TestIssueCheckNonGoal:
+    """Non-goal test: /craft:git:issue-check must never mutate GitHub state.
+
+    Mutate-and-revert style static check per memory
+    verify-gate-trigger-wired-not-just-logic -- scans the command's own
+    fenced shell/python blocks for any mutating `gh issue` subcommand.
+    """
+
+    ISSUE_CHECK_MD = PLUGIN_DIR / "commands" / "git" / "issue-check.md"
+    MUTATING_PATTERNS = (
+        "gh issue close", "gh issue edit", "gh issue comment",
+        "gh issue reopen", "gh issue delete", "gh issue pin", "gh issue lock",
+        "gh issue transfer",
+    )
+
+    @staticmethod
+    def _executable_blocks(path):
+        """Only fenced ```bash/```text/```python blocks -- deliberately
+        excludes prose (e.g. this doc's own "Non-Goals" section names these
+        strings as an explicit non-goal; that's documentation, not a call)."""
+        text = path.read_text(encoding="utf-8")
+        blocks = re.findall(r"```(?:bash|sh|python)\n(.*?)```", text, re.DOTALL)
+        return "\n".join(blocks)
+
+    def test_no_mutating_gh_issue_calls_in_executable_blocks(self):
+        code = self._executable_blocks(self.ISSUE_CHECK_MD)
+        hits = [p for p in self.MUTATING_PATTERNS if p in code]
+        assert not hits, f"issue-check.md's executable blocks must never call: {hits}"
+
+    def test_only_gh_issue_view_appears_in_executable_blocks(self):
+        """Positive control: confirm the scan actually finds gh invocations
+        at all (a pattern list that matches nothing would be a silent
+        false-pass)."""
+        code = self._executable_blocks(self.ISSUE_CHECK_MD)
+        assert "gh issue view" in code
+
+    def test_non_goals_section_documents_the_invariant(self):
+        """The prose Non-Goals section should still name what it refuses to
+        do -- this is the human-readable half of the invariant the code
+        check above enforces mechanically."""
+        text = self.ISSUE_CHECK_MD.read_text(encoding="utf-8")
+        assert "Never mutates GitHub state" in text
+        assert "gh issue close" in text
+
+    def test_orch_drive_pre_filter_also_never_mutates(self):
+        """The orch:drive gate (Phase 3) only ever reads the verdict; confirm
+        its own executable blocks don't introduce a mutating call either."""
+        code = self._executable_blocks(PLUGIN_DIR / "commands" / "orch" / "drive.md")
+        hits = [p for p in self.MUTATING_PATTERNS if p in code]
+        assert not hits, f"commands/orch/drive.md's executable blocks must never call: {hits}"
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
