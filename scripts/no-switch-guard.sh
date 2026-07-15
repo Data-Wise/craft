@@ -110,7 +110,7 @@ resolve_target_dir() {  # $1 = command, $2 = base cwd → echoes resolved dir ("
   # awk gsub emits a REAL newline on BSD & GNU (BSD sed's `\n` does not — see
   # macos-shell-portability-gotchas). Single `|` also splits so a piped
   # `grep -C N` can't be misread as a git `-C` target.
-  _norm=$(printf '%s' "$_cmd" | awk '{gsub(/&&|;|\|/,"\n"); print}')
+  _norm=$(printf '%s' "$_cmd" | awk '{gsub(/&&|[;|]/,"\n"); print}')
   while IFS= read -r _clause; do
     _clause="${_clause#"${_clause%%[![:space:]]*}"}"  # trim leading whitespace
     if printf '%s' "$_clause" | grep -qE '^cd[[:space:]]+[^[:space:]]+'; then

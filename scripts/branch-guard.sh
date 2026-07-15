@@ -578,7 +578,7 @@ if [[ ( "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ) && -n "$COMMAND" ]]; 
   # awk gsub emits a REAL newline on BSD & GNU (BSD sed's `\n` does not).
   # Single `|` also splits so a piped `grep -C N` can't be misread as `git -C`.
   _bg_eff="$CWD"
-  _bg_norm="$(printf '%s' "$COMMAND" | awk '{gsub(/&&|;|\|/,"\n"); print}')"
+  _bg_norm="$(printf '%s' "$COMMAND" | awk '{gsub(/&&|[;|]/,"\n"); print}')"
   while IFS= read -r _bg_clause; do
     _bg_clause="${_bg_clause#"${_bg_clause%%[![:space:]]*}"}"  # trim leading ws
     if printf '%s' "$_bg_clause" | grep -qE '^cd[[:space:]]+[^[:space:]]+'; then
