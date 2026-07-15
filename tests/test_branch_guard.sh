@@ -1646,6 +1646,50 @@ run_test_with_stderr \
     "$REPO_XCTX3" \
     "\[CONFIRM\]"
 
+# --------------------------------------------------------------------------
+# Multi-hop cumulative cd tracking (2026-07-15, guard-cd-resolution) — a
+# compound command with MORE THAN ONE cd retargets to the LAST directory, not
+# the first. The pre-#284 single-hop resolver (regex anchored ^cd, head -1)
+# picked the FIRST cd and would classify against the wrong repo.
+# --------------------------------------------------------------------------
+
+# Scenario 4: `cd <main-repo> && cd <feature-worktree> && git push` — the FIRST
+# cd lands on a repo checked out on main (would CONFIRM/block if it were the
+# target), the SECOND cd lands on an unprotected feature worktree. Cumulative
+# tracking must resolve to the worktree → ALLOW (exit 0). Single-hop-first
+# would have picked the main repo and blocked — this is the differentiator.
+REPO_MH_MAIN=$(init_repo)          # left on main (protected)
+REPO_MH_BASE=$(init_repo)
+switch_branch "$REPO_MH_BASE" "dev"
+MH_WORKTREE=$(make_tmpdir); rmdir "$MH_WORKTREE"
+(cd "$REPO_MH_BASE" && git worktree add --quiet -b feature/mh-test "$MH_WORKTREE" dev)
+
+run_test \
+    "test_multihop_cd_last_wins_resolves_to_feature_worktree_ALLOW" \
+    0 \
+    "$(json_bash "cd $REPO_MH_MAIN && cd $MH_WORKTREE && git push origin feature/mh-test" "$REPO_MH_BASE")" \
+    "$REPO_MH_BASE"
+
+# Scenario 5: mixed `cd <main-repo> && git -C <feature-worktree> push` — the
+# `-C` target (feature worktree) is resolved against the cd'd effective cwd and
+# wins → ALLOW (exit 0).
+run_test \
+    "test_multihop_cd_then_C_flag_resolves_to_feature_worktree_ALLOW" \
+    0 \
+    "$(json_bash "cd $REPO_MH_MAIN && git -C $MH_WORKTREE push origin feature/mh-test" "$REPO_MH_BASE")" \
+    "$REPO_MH_BASE"
+
+# Scenario 6: inverse — `cd <feature-worktree> && cd <main-repo> && git push`.
+# Last cd lands on a repo checked out on main; cumulative tracking must resolve
+# there and CONFIRM (exit 2), proving last-wins gates the protected target even
+# when an unprotected dir came first.
+run_test_with_stderr \
+    "test_multihop_cd_last_wins_resolves_to_main_CONFIRM" \
+    2 \
+    "$(json_bash "cd $MH_WORKTREE && cd $REPO_MH_MAIN && git push origin main" "$REPO_MH_BASE")" \
+    "$REPO_MH_BASE" \
+    "\[CONFIRM\]"
+
 echo ""
 
 # ============================================================================
