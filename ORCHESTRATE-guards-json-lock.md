@@ -18,7 +18,7 @@ during adversarial review, previously uncovered by the original fix scope).
 | Phase | Increment | Priority | Effort | Status |
 |---|---|---|---|---|
 | 1 | Shared mkdir-lock helper (with staleness timeout) | High | Med | ✅ |
-| 2 | Wire into Operation 12 (enable/disable/profile) | High | Low | ☐ |
+| 2 | Wire into Operation 12 (enable/disable/profile) | High | Low | ✅ |
 | 3 | Wire into install-guards.sh (seed/merge path) | High | Low | ☐ |
 | 4 | `tests/test_guards_registry_concurrency.sh` | High | Med | ☐ |
 | 5 | Docs correction (SKILL.md sole-mutator claim) + CHANGELOG | Med | Low | ☐ |
@@ -57,11 +57,12 @@ timeout.
 [--permanent|--session]` / `profile <focus|yolo|spec>` sub-actions (documented at line 275) —
 currently "`jq`-mutate `guards.json` ... never raw `cat >`" with no locking.
 
-- [ ] 2.1 Update Operation 12's documented procedure to call the Phase 1 lock helper around its
-      `jq`-mutate step.
-- [ ] 2.2 Verify the mute-expiry auto-sweep (line 249: "Sweep and auto-clear expired mutes...
-      before displaying any state, for every sub-action") also goes through the lock if it
-      writes — check whether the sweep is read-only-until-a-write-is-needed or always writes.
+- [x] 2.1 Updated Operation 12's documented procedure (`enable`/`disable`/`profile` sub-actions)
+      to call `lib/guards-lock.sh acquire|release` immediately around its `jq`-mutate step, with
+      a `trap ... EXIT` cleanup so a mid-write failure can't leak the lock.
+- [x] 2.2 The mute-expiry auto-sweep only writes when it actually clears an expired mute (a plain
+      `list`/`status` with nothing expired never acquires the lock) — documented explicitly at
+      line 249 that the sweep goes through the same lock helper when it writes.
 
 **Key files:** `skills/dev/git/SKILL.md` (Operation 12, line 243-277)
 

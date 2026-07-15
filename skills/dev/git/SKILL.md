@@ -246,7 +246,7 @@ Inspect, enable, disable, and profile the craft guard suite (`branch-guard.sh` +
 
 **Sub-actions:** `list`, `status`, `explain <cmd>`, `test`, `enable <name|#>`, `disable <name|#> [--permanent|--session]`, `profile <focus|yolo|spec>`.
 
-**Prerequisite:** verify `jq` is on PATH before any action; verify `~/.claude/guards.json` exists (point at `install-guards.sh` if not). Sweep and auto-clear expired mutes (`muted_until` in the past → set back to `null`) before displaying any state, for every sub-action.
+**Prerequisite:** verify `jq` is on PATH before any action; verify `~/.claude/guards.json` exists (point at `install-guards.sh` if not). Sweep and auto-clear expired mutes (`muted_until` in the past → set back to `null`) before displaying any state, for every sub-action — this sweep **writes** when it clears a mute, so it goes through the lock helper below the same as `enable`/`disable`/`profile` (a read-only `list`/`status` with nothing to sweep never acquires the lock).
 
 **`list` / `status`:** read `~/.claude/guards.json` + `~/.claude/settings.json`, build a numbered table (alphabetical). **Generate this table from `guards.json` at render time — never hardcode it** (a third registered guard would otherwise go stale in the docs; this was a real gap in the former `guard.md`). State icons: `🛡️ enabled`, `⚠️ muted (Nm)`, `⛔ disabled`. `status` additionally shows registry path + mtime, active/muted counts.
 
@@ -272,7 +272,18 @@ Result: would prompt for confirmation
 
 **`test`:** run `tests/test_branch_guard.sh` and `tests/test_no_switch_guard.sh` if present, report pass/fail/missing per script.
 
-**`enable <name|#>` / `disable <name|#> [--permanent|--session]` / `profile <focus|yolo|spec>`:** unchanged from the former `guard.md` — `jq`-mutate `guards.json` (`enabled`, `muted_until`), never raw `cat >`. `focus` enables all; `yolo` mutes all 30 min; `spec` enables branch-guard and mutes no-switch-guard 30 min.
+**`enable <name|#>` / `disable <name|#> [--permanent|--session]` / `profile <focus|yolo|spec>`:** `jq`-mutate `guards.json` (`enabled`, `muted_until`), never raw `cat >`. `focus` enables all; `yolo` mutes all 30 min; `spec` enables branch-guard and mutes no-switch-guard 30 min. **Every write is lock-guarded** — `install-guards.sh` mutates the same file (its seed/merge-on-install path), so Operation 12 is no longer the sole writer and must coordinate:
+
+```bash
+bash lib/guards-lock.sh acquire ~/.claude/guards.json.lock
+trap 'bash lib/guards-lock.sh release ~/.claude/guards.json.lock' EXIT
+jq '<transform>' ~/.claude/guards.json > ~/.claude/guards.json.tmp \
+  && mv ~/.claude/guards.json.tmp ~/.claude/guards.json
+bash lib/guards-lock.sh release ~/.claude/guards.json.lock
+trap - EXIT
+```
+
+Acquire immediately before the `jq` read-modify-write, release immediately after the `mv` — use a `trap ... EXIT` so a failure mid-write can't leak the lock. Run `lib/guards-lock.sh` from the repo root (or an absolute path to it); it is a standalone script, not sourced, since Operation 12's mutation runs as inline bash issued per-turn with no persistent shell shared with `install-guards.sh`.
 
 **`guards.json` schema:** `{"guards": {"<name>": {"enabled": bool, "muted_until": iso8601|null, "mute_window_min": int}}}`. `enabled: false` = permanently off; `muted_until` in the future = muted; both null/false-mute = active. Guard *logic* lives in the shell scripts — this file stores toggle state only.
 
