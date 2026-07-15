@@ -21,7 +21,7 @@ during adversarial review, previously uncovered by the original fix scope).
 | 2 | Wire into Operation 12 (enable/disable/profile) | High | Low | ✅ |
 | 3 | Wire into install-guards.sh (seed/merge path) | High | Low | ✅ |
 | 4 | `tests/test_guards_registry_concurrency.sh` | High | Med | ✅ |
-| 5 | Docs correction (SKILL.md sole-mutator claim) + CHANGELOG | Med | Low | ☐ |
+| 5 | Docs correction (SKILL.md sole-mutator claim) + CHANGELOG | Med | Low | ✅ |
 
 ## Phase 1: Shared mkdir-Lock Helper
 
@@ -128,9 +128,12 @@ revisit only if a second writer appears)." A second writer DID appear (install-g
 found this session) — this line needs correcting to reflect the shared-lock reality, not
 deleted (the underlying convention — don't add a THIRD ad hoc writer — still holds).
 
-- [ ] 5.1 Update `skills/dev/git/SKILL.md` line 245 to name both writers and the shared lock
-      mechanism that now coordinates them.
-- [ ] 5.2 `CHANGELOG.md` + `docs/CHANGELOG.md` `[Unreleased]` — mirrored `### Fixed` entries.
+- [x] 5.1 Updated `skills/dev/git/SKILL.md` line 245: "sole sanctioned mutator" claim replaced
+      with "TWO sanctioned mutators ... coordinated through a shared lock," naming both Operation
+      12 and `install-guards.sh`, pointing at `lib/guards-lock.sh` and the new test suite, and
+      keeping the underlying convention ("don't add a third ad hoc writer without the lock").
+- [x] 5.2 `CHANGELOG.md` + `docs/CHANGELOG.md` `[Unreleased]` — mirrored `### Fixed` entries
+      added (verified identical wording in both files).
 
 **Key files:** `skills/dev/git/SKILL.md`, `CHANGELOG.md`, `docs/CHANGELOG.md`
 
@@ -158,9 +161,10 @@ deleted (the underlying convention — don't add a THIRD ad hoc writer — still
       path — against the same scratch file also produce zero lost updates. (Case 2)
 - [x] `tests/test_guards_registry_concurrency.sh` exists, passes, and never touches the real
       `~/.claude/guards.json`.
-- [ ] `skills/dev/git/SKILL.md` Operation 12's sole-mutator claim is corrected to reflect the
-      shared lock. (Phase 5, not yet done)
-- [ ] CHANGELOG `[Unreleased]` entry added (fix, not feat). (Phase 5, not yet done)
+- [x] `skills/dev/git/SKILL.md` Operation 12's sole-mutator claim is corrected to reflect the
+      shared lock.
+- [x] CHANGELOG `[Unreleased]` entry added (fix, not feat) — mirrored in `CHANGELOG.md` and
+      `docs/CHANGELOG.md`.
 
 ## Commit Strategy
 

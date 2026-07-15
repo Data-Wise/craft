@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`guards.json` write-race closed** — a confirmed lost-update race (40/80
+  concurrent writes lost under the unlocked `jq`-mutate pattern) in
+  `~/.claude/guards.json`'s two writers — Operation 12's `enable`/`disable`/
+  `profile` and `install-guards.sh`'s seed/merge path — is now closed by a
+  shared mkdir-based lock helper (`lib/guards-lock.sh`, atomic on macOS and
+  Linux, with a staleness timeout so a crashed holder can't wedge the lock
+  permanently). See `tests/test_guards_registry_concurrency.sh` and
+  `docs/specs/SPEC-guard-hardening-adversarial-review-2026-07-15.md` (PR B).
 - **`delete-git-dir` removed from the `hard_deny` catalog** — the classifier
   enforcing `hard_deny` has no git execution context, so it could not be
   scoped to "same repo only" as intended; `rm -rf .git` is now confirmed
