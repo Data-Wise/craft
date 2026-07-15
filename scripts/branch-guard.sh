@@ -559,30 +559,47 @@ _hard_block() {
 # else's checkout. This block detects that shape, resolves the ACTUAL
 # target, and rebinds classification context to it.
 #
-# Scope (v1, documented — see GRILL-branch-guard-target-resolution-
-# 2026-07-14.md open questions): a single LEADING cd/-C override only, not
-# full multi-clause parsing of arbitrary compound chains. Custom per-repo
-# `.claude/branch-guard.json` in the OTHER repo is not consulted here
-# (auto-detect protection only) — a documented limitation, not a silent gap.
+# Scope (v2, documented — see GRILL-branch-guard-target-resolution-
+# 2026-07-14.md open questions): CUMULATIVE cd/-C tracking across a compound
+# command's clauses — each bare `cd <path>` retargets every subsequent clause
+# (so `cd a && cd b && git push` resolves to b), and a `git -C <path>` sets that
+# invocation's target; the LAST retarget wins. Still NOT full quote-aware shell
+# parsing: a `;`/`&&`/`|` separator INSIDE a quoted arg (e.g. a commit message
+# `-m "wip; cd /x"`) can be mis-split — mitigated by skipping quote-bearing
+# paths and by the -d/git-repo/branch re-derivation guards below (a spurious
+# target that isn't a real git repo on a different branch is simply ignored).
+# Custom per-repo `.claude/branch-guard.json` in the OTHER repo is not consulted
+# here (auto-detect protection only) — a documented limitation, not a silent gap.
 IS_CROSS_REPO_TARGET=false
 if [[ ( "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ) && -n "$COMMAND" ]]; then
   _BG_TARGET_DIR=""
 
-  # `git -C <path>` — explicit target override, clause-scoped in spirit
-  _bg_c_path="$(echo "$COMMAND" | grep -oE '(^|[[:space:]])-C[[:space:]]+[^[:space:]]+' | head -1 | sed -E 's/^[[:space:]]*-C[[:space:]]+//' || true)"
-  if [[ -n "$_bg_c_path" ]]; then
-    _BG_TARGET_DIR="$_bg_c_path"
-    [[ "$_BG_TARGET_DIR" != /* ]] && _BG_TARGET_DIR="${CWD}/${_BG_TARGET_DIR}"
-  fi
-
-  # Leading `cd <path> &&` / `cd <path>;` — the shell would actually retarget
-  if [[ -z "$_BG_TARGET_DIR" ]] && echo "$COMMAND" | grep -qE '^[[:space:]]*cd[[:space:]]+[^[:space:]]+[[:space:]]*(&&|;)'; then
-    _bg_cd_path="$(echo "$COMMAND" | sed -E 's/^[[:space:]]*cd[[:space:]]+//' | awk '{print $1}')"
-    if [[ -n "$_bg_cd_path" && "$_bg_cd_path" != *'$'* && "$_bg_cd_path" != *'`'* ]]; then
-      _BG_TARGET_DIR="$_bg_cd_path"
-      [[ "$_BG_TARGET_DIR" != /* ]] && _BG_TARGET_DIR="${CWD}/${_BG_TARGET_DIR}"
+  # Walk clauses left-to-right, tracking the effective cwd cumulatively.
+  # awk gsub emits a REAL newline on BSD & GNU (BSD sed's `\n` does not).
+  # Single `|` also splits so a piped `grep -C N` can't be misread as `git -C`.
+  _bg_eff="$CWD"
+  _bg_norm="$(printf '%s' "$COMMAND" | awk '{gsub(/&&|;|\|/,"\n"); print}')"
+  while IFS= read -r _bg_clause; do
+    _bg_clause="${_bg_clause#"${_bg_clause%%[![:space:]]*}"}"  # trim leading ws
+    if printf '%s' "$_bg_clause" | grep -qE '^cd[[:space:]]+[^[:space:]]+'; then
+      _bg_p="$(printf '%s' "$_bg_clause" | sed -E 's/^cd[[:space:]]+//' | awk '{print $1}')"
+      case "$_bg_p" in ''|*'$'*|*'`'*|*'"'*|*"'"*) _bg_p="" ;; esac
+      if [[ -n "$_bg_p" ]]; then
+        [[ "$_bg_p" != /* ]] && _bg_p="${_bg_eff%/}/$_bg_p"
+        _bg_eff="$_bg_p"; _BG_TARGET_DIR="$_bg_p"
+      fi
+    elif printf '%s' "$_bg_clause" | grep -qE '(^|[[:space:]])git([[:space:]]|$)' \
+      && printf '%s' "$_bg_clause" | grep -qE '(^|[[:space:]])-C[[:space:]]+[^[:space:]]+'; then
+      _bg_p="$(printf '%s' "$_bg_clause" | grep -oE '(^|[[:space:]])-C[[:space:]]+[^[:space:]]+' | head -1 | sed -E 's/^[[:space:]]*-C[[:space:]]+//')"
+      case "$_bg_p" in ''|*'$'*|*'`'*|*'"'*|*"'"*) _bg_p="" ;; esac
+      if [[ -n "$_bg_p" ]]; then
+        [[ "$_bg_p" != /* ]] && _bg_p="${_bg_eff%/}/$_bg_p"
+        _BG_TARGET_DIR="$_bg_p"
+      fi
     fi
-  fi
+  done <<EOF
+$_bg_norm
+EOF
 
   if [[ -n "$_BG_TARGET_DIR" && -d "$_BG_TARGET_DIR" ]]; then
     _BG_TARGET_ROOT="$(cd "$_BG_TARGET_DIR" 2>/dev/null && git rev-parse --show-toplevel 2>/dev/null || true)"
