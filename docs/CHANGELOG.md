@@ -20,6 +20,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`REFCARD-BRANCH-GUARD.md` corrected** — the "HIGH (Hard Block)" tier
   previously documented `rm -rf .git` as a hard block; the actual hook code
   has always routed it through `_confirm` (ASK tier). Doc now matches code.
+- **Cumulative `cd`-target resolution in both Guard Suite hooks** — a compound
+  Bash command with multiple `cd` clauses (`cd a && cd b && git …`) now resolves
+  to the **last** directory (cumulative tracking), not the first. Extends #284's
+  single-hop leading-`cd`/`-C` resolution to `no-switch-guard.sh` (was `-C`-only)
+  and retrofits `branch-guard.sh`'s §8d0 resolver, so worktree pushes and
+  cross-repo switches are gated against the branch they actually target. Quote-,
+  `$`-, and backtick-bearing paths are skipped; a `;`/`&&` inside a quoted arg is
+  still out of scope (documented limitation).
 
 ## [2.61.1] - 2026-07-08
 

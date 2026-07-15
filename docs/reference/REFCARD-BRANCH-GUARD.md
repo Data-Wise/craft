@@ -174,6 +174,23 @@ Resets after **8 hours** of inactivity.
 
 ---
 
+## Cross-Context Target Resolution
+
+Both Guard Suite hooks (`branch-guard.sh` **and** `no-switch-guard.sh`) classify a Bash command against the repo/branch it *actually targets*, not the session's own cwd — so a worktree push or a cross-repo checkout is gated by the correct branch.
+
+| Command shape | Resolved target |
+|---------------|-----------------|
+| `git -C <path> …` | `<path>` |
+| `cd <path> && git …` | `<path>` |
+| `cd a && cd b && git …` | `b` (**cumulative** — last cd wins, not the first) |
+| `cd a && git -C b …` | `b` |
+| no `cd`/`-C` | session cwd (unchanged) |
+
+- **Cumulative tracking** (2026-07-15): each `cd` retargets every *subsequent* clause, so multi-hop chains resolve to the last directory. Earlier single-hop resolution (#284) only handled one leading `cd`/`-C`.
+- **Limitation (documented, not a silent gap):** this is not full quote-aware shell parsing. A `;`/`&&`/`|` separator *inside a quoted argument* (e.g. a commit message `-m "wip; cd /x"`) can be mis-split. Mitigated by skipping quote/`$`/backtick-bearing paths and by the real-git-repo checks — a spurious target that isn't a git repo on a different branch is ignored. Custom per-repo `.claude/branch-guard.json` in the *other* repo is not consulted (auto-detect protection only).
+
+---
+
 ## GitHub-Side Companion
 
 The local hook stops accidents on your machine; GitHub-side branch protection stops anything that slips through. Together they form defense-in-depth:
