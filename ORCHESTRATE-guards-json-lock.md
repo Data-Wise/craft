@@ -19,7 +19,7 @@ during adversarial review, previously uncovered by the original fix scope).
 |---|---|---|---|---|
 | 1 | Shared mkdir-lock helper (with staleness timeout) | High | Med | ✅ |
 | 2 | Wire into Operation 12 (enable/disable/profile) | High | Low | ✅ |
-| 3 | Wire into install-guards.sh (seed/merge path) | High | Low | ☐ |
+| 3 | Wire into install-guards.sh (seed/merge path) | High | Low | ✅ |
 | 4 | `tests/test_guards_registry_concurrency.sh` | High | Med | ☐ |
 | 5 | Docs correction (SKILL.md sole-mutator claim) + CHANGELOG | Med | Low | ☐ |
 
@@ -73,12 +73,19 @@ second-writer finding from the adversarial review; without this phase, PR B only
 the race (Operation 12 alone would coordinate with itself but still race against a concurrent
 `install-guards.sh` run).
 
-- [ ] 3.1 Wrap both the fresh-create branch (line 164-171) and the per-guard merge loop
-      (line 174-180) with the Phase 1 lock helper.
-- [ ] 3.2 Note: the merge loop currently does a `jq -e` existence-check THEN a separate
-      unlocked `jq ... > tmp && mv` write per missing guard (line 175-178) — each iteration's
-      write needs its own acquire/release, not one lock held across the whole loop, so a
-      concurrent Operation 12 mutation isn't blocked for the full loop duration.
+- [x] 3.1 Wrapped both the fresh-create branch and the per-guard merge loop with
+      `guards_lock_acquire`/`guards_lock_release` (thin wrappers over `lib/guards-lock.sh`),
+      each with a `trap ... EXIT` cleanup. The fresh-create branch also re-checks
+      `[[ ! -f "$GUARDS_JSON" ]]` **after** acquiring the lock, in case a concurrent racer
+      created the file while this process was waiting.
+- [x] 3.2 Confirmed and preserved: the merge loop acquires/releases **per guard iteration**, not
+      once across the whole loop — each `jq -e` existence-check + `jq ... > tmp && mv` write pair
+      is its own lock-guarded unit, so a concurrent Operation 12 mutation isn't blocked for the
+      full loop duration.
+
+Manually verified: ran `install-guards.sh` twice against a scratch `$HOME` (fresh-create path,
+then idempotent merge-path re-run) — both exit 0, `guards.json` well-formed, lock dir cleaned up
+after each run.
 
 **Key files:** `scripts/install-guards.sh` (line 159-182)
 
