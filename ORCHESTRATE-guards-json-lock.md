@@ -17,7 +17,7 @@ during adversarial review, previously uncovered by the original fix scope).
 
 | Phase | Increment | Priority | Effort | Status |
 |---|---|---|---|---|
-| 1 | Shared mkdir-lock helper (with staleness timeout) | High | Med | ☐ |
+| 1 | Shared mkdir-lock helper (with staleness timeout) | High | Med | ✅ |
 | 2 | Wire into Operation 12 (enable/disable/profile) | High | Low | ☐ |
 | 3 | Wire into install-guards.sh (seed/merge path) | High | Low | ☐ |
 | 4 | `tests/test_guards_registry_concurrency.sh` | High | Med | ☐ |
@@ -30,26 +30,26 @@ CLI on this machine's macOS — only the syscall exists). Write a small, reusabl
 acquire/release helper with a staleness timeout so a crashed caller can't wedge the lock
 permanently.
 
-- [ ] 1.1 Decide the helper's shape: a standalone `scripts/lib/guards-lock.sh` sourced by both
-      `install-guards.sh` and wherever Operation 12's mutation logic lives (check
-      `skills/dev/git/SKILL.md` for whether Operation 12 is implemented as inline bash in the
-      skill's own instructions or has a backing script — if inline, the helper needs to be a
-      standalone script both paths can `bash scripts/lib/guards-lock.sh acquire|release` against,
-      not a sourced function, since skill-driven mutation may not run in the same shell process
-      as install-guards.sh).
-- [ ] 1.2 Lock acquire: `mkdir "${LOCKDIR}"` (atomic — succeeds for exactly one racer). On
-      failure (lock held), poll/retry with backoff up to the staleness timeout.
-- [ ] 1.3 Staleness check: if the lock dir's mtime is older than the timeout (implementation
-      judgment call — GRILL left the exact value open, "~5s" was illustrative only), treat it as
-      abandoned (crashed holder) and force-acquire, logging a warning.
-- [ ] 1.4 Lock release: `rmdir "${LOCKDIR}"` after the write completes (success or failure —
-      use a trap/cleanup so a mid-write error doesn't leak the lock).
-- [ ] 1.5 Wrap the actual read-modify-write: read `guards.json`, apply the `jq` transform, write
-      to a temp file, `mv` into place, THEN release — matches the existing `jq ... > tmp && mv
-      tmp file` pattern already used by both callers, just now lock-guarded.
+- [x] 1.1 Decided: **standalone script at `lib/guards-lock.sh`** (repo already has a root-level
+      `lib/` used by `branch-guard.sh` for shared helpers — reused that location rather than
+      introducing a new `scripts/lib/`). Verified Operation 12's enable/disable/profile has **no
+      backing script** — `skills/dev/git/SKILL.md` documents it as inline `jq`-mutate bash issued
+      per-turn by the LLM, confirmed by reading Operation 12's text (line ~275) and
+      `commands/git/guard.md` (thin shim, defers to the skill, no script reference). A sourced
+      function can't coordinate across that and `install-guards.sh`'s separate process, so the
+      helper is invoked as `bash lib/guards-lock.sh acquire|release [lockdir] [timeout]`.
+- [x] 1.2 Lock acquire: `mkdir "${LOCKDIR}"` (atomic — succeeds for exactly one racer). On
+      failure (lock held), poll/retry (0.1s interval, ~20s hard cap) up to the staleness timeout.
+- [x] 1.3 Staleness check: lock dir mtime older than timeout (default 10s, overridable per-call)
+      → treat as abandoned (crashed holder), force-acquire, log a warning to stderr.
+- [x] 1.4 Lock release: `rmdir "${LOCKDIR}"`; callers wrap acquire/release with their own
+      trap/cleanup around the write so a mid-write error doesn't leak the lock (see Phase 2/3).
+- [x] 1.5 Read-modify-write pattern (`jq` transform → temp file → `mv` into place, THEN release)
+      is the caller's responsibility per Phase 2/3 — the helper only owns acquire/release.
 
-**Key files:** new `scripts/lib/guards-lock.sh` (or equivalent — Phase 1.1 decides exact
-location/shape)
+**Key files:** `lib/guards-lock.sh` (new). Manually verified: normal acquire/release round-trip,
+and a pre-staged stale lock dir (mtime forced to 2020) force-broken and re-acquired within the
+timeout.
 
 ## Phase 2: Wire into Operation 12
 
