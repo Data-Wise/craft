@@ -16,11 +16,21 @@ confirmed single-hop only.
 
 | Phase | Increment | Priority | Effort | Status |
 |---|---|---|---|---|
-| 1 | Cumulative-cwd resolver helper (shared logic) | High | Med | ☐ |
-| 2 | Wire into `no-switch-guard.sh` | High | Low | ☐ |
-| 3 | Retrofit `branch-guard.sh`'s §8d0 resolver | High | Med | ☐ |
-| 4 | Test coverage (both hooks, multi-hop cases) | High | Med | ☐ |
-| 5 | Docs (REFCARD-BRANCH-GUARD.md) + CHANGELOG | Med | Low | ☐ |
+| 1 | Cumulative-cwd resolver helper (shared logic) | High | Med | ✅ |
+| 2 | Wire into `no-switch-guard.sh` | High | Low | ✅ |
+| 3 | Retrofit `branch-guard.sh`'s §8d0 resolver | High | Med | ✅ |
+| 4 | Test coverage (both hooks, multi-hop cases) | High | Med | ✅ |
+| 5 | Docs (REFCARD-BRANCH-GUARD.md) + CHANGELOG | Med | Low | ✅ |
+
+> **Completed 2026-07-15.** Phase 1.1 judgment call resolved: **parallel-inline**
+> logic in each hook (not a shared sourced file) — the hooks derive base cwd
+> differently (no-switch `$PWD`, branch-guard JSON `.cwd`) and a shared file would
+> force both install scripts to deploy+source it. Phase 5 note: the REFCARD had no
+> pre-existing cd-resolution section to "extend" (only a `GRILL-…-target-resolution`
+> reference re: `rm -rf .git`), so a new "Cross-Context Target Resolution" section
+> was added. Commits: `d1b95c4` (P1), `4027dfd` (P2), `d08202` (P3), `989f492` (P4),
+> `0a3d716` (P5). Tests: branch-guard 124/124, no-switch 39/39 (repo-copy, enabled
+> HOME). Not pushed / no PR opened per session instructions.
 
 ## Phase 1: Cumulative-cwd Resolver Helper
 
@@ -29,17 +39,17 @@ confirmed single-hop only.
 <path>` (bare, or via `-C <path>` on a `git` invocation) updates the *effective* target
 directory for every subsequent clause, not just the immediately following one.
 
-- [ ] 1.1 Decide implementation shape: a shared shell function sourced by both scripts, or
+- [x] 1.1 Decide implementation shape: a shared shell function sourced by both scripts, or
       parallel (near-identical) inline logic in each — given `no-switch-guard.sh` and
       `branch-guard.sh` don't currently share any code (verified: no `source` of a common file
       in either), duplicated-but-synced inline logic is likely simpler than introducing a new
       shared-file dependency. **Judgment call — pick the lower-friction option, document the
       choice in this file's commit message.**
-- [ ] 1.2 Handle the two path forms already supported by branch-guard.sh's existing (single-hop)
+- [x] 1.2 Handle the two path forms already supported by branch-guard.sh's existing (single-hop)
       resolver: bare leading `cd <path> &&`/`;` and `-C <path>` on a `git` invocation. Extend
       matching to non-leading occurrences (currently `branch-guard.sh` line 579 anchors `^cd`,
       which structurally cannot match a second `cd`).
-- [ ] 1.3 Guard against `$`/backtick in the cd path (branch-guard.sh's existing resolver already
+- [x] 1.3 Guard against `$`/backtick in the cd path (branch-guard.sh's existing resolver already
       excludes these — line 581 — to avoid resolving a shell-expansion target; carry this
       exclusion into the cumulative version).
 
@@ -52,11 +62,11 @@ directory for every subsequent clause, not just the immediately following one.
 from Phase 1. `is_dirty()` and `switch_target()` must both use the resolved target directory,
 not session `$CWD`.
 
-- [ ] 2.1 Replace `git_dir=$(printf '%s' "$cmd" | grep -oE 'git[[:space:]]+-C[[:space:]]+...')`
+- [x] 2.1 Replace `git_dir=$(printf '%s' "$cmd" | grep -oE 'git[[:space:]]+-C[[:space:]]+...')`
       with a call into the Phase 1 resolver.
-- [ ] 2.2 Verify `is_dirty()` (line 65-69) runs `git status --porcelain` against the resolved
+- [x] 2.2 Verify `is_dirty()` (line 65-69) runs `git status --porcelain` against the resolved
       dir, not `$CWD`.
-- [ ] 2.3 Verify `switch_target()` and the RED-tier checks (§3a-3d) still work correctly when
+- [x] 2.3 Verify `switch_target()` and the RED-tier checks (§3a-3d) still work correctly when
       the resolved target differs from session CWD — e.g. does the dirty-tree confirm message
       (line 118) need to name which repo it's talking about, given cross-context is now possible
       here (mirrors the "name the resolved repo/branch explicitly" review-checklist item from
@@ -71,12 +81,12 @@ not session `$CWD`.
 session: line 579's regex is anchored `^cd`). Extend it to cumulative tracking using the same
 Phase 1 logic/shape.
 
-- [ ] 3.1 Extend the `_bg_cd_path` extraction (line 579-585) to walk multiple `cd`/`-C`
+- [x] 3.1 Extend the `_bg_cd_path` extraction (line 579-585) to walk multiple `cd`/`-C`
       occurrences across the compound command, updating `_BG_TARGET_DIR` at each step.
-- [ ] 3.2 Confirm `IS_CROSS_REPO_TARGET`, `BRANCH`, `PROJECT_ROOT`, `PROJECT_NAME`, and the
+- [x] 3.2 Confirm `IS_CROSS_REPO_TARGET`, `BRANCH`, `PROJECT_ROOT`, `PROJECT_NAME`, and the
       `INTEGRATION_BRANCH`/`PROTECTION` re-derivation (line 587-600ish) still fire correctly
       against the LAST resolved target in a multi-hop chain, not an intermediate one.
-- [ ] 3.3 Regression check: every existing single-hop cross-context test
+- [x] 3.3 Regression check: every existing single-hop cross-context test
       (`tests/test_branch_guard.sh`'s "Cross-Context Target Resolution" group, added in #284)
       must still pass unmodified — cumulative tracking is a superset behavior, not a rewrite.
 
@@ -89,13 +99,13 @@ scaffolding (confirmed this session — `init_repo`/`make_tmpdir`/`json_bash`/`r
 `test_no_switch_guard.sh`; the analogous helpers already used by #284's cross-context group in
 `test_branch_guard.sh`). No new test-harness infrastructure needed.
 
-- [ ] 4.1 `test_branch_guard.sh`: add cases for `cd a && cd b && git push` (target should resolve
+- [x] 4.1 `test_branch_guard.sh`: add cases for `cd a && cd b && git push` (target should resolve
       to repo `b`, not `a` or session CWD) and `cd a && git -C b push` (mixed cd + -C, `b` wins).
-- [ ] 4.2 `test_no_switch_guard.sh`: add the equivalent cases for `git switch`/`checkout`, plus
+- [x] 4.2 `test_no_switch_guard.sh`: add the equivalent cases for `git switch`/`checkout`, plus
       the specific scenario from the BRAINSTORM's Context Scan: `cd <worktree> && git switch
       <branch>` with a dirty session repo and a clean worktree target (should NOT block) and the
       inverse (clean session, dirty worktree target — SHOULD block).
-- [ ] 4.3 Run both full suites (`bash tests/test_branch_guard.sh`, `bash tests/test_no_switch_guard.sh`)
+- [x] 4.3 Run both full suites (`bash tests/test_branch_guard.sh`, `bash tests/test_no_switch_guard.sh`)
       and confirm zero regressions against the pre-change baseline.
 
 **Key files:** `tests/test_branch_guard.sh`, `tests/test_no_switch_guard.sh`
@@ -104,9 +114,9 @@ scaffolding (confirmed this session — `init_repo`/`make_tmpdir`/`json_bash`/`r
 
 **Scope:** Small, mechanical.
 
-- [ ] 5.1 `docs/reference/REFCARD-BRANCH-GUARD.md` — note cumulative cd-target resolution now
+- [x] 5.1 `docs/reference/REFCARD-BRANCH-GUARD.md` — note cumulative cd-target resolution now
       applies to both hooks (extends the #284-era note already there for the single-hop case).
-- [ ] 5.2 `CHANGELOG.md` + `docs/CHANGELOG.md` `[Unreleased]` — mirrored `### Fixed` entries
+- [x] 5.2 `CHANGELOG.md` + `docs/CHANGELOG.md` `[Unreleased]` — mirrored `### Fixed` entries
       (both files must match — this repo maintains both, per project convention).
 
 **Key files:** `docs/reference/REFCARD-BRANCH-GUARD.md`, `CHANGELOG.md`, `docs/CHANGELOG.md`
@@ -125,13 +135,13 @@ scaffolding (confirmed this session — `init_repo`/`make_tmpdir`/`json_bash`/`r
 
 (From `SPEC-guard-hardening-adversarial-review-2026-07-15.md`, PR A subset)
 
-- [ ] `cd <worktree> && git switch <branch>` in `no-switch-guard.sh` resolves dirtiness/target
+- [x] `cd <worktree> && git switch <branch>` in `no-switch-guard.sh` resolves dirtiness/target
       from the worktree, not session CWD.
-- [ ] A multi-hop `cd a && cd b && git switch x` resolves to `b` as the target in both
+- [x] A multi-hop `cd a && cd b && git switch x` resolves to `b` as the target in both
       `no-switch-guard.sh` and `branch-guard.sh` — cumulative tracking, not single-hop.
-- [ ] `branch-guard.sh`'s existing #284 single-hop cross-context tests stay green after the
+- [x] `branch-guard.sh`'s existing #284 single-hop cross-context tests stay green after the
       cumulative-tracking retrofit (no regression).
-- [ ] CHANGELOG `[Unreleased]` entry added (fix, not feat).
+- [x] CHANGELOG `[Unreleased]` entry added (fix, not feat).
 
 ## Commit Strategy
 
