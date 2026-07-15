@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`delete-git-dir` removed from the `hard_deny` catalog** — the classifier
+  enforcing `hard_deny` has no git execution context, so it could not be
+  scoped to "same repo only" as intended; `rm -rf .git` is now confirmed
+  (not hard-blocked) via `branch-guard.sh`'s existing universal catastrophic
+  check on every branch. See
+  `docs/specs/GRILL-branch-guard-target-resolution-2026-07-14.md`.
+- **`REFCARD-BRANCH-GUARD.md` corrected** — the "HIGH (Hard Block)" tier
+  previously documented `rm -rf .git` as a hard block; the actual hook code
+  has always routed it through `_confirm` (ASK tier). Doc now matches code.
+
 ## [2.61.1] - 2026-07-08
 
 ### Changed
