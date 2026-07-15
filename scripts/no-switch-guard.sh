@@ -146,6 +146,12 @@ switch_target() {
     | sed -E 's/.*(switch|checkout)[[:space:]]+//' \
     | tr ' \t' '\n\n' | grep -vE '^-' | head -1
 }
+# When the command retargets a different repo (a cd/-C the resolver picked up),
+# name it in user-facing prompts so a cross-context switch isn't ambiguous
+# about WHICH repo it acts on (mirrors branch-guard.sh's "name the resolved
+# repo/branch explicitly" review-checklist item from #284).
+target_repo_note=""
+[ -n "$git_dir" ] && target_repo_note=" [target repo: $(basename "$git_dir")]"
 
 GITPFX='(^|[^[:alnum:]_])git([[:space:]]+-[^[:space:]]+|[[:space:]]+-C[[:space:]]+[^[:space:]]+)*[[:space:]]+'
 
@@ -194,10 +200,10 @@ if [ -n "$is_switch" ]; then
   fi
   # 3c. dirty working tree — RED
   if is_dirty; then
-    ask "Branch switch with a DIRTY working tree (uncommitted changes present). Approve only if you intend to carry/strand those changes."
+    ask "Branch switch with a DIRTY working tree${target_repo_note} (uncommitted changes present). Approve only if you intend to carry/strand those changes."
   fi
   # 3d. clean switch to existing non-main branch — YELLOW announce
-  announce "🔀 no-switch-guard: switching to '${target:-?}' (clean tree, existing branch) — allowed. Heads-up so your next command isn't on the wrong branch."
+  announce "🔀 no-switch-guard: switching to '${target:-?}'${target_repo_note} (clean tree, existing branch) — allowed. Heads-up so your next command isn't on the wrong branch."
 fi
 
 # === GREEN: everything else (read-only, cd, etc.) — allow silently ======
