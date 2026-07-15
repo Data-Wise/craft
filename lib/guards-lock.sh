@@ -46,7 +46,13 @@ _acquire() {
     # Lock is held by someone — check whether it's stale (crashed holder).
     if [[ -d "$lockdir" ]]; then
       local mt now age
-      mt="$(_lock_mtime "$lockdir" 2>/dev/null || echo 0)"
+      mt="$(_lock_mtime "$lockdir" 2>/dev/null)" || mt=""
+      if [[ -z "$mt" ]]; then
+        # Lock dir vanished between the -d check and stat (the holder just
+        # released it normally) — NOT staleness, retry the mkdir immediately
+        # rather than logging a misleading "stale lock" warning.
+        continue
+      fi
       now="$(date +%s)"
       age=$(( now - mt ))
       if (( age >= timeout )); then

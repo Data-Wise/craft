@@ -20,7 +20,7 @@ during adversarial review, previously uncovered by the original fix scope).
 | 1 | Shared mkdir-lock helper (with staleness timeout) | High | Med | ✅ |
 | 2 | Wire into Operation 12 (enable/disable/profile) | High | Low | ✅ |
 | 3 | Wire into install-guards.sh (seed/merge path) | High | Low | ✅ |
-| 4 | `tests/test_guards_registry_concurrency.sh` | High | Med | ☐ |
+| 4 | `tests/test_guards_registry_concurrency.sh` | High | Med | ✅ |
 | 5 | Docs correction (SKILL.md sole-mutator claim) + CHANGELOG | Med | Low | ☐ |
 
 ## Phase 1: Shared mkdir-Lock Helper
@@ -96,18 +96,27 @@ after each run.
 test. Per GRILL decision #4, this must exercise BOTH writers now (widened in the adversarial
 addendum), not just Operation 12 alone.
 
-- [ ] 4.1 `tests/test_guards_registry_concurrency.sh`: scratch-copy setup (NEVER touch the real
-      `~/.claude/guards.json` — matches this session's own test discipline), two concurrent
-      writers hammering different fields, assert zero lost updates post-fix.
-- [ ] 4.2 A second case specifically exercising the Phase 1/Phase 3 combination: one writer
-      calling the Operation-12-style mutation, one calling install-guards.sh's merge path,
-      concurrently, against the same scratch file — proves the SHARED lock requirement (not
-      just that each writer is internally self-consistent).
-- [ ] 4.3 A staleness-timeout case: pre-create a stale lock dir (old mtime), confirm a new
-      acquire force-breaks it after the timeout rather than hanging forever.
-- [ ] 4.4 Run pre-fix (should fail/show lost updates on the OLD code, confirming the test
-      actually catches the bug) then post-fix (should pass) — red-first per this skill's
-      test-plan emission rules.
+- [x] 4.1 `tests/test_guards_registry_concurrency.sh`: every case operates on a `mktemp -d`
+      scratch copy (never the real `~/.claude/guards.json` — a hard `assert_not_real` guard
+      aborts the suite if any path ever matches it). Case 1: two concurrent writers each
+      incrementing a distinct field 40 times; asserts both land at exactly 40 (zero lost
+      updates) under `MODE=locked` (default).
+- [x] 4.2 Case 2 exercises the Phase 1/Phase 3 combination directly: one writer runs the
+      Operation-12-style increment loop, the other runs install-guards.sh's per-guard
+      merge-loop pattern, concurrently against the SAME scratch file. Asserts the incrementing
+      writer still lands at exactly 40 and the merge writer's new guard entry survives — proves
+      the shared lock, not just each writer's internal self-consistency.
+- [x] 4.3 Case 3: pre-stages a lock dir with its mtime forced to 2020, then acquires with a 1s
+      timeout — asserts the acquire succeeds promptly (<5s, not a hang), and that the "breaking
+      stale lock" warning is actually logged.
+- [x] 4.4 Red-first confirmed: `MODE=unlocked` (skips the lock entirely, reproducing the
+      pre-fix code path) reliably shows lost updates in Case 1 across repeated runs (e.g.
+      17/40 + 23/40, 13/40 + 27/40 — never 40/40+40/40), matching this session's earlier ad hoc
+      40/80-lost finding. `MODE=locked` (post-fix, the default CI invocation) passes 7/7 across
+      repeated runs with zero lost updates. Fixed one bug found along the way: `lib/guards-lock.sh`
+      logged a spurious "breaking stale lock" warning when a lock dir vanished between its
+      existence check and its `stat` call (the holder releasing normally, not a crash) — treated
+      as an immediate-retry now instead of a false staleness signal.
 
 **Key files:** new `tests/test_guards_registry_concurrency.sh`
 
@@ -143,15 +152,15 @@ deleted (the underlying convention — don't add a THIRD ad hoc writer — still
 
 (From `SPEC-guard-hardening-adversarial-review-2026-07-15.md`, PR B subset)
 
-- [ ] Two concurrent `/craft:git:guard disable` calls (or the formalized concurrency test)
-      against a scratch `guards.json` produce zero lost updates.
-- [ ] Two concurrent writes — one via Operation 12, one via `install-guards.sh`'s seed/merge
-      path — against the same scratch file also produce zero lost updates.
-- [ ] `tests/test_guards_registry_concurrency.sh` exists, passes, and never touches the real
+- [x] Two concurrent `/craft:git:guard disable` calls (or the formalized concurrency test)
+      against a scratch `guards.json` produce zero lost updates. (Case 1)
+- [x] Two concurrent writes — one via Operation 12, one via `install-guards.sh`'s seed/merge
+      path — against the same scratch file also produce zero lost updates. (Case 2)
+- [x] `tests/test_guards_registry_concurrency.sh` exists, passes, and never touches the real
       `~/.claude/guards.json`.
 - [ ] `skills/dev/git/SKILL.md` Operation 12's sole-mutator claim is corrected to reflect the
-      shared lock.
-- [ ] CHANGELOG `[Unreleased]` entry added (fix, not feat).
+      shared lock. (Phase 5, not yet done)
+- [ ] CHANGELOG `[Unreleased]` entry added (fix, not feat). (Phase 5, not yet done)
 
 ## Commit Strategy
 
