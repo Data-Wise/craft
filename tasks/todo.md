@@ -192,7 +192,28 @@ task if/when this tooling matters again.
   PR was opened this phase (per design — @26 was never reached, @46 is the real landing
   point). Craft's command count is 46, not the original @26 target — see Phase 3.6.
 
-## Phase 3.6 — router consolidations ✅ RE-GRILLED, RE-SCOPED (2026-07-15, not yet executed)
+## Phase 3.6 — router consolidations ✅ CLOSED (2026-07-16)
+
+> **Outcome: 1 router built out of 5 planned.** Of the five router workstreams this phase
+> opened with, three (`plan:feature`, `arch`, `orch`) were dropped before any code, one
+> (`code:audit`) shipped shrunk from 5 commands to 2, and one (`ci`) yielded no router at
+> all — only a metadata fix. Final state:
+>
+> | Workstream | Planned | Shipped |
+> |---|---|---|
+> | A — `orch` router | T3.6.2 | **dropped** (D11) — already delegates to engine skills |
+> | `arch` router | T3.6.3 | **dropped** (D6) — no real duplication |
+> | `plan:feature` | excluded | unchanged — D2 lock, pre-existing |
+> | B — `code:audit` router | 5 commands | **shipped, 2 commands** (D12) — `204822aa` |
+> | C — `ci` router | T3.6.5, 8 commands | **no router** (D13) — `bbd9c3314` metadata fix only |
+>
+> **Root cause of the 3 collapses (D11/D12/D13):** the original grill locked load-bearing
+> decisions from line counts and flag names without reading command bodies in full. Every
+> family that looked cohesive from surface metrics fell apart on a full read; the one that
+> survived (`code:audit`, 2 commands) is the phase's entire real output. Each collapse was
+> caught before code was written for the affected scope. **Lesson for future consolidation
+> phases: read every candidate body in full before locking a router decision — line counts
+> and flag names are not evidence of shared shape.**
 
 > **Superseded 2026-07-15** by `docs/specs/GRILL-phase-3-6-router-consolidation-2026-07-15.md`
 > (11 decisions, D1-D11) after the T3.6.0 re-grill this section itself called for. Full
@@ -217,39 +238,59 @@ task if/when this tooling matters again.
 - [x] **T3.6.B1** Verify `--format`/`--fix` semantics compatible across command-audit +
   skill-standards — **XS** — DONE in grill (D2): format = output rendering, fix = safe
   mechanical auto-fix, consistent across both.
-- [ ] **T3.6.B2** Consolidate `command-audit` + `skill-standards` shared vocabulary into
+- [x] **T3.6.B2** Consolidate `command-audit` + `skill-standards` shared vocabulary into
   `skills/code/audit-router/SKILL.md` + shrink both command files to thin shims (frontmatter
-  unchanged, body points to the skill) — **S** — command-audit 131 · skill-standards 167
-  (Σ298L)
-  - Acceptance: `/craft:code:command-audit` and `/craft:code:skill-standards` both still
-    directly slash-invocable (D3) — no path deleted
-- [ ] **T3.6.B3** Salvage both bodies verbatim into `skills/code/audit-router/references/`
-  (ADR-002 line-conservation diff) — **S**
-- [ ] **T3.6.B4** Regen `commands/_cache.json` before final verification — **XS** (D9)
-- [ ] **T3.6.B5** Suites green + slash-invocability spot-check on both entry points — **S**
-- [ ] **CP-3.6.B** (ASK): Workstream B all green → own PR `feature/folio-split`→`dev` → merge
-  on your go.
+  unchanged, body points to the skill) — **S** — DONE `204822aa`. Both commands keep full
+  frontmatter (arg surface + slash-invocability intact per D3); bodies now point at the skill.
+- [x] **T3.6.B3** Salvage both bodies verbatim into `skills/code/audit-router/references/`
+  (ADR-002 line-conservation diff) — **S** — DONE `204822aa`. `references/command-audit.md`
+  - `references/skill-standards.md` carry the full bodies verbatim.
+- [x] **T3.6.B4** Regen `commands/_cache.json` before final verification — **XS** (D9) — DONE.
+- [x] **T3.6.B5** Suites green + slash-invocability spot-check on both entry points — **S** —
+  DONE. Skill count cascade 39→40 required `bump-version.sh 2.61.2` **plus a manual sweep of
+  10 files outside its tracked list** (README, docs/{index,architecture,commands,
+  skills-agents,QUICK-START,MIGRATION-v4}.md, docs/guide/×2, docs/tutorials/×1,
+  commands/dist/homebrew.md). Remaining 4 pytest failures verified pre-existing on `dev` via
+  `git stash` A/B — 0 regressions.
+- [ ] **CP-3.6.B** (ASK): Workstream B all green → PR `feature/folio-split`→`dev` (bundled with
+  Workstream C's fixes — both are small and touch disjoint files).
 
 **Explicitly out of scope (D12):** `deps-audit.md`, `deps-check.md`, `docs-check.md` stay
 completely untouched.
 
-### Workstream C — ci router (own PR, do last — largest family)
+### Workstream C — ci router ❌ NO ROUTER BUILT (D13, 2026-07-16)
 
-- [ ] **T3.6.C1** Normalize `repo` flag to `OWNER/NAME` format across all 3 commands that
-  carry it — **S** — `status.md` currently accepts short names ("craft", "homebrew-tap");
-  `triage.md`/`watch.md` require `OWNER/NAME`. Add explicit short-name→OWNER/NAME expansion in
-  status.md rather than silently dropping the short-name UX (D10).
-- [ ] **T3.6.C2** NEW `ci` router + shared `--dry-run`/`--fix`/`--json` dispatch — **M** —
-  detect 292 · fix 96 · generate 730 · local 219 · status 166 · triage 176 · validate 303 ·
-  watch 135 (Σ2117L, largest family) — verified compatible (D10) except `repo` (fixed in C1)
-  - Acceptance: `/craft:ci:detect` etc. all still directly slash-invocable (D3)
-- [ ] **T3.6.C3** Salvage all 8 bodies into `skills/ci/ci-router/references/` (ADR-002
-  line-conservation diff) — **L** (generate.md alone is 730 lines — largest single salvage
-  in this phase)
-- [ ] **T3.6.C4** Regen `commands/_cache.json` before final verification — **XS** (D9)
-- [ ] **T3.6.C5** Suites green + slash-invocability spot-check on all 8 entry points — **S**
-- [ ] **CP-3.6.C** (ASK): Workstream C all green → own PR `feature/folio-split`→`dev` → merge
-  on your go.
+> **Corrected 2026-07-16, same class as D11/D12.** A full read of all 8 `commands/ci/*.md`
+> bodies (which the grill had only line-counted) showed the `ci` family is the most
+> heterogeneous of the three — there is no shared shape to route:
+>
+> - `detect.md` (292L) **duplicates `skills/ci/SKILL.md`**, which already holds the real
+>   `DETECTORS` list and `detect_project()` algorithm. Routing it would consolidate a copy
+>   toward a skill that is already its own source of truth.
+> - `triage.md` (176L) contains `classify_failure()` in a ```python block that
+>   `tests/test_ci_triage_unit.py` **extracts by regex and `exec()`s** — the markdown file
+>   IS the code's source of truth. Body-salvage is structurally blocked without rewriting
+>   that test.
+> - `generate.md` (730L) is genuinely unique — real YAML CI templates for 15+ project types.
+> - `status`/`validate`/`watch` are generic doc-only commands; `fix`/`local` are thin docs.
+>
+> Only one real defect surfaced, and it was metadata, not structure — see T3.6.C1.
+
+- [x] **T3.6.C1** Fix `category:` metadata mismatches — **XS** — DONE `bbd9c3314` +
+  `63f43ba23`. `ci/fix.md` + `ci/local.md` declared `category: code`;
+  `orch/drive.md` + `orch/workflow.md` declared `category: orchestrate` against a
+  nonexistent `commands/orchestrate/` dir. All four are real defects flagged by
+  `utils/help_file_validator._check_category_mismatch` (live-wired via
+  `docs_update_orchestrator` → `/craft:docs:update`). A repo-wide validator sweep
+  confirms **0 category mismatches remain**. The `orch` pair was pre-existing on `dev`
+  and found only because the sweep was run repo-wide rather than against known files.
+- [x] **T3.6.C2–C5** — **CANCELLED** (D13). No router, no salvage, no cache regen, no
+  8-entry-point spot-check. All 8 `commands/ci/*.md` bodies left untouched.
+
+**Dropped as a premise artifact (D13):** the planned `repo` flag normalization
+(`status.md` short-names vs `triage.md`/`watch.md` `OWNER/NAME`). No validator enforces
+flag-shape consistency across a family — this was only a "defect" relative to a shared-router
+vocabulary that no longer exists. Reclassified as a documentation nit, not a bug.
 
 **Explicitly out of scope:** `arch` router (dropped, D6) — `commands/arch/{analyze,diagram,
 plan,review}.md` stay untouched. `orch`/`drive`/`workflow` router (dropped, D11) —

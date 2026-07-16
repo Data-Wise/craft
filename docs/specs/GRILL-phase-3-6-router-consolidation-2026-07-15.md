@@ -212,9 +212,44 @@ Ready for `/craft:plan` (plan-orchestrator tier) to turn this into task breakdow
 surviving workstreams (code:audit, ci). Grill interrogates and hands the artifact forward — no
 execution here.
 
+## D13 — `ci` router dropped entirely; D10 partially superseded (2026-07-16)
+
+**Decision:** No `ci` router. All 8 `commands/ci/*.md` bodies stay untouched. D10's
+"kept, re-verified" verdict is superseded; D10's `repo`-normalization sub-decision is
+withdrawn as a premise artifact.
+
+**Evidence** — full read of all 8 bodies (the grill had only line-counted them):
+
+| File | Finding |
+|---|---|
+| `detect.md` (292L) | Duplicates `skills/ci/SKILL.md`, which already holds the real `DETECTORS` list + `detect_project()`. The skill is already the source of truth. |
+| `triage.md` (176L) | `classify_failure()` lives in a python block that `tests/test_ci_triage_unit.py` extracts by regex and `exec()`s. The markdown file IS the code's source of truth — body-salvage is structurally blocked. |
+| `generate.md` (730L) | Genuinely unique: real YAML CI templates for 15+ project types. Nothing to share. |
+| `fix.md`, `local.md` | Thin docs; only real defect was `category: code` metadata. |
+| `status.md`, `validate.md`, `watch.md` | Generic doc-only commands, no shared dispatch surface. |
+
+**`repo`-normalization withdrawn:** D10 called for normalizing `status.md`'s short-name `repo`
+to `OWNER/NAME`. Checked whether any validator enforces cross-family flag-shape consistency —
+**none does**. That "fix" existed only because a shared router needed one vocabulary; with the
+router dropped, three commands with slightly different `repo` conventions is pre-existing and
+fine. Reclassified: documentation nit, not a bug.
+
+**What did survive:** one real, tool-detected defect — `category:` metadata. `ci/fix.md` and
+`ci/local.md` declared `category: code` while living in `commands/ci/`;
+`utils/help_file_validator._check_category_mismatch` derives the expected category from the
+parent directory and flags this, and it is live-wired via `docs_update_orchestrator` →
+`/craft:docs:update`. Fixed in `bbd9c3314`. A repo-wide sweep of the same validator then
+surfaced two more pre-existing instances (`orch/drive.md`, `orch/workflow.md`, both
+`category: orchestrate` against a nonexistent `commands/orchestrate/` dir) — fixed in
+`63f43ba23`. Repo-wide mismatch count is now **0**.
+
+**Distinguishing test that separated the real fix from the artifact:** *find the thing that
+fails if it's wrong.* `category:` has a mechanical enforcer; the `repo` flag format has none.
+No failing enforcer, no bug — just a preference.
+
 ## Post-Handoff Correction Log
 
-This ledger was corrected three times after the initial grill pass, all caught before code
+This ledger was corrected four times after the initial grill pass, all caught before code
 was written for the affected scope:
 
 1. **`ci` family miss** (D10) — caught during plan-handoff, before implementation started.
@@ -227,6 +262,23 @@ was written for the affected scope:
    grill) showed only 2 of the 5 commands genuinely share shape/flags. No file changes were
    made before this was caught.
 
-**Pattern across all 3 corrections:** each was caught by reading full command bodies that the
+4. **Workstream C drop** (D13) — caught during Workstream C investigation, when reading all 8
+   `commands/ci/*.md` in full (the grill had only line-counted them) showed the family has no
+   shared shape to route, and that one planned "fix" was an artifact of the router premise
+   itself. No `commands/ci/` body changes were made.
+
+**Pattern across all 4 corrections:** each was caught by reading full command bodies that the
 original grill pass had only spot-checked (line counts, flag names, or a subset of files).
 None reached implementation before being caught.
+
+**Verdict on the instrument, not just the decisions.** Four corrections out of five workstreams
+is not four unlucky surprises — it is one root cause with four symptoms: **the grill locked
+load-bearing decisions from surface metrics (line counts, flag names) without reading the
+bodies those decisions were about.** The phase's entire durable output is one 2-command skill.
+A re-grill was considered as a remedy for D13 and rejected: re-running the instrument that
+failed three times, on a family whose bodies had by then already been read in full, would have
+added ceremony rather than evidence.
+
+**Rule for the next consolidation phase:** read every candidate body in full *before* locking
+any router decision. Line counts measure size, flag names measure vocabulary — neither is
+evidence of shared shape, and shared shape is the only thing that justifies a router.

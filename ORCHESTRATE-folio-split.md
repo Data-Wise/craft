@@ -36,7 +36,7 @@ extraction cost for something you'd delete in v1.1). craft lands at **69** comma
 | 2 | filter-repo extraction + repoint + folio CI + **release choreography** + `/folio:hub` | folio | v1.0.0-rc | P0 | High | ☐ |
 | 3 | craft amputation + border kills + **docs-content sweep** + CI-floor edits | craft | (pre-v4) | P0 | High | ☐ |
 | 3.5 | **v4 surface rider** — shim-kill (27) + subcommand consolidation → ~22 cmds | craft | — | P1 | High | ✅ CLOSED @46 2026-07-13 (T3.5.1+T3.5.2 only — see `tasks/todo.md`) |
-| 3.6 | Router consolidations (code:audit router, ci router only — orch/arch dropped) — organizational, NOT a count target | craft | — | P2 | Med | ☐ re-grilled+re-scoped 2026-07-15, not yet executed |
+| 3.6 | Router consolidations — organizational, NOT a count target | craft | — | P2 | Med | ✅ CLOSED 2026-07-16 — **1 router of 5 planned**: code:audit shipped (2 cmds, `204822aa`); orch/arch/ci all dropped on full-body reads; ci yielded a metadata fix only (`bbd9c3314`+`63f43ba23`). See `tasks/todo.md` + GRILL D11/D12/D13 |
 | 4 | folio `/folio:do` + coordinated release (**folio first, craft tag LAST**) | both | craft v4.0.0 / folio v1.0.0 | P0 | Med | ☐ |
 
 > **Gating:** each phase exits only on its gate (transcripts, adversarial verifier sound=true,
