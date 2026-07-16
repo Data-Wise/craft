@@ -4,11 +4,11 @@
 
 > **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
 
-**115 commands** · **45 skills** · **8 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**47 commands** · **40 skills** · **2 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 > `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (7 commands)
 
-**Current Version:** v2.61.2 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
+**Current Version:** v4.0.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
@@ -37,7 +37,7 @@ feature/* (worktrees) ← All implementation work
 | `dev` | New: BLOCKED, Existing: allowed | ALLOWED | Commit/push allowed |
 | `feature/*` | ALLOWED | ALLOWED | All allowed |
 
-Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
+Override local hook: ask "unprotect dev" / "bypass branch guard" (`dev/git` skill, Operation 10 — session-scoped, auto-expires).
 
 ## Quick Commands
 
@@ -53,7 +53,7 @@ Override local hook: `/craft:git:unprotect` (session-scoped, auto-expires).
 | Post-release sweep | `./scripts/post-release-sweep.sh` or `--fix` |
 | Docs staleness check | `./scripts/docs-staleness-check.sh` or `--fix` |
 | Build docs | `mkdocs build` |
-| Apply GitHub-side protection | `/craft:git:protect-baseline [--repo OWNER/REPO]` |
+| Apply GitHub-side protection | ask "apply GitHub branch protection [--repo OWNER/REPO]" (`dev/git` skill, Operation 9) |
 | Smart routing | `/craft:do <task>` |
 | Pre-flight check | `/craft:check` |
 | Lint code | `/craft:code:lint` |
@@ -87,8 +87,8 @@ performance) · `release` (<300s, thorough). Example: `/craft:code:lint debug`.
 
 | Directory | Purpose |
 |-----------|---------|
-| `commands/` | 115 commands (auto-discovered, one `.md` per command) |
-| `skills/` | 45 skills (`SKILL.md` pattern) |
+| `commands/` | 47 commands (auto-discovered, one `.md` per command) |
+| `skills/` | 40 skills (`SKILL.md` pattern) |
 | `agents/` | 8 agent definitions |
 | `tests/` | Unit, e2e, dogfood, and integration test suites |
 | `scripts/` | Release, validation, and maintenance scripts |

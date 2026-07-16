@@ -35,8 +35,8 @@ By the end of this guide, you'll know how to:
 ```mermaid
 graph TB
     A[User Command] --> B{Command Router}
-    B -->|lint| C["craft:docs:lint"]
-    B -->|check-links| D["craft:docs:check-links"]
+    B -->|lint| C["folio:docs:lint"]
+    B -->|check-links| D["folio:docs:check-links"]
     C --> E[markdownlint-cli2]
     D --> F[lychee]
     E --> G[Auto-fix Engine]
@@ -459,10 +459,10 @@ The `docs/test-violations.md` file contains known violations for testing:
 
 ```bash
 # Test your linting changes
-/craft:docs:lint docs/test-violations.md
+/folio:docs:lint docs/test-violations.md
 
 # Test link checking changes
-/craft:docs:check-links docs/test-violations.md
+/folio:docs:check-links docs/test-violations.md
 ```
 
 ### Add Test Cases
@@ -499,7 +499,7 @@ echo "Testing documentation quality commands..."
 
 # Test 1: Lint should detect violations
 echo "Test 1: Lint detection"
-if /craft:docs:lint docs/test-violations.md 2>&1 | grep -q "MD040"; then
+if /folio:docs:lint docs/test-violations.md 2>&1 | grep -q "MD040"; then
   echo "✅ Lint detection works"
 else
   echo "❌ Lint detection failed"
@@ -508,7 +508,7 @@ fi
 
 # Test 2: Link check should find broken links
 echo "Test 2: Link check"
-if /craft:docs:check-links docs/test-violations.md 2>&1 | grep -q "Broken link"; then
+if /folio:docs:check-links docs/test-violations.md 2>&1 | grep -q "Broken link"; then
   echo "✅ Link check works"
 else
   echo "❌ Link check failed"
@@ -518,7 +518,7 @@ fi
 # Test 3: Auto-fix should work
 echo "Test 3: Auto-fix"
 cp docs/test-violations.md /tmp/test-violations.md
-if /craft:docs:lint /tmp/test-violations.md --fix; then
+if /folio:docs:lint /tmp/test-violations.md --fix; then
   echo "✅ Auto-fix works"
 else
   echo "❌ Auto-fix failed"
@@ -550,32 +550,12 @@ if [ -d "docs/" ]; then
     echo "📚 Docs changed, running validation..."
 
     # Existing checks
-    claude "/craft:docs:lint default"
-    claude "/craft:docs:check-links default"
+    claude "/folio:docs:lint default"
+    claude "/folio:docs:check-links default"
 
     # Your new check
     claude "/craft:docs:my-command default"
   fi
-fi
-```
-
-### Extend Pre-commit Hooks
-
-Add to `/craft:git:init` hook template:
-
-```bash
-# In commands/git/init.md (around line 250)
-if [ -n "$STAGED_MD" ]; then
-  echo "📚 Checking documentation quality..."
-
-  # Existing hooks
-  claude "/craft:docs:lint --fix" || exit 1
-  claude "/craft:docs:check-links default" || exit 1
-
-  # Your new check
-  claude "/craft:docs:my-command default" || exit 1
-
-  git add $STAGED_MD
 fi
 ```
 
@@ -607,7 +587,7 @@ Use GNU Parallel for faster processing:
 ```bash
 # Process multiple files in parallel
 find docs/ -name "*.md" -print0 | \
-  parallel -0 -j 4 "/craft:docs:lint {}"
+  parallel -0 -j 4 "/folio:docs:lint {}"
 ```
 
 ### Caching Results
@@ -647,8 +627,8 @@ CHANGED_FILES=$(git diff --name-only --diff-filter=ACM docs/)
 
 # Validate only changed files
 for file in $CHANGED_FILES; do
-  /craft:docs:lint "$file"
-  /craft:docs:check-links "$file"
+  /folio:docs:lint "$file"
+  /folio:docs:check-links "$file"
 done
 ```
 
@@ -660,7 +640,7 @@ done
 
 ```bash
 # Set debug mode
-DEBUG=true /craft:docs:lint debug docs/file.md
+DEBUG=true /folio:docs:lint debug docs/file.md
 
 # Or add to command
 set -x  # Enable bash tracing
@@ -670,7 +650,7 @@ set -x  # Enable bash tracing
 
 ```bash
 # Save intermediate results
-/craft:docs:lint docs/file.md > /tmp/lint-output.txt 2>&1
+/folio:docs:lint docs/file.md > /tmp/lint-output.txt 2>&1
 
 # Analyze output
 cat /tmp/lint-output.txt
@@ -745,7 +725,7 @@ git commit -m "test(docs): add coverage for edge cases"
 - [ ] Tests pass (`./tests/test_docs_quality.sh`)
 - [ ] Documentation updated
 - [ ] CHANGELOG.md entry added
-- [ ] No broken links (`/craft:docs:check-links release`)
+- [ ] No broken links (`/folio:docs:check-links release`)
 - [ ] Code follows project conventions
 - [ ] Commit messages follow conventional commits
 - [ ] PR targets `dev` branch (not `main`)
@@ -771,7 +751,7 @@ MODE_HANDLERS["custom"]() {
 }
 
 # Usage
-/craft:docs:lint custom
+/folio:docs:lint custom
 ```
 
 ### Plugin Architecture
@@ -813,7 +793,7 @@ export IGNORE_PATTERNS="*.wip.md"
 
 # Load preset
 source .craft/docs-quality-preset.sh
-/craft:docs:lint
+/folio:docs:lint
 ```
 
 ---
@@ -829,12 +809,12 @@ Call commands from scripts:
 # scripts/validate-docs.sh
 
 # Validate all docs
-if ! /craft:docs:lint release; then
+if ! /folio:docs:lint release; then
   echo "❌ Linting failed"
   exit 1
 fi
 
-if ! /craft:docs:check-links release; then
+if ! /folio:docs:check-links release; then
   echo "❌ Link check failed"
   exit 1
 fi
@@ -846,10 +826,10 @@ echo "✅ Documentation quality validated"
 
 ```bash
 # Capture exit codes
-/craft:docs:lint
+/folio:docs:lint
 LINT_CODE=$?
 
-/craft:docs:check-links
+/folio:docs:check-links
 LINK_CODE=$?
 
 # Combine results
@@ -863,7 +843,7 @@ fi
 
 ```bash
 # Generate JSON report
-/craft:docs:lint --format json > report.json
+/folio:docs:lint --format json > report.json
 
 # Parse with jq
 jq '.errors[] | select(.severity == "error")' report.json

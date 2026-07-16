@@ -12,10 +12,10 @@ The teaching workflow spans three tools. Each has clear ownership:
 |---|---|---|
 | Config & setup | flow-cli | `teach init`, `teach config`, `teach doctor` |
 | Content generation | Scholar | `teach lecture`, `teach exam`, etc. (9 commands) |
-| Content validation | All three | `teach validate` / `/scholar:validate` / `/craft:site:check` |
+| Content validation | All three | `teach validate` / `/scholar:validate` / `/folio:site:check` (moved to folio) |
 | Deployment | flow-cli | `teach deploy` (history, rollback) |
 | Semester tracking | flow-cli | `teach status`, `teach week` |
-| Site management | Craft | `/craft:site:publish`, `/craft:site:progress` |
+| Site management | folio (moved from Craft) | `/folio:site:publish`, `/folio:site:progress` |
 | Shell speed | flow-cli | All `teach *` commands (<10ms dispatch) |
 
 ### Which tool do I use?
@@ -24,7 +24,7 @@ The teaching workflow spans three tools. Each has clear ownership:
 - **"Deploy the course site"** — `teach deploy` (flow-cli handles rollback)
 - **"Check if my content is ready"** — `teach check` (runs all validators)
 - **"What week is it?"** — `teach status` or `tst` alias
-- **"Publish with CI safety"** — `/craft:site:publish` (5-step workflow)
+- **"Publish with CI safety"** — `/folio:site:publish` (5-step workflow)
 - **"See all available commands"** — `teach map` (ecosystem overview)
 
 ### Config normalization
@@ -73,27 +73,24 @@ teaching:
 
 ```bash
 # Build preview (on dev branch)
-/craft:site:build
-
-# Preview in browser
-/craft:site:preview
+/folio:site:build
 ```
 
 ### 3. Publish to Production
 
 ```bash
 # Preview → Validate → Switch to main → Build → Deploy
-/craft:site:publish
+/folio:site:publish
 ```
 
 ## Core Commands
 
 | Command | Purpose | Teaching Mode Behavior |
 |---------|---------|------------------------|
-| `/craft:site:build` | Build site | Branch validation, teaching-aware output |
-| `/craft:site:publish` | Publish to production | Preview → Validate → Switch → Deploy |
-| `/craft:site:progress` | Semester dashboard | Week-by-week completion tracking |
-| `/craft:git:status` | Git status | Shows deployment context, branch safety |
+| `/folio:site:build` | Build site | Branch validation, teaching-aware output |
+| `/folio:site:publish` | Publish to production | Preview → Validate → Switch → Deploy |
+| `/folio:site:progress` | Semester dashboard | Week-by-week completion tracking |
+| ask "git status" (dev/git skill) | Git status | Shows deployment context, branch safety |
 
 ## How It Works
 
@@ -119,10 +116,10 @@ if mode.is_teaching:
 
 ```mermaid
 graph TD
-    A[Working on dev] -->|/craft:site:build| B[Preview Build]
+    A[Working on dev] -->|/folio:site:build| B[Preview Build]
     B --> C{Looks good?}
     C -->|No| A
-    C -->|Yes| D["/craft:site:publish"]
+    C -->|Yes| D["/folio:site:publish"]
     D --> E[Run Validation]
     E --> F{Valid?}
     F -->|No| G[Show Errors]
@@ -197,7 +194,7 @@ Before publishing, the system checks:
 ### Semester Progress Tracking
 
 ```bash
-/craft:site:progress
+/folio:site:progress
 ```
 
 Shows:
@@ -345,14 +342,13 @@ git checkout dev
 # ... edit schedule.qmd, add lecture notes ...
 
 # 3. Preview changes
-/craft:site:build
-/craft:site:preview
+/folio:site:build
 
 # 4. Check if it looks good
 # Review in browser at localhost:8000
 
 # 5. Publish to production
-/craft:site:publish
+/folio:site:publish
 ```
 
 **What happens:**
@@ -368,10 +364,10 @@ git checkout dev
 
 ```bash
 # Check overall progress
-/craft:site:progress
+/folio:site:progress
 
 # Validate all content
-/craft:site:publish --dry-run --validate-only
+/folio:site:publish --dry-run --validate-only
 ```
 
 ### Semester Setup (First Time)
@@ -395,27 +391,27 @@ teaching:
 EOF
 
 # 2. Test detection
-/craft:git:status
+# ask "git status" — folded into the dev/git skill, 2026-07 v4 consolidation
 
 # 3. Build preview
-/craft:site:build
+/folio:site:build
 ```
 
 ## Teaching-Aware Commands
 
-### `/craft:site:build`
+### `/folio:site:build`
 
 **Standard mode:**
 
 ```bash
-/craft:site:build
+/folio:site:build
 # Builds MkDocs site
 ```
 
 **Teaching mode:**
 
 ```bash
-/craft:site:build
+/folio:site:build
 # - Detects current branch (dev/main)
 # - Shows teaching context
 # - Validates if on production branch
@@ -436,67 +432,44 @@ EOF
 │ Building preview site...                                │
 │ ✓ Built successfully                                    │
 │                                                         │
-│ Preview: /craft:site:preview                            │
-│ Publish: /craft:site:publish                            │
+│ Publish: /folio:site:publish                            │
 │                                                         │
 ╰─────────────────────────────────────────────────────────╯
 ```
 
-### `/craft:git:status`
+### Git status (dev/git skill)
 
-**Standard mode:**
-
-- Shows git branch, changes, remote status
-
-**Teaching mode:**
-
-```
-╭─ Git Status (Teaching Mode) ────────────────────────────╮
-│                                                         │
-│ Branch: dev (Preview) ← You are here                    │
-│                                                         │
-│ Deployment Context:                                     │
-│   Production branch: main                               │
-│   Students see: Week 7 content                          │
-│   You're editing: Week 8 content                        │
-│                                                         │
-│ Safety: ✅ Safe to experiment                           │
-│                                                         │
-│ Modified: 3 files                                       │
-│   - schedule.qmd                                        │
-│   - lectures/week-08.qmd                                │
-│   - assignments/hw3.qmd                                 │
-│                                                         │
-│ Next: /craft:site:build (preview changes)               │
-│                                                         │
-╰─────────────────────────────────────────────────────────╯
-```
+Folded into the `dev/git` skill (2026-07 v4 consolidation) — ask "git status"
+naturally instead of `/craft:git:status`. In teaching mode it still shows
+deployment context (production branch, what students see, what you're
+editing), safety assessment, and modified files. See
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
 ## Troubleshooting
 
 ### Validation Failing
 
-**Problem:** `/craft:site:publish` fails validation
+**Problem:** `/folio:site:publish` fails validation
 
 **Solutions:**
 
 1. **Check what's wrong:**
 
    ```bash
-   /craft:site:publish --dry-run --validate-only
+   /folio:site:publish --dry-run --validate-only
    ```
 
 2. **Common issues:**
 
    - **Missing week**: Add week to schedule.qmd
    - **Date out of range**: Check assignment due dates
-   - **Broken links**: Run `/craft:docs:check-links`
+   - **Broken links**: Run `/folio:docs:check-links`
    - **Malformed YAML**: Validate teach-config.yml syntax
 
 3. **Skip validation (emergency only):**
 
    ```bash
-   /craft:site:publish --skip-validation
+   /folio:site:publish --skip-validation
    ```
 
 ### Branch Confusion
@@ -507,7 +480,7 @@ EOF
 
 ```bash
 # Teaching-aware status
-/craft:git:status
+# ask "git status" (dev/git skill)
 
 # Shows:
 # - Current branch (dev/main)
@@ -525,7 +498,7 @@ EOF
 
    ```bash
    git checkout main
-   /craft:site:build
+   /folio:site:build
    git push origin main
    ```
 
@@ -536,7 +509,7 @@ EOF
 3. **Force rebuild:**
 
    ```bash
-   /craft:site:publish --force-rebuild
+   /folio:site:publish --force-rebuild
    ```
 
 ### Week Numbers Off
@@ -575,7 +548,7 @@ For detailed configuration options, see [`docs/teaching-config-schema.md`](../te
 
 ```bash
 # Validate teach-config.yml syntax
-/craft:git:status
+# ask "git status" (dev/git skill)
 
 # This command will:
 # - Check if file exists
@@ -602,7 +575,7 @@ git branch --show-current
 # Should show: dev
 
 # Use teaching-aware status
-/craft:git:status
+# ask "git status" (dev/git skill)
 # Will show: ✅ Safe to experiment (if on preview branch)
 ```
 
@@ -618,7 +591,7 @@ git checkout dev
 # Re-apply changes here
 
 # 3. Preview and publish properly
-/craft:site:publish
+/folio:site:publish
 ```
 
 ### Scenario 2: Semester Dates Misalignment
@@ -636,7 +609,7 @@ git checkout dev
 cat .flow/teach-config.yml | grep -A 5 "semester:"
 
 # Check what the system thinks
-/craft:site:progress
+/folio:site:progress
 
 # Calculate week number manually
 # Today: Jan 17, 2026
@@ -683,7 +656,7 @@ grep -r "due.*date" assignments/
 
 **Symptom:**
 
-- `/craft:site:build` returns success
+- `/folio:site:build` returns success
 - But preview doesn't update
 - Old content still visible in browser
 
@@ -691,14 +664,14 @@ grep -r "due.*date" assignments/
 
 ```bash
 # 1. Check build output
-/craft:site:build --verbose
+/folio:site:build --verbose
 
 # 2. Clear cache
 rm -rf site/
 rm -rf .mkdocs_cache/
 
 # 3. Rebuild
-/craft:site:build
+/folio:site:build
 
 # 4. Check browser cache
 # Hard refresh: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Linux)
@@ -736,7 +709,7 @@ teaching:
 EOF
 
 # Verify
-/craft:git:status
+# ask "git status" (dev/git skill)
 ```
 
 ## Debug Commands
@@ -749,16 +722,16 @@ cat .flow/teach-config.yml
 python3 -m yaml .flow/teach-config.yml
 
 # Check detection
-/craft:git:status --verbose
+# ask "git status --verbose" (dev/git skill)
 
 # Dry-run publish (see what would happen)
-/craft:site:publish --dry-run --validate-only
+/folio:site:publish --dry-run --validate-only
 
 # Build with verbose output
-/craft:site:build --verbose
+/folio:site:build --verbose
 
 # Check git branch (teaching-aware)
-/craft:git:status
+# ask "git status" (dev/git skill)
 ```
 
 ## Migration Guide
@@ -779,7 +752,7 @@ git checkout dev
 
 ```bash
 # One command
-/craft:site:publish
+/folio:site:publish
 ```
 
 See [`docs/teaching-migration.md`](../teaching-migration.md) for complete migration guide.
@@ -850,7 +823,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Publish week's content
-        run: /craft:site:publish --auto
+        run: /folio:site:publish --auto
 ```
 
 ## See Also

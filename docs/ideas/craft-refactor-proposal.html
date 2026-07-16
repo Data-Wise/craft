@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Craft Refactor Proposal</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f2430;
+    --ink: #e8eaed;
+    --muted: #9aa4b2;
+    --line: #2a2f3a;
+    --accent: #6ea8fe;
+    --green: #5bd6a0;
+    --amber: #f5c26b;
+    --red: # f2727f;
+    --red: #f2727f;
+    --purple: #b48ef2;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f7f9; --card: #ffffff; --card2: #f0f2f6;
+      --ink: #1a1d23; --muted: #5b6472; --line: #e2e6ec;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 0 0 80px;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+  header {
+    padding: 44px 20px 28px; text-align: center;
+    background: linear-gradient(160deg, rgba(110,168,254,.14), transparent 70%);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.5px; }
+  header .sub { color: var(--muted); font-size: 15px; }
+  .pill {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px; margin: 2px;
+    background: var(--card2); color: var(--muted); border: 1px solid var(--line);
+  }
+  .pill.hot { color: var(--red); border-color: rgba(242,114,127,.4); }
+  .pill.ok  { color: var(--green); border-color: rgba(91,214,160,.4); }
+  h2 {
+    font-size: 21px; margin: 40px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--line); scroll-margin-top: 20px;
+  }
+  h2 .emoji { margin-right: 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 20px; margin: 14px 0;
+  }
+  .tldr {
+    background: linear-gradient(150deg, rgba(91,214,160,.10), rgba(110,168,254,.06));
+    border: 1px solid rgba(91,214,160,.3);
+  }
+  .tldr b { color: var(--green); }
+  .grid { display: grid; gap: 12px; }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 680px) { .g3, .g2 { grid-template-columns: 1fr; } }
+  .stat {
+    background: var(--card2); border-radius: 12px; padding: 16px; text-align: center;
+    border: 1px solid var(--line);
+  }
+  .stat .n { font-size: 30px; font-weight: 800; letter-spacing: -1px; }
+  .stat .n.bad { color: var(--red); }
+  .stat .n.warn { color: var(--amber); }
+  .stat .l { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .scroll { overflow-x: auto; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .4px; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  .dead { color: var(--red); font-weight: 700; }
+  .live { color: var(--green); font-weight: 700; }
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: 6px; margin-right: 6px; vertical-align: middle;
+  }
+  .b-eff-lo { background: rgba(91,214,160,.15); color: var(--green); }
+  .b-eff-md { background: rgba(245,194,107,.15); color: var(--amber); }
+  .b-eff-hi { background: rgba(242,114,127,.15); color: var(--red); }
+  .b-imp    { background: rgba(110,168,254,.15); color: var(--accent); }
+  .phase {
+    border-left: 4px solid var(--accent); padding-left: 18px; margin: 18px 0;
+  }
+  .phase.p1 { border-color: var(--green); }
+  .phase.p2 { border-color: var(--amber); }
+  .phase.p3 { border-color: var(--purple); }
+  .phase h3 { margin: 0 0 4px; font-size: 18px; }
+  .phase .meta { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  ul.tight { margin: 6px 0; padding-left: 20px; }
+  ul.tight li { margin: 5px 0; }
+  .check li { list-style: none; position: relative; padding-left: 26px; margin: 8px 0; }
+  .check li::before {
+    content: "☐"; position: absolute; left: 0; color: var(--accent); font-size: 17px; top: -1px;
+  }
+  .nope li { list-style: none; position: relative; padding-left: 26px; margin: 8px 0; }
+  .nope li::before { content: "✕"; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+  .split-box {
+    background: var(--card2); border: 1px dashed var(--line); border-radius: 12px;
+    padding: 14px 16px; margin: 10px 0;
+  }
+  .split-box h4 { margin: 0 0 4px; font-size: 15.5px; }
+  .split-box h4 .tag { font-size: 11px; font-weight: 700; color: var(--accent); margin-left: 8px; }
+  .split-box p { margin: 4px 0; font-size: 13.5px; color: var(--muted); }
+  code {
+    background: var(--card2); padding: 1px 6px; border-radius: 5px;
+    font-size: 13.5px; font-family: "SF Mono", ui-monospace, Menlo, monospace;
+  }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .toc a {
+    font-size: 13px; text-decoration: none; color: var(--accent);
+    background: var(--card2); padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+  }
+  .toc a:hover { border-color: var(--accent); }
+  .callout {
+    background: rgba(245,194,107,.08); border: 1px solid rgba(245,194,107,.35);
+    border-radius: 12px; padding: 14px 16px; margin: 14px 0; font-size: 14.5px;
+  }
+  .callout b { color: var(--amber); }
+  .rec {
+    background: rgba(91,214,160,.08); border: 1px solid rgba(91,214,160,.4);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .rec b { color: var(--green); }
+  footer { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 40px; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🧭 Craft Refactor Proposal</h1>
+  <div class="sub">Shrinking the surface, not gutting the value · exploration &amp; planning only</div>
+  <div style="margin-top:12px">
+    <span class="pill hot">115 commands</span>
+    <span class="pill hot">45 skills</span>
+    <span class="pill">135K lines of docs</span>
+    <span class="pill ok">target: ~59 commands</span>
+  </div>
+  <nav class="toc">
+    <a href="#tldr">TL;DR</a>
+    <a href="#audit">The Audit</a>
+    <a href="#plan">The Plan</a>
+    <a href="#split">The Split</a>
+    <a href="#assume">Assumptions</a>
+    <a href="#not">Not Doing</a>
+    <a href="#wheel" style="color:var(--purple);border-color:rgba(180,142,242,.5)">Review #2: The Wheel</a>
+    <a href="#v2" style="color:var(--green);border-color:rgba(91,214,160,.6);font-weight:700">★ Proposal v2</a>
+    <a href="#next">Next</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- TL;DR -->
+  <section id="tldr">
+    <div class="card tldr">
+      <h2 style="border:none;margin-top:6px"><span class="emoji">⚡</span>TL;DR — read this, skip the rest if busy</h2>
+      <p>Craft isn't "a bit big." It's a <b>10× outlier</b> vs typical Claude plugins and 3–6× its own siblings. But the bloat is <b>not where instinct points.</b></p>
+      <ul class="tight">
+        <li><b>The fix is mostly deletion, not architecture.</b> <span class="live">49% of commands (56/115) are already deprecated</span> — dead aliases still shipped, still counted, still documented.</li>
+        <li><b>5 whole namespaces are 100% dead</b> (<code>git/</code>, <code>task/</code>, <code>workflow/</code>, <code>check/</code>, and 15/16 of <code>site/</code>). Dropping them = deleting directories, not surgery.</li>
+        <li><b>Docs are the real monster</b> — 135K lines / 477 files, ~2.6× all your code. Every count change cascades ~30 files.</li>
+      </ul>
+      <div class="rec" style="margin-top:12px">
+        <b>Recommended path (grilled):</b> Phase 1 <b>Prune</b> — delete 39 dead-namespace commands now, verify + delete the 17-command tail (v3.0.0). → Phase 2 <b>Exclude dead docs from the built site</b> + content-audit the command mirrors. → <s style="color:var(--muted)">Phase 3 split</s> <b>cut</b> — craft stays one plugin. Sequence matters: the fast lane lands the huge win before any risky, irreversible move.
+      </div>
+      <p style="font-size:13px;margin:10px 2px 0" class="muted">🔨 <b>This proposal has been adversarially grilled</b> — 7 load-bearing branches resolved. Grill-revised decisions are flagged inline; full ledger: <code>docs/specs/GRILL-craft-refactor-2026-07-09.md</code>.</p>
+    </div>
+  </section>
+
+  <!-- AUDIT -->
+  <section id="audit">
+    <h2><span class="emoji">🔬</span>The Audit — where the weight actually is</h2>
+
+    <div class="grid g3">
+      <div class="stat"><div class="n bad">115</div><div class="l">commands (savant: 35 · scholar: 19 · typical CC plugin: 5–20)</div></div>
+      <div class="stat"><div class="n warn">45</div><div class="l">skills (savant: 36 · most plugins: 1–10)</div></div>
+      <div class="stat"><div class="n bad">56</div><div class="l">deprecated commands = 49% dead weight</div></div>
+    </div>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="stat"><div class="n">51.7K</div><div class="l">lines in commands+skills+agents</div></div>
+      <div class="stat"><div class="n bad">135K</div><div class="l">lines of docs across 477 files</div></div>
+      <div class="stat"><div class="n warn">~30</div><div class="l">files touched by a single count change</div></div>
+    </div>
+
+    <h3 style="margin-top:24px;font-size:16px">Live vs. dead, by namespace</h3>
+    <p class="muted" style="font-size:13.5px;margin-top:2px">The story the raw counts hide: the deprecated commands aren't scattered — they cluster into namespaces that were <em>already</em> consolidated into skills. That makes them safe to delete wholesale.</p>
+    <div class="card scroll" style="padding:6px 14px">
+      <table>
+        <thead><tr><th>Namespace</th><th class="num">Total</th><th class="num">Dead</th><th class="num">Live</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>git/</code></td><td class="num">15</td><td class="num dead">15</td><td class="num">0</td><td class="dead">100% dead → delete</td></tr>
+          <tr><td><code>site/</code></td><td class="num">16</td><td class="num dead">15</td><td class="num">1</td><td class="dead">94% dead</td></tr>
+          <tr><td><code>workflow/</code></td><td class="num">5</td><td class="num dead">5</td><td class="num">0</td><td class="dead">100% dead → delete</td></tr>
+          <tr><td><code>task/</code></td><td class="num">3</td><td class="num dead">3</td><td class="num">0</td><td class="dead">100% dead → delete</td></tr>
+          <tr><td><code>check/</code></td><td class="num">1</td><td class="num dead">1</td><td class="num">0</td><td class="dead">100% dead → delete</td></tr>
+          <tr><td><code>dist/</code></td><td class="num">5</td><td class="num warn">3</td><td class="num">2</td><td>trim</td></tr>
+          <tr><td><code>docs/</code></td><td class="num">22</td><td class="num">4</td><td class="num live">18</td><td class="live">biggest live surface</td></tr>
+          <tr><td><code>code/</code></td><td class="num">14</td><td class="num">2</td><td class="num live">12</td><td class="live">core</td></tr>
+          <tr><td><code>ci/</code></td><td class="num">8</td><td class="num">0</td><td class="num live">8</td><td class="live">core</td></tr>
+          <tr><td><code>arch/</code></td><td class="num">4</td><td class="num">0</td><td class="num live">4</td><td class="live">core</td></tr>
+          <tr><td><code>(root)</code></td><td class="num">14</td><td class="num">5</td><td class="num live">9</td><td class="live">daily drivers</td></tr>
+          <tr><td class="muted">orch/ · plan/ · utils/</td><td class="num">8</td><td class="num">3</td><td class="num live">5</td><td>core</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <b>Key insight:</b> the daily-driver surface you actually touch is tiny — <code>do · check · plan · grill · hub · brief · test · orch · done</code> plus <code>code/</code>, <code>ci/</code>, <code>docs/</code>. Everything else is either dead or rarely-invoked. A user installing craft loads all 115 into context; ~half of that is noise that dilutes routing.
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section id="plan">
+    <h2><span class="emoji">🛠️</span>The Plan — three phases, sequenced by payoff</h2>
+    <p class="muted" style="font-size:14px">Each phase ships independently and stands alone. Stop after any phase and you've still won. Ordered cheapest-highest-impact first (your own "cascading discovery" rule).</p>
+
+    <div class="phase p1">
+      <h3>Phase 1 · Prune (split into fast + careful) 🟢🟡 <span class="badge b-eff-md">EFFORT: LOW→MED</span><span class="badge b-imp">IMPACT: HUGE</span></h3>
+      <div class="meta">v3.0.0 major · <b>grill-revised</b>: no longer "delete all 56 at once"</div>
+      <p style="font-size:14px;background:rgba(91,214,160,.07);border:1px solid rgba(91,214,160,.3);border-radius:10px;padding:10px 12px;margin:8px 0">
+        <b style="color:var(--green)">🔨 Grilled (B1):</b> ADR-002 (the "deprecated-command rich-body trap") proves craft has already <em>silently lost logic</em> by trusting <code>replaced-by:</code>. So Phase 1 splits:
+      </p>
+      <ul class="tight">
+        <li><b>Fast lane — delete 39 now:</b> the fully-/near-dead namespaces <code>git/</code>(15) + <code>workflow/</code>(5) + <code>task/</code>(3) + <code>check/</code>(1) + <code>site/</code>'s 15 deprecated — <b>keeping site's 1 live command</b>. These were wholesale-consolidated; safe to delete as directories.</li>
+        <li><b>Careful lane — verify 17, then delete:</b> the deprecated commands living <em>inside live namespaces</em> (root 5, <code>docs/</code> 4, <code>dist/</code> 3, <code>code/</code> 2, <code>plan/</code> 2, <code>orch/</code> 1). Diff each body vs its <code>replaced-by:</code> skill first — only delete when the logic is confirmed migrated.</li>
+        <li><b>Gate the whole thing (B7):</b> grep <code>flow-cli</code>, <code>atlas</code>, <code>~/.claude</code>, shell history, tutorials & the marketplace manifest for the 56 names first. Anything with a live external caller stays a thin alias one more cycle.</li>
+        <li>Ship <code>MIGRATION-v3.md</code>; regenerate counts once against the new total. Update the count/discovery/e2e tests that assert dropped commands exist.</li>
+      </ul>
+      <p class="muted" style="font-size:13px">"EFFORT: LOW" was dishonest for the 17-command tail — that's the real work. The 39-command fast lane still lands the huge instant win.</p>
+    </div>
+
+    <div class="phase p2">
+      <h3>Phase 2 · Refactor &amp; Delete Docs 🟡 <span class="badge b-eff-md">EFFORT: MED</span><span class="badge b-imp">IMPACT: HIGH</span></h3>
+      <div class="meta">The docs monster · the actual daily maintenance tax · <b>grill-revised</b></div>
+      <p style="font-size:14px;background:rgba(245,194,107,.08);border:1px solid rgba(245,194,107,.35);border-radius:10px;padding:10px 12px;margin:8px 0">
+        <b style="color:var(--amber)">🔨 Grilled (B2/B3/B4/B6):</b> "delete 44K lines" became <b>exclude-from-built-site</b> — because <code>docs/specs/</code> is the <em>live</em> capture target for brainstorm/grill/spec (this proposal's own grill ledger lives there). The dirs stay in-repo; only the <em>published site</em> shrinks.
+      </p>
+      <p style="font-size:14.5px">Two moves: <b>exclude</b> the dead process-artifact weight from the built site, then <b>refactor</b> what remains so it can't re-bloat. Subtrees:</p>
+      <div class="card scroll" style="padding:6px 14px;margin:10px 0">
+        <table>
+          <thead><tr><th>Subtree</th><th class="num">Files</th><th class="num">Lines</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td><code>docs/specs/</code></td><td class="num">123</td><td class="num warn">35,119</td><td class="warn">EXCLUDE from built site — keep dir as live capture target + retention rule</td></tr>
+            <tr><td><code>docs/commands/</code></td><td class="num">84</td><td class="num warn">12,023</td><td>CONTENT-AUDIT first (B4) → generate only thin mirrors; hand-keep rich pages</td></tr>
+            <tr><td><code>docs/plans/</code></td><td class="num">16</td><td class="num warn">6,212</td><td class="warn">EXCLUDE from built site — session handoffs, kept in git</td></tr>
+            <tr><td><code>docs/archive/</code></td><td class="num">7</td><td class="num warn">3,201</td><td class="warn">EXCLUDE from built site — already archived</td></tr>
+            <tr><td><code>docs/internal/</code></td><td class="num">11</td><td class="num">1,103</td><td>KEEP — durable grounding/context docs</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="tight">
+        <li><b>Sweep inbound links first (B6):</b> grep built pages for links into specs/plans/archive + check per-file nav membership (your own <code>mkdocs-exclude-docs</code> memory), fix them, <em>then</em> <code>exclude_docs</code>. Order matters — skip it and link-validation CI goes red.</li>
+        <li><b>Exclude</b> <code>docs/specs/</code> + <code>docs/plans/</code> + <code>docs/archive/</code> from the built site → ~44K lines leave the <em>maintained/published surface</em>, dirs stay in-repo. Add a retention rule (prune &gt; N months).</li>
+        <li><b>Content-audit then refactor</b> <code>docs/commands/</code>: measure what's beyond frontmatter; generate only thin mirrors, hand-keep content-rich pages. Valid outcome: no generator.</li>
+        <li><b>Kill the ~30-file count cascade</b>: one generated counts source-of-truth + a build step.</li>
+      </ul>
+      <div class="callout" style="margin-top:6px">
+        <b>Metric, re-baselined (B3):</b> not "135K→55K lines" (misleading — the lines still live in the repo you clone). Measure the tax you actually feel: <b>count cascade 30→1</b>, <b>doc files changed per release</b>, <b>built-site page count</b>.
+      </div>
+    </div>
+
+    <div class="phase p3" style="opacity:.72;border-color:var(--muted)">
+      <h3>Phase 3 · Peel a satellite <span class="badge" style="background:rgba(242,114,127,.15);color:var(--red)">CUT BY GRILL (B5)</span></h3>
+      <div class="meta">Struck from the plan · craft stays one plugin</div>
+      <p style="font-size:14px"><b style="color:var(--red)">🔨 Grilled out:</b> even the one "clean" peel (<code>craft-docs</code>) saddles a <b>solo maintainer</b> with a second release pipeline, shared-skill ownership, a second marketplace entry, and tap-manifest sync — <em>forever</em> — to fix a context-dilution cost that is <b>asserted, not measured</b>. Splitting speculatively is the exact over-engineering that bloated craft. <b>Decision: cut it.</b> If dilution proves real after Phases 1–2, revisit <em>with data</em>. See <a href="#split" style="color:var(--muted)">The Split</a> for the analysis that led here.</p>
+    </div>
+  </section>
+
+  <!-- SPLIT -->
+  <section id="split">
+    <h2><span class="emoji">🧩</span>The Split — you asked to explore it; here's the honest read</h2>
+    <p>After Phase 1 there are ~59 live commands. A 4-way split (<code>core</code>/<code>docs</code>/<code>dist</code>/<code>git</code>) <b>sounds</b> clean but doesn't survive the numbers — <code>dist/</code> and <code>git/</code> are too small to justify their own repo, version, and marketplace entry. The only split that pays for itself:</p>
+
+    <div class="split-box">
+      <h4>craft-core <span class="tag">~40 live commands · KEEP MONOLITHIC</span></h4>
+      <p>Daily drivers (<code>do, check, plan, grill, hub, brief, test, orch, done</code>) + <code>code/</code> (12) + <code>ci/</code> (8) + <code>arch/</code> (4) + <code>orch/</code>, <code>plan/</code>, <code>utils/</code>. This is the engineering workflow — it should stay one cohesive plugin.</p>
+    </div>
+    <div class="split-box" style="border-style:solid;border-color:var(--purple)">
+      <h4>craft-docs <span class="tag" style="color:var(--purple)">~19 live commands · THE ONE CLEAN PEEL</span></h4>
+      <p><code>docs/</code> (18) + <code>site/</code> (1) + the heavy documentation skills (openapi, mermaid, ADRs, site-building). Self-contained, rarely needed mid-code-session, and carries the biggest skills. Installing it separately means a normal coding session never loads doc-tooling into context.</p>
+    </div>
+    <div class="split-box" style="opacity:.7">
+      <h4>craft-dist / craft-git <span class="tag" style="color:var(--muted)">❌ NOT worth splitting</span></h4>
+      <p><code>dist/</code> = 2 live commands; <code>git/</code> already lives entirely in <code>skills/dev/git/</code>. Too thin to carry a repo + version + release cadence. Fold into core.</p>
+    </div>
+
+    <div class="callout">
+      <b>The real trade-off:</b> a split buys <em>context efficiency</em> (a session loads only what it needs) at the cost of <em>a cross-plugin version dance</em> (shared skills, marketplace entries, two release pipelines). Given you're a solo maintainer, Phases 1–2 may deliver enough that you never need Phase 3. Decide <em>after</em> pruning, with real context-usage data — not now.
+    </div>
+  </section>
+
+  <!-- ASSUMPTIONS -->
+  <section id="assume">
+    <h2><span class="emoji">🎯</span>Assumptions to validate before building</h2>
+    <div class="card">
+      <ul class="check">
+        <li><b>Nobody scripts the deprecated names.</b> Test: grep your own dotfiles / other repos / shell history for the 56 old command names before deleting. If hits → keep those specific aliases one cycle.</li>
+        <li><b>The 124 <code>docs/specs/</code> files are genuinely closed.</b> Test: check each for <code>status: done</code>/archived; anything still <code>active</code> stays.</li>
+        <li><b>Deleting commands doesn't orphan a live skill.</b> Test: run <code>validate-counts.sh</code> + the link-checker after each deletion batch — a skill's <code>replaced-by</code> chain must still resolve.</li>
+        <li><b>Context dilution is real, not assumed.</b> Test: measure tokens/routing quality with 115 vs 59 loaded before committing to Phase 3's split.</li>
+        <li><b>v3.0.0 breakage is acceptable to your actual users</b> (you + any tap installers). Test: a one-line note in the release + a week's soak before Homebrew promotion.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- NOT DOING -->
+  <section id="not">
+    <h2><span class="emoji">🚫</span>Not Doing (and why) — the most valuable list</h2>
+    <div class="card">
+      <ul class="nope">
+        <li><b>Not rewriting the 45 skills.</b> Skills are craft's actual value and are reasonably sized. The problem is command/doc <em>count</em>, not skill quality.</li>
+        <li><b>Not a 4-way plugin explosion.</b> <code>craft-dist</code>/<code>craft-git</code> are too small; fragmenting them adds version overhead a solo maintainer will hate.</li>
+        <li><b>Not touching tests yet.</b> 395 test files is a lot, but tests are a safety net during a deletion-heavy refactor — shrink them <em>after</em>, not during.</li>
+        <li><b>Not a gradual two-wave deprecation.</b> You chose "drop outright" — cleaner, and half-measures leave the cascade bloat lingering across two majors.</li>
+        <li><b>Not deciding the split now.</b> Phase 3 is explicitly gated on post-prune data. Building it speculatively risks the exact over-engineering that got craft here.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- NEXT -->
+  <section id="next">
+    <h2><span class="emoji">➡️</span>Open Questions &amp; Next Step</h2>
+    <div class="card">
+      <ul class="tight">
+        <li><b>Migration surface:</b> do any external tools (atlas, flow-cli, your shell aliases) call craft command names directly? That gates how loud the v3.0.0 migration guide must be.</li>
+        <li><b>Docs source-of-truth:</b> is a generated-counts build step (killing the ~30-file cascade) in scope for Phase 2, or a separate follow-up?</li>
+        <li><b>Skill ownership on split:</b> if <code>craft-docs</code> peels off, which shared skills move vs. stay? (openapi/mermaid clearly move; workflow skills stay.)</li>
+      </ul>
+      <div class="rec" style="margin-top:14px">
+        <b>→ Suggested next step:</b> Run the <em>Phase-1 dry-run</em> — grep for external usage of the 56 deprecated names (assumption #1). If clean, Phase 1 is a mechanical, high-confidence v3.0.0 that halves the maintenance surface on its own. Everything else can wait for data.
+      </div>
+      <p class="muted" style="font-size:13px;margin-top:12px">This is a planning artifact only — no craft files were changed. Grill it, push back, or ask for a per-phase implementation plan when you're ready.</p>
+    </div>
+  </section>
+
+  <!-- REVIEW #2 -->
+  <section id="wheel">
+    <h2 style="border-color:var(--purple)"><span class="emoji">🎡</span>Adversarial Review #2 — Don't Reinvent the Wheel</h2>
+    <div class="card" style="border-color:rgba(180,142,242,.4)">
+      <p style="font-size:15px;margin-top:4px"><b style="color:var(--purple)">The uncomfortable thesis:</b> a large slice of craft's 59 live commands duplicates functionality that <b>dedicated, separately-maintained plugins already ship</b> — and you have several installed. Craft's dev-ops and planning surface isn't just <em>big</em>; much of it is a <em>second implementation</em> of wheels other plugins own.</p>
+    </div>
+
+    <h3 style="font-size:16px;margin-top:22px">The plugins already on your machine that overlap craft</h3>
+    <div class="card scroll" style="padding:6px 14px">
+      <table>
+        <thead><tr><th>Installed plugin</th><th>Covers</th><th>Overlaps craft's…</th></tr></thead>
+        <tbody>
+          <tr><td><code>agent-skills</code></td><td>plan · spec · TDD · review · ci-cd · git-workflow · ship · security · perf · debugging · docs/ADRs · deprecation/migration</td><td class="dead">plan, plan/feature, test, ci/*, code/{lint,refactor,debug,test-gen,deps-audit}, arch/review, docs/changelog</td></tr>
+          <tr><td><code>feature-dev</code></td><td>code-architect · code-explorer · code-reviewer</td><td class="dead">arch/{analyze,plan,review}</td></tr>
+          <tr><td><code>coderabbit</code></td><td>code review</td><td class="dead">arch/review, code review paths</td></tr>
+          <tr><td><code>code-simplifier</code></td><td>simplify/refactor</td><td class="dead">code/refactor</td></tr>
+          <tr><td><code>commit-commands</code></td><td>commit · commit-push-pr · clean_gone</td><td class="dead">git commit workflow (mostly already deprecated in craft)</td></tr>
+          <tr><td><code>plugin-dev</code></td><td>command/skill/agent/hook development</td><td class="dead">craft's own authoring surface</td></tr>
+          <tr><td><code>hookify</code></td><td>hook creation from transcripts</td><td>partial — craft's hook system</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="font-size:13px">"and others I don't know" → these seven are the map. <code>agent-skills</code> alone shadows ~half of craft's dev-ops + planning commands.</p>
+
+    <h3 style="font-size:16px;margin-top:22px">The real question isn't "split craft" — it's "what is craft <em>for</em>?"</h3>
+    <p>Sort the 59 live commands into three tiers. The answer to the refactor falls out of the sort:</p>
+
+    <div class="split-box" style="border-color:rgba(242,114,127,.4)">
+      <h4>Tier A · Commodity <span class="tag" style="color:var(--red)">REINVENTED — delegate / drop</span></h4>
+      <p><code>ci/*</code> (8) · <code>code/{lint,refactor,debug,test-gen,deps-audit,deps-check,release,release-watch}</code> · <code>arch/{analyze,plan,review}</code> · <code>plan</code>, <code>plan/feature</code> · <code>test</code> · generic <code>docs/*</code> generation. These are wheels <code>agent-skills</code>/<code>feature-dev</code>/<code>coderabbit</code>/<code>code-simplifier</code> maintain. <b>Point users at those; stop shipping craft's copies.</b></p>
+    </div>
+    <div class="split-box" style="border-color:rgba(91,214,160,.4)">
+      <h4>Tier B · Ecosystem glue <span class="tag" style="color:var(--green)">UNIQUE — keep, maybe extract</span></h4>
+      <p><code>dist/homebrew</code> · <code>dist/surfaces</code> · the tap/marketplace/pypi/curl-install machinery · the release pipeline tuned to your Data-Wise multi-repo tap · the branch-guard / worktree / no-switch <b>hook system</b> tuned to your exact multi-branch workflow. <b>No other plugin does this.</b> This is real, and it's <em>reusable across all ~25 dev-tools repos</em> — the one piece with a genuine standalone rationale.</p>
+    </div>
+    <div class="split-box" style="border-color:rgba(180,142,242,.5)">
+      <h4>Tier C · Ergonomics + self-maintenance <span class="tag" style="color:var(--purple)">THE SOUL — this IS "craft"</span></h4>
+      <p>The router (<code>do</code>, <code>hub</code>, <code>smart-help</code>, <code>discovery-usage</code>) · the ADHD workflow (<code>brief</code>, <code>grill</code>, <code>brainstorm</code>, <code>recap</code>, <code>next</code>, <code>done</code>, <code>stuck</code>, <code>focus</code>) · craft's <b>self-maintenance meta</b> (<code>code/command-audit</code>, <code>code/skill-standards</code>, <code>validate-counts</code>, version-sync). Delegating this would <em>destroy the point of craft</em> — the consistent, recommendation-first, ADHD-tuned UX is the wheel you reinvented <b>on purpose.</b></p>
+    </div>
+
+    <div class="rec" style="margin-top:16px">
+      <b>Refactor strategy — "depend, don't duplicate":</b> shrink craft to <b>Tier C (the ergonomic router) + Tier B (the distribution engine)</b>. Retire Tier A; where a craft command is genuinely wired into the router, make it a <b>thin dispatch to the equivalent <code>agent-skills</code> skill</b> instead of a full reimplementation. This is a bigger, better-motivated cut than the deprecated-alias prune — it removes <em>live</em> duplicated surface, not just dead aliases.
+    </div>
+
+    <h3 style="font-size:16px;margin-top:24px">Naming — you asked</h3>
+    <div class="card scroll" style="padding:6px 14px">
+      <table>
+        <thead><tr><th>Piece</th><th>Keep together?</th><th>Name</th></tr></thead>
+        <tbody>
+          <tr><td>Tier C — ergonomic router + self-maintenance</td><td class="live">YES — stays one plugin</td><td><b>craft</b> (keep the name; it has equity and it's the soul)</td></tr>
+          <tr><td>Tier B — distribution / release engine</td><td>The one worth extracting (reusable across 25 repos)</td><td><b>quay</b> <span class="muted">(rec.)</span> · <em>alt:</em> tapwright · purser · wharf · lade</td></tr>
+          <tr><td>docs-site sub-piece (site/website/quickstart)</td><td class="dead">NO — don't spin out</td><td class="muted">if forced: colophon · pressroom · folio</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px"><b>Recommended (revised after probe):</b> craft stays <code>craft</code>. Keep the distribution/release engine <b>inside craft for now</b> — the probe shows siblings already self-release, so <code>quay</code> as a standalone plugin isn't drop-in reuse (see the tension callout below). The name <b><code>quay</code></b> is parked for <em>if</em> you later scope a deliberate fleet-wide release-consolidation project — not part of this refactor. Don't spin out docs either.</p>
+
+    <div class="callout" style="border-color:rgba(242,114,127,.45);background:rgba(242,114,127,.07)">
+      <b style="color:var(--red)">⚠️ Tension with the grill (B5) — NOT reconciled (corrected after probe):</b> an earlier draft called this "compatible." It isn't. <code>quay</code> pays <em>every</em> cost B5 found decisive (2nd pipeline, tap sync, marketplace entry, shared-skill ownership, solo maintainer); the "cross-repo reuse" rationale raises the claimed benefit without touching that cost — so B5 is <b>re-litigated, not resolved.</b> And the reuse benefit was itself unverified, so it was tested:
+      <div style="margin-top:8px;font-size:13.5px;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px 12px">
+        <b>Probe (read-only grep across ~25 siblings):</b> ~11 repos already ship their <em>own</em> release workflow + bump-version script; <b>0</b> use craft's <code>surfaces</code> tooling. The repos that release <b>already solved release themselves.</b>
+      </div>
+      <p style="margin:8px 0 0;font-size:14px"><b>Verdict:</b> <code>quay</code> is <em>not</em> drop-in reuse — it would be a <b>fleet-wide consolidation project</b> (migrate 11 repos off working bespoke CI). B5 <b>stands</b>; <code>quay</code> is craft-docs by another name unless you separately scope that consolidation on its own merits. <b>Recommendation: keep the distribution engine inside <code>craft</code> for now; do not extract.</b></p>
+    </div>
+
+    <h3 style="font-size:16px;margin-top:24px">Adversarial on my own thesis (the gates)</h3>
+    <div class="card">
+      <ul class="nope" style="--x:1">
+        <li><b>"Better plugins" is an assumption, not a measurement.</b> Is <code>agent-skills:ci-cd</code> actually better than <code>craft:ci:generate</code>? Unknown. <b>Same failure mode as B1/B4's rich-body trap</b> — don't delete craft's version until you've compared outputs on a real task. This gate is non-negotiable.</li>
+        <li><b>Self-containment is a feature you'd lose.</b> Depending on <code>agent-skills</code> means craft breaks if it changes/vanishes. Mitigate: pin versions, keep thin fallbacks for load-bearing paths.</li>
+        <li><b>UX consistency is the wheel you reinvented on purpose.</b> Delegating to <code>agent-skills</code> imports <em>its</em> output style — you lose craft's recommendation-first, ADHD-tuned format. Some "duplication" is deliberate UX control.</li>
+        <li><b>Not all overlap is duplication.</b> <code>grill</code> (convergent-adversarial) ≠ <code>agent-skills:idea-refine</code> (divergent); <code>craft:orch</code> (orchestrator-v2) has no agent-skills equivalent. Sort true duplication from name-collision before cutting.</li>
+        <li><b>Re-wiring cost is real.</b> Tier A commands are wired into <code>do</code>/<code>hub</code>, the hooks, and 395 test files. Delegating isn't free deletion — it's a routing rewrite.</li>
+      </ul>
+    </div>
+    <p class="muted" style="font-size:13px;margin-top:8px">This review is exploration only — no craft files changed. It <em>reinforces</em> Review #1's core gate: whether pruning dead aliases (Review #1) or retiring live duplicates (Review #2), <b>verify the replacement before you delete the original.</b></p>
+  </section>
+
+  <!-- PROPOSAL V2 -->
+  <section id="v2">
+    <h2 style="border-color:var(--green)"><span class="emoji">★</span>Proposal v2 — Native-First, Workflow-Based Breakup</h2>
+    <div class="card" style="border-color:rgba(91,214,160,.4)">
+      <p style="font-size:15px;margin-top:4px"><b style="color:var(--green)">Your refined intent (this supersedes the earlier "one plugin vs split" debate):</b></p>
+      <ul class="tight">
+        <li>Craft exists to <b>streamline your workflow</b> using (1) Claude Code's own ever-evolving skills/features <b>first</b>, and (2) best-of-breed plugins for what Claude lacks.</li>
+        <li>You <b>don't want to maintain one large doc-heavy plugin.</b> Breaking up is fine — <b>split by workflow.</b></li>
+        <li>Target shape: <b>3 plugins</b> — a native-first workflow core (keeps the name <code>craft</code>), a docs/site/tutorial/refcard authoring plugin, and a git + branch-protection plugin.</li>
+      </ul>
+      <p style="font-size:14px;margin-bottom:2px"><b>This is a value-function change</b> that legitimately overrides grill-B5: B5 optimized "avoid a 2nd pipeline"; you've now said maintaining <em>one giant plugin</em> is the bigger pain. Your call, honored. The review below makes it work <em>and</em> flags what still bites.</p>
+    </div>
+
+    <h3 style="font-size:17px;margin-top:26px">The design law: <span style="color:var(--accent)">native-first</span></h3>
+    <p>The real idea here isn't "split" — it's <b>build nothing Claude already has.</b> Map every craft function to native / plugin / must-build. The "craft BUILDS" column is what actually deserves to exist:</p>
+    <div class="card scroll" style="padding:6px 14px">
+      <table>
+        <thead><tr><th>craft does today</th><th>Claude native now</th><th>Best plugin</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>orchestration (<code>orch</code>, orchestrator-v2)</td><td class="live">Workflow + Agent tools, subagents</td><td>—</td><td class="dead">thin-wrap native; delete craft's agent</td></tr>
+          <tr><td>planning (<code>plan</code>, <code>arch:plan</code>)</td><td class="live">Plan mode, Plan agent</td><td>agent-skills:plan, feature-dev</td><td class="dead">route</td></tr>
+          <tr><td>TDD / tests (<code>test</code>, <code>test-gen</code>)</td><td>—</td><td class="live">agent-skills TDD, test-engineer</td><td class="dead">route</td></tr>
+          <tr><td>code review (<code>arch:review</code>)</td><td class="live">/code-review, /review, /security-review</td><td>coderabbit</td><td class="dead">route to native</td></tr>
+          <tr><td>CI (<code>ci/*</code>, 8)</td><td>—</td><td class="live">agent-skills:ci-cd-and-automation</td><td class="dead">route</td></tr>
+          <tr><td>refactor (<code>code/refactor</code>)</td><td class="live">/simplify skill</td><td>code-simplifier</td><td class="dead">route to native</td></tr>
+          <tr><td>debug (<code>code/debug</code>)</td><td>—</td><td class="live">agent-skills:debugging</td><td class="dead">route</td></tr>
+          <tr><td>task tracking</td><td class="live">TodoWrite, TaskCreate</td><td>—</td><td class="dead">drop craft's, use native</td></tr>
+          <tr><td>verify</td><td class="live">verify skill</td><td>—</td><td class="dead">route to native</td></tr>
+          <tr><td><b>ADHD ergonomics</b> (brief/recap/next/done/stuck/focus)</td><td>✗</td><td>✗</td><td class="live">craft BUILDS — the soul</td></tr>
+          <tr><td><b>grill ledger</b> (convergent planning)</td><td>✗</td><td>idea-refine is divergent only</td><td class="live">craft BUILDS</td></tr>
+          <tr><td><b>router</b> (do/hub/smart-help)</td><td>✗</td><td>✗</td><td class="live">craft BUILDS</td></tr>
+          <tr><td><b>branch guards</b> (branch-guard, no-switch, worktree)</td><td>hooks = mechanism only</td><td>✗</td><td class="live">git-plugin BUILDS</td></tr>
+          <tr><td><b>docs site / refcard / tutorial</b></td><td>docs skills, tutorial/api agents (partial)</td><td>✗ full pipeline</td><td class="live">docs-plugin BUILDS</td></tr>
+          <tr><td>distribution (homebrew/tap/surfaces)</td><td>✗</td><td>✗</td><td>keep (core or ops)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="border-color:rgba(91,214,160,.35);background:rgba(91,214,160,.07)">
+      <b style="color:var(--green)">The payoff of native-first:</b> the "BUILDS" column is <em>small</em> — ergonomics + grill + router + guards + docs-pipeline. Everything else <b>routes</b>. A router that routes needs little documentation. <b>This — not the split — is what actually shrinks your docs burden.</b>
+    </div>
+
+    <h3 style="font-size:17px;margin-top:26px">🔨 Adverse review — 4 things that bite (sharpest first)</h3>
+    <div class="split-box" style="border-color:rgba(242,114,127,.5)">
+      <h4>1 · The split does NOT fix the docs pain <span class="tag" style="color:var(--red)">CATEGORY ERROR</span></h4>
+      <p>135K lines of docs ÷ 3 plugins = three plugins with ~45K docs <em>each</em>, now with 3× the release/version/test infra. Splitting <b>scatters</b> docs, it doesn't delete them. The lever that reduces docs is <b>native-first thinness</b> (a router needs few docs) + Review #1's dead-doc pruning — <b>both work without splitting at all.</b> Don't sell the split as the docs fix; they're orthogonal.</p>
+    </div>
+    <div class="split-box" style="border-color:rgba(245,194,107,.5)">
+      <h4>2 · Monorepo escape is closed → 3 plugins = 3 pipelines <span class="tag" style="color:var(--amber)">COST IS REAL</span></h4>
+      <p><code>claude-plugins</code> (the multi-plugin monorepo) is <b>deprecated</b> — craft already migrated out to a standalone repo. So you can't hide 3 plugins behind one shared pipeline the way that repo would have. Three plugins = <b>3 repos, 3 release pipelines, 3 marketplace entries, 3 test suites, 3 CHANGELOGs.</b> B5's cost objection is live. You've accepted it — but price it with eyes open, and let it argue for <b>2 plugins, not 3</b> (fold git into core; it's small + hook-based).</p>
+    </div>
+    <div class="split-box" style="border-color:rgba(245,194,107,.5)">
+      <h4>3 · Thin-wrapper rot — native-first cuts both ways <span class="tag" style="color:var(--amber)">MAINTENANCE SHIFT</span></h4>
+      <p>"Rely on built-in Claude first" trades <em>maintaining a big plugin</em> for <em>chasing Claude's changelog</em>. Claude Code evolves fast; every native skill/tool rename can break a wrapper. Mitigation is the same word as the whole proposal: keep wrappers <b>ultra-thin</b> (route, never reimplement) so there's almost nothing to break, and never bind to internal APIs.</p>
+    </div>
+    <div class="split-box" style="border-color:rgba(245,194,107,.5)">
+      <h4>4 · Discovery fragments across plugins <span class="tag" style="color:var(--amber)">UX RISK</span></h4>
+      <p>Today <code>/craft:*</code> is one namespace with one <code>hub</code>. Split into 3 and the <code>do</code>/<code>hub</code> router — craft's soul — must dispatch <b>across</b> plugins. Verify a craft command can cleanly invoke another plugin's skill <b>before</b> committing; if it can't, the unified ADHD UX fractures into 3 disconnected surfaces.</p>
+    </div>
+
+    <h3 style="font-size:17px;margin-top:26px">The 3 (or 2) plugins + names</h3>
+    <div class="card scroll" style="padding:6px 14px">
+      <table>
+        <thead><tr><th>Plugin</th><th>Owns</th><th>Native-first posture</th><th>Name</th></tr></thead>
+        <tbody>
+          <tr><td><b>Workflow core</b></td><td>router (do/hub) · ADHD ergonomics · grill/brainstorm · thin orch wrapper · modes</td><td>routes to native skills + best plugins; builds only the ergonomic glue</td><td><b>craft</b> <span class="muted">(keep)</span></td></tr>
+          <tr><td><b>Docs authoring</b></td><td>docs/site/website/tutorial/quickstart/refcard/mermaid/api/changelog + mkdocs/quarto pipeline</td><td>uses Claude docs skills + tutorial/api agents; builds the site + refcard pipeline</td><td><b>folio</b> <span class="muted">(rec.)</span> · quill · codex · pressroom</td></tr>
+          <tr><td><b>Git + protection</b></td><td>branch-guard · no-switch-guard · worktree · protect/unprotect/baseline</td><td>uses native hooks + gh; builds your specific multi-branch guards</td><td><b>warden</b> <span class="muted">(rec.)</span> · bulwark · picket · ward</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13.5px" class="muted">Names avoid the <code>craft-</code> prefix per your ask, and dodge <code>scribe</code> (your existing project) and <code>commit-*</code> (existing plugin). <b>2-plugin variant:</b> fold <code>warden</code> into <code>craft</code> (git is small + hook-based) → just <code>craft</code> + <code>folio</code>, halving the new infra.</p>
+
+    <div class="rec" style="margin-top:18px">
+      <b>Recommended sequence — thin FIRST, split SECOND:</b>
+      <ol style="margin:8px 0 0;padding-left:22px;font-size:14.5px">
+        <li><b>Native-first thinning</b> (reversible, high-value): convert Tier-A commands to thin routes to native/plugins — <em>verified per command</em> (the through-line gate). This is what actually cuts docs, and it's safe.</li>
+        <li><b>Prune</b> (Review #1): drop the 39 dead-namespace commands; exclude dead docs from the built site.</li>
+        <li><b>Then split</b> the now-thin surface into <code>craft</code> + <code>folio</code> (+ maybe <code>warden</code>). Thin plugins are cheap to move; a fat one is not.</li>
+      </ol>
+      <p style="margin:10px 0 0;font-size:14px">Why this order: thinning might shrink the core so much you find you want <b>2 plugins, not 3</b> — and you'll never know that if you split the fat version first. <b>Split fat = regret; split thin = trivial.</b></p>
+    </div>
+  </section>
+
+  <footer>
+    Craft Refactor Proposal · generated as an exploration artifact · <code>docs/ideas/craft-refactor-proposal.html</code><br>
+    Data source: live audit of craft @ v2.61.2 · siblings savant / scholar / rforge
+  </footer>
+
+</div>
+</body>
+</html>

@@ -199,7 +199,7 @@ The validator silently skips (`exit 0`) when `~/.claude/hooks/branch-guard.sh` i
 
 ## See Also
 
-- `/craft:git:guard` — List, enable, or disable individual guards
+- `skills/dev/git/SKILL.md` — List, enable, or disable individual guards (ask naturally; folded from `/craft:git:guard`, 2026-07 v4 consolidation)
 - `scripts/branch-guard.sh` — Branch protection guard (repo source)
 - `scripts/no-switch-guard.sh` — Switch/restore guard (repo source)
 - `docs/guide/guard-suite.md` — Guard suite concepts and ownership seam

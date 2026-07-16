@@ -530,7 +530,7 @@ cd ~/.git-worktrees/project/feature-xyz
 ## See Also
 
 - **Tutorial:** [CLAUDE.md Workflows](../tutorials/claude-md-workflows.md)
-- **Commands:** [CLAUDE-MD Commands](../commands/docs/claude-md.md)
+- **Skill:** `skills/docs/claude-md/` (init/sync/edit folded into this skill in the v4 consolidation)
 - **Guide:** [Interactive Commands](../guide/interactive-commands.md)
 - **Templates:** `templates/claude-md/`
 

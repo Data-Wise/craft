@@ -63,10 +63,10 @@ Maps intent + domain to optimal command sequence:
 Feature Workflow:
   1. /craft:arch:plan     - Design the feature
   2. /craft:code:test-gen - Generate tests (TDD)
-  3. /craft:git:branch    - Create feature branch
+  3. dev/git skill        - Create feature branch (ask naturally; folded from /craft:git:branch)
   4. → Implementation     - User implements
   5. /craft:test          - Verify tests pass
-  6. /craft:git:sync      - Commit changes
+  6. dev/git skill        - Commit/sync changes (ask naturally; folded from /craft:git:sync)
 
 Bug Fix Workflow:
   1. /craft:code:debug    - Analyze the issue
@@ -146,7 +146,7 @@ Determines task complexity for mode selection:
 │ Recommended Commands:                              │
 │   1. /craft:arch:plan       Design auth system    │
 │   2. /craft:code:test-gen   Generate auth tests   │
-│   3. /craft:git:branch      Create feature/auth   │
+│   3. dev/git skill          Create feature/auth   │
 ╰─────────────────────────────────────────────────────╯
 ```
 

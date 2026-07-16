@@ -8,10 +8,13 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-2.61.2-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.0.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
+> **Docs/publishing commands moved to [`folio`](https://github.com/Data-Wise/folio)** — see
+> [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
+>
 > **v2.36.0 — Deterministic Workflow Engine** 🚀
-> **115 commands** | **45 skills** | **8 agents** | **1994 tests passing**
+> **47 commands** | **40 skills** | **2 agents** | **1994 tests passing**
 > New `/craft:orch:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orch`), drive (`:drive`), and workflow (`:workflow`).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
@@ -104,7 +107,7 @@ claude
 
 ```
 Craft v1.17.0 loaded
-115 commands available
+67 commands available
 ```
 
 ### Using in Claude Code CLI
@@ -150,7 +153,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 115 commands, 8 agents, 45 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 47 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -235,16 +238,9 @@ Specialized workflows for teaching projects with automated validation, semester 
 | Command                                | Description                                                                                   |
 | -------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `/brainstorm [depth] [focus] [action]` | Enhanced brainstorming with smart detection, design modes, time budgets, and agent delegation |
-| `/spec-review <file>`                  | Interactive spec review with validation, status updates, and archival                         |
-| `/focus [task]`                        | Enter focus mode for deep work on a specific task                                             |
 | `/next`                                | Get next task recommendation                                                                  |
 | `/done [message]`                      | Mark current task as complete                                                                 |
-| `/recap`                               | Generate session summary and progress report                                                  |
-| `/stuck [description]`                 | Get help when blocked on a task                                                               |
 | `/refine <spec-file>`                  | Refine and improve existing spec documents                                                    |
-| `/task-status [task-id]`               | Check status of background tasks                                                              |
-| `/task-output <task-id>`               | Get output from completed task                                                                |
-| `/task-cancel <task-id>`               | Cancel running background task                                                                |
 
 **Brainstorming Modes:**
 
@@ -285,7 +281,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:code:release`           | Release workflow         | ----- |
 | `/craft:code:test-gen`          | Generate test files      | ----- |
 | `/craft:code:lint`              | Code style checks        | ✓    |
-| `/craft:code:coverage`          | Coverage report          | ✓    |
+| `/craft:test --coverage`          | Coverage report          | ✓    |
 | `/craft:code:deps-check`        | Dependency health        | ----- |
 | `/craft:code:deps-audit`        | Security scan            | ----- |
 | `/craft:ci:local`          | CI checks locally        | ----- |
@@ -309,13 +305,14 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:arch:review`  | Review changes        | ----- |
 | `/craft:arch:diagram` | Generate diagrams     | ----- |
 
-### Planning Commands (3)
+### Planning Commands (1)
 
 | Command               | Description              |
 | --------------------- | ------------------------ |
 | `/craft:plan:feature` | Plan features with tasks |
-| `/craft:plan:sprint`  | Sprint planning          |
-| `/craft:plan:roadmap` | Generate roadmaps        |
+
+Sprint planning and roadmap generation moved into the `plan-orchestrator`
+skill (Modes 3–4) — invoke `/craft:plan` and describe the need.
 
 ### Documentation Commands (13) - CONSOLIDATED in v1.11.0
 
@@ -368,35 +365,22 @@ Specialized workflows for teaching projects with automated validation, semester 
 
 | Command                   | Description                                                              |
 | ------------------------- | ------------------------------------------------------------------------ |
-| `/craft:site:create`      | Full documentation site wizard with 8 design presets                     |
-| `/craft:site:nav`         | **NEW v1.9.0** Navigation reorganization (ADHD-friendly, max 7 sections) |
-| `/craft:site:audit`       | **NEW v1.9.0** Content inventory & audit (outdated, duplicates, gaps)    |
-| `/craft:site:consolidate` | **NEW v1.9.0** Merge duplicate/overlapping documentation files           |
 | `/craft:site:update`      | Update site content from code changes                                    |
 | `/craft:site:status`      | Dashboard and health check                                               |
-| `/craft:site:theme`       | Quick theme changes (colors, presets, fonts)                             |
-| `/craft:site:add`         | Add new documentation pages                                              |
 | `/craft:site:build`       | Build site                                                               |
-| `/craft:site:preview`     | Preview locally                                                          |
 | `/craft:site:deploy`      | Deploy to GitHub Pages                                                   |
-| `/craft:site:init`        | Basic initialization (use `create` for full wizard)                      |
 
-### Git Commands (10 + 4 guides)
+### Git (0 commands, 4 guides) — folded into the `dev/git` skill
 
-| Command                       | Description                                                                                  |
-| ----------------------------- | -------------------------------------------------------------------------------------------- |
-| `/craft:git:init`             | Initialize repository with craft workflow                                                    |
-| `/craft:git:branch`           | Branch management                                                                            |
-| `/craft:git:status`           | Enhanced git status (teaching-aware)                                                         |
-| `/craft:git:sync`             | Smart git sync                                                                               |
-| `/craft:git:clean`            | Clean merged branches                                                                        |
-| `/craft:git:recap`            | Activity summary                                                                             |
-| `/craft:git:worktree`         | **NEW v1.8.0** Parallel development with git worktrees                                       |
-| `/craft:git:protect`          | Manage local hook (`branch-guard.sh`) — 3-tier risk classification                           |
-| `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side branch protection (PR required, no force-push, no delete)        |
-| `/craft:git:unprotect`        | Session-scoped bypass for the local hook                                                     |
+Branch management, git status, cleanup, worktree, protect, protect-baseline,
+unprotect, and guard management were all folded into the `dev/git` skill
+(2026-07 v4 consolidation) — there are no remaining `/craft:git:*` slash
+commands. Ask naturally ("create feature branch x", "show git status",
+"clean up merged branches", "protect this branch", "apply baseline
+protection") or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
-**Git Guides:** refcard, undo-guide, safety-rails, learning-guide
+**Git Guides:** refcard
 
 ### CI Commands (3)
 
@@ -458,7 +442,7 @@ Specialized workflows for teaching projects with automated validation, semester 
 ### Daily Development
 
 ```
-/craft:check → /craft:test unit → /craft:git:sync
+/craft:check → /craft:test unit
 ```
 
 ### Release Preparation
@@ -499,16 +483,6 @@ Specialized workflows for teaching projects with automated validation, semester 
 ### Site Workflow
 
 ```
-# Create new documentation site with design preset
-/craft:site:create --preset adhd-focus
-
-# Change theme quickly
-/craft:site:theme --preset adhd-calm
-/craft:site:theme --primary "#1a73e8"
-
-# Add new pages
-/craft:site:add guide "Getting Started"
-
 # Update content from code changes
 /craft:site:update
 
@@ -530,8 +504,8 @@ Specialized workflows for teaching projects with automated validation, semester 
 **For plugin development and contributions:**
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
-- 📖 **[Commands Reference](docs/commands.md)** - All 115 commands documented
-- 📖 **[Skills & Agents](docs/skills-agents.md)** - 45 skills, 8 agents
+- 📖 **[Commands Reference](docs/commands.md)** - All 67 commands documented
+- 📖 **[Skills & Agents](docs/skills-agents.md)** - 40 skills, 2 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards

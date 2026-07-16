@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>folio Split — Plan Report</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f2430;
+    --ink: #e8eaed;
+    --muted: #9aa4b2;
+    --line: #2a2f3a;
+    --accent: #6ea8fe;
+    --green: #5bd6a0;
+    --amber: #f5c26b;
+    --red: #f2727f;
+    --purple: #b48ef2;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f7f9; --card: #ffffff; --card2: #f0f2f6;
+      --ink: #1a1d23; --muted: #5b6472; --line: #e2e6ec;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 0 0 80px;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+  header {
+    padding: 44px 20px 28px; text-align: center;
+    background: linear-gradient(160deg, rgba(180,142,242,.16), transparent 70%);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.5px; }
+  header .sub { color: var(--muted); font-size: 15px; }
+  .pill {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px; margin: 2px;
+    background: var(--card2); color: var(--muted); border: 1px solid var(--line);
+  }
+  .pill.hot { color: var(--red); border-color: rgba(242,114,127,.4); }
+  .pill.ok  { color: var(--green); border-color: rgba(91,214,160,.4); }
+  .pill.pur { color: var(--purple); border-color: rgba(180,142,242,.4); }
+  h2 {
+    font-size: 21px; margin: 40px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--line); scroll-margin-top: 20px;
+  }
+  h2 .emoji { margin-right: 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 20px; margin: 14px 0;
+  }
+  .tldr {
+    background: linear-gradient(150deg, rgba(180,142,242,.12), rgba(110,168,254,.06));
+    border: 1px solid rgba(180,142,242,.3);
+  }
+  .tldr b { color: var(--purple); }
+  .grid { display: grid; gap: 12px; }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 680px) { .g4, .g3, .g2 { grid-template-columns: 1fr 1fr; } }
+  .stat {
+    background: var(--card2); border-radius: 12px; padding: 16px; text-align: center;
+    border: 1px solid var(--line);
+  }
+  .stat .n { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+  .stat .n.good { color: var(--green); }
+  .stat .n.pur { color: var(--purple); }
+  .stat .n.acc { color: var(--accent); }
+  .stat .l { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .scroll { overflow-x: auto; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .4px; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  .dead { color: var(--red); font-weight: 700; }
+  .live { color: var(--green); font-weight: 700; }
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: 6px; margin-right: 6px; vertical-align: middle;
+  }
+  .b-eff-lo { background: rgba(91,214,160,.15); color: var(--green); }
+  .b-eff-md { background: rgba(245,194,107,.15); color: var(--amber); }
+  .b-eff-hi { background: rgba(242,114,127,.15); color: var(--red); }
+  .b-imp    { background: rgba(110,168,254,.15); color: var(--accent); }
+  .phase {
+    border-left: 4px solid var(--accent); padding-left: 18px; margin: 18px 0;
+  }
+  .phase.p0 { border-color: var(--muted); }
+  .phase.p1 { border-color: var(--green); }
+  .phase.p2 { border-color: var(--amber); }
+  .phase.p3 { border-color: var(--purple); }
+  .phase.p4 { border-color: var(--accent); }
+  .phase h3 { margin: 0 0 4px; font-size: 18px; }
+  .phase .meta { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  ul.tight { margin: 6px 0; padding-left: 20px; }
+  ul.tight li { margin: 5px 0; }
+  .check li { list-style: none; position: relative; padding-left: 26px; margin: 8px 0; }
+  .check li::before {
+    content: "☐"; position: absolute; left: 0; color: var(--accent); font-size: 17px; top: -1px;
+  }
+  .nope li { list-style: none; position: relative; padding-left: 26px; margin: 8px 0; }
+  .nope li::before { content: "✕"; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+  .gate {
+    background: rgba(245,194,107,.10); border: 1px solid rgba(245,194,107,.4);
+    border-radius: 8px; padding: 8px 12px; margin: 8px 0; font-size: 13.5px;
+  }
+  .gate b { color: var(--amber); }
+  .split-box {
+    background: var(--card2); border: 1px dashed var(--line); border-radius: 12px;
+    padding: 14px 16px; margin: 10px 0;
+  }
+  .split-box.stay { border-color: rgba(91,214,160,.5); }
+  .split-box.move { border-color: rgba(180,142,242,.5); }
+  .split-box h4 { margin: 0 0 4px; font-size: 15.5px; }
+  .split-box h4 .tag { font-size: 11px; font-weight: 700; margin-left: 8px; }
+  .split-box.stay h4 .tag { color: var(--green); }
+  .split-box.move h4 .tag { color: var(--purple); }
+  .split-box p { margin: 4px 0; font-size: 13.5px; color: var(--muted); }
+  .dec { margin: 12px 0; }
+  .dec .h { font-size: 15.5px; font-weight: 700; margin-bottom: 4px; }
+  .dec .h code { font-size: 13px; }
+  .dec .why { font-size: 13.5px; color: var(--muted); margin: 3px 0; }
+  .dec .cons { font-size: 13px; color: var(--muted); font-style: italic; margin-top: 4px; }
+  code {
+    background: var(--card2); padding: 1px 6px; border-radius: 5px;
+    font-size: 13.5px; font-family: "SF Mono", ui-monospace, Menlo, monospace;
+  }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .toc a {
+    font-size: 13px; text-decoration: none; color: var(--accent);
+    background: var(--card2); padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+  }
+  .toc a:hover { border-color: var(--accent); }
+  .callout {
+    background: rgba(245,194,107,.08); border: 1px solid rgba(245,194,107,.35);
+    border-radius: 12px; padding: 14px 16px; margin: 14px 0; font-size: 14.5px;
+  }
+  .callout b { color: var(--amber); }
+  .rec {
+    background: rgba(91,214,160,.08); border: 1px solid rgba(91,214,160,.4);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .rec b { color: var(--green); }
+  .arrow { text-align: center; color: var(--muted); font-size: 22px; margin: 4px 0; }
+  footer { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 40px; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>📚 folio Split — Plan Report</h1>
+    <div class="sub">Extract craft's docs-authoring surface into a standalone, reusable plugin</div>
+    <div style="margin-top:14px">
+      <span class="pill pur">NEW initiative</span>
+      <span class="pill ok">✓ plan-ready · 5 decisions locked</span>
+      <span class="pill hot">native-first REFUTED — docs-merits only</span>
+    </div>
+    <div class="toc">
+      <a href="#tldr">TL;DR</a>
+      <a href="#split">The Split</a>
+      <a href="#why">Why Now</a>
+      <a href="#decisions">5 Decisions</a>
+      <a href="#phases">5 Phases</a>
+      <a href="#rejected">What We Rejected</a>
+      <a href="#next">Next Step</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="card tldr" id="tldr">
+    <p style="margin:0"><b>TL;DR</b> — craft has one dominant, separable chunk: ~28 docs-authoring
+    commands + 6 agents + 5 skills. Pull them into a new <code>folio</code> plugin so each tool
+    has a focused surface. The cut is <b>caller-based, not folder-based</b>: a command stays in
+    craft <em>iff</em> a craft-core pipeline (release) invokes it. craft ends at <b>~64</b>
+    commands; folio launches at <b>~28</b>. The whole plan front-loads its own falsification —
+    Phase&nbsp;3 proves craft can still build its own site with zero moved commands <em>before</em>
+    the release, not after.</p>
+  </div>
+
+  <h2 id="split"><span class="emoji">✂️</span>The Split — caller-based, not folder-based</h2>
+  <div class="card">
+    <p class="muted" style="margin-top:0">The intuitive cut ("move all of <code>commands/docs/</code>")
+    is <span class="dead">wrong</span> — some "docs" commands are release-plumbing craft's own
+    pipeline calls. The correct seam runs by <b>who calls it</b>, which deliberately splits
+    <code>commands/docs/</code> across two plugins.</p>
+
+    <div class="grid g2">
+      <div class="split-box stay">
+        <h4>craft <span class="tag">STAYS · ~64 cmds</span></h4>
+        <p><b>Workflow core + release + git.</b> Plus the release-plumbing docs:</p>
+        <p><code>docs:update</code> (version/count/README/REFCARD/mkdocs sync) ·
+        <code>docs:changelog</code> · <code>site:deploy</code> → collapses to raw
+        <code>mkdocs gh-deploy</code>.</p>
+        <p><span class="muted">code · git · ci · dist · arch · plan · orch</span></p>
+      </div>
+      <div class="split-box move">
+        <h4>folio <span class="tag">MOVES · ~28 cmds</span></h4>
+        <p><b>Docs authoring + publishing tools.</b> Reusable across all ~25 dev-tools projects.</p>
+        <p><code>docs:{tutorial, demo, website, guide, api, mermaid, lint, check-links, quickstart,
+        nav-update, help, prompt, workflow, check, sync}</code> · <code>site:{build, publish,
+        status, progress, check, update}</code></p>
+        <p>+ 6 docs agents · 4 docs skills · <code>demonstration-builder</code>
+        · consumes the existing <code>docs-standards</code> repo</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid g4" style="margin-top:14px">
+    <div class="stat"><div class="n">94</div><div class="l">craft today</div></div>
+    <div class="stat"><div class="n good">~64</div><div class="l">craft after</div></div>
+    <div class="stat"><div class="n pur">~28</div><div class="l">folio (new)</div></div>
+    <div class="stat"><div class="n acc">5&nbsp;+&nbsp;5</div><div class="l">decisions · phases</div></div>
+  </div>
+
+  <h2 id="why"><span class="emoji">🧭</span>Why Now — and why this isn't native-first</h2>
+  <div class="card">
+    <p style="margin-top:0">The earlier <b>native-first</b> thesis (thin craft's commands into
+    routes to Claude-native / third-party skills) was <span class="dead">empirically refuted</span>
+    in PR&nbsp;#279: craft's <code>/do</code> router structurally can't dispatch cross-plugin, and
+    3/3 pilots showed craft's tools beat the generic replacements.</p>
+    <p><b>The folio split is orthogonal to that.</b> It never needed cross-plugin routing — you
+    invoke <code>/folio:docs:*</code> directly. The router wall is now a <em>constraint the plan
+    designs around</em> (both plugins get their own router; neither bridges the wall), not a
+    premise it depends on. This split stands purely on <b>docs-maintenance merits</b>: one
+    cohesive, separable surface; halved count-cascade per plugin; folio reusable everywhere.</p>
+  </div>
+
+  <h2 id="decisions"><span class="emoji">🔒</span>5 Locked Decisions (the grill)</h2>
+  <div class="card">
+    <div class="dec">
+      <div class="h">B1 · folio scope</div>
+      <div class="why"><b>Tools + shared docs-standards</b> library; each project keeps its own
+      content. Grounds on the existing <code>docs-standards</code> sibling repo.</div>
+      <div class="cons">Cost accepted: a third moving part to version alongside folio.</div>
+    </div>
+    <div class="dec">
+      <div class="h">B2 · the release-coupling seam</div>
+      <div class="why"><b>Caller-based cut.</b> <code>docs:update</code> + <code>docs:changelog</code>
+      stay (release plumbing); <code>site:deploy</code> → raw shell; pure authoring → folio. Keeps
+      craft's release self-contained, zero runtime dependency on folio.</div>
+      <div class="cons">Cost accepted: <code>commands/docs/</code> splits across two plugins — a
+      namespace seam users learn.</div>
+    </div>
+    <div class="dec">
+      <div class="h">B3 · /do + /hub routing</div>
+      <div class="why">craft <b>drops DOCS/SITE</b> from <code>/do</code> and <code>/hub</code>;
+      folio ships its own <code>/folio:do</code>. The router never advertises a target it can't
+      reach — honest, one model per plugin.</div>
+      <div class="cons">Cost accepted: no single-<code>/do</code> entry for docs; you switch plugins
+      consciously.</div>
+    </div>
+    <div class="dec">
+      <div class="h">B4 · count / bump tooling</div>
+      <div class="why"><b>Duplicate</b> into folio. The split <em>shrinks</em> each cascade
+      (~28 vs ~64), so per-repo tooling is lighter than today's combined 94.</div>
+      <div class="cons">Cost accepted: two small copies drift slowly — tolerable, independently
+      versioned.</div>
+    </div>
+    <div class="dec">
+      <div class="h">B5 · extraction + versioning</div>
+      <div class="why"><b>History-preserving</b> <code>git subtree split</code>; staged; <b>craft
+      v4.0.0</b> (breaking) + <b>folio v1.0.0</b>, coordinated two-repo release.</div>
+      <div class="cons">Cost accepted: two-repo release choreography — done once, then each ships
+      independently.</div>
+    </div>
+  </div>
+
+  <h2 id="phases"><span class="emoji">🗺️</span>The 5-Phase Plan</h2>
+
+  <div class="phase p0">
+    <h3>Phase 0 · Caller-Audit <span class="badge b-eff-lo">LOW</span> <span class="badge b-imp">read-only</span></h3>
+    <div class="meta">craft · gates everything · runnable from this session, no worktree</div>
+    <ul class="check">
+      <li>Grep every craft-core call of <code>docs:*</code>/<code>site:*</code> (release, dist, ci, git, scripts).</li>
+      <li>Classify each: release-plumbing → stays · authoring → moves.</li>
+      <li>Surface any hit outside the seed set explicitly — no silent bucketing.</li>
+    </ul>
+    <div class="gate"><b>GATE →</b> a concrete stays/moves partition. No partition, no extraction.</div>
+  </div>
+
+  <div class="phase p1">
+    <h3>Phase 1 · folio Scaffold <span class="badge b-eff-md">MED</span></h3>
+    <div class="meta">folio v0.1.0 · new repo · no craft changes yet</div>
+    <ul class="check">
+      <li>Create <code>~/projects/dev-tools/folio</code> (multi-branch) + strict <code>plugin.json</code>.</li>
+      <li>Define the folio ↔ <code>docs-standards</code> contract (path convention + fallback).</li>
+      <li>Duplicate count tooling, tuned to folio's surface.</li>
+    </ul>
+    <div class="gate"><b>GATE →</b> repo exists, plugin validates, count scripts green on empty surface.</div>
+  </div>
+
+  <div class="phase p2">
+    <h3>Phase 2 · History-Preserving Extraction <span class="badge b-eff-hi">HIGH</span></h3>
+    <div class="meta">folio v1.0.0-rc · craft still untouched</div>
+    <ul class="check">
+      <li><code>git subtree split</code> the moves-set into folio with authorship/blame intact.</li>
+      <li>Rewrite internal <code>/craft:*</code> refs → <code>/folio:*</code>; repoint docs-standards.</li>
+      <li>Wire folio CI (pytest + Validate-Plugin-Structure bash + count-cascade).</li>
+    </ul>
+    <div class="gate"><b>GATE →</b> folio full suite green; <code>git log --follow</code> shows craft-era history.</div>
+  </div>
+
+  <div class="phase p3">
+    <h3>Phase 3 · craft Amputation <span class="badge b-eff-hi">HIGH</span> <span class="badge b-imp">v4.0.0 breaking</span></h3>
+    <div class="meta">craft · only after Phases 0 &amp; 2 green</div>
+    <ul class="check">
+      <li>Delete the moved surface; keep the stays-set; collapse <code>site:deploy</code> to raw shell.</li>
+      <li>Drop DOCS/SITE from <code>/do</code> + <code>/hub</code>.</li>
+      <li>Count cascade (~30 files); write <code>MIGRATION-v4.md</code> (every moved cmd → folio).</li>
+    </ul>
+    <div class="gate"><b>THE PROOF →</b> craft builds its OWN site with zero moved authoring
+    commands. If this fails, the caller-based cut was wrong — and you learn it before the release.</div>
+  </div>
+
+  <div class="phase p4">
+    <h3>Phase 4 · folio Router + Coordinated Release <span class="badge b-eff-md">MED</span></h3>
+    <div class="meta">craft v4.0.0 / folio v1.0.0 · both repos</div>
+    <ul class="check">
+      <li>Build <code>/folio:hub</code> (index) + thin <code>/folio:do</code> — folio's own surface only.</li>
+      <li>Coordinated release; Homebrew + tap + marketplace for both.</li>
+      <li>CI green on <code>main</code> for both; docs deploy.</li>
+    </ul>
+    <div class="gate"><b>GATE →</b> two plugins, both suites green, neither depends on the other to ship.</div>
+  </div>
+
+  <h2 id="rejected"><span class="emoji">🚫</span>What We Rejected (and the failure mode it maps to)</h2>
+  <div class="card">
+    <ul class="nope">
+      <li><b>Move everything docs, release shells out to folio</b> → the exact cross-plugin
+      fragility native-first was refuted for. Release breaks if folio is absent.</li>
+      <li><b>Duplicate the release-plumbing subset into folio</b> → drift = the
+      <code>deprecated-command-rich-body-trap</code>, one level up.</li>
+      <li><b>folio launches scriptless</b> → re-introduces the count-drift craft spent months killing.</li>
+      <li><b>Keep a DOCS pointer in /hub</b> → advertises commands it can't run; craft must track
+      folio's surface (doc-drift coupling).</li>
+      <li><b>Fresh copy, no git history</b> → loses blame on the ~30 files most likely to need
+      archaeology later.</li>
+    </ul>
+  </div>
+
+  <h2 id="next"><span class="emoji">🎯</span>Recommended Next Step</h2>
+  <div class="rec">
+    <p style="margin-top:0"><b>→ Start with Phase 0 (read-only caller-audit).</b> It runs from the
+    current dev session with no worktree and no risk — pure grep + classify — and it produces the
+    one input Phases 2 &amp; 3 depend on: the confirmed stays/moves partition. Everything after
+    Phase 0 needs the <code>feature/folio-split</code> worktree and your explicit go-ahead.</p>
+    <p style="margin-bottom:0" class="muted">Sources on disk: <code>docs/plans/ORCHESTRATE-folio-split.md</code>
+    (full plan) · <code>docs/specs/GRILL-folio-split-2026-07-09.md</code> (the 5 locked decisions).</p>
+  </div>
+
+  <footer>
+    Generated 2026-07-09 · craft dev · supersedes the dropped Phase 3 of the native-first breakup
+    (that plan stays CLOSED) · nothing built yet — planning artifact only
+  </footer>
+
+</div>
+</body>
+</html>

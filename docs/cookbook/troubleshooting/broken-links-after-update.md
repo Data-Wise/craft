@@ -1,6 +1,6 @@
 ---
 title: "Troubleshooting: Broken Links After Update"
-description: "Fix broken links reported by mkdocs build or /craft:docs:check-links after documentation changes"
+description: "Fix broken links reported by mkdocs build or /folio:docs:check-links after documentation changes"
 category: "cookbook"
 level: "beginner"
 time_estimate: "5 minutes"
@@ -15,7 +15,7 @@ related:
 
 ## Problem
 
-After updating documentation, `mkdocs build` or `/craft:docs:check-links` reports broken links:
+After updating documentation, `mkdocs build` or `/folio:docs:check-links` (moved to folio) reports broken links:
 
 ```
 WARNING - Doc file 'guide/my-guide.md' contains a link
@@ -86,7 +86,7 @@ echo "docs/brainstorm/draft-*.md" >> .linkcheck-ignore
 
 ```bash
 mkdocs build --strict 2>&1 | grep -i "warning"
-/craft:docs:check-links
+/folio:docs:check-links
 python3 tests/test_craft_plugin.py -k "broken_links"
 ```
 

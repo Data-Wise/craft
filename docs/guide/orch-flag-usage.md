@@ -14,7 +14,7 @@ The `--orch` flag provides a shorthand for spawning the orchestrator without req
 | `/craft:do` | Universal task routing with orchestration |
 | `/craft:brainstorm` | Parallel context gathering with orchestration |
 | `/craft:check` | Orchestrated validation workflows |
-| `/craft:docs:sync` | Multi-agent documentation updates |
+| `/folio:docs:sync` | Multi-agent documentation updates (moved to folio) |
 | `/craft:ci:generate` | Complex CI workflow generation |
 
 ## Usage Patterns
@@ -78,7 +78,7 @@ Available modes:
 /craft:check --for release --orch=release
 
 # Documentation sync with orchestration
-/craft:docs:sync --orch=default
+/folio:docs:sync --orch=default
 ```
 
 ## Orchestration Modes
@@ -283,7 +283,7 @@ If you encounter issues not covered here:
 
 ```bash
 # Orchestrated documentation sync
-/craft:docs:sync --orch=default
+/folio:docs:sync --orch=default
 ```
 
 ### CI Workflow Generation

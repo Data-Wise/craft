@@ -9,7 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [4.0.0] - 2026-07-16
+
+### Changed
+
+- **BREAKING**: docs/publishing surface (24 commands, 6 agents, 6 skills) moved to the new
+  `folio` plugin — see [docs/MIGRATION-v4.md](docs/MIGRATION-v4.md) for the full command
+  migration table. Counts: 47 commands / 40 skills / 2 agents (was 94 / 45 / 8).
+- **v4 surface rider**: command roster consolidated alongside the split (native-first pruning,
+  git-guard-suite consolidation, router/discovery hardening).
+
+### Fixed
+
+- Guard suite hardening: `cd`-target resolution across compound Bash commands, `guards.json`
+  write-race lock, orchestrate-dispatch self-containment, quote-aware branch-guard detection
+  with path scoping (closes 4 live false positives).
+- `ci-bash-suites` validator added — closes the gap where `/craft:check` never ran the shell
+  suites CI invokes directly (pytest doesn't collect them).
+
+See [docs/CHANGELOG.md](docs/CHANGELOG.md) for the full PR-by-PR detail.
 
 ## [2.61.1] - 2026-07-08
 

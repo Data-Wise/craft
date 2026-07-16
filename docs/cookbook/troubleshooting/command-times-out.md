@@ -65,8 +65,8 @@ ERROR: Command exceeded 300s budget. Aborting.
 **Solution:**
 
 1. Check your network connection
-2. Use local-only checks if offline: `/craft:docs:lint`
-3. Retry with a longer budget: `/craft:site:update optimize`
+2. Use local-only checks if offline: `/folio:docs:lint` (moved to folio)
+3. Retry with a longer budget: `/folio:site:update optimize` (moved to folio)
 
 **Why:** External link validation requires HTTP requests that can be slow on poor connections.
 

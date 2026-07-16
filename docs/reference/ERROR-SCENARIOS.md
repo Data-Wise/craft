@@ -126,10 +126,7 @@ Ensure .craft/config.yml exists
 **Recovery**:
 
 ```bash
-# Initialize Craft config
-/craft:git:init
-
-# Or manually create config
+# Manually create config
 mkdir -p .craft
 echo "version: 1" > .craft/config.yml
 ```
@@ -529,7 +526,7 @@ brew install asciinema
 
 ---
 
-### /craft:code:coverage
+### /craft:test --coverage
 
 #### Error: Coverage Threshold Not Met
 
@@ -553,7 +550,7 @@ Uncovered:
 /craft:code:test-gen unit src/utils/helpers.ts
 
 # Option 2: Lower threshold temporarily
-/craft:code:coverage --threshold 75
+/craft:test --coverage --threshold 75
 
 # Option 3: Skip coverage check
 /craft:check --scope code tests
@@ -562,68 +559,6 @@ Uncovered:
 ---
 
 ## Git Commands Error Scenarios
-
-### /craft:git:sync
-
-#### Error: Merge Conflict
-
-**Code**: `1300` | **Severity**: Error | **Frequency**: Common
-
-```
-Error: Merge conflict detected
-
-Conflicted files:
-  - src/auth.ts (2 conflicts)
-  - package.json (1 conflict)
-
-Resolve manually or use: git mergetool
-```
-
-**Recovery**:
-
-```bash
-# Option 1: Use visual merge tool
-git mergetool
-
-# Option 2: Abort and retry with rebase
-git merge --abort
-/craft:git:sync --rebase
-
-# Option 3: Keep current version
-git checkout --ours .
-git add .
-git commit -m "merge: keep our version"
-```
-
----
-
-#### Error: Diverged Branch
-
-**Code**: `1300` | **Severity**: Error | **Frequency**: Common
-
-```
-Error: Branch has diverged from origin
-Local: 5 commits ahead
-Remote: 3 commits ahead
-
-Sync would lose history
-```
-
-**Recovery**:
-
-```bash
-# Option 1: Rebase onto remote
-/craft:git:sync --rebase
-
-# Option 2: Merge remote branch
-/craft:git:sync --no-rebase
-
-# Option 3: Force local (DANGEROUS)
-/craft:git:sync --force
-# Only use if you're sure!
-```
-
----
 
 ### /craft:git:worktree
 
@@ -663,22 +598,23 @@ Error: Branch 'feature/nonexistent' not found
 
 **Recovery**:
 
-```bash
+```text
+# All git branch/worktree operations: dev/git skill (ask naturally)
 # Option 1: Create new branch
-/craft:git:worktree create feature/auth
+ask "create a worktree for feature/auth"
 
 # Option 2: List existing branches
-/craft:git:branch list
+ask "list branches"
 
 # Option 3: Checkout existing branch
-/craft:git:branch checkout feature/auth
+ask "checkout feature/auth"
 ```
 
 ---
 
 ## Documentation Commands Error Scenarios
 
-### /craft:docs:check-links
+### /folio:docs:check-links
 
 #### Error: Broken Link Found
 
@@ -691,21 +627,21 @@ File: docs/guides/auth.md
 Link: https://example.com/api (404)
 Line: 42
 
-Fix with: /craft:docs:check-links --fix
+Fix with: /folio:docs:check-links --fix
 ```
 
 **Recovery**:
 
 ```bash
 # Option 1: Auto-fix broken links
-/craft:docs:check-links --fix
+/folio:docs:check-links --fix
 
 # Option 2: Review and fix manually
-/craft:docs:check-links --detailed
+/folio:docs:check-links --detailed
 
 # Option 3: Exclude problematic links
 echo "https://deprecated.example.com" >> .linkcheck-ignore
-/craft:docs:check-links
+/folio:docs:check-links
 ```
 
 ---
@@ -725,10 +661,10 @@ Timeout: 5000ms
 
 ```bash
 # Option 1: Increase timeout
-/craft:docs:check-links --timeout 10000
+/folio:docs:check-links --timeout 10000
 
 # Option 2: Skip external links
-/craft:docs:check-links --no-external
+/folio:docs:check-links --no-external
 
 # Option 3: Check manually
 curl -I https://slow-api.example.com
@@ -736,7 +672,7 @@ curl -I https://slow-api.example.com
 
 ---
 
-### /craft:docs:api
+### /folio:docs:api
 
 #### Error: No Exports Found
 
@@ -754,7 +690,7 @@ Warning: No exported functions/classes found
 export function myFunction() {}
 
 # Option 2: Use manual API documentation
-/craft:docs:tutorial "Write API documentation manually"
+/folio:docs:tutorial "Write API documentation manually"
 ```
 
 ---
@@ -874,7 +810,7 @@ echo 65536 | sudo tee /proc/sys/fs/inotify/max_user_watches
 
 ## Build & Site Commands Error Scenarios
 
-### /craft:site:build
+### /folio:site:build
 
 #### Error: Build Failed
 
@@ -895,11 +831,8 @@ Fix the markdown and retry
 # Option 1: Fix markdown syntax
 # Edit docs/guides/index.md
 
-# Option 2: Preview to see issues
-/craft:site:preview
-
-# Option 3: Use dry-run to get details
-/craft:site:build --dry-run
+# Option 2: Use dry-run to get details
+/folio:site:build --dry-run
 ```
 
 ---
@@ -920,14 +853,8 @@ Available themes:
 **Recovery**:
 
 ```bash
-# Option 1: Use available theme
-/craft:site:init mkdocs
-
-# Option 2: Install theme
+# Install the theme
 pip install mkdocs-material
-
-# Option 3: Use default theme
-/craft:site:init
 ```
 
 ---
@@ -971,7 +898,7 @@ export NETLIFY_TOKEN="your-token-here"
 Error: Build artifact (250MB) exceeds limit (100MB)
 
 Reduce size with:
-  - /craft:site:build --minify
+  - /folio:site:build --minify
   - Remove large assets
   - Use CDN for images
 ```
@@ -980,7 +907,7 @@ Reduce size with:
 
 ```bash
 # Option 1: Minify production build
-/craft:site:build --production --minify
+/folio:site:build --production --minify
 
 # Option 2: Exclude large assets
 # Remove or externalize large files
@@ -1073,7 +1000,6 @@ Line 12: Invalid YAML syntax
 
 # Option 2: Restore defaults
 rm .craft/config.yml
-/craft:git:init
 
 # Option 3: Show correct syntax
 /craft:smart-help
@@ -1121,7 +1047,6 @@ npm install missing-package
 
 # Reset to defaults
 rm -rf .craft
-/craft:git:init
 
 # Reconfigure
 /craft:docs:claude-md --sync
@@ -1178,7 +1103,7 @@ grep "code:lint" ~/.craft/logs/craft.log
 /craft:check --scope docs
 
 # Validate syntax
-/craft:docs:lint --strict
+/folio:docs:lint --strict
 ```
 
 ---
@@ -1209,7 +1134,7 @@ grep "code:lint" ~/.craft/logs/craft.log
 ```bash
 # Gather diagnostics
 /craft:check --verbose
-/craft:code:coverage --report json
+/craft:test --coverage --report json
 
 # Save environment info
 env > environment.txt

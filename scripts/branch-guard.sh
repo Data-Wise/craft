@@ -518,7 +518,7 @@ _confirm() {
       ;;
   esac
 
-  msg+=$'\n'"To mute: /craft:git:guard disable branch-guard"
+  msg+=$'\n'"To mute: ask \"disable branch-guard\" (dev/git skill)"
 
   block "$msg" "ASK"
 }
@@ -547,6 +547,88 @@ _low_note() {
 _hard_block() {
   block "$(_box "$@")" "BLOCK"
 }
+
+# ---------------------------------------------------------------------------
+# 8d0. Bash cross-context target resolution (leading cd / -C) — 2026-07-14
+# ---------------------------------------------------------------------------
+# Everything below classifies $COMMAND against the SESSION's own
+# BRANCH/PROTECTION/PROJECT_ROOT. That's wrong when the command itself
+# retargets a different directory via a leading `cd <path> &&`/`cd <path>;`
+# or a `git -C <path>` flag — a worktree push, or a genuinely different
+# repository. The session's own branch is not the right gate for someone
+# else's checkout. This block detects that shape, resolves the ACTUAL
+# target, and rebinds classification context to it.
+#
+# Scope (v2, documented — see GRILL-branch-guard-target-resolution-
+# 2026-07-14.md open questions): CUMULATIVE cd/-C tracking across a compound
+# command's clauses — each bare `cd <path>` retargets every subsequent clause
+# (so `cd a && cd b && git push` resolves to b), and a `git -C <path>` sets that
+# invocation's target; the LAST retarget wins. Still NOT full quote-aware shell
+# parsing: a `;`/`&&`/`|` separator INSIDE a quoted arg (e.g. a commit message
+# `-m "wip; cd /x"`) can be mis-split — mitigated by skipping quote-bearing
+# paths and by the -d/git-repo/branch re-derivation guards below (a spurious
+# target that isn't a real git repo on a different branch is simply ignored).
+# Custom per-repo `.claude/branch-guard.json` in the OTHER repo is not consulted
+# here (auto-detect protection only) — a documented limitation, not a silent gap.
+IS_CROSS_REPO_TARGET=false
+if [[ ( "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ) && -n "$COMMAND" ]]; then
+  _BG_TARGET_DIR=""
+
+  # Walk clauses left-to-right, tracking the effective cwd cumulatively.
+  # awk gsub emits a REAL newline on BSD & GNU (BSD sed's `\n` does not).
+  # Single `|` also splits so a piped `grep -C N` can't be misread as `git -C`.
+  _bg_eff="$CWD"
+  _bg_norm="$(printf '%s' "$COMMAND" | awk '{gsub(/&&|[;|]/,"\n"); print}')"
+  while IFS= read -r _bg_clause; do
+    _bg_clause="${_bg_clause#"${_bg_clause%%[![:space:]]*}"}"  # trim leading ws
+    if printf '%s' "$_bg_clause" | grep -qE '^cd[[:space:]]+[^[:space:]]+'; then
+      _bg_p="$(printf '%s' "$_bg_clause" | sed -E 's/^cd[[:space:]]+//' | awk '{print $1}')"
+      case "$_bg_p" in ''|*'$'*|*'`'*|*'"'*|*"'"*) _bg_p="" ;; esac
+      if [[ -n "$_bg_p" ]]; then
+        [[ "$_bg_p" != /* ]] && _bg_p="${_bg_eff%/}/$_bg_p"
+        _bg_eff="$_bg_p"; _BG_TARGET_DIR="$_bg_p"
+      fi
+    elif printf '%s' "$_bg_clause" | grep -qE '(^|[[:space:]])git([[:space:]]|$)' \
+      && printf '%s' "$_bg_clause" | grep -qE '(^|[[:space:]])-C[[:space:]]+[^[:space:]]+'; then
+      _bg_p="$(printf '%s' "$_bg_clause" | grep -oE '(^|[[:space:]])-C[[:space:]]+[^[:space:]]+' | head -1 | sed -E 's/^[[:space:]]*-C[[:space:]]+//')"
+      case "$_bg_p" in ''|*'$'*|*'`'*|*'"'*|*"'"*) _bg_p="" ;; esac
+      if [[ -n "$_bg_p" ]]; then
+        [[ "$_bg_p" != /* ]] && _bg_p="${_bg_eff%/}/$_bg_p"
+        _BG_TARGET_DIR="$_bg_p"
+      fi
+    fi
+  done <<EOF
+$_bg_norm
+EOF
+
+  if [[ -n "$_BG_TARGET_DIR" && -d "$_BG_TARGET_DIR" ]]; then
+    _BG_TARGET_ROOT="$(cd "$_BG_TARGET_DIR" 2>/dev/null && git rev-parse --show-toplevel 2>/dev/null || true)"
+    if [[ -n "$_BG_TARGET_ROOT" ]]; then
+      _BG_TARGET_BRANCH="$(cd "$_BG_TARGET_DIR" 2>/dev/null && git branch --show-current 2>/dev/null || true)"
+      if [[ -n "$_BG_TARGET_BRANCH" && ( "$_BG_TARGET_ROOT" != "$PROJECT_ROOT" || "$_BG_TARGET_BRANCH" != "$BRANCH" ) ]]; then
+        [[ "$_BG_TARGET_ROOT" != "$PROJECT_ROOT" ]] && IS_CROSS_REPO_TARGET=true
+
+        BRANCH="$_BG_TARGET_BRANCH"
+        PROJECT_ROOT="$_BG_TARGET_ROOT"
+        PROJECT_NAME="$(basename "$PROJECT_ROOT")"
+
+        _bg_dev=false _bg_draft=false
+        ( cd "$PROJECT_ROOT" 2>/dev/null && git rev-parse --verify refs/heads/dev   &>/dev/null ) && _bg_dev=true
+        ( cd "$PROJECT_ROOT" 2>/dev/null && git rev-parse --verify refs/heads/draft &>/dev/null ) && _bg_draft=true
+        INTEGRATION_BRANCH="dev"
+        [[ "$_bg_dev" == false && "$_bg_draft" == true ]] && INTEGRATION_BRANCH="draft"
+
+        _bg_main_p="block-all" _bg_dev_p=""
+        [[ "$_bg_dev" == true || "$_bg_draft" == true ]] && _bg_dev_p="smart"
+        case "$BRANCH" in
+          main|master) PROTECTION="$_bg_main_p" ;;
+          dev|develop|draft) PROTECTION="$_bg_dev_p" ;;
+          *) PROTECTION="" ;;
+        esac
+      fi
+    fi
+  fi
+fi
 
 # ---------------------------------------------------------------------------
 # 8d. Universal catastrophic checks (ALL branches, before protection filter)
@@ -627,19 +709,33 @@ if [[ "$PROTECTION" == "block-all" ]]; then
 
     Bash|bash)
       # Check for destructive git commands
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(commit|push)'; then
-        block "$(_box \
-          "${_R}${_B}BRANCH PROTECTION${_N}" \
-          "---" \
-          "Cannot commit/push on ${_B}${BRANCH}${_N}." \
-          "" \
-          "Use the PR workflow:" \
-          "  ${_Y}1.${_N} git checkout ${INTEGRATION_BRANCH}" \
-          "  ${_Y}2.${_N} Create worktree for changes" \
-          "  ${_Y}3.${_N} PR: feature → ${INTEGRATION_BRANCH} → main" \
-        )"
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?(commit|push)'; then
+        if [[ "$IS_CROSS_REPO_TARGET" == true ]]; then
+          # Cross-repo target resolved to a protected branch (e.g. another
+          # repo's main) — confirm, never hard-block. The originating
+          # session's own branch never authorized this, but a hard block
+          # would also disrupt legitimate cross-repo work (explicit
+          # decision: BRAINSTORM-branch-guard-target-resolution-2026-07-14,
+          # "I do not want hard gate to disrupt").
+          _confirm "cross_repo_protected_push" \
+            "git commit/push on ${BRANCH} in a different repository (${PROJECT_NAME})" \
+            "This command targets another repository's protected ${BRANCH} branch — the session's own branch is not a valid gate for that repo's state" \
+            "Run this from a session/worktree already cd'd into ${PROJECT_ROOT}" \
+            "Split into a separate Bash call scoped to that repo"
+        else
+          block "$(_box \
+            "${_R}${_B}BRANCH PROTECTION${_N}" \
+            "---" \
+            "Cannot commit/push on ${_B}${BRANCH}${_N}." \
+            "" \
+            "Use the PR workflow:" \
+            "  ${_Y}1.${_N} git checkout ${INTEGRATION_BRANCH}" \
+            "  ${_Y}2.${_N} Create worktree for changes" \
+            "  ${_Y}3.${_N} PR: feature → ${INTEGRATION_BRANCH} → main" \
+          )"
+        fi
       fi
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+reset[[:space:]]+--hard'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?reset[[:space:]]+--hard'; then
         _confirm "reset_hard_main" \
           "git reset --hard on ${BRANCH} (protected branch)" \
           "Resets working tree and index to specified commit — discards all uncommitted changes" \
@@ -695,14 +791,14 @@ if [[ "$PROTECTION" == "smart" ]]; then
           _confirm "edit_guard_config" \
             "Edit branch-guard.json on ${BRANCH}" \
             "Modifying guard config changes protection rules" \
-            "/craft:git:protect --level <level> (safe config update)" \
-            "/craft:git:unprotect (temporary bypass instead)"
+            "ask \"set branch protection level <level>\" — safe config update (dev/git skill)" \
+            "ask \"unprotect for a temporary bypass\" (dev/git skill)"
           ;;
         */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
           _confirm "edit_guard_bypass" \
             "Edit guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "This file self-approves a bypass of branch-guard's own protection — never editable silently" \
-            "/craft:git:unprotect (the sanctioned way to request this bypass)"
+            "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)"
           ;;
       esac
       # Editing existing files is always allowed on dev (LOW)
@@ -733,14 +829,14 @@ if [[ "$PROTECTION" == "smart" ]]; then
           _confirm "write_guard_config" \
             "Write branch-guard.json on ${BRANCH}" \
             "Modifying guard config changes protection rules" \
-            "/craft:git:protect --level <level> (safe config update)" \
-            "/craft:git:unprotect (temporary bypass instead)"
+            "ask \"set branch protection level <level>\" — safe config update (dev/git skill)" \
+            "ask \"unprotect for a temporary bypass\" (dev/git skill)"
           ;;
         */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
           _confirm "write_guard_bypass" \
             "Write guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "Creating this file self-approves a bypass of branch-guard's own protection — must be a deliberate, confirmed action, never a silent allow" \
-            "/craft:git:unprotect (the sanctioned way to request this bypass)"
+            "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)"
           ;;
       esac
 
@@ -794,9 +890,9 @@ if [[ "$PROTECTION" == "smart" ]]; then
         _confirm "write_new_code" \
           "Write new .${EXT} file: ${FILE_PATH}" \
           "New code files on ${BRANCH} should go in a feature branch" \
-          "/craft:git:worktree feature/<name>" \
+          "Ask Claude to create a worktree (dev/git skill): feature/<name>" \
           "Edit an existing file instead (fixups allowed)" \
-          "/craft:git:unprotect for bulk maintenance"
+          "ask \"unprotect for bulk maintenance\" (dev/git skill)"
       fi
 
       # Known-safe non-code extension (NONCODE_EXTENSIONS) — allow
@@ -805,17 +901,17 @@ if [[ "$PROTECTION" == "smart" ]]; then
 
     Bash|bash)
       # Force push — MEDIUM risk
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+push[[:space:]].*(--force|--force-with-lease|-f)([[:space:]]|$)'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push[[:space:]].*(--force|--force-with-lease|-f)([[:space:]]|$)'; then
         _confirm "force_push" \
           "git push --force on ${BRANCH}" \
           "Force push overwrites remote history for all collaborators" \
           "git push origin ${BRANCH} (regular push)" \
           "git push --force-with-lease (safer — checks remote)" \
-          "/craft:git:worktree feature/<name> (isolate changes)"
+          "Ask Claude to create a worktree (dev/git skill) to isolate changes"
       fi
 
       # git reset --hard — MEDIUM risk (discards uncommitted changes)
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+reset[[:space:]]+--hard'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?reset[[:space:]]+--hard'; then
         _confirm "reset_hard" \
           "git reset --hard on ${BRANCH}" \
           "Discards all uncommitted changes — cannot be undone" \
@@ -825,7 +921,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # git clean -f (remove untracked files) — MEDIUM risk
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+clean[[:space:]]+(-[fdxFDX]+|--force)'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?clean[[:space:]]+(-[fdxFDX]+|--force)'; then
         _confirm "clean_force" \
           "git clean -f (remove untracked files) on ${BRANCH}" \
           "Permanently removes untracked files — cannot be undone" \
@@ -836,9 +932,51 @@ if [[ "$PROTECTION" == "smart" ]]; then
       # ---------------------------------------------------------------
       # Bash write-through detection (file creation via redirection)
       # Catches: echo/cat/printf > file, tee file, cp src dst
-      # Skips: markdown files, variables in paths, existing files
+      # Skips: markdown files, variables in paths, existing files,
+      #        out-of-repo targets, quoted program/pattern text
       # ---------------------------------------------------------------
       BASH_TARGET=""
+
+      # Quoted-span stripping (2026-07-16 fix): Patterns 1-4 below coarse-scan
+      # $COMMAND for shell metacharacters/keywords with plain grep, which has
+      # no notion of quoting. A `>` or `cp `/`tee `/`touch ` substring INSIDE
+      # a single- or double-quoted argument — e.g. `awk 'NR>=203'`,
+      # `grep -E '>[^=]'`, `grep "cp \|redirect"` — is program/pattern TEXT,
+      # not real shell syntax, but was scanned identically to an unquoted
+      # redirect. This is the same failure class Group 14c (2026-07-10)
+      # already fixed for heredoc bodies via HAS_HEREDOC; this generalizes it
+      # to any quoted span, not just heredoc bodies.
+      #
+      # COMMAND_SCAN is used ONLY for the coarse `grep -q` presence checks
+      # below, deciding whether a pattern applies at all. Extraction
+      # (`grep -oE`) still runs against the ORIGINAL $COMMAND, so a real
+      # target quoted for spaces (e.g. `cp a.py "new file.py"`) is unaffected
+      # — only text that would otherwise cause a pattern to fire on content
+      # that was never real shell syntax is suppressed.
+      #
+      # MUST be a single alternation pattern (`'...'|"..."`), not two
+      # independent s/// passes for single- and double-quotes. Two independent
+      # passes let a single-quote-pair span cross entirely unrelated
+      # double-quoted strings — e.g. `echo "it's" > f.py && echo "don't"` has
+      # two double-quoted words that each contain exactly one apostrophe; a
+      # standalone `s/'[^']*'/Q/g` pairs those two apostrophes across the ` >
+      # f.py && echo ` in between and erases the REAL redirect from
+      # COMMAND_SCAN, causing a genuine write-through to go undetected (a
+      # false NEGATIVE, not just a false positive — confirmed live against
+      # this exact command on 2026-07-16). The combined alternation resolves
+      # quote-type at the first quote character encountered, so it can never
+      # pair across a boundary of the other quote type.
+      #
+      # Single-quoted spans are stripped exactly: bash disallows a literal '
+      # inside '...' with no escape mechanism, so `'[^']*'` cannot mismatch a
+      # real single-quoted span. Double-quoted spans are a best-effort
+      # approximation (bash permits \" inside "..."); under-stripping here
+      # only returns to the prior (already-shipped) behavior for that rare
+      # case — it can never introduce a NEW false positive.
+      # Single sed invocation — this runs on every Bash tool call, so
+      # process-fork count matters for the dogfood perf budget
+      # (test_branch_guard_under_200ms).
+      COMMAND_SCAN="$(sed -E "s/'[^']*'|\"[^\"]*\"/Q/g" <<< "$COMMAND")"
 
       # Heredoc bodies (e.g. `git commit -m "$(cat <<'EOF' ... EOF)"`) are
       # free-form text that can contain a literal '>' with no relation to a
@@ -851,26 +989,41 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # Pattern 1: redirect to file (>, >>)  e.g. "echo x > file.py", "cat > file.py"
-      if [[ "$HAS_HEREDOC" == false ]] && echo "$COMMAND" | grep -qE '>[[:space:]]*[^>]'; then
-        # Extract the target after the last >
-        BASH_TARGET="$(echo "$COMMAND" | grep -oE '>[[:space:]]*[^>|&;[:space:]]+' | tail -1 | sed 's/^>[[:space:]]*//')"
+      # The `|| true` on each extraction below is load-bearing under this
+      # script's `set -euo pipefail`: the coarse guard (grep -q, above) and
+      # the fine extraction pattern (grep -o, below) aren't always in sync —
+      # e.g. "cat file 2>&1" passes the coarse '>' check but the fine
+      # pattern excludes '&', so grep -o matches nothing and exits 1. In a
+      # bare `VAR=$(pipeline)` assignment, pipefail propagates that 1 and
+      # set -e kills the whole hook silently (no stderr) — exactly the
+      # "no match" case the `[[ -z "$BASH_TARGET" ]]` checks below already
+      # handle correctly. `|| true` makes a real no-match behave like the
+      # empty-string fallback it was always meant to be, instead of a crash.
+      if [[ "$HAS_HEREDOC" == false ]] && echo "$COMMAND_SCAN" | grep -qE '>[[:space:]]*[^>]'; then
+        # Extract the target after the last > — against the ORIGINAL
+        # command, so a real quoted target (spaces, etc.) is found intact.
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE '>[[:space:]]*[^>|&;[:space:]]+' | tail -1 | sed 's/^>[[:space:]]*//' || true)"
       fi
 
       # Pattern 2: tee <file>  e.g. "echo x | tee file.py"
-      if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'tee[[:space:]]+[^-]'; then
-        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'tee[[:space:]]+(-a[[:space:]]+)?[^|;&[:space:]]+' | head -1 | sed 's/^tee[[:space:]]*\(-a[[:space:]]*\)\{0,1\}//')"
+      # HAS_HEREDOC gate (see Pattern 1 comment above) applies here too —
+      # grep is line-oriented, so a heredoc body line that happens to start
+      # with "tee "/"touch "/contain "cp <word> <word>" as prose is
+      # indistinguishable from real shell syntax without it.
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE 'tee[[:space:]]+[^-]'; then
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'tee[[:space:]]+(-a[[:space:]]+)?[^|;&[:space:]]+' | head -1 | sed 's/^tee[[:space:]]*\(-a[[:space:]]*\)\{0,1\}//' || true)"
       fi
 
       # Pattern 3: cp <src> <dst>  e.g. "cp template.py new.py"
-      if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'cp[[:space:]]'; then
-        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}')"
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE 'cp[[:space:]]'; then
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}' || true)"
       fi
 
       # Pattern 4: touch <file>  e.g. "touch .claude/allow-once"
       # (extensionless targets like guard-bypass markers use touch, not
       # redirection — patterns 1-3 alone never see them)
-      if [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*touch[[:space:]]'; then
-        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'touch[[:space:]]+[^|;&[:space:]]+' | tail -1 | sed 's/^touch[[:space:]]*//')"
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE '(^|;|&&|\|\|)[[:space:]]*touch[[:space:]]'; then
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'touch[[:space:]]+[^|;&[:space:]]+' | tail -1 | sed 's/^touch[[:space:]]*//' || true)"
       fi
 
       # Device/pseudo-file targets (2>/dev/null, >/dev/tty, etc.) are stream
@@ -894,7 +1047,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
               _confirm "bash_guard_bypass" \
                 "Bash creates guard-bypass marker on ${BRANCH}: ${BASH_BASENAME}" \
                 "Creating this file via shell self-approves a bypass of branch-guard's own protection" \
-                "/craft:git:unprotect (the sanctioned way to request this bypass)"
+                "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)"
               ;;
           esac
 
@@ -914,12 +1067,44 @@ if [[ "$PROTECTION" == "smart" ]]; then
               BASH_ACTUAL="$BASH_TARGET"
               [[ "$BASH_TARGET" != /* ]] && BASH_ACTUAL="${CWD}/${BASH_TARGET}"
 
+              # Path scoping (2026-07-16 fix): a write to /tmp, $HOME, or any
+              # absolute path outside PROJECT_ROOT poses no risk to THIS
+              # repo's ${BRANCH} — e.g. backing up an installed hook to the
+              # scratchpad before re-installing it. Only /dev/* was excluded
+              # before (line ~1013); an out-of-repo real path was still
+              # flagged as "creates a new code file on ${BRANCH}", which is
+              # false — the file isn't in the repo tree at all.
+              #
+              # PROJECT_ROOT is a REALPATH (from `git rev-parse
+              # --show-toplevel`, which resolves symlinks). $CWD is whatever
+              # the caller passed — often NOT canonicalized (e.g. macOS's
+              # /tmp is a symlink to /private/tmp; `mktemp -d` returns the
+              # /tmp form). A literal-prefix compare of the raw BASH_ACTUAL
+              # against PROJECT_ROOT would then mismatch for every in-repo
+              # write under a symlinked ancestor — a real regression, not a
+              # fix. Canonicalize BASH_ACTUAL's directory the same way
+              # PROJECT_ROOT was canonicalized before comparing. `pwd -P` is
+              # POSIX and avoids `realpath`/`readlink -f`, which aren't
+              # universally available (see memory:
+              # macos-shell-portability-gotchas). If the directory doesn't
+              # exist yet, fall back to the raw path — no worse than the
+              # unscoped behavior this replaces.
+              BASH_ACTUAL_DIR="$(dirname "$BASH_ACTUAL")"
+              BASH_ACTUAL_DIR_REAL="$(cd "$BASH_ACTUAL_DIR" 2>/dev/null && pwd -P || printf '%s' "$BASH_ACTUAL_DIR")"
+              BASH_ACTUAL_REAL="${BASH_ACTUAL_DIR_REAL}/$(basename "$BASH_ACTUAL")"
+
+              if [[ "$BASH_ACTUAL_REAL" != "${PROJECT_ROOT}" && "$BASH_ACTUAL_REAL" != "${PROJECT_ROOT}/"* ]]; then
+                BASH_TARGET=""
+              fi
+            fi
+
+            if [[ -n "$BASH_TARGET" ]] && [[ "$BASH_IS_CODE" == true ]]; then
               if [[ ! -f "$BASH_ACTUAL" ]] && [[ ! -f "${PROJECT_ROOT}/${BASH_TARGET}" ]]; then
                 _confirm "bash_write_through" \
                   "Bash creates new .${BASH_EXT} file: ${BASH_TARGET}" \
                   "Shell redirection creates a new code file on ${BRANCH}" \
                   "Use the Write tool instead (tracked by guard)" \
-                  "/craft:git:worktree feature/<name> (isolate changes)"
+                  "Ask Claude to create a worktree (dev/git skill) to isolate changes"
               fi
             fi
           fi

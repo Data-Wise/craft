@@ -396,7 +396,7 @@ class CLAUDEMDFixer:
 
         lines.append("Next steps:")
         lines.append("  1. Review: git diff CLAUDE.md")
-        lines.append("  2. Run sync: /craft:docs:claude-md:sync")
+        lines.append("  2. Run sync: ask Claude to use the docs/claude-md skill")
         lines.append("  3. Commit: git add CLAUDE.md")
 
         return "\n".join(lines)

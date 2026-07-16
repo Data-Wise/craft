@@ -7,27 +7,27 @@
 > - **How:** Use `/craft:docs:update --interactive` for category-level prompts (NEW v2.7.0)
 > - **Next:** Try `/craft:docs:update --interactive --dry-run` to preview what would change
 
-Smart documentation generation, validation, and enhancement - 25 commands.
+Smart documentation generation, validation, and enhancement - 47 commands.
 
 ## Which Docs Command for What
 
 | Scenario | Command | What It Does |
 |----------|---------|--------------|
 | "Update everything after changes" | `/craft:docs:update` | Full cycle: detect → generate → validate → changelog |
-| "What docs need updating?" | `/craft:docs:sync` | Detection only — reports what's stale |
-| "Are my docs valid?" | `/craft:docs:check` | Validates links + nav + staleness + mermaid, auto-fixes |
-| "Fix markdown formatting" | `/craft:docs:lint` | Markdownlint with auto-fix |
-| "Check only broken links" | `/craft:docs:check-links` | Internal link validation with .linkcheck-ignore |
+| "What docs need updating?" | `/folio:docs:sync` | Detection only — reports what's stale |
+| "Are my docs valid?" | `/folio:docs:check` | Validates links + nav + staleness + mermaid, auto-fixes |
+| "Fix markdown formatting" | `/folio:docs:lint` | Markdownlint with auto-fix |
+| "Check only broken links" | `/folio:docs:check-links` | Internal link validation with .linkcheck-ignore |
 | "Update CLAUDE.md" | `/craft:docs:claude-md` | Sync CLAUDE.md with project state |
 | "Update changelog" | `/craft:docs:changelog` | Generate entries from git commits |
-| "Add page to nav" | `/craft:docs:nav-update` | Update mkdocs.yml navigation |
+| "Add page to nav" | `/folio:docs:nav-update` | Update mkdocs.yml navigation |
 
 **Decision flow:**
 
 1. **After writing code** → `/craft:docs:update` (does everything)
-2. **Before committing** → `/craft:docs:check` (validates)
+2. **Before committing** → `/folio:docs:check` (validates)
 3. **PR merged to dev** → `/craft:docs:update --post-merge` (auto-fix pipeline)
-4. **Just want to check** → `/craft:docs:sync` (detection only, no changes)
+4. **Just want to check** → `/folio:docs:sync` (detection only, no changes)
 
 ---
 
@@ -62,50 +62,50 @@ Smart documentation generation, validation, and enhancement - 25 commands.
 - [Quick Reference Card](../reference/REFCARD-DOCS-UPDATE.md) - All flags and options
 - [Real-World Example](../examples/docs-update-interactive-example.md) - Full workflow walkthrough
 
-### /craft:docs:sync
+### /folio:docs:sync
 
 **Detection only:** Classify changes, report stale docs, recommend actions
 
 ```bash
-/craft:docs:sync                      # Quick: "3 stale, guide recommended"
+/folio:docs:sync                      # Quick: "3 stale, guide recommended"
 ```
 
-### /craft:docs:check
+### /folio:docs:check
 
 **Validation:** Links + stale + nav + mermaid + auto-fix (full by default)
 
 ```bash
-/craft:docs:check                     # Full check cycle, auto-fixes
-/craft:docs:check --report-only       # CI-safe mode (no modifications)
-/craft:docs:check --no-mermaid        # Skip mermaid validation phase
-/craft:docs:check --mermaid-gate 90   # Custom health score threshold
+/folio:docs:check                     # Full check cycle, auto-fixes
+/folio:docs:check --report-only       # CI-safe mode (no modifications)
+/folio:docs:check --no-mermaid        # Skip mermaid validation phase
+/folio:docs:check --mermaid-gate 90   # Custom health score threshold
 ```
 
 **Phase 5: Mermaid Validation** runs 5 regex pre-checks on all mermaid blocks, calculates a health score (0-100), and reports errors/warnings. See [Mermaid Authoring Guide](../guide/mermaid-authoring.md).
 
-### /craft:docs:mermaid
+### /folio:docs:mermaid
 
 **Diagram creation:** Templates, natural language, MCP validation, browser preview
 
 ```bash
-/craft:docs:mermaid workflow                           # Get workflow template
-/craft:docs:mermaid "auth flow with OAuth2" --validate # NL creation + validation
-/craft:docs:mermaid "CI pipeline" --preview            # Render SVG in browser
+/folio:docs:mermaid workflow                           # Get workflow template
+/folio:docs:mermaid "auth flow with OAuth2" --validate # NL creation + validation
+/folio:docs:mermaid "CI pipeline" --preview            # Render SVG in browser
 ```
 
 See [Mermaid Authoring Guide](../guide/mermaid-authoring.md) for templates and syntax rules.
 
 ## Quality Automation
 
-### /craft:docs:lint
+### /folio:docs:lint
 
 **Markdown quality validation with auto-fix**
 
 ```bash
-/craft:docs:lint                      # Quick quality check
-/craft:docs:lint --fix                # Auto-fix safe issues
-/craft:docs:lint release              # Comprehensive validation
-/craft:docs:lint --dry-run            # Preview checks
+/folio:docs:lint                      # Quick quality check
+/folio:docs:lint --fix                # Auto-fix safe issues
+/folio:docs:lint release              # Comprehensive validation
+/folio:docs:lint --dry-run            # Preview checks
 ```
 
 **Features:**
@@ -121,15 +121,15 @@ See [Mermaid Authoring Guide](../guide/mermaid-authoring.md) for templates and s
 - `1` = Manual fixes required
 - `2` = Configuration error
 
-### /craft:docs:check-links
+### /folio:docs:check-links
 
 **Internal link validation with .linkcheck-ignore support** ⭐ NEW
 
 ```bash
-/craft:docs:check-links               # Validate all internal links
-/craft:docs:check-links release       # Include anchor validation
-/craft:docs:check-links docs/guide/   # Check specific directory
-/craft:docs:check-links --dry-run     # Preview checks
+/folio:docs:check-links               # Validate all internal links
+/folio:docs:check-links release       # Include anchor validation
+/folio:docs:check-links docs/guide/   # Check specific directory
+/folio:docs:check-links --dry-run     # Preview checks
 ```
 
 **Features:**
@@ -172,7 +172,7 @@ Targets: `docs/brainstorm/*.md`
 
 ## NEW: ADHD-Friendly Website Enhancement
 
-### /craft:docs:website
+### /folio:docs:website
 
 **Purpose:** One command to make any documentation site ADHD-friendly.
 
@@ -188,12 +188,12 @@ Targets: `docs/brainstorm/*.md`
 **Usage:**
 
 ```bash
-/craft:docs:website                   # Full enhancement (all 3 phases)
-/craft:docs:website --analyze         # Show ADHD score only
-/craft:docs:website --phase 1         # Quick wins: TL;DR, mermaid fixes
-/craft:docs:website --phase 2         # Structure: Visual workflows
-/craft:docs:website --phase 3         # Polish: Mobile responsive
-/craft:docs:website --dry-run         # Preview changes without writing
+/folio:docs:website                   # Full enhancement (all 3 phases)
+/folio:docs:website --analyze         # Show ADHD score only
+/folio:docs:website --phase 1         # Quick wins: TL;DR, mermaid fixes
+/folio:docs:website --phase 2         # Structure: Visual workflows
+/folio:docs:website --phase 3         # Polish: Mobile responsive
+/folio:docs:website --dry-run         # Preview changes without writing
 ```
 
 **ADHD Scoring Categories:**
@@ -209,24 +209,21 @@ Targets: `docs/brainstorm/*.md`
 | Command | Description | Help Page |
 |---------|-------------|-----------|
 | `/craft:docs:update` | Smart full-cycle documentation generator | [Help](docs/update.md) |
-| `/craft:docs:sync` | Change detection and classification | [Help](docs/sync.md) |
-| `/craft:docs:check` | Documentation health check with auto-fix | [Help](docs/check.md) |
-| `/craft:docs:lint` | Markdown quality validation with auto-fix | [Help](docs/lint.md) |
-| `/craft:docs:check-links` | Internal link validation | [Help](docs/check-links.md) |
+| `/folio:docs:sync` | Change detection and classification | (moved to folio) |
+| `/folio:docs:check` | Documentation health check with auto-fix | (moved to folio) |
+| `/folio:docs:lint` | Markdown quality validation with auto-fix | (moved to folio) |
+| `/folio:docs:check-links` | Internal link validation | (moved to folio) |
 | `/craft:docs:changelog` | Auto-update CHANGELOG from commits | [Help](docs/changelog.md) |
-| `/craft:docs:nav-update` | Update mkdocs.yml navigation | [Help](docs/nav-update.md) |
-| `/craft:docs:guide` | Feature guide + demo + refcard generator | [Help](docs/guide.md) |
-| `/craft:docs:tutorial` | Interactive tutorial generator | [Help](docs/tutorial.md) |
-| `/craft:docs:workflow` | Workflow documentation generator | [Help](docs/workflow.md) |
-| `/craft:docs:demo` | Terminal recording & GIF generator | [Help](docs/demo.md) |
-| `/craft:docs:mermaid` | Mermaid diagram templates & NL creation | [Help](docs/mermaid.md) |
-| `/craft:docs:website` | ADHD-friendly website enhancement | [Help](docs/website.md) |
-| `/craft:docs:api` | OpenAPI/Swagger documentation | [Help](docs/api.md) |
-| `/craft:docs:help` | Help page generator | [Help](docs/help.md) |
-| `/craft:docs:prompt` | Generate reusable maintenance prompts | [Help](docs/prompt.md) |
-| `/craft:docs:quickstart` | Quick start guide generator | [Help](docs/quickstart.md) |
-| `/craft:docs:site` | Site-wide documentation updates | [Help](docs/site.md) |
-| `/craft:docs:claude-md` | CLAUDE.md management hub | [Help](docs/claude-md.md) |
-| `/craft:docs:claude-md:edit` | Interactive CLAUDE.md editing | [Help](docs/claude-md/edit.md) |
-| `/craft:docs:claude-md:init` | Create CLAUDE.md from template | [Help](docs/claude-md/init.md) |
-| `/craft:docs:claude-md:sync` | Sync CLAUDE.md with project state | [Help](docs/claude-md/sync.md) |
+| `/folio:docs:nav-update` | Update mkdocs.yml navigation | (moved to folio) |
+| `/folio:docs:guide` | Feature guide + demo + refcard generator | (moved to folio) |
+| `/folio:docs:tutorial` | Interactive tutorial generator | (moved to folio) |
+| `/folio:docs:workflow` | Workflow documentation generator | (moved to folio) |
+| `/folio:docs:demo` | Terminal recording & GIF generator | (moved to folio) |
+| `/folio:docs:mermaid` | Mermaid diagram templates & NL creation | (moved to folio) |
+| `/folio:docs:website` | ADHD-friendly website enhancement | (moved to folio) |
+| `/folio:docs:api` | OpenAPI/Swagger documentation | (moved to folio) |
+| `/folio:docs:help` | Help page generator | (moved to folio) |
+| `/folio:docs:prompt` | Generate reusable maintenance prompts | (moved to folio) |
+| `/folio:docs:quickstart` | Quick start guide generator | (moved to folio) |
+| `/folio:docs:site` | Site-wide documentation updates | (moved to folio) |
+| CLAUDE.md management (init/edit/sync) | folded into a skill in the v4 consolidation | `skills/docs/claude-md/` |

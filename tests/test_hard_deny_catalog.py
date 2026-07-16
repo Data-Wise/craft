@@ -2,7 +2,8 @@
 """
 Contract test for scripts/hard-deny-rules.json (v2.33.0).
 
-The catalog is the canonical source consumed by /craft:git:protect (Phase 3)
+The catalog is the canonical source consumed by the `dev/git` skill's protect
+operation (formerly /craft:git:protect, folded in 2026-07 v4 consolidation)
 to merge prose rules into ~/.claude/settings.json autoMode.hard_deny.
 A broken catalog breaks the installer, so we lock the shape here.
 """
@@ -38,11 +39,17 @@ class TestHardDenyCatalog(unittest.TestCase):
         self.assertEqual(self.data["defaults_marker"], "$defaults")
 
     def test_hard_deny_rules_nonempty(self):
+        # delete-git-dir moved OUT of hard_deny into left_to_branch_guard_smart_mode
+        # 2026-07-14 (GRILL-branch-guard-target-resolution-2026-07-14.md decision 4):
+        # hard_deny is classifier-enforced against command text only, with no git
+        # execution context, so it cannot verify "same repo" — the confirm-not-block
+        # carve-out this session locked in is unimplementable at that layer.
+        # branch-guard.sh's own universal catastrophic check already confirms
+        # `rm -rf .git` on every branch. 3 rules remain in hard_deny.
         self.assertGreaterEqual(
-            len(self.data["rules"]), 4,
-            msg="catalog must include at least 4 hard_deny rules — the spec "
-                "enumerates force-push-main, delete-git-dir, delete-github-repo, "
-                "destroy-claude-config",
+            len(self.data["rules"]), 3,
+            msg="catalog must include at least 3 hard_deny rules — "
+                "force-push-main, delete-github-repo, destroy-claude-config",
         )
 
     def test_each_rule_has_required_keys(self):
@@ -90,11 +97,27 @@ class TestHardDenyCatalog(unittest.TestCase):
 
     def test_required_canonical_rules_present(self):
         ids = {e["id"] for e in self.data["rules"]}
-        for required in ("force-push-main", "delete-git-dir", "delete-github-repo"):
+        for required in ("force-push-main", "delete-github-repo", "destroy-claude-config"):
             self.assertIn(
                 required, ids,
                 msg=f"spec acceptance criterion requires rule id {required!r}",
             )
+
+    def test_delete_git_dir_moved_to_smart_mode_carryover(self):
+        # Regression guard for the 2026-07-14 removal (see
+        # test_hard_deny_rules_nonempty above for rationale): delete-git-dir
+        # must NOT silently vanish — it must live in the carryover list with
+        # a rationale explaining why, not just be deleted outright.
+        hard_deny_ids = {e["id"] for e in self.data["rules"]}
+        carryover_ids = {e["id"] for e in self.data["left_to_branch_guard_smart_mode"]}
+        self.assertNotIn(
+            "delete-git-dir", hard_deny_ids,
+            msg="delete-git-dir should no longer be in the hard_deny (installed) rule set",
+        )
+        self.assertIn(
+            "delete-git-dir", carryover_ids,
+            msg="delete-git-dir must be documented in left_to_branch_guard_smart_mode, not deleted",
+        )
 
 
 if __name__ == "__main__":

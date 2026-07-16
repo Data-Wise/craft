@@ -146,16 +146,7 @@ Warm light, never harsh white.
 
 ## Using Presets
 
-```bash
-# Interactive selection
-/craft:site:create
-
-# Direct preset selection
-/craft:site:create --preset adhd-focus
-
-# Quick mode with auto-detection
-/craft:site:create --quick
-```
+Set a preset in `.craft/site-design.yaml`, then apply it with `/folio:site:update` (moved to folio) (see [Customizing Presets](#customizing-presets) below).
 
 ## Customizing Presets
 
@@ -178,7 +169,7 @@ features:
 Then regenerate with:
 
 ```bash
-/craft:site:update
+/folio:site:update
 ```
 
 ## Next Steps

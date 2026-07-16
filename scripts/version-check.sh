@@ -307,7 +307,7 @@ check_version_requirement() {
         if [ "$cmp_result" -lt 0 ]; then
             # Current is less than minimum
             status="outdated"
-            message="Tool $tool_name version $current_version is older than required $min_version. Run /craft:docs:demo --fix to update."
+            message="Tool $tool_name version $current_version is older than required $min_version. Run /folio:docs:demo --fix to update."
             debug_log "Status: outdated ($current_version < $min_version)"
         elif [ "$cmp_result" -eq 0 ]; then
             # Current equals minimum

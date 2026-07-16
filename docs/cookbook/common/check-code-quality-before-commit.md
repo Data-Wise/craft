@@ -200,7 +200,7 @@ The command is smart about what to run and fails fast if critical issues are fou
 |-------|----------|
 | "Linter not found" | Install project-specific linter (eslint, flake8, lintr) |
 | "Tests failed" | Fix failing tests before committing; use `/craft:test` to run tests only |
-| "Broken links detected" | Fix or remove broken links; use `/craft:site:check` for detailed link report |
+| "Broken links detected" | Fix or remove broken links; use `/folio:site:check` for detailed link report |
 | "Command runs too slowly" | Use `optimize` mode: `/craft:check optimize` |
 | "Check passes but CI fails" | CI might run additional checks; use `/craft:ci:local` to match CI environment |
 | "Working directory not clean" | Commit or stash changes; `/craft:check` expects clean state |

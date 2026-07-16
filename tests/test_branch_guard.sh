@@ -805,15 +805,20 @@ run_test \
 rm -f "$REPO_ADV/.claude/branch-guard.json"
 switch_branch "$REPO_ADV" "dev"
 
-# git -C <path> commit on main — current pattern doesn't catch this
-# because grep expects "git<space>commit" but sees "git -C ... commit"
-# This is a known limitation — documenting the behavior
+# git -C <path> commit on main — FIXED 2026-07-14 (GRILL-branch-guard-
+# target-resolution). Was previously NOT caught: the classification regex
+# expected "git<space>commit" but saw "git -C ... commit". The regex now
+# tolerates an optional -C flag. /some/path doesn't exist on disk, so the
+# 8d0 cross-context resolver can't resolve a real target and falls back to
+# the session's own branch (main, block-all) — the safe conservative
+# default when a -C target can't be verified. Still blocks, as it always
+# should have for an unresolvable target on a protected branch.
 REPO_GIT_C=$(init_repo)
 switch_branch "$REPO_GIT_C" "main"
 
 run_test \
-    "test_bash_git_dash_c_commit_on_main_not_caught" \
-    0 \
+    "test_bash_git_dash_c_commit_on_main_now_caught" \
+    2 \
     "$(json_bash "git -C /some/path commit -m test" "$REPO_GIT_C")" \
     "$REPO_GIT_C"
 
@@ -1112,6 +1117,143 @@ run_test \
     0 \
     "$(json_bash "echo x > brand_new.py" "$REPO_WT")" \
     "$REPO_WT"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 14b: stderr-redirect false-crash regression (2026-07-09)
+#
+# "cat file 2>&1" passes the coarse '>' guard (grep -qE '>[[:space:]]*[^>]'
+# — '&' satisfies "any non-'>' char") but the fine extraction pattern
+# (grep -oE '>[[:space:]]*[^>|&;[:space:]]+') explicitly excludes '&', so
+# it matches nothing. Under this script's `set -euo pipefail`, a bare
+# VAR=$(pipeline) assignment where the pipeline's last non-zero exit is
+# grep's "no match" (exit 1) kills the whole hook — silently, no stderr,
+# exit 1 instead of the normal 0 (allow) or 2 (block/confirm). Any command
+# containing 2>&1, 1>&2, etc. triggered this. Fixed by appending `|| true`
+# to each of the four BASH_TARGET extraction pipelines so a real no-match
+# behaves like the empty-string fallback the `[[ -z "$BASH_TARGET" ]]`
+# checks already handle, instead of crashing.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Stderr-Redirect False-Crash Regression ---${T_NC}"
+
+REPO_SR=$(init_repo)
+switch_branch "$REPO_SR" "dev"
+
+# The exact crash trigger: fine-extraction zero-match under set -e/pipefail.
+run_test \
+    "test_bash_stderr_redirect_2to1_no_crash" \
+    0 \
+    "$(json_bash "cat README.md 2>&1 | head -5" "$REPO_SR")" \
+    "$REPO_SR"
+
+# Same failure mode, different redirect direction.
+run_test \
+    "test_bash_stderr_redirect_1to2_no_crash" \
+    0 \
+    "$(json_bash "echo err 1>&2" "$REPO_SR")" \
+    "$REPO_SR"
+
+# /dev/null already had explicit handling (BASH_TARGET == /dev/* -> "") —
+# confirm it still works alongside the || true change.
+run_test \
+    "test_bash_stderr_redirect_devnull_allowed" \
+    0 \
+    "$(json_bash "ls nonexistent 2>/dev/null" "$REPO_SR")" \
+    "$REPO_SR"
+
+# A real write-through target MUST still be caught even when the same
+# command also contains a 2>&1 that would otherwise zero-match — the fix
+# must not weaken detection, only stop the crash.
+run_test \
+    "test_bash_stderr_redirect_plus_real_writethrough_still_blocked" \
+    2 \
+    "$(json_bash "echo x > new_file.py 2>&1" "$REPO_SR")" \
+    "$REPO_SR"
+
+# tee/cp/touch edge cases where the coarse guard matches but the fine
+# extraction can plausibly zero-match — must not crash either.
+run_test \
+    "test_bash_tee_no_target_no_crash" \
+    0 \
+    "$(json_bash "echo x | tee" "$REPO_SR")" \
+    "$REPO_SR"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 14c: heredoc-prose false-positive regression (2026-07-10)
+#
+# HAS_HEREDOC was only wired to Pattern 1 (redirect). grep is line-oriented,
+# so a heredoc body (e.g. a `git commit -m "$(cat <<'EOF' ... EOF)"` message)
+# containing a prose line that happens to start with "touch "/"tee "/match
+# "cp <word> <word>" was scanned as if it were real shell syntax by Patterns
+# 2-4, extracting a bogus BASH_TARGET and firing bash_write_through on plain
+# commit-message text. Fixed by gating Patterns 2-4 on HAS_HEREDOC == false,
+# same as Pattern 1.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Heredoc-Prose False-Positive Regression ---${T_NC}"
+
+REPO_HP=$(init_repo)
+switch_branch "$REPO_HP" "dev"
+
+# jq -Rn (not json_bash's raw printf interpolation) to correctly escape the
+# embedded newlines/quotes a real multi-line heredoc command contains.
+json_bash_multiline() {
+    local command="$1"
+    local cwd="$2"
+    jq -Rn --arg cmd "$command" --arg cwd "$cwd" \
+        '{tool_name:"Bash",tool_input:{command:$cmd},cwd:$cwd}'
+}
+
+# The exact false-positive trigger: "touch " as prose inside a heredoc body.
+HEREDOC_TOUCH_CMD='git commit -m "$(cat <<'"'"'EOF'"'"'
+fix: repro test
+
+touch exit code was verified as part of this fix
+EOF
+)"'
+run_test \
+    "test_bash_heredoc_prose_touch_no_false_confirm" \
+    0 \
+    "$(json_bash_multiline "$HEREDOC_TOUCH_CMD" "$REPO_HP")" \
+    "$REPO_HP"
+
+# Same class, tee prose.
+HEREDOC_TEE_CMD='git commit -m "$(cat <<'"'"'EOF'"'"'
+fix: pipeline change
+
+tee output to the log for visibility
+EOF
+)"'
+run_test \
+    "test_bash_heredoc_prose_tee_no_false_confirm" \
+    0 \
+    "$(json_bash_multiline "$HEREDOC_TEE_CMD" "$REPO_HP")" \
+    "$REPO_HP"
+
+# Same class, cp prose.
+HEREDOC_CP_CMD='git commit -m "$(cat <<'"'"'EOF'"'"'
+fix: docs move
+
+cp old-name to new-name in the changelog entry
+EOF
+)"'
+run_test \
+    "test_bash_heredoc_prose_cp_no_false_confirm" \
+    0 \
+    "$(json_bash_multiline "$HEREDOC_CP_CMD" "$REPO_HP")" \
+    "$REPO_HP"
+
+# Regression must not weaken real detection: a genuine touch of a new code
+# file OUTSIDE any heredoc must still be caught.
+run_test \
+    "test_bash_touch_real_writethrough_still_blocked" \
+    2 \
+    "$(json_bash "touch new_file.py" "$REPO_HP")" \
+    "$REPO_HP"
 
 echo ""
 
@@ -1438,6 +1580,235 @@ run_classify_test \
     "^ALLOW:" \
     "$(json_write "$REPO_CLASSIFY/anything.py" "$REPO_CLASSIFY")" \
     "$REPO_CLASSIFY"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group: Cross-context target resolution (2026-07-14, GRILL-branch-guard-
+# target-resolution) — a leading `cd <path> &&`/`cd <path>;` or `-C <path>`
+# retargets the command to a DIFFERENT directory than the session cwd; the
+# hook must classify against the RESOLVED target, not the session's own
+# branch/protection.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Cross-Context Target Resolution ---${T_NC}"
+
+# Scenario 1: session on dev, command cd's into an unprotected feature
+# worktree and pushes from there — must ALLOW (was: false-positive block,
+# because the hook only ever looked at the session's own 'dev' branch).
+REPO_XCTX=$(init_repo)
+switch_branch "$REPO_XCTX" "dev"
+XCTX_WORKTREE=$(make_tmpdir)
+rmdir "$XCTX_WORKTREE"
+(cd "$REPO_XCTX" && git worktree add --quiet -b feature/xctx-test "$XCTX_WORKTREE" dev)
+
+run_test \
+    "test_cd_into_feature_worktree_push_is_ALLOW" \
+    0 \
+    "$(json_bash "cd $XCTX_WORKTREE && git push origin feature/xctx-test" "$REPO_XCTX")" \
+    "$REPO_XCTX"
+
+# Scenario 2: session on dev, command `-C <other-repo>` targets a DIFFERENT
+# repository whose current branch is main — must CONFIRM (exit 2, [CONFIRM]
+# in stderr), never a hard [BLOCK] with no bypass path. This is the explicit
+# "I do not want hard gate to disrupt" decision.
+REPO_XCTX2=$(init_repo)
+switch_branch "$REPO_XCTX2" "dev"
+OTHER_REPO=$(make_tmpdir)
+(cd "$OTHER_REPO" && git init -b main --quiet && git config user.email t@t.com && git config user.name T && git commit -m init --quiet --allow-empty)
+
+run_test_with_stderr \
+    "test_cross_repo_C_flag_push_to_other_main_is_CONFIRM" \
+    2 \
+    "$(json_bash "git -C $OTHER_REPO push origin main" "$REPO_XCTX2")" \
+    "$REPO_XCTX2" \
+    "\[CONFIRM\]"
+
+# Scenario 2b: same cross-repo push must NOT contain a bare "[BLOCK]" tag —
+# regression guard against silently reverting to the old hard-block path.
+run_test_with_stderr \
+    "test_cross_repo_C_flag_push_is_not_hard_BLOCK" \
+    2 \
+    "$(json_bash "git -C $OTHER_REPO push origin main" "$REPO_XCTX2")" \
+    "$REPO_XCTX2" \
+    "smart mode"
+
+# Scenario 3: same-repo compound command (no cd/-C retarget) is UNAFFECTED —
+# regression guard that the new resolver doesn't touch ordinary same-repo
+# classification. `git push --force` on dev still confirms as before.
+REPO_XCTX3=$(init_repo)
+switch_branch "$REPO_XCTX3" "dev"
+
+run_test_with_stderr \
+    "test_same_repo_force_push_still_CONFIRM" \
+    2 \
+    "$(json_bash "git push --force origin dev" "$REPO_XCTX3")" \
+    "$REPO_XCTX3" \
+    "\[CONFIRM\]"
+
+# --------------------------------------------------------------------------
+# Multi-hop cumulative cd tracking (2026-07-15, guard-cd-resolution) — a
+# compound command with MORE THAN ONE cd retargets to the LAST directory, not
+# the first. The pre-#284 single-hop resolver (regex anchored ^cd, head -1)
+# picked the FIRST cd and would classify against the wrong repo.
+# --------------------------------------------------------------------------
+
+# Scenario 4: `cd <main-repo> && cd <feature-worktree> && git push` — the FIRST
+# cd lands on a repo checked out on main (would CONFIRM/block if it were the
+# target), the SECOND cd lands on an unprotected feature worktree. Cumulative
+# tracking must resolve to the worktree → ALLOW (exit 0). Single-hop-first
+# would have picked the main repo and blocked — this is the differentiator.
+REPO_MH_MAIN=$(init_repo)          # left on main (protected)
+REPO_MH_BASE=$(init_repo)
+switch_branch "$REPO_MH_BASE" "dev"
+MH_WORKTREE=$(make_tmpdir); rmdir "$MH_WORKTREE"
+(cd "$REPO_MH_BASE" && git worktree add --quiet -b feature/mh-test "$MH_WORKTREE" dev)
+
+run_test \
+    "test_multihop_cd_last_wins_resolves_to_feature_worktree_ALLOW" \
+    0 \
+    "$(json_bash "cd $REPO_MH_MAIN && cd $MH_WORKTREE && git push origin feature/mh-test" "$REPO_MH_BASE")" \
+    "$REPO_MH_BASE"
+
+# Scenario 5: mixed `cd <main-repo> && git -C <feature-worktree> push` — the
+# `-C` target (feature worktree) is resolved against the cd'd effective cwd and
+# wins → ALLOW (exit 0).
+run_test \
+    "test_multihop_cd_then_C_flag_resolves_to_feature_worktree_ALLOW" \
+    0 \
+    "$(json_bash "cd $REPO_MH_MAIN && git -C $MH_WORKTREE push origin feature/mh-test" "$REPO_MH_BASE")" \
+    "$REPO_MH_BASE"
+
+# Scenario 6: inverse — `cd <feature-worktree> && cd <main-repo> && git push`.
+# Last cd lands on a repo checked out on main; cumulative tracking must resolve
+# there and CONFIRM (exit 2), proving last-wins gates the protected target even
+# when an unprotected dir came first.
+run_test_with_stderr \
+    "test_multihop_cd_last_wins_resolves_to_main_CONFIRM" \
+    2 \
+    "$(json_bash "cd $MH_WORKTREE && cd $REPO_MH_MAIN && git push origin main" "$REPO_MH_BASE")" \
+    "$REPO_MH_BASE" \
+    "\[CONFIRM\]"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 22: Quoted-span + path-scoping false-positive regression (2026-07-16)
+#
+# Same failure class as Group 14c (heredoc prose), generalized. Patterns 1-4
+# coarse-scanned $COMMAND with plain grep, which has no notion of quoting: a
+# `>` or `cp `/`tee `/`touch ` substring INSIDE a single- or double-quoted
+# argument (an awk/grep/sed program, a search pattern) was scanned as if it
+# were real shell syntax. Three of these fired live during a session auditing
+# THIS exact bug class: `awk 'NR>=203 && ...'`, `grep -E '>[^=]'`, and a grep
+# whose search pattern literally contained "cp " as quoted text. A fourth,
+# unrelated bug fired alongside it: `cp <installed-hook> /tmp/...bak` was
+# flagged as "creates a new code file on dev" even though /tmp is nowhere
+# near the repo — only /dev/* was excluded, not general out-of-repo targets.
+#
+# Fix: COMMAND_SCAN strips quoted-span CONTENTS before the coarse `grep -q`
+# checks (detection only — extraction still runs against the ORIGINAL
+# $COMMAND, so a real quoted target survives); BASH_ACTUAL is now checked
+# against a PROJECT_ROOT prefix before being flagged.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Quoted-Span + Path-Scoping Regression ---${T_NC}"
+
+REPO_QS=$(init_repo)
+switch_branch "$REPO_QS" "dev"
+
+# The exact awk invocation that fired live: '>=' inside a single-quoted
+# program is program syntax, not a shell redirect.
+run_test \
+    "test_bash_awk_single_quoted_ge_allowed" \
+    0 \
+    "$(json_bash "awk 'NR>=203 && /^## / {exit} NR>=203' file.md" "$REPO_QS")" \
+    "$REPO_QS"
+
+# The exact grep invocation that fired live: '>[^=]' inside a single-quoted
+# -E pattern is regex syntax, not a shell redirect.
+run_test \
+    "test_bash_grep_pattern_with_gt_allowed" \
+    0 \
+    "$(json_bash "grep -E '>[^=]' scripts/branch-guard.sh" "$REPO_QS")" \
+    "$REPO_QS"
+
+# A literal "cp " substring inside a double-quoted grep search pattern (not
+# an invocation of cp) must not trip Pattern 3.
+run_test \
+    "test_bash_grep_quoted_cp_substring_allowed" \
+    0 \
+    "$(json_bash_multiline 'grep -n "cp \|redirect" tests/test_branch_guard.sh' "$REPO_QS")" \
+    "$REPO_QS"
+
+# Backing up an installed hook to /tmp before re-running an installer — the
+# real command from the session that surfaced the path-scoping bug. /tmp is
+# outside PROJECT_ROOT entirely; must never be flagged as "creates a new
+# code file on dev".
+run_test \
+    "test_bash_cp_to_tmp_outside_repo_allowed" \
+    0 \
+    "$(json_bash "cp ~/.claude/hooks/branch-guard.sh /tmp/branch-guard-pre-install-copy" "$REPO_QS")" \
+    "$REPO_QS"
+
+# Same class: redirecting output to a file under $HOME, well outside the repo.
+run_test \
+    "test_bash_redirect_to_home_outside_repo_allowed" \
+    0 \
+    '{"tool_name":"Bash","tool_input":{"command":"echo backup > /tmp/scratch_notes.py"},"cwd":"'"$REPO_QS"'"}' \
+    "$REPO_QS"
+
+# --- Regression guards: the fix must not weaken real detection ---
+
+# Two SEPARATE double-quoted strings that each contain exactly one apostrophe,
+# straddling a REAL unquoted redirect — proves COMMAND_SCAN's single-quote
+# stripping is a combined alternation (resolves quote-type at the first quote
+# char) rather than two independent passes. Two independent passes would pair
+# the apostrophe in "it's" with the one in "don't" across the redirect in
+# between and erase it from the scan, letting a genuine write-through on dev
+# go completely undetected — confirmed live as a false negative before this
+# test was added (2026-07-16).
+run_test \
+    "test_bash_cross_quote_apostrophes_dont_eat_real_redirect" \
+    2 \
+    "$(json_bash_multiline "echo \"it's ready\" > brand_new_cross_quote.py && echo \"don't tell\"" "$REPO_QS")" \
+    "$REPO_QS"
+
+# A real redirect immediately after a single-quoted grep pattern must still
+# be caught — proves COMMAND_SCAN stripping doesn't eat an UNQUOTED '>'
+# elsewhere in the same command.
+run_test \
+    "test_bash_quoted_pattern_plus_real_redirect_still_blocked" \
+    2 \
+    "$(json_bash "grep 'pattern' file.py > brand_new_output.py" "$REPO_QS")" \
+    "$REPO_QS"
+
+# A real redirect to a quoted target (spaces in the filename) must still be
+# caught with the CORRECT target extracted — proves extraction against the
+# ORIGINAL command (not the quote-stripped scan copy) still works.
+run_test \
+    "test_bash_redirect_quoted_target_with_space_still_blocked" \
+    2 \
+    "$(json_bash "cat > 'new file.py'" "$REPO_QS")" \
+    "$REPO_QS"
+
+# cp to a genuinely new code file INSIDE the repo must still be caught —
+# proves path-scoping only excludes out-of-repo targets, not in-repo ones.
+run_test \
+    "test_bash_cp_inside_repo_still_blocked" \
+    2 \
+    "$(json_bash "cp template.py brand_new_inside.py" "$REPO_QS")" \
+    "$REPO_QS"
+
+# A real, unquoted touch of a guard-bypass marker must still fire even when
+# the same command also contains an unrelated quoted string mentioning
+# "touch" as prose — proves the fix doesn't over-suppress real Pattern 4
+# matches just because a quoted decoy exists elsewhere.
+run_test \
+    "test_bash_real_touch_bypass_with_quoted_decoy_still_blocked" \
+    2 \
+    "$(json_bash "echo 'note: touch base first' && touch .claude/allow-once" "$REPO_QS")" \
+    "$REPO_QS"
 
 echo ""
 

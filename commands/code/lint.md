@@ -309,5 +309,5 @@ Works with:
 ## See Also
 
 - `/craft:code:command-audit` - Validate command frontmatter, find deprecated patterns, report health score
-- `/craft:code:coverage` - Test Coverage Report
+- `/craft:test --coverage` - Test Coverage Report
 - `/craft:code:deps-check` - Dependency Check

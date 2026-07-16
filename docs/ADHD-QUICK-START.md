@@ -23,7 +23,7 @@ brew tap data-wise/tap && brew install craft  # Homebrew (macOS)
 claude plugin add github:Data-Wise/craft      # GitHub marketplace
 
 # Then verify:
-/craft:hub                                    # Verify 115 commands are available
+/craft:hub                                    # Verify 47 commands are available
 ```
 
 **Expected:** You'll see a categorized list of all craft commands.
@@ -52,7 +52,6 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 **Explore by category:**
 
 - **Documentation:** `/craft:docs:update` - Smart docs generation
-- **Site Creation:** `/craft:site:create --preset adhd-focus` - ADHD-friendly docs site
 - **Code Quality:** `/craft:code:lint optimize` - Fast parallel linting
 - **Git Workflows:** `/craft:git:worktree add feature-name` - Parallel development
 
@@ -70,9 +69,8 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 
 | Question | Answer |
 |----------|--------|
-| Where are my commands? | Run `/craft:hub` to see all 115 commands |
+| Where are my commands? | Run `/craft:hub` to see all 47 commands |
 | How do I automate docs? | Use `/craft:docs:update` for smart full cycle |
-| Can I create a website? | Yes! `/craft:site:create` with 8 ADHD-friendly presets |
 | What's the universal command? | `/craft:do "task"` - AI routes automatically |
 
 ### ADHD-Friendly Features
@@ -103,17 +101,12 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 
     Try: `/craft:docs:update` then [Docs Commands](commands/docs.md)
 
-=== "I want to create a site"
-
-    Run: `/craft:site:create --preset adhd-focus`
-
 === "I want advanced features"
 
     Learn: [Orchestrator Mode](guide/orchestrator.md) (8 minutes)
 
 ## 💡 Pro Tips
 
-- Use `--quick` flags to skip prompts: `/craft:site:create --quick`
 - Chain workflows with `/craft:orch` for complex tasks
 - Use `debug` mode when learning: `/craft:code:lint debug`
 - Check before committing: `/craft:check --for commit`

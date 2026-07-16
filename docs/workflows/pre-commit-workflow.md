@@ -298,6 +298,6 @@ git commit --amend -m "feat: better description"
 ## See Also
 
 - **Help:** [/craft:check](../commands/check.md)
-- **Help:** [/craft:git:worktree](../commands/git/worktree.md)
+- **Help:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)
 - **Workflow:** [Git Feature Workflow](git-feature-workflow.md)
 - **Workflow:** [Release Workflow](release-workflow.md)

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
 Behavioral + structural regression tests for the facet-parsing defensive
-contract documented in `commands/workflow/insights.md` (v2.33.0).
+contract documented in `skills/workflow/brainstorm-insights/references/insights.md`
+(v2.33.0; folded from a command into this skill in the v4 consolidation, Phase 3.5,
+2026-07-12).
 
 Two real facet-reader snippets exist in the repo:
   - `commands/hub.md`  Step 1.7  (Recently Used footer)
@@ -30,7 +32,7 @@ pytestmark = [pytest.mark.dogfood]
 CRAFT_ROOT = pathlib.Path(__file__).resolve().parent.parent
 HUB_MD = CRAFT_ROOT / "commands" / "hub.md"
 DO_MD = CRAFT_ROOT / "commands" / "do.md"
-INSIGHTS_MD = CRAFT_ROOT / "commands" / "workflow" / "insights.md"
+INSIGHTS_MD = CRAFT_ROOT / "skills" / "workflow" / "brainstorm-insights" / "references" / "insights.md"
 
 REQUIRED_EXCEPTIONS = (
     "json.JSONDecodeError",

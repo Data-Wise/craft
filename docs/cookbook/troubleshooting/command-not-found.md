@@ -85,7 +85,6 @@ craft check          # Missing prefix
 
 - `/craft:checks` → `/craft:check` (extra 's')
 - `/craft:do-check` → `/craft:do check` (hyphen vs space)
-- `/craft:git-init` → `/craft:git:init` (hyphen vs colon)
 
 **Solution:** Use tab completion or check [Commands Reference](../../commands/hub.md) for exact command names
 

@@ -115,7 +115,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v2.61.2                          │
+│  CRAFT - Full Stack Developer Toolkit v4.0.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -139,50 +139,48 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (14)                         TEST (0)                              │
+│ CODE (13)                         TEST (0)                              │
 │   /craft:code:lint [mode]          /craft:test [mode]                   │
-│   /craft:code:coverage [mode]      /craft:test:gen                      │
+│   /craft:test --coverage [mode]      /craft:test:gen                      │
 │   /craft:code:debug                                                     │
 │   /craft:code:refactor           ARCH (4)                               │
 │   /craft:code:deps-audit           /craft:arch:analyze [mode]           │
 │   /craft:ci:local             /craft:arch:plan                     │
 │   /craft:ci:fix               /craft:arch:review                   │
 │                                    /craft:arch:diagram                  │
-│ DOCS (22)                                                               │
-│   /craft:docs:update             PLAN (3)                               │
-│   /craft:docs:sync                 /craft:plan:feature                  │
-│   /craft:docs:lint                 /craft:plan:sprint                   │
-│   /craft:docs:check                /craft:plan:roadmap                  │
+│ DOCS (2)                                                               │
+│   /craft:docs:update             PLAN (1)                               │
+│   /folio:docs:sync                 /craft:plan:feature                  │
+│   /folio:docs:lint                                                      │
+│   /folio:docs:check                                                     │
 │   /craft:docs:changelog                                                 │
 │   /craft:docs:claude-md          CI (8)                                 │
-│   /craft:docs:nav-update           /craft:ci:detect                    │
-│   /craft:docs:demo                 /craft:ci:generate                  │
-│   /craft:docs:mermaid              /craft:ci:validate                  │
-│   /craft:docs:check-links          /craft:ci:status                    │
+│   /folio:docs:nav-update           /craft:ci:detect                    │
+│   /folio:docs:demo                 /craft:ci:generate                  │
+│   /folio:docs:mermaid              /craft:ci:validate                  │
+│   /folio:docs:check-links          /craft:ci:status                    │
 │                                                                         │
-│ GIT (15 incl. 4 guides)          WORKFLOW (5)                          │
-│   /craft:git:worktree              /brainstorm [depth|focus] "topic"   │
-│   /craft:git:sync                  /workflow:focus                     │
-│   /craft:git:branch                /workflow:done                      │
-│   /craft:git:clean                 /workflow:spec-review               │
-│   /craft:git:git-recap                 /craft:insights                     │
-│   /craft:git:status                                                     │
-│   /craft:git:protect             DIST (5)                               │
-│   /craft:git:unprotect             /craft:dist:marketplace             │
+│ GIT (0, folded into dev/git skill) WORKFLOW (0)                       │
+│   worktree/sync/recap/init/            /brainstorm [depth|focus] "topic"   │
+│   protect/unprotect/status/            /workflow:done                      │
+│   clean/branch/guard: ask              /craft:insights                     │
+│   dev/git skill                                                          │
+│                                   DIST (2)                               │
+│                                     /craft:dist:marketplace             │
 │                                    /craft:dist:homebrew                 │
-│ SITE (16)                          /craft:dist:curl-install             │
-│   /craft:site:build                /craft:dist:pypi                    │
+│ SITE (1)                          /craft:dist:curl-install             │
+│   /folio:site:build                /craft:dist:pypi                    │
 │   /craft:site:deploy                                                    │
-│   /craft:site:check              ORCHESTRATE (3)                        │
-│   /craft:site:update               /craft:orch [mode]           │
-│   /craft:site:publish                                                  │
+│   /folio:site:check              ORCHESTRATE (2)                        │
+│   /folio:site:update               /craft:orch [mode]           │
+│   /folio:site:publish                                                  │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  Quick Actions:                                                          │
 │    /craft:do "fix bug"          /craft:check --for pr                    │
-│    /brainstorm deep feat "auth" /craft:git:worktree create feat/x       │
+│    /brainstorm deep feat "auth" ask "create a worktree for feat/x"      │
 │    /craft:test debug            /release --dry-run                       │
-│    /craft:git:sync              /craft:insights --since 7                │
+│    ask "sync with remote"       /craft:insights --since 7                │
 │                                                                         │
 │  Recently Used: [if facets data exists — omit section if no data]       │
 │    /craft:do (3x) · /craft:check (2x) · /workflow:done (2x)           │
@@ -282,7 +280,6 @@ Display:
 ```
 Intelligently routes your task to the right workflow:
 
- /craft:do initialize project    -> git:init (interactive wizard)
  /craft:do add authentication    -> arch:plan + code:test-gen + git:branch
  /craft:do fix login bug         -> code:debug + test + test debug
  /craft:do improve quality       -> code:lint + test --coverage + code:refactor
@@ -338,12 +335,12 @@ Many commands support modes for different use cases:
 ### `/craft:hub code`
 
 ```
-CODE COMMANDS (14) - Code Quality & Development
+CODE COMMANDS (13) - Code Quality & Development
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
 /craft:code:lint         | Code style & quality checks    | yes
-/craft:code:coverage     | Test coverage report           | yes
+/craft:test --coverage     | Test coverage report           | yes
 /craft:code:deps-check   | Check dependency health        | -
 /craft:code:deps-audit   | Security vulnerability scan    | -
 /craft:ci:local     | Run CI checks locally          | -
@@ -383,28 +380,28 @@ Usage:
 ### `/craft:hub docs`
 
 ```
-DOCS COMMANDS (22) - Documentation Automation
+DOCS COMMANDS (2) - Documentation Automation (most moved to folio)
 ─────────────────────────────────────────────────────────────────────────
 Command                        | Description
 ───────────────────────────────┼─────────────────────────────────────
 /craft:docs:update             | Smart doc generator (detect + generate)
-/craft:docs:sync               | Detect changes, classify doc needs
-/craft:docs:lint               | Markdown quality checks
-/craft:docs:check              | Documentation health check (links, stale, nav, mermaid)
-/craft:docs:check-links        | Internal link validation
+/folio:docs:sync               | Detect changes, classify doc needs
+/folio:docs:lint               | Markdown quality checks
+/folio:docs:check              | Documentation health check (links, stale, nav, mermaid)
+/folio:docs:check-links        | Internal link validation
 /craft:docs:changelog          | Auto-update CHANGELOG.md
-/craft:docs:nav-update         | Update mkdocs.yml navigation
-/craft:docs:demo               | Terminal recording & GIF generator
-/craft:docs:mermaid            | Mermaid diagrams: templates, NL creation, MCP validation
-/craft:docs:guide              | Generate feature guides
-/craft:docs:tutorial           | Generate step-by-step tutorials
-/craft:docs:api                | Generate API documentation
-/craft:docs:quickstart         | Generate quickstart guides
-/craft:docs:help               | Generate help pages
-/craft:docs:prompt             | Generate documentation prompts
-/craft:docs:site               | Website documentation focus
-/craft:docs:website            | ADHD-friendly website enhancement
-/craft:docs:workflow           | Workflow documentation generator
+/folio:docs:nav-update         | Update mkdocs.yml navigation
+/folio:docs:demo               | Terminal recording & GIF generator
+/folio:docs:mermaid            | Mermaid diagrams: templates, NL creation, MCP validation
+/folio:docs:guide              | Generate feature guides
+/folio:docs:tutorial           | Generate step-by-step tutorials
+/folio:docs:api                | Generate API documentation
+/folio:docs:quickstart         | Generate quickstart guides
+/folio:docs:help               | Generate help pages
+/folio:docs:prompt             | Generate documentation prompts
+/folio:docs:site               | Website documentation focus
+/folio:docs:website            | ADHD-friendly website enhancement
+/folio:docs:workflow           | Workflow documentation generator
 
 CLAUDE.md Management:
   /craft:docs:claude-md:init   | Create from lean template (< 150 lines)
@@ -423,25 +420,14 @@ Reference Files (.claude/reference/):
 ### `/craft:hub git`
 
 ```
-GIT COMMANDS (14: 10 commands + 4 guides)
+GIT COMMANDS (0: all folded into the dev/git skill, 2026-07 v4 consolidation)
 ────────────────────────────────────────────────────────────────────────
-Commands:
-  /craft:git:worktree     Parallel development (create/move/finish/clean)
-  /craft:git:sync         Smart sync with remote (pull, rebase, push)
-  /craft:git:branch       Branch management (create, switch, delete)
-  /craft:git:clean        Clean up merged branches safely
-  /craft:git:git-recap        Git activity summary (what changed?)
-  /craft:git:status       Enhanced status with protection level
-  /craft:git:protect      Re-enable branch protection
-  /craft:git:unprotect    Session-scoped bypass (auto-expires)
-  /craft:git:protect-baseline  Apply GitHub-side baseline protection (any repo)
-  /craft:git:init         Initialize repo with craft workflow
+Worktree, sync, recap, init, branch protection, unprotect, status,
+cleanup, quick-branch, and guard management: ask naturally or see
+skills/dev/git/SKILL.md.
 
 Guides:
   /craft:git:refcard        Quick reference card
-  /craft:git:undo-guide     Emergency undo guide
-  /craft:git:safety-rails   Safety rails guide
-  /craft:git:learning-guide Learning guide
 
 Branch Protection (v2.16.0):
   main   = block all (code + docs + commits)
@@ -453,7 +439,7 @@ Branch Protection (v2.16.0):
 ### `/craft:hub workflow`
 
 ```
-WORKFLOW COMMANDS (5) - ADHD-Friendly Workflow Management
+WORKFLOW COMMANDS (0) - ADHD-Friendly Workflow Management
 ────────────────────────────────────────────────────────────────────────
 Brainstorming:
   /brainstorm "topic"                | Default depth (2 questions)
@@ -466,14 +452,8 @@ Brainstorming:
   Action: s(ave) — capture as SPEC file
 
 Session Management:
-  /workflow:focus                    | Start focused work session
   /workflow:next                     | Get next step
-  /workflow:stuck                    | Get unstuck help
   /workflow:done                     | Complete session + capture context
-
-Spec Management:
-  /workflow:spec-review              | List, review, approve, archive specs
-  /workflow:spec-review approve X    | Quick approval
 
 Insights (v2.21.0):
   /craft:insights                    | Generate session insights report
@@ -485,20 +465,17 @@ Insights (v2.21.0):
 ### `/craft:hub site`
 
 ```
-SITE COMMANDS (16) - Documentation Sites
+SITE COMMANDS (1) - Documentation Sites (most moved to folio)
 ─────────────────────────────────────────────────────────────────────────
 Command                  | R Package        | Other (MkDocs)
 ─────────────────────────┼──────────────────┼─────────────────────
-/craft:site:build        | pkgdown::build   | mkdocs build
+/folio:site:build        | pkgdown::build   | mkdocs build
 /craft:site:deploy       | gh-pages push    | mkdocs gh-deploy
-/craft:site:check        | validate site    | validate site
-/craft:site:update       | sync code->docs  | sync code->docs
-/craft:site:preview      | preview locally  | mkdocs serve
-/craft:site:publish      | teaching site    | teaching site
-/craft:site:init         | pkgdown/altdoc   | mkdocs init
-/craft:site:create       | new site wizard  | new site wizard
-/craft:site:status       | site health      | site health
-/craft:site:progress     | semester dash    | semester dash
+/folio:site:check        | validate site    | validate site
+/folio:site:update       | sync code->docs  | sync code->docs
+/folio:site:publish      | teaching site    | teaching site
+/folio:site:status       | site health      | site health
+/folio:site:progress     | semester dash    | semester dash
 ─────────────────────────────────────────────────────────────────────────
 ```
 
@@ -533,7 +510,7 @@ Command                  | Description
 ### `/craft:hub dist`
 
 ```
-DIST COMMANDS (5) - Distribution & Packaging
+DIST COMMANDS (2) - Distribution & Packaging
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description
 ─────────────────────────┼────────────────────────────────────────────
@@ -552,20 +529,21 @@ Recommended Install Hierarchy:
 ### `/craft:hub plan`
 
 ```
-PLAN COMMANDS (3) - Planning & Project Management
+PLAN COMMANDS (1) - Planning & Project Management
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description
 ─────────────────────────┼────────────────────────────────────────────
 /craft:plan:feature      | Plan features with tasks and estimates
-/craft:plan:sprint       | Sprint planning with capacity
-/craft:plan:roadmap      | Generate project roadmaps
 ─────────────────────────────────────────────────────────────────────────
 ```
+
+Sprint planning and roadmap generation moved into the `plan-orchestrator`
+skill (Modes 3–4) — invoke `/craft:plan` and describe the need.
 
 ### `/craft:hub orchestrate`
 
 ```
-ORCHESTRATE COMMANDS (3) - Multi-Agent Coordination
+ORCHESTRATE COMMANDS (2) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
 /craft:orch "task" [mode]     | Launch orchestrator (free-form, fan-out)
 /craft:orch:drive [spec]      | Spec-driven autonomous /goal loop → verified green
@@ -669,7 +647,7 @@ SUGGESTED FOR R PACKAGE:
   /craft:do "check package"   Smart workflow
   /craft:test                 Run testthat
   /craft:code:release         CRAN submission prep
-  /craft:site:init            Setup pkgdown/altdoc
+  /folio:site:build           Build pkgdown/altdoc site
   /craft:arch:analyze         Check package structure
 ```
 
@@ -699,16 +677,16 @@ SUGGESTED FOR NODE PROJECT:
 │                                                                        │
 │ Development Workflow:                                                  │
 │   /craft:code:lint [mode] -> /craft:test [mode] ->                     │
-│   /craft:code:coverage -> /craft:ci:local -> /craft:git:sync      │
+│   /craft:test --coverage -> /craft:ci:local -> ask "sync with remote"  │
 │                                                                        │
-│ Feature Development:                                                   │
-│   /craft:git:worktree create feat/x -> [develop] ->                    │
-│   /craft:git:worktree finish -> /craft:git:worktree clean              │
+│ Feature Development (dev/git skill — ask naturally):                  │
+│   "create a worktree for feat/x" -> [develop] ->                       │
+│   "finish worktree" -> "clean up worktree"                             │
 │                                                                        │
-│ Branch Protection:                                                     │
-│   /craft:git:protect       -> Re-enable guard                         │
-│   /craft:git:unprotect     -> Temporary bypass (auto-expires)         │
-│   /craft:git:status        -> Show protection level                   │
+│ Branch Protection (dev/git skill — ask naturally):                    │
+│   "protect this branch"    -> Re-enable guard                         │
+│   "unprotect"               -> Temporary bypass (auto-expires)         │
+│   "show git status"        -> Show protection level                   │
 │                                                                        │
 │ Release Pipeline:                                                      │
 │   /release                 -> Full 13-step pipeline                   │
@@ -722,8 +700,8 @@ SUGGESTED FOR NODE PROJECT:
 │ Documentation:                                                         │
 │   /craft:docs:update       -> Smart detection + generation             │
 │   /craft:docs:claude-md:sync -> 4-phase CLAUDE.md pipeline            │
-│   /craft:docs:lint         -> Markdown quality checks                  │
-│   /craft:docs:check-links  -> Internal link validation                 │
+│   /folio:docs:lint         -> Markdown quality checks                  │
+│   /folio:docs:check-links  -> Internal link validation                 │
 │                                                                        │
 │ Brainstorming:                                                         │
 │   /brainstorm "topic"              -> Default depth                   │
@@ -742,6 +720,6 @@ SUGGESTED FOR NODE PROJECT:
 │   /craft:ci:detect         -> Detect project type + build tools        │
 │                                                                        │
 │ Daily:                                                                 │
-│   /craft:git:git-recap -> /craft:check -> /craft:git:sync                  │
+│   ask "git status" -> /craft:check -> ask "sync with remote"           │
 └────────────────────────────────────────────────────────────────────────┘
 ```

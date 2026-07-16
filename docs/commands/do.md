@@ -105,7 +105,7 @@ Task Analysis:
 # Routes to:
 # 1. /craft:arch:plan - Design the feature
 # 2. /craft:code:test-gen - Generate tests
-# 3. /craft:git:branch - Create feature branch
+# 3. dev/git skill - Create feature branch (folded from /craft:git:branch, 2026-07 v4)
 ```
 
 **Output:**
@@ -121,7 +121,7 @@ Task Analysis:
 │ Step 2: /craft:code:test-gen                       │
 │   ✓ 12 test cases generated                        │
 │                                                     │
-│ Step 3: /craft:git:branch                          │
+│ Step 3: dev/git skill (branch creation)             │
 │   ✓ Branch 'feature/user-auth' created             │
 │                                                     │
 │ Step 4: Ready to implement                         │
@@ -139,7 +139,6 @@ Task Analysis:
 # Routes to:
 # 1. /craft:code:debug - Analyze the issue
 # 2. /craft:test - Run related tests
-# 3. /craft:git:sync - Commit fix
 ```
 
 ### Release Preparation

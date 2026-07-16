@@ -2,12 +2,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 115 commands organized into 17 categories covering the full development lifecycle
+> - **What:** 47 commands organized into 17 categories covering the full development lifecycle
 > - **Why:** One plugin handles your entire development workflow from docs to deployment
 > - **How:** Use `/craft:hub` to discover all commands by category
 > - **Next:** Start with `/craft:do` for AI-powered task routing or `/craft:check` for pre-flight validation
 
-Craft provides **115 commands** for full-stack development workflows.
+Craft provides **47 commands** for full-stack development workflows.
 
 ## Command Routing
 
@@ -43,11 +43,10 @@ flowchart TD
 Universal commands with AI-powered routing:
 
 - `/craft:do <task>` — Universal task router
-- `/craft:check [--for]` — Pre-flight checks (+`gen-validator`)
+- `/craft:check [--for]` — Pre-flight checks
 - `/craft:orch <task> [mode]` — Enhanced orchestrator (+`plan`, `resume`)
 - `/craft:hub` — Command discovery
 - `/craft:smart-help` — Context-aware help
-- `/craft:discovery-usage` — Discovery engine guide
 
 ### 📚 Documentation Commands (21)
 
@@ -63,9 +62,8 @@ Smart documentation generation and validation:
 
 Full documentation site management:
 
-- `/craft:site:create` — Wizard with 8 ADHD-friendly presets
-- Navigation and audit: `nav`, `audit`, `consolidate`
 - Management: `status`, `update`, `deploy`, `build`, `publish`
+- Validation: `check`, `progress`
 
 [Learn more →](site.md)
 
@@ -95,9 +93,9 @@ Development workflow tools:
 Version control and worktree management:
 
 - Worktrees: `worktree`, `branch`, `clean`
-- Sync: `sync`, `git-recap`, `status`
-- Safety: `protect`, `unprotect`, `init`
-- Docs: `safety-rails`, `undo-guide`, `learning-guide`, `refcard`
+- Status: `status`
+- Safety: `protect`, `unprotect`, `protect-baseline`, `guard`
+- Docs: `refcard`
 
 [Learn more →](git.md)
 
@@ -115,7 +113,7 @@ Continuous integration automation:
 - **Architecture** (4): `analyze`, `diagram`, `plan`, `review`
 - **Distribution** (4): Marketplace, Homebrew (formula+cask), PyPI, curl installers — [Learn more →](dist.md)
 - **Planning** (3): `feature`, `sprint`, `roadmap`
-- **Workflow** (13): Brainstorming, task management, focus mode, spec review
+- **Workflow** (13): Brainstorming, task management, insights
 - **Utilities** (2): Teaching config parser, semester progress
 
 ## Mode System
@@ -141,7 +139,7 @@ Many commands support execution modes:
 | I want to... | Use this command |
 |--------------|------------------|
 | Generate docs | `/craft:docs:update` |
-| Create a site | `/craft:site:create` |
+| Build a site | `/folio:site:build` |
 | Run tests | `/craft:test` |
 | Manage git worktrees | `/craft:git:worktree` |
 | Check before commit | `/craft:check` |
@@ -185,7 +183,7 @@ Four key commands use the **"Show Steps First" pattern**:
 # Scope detection and auto-setup
 ```
 
-[Learn more →](git/worktree.md) | [Tutorial](../tutorials/TUTORIAL-worktree-setup.md) | [Quick reference](../reference/REFCARD-GIT-WORKTREE.md)
+[Learn more →](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) | [Tutorial](../tutorials/TUTORIAL-worktree-setup.md) | [Quick reference](../reference/REFCARD-GIT-WORKTREE.md)
 
 ### /craft:docs:update - Documentation Generator
 
@@ -260,7 +258,7 @@ Four key commands use the **"Show Steps First" pattern**:
 
 ### Level 3: Advanced (Ongoing)
 
-1. **Site creation:** `/craft:site:create`
+1. **Site building:** `/folio:site:build`
 2. **CI/CD setup:** `/craft:ci:generate`
 3. **Architecture analysis:** `/craft:arch:analyze`
 4. **Distribution:** `/craft:dist:homebrew`

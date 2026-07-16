@@ -2,12 +2,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **Commands**: `/craft:docs:check-links`, `/craft:docs:lint`
+> - **Commands**: `/folio:docs:check-links`, `/folio:docs:lint`
 > - **Purpose**: Validate markdown quality and internal links automatically
 > - **Exit Codes**: 0 (success/auto-fixed), 1 (manual fix needed), 2 (validation error)
 > - **Integration**: Pre-commit hooks, CI/CD, `/craft:check` command
 
-Complete API reference for Craft's documentation quality automation system.
+Complete API reference for Craft's documentation quality automation system. (`/craft:docs:check-links` and `/craft:docs:lint` moved to the folio plugin as `/folio:docs:check-links` / `/folio:docs:lint`.)
 
 !!! info "Related Documentation"
     - **[User Guide](../guide/documentation-quality.md)** - Step-by-step tutorial for using quality commands
@@ -17,17 +17,17 @@ Complete API reference for Craft's documentation quality automation system.
 
 | Command | Purpose | Modes | Dry-run | Auto-fix |
 |---------|---------|-------|---------|----------|
-| `/craft:docs:check-links` | Validate internal links and anchors | 4 | ✅ | ❌ |
-| `/craft:docs:lint` | Check markdown quality and style | 4 | ✅ | ✅ |
+| `/folio:docs:check-links` | Validate internal links and anchors | 4 | ✅ | ❌ |
+| `/folio:docs:lint` | Check markdown quality and style | 4 | ✅ | ✅ |
 
-## /craft:docs:check-links
+## /folio:docs:check-links
 
 Validates internal documentation links (relative and absolute paths) with optional anchor checking.
 
 ### Syntax
 
 ```bash
-/craft:docs:check-links [mode] [path] [--dry-run]
+/folio:docs:check-links [mode] [path] [--dry-run]
 ```
 
 ### Arguments
@@ -45,8 +45,8 @@ Validates internal documentation links (relative and absolute paths) with option
 Quick validation of internal links only. Best for development workflow.
 
 ```bash
-/craft:docs:check-links
-/craft:docs:check-links default
+/folio:docs:check-links
+/folio:docs:check-links default
 ```
 
 **Checks:**
@@ -61,8 +61,8 @@ Quick validation of internal links only. Best for development workflow.
 Verbose output with detailed traces. Use when debugging link issues.
 
 ```bash
-/craft:docs:check-links debug
-/craft:docs:check-links debug docs/commands/
+/folio:docs:check-links debug
+/folio:docs:check-links debug docs/commands/
 ```
 
 **Features:**
@@ -77,7 +77,7 @@ Verbose output with detailed traces. Use when debugging link issues.
 Optimized for CI/CD with performance tuning.
 
 ```bash
-/craft:docs:check-links optimize --dry-run
+/folio:docs:check-links optimize --dry-run
 ```
 
 **Features:**
@@ -92,7 +92,7 @@ Optimized for CI/CD with performance tuning.
 Comprehensive validation including anchor checking. Use before releases.
 
 ```bash
-/craft:docs:check-links release
+/folio:docs:check-links release
 ```
 
 **Checks:**
@@ -170,31 +170,31 @@ lychee --no-progress --cache --max-cache-age 1d \
 #### Check all documentation
 
 ```bash
-/craft:docs:check-links
+/folio:docs:check-links
 ```
 
 #### Check specific file
 
 ```bash
-/craft:docs:check-links default docs/commands/git.md
+/folio:docs:check-links default docs/commands/git.md
 ```
 
 #### Preview checks without execution
 
 ```bash
-/craft:docs:check-links --dry-run
+/folio:docs:check-links --dry-run
 ```
 
 #### Comprehensive validation before release
 
 ```bash
-/craft:docs:check-links release
+/folio:docs:check-links release
 ```
 
 #### Debug link issues
 
 ```bash
-/craft:docs:check-links debug docs/guide/
+/folio:docs:check-links debug docs/guide/
 ```
 
 ### Integration with Other Commands
@@ -205,14 +205,6 @@ Automatically runs link validation when docs/ changes detected:
 
 ```bash
 /craft:check  # Includes link validation if docs modified
-```
-
-#### /craft:git:init
-
-Pre-commit hooks can auto-validate links:
-
-```bash
-/craft:git:init  # Step 6.5: Enable pre-commit hooks
 ```
 
 #### CI/CD
@@ -231,14 +223,14 @@ GitHub Actions workflow (`.github/workflows/docs-quality.yml`) runs the Lychee a
 
 ---
 
-## /craft:docs:lint
+## /folio:docs:lint
 
 Validates markdown quality with auto-fix capability for safe issues.
 
 ### Syntax
 
 ```bash
-/craft:docs:lint [mode] [path] [--fix] [--dry-run]
+/folio:docs:lint [mode] [path] [--fix] [--dry-run]
 ```
 
 ### Arguments
@@ -257,8 +249,8 @@ Validates markdown quality with auto-fix capability for safe issues.
 Quick quality check focusing on critical errors.
 
 ```bash
-/craft:docs:lint
-/craft:docs:lint default --fix
+/folio:docs:lint
+/folio:docs:lint default --fix
 ```
 
 **Checks:**
@@ -272,7 +264,7 @@ Quick quality check focusing on critical errors.
 Verbose output with rule explanations.
 
 ```bash
-/craft:docs:lint debug docs/guide/tutorial.md
+/folio:docs:lint debug docs/guide/tutorial.md
 ```
 
 **Features:**
@@ -287,7 +279,7 @@ Verbose output with rule explanations.
 Optimized for CI/CD performance.
 
 ```bash
-/craft:docs:lint optimize --fix
+/folio:docs:lint optimize --fix
 ```
 
 **Features:**
@@ -302,7 +294,7 @@ Optimized for CI/CD performance.
 Comprehensive validation including style checks.
 
 ```bash
-/craft:docs:lint release
+/folio:docs:lint release
 ```
 
 **Checks:**
@@ -430,37 +422,37 @@ Linting rules embedded in command, but can be customized via `.markdownlint.json
 #### Lint all documentation
 
 ```bash
-/craft:docs:lint
+/folio:docs:lint
 ```
 
 #### Auto-fix safe issues
 
 ```bash
-/craft:docs:lint --fix
+/folio:docs:lint --fix
 ```
 
 #### Lint specific file
 
 ```bash
-/craft:docs:lint default docs/guide/tutorial.md
+/folio:docs:lint default docs/guide/tutorial.md
 ```
 
 #### Preview auto-fixes
 
 ```bash
-/craft:docs:lint --fix --dry-run
+/folio:docs:lint --fix --dry-run
 ```
 
 #### Debug linting issues
 
 ```bash
-/craft:docs:lint debug docs/commands/ --fix
+/folio:docs:lint debug docs/commands/ --fix
 ```
 
 #### Comprehensive pre-release check
 
 ```bash
-/craft:docs:lint release
+/folio:docs:lint release
 ```
 
 ### Integration with Other Commands
@@ -480,7 +472,7 @@ Auto-lint and fix before each commit:
 ```bash
 # .git/hooks/pre-commit
 if [ -n "$STAGED_MD" ]; then
-  claude "/craft:docs:lint --fix"
+  claude "/folio:docs:lint --fix"
   git add $STAGED_MD  # Re-stage auto-fixed files
 fi
 ```
@@ -503,8 +495,8 @@ GitHub Actions workflow:
 ```mermaid
 graph LR
     A[Edit Docs] --> B{Run /craft:check}
-    B -->|Docs Changed| C["/craft:docs:lint --fix"]
-    C --> D["/craft:docs:check-links"]
+    B -->|Docs Changed| C["/folio:docs:lint --fix"]
+    C --> D["/folio:docs:check-links"]
     D -->|Pass| E[Commit]
     D -->|Fail| F[Fix Issues]
     F --> A
@@ -518,7 +510,7 @@ graph LR
 
 ```bash
 #!/bin/bash
-# .git/hooks/pre-commit (auto-generated by /craft:git:init)
+# .git/hooks/pre-commit
 
 STAGED_MD=$(git diff --cached --name-only | grep '^docs/.*\.md$')
 
@@ -526,10 +518,10 @@ if [ -n "$STAGED_MD" ]; then
   echo "📚 Checking documentation quality..."
 
   # Step 1: Lint with auto-fix
-  claude "/craft:docs:lint --fix" || exit 1
+  claude "/folio:docs:lint --fix" || exit 1
 
   # Step 2: Validate links
-  claude "/craft:docs:check-links default" || exit 1
+  claude "/folio:docs:check-links default" || exit 1
 
   # Re-stage auto-fixed files
   git add $STAGED_MD
@@ -626,27 +618,15 @@ docs/commands/git.md:67:1: MD040 - Code fence language missing
 
 ```bash
 # Quick check during writing
-/craft:docs:lint --fix
-/craft:docs:check-links
+/folio:docs:lint --fix
+/folio:docs:check-links
 
 # Comprehensive check before PR
-/craft:docs:check-links release
-/craft:docs:lint release
+/folio:docs:check-links release
+/folio:docs:lint release
 ```
 
-### 2. Enable Pre-commit Hooks
-
-```bash
-/craft:git:init  # Enable in Step 6.5
-```
-
-Benefits:
-
-- Catch errors before commit
-- Auto-fix safe issues automatically
-- Prevent broken links from entering history
-
-### 3. Integrate with /craft:check
+### 2. Integrate with /craft:check
 
 ```bash
 /craft:check  # Runs docs validation when docs/ changed
@@ -660,8 +640,8 @@ Add `.github/workflows/docs-quality.yml` to catch issues in PRs.
 
 ```bash
 # Use docs/test-violations.md for testing
-/craft:docs:lint docs/test-violations.md
-/craft:docs:check-links docs/test-violations.md
+/folio:docs:lint docs/test-violations.md
+/folio:docs:check-links docs/test-violations.md
 ```
 
 ---
@@ -671,4 +651,3 @@ Add `.github/workflows/docs-quality.yml` to catch issues in PRs.
 - [User Guide: Documentation Quality](../guide/documentation-quality.md) - Step-by-step tutorial
 - [Developer Guide: Extending Documentation Quality](../guide/documentation-quality-development.md) - Customization guide
 - [Commands: Documentation](../commands/docs.md) - All docs commands
-- [Pre-commit Hook Integration](../guide/git-init-tutorial.md) - Setup guide

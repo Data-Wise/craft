@@ -120,7 +120,7 @@ User: /workflow:brainstorm deep arch save "payment api" --orch=optimize
 
 -> Runs the normal 2-decision-point brainstorm flow, generates + saves the spec
 -> Post-spec: offers hand-off to orchestrator-v2 via --orch=optimize
-   (plan-orchestrator skill / /craft:orch:plan <spec-path>)
+   (plan-orchestrator skill / /craft:plan <spec-path>)
 -> This is the ONLY delegation mechanism — brainstorm does not spawn
    subagents itself (see "Going Deeper" below)
 ```
@@ -147,7 +147,7 @@ safeguards, and referencing agent type names that didn't exist.
 
 The current design does not spawn subagents itself. After a spec is
 captured, it offers a hand-off to the orchestrator via the existing
-`--orch` flag / `plan-orchestrator` skill / `/craft:orch:plan
+`--orch` flag / `plan-orchestrator` skill / `/craft:plan
 <spec-path>` — one delegation mechanism, already hardened, instead of two.
 
 ---

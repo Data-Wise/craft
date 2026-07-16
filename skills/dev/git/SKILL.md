@@ -5,7 +5,7 @@ description: This skill should be used when the user asks to "init a repo", "set
 
 # Git Workflow
 
-End-to-end git lifecycle for craft users: initialize a repo, manage branches and worktrees, sync with remotes, protect (or temporarily bypass) main/dev, and surface the learning/safety reference material when users ask "how do I undo X?". Consolidates the 10 `commands/git/*.md` commands and 4 `commands/git/docs/*.md` reference docs into one coherent skill.
+End-to-end git lifecycle for craft users: initialize a repo, manage branches and worktrees, sync with remotes, protect (or temporarily bypass) main/dev, check whether an open issue's premise still holds, and surface the learning/safety reference material when users ask "how do I undo X?". Consolidates the 9 `commands/git/*.md` commands and 4 `commands/git/docs/*.md` reference docs into one coherent skill.
 
 ## When to Use
 
@@ -27,6 +27,7 @@ Activate when the user's prompt matches any of these concerns:
 | "teach me git", "learn git workflow", "git refcard" | Learning material |
 | "what are the safety rails?", "is this safe?" | Safety reference |
 | "list guards", "enable/disable guard", "explain what this command would do", "guard profile" | Guard registry CLI |
+| "check if this issue still applies", "is issue #N still valid", "premise check before I fix this" | Issue premise check |
 
 If the prompt is ambiguous, default to **enhanced status** (cheapest) and offer follow-ups.
 
@@ -163,7 +164,7 @@ Lightweight summary: today's commits, this week's commits, branch ahead/behind, 
 
 ### 8. Local Branch Protection
 
-Re-enable or configure craft's local `branch-guard.sh` hook (the layer that blocks commits to `main` / new code on `dev` / etc.). Absorbs the former `commands/git/protect.md` (now a thin shim — see Integration table).
+Re-enable or configure craft's local `branch-guard.sh` hook (the layer that blocks commits to `main` / new code on `dev` / etc.). Absorbs the former `git/protect.md` command, deleted entirely in the 2026-07 v4 consolidation (see Integration table).
 
 **Sub-actions:** `--show` (display current config), `--level <smart|block-all|block-new-code>`, `--reset` (revert to auto-detect), `--no-hard-deny` (skip the hard_deny installation prompt), `--audit` (gap-diff wizard, described below; **default action when invoked with no args and protection is already active** — bare `protect` with an active bypass still re-enables first, per Step 2 below, then offers `--audit`).
 
@@ -229,23 +230,24 @@ When the user wants to **read** rather than **act**, surface the reference docs 
 | User intent | Doc to surface |
 |-------------|----------------|
 | "teach me git", "how does this workflow work", "learning path" | `skills/dev/git/references/learning-guide.md` |
-| "quick reference", "git refcard", "cheat sheet" | `commands/git/docs/refcard.md` |
+| "quick reference", "git refcard", "cheat sheet" | `skills/dev/git/references/refcard.md` |
 | "is this safe?", "what are the safety rails?", "won't this break things?" | `skills/dev/git/references/safety-rails.md` |
 | "I messed up", "how do I undo X", "git emergency" | `skills/dev/git/references/undo-guide.md` |
 
-(`refcard.md` stays under `commands/git/docs/` — it wasn't flagged by the deprecated-command body-size audit and isn't part of this consolidation batch.)
+(`refcard.md` moved to `skills/dev/git/references/` in the v4 consolidation, Phase 3.5,
+2026-07-12 — it crossed the deprecated-command body-size audit threshold at 363 lines.)
 
 For undo specifically, prefer the doc over speculating — it has scripted recovery flows for the common "oh no" scenarios (wrong commit message, wrong branch, accidental push, deleted work, merge conflicts).
 
 ### 12. Guard Registry CLI
 
-Inspect, enable, disable, and profile the craft guard suite (`branch-guard.sh` + `no-switch-guard.sh`). Absorbs the former `commands/git/guard.md` (now a thin shim — see Integration table). Guards live in `~/.claude/settings.json` as `PreToolUse` hooks; their toggle state is persisted in `~/.claude/guards.json`.
+Inspect, enable, disable, and profile the craft guard suite (`branch-guard.sh` + `no-switch-guard.sh`). Absorbs the former `git/guard.md` command, deleted entirely in the 2026-07 v4 consolidation (see Integration table). Guards live in `~/.claude/settings.json` as `PreToolUse` hooks; their toggle state is persisted in `~/.claude/guards.json`.
 
-**This Operation is the sole sanctioned mutator of `~/.claude/guards.json`** (descriptive, not test-enforced — matches current practice, revisit only if a second writer appears). It does **not** own `.claude/branch-guard.json` (per-repo protection level) — that file is written directly by Operation 8's `--level`/`--reset`, a separate mutation surface for a separate file. The read path (`branch-guard.sh`/`no-switch-guard.sh` reading `guards.json` at hook-invocation time) is unchanged and has no LLM in it — a PreToolUse hook fires before any model turn.
+**This Operation has TWO sanctioned mutators of `~/.claude/guards.json`, coordinated through a shared lock** (corrected — a second writer was found during adversarial review, superseding the former "sole mutator" claim): this Operation's `enable`/`disable`/`profile` sub-actions, and `scripts/install-guards.sh`'s seed/merge-on-install path. Both acquire `lib/guards-lock.sh` (mkdir-based, atomic on macOS and Linux) around every read-modify-write, so a concurrent mutation from either path can't lose the other's update — see `tests/test_guards_registry_concurrency.sh` for the regression coverage. **Do not add a third ad hoc writer to this file** without wiring it through the same lock. It does **not** own `.claude/branch-guard.json` (per-repo protection level) — that file is written directly by Operation 8's `--level`/`--reset`, a separate mutation surface for a separate file. The read path (`branch-guard.sh`/`no-switch-guard.sh` reading `guards.json` at hook-invocation time) is unchanged and has no LLM in it — a PreToolUse hook fires before any model turn.
 
 **Sub-actions:** `list`, `status`, `explain <cmd>`, `test`, `enable <name|#>`, `disable <name|#> [--permanent|--session]`, `profile <focus|yolo|spec>`.
 
-**Prerequisite:** verify `jq` is on PATH before any action; verify `~/.claude/guards.json` exists (point at `install-guards.sh` if not). Sweep and auto-clear expired mutes (`muted_until` in the past → set back to `null`) before displaying any state, for every sub-action.
+**Prerequisite:** verify `jq` is on PATH before any action; verify `~/.claude/guards.json` exists (point at `install-guards.sh` if not). Sweep and auto-clear expired mutes (`muted_until` in the past → set back to `null`) before displaying any state, for every sub-action — this sweep **writes** when it clears a mute, so it goes through the lock helper below the same as `enable`/`disable`/`profile` (a read-only `list`/`status` with nothing to sweep never acquires the lock).
 
 **`list` / `status`:** read `~/.claude/guards.json` + `~/.claude/settings.json`, build a numbered table (alphabetical). **Generate this table from `guards.json` at render time — never hardcode it** (a third registered guard would otherwise go stale in the docs; this was a real gap in the former `guard.md`). State icons: `🛡️ enabled`, `⚠️ muted (Nm)`, `⛔ disabled`. `status` additionally shows registry path + mtime, active/muted counts.
 
@@ -271,9 +273,44 @@ Result: would prompt for confirmation
 
 **`test`:** run `tests/test_branch_guard.sh` and `tests/test_no_switch_guard.sh` if present, report pass/fail/missing per script.
 
-**`enable <name|#>` / `disable <name|#> [--permanent|--session]` / `profile <focus|yolo|spec>`:** unchanged from the former `guard.md` — `jq`-mutate `guards.json` (`enabled`, `muted_until`), never raw `cat >`. `focus` enables all; `yolo` mutes all 30 min; `spec` enables branch-guard and mutes no-switch-guard 30 min.
+**`enable <name|#>` / `disable <name|#> [--permanent|--session]` / `profile <focus|yolo|spec>`:** `jq`-mutate `guards.json` (`enabled`, `muted_until`), never raw `cat >`. `focus` enables all; `yolo` mutes all 30 min; `spec` enables branch-guard and mutes no-switch-guard 30 min. **Every write is lock-guarded** — `install-guards.sh` mutates the same file (its seed/merge-on-install path), so Operation 12 is no longer the sole writer and must coordinate:
+
+```bash
+bash lib/guards-lock.sh acquire ~/.claude/guards.json.lock
+trap 'bash lib/guards-lock.sh release ~/.claude/guards.json.lock' EXIT
+jq '<transform>' ~/.claude/guards.json > ~/.claude/guards.json.tmp \
+  && mv ~/.claude/guards.json.tmp ~/.claude/guards.json
+bash lib/guards-lock.sh release ~/.claude/guards.json.lock
+trap - EXIT
+```
+
+Acquire immediately before the `jq` read-modify-write, release immediately after the `mv` — use a `trap ... EXIT` so a failure mid-write can't leak the lock. Run `lib/guards-lock.sh` from the repo root (or an absolute path to it); it is a standalone script, not sourced, since Operation 12's mutation runs as inline bash issued per-turn with no persistent shell shared with `install-guards.sh`.
 
 **`guards.json` schema:** `{"guards": {"<name>": {"enabled": bool, "muted_until": iso8601|null, "mute_window_min": int}}}`. `enabled: false` = permanently off; `muted_until` in the future = muted; both null/false-mute = active. Guard *logic* lives in the shell scripts — this file stores toggle state only.
+
+### 13. Issue Premise Check
+
+Before implementing a fix an open GitHub issue requests, check whether the
+issue's own premise still holds against current code. Absorbs
+`commands/git/issue-check.md`.
+
+**Returns:** a structured verdict — `valid` (fix still needed), `moot`
+(already resolved or closed), or `unclear` (cannot be mechanically
+verified) — always with cited evidence (file path + note), never a bare
+label.
+
+**Never caches:** every invocation re-fetches the issue via `gh issue view`
+fresh; no verdict is stored or reused across runs or trigger points.
+
+**Never mutates:** read-only — no `gh issue close`/`edit`/`comment`/reopen`
+call exists anywhere in the implementation.
+
+**Consumers:** standalone (`/craft:git:issue-check <N>`) and
+`/craft:orch:drive`'s pre-filter (only runs when a driven task's SPEC cites
+a `#NNN` issue — zero cost otherwise).
+
+See `commands/git/issue-check.md` for the classifier logic
+(`classify_issue()`).
 
 ## Cross-Operation Patterns
 
@@ -314,9 +351,11 @@ Operation 8 is the everyday enforcer; Operation 9 is the backstop. Apply both fo
 
 ## Integration
 
-This skill replaces the 11 commands and 4 reference docs under `commands/git/` during the v2.34.0 → v3.0.0 migration (SPEC-branch-protection-consolidation-2026-07-07 folded `guard.md` in as a new Operation and thinned the 4 stale shims found during its own review sweep):
+This skill replaces the 11 former `commands/git/` commands and 4 reference docs as of the
+2026-07 v4 consolidation (SPEC-branch-protection-consolidation-2026-07-07, T3.5.2). Ask
+naturally and this skill routes to the matching Operation:
 
-| Command | Operation |
+| Former command | Operation |
 |---------|-----------|
 | `/craft:git:init` | 1 (Repo Init — now also offers the Op 8 audit wizard) |
 | `/craft:git:branch` | 2 (Branch Management) |
@@ -326,15 +365,24 @@ This skill replaces the 11 commands and 4 reference docs under `commands/git/` d
 | `/craft:git:sync` | 6 (Remote Sync) |
 | `/craft:git:git-recap` | 7 (Git Activity Recap) |
 | `/craft:git:protect` | 8 (Local Protection — now includes the `--audit` gap-diff wizard, absorbed from the standalone `protect.md`) |
-| `/craft:git:protect-baseline` | 9 (GitHub-Side Protection — unchanged, stays a separate cross-linked command, not folded) |
-| `/craft:git:unprotect` | 10 (Session Bypass — unchanged, already a thin shim) |
-| `commands/git/docs/learning-guide.md` (shim → `skills/dev/git/references/learning-guide.md`) | 11 (Reference: learning) |
-| `commands/git/docs/refcard.md` | 11 (Reference: refcard) |
-| `commands/git/docs/safety-rails.md` (shim → `skills/dev/git/references/safety-rails.md`) | 11 (Reference: safety rails) |
-| `commands/git/docs/undo-guide.md` (shim → `skills/dev/git/references/undo-guide.md`) | 11 (Reference: undo) |
-| `/craft:git:guard` | 12 (Guard Registry CLI — new, absorbed from the standalone `guard.md`) |
+| `/craft:git:protect-baseline` | 9 (GitHub-Side Protection) |
+| `/craft:git:unprotect` | 10 (Session Bypass) |
+| `skills/dev/git/references/learning-guide.md` (command shim removed; content lives here) | 11 (Reference: learning) |
+| `skills/dev/git/references/refcard.md` | 11 (Reference: refcard) |
+| `skills/dev/git/references/safety-rails.md` (command shim removed; content lives here) | 11 (Reference: safety rails) |
+| `skills/dev/git/references/undo-guide.md` (command shim removed; content lives here) | 11 (Reference: undo) |
+| `/craft:git:guard` | 12 (Guard Registry CLI — absorbed from the standalone `guard.md`) |
 
-Both invocation paths work during the deprecation cycle. The skill auto-fires on natural-language match; explicit `/craft:git:*` paths continue to function until v3.0.0.
+The skill auto-fires on natural-language match. The 11 commands in the table above no longer
+exist as slash commands — their deprecation cycle is complete.
+
+**One live `/craft:git:*` command remains:** `/craft:git:issue-check` (Operation 13), added
+after the T3.5.2 consolidation. It is deliberately **not** folded into this skill:
+`tests/test_issue_check_unit.py` extracts its `classify_issue()` block from
+`commands/git/issue-check.md` and `exec()`s it, so that command file is the single source of
+truth for the classifier — the same structural constraint recorded for `commands/ci/triage.md`
+in `GRILL-phase-3-6-router-consolidation-2026-07-15.md` (D13). Operation 13 documents the
+behavior; the command file owns the code.
 
 ## Related Skills
 

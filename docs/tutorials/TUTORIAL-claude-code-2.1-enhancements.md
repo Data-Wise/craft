@@ -50,7 +50,7 @@ There's no roster of named specialist agents for medium-complexity work — a
 task's *category* (Feature / Bug / Quality / Docs / Test / Release /
 Architecture) determines which commands get chained:
 
-- **Feature work**: `/craft:arch:plan` → `/craft:code:test-gen` → `/craft:git:branch`
+- **Feature work**: `/craft:arch:plan` → `/craft:code:test-gen` → dev/git skill (create branch)
 - **Bug work**: `/craft:code:debug` → `/craft:test`
 - **Orchestrator** (`orchestrator-v2`): a real agent that coordinates multiple
   subagents for genuinely complex, multi-phase projects (Score 8-10)
@@ -127,7 +127,7 @@ The chained sequence then:
 
 1. Plans the OAuth integration (`/craft:arch:plan`)
 2. Writes the code and tests (`/craft:code:test-gen`)
-3. Creates the feature branch (`/craft:git:branch`)
+3. Creates the feature branch (dev/git skill)
 4. Brings back a complete solution
 
 You didn't have to break down the task yourself—the system recognized the complexity and chained the right commands for you.
@@ -137,7 +137,7 @@ You didn't have to break down the task yourself—the system recognized the comp
 | Task | Old Behavior | New Behavior |
 |------|--------------|--------------|
 | "fix the login bug" | Routes to `/craft:code:debug` | Chains `/craft:code:debug` + `/craft:test` (more thorough) |
-| "add user authentication" | Routes to `/craft:arch:plan` | Chains `/craft:arch:plan` + `/craft:code:test-gen` + `/craft:git:branch` (complete implementation) |
+| "add user authentication" | Routes to `/craft:arch:plan` | Chains `/craft:arch:plan` + `/craft:code:test-gen` + dev/git skill branch creation (complete implementation) |
 | "refactor database layer" | Routes to `/craft:arch:analyze` | Chains `/craft:arch:analyze` + `/craft:code:refactor` (architectural design) |
 | "prepare release" | Routes to multiple commands | Delegates to `orchestrator-v2` agent (coordinates everything) |
 

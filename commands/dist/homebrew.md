@@ -1058,9 +1058,9 @@ When issues are found, the audit command automatically applies known fixes:
 ```ruby
 # Fix 1: Description too long (> 80 chars)
 # Before:
-desc "Full-stack developer toolkit - 115 commands, 8 agents, 45 skills - Claude Code plugin"
+desc "Full-stack developer toolkit - 46 commands, 2 agents, 40 skills - Claude Code plugin"
 # After:
-desc "Full-stack developer toolkit for Claude Code with 115 commands"
+desc "Full-stack developer toolkit for Claude Code with 46 commands"
 
 # Fix 2: Array comparison (use Array#include?)
 # Before:
@@ -1597,7 +1597,7 @@ The generator assembles a complete formula with:
 
 ### Existing Plugin Formulas
 
-All 6 plugin formulas are generated from the manifest:
+All 7 plugin formulas are generated from the manifest:
 
 | Formula | Features | Status |
 |---------|----------|--------|
@@ -1607,6 +1607,7 @@ All 6 plugin formulas are generated from the manifest:
 | `rforge.rb` | head-only (no releases) | `brew audit --strict` clean |
 | `rforge-orchestrator.rb` | monorepo URL pattern | `brew audit --strict` clean |
 | `workflow.rb` | ADHD workflow automation | `brew audit --strict` clean |
+| `folio.rb` | schema-cleanup (command count: see `plugin.json`) | `brew audit --strict` clean |
 
 ### Testing Plugin Installation
 

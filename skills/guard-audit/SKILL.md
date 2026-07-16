@@ -1,6 +1,6 @@
 ---
 name: guard-audit
-description: This skill should be used when the user asks to "audit guard", "guard friction", "tune guard", "guard false positives", "fix guard blocking", or mentions branch guard configuration issues. Analyzes branch-guard.sh rules and proposes JSON config changes to reduce false positives.
+description: This skill should be used when the user asks to "audit guard", "guard friction", "tune guard", "guard false positives", "fix guard blocking", or mentions branch guard configuration issues. Analyzes branch-guard.sh rules; proposes JSON branch-policy config changes for policy-level false positives, and flags detection-logic bugs (which the flat config schema cannot fix) as needing a code PR instead.
 ---
 
 # Guard Audit
@@ -45,14 +45,15 @@ Present a summary:
 │ GUARD DISCOVERY                                               │
 ├───────────────────────────────────────────────────────────────┤
 │ Script:    scripts/branch-guard.sh (N lines)                  │
-│ Config:    .claude/branch-guard.json (found/not found)        │
+│ Config:    .claude/branch-guard.json (found/not found — flat  │
+│            branch→level map, e.g. {"main":"block-all"})       │
 │ Branches:  main (block-all), dev (smart), feature/* (none)    │
 │                                                               │
 │ Protection Rules Found:                                       │
-│   1. [HIGH] Destructive git commands in PR body               │
+│   1. [HIGH] Destructive git commands (reset --hard, clean -f) │
 │   2. [HIGH] Force push to protected branches                  │
-│   3. [MEDIUM] New code files on dev                           │
-│   4. [LOW] Config file modifications on dev                   │
+│   3. [MEDIUM] New code files via Write or shell redirection   │
+│   4. [MEDIUM] Guard-bypass marker creation                    │
 │   ... (N total rules)                                         │
 └───────────────────────────────────────────────────────────────┘
 ```
@@ -96,10 +97,10 @@ For each rule, identify scenarios where it produces false positives:
 
 | Rule | Intended Block | False Positive Scenario |
 |------|---------------|------------------------|
-| Destructive git in PR body | Actual destructive commands | Documentation mentioning commands |
-| Force push detection | Force push to main/dev | Rebased feature branch push |
-| New code files on dev | Feature code on dev | Config/build files |
-| File extension detection | Source code files | Generated/template files |
+| Force push detection | Force push to main/dev | Rebased feature branch push (already excluded — verify the branch was matched correctly) |
+| New code files on dev (shell redirection) | `echo`/`cat`/`tee`/`cp`/`touch` writing code to dev | A `>` character, or the keyword `cp`, `tee`, or `touch` followed by a space, appearing INSIDE a single- or double-quoted argument (an awk/grep/sed program, a search pattern) — text, not real shell syntax |
+| New code files on dev (path scoping) | Writes landing inside the repo tree | A target outside `PROJECT_ROOT` entirely (`/tmp/...`, `$HOME/...`) — poses no risk to this repo's branch |
+| File extension detection | Source code files | Generated/template files with a non-code extension already in `NONCODE_EXTENSIONS` |
 
 ### Step 3: Test Harness
 
@@ -125,6 +126,14 @@ echo "Testing: Write docs/guide.md on dev..."
 
 ### Step 4: Report
 
+**First, classify each false positive by what can actually fix it** — this determines whether
+Step 5 applies at all:
+
+| Class | What it looks like | Fixable via config? |
+|---|---|---|
+| **Branch policy** | The wrong protection *level* for a branch (e.g. a research repo's `draft` branch needs `smart` but has none) | **Yes** — Step 5's flat schema |
+| **Detection logic** | The guard misparses a *specific command* regardless of branch — e.g. a `>` inside a quoted `awk`/`grep` program read as a redirect, or an out-of-repo target (`/tmp/...`) flagged as an in-repo write | **No** — this is a bug in `scripts/branch-guard.sh` itself; only a code fix (PR) resolves it |
+
 Output a friction report with specific recommendations:
 
 ```text
@@ -133,58 +142,52 @@ Output a friction report with specific recommendations:
 ├───────────────────────────────────────────────────────────────┤
 │                                                               │
 │ Rules Analyzed: N                                             │
-│ False Positives Found: M                                      │
+│ False Positives Found: M (X branch-policy, Y detection-logic) │
 │                                                               │
-│ Recommendation 1: Relax PR body scanning                      │
-│   Issue: Guard flags PR bodies containing destructive         │
-│          command strings even when used as documentation       │
-│   Fix: Add context awareness — only flag if command is in     │
-│        a bash/shell code block, not prose                     │
-│   Config change:                                              │
-│     "pr_body_scan": "code_blocks_only"                        │
+│ Recommendation 1 [branch-policy]: Protect the 'draft' branch  │
+│   Issue: research-repo integration branch has no protection   │
+│   Config change: {"draft": "smart"}                            │
 │                                                               │
-│ Recommendation 2: Allow force-push on feature/*               │
-│   Issue: Guard blocks force-push after rebase on feature      │
-│          branches                                             │
-│   Fix: Only block force-push on main and dev                  │
-│   Config change:                                              │
-│     "force_push_allow": ["feature/*", "fix/*"]                │
-│                                                               │
-│ Recommendation 3: Expand allowed file types on dev            │
-│   Issue: Guard blocks config files (.json, .yaml) on dev      │
-│   Fix: Add config extensions to allowed list                  │
-│   Config change:                                              │
-│     "dev_allowed_extensions": [".md", ".json", ".yaml",       │
-│       ".yml", ".toml", ".txt"]                                │
+│ Recommendation 2 [detection-logic — NOT config-fixable]:      │
+│   Issue: `awk 'NR>=203'` flagged as a redirect — the `>` is   │
+│          inside a single-quoted awk program, not shell syntax │
+│   Fix: requires editing scripts/branch-guard.sh's Pattern 1   │
+│        detection to strip quoted spans before scanning (see   │
+│        the 2026-07-16 quoted-span-stripping fix for the       │
+│        precedent — same class, PR against the script)         │
+│   Config change: none exists — the flat schema (Step 5) has   │
+│        no such knob                                           │
 │                                                               │
 └───────────────────────────────────────────────────────────────┘
 ```
 
 ### Step 5: Apply (with user confirmation)
 
-Present proposed JSON config changes:
+**The real config schema is a flat branch-name → protection-level map — nothing else.**
+`scripts/branch-guard.sh` reads it with a single lookup, `_json_get ".\"${BRANCH}\""` — there is
+no nested `"branches"` object, no `allowed_extensions`, `pr_body_scan`, or `force_push_allow` key.
+Those do not exist in the script; proposing them would produce a config file the guard silently
+ignores.
+
+Valid protection-level values (from the script's own comment): `"block-all"`, `"smart"`,
+`"block-new-code"` (alias for `smart`), `"confirm"` (alias for `smart`), or `""` (no protection).
+A branch not listed in the config gets no protection — **a custom config is explicit and
+authoritative**; it does not merge with auto-detection.
 
 ```json
 {
-  "version": 2,
-  "branches": {
-    "main": { "protection": "block-all" },
-    "dev": {
-      "protection": "smart",
-      "allowed_extensions": [".md", ".json", ".yaml", ".yml", ".toml", ".txt"],
-      "pr_body_scan": "code_blocks_only"
-    },
-    "feature/*": {
-      "protection": "none",
-      "allow_force_push": true
-    }
-  }
+  "main": "block-all",
+  "dev": "smart",
+  "draft": "smart"
 }
 ```
 
-Ask user to confirm before writing to `.claude/branch-guard.json`.
+Only propose **branch-policy** changes this way (see Step 4's classification). Ask the user to
+confirm before writing to `.claude/branch-guard.json`.
 
-**IMPORTANT:** Never modify `scripts/branch-guard.sh`. Only propose changes to the JSON config file.
+**IMPORTANT:** Never modify `scripts/branch-guard.sh`. If the false positive is a
+detection-logic bug (not fixable via this flat schema), say so plainly and recommend a code fix
+as its own PR — do not fabricate a config key to paper over it.
 
 ## Output Format
 
@@ -213,7 +216,5 @@ Use craft box-drawing format throughout. Each step shows progress:
 
 - `scripts/branch-guard.sh` — The guard script (read-only for this skill)
 - `.claude/branch-guard.json` — Per-project config (this skill's output)
-- `/craft:git:unprotect` — Session-scoped bypass (temporary)
-- `/craft:git:protect` — Re-enable protection
-- `/craft:git:guard` — List, enable, or disable individual guards
+- [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) — unprotect, protect, and guard management (ask naturally; folded from `/craft:git:unprotect`/`protect`/`guard`, 2026-07 v4 consolidation)
 - `docs/guide/guard-suite.md` — Guard suite concepts and usage guide

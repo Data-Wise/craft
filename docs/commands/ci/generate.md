@@ -243,4 +243,3 @@ jobs:
 - **Detection:** `/craft:ci:detect` - Run detection without generating
 - **Validation:** `/craft:ci:validate` - Validate generated workflow
 - **Pre-flight:** `/craft:check` - Quick CI check
-- **Git sync:** `/craft:git:sync` - Commit and push

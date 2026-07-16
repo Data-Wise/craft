@@ -295,23 +295,23 @@ python3 tests/test_docs_utilities.py
 
 **Works with:**
 
-- `/craft:docs:sync` - Change detection
-- `/craft:docs:check` - Validation
-- `/craft:docs:lint` - Markdown linting
+- `/folio:docs:sync` - Change detection (moved to folio)
+- `/folio:docs:check` - Validation (moved to folio)
+- `/folio:docs:lint` - Markdown linting (moved to folio)
 - `/craft:check` - Pre-flight validation
 
 **Orchestrated internally:**
 
-- `/craft:docs:guide` - Guide generation
+- `/folio:docs:guide` - Guide generation (moved to folio)
 - `/craft:docs:changelog` - Changelog updates
 - `/craft:docs:claude-md` - CLAUDE.md updates
-- `/craft:docs:nav-update` - Navigation updates
+- `/folio:docs:nav-update` - Navigation updates (moved to folio)
 
 ## See Also
 
 - [Full Documentation](../commands/docs/update.md) - Complete command reference
 - [Example Walkthrough](../examples/docs-update-interactive-example.md) - Step-by-step example
-- [Implementation Summary](../specs/_archive/SPEC-docs-update-interactive-2026-01-22.md) - Technical details
+- [Implementation Summary](https://github.com/Data-Wise/craft/blob/main/docs/specs/_archive/SPEC-docs-update-interactive-2026-01-22.md) - Technical details
 - [Teaching Workflow Guide](../guide/teaching-workflow.md) - Teaching mode integration
 
 ## Quick Tips

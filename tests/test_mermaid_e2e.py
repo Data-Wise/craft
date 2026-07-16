@@ -52,25 +52,9 @@ class TestMCPValidation:
 # ─── Pipeline Integration Tests ──────────────────────────────────────────────
 
 
-@pytest.mark.docs
-class TestDocsCheckIntegration:
-    """Tests for /craft:docs:check mermaid phase."""
-
-    def test_docs_check_includes_mermaid_phase(self):
-        """docs:check command file documents mermaid validation phase."""
-        check_cmd = COMMANDS_DIR / "docs" / "check.md"
-        assert check_cmd.exists(), f"Missing: {check_cmd}"
-        content = check_cmd.read_text()
-        assert "Mermaid Validation" in content, "docs:check should document Mermaid Validation phase"
-        assert "health" in content.lower(), "docs:check should reference health score"
-
-    def test_health_score_reports_in_docs_check(self):
-        """Health score section appears in check command docs."""
-        check_cmd = COMMANDS_DIR / "docs" / "check.md"
-        content = check_cmd.read_text()
-        assert "--health-score" in content or "health score" in content.lower()
-        assert "--gate" in content, "docs:check should document --gate flag"
-
+# NOTE: TestDocsCheckIntegration removed 2026-07-12 — commands/docs/check.md moved to
+# the `folio` plugin in the folio split (Phase 3); that coverage is folio's now.
+# See ORCHESTRATE-folio-split.md / tasks/todo.md T3.3.
 
 # ─── Validation Pipeline Tests ───────────────────────────────────────────────
 
@@ -130,26 +114,6 @@ class TestPrecommitHook:
         assert "mermaid-validate" in hook_ids, f"mermaid-validate not in hooks: {hook_ids}"
 
 
-# ─── Skill/Command Structure Tests ──────────────────────────────────────────
-
-
-@pytest.mark.structure
-class TestStructure:
-    """Tests for skill and command file structure."""
-
-    def test_mermaid_linter_skill_updated(self):
-        """Skill references MCP validation."""
-        skill_path = SKILLS_DIR / "docs" / "mermaid-linter" / "SKILL.md"
-        assert skill_path.exists(), f"Missing: {skill_path}"
-        content = skill_path.read_text()
-        assert "mcp-mermaid" in content.lower() or "MCP" in content, "Skill should reference MCP validation"
-        assert "health" in content.lower(), "Skill should reference health score"
-
-    def test_mermaid_command_has_nl_docs(self):
-        """Mermaid command documents NL creation."""
-        cmd_path = COMMANDS_DIR / "docs" / "mermaid.md"
-        assert cmd_path.exists()
-        content = cmd_path.read_text()
-        assert "--validate" in content, "Command should document --validate flag"
-        assert "--preview" in content, "Command should document --preview flag"
-        assert "natural language" in content.lower() or "NL" in content, "Command should document NL creation"
+# NOTE: TestStructure (mermaid-linter skill, docs:mermaid command) removed
+# 2026-07-12 — both moved to the `folio` plugin in the folio split (Phase 3);
+# that coverage is folio's now. See ORCHESTRATE-folio-split.md / tasks/todo.md T3.3.

@@ -326,7 +326,7 @@ def update_claude_md(dry_run: bool = False) -> Tuple[List[MetricChange], str]:
     claude_md_path = project_path / "CLAUDE.md"
 
     if not claude_md_path.exists():
-        return [], "❌ CLAUDE.md not found. Use /craft:docs:claude-md:init to create."
+        return [], "❌ CLAUDE.md not found. Ask Claude to run the CLAUDE.md init (docs/claude-md skill) to create."
 
     # Detect project
     project_info = detect_project(project_path)

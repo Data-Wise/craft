@@ -111,7 +111,7 @@ The Guard Suite shipped in two phases. Phase A is what is currently in the codeb
 - `no-switch-guard.sh` — new hook, full harm taxonomy, registry reads
 - `branch-guard.sh` — duplicate restore/checkout checks removed (now owned by no-switch-guard)
 - `~/.claude/guards.json` — registry schema and defaults
-- `commands/git/guard.md` — `/craft:git:guard` command (7 actions)
+- `skills/dev/git/SKILL.md` — guard management, Operation 12 (7 actions; folded from `commands/git/guard.md`, 2026-07 v4 consolidation)
 - `skills/guard-audit/SKILL.md` — extended with guard-suite checks
 - `.claude-plugin/skills/validation/guard-consistency.md` — new validation skill
 

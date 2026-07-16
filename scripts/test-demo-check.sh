@@ -1,5 +1,5 @@
 #!/bin/bash
-# Integration test for /craft:docs:demo --check flag
+# Integration test for /folio:docs:demo --check flag
 # Tests the dependency checking integration
 
 set -e

@@ -75,12 +75,12 @@ Runs code style and quality checks with configurable depth based on execution mo
 
 ## Markdown File Handling
 
-When the target path contains `.md` files, `/craft:code:lint` automatically delegates markdown linting to `/craft:docs:lint` and combines results.
+When the target path contains `.md` files, `/craft:code:lint` automatically delegates markdown linting to `/folio:docs:lint` and combines results.
 
 ---
 
 ## See Also
 
-- [/craft:docs:lint](../docs.md) — Markdown-specific linting (category page)
+- [/folio:docs:lint](../docs.md) — Markdown-specific linting (category page)
 - [/craft:ci:local](../ci/local.md) — Run full CI suite locally
 - [/craft:check](../check.md) — Pre-flight validation

@@ -26,7 +26,7 @@ What do you need to do?
 │   └─ MEDIUM: Guard will [CONFIRM]
 │
 ├─ Do bulk maintenance on dev?
-│   └─ /craft:git:unprotect maintenance
+│   └─ ask "unprotect for maintenance" (dev/git skill)
 │
 ├─ Work on feature branch?
 │   └─ No restrictions — guard is inactive
@@ -72,12 +72,14 @@ What do you need to do?
 | Clean force | `git clean -f`, `-fd`, `-fx` |
 | Branch force-delete | `git branch -D` (all branches) |
 | Critical files | `.env*`, `*.pem`, `*.key`, `*.secret`, `branch-guard.json` |
+| Repository deletion | `rm -rf .git` (universal catastrophic check, all branches — moved out of hard_deny 2026-07-14, see below) |
 
 ### HIGH (Hard Block)
 
-| Action | Trigger | Scope |
-|--------|---------|-------|
-| Repository deletion | `rm -rf .git` | All branches |
+branch-guard.sh currently defines a hard-block helper but does not call it
+for any live rule — the previously-documented `rm -rf .git` row belongs in
+MEDIUM below; it has always used `_confirm` (ASK tier), not a hard block,
+in the actual hook code.
 
 ---
 
@@ -89,9 +91,9 @@ A fourth tier sits **above** the LOW/MEDIUM/HIGH classification — `autoMode.ha
 |----------|-------|
 | Enforcement | Claude Code classifier, before branch-guard.sh runs |
 | Scope | All tools (Bash, Write, Edit, MCP), not just Bash |
-| Bypass | **None.** Survives `.claude/allow-once`, `/craft:git:unprotect`, and user intent |
-| Install | `/craft:git:protect` offers it; `bash scripts/install-hard-deny.sh --install` is the direct command |
-| Opt out | `/craft:git:protect --no-hard-deny` |
+| Bypass | **None.** Survives `.claude/allow-once`, asking "unprotect" (dev/git skill), and user intent |
+| Install | Asking "protect" (dev/git skill) offers it; `bash scripts/install-hard-deny.sh --install` is the direct command |
+| Opt out | ask "protect --no-hard-deny" (dev/git skill) |
 | Inspect | `bash scripts/install-hard-deny.sh --show` |
 | Remove | Edit `~/.claude/settings.json` directly, or `bash scripts/install-hard-deny.sh --uninstall` (removes only craft rules) |
 
@@ -100,7 +102,6 @@ A fourth tier sits **above** the LOW/MEDIUM/HIGH classification — `autoMode.ha
 | Rule ID | Blocks |
 |---------|--------|
 | `force-push-main` | Force pushes to `main`/`master`/protected primary branch |
-| `delete-git-dir` | Recursive deletion of the `.git` directory |
 | `delete-github-repo` | `gh repo delete` and GitHub API equivalents |
 | `destroy-claude-config` | Recursive deletion of `~/.claude` |
 
@@ -114,6 +115,7 @@ The installer also prepends `"$defaults"` so Claude Code's built-in catastrophic
 | `find . -delete` | Legitimate with filters; classifier can't see filter args |
 | Pipeline-driven removal (`... \| xargs rm`) | Decision depends on upstream pipeline, classifier can't see it |
 | Discard uncommitted (`git checkout .`, `git restore .`) | Annoying but recoverable from local stash/reflog |
+| `rm -rf .git` (moved 2026-07-14) | hard_deny's classifier has no git execution context, so it can't verify "same repo" for a confirm-not-block carve-out. branch-guard.sh's own universal catastrophic check already confirms this on every branch — see `GRILL-branch-guard-target-resolution-2026-07-14.md` decision 4 |
 
 See `scripts/hard-deny-rules.json` for full rationale per rule.
 
@@ -136,13 +138,13 @@ No commands needed — just approve the prompt.
 
 ```bash
 # Enable bypass
-/craft:git:unprotect maintenance
+ask "unprotect for maintenance" (dev/git skill)
 
 # Do your work (all guards disabled)
 # ...
 
 # Re-enable
-/craft:git:protect
+ask "protect" (dev/git skill)
 ```
 
 ---
@@ -172,28 +174,45 @@ Resets after **8 hours** of inactivity.
 
 ---
 
+## Cross-Context Target Resolution
+
+Both Guard Suite hooks (`branch-guard.sh` **and** `no-switch-guard.sh`) classify a Bash command against the repo/branch it *actually targets*, not the session's own cwd — so a worktree push or a cross-repo checkout is gated by the correct branch.
+
+| Command shape | Resolved target |
+|---------------|-----------------|
+| `git -C <path> …` | `<path>` |
+| `cd <path> && git …` | `<path>` |
+| `cd a && cd b && git …` | `b` (**cumulative** — last cd wins, not the first) |
+| `cd a && git -C b …` | `b` |
+| no `cd`/`-C` | session cwd (unchanged) |
+
+- **Cumulative tracking** (2026-07-15): each `cd` retargets every *subsequent* clause, so multi-hop chains resolve to the last directory. Earlier single-hop resolution (#284) only handled one leading `cd`/`-C`.
+- **Limitation (documented, not a silent gap):** this is not full quote-aware shell parsing. A `;`/`&&`/`|` separator *inside a quoted argument* (e.g. a commit message `-m "wip; cd /x"`) can be mis-split. Mitigated by skipping quote/`$`/backtick-bearing paths and by the real-git-repo checks — a spurious target that isn't a git repo on a different branch is ignored. Custom per-repo `.claude/branch-guard.json` in the *other* repo is not consulted (auto-detect protection only).
+
+---
+
 ## GitHub-Side Companion
 
 The local hook stops accidents on your machine; GitHub-side branch protection stops anything that slips through. Together they form defense-in-depth:
 
 | Layer | Lives at | Manages | Command |
 |-------|----------|---------|---------|
-| **Local hook** | `~/.claude/hooks/branch-guard.sh` | Edits/writes/bash before they leave your machine | `/craft:git:protect`, `/craft:git:unprotect` |
-| **GitHub-side** | Repo settings → Branches | Pushes/PRs/deletions at the remote | `/craft:git:protect-baseline` |
+| **Local hook** | `~/.claude/hooks/branch-guard.sh` | Edits/writes/bash before they leave your machine | ask "protect" / "unprotect" (dev/git skill) |
+| **GitHub-side** | Repo settings → Branches | Pushes/PRs/deletions at the remote | ask "protect-baseline" (dev/git skill) |
 
 Apply both for full coverage:
 
 ```bash
 # Local hook (per-machine, automatic on craft installs)
-/craft:git:protect
+ask "protect" (dev/git skill)
 
 # GitHub-side (per-repo, one-time setup)
-/craft:git:protect-baseline                          # Current repo
-/craft:git:protect-baseline --repo OWNER/REPO        # Any repo
-/craft:git:protect-baseline --check "test" --strict  # With status checks
+ask "protect-baseline" (dev/git skill)               # Current repo
+ask "protect-baseline --repo OWNER/REPO" (dev/git skill) # Any repo
+ask 'protect-baseline --check "test" --strict' (dev/git skill) # With status checks
 ```
 
-**Important:** `/craft:git:unprotect` only bypasses the local hook. GitHub-side protection set by `protect-baseline` is independent and must be removed via `protect-baseline --remove`.
+**Important:** Asking "unprotect" (dev/git skill) only bypasses the local hook. GitHub-side protection set by `protect-baseline` is independent and must be removed via `protect-baseline --remove`.
 
 ---
 
@@ -213,15 +232,15 @@ Apply both for full coverage:
 → Options:
   a) Approve the confirm prompt (one-shot)
   b) /craft:git:worktree feature/<name> (recommended)
-  c) /craft:git:unprotect maintenance (bulk bypass)
+  c) ask "unprotect for maintenance" (dev/git skill) (bulk bypass)
 ```
 
 ### "I'm resolving merge conflicts on dev"
 
 ```bash
-/craft:git:unprotect merge-conflict
+ask "unprotect for a merge conflict" (dev/git skill)
 # Resolve conflicts freely
-/craft:git:protect
+ask "protect" (dev/git skill)
 ```
 
 ### "I need to update documentation on dev"
@@ -274,27 +293,27 @@ Only listed branches are protected. Unlisted = unrestricted.
 
 | Command | Purpose |
 |---------|---------|
-| `/craft:git:protect` | Re-enable protection |
-| `/craft:git:protect --show` | Show current level + counters |
-| `/craft:git:protect --level smart` | Set protection level |
-| `/craft:git:protect --reset` | Reset session counters |
-| `/craft:git:unprotect` | Session-wide bypass |
-| `/craft:git:status` | Shows guard indicator |
-| `/craft:git:guard status` | Guard Suite status (both hooks + registry) |
-| `/craft:git:guard test` | Coverage audit against known operation taxonomy |
-| `/craft:git:guard explain branch-guard` | Classification table for current branch |
+| ask "protect" (dev/git skill) | Re-enable protection |
+| ask "protect --show" (dev/git skill) | Show current level + counters |
+| ask "protect --level smart" (dev/git skill) | Set protection level |
+| ask "protect --reset" (dev/git skill) | Reset session counters |
+| ask "unprotect" (dev/git skill) | Session-wide bypass |
+| ask "git status" (dev/git skill) | Shows guard indicator |
+| ask "guard status" (dev/git skill) | Guard Suite status (both hooks + registry) |
+| ask "guard test" (dev/git skill) | Coverage audit against known operation taxonomy |
+| ask "guard explain branch-guard" (dev/git skill) | Classification table for current branch |
 | `GUARD_DRY_RUN=1 bash scripts/branch-guard.sh` | Ground-truth classification (no-op sweep) |
 
 ### GitHub-side
 
-| Command | Purpose |
+| Ask (dev/git skill) | Purpose |
 |---------|---------|
-| `/craft:git:protect-baseline` | Apply baseline protection (PR required, no force, no delete) |
-| `/craft:git:protect-baseline --show` | Display current GitHub protection |
-| `/craft:git:protect-baseline --check NAME` | Add required status check (repeatable) |
-| `/craft:git:protect-baseline --strict` | Require branches to be up-to-date with base |
-| `/craft:git:protect-baseline --dry-run` | Preview JSON payload, no API call |
-| `/craft:git:protect-baseline --remove` | Remove protection from branch |
+| "protect-baseline" | Apply baseline protection (PR required, no force, no delete) |
+| "protect-baseline --show" | Display current GitHub protection |
+| "protect-baseline --check NAME" | Add required status check (repeatable) |
+| "protect-baseline --strict" | Require branches to be up-to-date with base |
+| "protect-baseline --dry-run" | Preview JSON payload, no API call |
+| "protect-baseline --remove" | Remove protection from branch |
 
 ---
 
@@ -315,5 +334,5 @@ Everything else (`.txt`, `.csv`, `.html`, `.md`) — allowed without confirm.
 - **Tutorial:** [Guard Suite Tutorial](../tutorials/TUTORIAL-guard-suite.md) — Step-by-step walkthrough
 - **Tutorial:** [Branch Guard Setup](../tutorials/TUTORIAL-branch-guard-setup.md) — Original single-hook setup
 - **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — How guard fits in
-- **Commands:** [/craft:git:protect](../commands/git/protect.md) | [/craft:git:protect-baseline](../commands/git/protect-baseline.md) | [/craft:git:unprotect](../commands/git/unprotect.md) | [/craft:git:guard](../commands/git/guard.md)
+- **Skill:** [dev/git](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) — protect, protect-baseline, unprotect, guard (folded from `/craft:git:*`, 2026-07 v4 consolidation)
 - **Refcard:** [REFCARD-PROTECT-BASELINE](REFCARD-PROTECT-BASELINE.md) — GitHub-side companion quick reference

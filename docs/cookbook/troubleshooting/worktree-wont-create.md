@@ -5,7 +5,7 @@ category: "cookbook"
 level: "beginner"
 time_estimate: "3 minutes"
 related:
-  - ../../commands/git/worktree.md
+  - https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md
   - ../../guide/worktree-advanced-patterns.md
 ---
 
@@ -95,6 +95,6 @@ git branch --show-current
 
 ## Related
 
-- [Worktree Command Reference](../../commands/git/worktree.md) -- Full command documentation
+- [Worktree Command Reference](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) -- Full command documentation
 - [Worktree Advanced Patterns](../../guide/worktree-advanced-patterns.md) -- Multi-worktree management
 - [Git Worktree Quick Reference](../../reference/REFCARD-GIT-WORKTREE.md) -- Cheat sheet

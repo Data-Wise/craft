@@ -168,8 +168,8 @@ git worktree remove ~/.git-worktrees/craft/my-feature
 # Delete local branch
 git branch -d feature/my-feature
 
-# Or use Craft command to clean all merged branches
-/craft:git:clean
+# Or ask the dev/git skill to clean all merged branches
+# ("clean up merged branches" — folded from /craft:git:clean, 2026-07 v4 consolidation)
 ```
 
 ---
@@ -206,10 +206,10 @@ The branch guard hook enforces the workflow automatically. You don't need to rem
 
 For merge conflicts or maintenance, bypass temporarily:
 
-```bash
-/craft:git:unprotect merge-conflict
+```text
+ask "unprotect for a merge conflict"   # dev/git skill
 # ... resolve conflicts ...
-/craft:git:protect
+ask "protect"                          # dev/git skill
 ```
 
 ---
@@ -284,10 +284,10 @@ git push --tags
 
 | Action | Command |
 |--------|---------|
-| Setup worktrees | `/craft:git:worktree setup` |
-| Create worktree | `/craft:git:worktree create feature/name` |
+| Setup worktrees | ask "set up worktrees" (dev/git skill) |
+| Create worktree | ask "create a worktree for feature/name" (dev/git skill) |
 | List worktrees | `git worktree list` |
-| Clean merged | `/craft:git:clean` |
+| Clean merged | ask "clean up merged branches" (dev/git skill) |
 | Pre-PR check | `/craft:check --for pr` |
 | Create PR | `gh pr create --base dev` |
 | Remove worktree | `git worktree remove <path>` |
@@ -296,7 +296,7 @@ git push --tags
 
 ## See Also
 
-- **Help:** [/craft:git:worktree](../commands/git/worktree.md)
+- **Help:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)
 - **Help:** [/craft:check](../commands/check.md)
 - **Guide:** [Branch Guard Smart Mode](../guide/branch-guard-smart-mode.md)
 - **Reference:** [Branch Guard Quick Reference](../reference/REFCARD-BRANCH-GUARD.md)

@@ -83,12 +83,18 @@ off execution to an unsupervised agent and deserves an explicit human checkpoint
 
 **Self-containment prompt shape:** the dispatched `Agent`'s entire prompt is exactly:
 
-> "Read `ORCHESTRATE-<topic>.md` in full, then execute it."
+> "Working directory: `<absolute worktree path>`. Read `ORCHESTRATE-<topic>.md` in full from that
+> directory, then execute it."
 
-No other context is passed — no summary, no paraphrase, no conversation history. This is the same
-durable artifact a fresh human session would read under STOP-new-session mode; self-containment
-becomes structural (inherited from the ORCHESTRATE file's own required completeness) rather than
-a discipline checklist.
+The path is a **structural requirement, not context** — the `Agent` tool has no `cwd` parameter
+(confirmed: `~/projects/dev-tools/CLAUDE.md` — "There is no `cwd` parameter on the Agent tool"), so
+without it the dispatched agent has no way to locate the worktree or the ORCHESTRATE file itself.
+Beyond the path, no other context is passed — no summary, no paraphrase, no conversation history,
+and no confinement instruction (a legitimate cross-repo dispatch, per Cross-Repo Detection above,
+is expected to touch a second repo's paired worktree — don't contradict that here). This is the
+same durable artifact a fresh human session would read under STOP-new-session mode;
+self-containment becomes structural (inherited from the ORCHESTRATE file's own required
+completeness) rather than a discipline checklist.
 
 **Ungrilled-ambiguity backstop:** if the dispatched agent hits genuine unresolved ambiguity
 (whether or not a GRILL file existed), it must leave that phase's checkbox unchecked, add a
@@ -130,17 +136,28 @@ guesswork about the cause).
 **Resumability:** re-dispatching against the SAME ORCHESTRATE file must be idempotent. Before
 dispatch, read the file's Phase Overview status column and per-phase checkboxes (the same
 tracking this mode already requires agents to maintain). If any phases are already checked, the
-new dispatch's self-containment prompt still stays exactly "read `ORCHESTRATE-<topic>.md` in full,
-then execute it" — resumption is driven by the file's own content (an agent reading a file with
-Phase 1 fully checked off naturally continues from the first unchecked phase), not by a modified
-or parameterized prompt. Never restart from Phase 1 on a resume; never invent a second tracking
-mechanism alongside the checkboxes.
+self-containment prompt is **identical between the initial and a resumed dispatch** (same
+worktree, so the same path) — resumption is driven by the file's own content (an agent reading a
+file with Phase 1 fully checked off naturally continues from the first unchecked phase), not by a
+modified or parameterized prompt. Never restart from Phase 1 on a resume; never invent a second
+tracking mechanism alongside the checkboxes.
 
 **`.STATUS` auto-write scoping:** at dispatch time, auto-write only the factual fields to the
 Active Worktrees entry — branch name, worktree path, and PR link once one is opened. All of that
 data already exists at dispatch time; no new logic is needed to produce it. The narrative/purpose
 prose column stays manual — do not attempt to auto-generate it (auto-generated prose reads worse
 than hand-written, per this skill's own `.STATUS` history).
+
+**Model selection for the dispatch (distinct from `workflow-engine`'s per-stage routing):**
+default to omitting `model` — the dispatched agent inherits the session's default tier, correct
+for a fully-specified, mechanical ORCHESTRATE file. This is a **whole-dispatch** choice, not the
+same knob as `skills/orchestration/workflow-engine/SKILL.md`'s "Model Routing (Haiku for cheap
+stages)" section, which governs individual reasoning *stages* inside a multi-stage run and says to
+omit `model` for architecture/cross-file-reasoning stages specifically — that rule is about
+per-stage cost tuning within an already-running pipeline, not about this one-shot dispatch prompt.
+Pin `model: "opus"` here only when the ORCHESTRATE file's own Phase notes flag an unresolved
+design judgment call for the dispatch as a whole (e.g. a Phase scoped as "pick the lower-friction
+option, document the choice") — not as a blanket default for `orchestrate-dispatch`.
 
 ### 2. Feature Plan (`plan:feature`)
 
@@ -202,6 +219,10 @@ Conventional commits per phase.
 ## Session Instructions
 cd <worktree-path> && claude
 > "Read ORCHESTRATE-<topic>.md and start Phase 1."
+
+(Desktop app, no persistent shell: `EnterWorktree({ path: "<worktree-path>" })` switches the
+session's cwd directly instead of opening a new terminal — the worktree already appears in
+`git worktree list` since this skill created it.)
 ```
 
 ## Auto-Detection
@@ -281,7 +302,7 @@ When this skill emits an ORCHESTRATE artifact, it also emits a Documentation sec
 
 ### Which docs to emit
 
-Derive which documentation artifacts are needed by running the existing doc-scorer rubric from `commands/docs/sync.md` (tiered thresholds — see that file for the current type list, per-type weights, and threshold rule). Do **not** invent a new rubric, and do **not** hardcode a parallel type list here — always defer to `commands/docs/sync.md` as the single source of truth for which types exist and what their thresholds are.
+Derive which documentation artifacts are needed by running the existing doc-scorer rubric from [`skills/orchestration/references/doc-impact-rubric.md`](../references/doc-impact-rubric.md) (tiered thresholds — see that file for the current type list, per-type weights, and threshold rule). Do **not** invent a new rubric, and do **not** hardcode a parallel type list here — always defer to that file as the single source of truth for which types exist and what their thresholds are.
 
 For each doc type the scorer evaluates, pre-check (`[x]`) boxes that meet that type's threshold, and mark the rest `N/A — score <N>`. The template for the Documentation section — including the Site Consistency checklist — lives in [`../../workflow/brainstorm-insights/references/scaffold-templates.md`](../../workflow/brainstorm-insights/references/scaffold-templates.md).
 

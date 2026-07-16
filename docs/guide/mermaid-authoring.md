@@ -1,15 +1,15 @@
 # Mermaid Diagram Authoring Guide
 
-End-to-end guide for creating, validating, and deploying Mermaid diagrams in the craft docs pipeline.
+End-to-end guide for creating, validating, and deploying Mermaid diagrams in the craft docs pipeline. (These commands moved to the `folio` plugin.)
 
 ## Quick Start
 
 ```bash
 # Create from template
-/craft:docs:mermaid workflow
+/folio:docs:mermaid workflow
 
 # Create from description
-/craft:docs:mermaid "CI pipeline: lint, test, build, deploy"
+/folio:docs:mermaid "CI pipeline: lint, test, build, deploy"
 
 # Validate all diagrams
 python3 scripts/mermaid-validate.py docs/
@@ -37,8 +37,8 @@ Six production-ready templates are available:
 | `state` | - | State machine transitions |
 
 ```bash
-/craft:docs:mermaid workflow           # Get workflow template
-/craft:docs:mermaid all --output docs/diagrams/templates.md
+/folio:docs:mermaid workflow           # Get workflow template
+/folio:docs:mermaid all --output docs/diagrams/templates.md
 ```
 
 ### From Natural Language
@@ -46,9 +46,9 @@ Six production-ready templates are available:
 Describe your diagram in plain English:
 
 ```bash
-/craft:docs:mermaid "show the release pipeline from dev to main"
-/craft:docs:mermaid "auth flow with OAuth2 showing token refresh" --validate
-/craft:docs:mermaid "microservice architecture with API gateway" --preview
+/folio:docs:mermaid "show the release pipeline from dev to main"
+/folio:docs:mermaid "auth flow with OAuth2 showing token refresh" --validate
+/folio:docs:mermaid "microservice architecture with API gateway" --preview
 ```
 
 The `--validate` flag checks syntax via mcp-mermaid. The `--preview` flag renders to SVG and opens in browser.
@@ -82,13 +82,13 @@ Runs automatically on every commit that touches `.md` files:
 - Catches `[/text]` and `[end]` patterns
 - Skips files without mermaid blocks (zero overhead)
 
-### `/craft:docs:check` (Phase 5)
+### `/folio:docs:check` (Phase 5)
 
 Full validation with health score:
 
 ```bash
-/craft:docs:check                      # Full check including mermaid
-/craft:docs:check --no-mermaid         # Skip mermaid phase
+/folio:docs:check                      # Full check including mermaid
+/folio:docs:check --no-mermaid         # Skip mermaid phase
 ```
 
 ### Release Gate
@@ -201,8 +201,8 @@ The mcp-mermaid server provides full syntax validation and SVG rendering. Config
 
 | Tool | Purpose |
 |------|---------|
-| `/craft:docs:mermaid` | Templates, NL creation, validation, preview |
-| `/craft:docs:check` | Phase 5: Mermaid Validation + health score |
+| `/folio:docs:mermaid` | Templates, NL creation, validation, preview |
+| `/folio:docs:check` | Phase 5: Mermaid Validation + health score |
 | `mermaid-linter` skill | Validation rules and best practices |
 | `mermaid-expert` agent | MCP-powered diagram generation |
 | `scripts/mermaid-validate.py` | CLI: extract, validate, health score, gate |

@@ -19,7 +19,7 @@ Visual architecture diagrams and system design documentation.
 ```mermaid
 graph TB
     subgraph "User Interface"
-        CMD["/craft:docs:demo"]
+        CMD["/folio:docs:demo"]
         CLI["CLI Flags<br/>--check, --fix, --convert, --batch"]
     end
 
@@ -274,14 +274,14 @@ graph TB
 ```mermaid
 sequenceDiagram
     actor User
-    participant CLI as /craft:docs:demo
+    participant CLI as /folio:docs:demo
     participant DM as dependency-manager
     participant Cache as session-cache
     participant TD as tool-detector
     participant HC as health-check
     participant VC as version-check
 
-    User->>CLI: /craft:docs:demo --check
+    User->>CLI: /folio:docs:demo --check
     CLI->>DM: check_dependencies("asciinema")
 
     DM->>Cache: get_cached_status()
@@ -312,13 +312,13 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     actor User
-    participant CLI as /craft:docs:demo
+    participant CLI as /folio:docs:demo
     participant DM as dependency-manager
     participant DI as dependency-installer
     participant CP as consent-prompt
     participant PKG as Package Manager
 
-    User->>CLI: /craft:docs:demo --fix
+    User->>CLI: /folio:docs:demo --fix
     CLI->>DM: check_dependencies()
     DM-->>CLI: {"status": "issues"}
 
@@ -342,13 +342,13 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     actor User
-    participant CLI as /craft:docs:demo
+    participant CLI as /folio:docs:demo
     participant BC as batch-convert
     participant CC as convert-cast
     participant AGG as agg
     participant GIF as gifsicle
 
-    User->>CLI: /craft:docs:demo --batch
+    User->>CLI: /folio:docs:demo --batch
     CLI->>BC: batch_convert()
 
     BC->>BC: find_cast_files("docs/")
@@ -761,5 +761,5 @@ graph TB
 ---
 
 **Last Updated**: 2026-02-19
-**Version**: 2.61.2
+**Version**: 4.0.0
 **Status**: Production Ready

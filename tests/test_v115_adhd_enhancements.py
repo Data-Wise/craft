@@ -147,7 +147,14 @@ def test_mermaid_syntax_valid():
 
 
 def test_visual_workflows_page_exists():
-    """Test that workflows/index.md exists with 5 diagrams."""
+    """Test that workflows/index.md exists with 4 diagrams.
+
+    Was 5/"5 diagrams" pre-2026-07-09; PR #279's native-first prune (94-command
+    cleanup) intentionally removed the Site Creation Workflow section along with
+    the pruned `/craft:site:create` command (see d6aaa9096) and updated this
+    page's own front matter to "4 visual workflow diagrams" -- this test's
+    expectations were never updated to match. Not a regression, a stale assertion.
+    """
     plugin_dir = Path(__file__).parent.parent
     workflows_page = plugin_dir / "docs" / "workflows" / "index.md"
 
@@ -161,7 +168,6 @@ def test_visual_workflows_page_exists():
     # Check for expected workflows
     expected_workflows = [
         "Documentation Workflow",
-        "Site Creation Workflow",
         "Release Workflow",
         "Development Workflow",
         "AI Routing Workflow",
@@ -169,7 +175,7 @@ def test_visual_workflows_page_exists():
 
     missing_workflows = [w for w in expected_workflows if w not in content]
 
-    assert diagram_count >= 5, f"Only {diagram_count} diagrams found, expected 5+"
+    assert diagram_count >= 4, f"Only {diagram_count} diagrams found, expected 4+"
     assert not missing_workflows, f"Missing workflows: {', '.join(missing_workflows)}"
 
 
@@ -273,7 +279,14 @@ def test_homepage_card_layout():
 
 
 def test_interactive_mermaid_diagrams():
-    """Test that mermaid diagrams have clickable nodes."""
+    """Test that mermaid diagrams have clickable nodes.
+
+    Was 10+ pre-2026-07-09; the removed Site Creation Workflow diagram (see
+    test_visual_workflows_page_exists) carried 3 of those click bindings
+    (CREATE/THEME/DEPLOY), leaving 7 today across the remaining 4 workflows.
+    Not a regression -- this threshold was never re-baselined after that
+    intentional removal.
+    """
     plugin_dir = Path(__file__).parent.parent
     workflows_page = plugin_dir / "docs" / "workflows" / "index.md"
 
@@ -287,7 +300,7 @@ def test_interactive_mermaid_diagrams():
     # Count click statements (interactive nodes)
     total_clicks = sum(len(re.findall(r'click \w+', block)) for block in mermaid_blocks)
 
-    assert total_clicks >= 10, f"Only {total_clicks} clickable nodes found, expected 10+"
+    assert total_clicks >= 7, f"Only {total_clicks} clickable nodes found, expected 7+"
 
 
 # ─── Phase 3 Tests: Polish ───────────────────────────────────────────────────
@@ -355,7 +368,14 @@ def test_progress_indicators():
 
 
 def test_command_playground_exists():
-    """Test that PLAYGROUND.md exists with interactive scenarios."""
+    """Test that PLAYGROUND.md exists with interactive scenarios.
+
+    Was Scenarios 1-6 pre-2026-07-09; PR #279's native-first prune removed
+    the old "Scenario 4: Create a Documentation Site" (its `/craft:site:create`
+    command was pruned) and renumbered the rest down by one, leaving 5 total
+    scenarios today. Not a regression -- this test's expected list was never
+    updated to match the renumbering.
+    """
     plugin_dir = Path(__file__).parent.parent
     playground_page = plugin_dir / "docs" / "PLAYGROUND.md"
 
@@ -370,7 +390,6 @@ def test_command_playground_exists():
         "Scenario 3:",
         "Scenario 4:",
         "Scenario 5:",
-        "Scenario 6:",
     ]
 
     missing_scenarios = [s for s in expected_scenarios if s not in content]

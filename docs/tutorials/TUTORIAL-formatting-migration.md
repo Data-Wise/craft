@@ -375,7 +375,7 @@ echo "Looking for: $SCRIPT_DIR/formatting.sh"
 
 - [Formatting Library Guide](../guide/bash-formatting-library.md) — Full API documentation
 - [Quick Reference Card](../reference/REFCARD-FORMATTING.md) — Function cheat sheet
-- [Spec](../specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05.md) — Design specification
+- [Spec](https://github.com/Data-Wise/craft/blob/main/docs/specs/_archive/SPEC-styled-output-v2.14.0-2026-02-05.md) — Design specification
 - Test Suite: `tests/test_formatting.sh` — 74 validation tests
 
 ---

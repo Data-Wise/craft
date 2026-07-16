@@ -602,10 +602,10 @@ class CLAUDEMDOptimizer:
             lines.append("  1. Review: git diff CLAUDE.md")
             if result.detail_files_created:
                 lines.append("  2. Review detail files created")
-                lines.append("  3. Run sync: /craft:docs:claude-md:sync")
+                lines.append("  3. Run sync: ask Claude to use the docs/claude-md skill")
                 lines.append('  4. Commit: git add -A && git commit -m "docs: optimize CLAUDE.md"')
             else:
-                lines.append("  2. Run sync: /craft:docs:claude-md:sync")
+                lines.append("  2. Run sync: ask Claude to use the docs/claude-md skill")
                 lines.append('  3. Commit: git add CLAUDE.md && git commit -m "docs: optimize CLAUDE.md"')
         else:
             lines.append("No optimization needed. CLAUDE.md is within budget.")

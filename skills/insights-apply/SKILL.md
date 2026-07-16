@@ -187,7 +187,7 @@ Use craft box-drawing format throughout. Show step progress:
 | Error | Recovery |
 |-------|----------|
 | No insights data | Suggest running `/insights` first |
-| CLAUDE.md not found | Suggest running `/craft:docs:claude-md:init` |
+| CLAUDE.md not found | Suggest the docs/claude-md skill (init) |
 | Sync pipeline fails | Fall back to direct append |
 | Over budget | Offer optimizer or manual edit |
 | Parse error | Show raw data for manual review |
@@ -199,6 +199,6 @@ Use craft box-drawing format throughout. Show step progress:
 ## See Also
 
 - `/insights` — Generate the insights report
-- `/craft:docs:claude-md:sync` — CLAUDE.md sync pipeline
+- docs/claude-md skill (sync) — CLAUDE.md sync pipeline
 - `utils/claude_md_sync.py` — 4-phase sync pipeline
 - `utils/claude_md_optimizer.py` — Budget enforcement

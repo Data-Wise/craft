@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.61.2-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.0.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -14,18 +14,18 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 115 commands, 8 AI agents, and 45 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 47 commands, 2 AI agents, and 40 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 115 commands, 8 agents, 45 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 47 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **115 Commands**
+- :rocket:{ .lg .middle } **46 Commands**
 
     Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
 
@@ -33,7 +33,7 @@
 
     Docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and 2 orchestrators (default + v2.1)
 
-- :sparkles:{ .lg .middle } **45 Skills**
+- :sparkles:{ .lg .middle } **40 Skills**
 
     Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation
 
@@ -70,7 +70,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 115 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 47 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -84,9 +84,9 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 - :page_facing_up:{ .lg .middle } **CLAUDE.md Lifecycle Management**
 
-    3-command suite (`init`, `sync`, `edit`) with budget enforcement (< 150 lines), pointer architecture, and 4-phase sync pipeline. Keeps your CLAUDE.md lean and accurate.
+    Skill-driven lifecycle management (`init`, `sync`, `edit` folded into the `docs/claude-md` skill in the v4 consolidation) with budget enforcement (< 150 lines), pointer architecture, and 4-phase sync pipeline. Keeps your CLAUDE.md lean and accurate.
 
-    → [Command reference](commands/docs/claude-md.md)
+    → [Tutorial guide](tutorials/claude-md-workflows.md)
 
 - :performing_arts:{ .lg .middle } **Interactive Orchestration**
 
@@ -116,7 +116,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 115 commands organized by category with parameters, usage examples, and output formats
+    Complete documentation for all 47 commands organized by category with parameters, usage examples, and output formats
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -134,7 +134,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 
 **Quick Links:**
 
-- [All 115 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 46 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -148,12 +148,6 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
     Update all docs from code changes in one command
 
     → [Learn more](workflows/index.md#documentation-workflow)
-
-- :globe_with_meridians:{ .lg .middle } **Site Creation**
-
-    Zero to deployed docs site in < 5 minutes
-
-    → [Learn more](workflows/index.md#site-creation-workflow)
 
 - :rocket:{ .lg .middle } **Release Management**
 
@@ -187,7 +181,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 115 commands organized
+    All 47 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](skills-agents.md)**
 
@@ -199,7 +193,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 115 commands
+    Complete documentation for all 47 commands
 
 </div>
 
@@ -221,7 +215,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 | **Utils**          | 2       | Misc helpers                                                                                                                                                       |
 | **Total**          | **115** | **Complete development workflow coverage**                                                                                                                         |
 
-!!! info "Latest: v2.61.2 — Guard Suite Consolidation"
+!!! info "Latest: v4.0.0 — Guard Suite Consolidation"
     [PR #272](https://github.com/Data-Wise/craft/pull/272) consolidates the branch-guard and
     no-switch-guard into a skill-driven operations layer under `skills/dev/git/`, adds
     `--classify`/`GUARD_DRY_RUN=1` ground-truth mode, a portable `sedi()` wrapper, and 62 new

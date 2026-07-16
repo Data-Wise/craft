@@ -62,9 +62,9 @@ def test_get_command_detail_all_categories():
     test_commands = [
         'code:lint',
         'test',
-        'docs:sync',
-        'git:worktree',
-        'site:build'
+        'docs:changelog',
+        'arch:plan',
+        'site:deploy'
     ]
 
     errors = []
@@ -133,7 +133,7 @@ def test_generate_command_tutorial_with_modes():
 
 def test_generate_tutorial_multiple_commands():
     """Test generating tutorials for multiple commands."""
-    test_commands = ['code:lint', 'test', 'docs:sync']
+    test_commands = ['code:lint', 'test', 'docs:changelog']
     errors = []
 
     for cmd_name in test_commands:

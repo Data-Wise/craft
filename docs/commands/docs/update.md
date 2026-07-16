@@ -207,18 +207,18 @@ Doc types are generated based on classification scores:
 
 ## Orchestrated Commands
 
-This command internally orchestrates:
+This command internally orchestrates (docs generation commands moved to folio):
 
 | Command | Purpose |
 |---------|---------|
-| `/craft:docs:sync` | Change detection and classification |
-| `/craft:docs:guide` | Guide generation |
-| `/craft:docs:tutorial` | Tutorial generation |
-| `/craft:docs:help` | Help page generation |
-| `/craft:docs:workflow` | Workflow doc generation |
-| `/craft:docs:demo` | VHS tape generation |
-| `/craft:docs:mermaid` | Diagram generation |
-| `/craft:docs:check` | Validation and auto-fix |
+| `/folio:docs:sync` | Change detection and classification |
+| `/folio:docs:guide` | Guide generation |
+| `/folio:docs:tutorial` | Tutorial generation |
+| `/folio:docs:help` | Help page generation |
+| `/folio:docs:workflow` | Workflow doc generation |
+| `/folio:docs:demo` | VHS tape generation |
+| `/folio:docs:mermaid` | Diagram generation |
+| `/folio:docs:check` | Validation and auto-fix |
 | `/craft:docs:changelog` | Changelog updates |
 
 ---
@@ -336,7 +336,7 @@ Post-Merge Documentation Update Complete:
 | "No changes detected" | Use `--force` to generate anyway |
 | Wrong doc type generated | Use `--with-*` flags to force specific types |
 | Threshold too high | Use `--threshold 2` to lower |
-| Validation errors | Run `/craft:docs:check` separately for details |
+| Validation errors | Run `/folio:docs:check` separately for details |
 | Demo not generated | Check if VHS is installed |
 
 ---
@@ -353,7 +353,7 @@ Post-Merge Documentation Update Complete:
 
 ## See Also
 
-- **Individual commands:** `/craft:docs:guide`, `/craft:docs:tutorial`, `/craft:docs:help`
-- **Validation:** `/craft:docs:check` - Validate documentation
+- **Individual commands:** `/folio:docs:guide`, `/folio:docs:tutorial`, `/folio:docs:help`
+- **Validation:** `/folio:docs:check` - Validate documentation
 - **Pre-flight:** `/craft:check` - Full project validation
-- **Navigation:** `/craft:docs:nav-update` - Update mkdocs.yml
+- **Navigation:** `/folio:docs:nav-update` - Update mkdocs.yml

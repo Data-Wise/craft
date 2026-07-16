@@ -10,7 +10,7 @@
 > - **How:** Install via Homebrew or `claude plugin add github:Data-Wise/craft`, then run `/craft:hub`
 > - **Next:** Try `/craft:do "your first task"` to see AI routing in action
 
-**115 commands** · **45 skills** · **8 agents** · [Documentation](https://data-wise.github.io/craft/)
+**47 commands** · **40 skills** · **2 agents** · [Documentation](https://data-wise.github.io/craft/)
 
 Get craft running in 30 seconds.
 
@@ -53,7 +53,7 @@ Expected output:
 │ /craft:hub - Command Discovery                              │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ 115 commands available across 10 categories                   │
+│ 47 commands available across 10 categories                   │
 │                                                             │
 │ [Command listing...]                                        │
 └─────────────────────────────────────────────────────────────┘
@@ -96,15 +96,8 @@ The AI routes your task to the best workflow automatically.
 
 ```bash
 /craft:docs:update              # Smart detection → full execution
-/craft:docs:sync                # Quick stale docs check
-/craft:docs:check               # Full validation with auto-fixes
-```
-
-### Create Documentation Site
-
-```bash
-/craft:site:create              # Interactive wizard
-/craft:site:create --preset data-wise --quick
+/folio:docs:sync                # Quick stale docs check (moved to folio)
+/folio:docs:check               # Full validation with auto-fixes (moved to folio)
 ```
 
 ## Next Steps
@@ -112,7 +105,7 @@ The AI routes your task to the best workflow automatically.
 !!! abstract "Progress: Step 4 of 4 - You're Done! 🎉"
     Choose your learning path
 
-- **[Commands Overview](commands/overview.md)** - Explore all 115 commands
+- **[Commands Overview](commands/overview.md)** - Explore all 47 commands
 - **[Skills & Agents](skills-agents.md)** - Understand the AI system
 - **[Orchestrator](guide/orchestrator.md)** - Advanced mode-aware execution
 - **[Quick Reference](REFCARD.md)** - Command cheat sheet
@@ -126,7 +119,7 @@ The AI routes your task to the best workflow automatically.
 /craft:docs:update
 
 # 2. Check for issues
-/craft:docs:check
+/folio:docs:check
 
 # 3. Deploy
 /craft:site:deploy
@@ -141,8 +134,8 @@ The AI routes your task to the best workflow automatically.
 # 2. Generate changelog
 /craft:docs:changelog
 
-# 3. Git cleanup
-/craft:git:clean
+# 3. Git cleanup (dev/git skill — ask naturally)
+# "clean up merged branches"
 ```
 
 ### Development Workflow

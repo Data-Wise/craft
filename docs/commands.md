@@ -5,14 +5,14 @@ Complete reference for all 116 Craft commands organized by category. Craft provi
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
-**Dry-Run Support:** 27 of 115 commands support `--dry-run` / `-n` preview mode
+**Dry-Run Support:** 27 of 47 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement (default-on):** `/brainstorm`, `/craft:do`, `/craft:plan:feature`, `/craft:grill` run the `prompt-refiner` skill automatically before acting. Use `--no-refine` to skip; pass `--yes` to auto-accept the refined prompt without a confirm step.
 **17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
 
 Use `/craft:hub` to discover all available commands interactively.
 
 !!! tip "Preview Before Executing"
-    27 commands now support dry-run mode. Add `--dry-run` or `-n` to preview actions before executing. See [Dry-Run Commands](#dry-run-commands) below.
+    47 commands support dry-run mode. Add `--dry-run` or `-n` to preview actions before executing. See [Dry-Run Commands](#dry-run-commands) below.
 
 ## Smart Commands
 
@@ -86,13 +86,10 @@ Context-aware help and suggestions.
 /craft:help testing           # Deep dive into testing
 ```
 
-### /craft:check:gen-validator
+### Validator generation
 
-Generate a new custom validator template for `/craft:check`.
-
-```bash
-/craft:check:gen-validator "my-validator"
-```
+`check:gen-validator` was folded into the `skills/check/` skill in the v4 consolidation — no
+standalone command remains. See the skill's "Validator Generation" section.
 
 ## Architecture Commands (arch/)
 
@@ -205,147 +202,54 @@ Read-only view of the multi-surface release registry — verify gate states and 
 
 ## Documentation Commands (docs/)
 
-22 commands for documentation generation, validation, and site management.
+2 commands for documentation updates and changelog automation. The remaining 17 rows below are
+kept as migration pointers — documentation generation, validation, and site management moved to
+the [folio plugin](MIGRATION-v4.md) in v4.
 
 | Command | Description | Help |
 |---------|-------------|------|
-| `/craft:docs:generate` | Unified router across all 9 doc generators | [Ref](commands/docs/generate.md) |
+| `/folio:docs:generate` | Unified router across all 9 doc generators | (moved to folio) |
 | `/craft:docs:update` | Smart full-cycle documentation generator | [Ref](commands/docs/update.md) |
-| `/craft:docs:sync` | Change detection and classification | [Ref](commands/docs/sync.md) |
-| `/craft:docs:check` | Documentation health check with auto-fix | [Ref](commands/docs/check.md) |
-| `/craft:docs:lint` | Markdown quality validation with auto-fix | [Ref](commands/docs/lint.md) |
-| `/craft:docs:check-links` | Internal link validation | [Ref](commands/docs/check-links.md) |
+| `/folio:docs:sync` | Change detection and classification | (moved to folio) |
+| `/folio:docs:check` | Documentation health check with auto-fix | (moved to folio) |
+| `/folio:docs:lint` | Markdown quality validation with auto-fix | (moved to folio) |
+| `/folio:docs:check-links` | Internal link validation | (moved to folio) |
 | `/craft:docs:changelog` | Auto-update CHANGELOG from commits | [Ref](commands/docs/changelog.md) |
-| `/craft:docs:nav-update` | Update mkdocs.yml navigation | [Ref](commands/docs/nav-update.md) |
-| `/craft:docs:guide` | Feature guide + demo + refcard generator | [Ref](commands/docs/guide.md) |
-| `/craft:docs:tutorial` | Interactive tutorial generator | [Ref](commands/docs/tutorial.md) |
-| `/craft:docs:workflow` | Workflow documentation generator | [Ref](commands/docs/workflow.md) |
-| `/craft:docs:demo` | Terminal recording and GIF generator | [Ref](commands/docs/demo.md) |
-| `/craft:docs:mermaid` | Mermaid diagram templates and NL creation | [Ref](commands/docs/mermaid.md) |
-| `/craft:docs:website` | ADHD-friendly website enhancement | [Ref](commands/docs/website.md) |
-| `/craft:docs:api` | OpenAPI/Swagger documentation | [Ref](commands/docs/api.md) |
-| `/craft:docs:help` | Help page generator | [Ref](commands/docs/help.md) |
-| `/craft:docs:prompt` | Generate reusable maintenance prompts | [Ref](commands/docs/prompt.md) |
-| `/craft:docs:quickstart` | Quick start guide generator | [Ref](commands/docs/quickstart.md) |
-| `/craft:docs:site` | Site-wide documentation updates | [Ref](commands/docs/site.md) |
-| `/craft:docs:claude-md` | CLAUDE.md management hub | [Ref](commands/docs/claude-md.md) |
-| `/craft:docs:claude-md:edit` | Interactive CLAUDE.md editing | [Ref](commands/docs/claude-md/edit.md) |
-| `/craft:docs:claude-md:init` | Create CLAUDE.md from template | [Ref](commands/docs/claude-md/init.md) |
-| `/craft:docs:claude-md:sync` | Sync CLAUDE.md with project state | [Ref](commands/docs/claude-md/sync.md) |
+| `/folio:docs:nav-update` | Update mkdocs.yml navigation | (moved to folio) |
+| `/folio:docs:guide` | Feature guide + demo + refcard generator | (moved to folio) |
+| `/folio:docs:tutorial` | Interactive tutorial generator | (moved to folio) |
+| `/folio:docs:workflow` | Workflow documentation generator | (moved to folio) |
+| `/folio:docs:demo` | Terminal recording and GIF generator | (moved to folio) |
+| `/folio:docs:mermaid` | Mermaid diagram templates and NL creation | (moved to folio) |
+| `/folio:docs:website` | ADHD-friendly website enhancement | (moved to folio) |
+| `/folio:docs:api` | OpenAPI/Swagger documentation | (moved to folio) |
+| `/folio:docs:help` | Help page generator | (moved to folio) |
+| `/folio:docs:prompt` | Generate reusable maintenance prompts | (moved to folio) |
+| `/folio:docs:quickstart` | Quick start guide generator | (moved to folio) |
+| `/folio:docs:site` | Site-wide documentation updates | (moved to folio) |
+| CLAUDE.md management (init/edit/sync) | folded into a skill in the v4 consolidation | `skills/docs/claude-md/` |
 
 ```bash
 /craft:docs:update              # Full-cycle doc generation
-/craft:docs:lint --fix          # Auto-fix markdown issues
-/craft:docs:mermaid "show the release pipeline"  # NL diagram
-/craft:docs:check               # Health check with auto-fix
+/folio:docs:lint --fix          # Auto-fix markdown issues
+/folio:docs:mermaid "show the release pipeline"  # NL diagram
+/folio:docs:check               # Health check with auto-fix
 ```
 
 ## Git Commands (git/)
 
-### /craft:git:worktree
-
-Git worktree management for parallel development.
-
-```bash
-/craft:git:worktree list
-/craft:git:worktree add feature-branch
-/craft:git:worktree remove feature-branch
-```
-
-### /craft:git:clean
-
-Clean up merged branches safely.
-
-```bash
-/craft:git:clean              # Interactive mode
-/craft:git:clean --force      # Auto-delete merged branches
-```
-
-### /craft:git:protect
-
-Re-enable branch protection, configure levels, view status.
-
-```bash
-/craft:git:protect              # Re-enable protection
-/craft:git:protect --show       # Show current level + counters
-/craft:git:protect --level smart  # Set protection level
-/craft:git:protect --reset      # Reset session counters
-```
-
-### /craft:git:unprotect
-
-Session-wide bypass for branch protection with reason logging.
-
-```bash
-/craft:git:unprotect                 # Interactive
-/craft:git:unprotect merge-conflict  # For merge conflicts
-/craft:git:unprotect maintenance     # For bulk maintenance
-```
-
-### /craft:git:guard
-
-Manage the guard suite — view state, enable, disable, mute, and apply profiles.
-
-```bash
-/craft:git:guard list                        # Show all guards + state
-/craft:git:guard status                      # One-line guard health summary
-/craft:git:guard enable branch-guard         # Re-enable a guard
-/craft:git:guard disable no-switch-guard     # Mute for 30 min (default)
-/craft:git:guard disable no-switch-guard 60  # Mute for 60 min
-/craft:git:guard profile spec                # branch-guard on, no-switch-guard muted
-/craft:git:guard profile yolo                # All guards muted 30 min
-/craft:git:guard profile focus               # All guards on
-/craft:git:guard explain                     # Show harm taxonomy (GREEN/YELLOW/RED)
-/craft:git:guard test                        # Run guard self-tests
-```
-
-### /craft:git:protect-baseline
-
-Apply GitHub-side branch protection (PR required, no force-push, no delete) to any repo.
-
-```bash
-/craft:git:protect-baseline                                   # Current repo, default branch
-/craft:git:protect-baseline --repo OWNER/REPO                 # Explicit repo
-/craft:git:protect-baseline --check "test" --check "lint"     # Add status checks (repeatable)
-/craft:git:protect-baseline --strict                          # Require up-to-date branches
-/craft:git:protect-baseline --show                            # Display current protection
-/craft:git:protect-baseline --dry-run                         # Preview payload, no API call
-/craft:git:protect-baseline --remove                          # Remove protection
-```
-
-### /craft:git:status
-
-Enhanced git status with branch guard indicator.
-
-```bash
-/craft:git:status           # Shows guard level + session info
-/craft:git:status --verbose # Additional details
-```
-
-### /craft:git:git-recap
-
-Git activity summary — recent commits, branch status, and productivity insights.
-
-```bash
-/craft:git:git-recap
-/craft:git:git-recap --since "3 days ago"
-```
-
-### /craft:git:docs:learning-guide
-
-Interactive Git commands learning guide.
+All git commands — worktree, clean, protect, unprotect, guard, protect-baseline,
+status, and branch — were folded into the `dev/git` skill in the 2026-07 v4
+consolidation. There are no remaining `/craft:git:*` slash commands; ask
+naturally ("create a worktree for feature-x", "clean up merged branches",
+"protect this branch", "unprotect for a merge conflict", "manage guards",
+"apply baseline protection to this repo", "show git status") or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md)
+directly.
 
 ### /craft:git:docs:refcard
 
 Git commands quick reference card.
-
-### /craft:git:docs:safety-rails
-
-Git safety rails guide — guardrails for safe operations.
-
-### /craft:git:docs:undo-guide
-
-Git undo guide — emergency reference for reverting mistakes.
 
 ## Test Commands (test/)
 
@@ -382,14 +286,6 @@ Manage Jinja2 templates for test generation.
 
 ## Workflow Commands (workflow/)
 
-### /craft:workflow:recap
-
-Context restoration — summarize what happened in the current or previous session.
-
-```bash
-/craft:workflow:recap
-```
-
 ### /craft:refine
 
 Prompt optimizer — improve and refine prompts interactively.
@@ -397,40 +293,6 @@ Prompt optimizer — improve and refine prompts interactively.
 ```bash
 /craft:refine "my prompt text"
 ```
-
-### /craft:task:status
-
-Show status of background tasks launched by the orchestrator.
-
-```bash
-/craft:task:status
-```
-
-### /craft:task:output
-
-View results from completed background tasks.
-
-```bash
-/craft:task:output <task-id>
-```
-
-### /craft:task:cancel
-
-Cancel a running background task.
-
-```bash
-/craft:task:cancel <task-id>
-```
-
-## Utility Commands (utils/)
-
-### /craft:utils:readme-teach-config
-
-Teaching configuration parser — parse and validate teaching YAML configs.
-
-### /craft:utils:readme-semester-progress
-
-Semester progress calculation utilities.
 
 ## Site Documentation Commands (site/docs/)
 
@@ -470,15 +332,12 @@ All applicable commands support 4 execution modes:
 
 ## Dry-Run Commands
 
-27 of 115 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
+27 of 47 commands support `--dry-run` / `-n` preview mode. **Target exceeded:** 57% of target commands vs 52% goal.
 
 ### Git Commands (6/6) — 100% ✅
 
 - `git:branch` - Preview branch operations
 - `git:clean` - Preview merged branch deletion (CRITICAL)
-- `git:init` - Preview repository initialization
-- `git:recap` - Preview git activity summary
-- `git:sync` - Preview sync operations
 - `git:worktree` - Preview worktree operations (HIGH)
 
 ### CI/CD Commands (3/3) — 100% ✅
@@ -526,7 +385,7 @@ All applicable commands support 4 execution modes:
 **Example usage:**
 
 ```bash
-/craft:git:clean --dry-run           # Preview branch cleanup
+# ask "clean up merged branches --dry-run" (dev/git skill) — preview branch cleanup
 /craft:code:lint release -n          # Preview comprehensive linting
 /craft:dist:pypi publish --dry-run   # Preview PyPI publish (CRITICAL)
 ```
@@ -535,7 +394,7 @@ See [DRY-RUN-SUMMARY.md](https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUM
 
 ## See Also
 
-- **[Skills & Agents Guide](skills-agents.md)** - 45 skills, 8 agents
+- **[Skills & Agents Guide](skills-agents.md)** - 40 skills, 2 agents
 - **[Architecture Guide](architecture.md)** - How Craft works
 - **[Orchestrator Guide](orchestrator.md)** - Multi-agent coordination
 - **[Mode System](skills-agents.md#mode-aware-behavior)** - Mode system (default/debug/optimize/release)

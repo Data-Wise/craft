@@ -16,6 +16,10 @@ GitHub Actions workflow + pre-flight validation.
 Use `distribution-strategist` first to pick a channel. Use this skill once a
 channel is chosen and you need execution detail.
 
+Full walkthroughs (dry-run examples, workflow YAML templates, check tables) — extracted
+from the former standalone commands during the v4 consolidation (Phase 3.5, 2026-07-12):
+`references/pypi.md`, `references/curl-install.md`, `references/marketplace.md`.
+
 ## When to use which channel
 
 | Channel | Best for | Avoid when |

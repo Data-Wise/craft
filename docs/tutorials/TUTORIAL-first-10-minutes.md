@@ -54,7 +54,7 @@ Open any project directory in Claude Code. Craft auto-detects your project type 
 └──────────────────────────────────────────────────────────┘
 ```
 
-**Why it matters:** The hub is your home base. If you see the listing with 115 commands, Craft is working. The project type and branch are auto-detected.
+**Why it matters:** The hub is your home base. If you see the listing with 47 commands, Craft is working. The project type and branch are auto-detected.
 
 ## Step 2: Run Your First Health Check
 
@@ -112,7 +112,7 @@ The hub uses 3-layer progressive disclosure. Start broad and drill down.
 **Layer 2** -- Pick a category when prompted, e.g., "Code & Testing":
 
 ```
-CODE & TESTING (22 commands)
+CODE & TESTING (47 commands)
 ────────────────────────────
   /craft:code:lint [mode]     Lint code with auto-fix
   /craft:code:debug           Debug with traces
@@ -124,7 +124,7 @@ CODE & TESTING (22 commands)
 
 **Layer 3** -- Pick a specific command for full details, usage examples, and related guides.
 
-**Why it matters:** With 115 commands, you never need to memorize anything. Browse by category and the hub shows you how to use each command.
+**Why it matters:** With 47 commands, you never need to memorize anything. Browse by category and the hub shows you how to use each command.
 
 ## Step 5: Try a Real Command
 
@@ -154,7 +154,7 @@ Linting project...
 
 ## Step 6: Check Documentation Health
 
-**Run:** `/craft:docs:check`
+**Run:** `/folio:docs:check`
 
 This validates internal links, checks for missing pages, and flags stale references. A clean run means your documentation is consistent and navigable.
 

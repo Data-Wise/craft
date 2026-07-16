@@ -33,7 +33,7 @@ Try these commands yourself and see the magic happen!
 │ /craft:hub - Command Discovery                              │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ 115 commands available across 9 categories                   │
+│ 47 commands available across 9 categories                   │
 │                                                             │
 │ 🎯 SMART (4 commands)                                       │
 │   /craft:do              - Universal task router            │
@@ -43,8 +43,8 @@ Try these commands yourself and see the magic happen!
 │                                                             │
 │ 📚 DOCUMENTATION (13 commands)                              │
 │   /craft:docs:update     - Smart doc generation             │
-│   /craft:docs:sync       - Stale doc detection              │
-│   /craft:docs:check      - Doc validation                   │
+│   /folio:docs:sync       - Stale doc detection (folio)      │
+│   /folio:docs:check      - Doc validation (folio)           │
 │   ...                                                       │
 │                                                             │
 │ [... more categories ...]                                   │
@@ -160,63 +160,7 @@ Try these commands yourself and see the magic happen!
 
 ---
 
-## Scenario 4: Create a Documentation Site
-
-**Goal:** Create an ADHD-friendly docs site in under 5 minutes
-
-**Commands:**
-
-```bash
-# Option 1: Interactive wizard
-/craft:site:create
-
-# Option 2: Quick mode (no prompts)
-/craft:site:create --preset adhd-focus --quick
-```
-
-**What Happens (Quick Mode):**
-
-```
-🚀 Creating documentation site...
-
-📊 Detected:
-   - Project: myproject
-   - Type: Python package (pyproject.toml)
-   - Repo: github.com/user/myproject
-
-🎨 Applying preset: adhd-focus
-   - Colors: Calm forest green (#2d6a4f)
-   - Theme: Material with ADHD optimizations
-   - Features: TL;DR boxes, time estimates, visual workflows
-
-📝 Creating files:
-   ✅ mkdocs.yml (site configuration)
-   ✅ docs/index.md (homepage with features)
-   ✅ docs/QUICK-START.md (30-second guide)
-   ✅ docs/REFCARD.md (command reference)
-   ✅ docs/stylesheets/extra.css (ADHD-friendly styles)
-   ✅ .github/workflows/docs.yml (auto-deploy)
-
-🔨 Building site...
-   ✅ Site built successfully in 0.7s
-
-🎉 Done! Your ADHD-friendly docs site is ready!
-
-Next steps:
-  • Preview: mkdocs serve (or /craft:site:preview)
-  • Edit content: docs/index.md
-  • Deploy: git push (auto-deploys via GitHub Actions)
-```
-
-**What You Learn:**
-
-- Site creation is fully automated
-- 8 ADHD-friendly presets available
-- Auto-deployment included
-
----
-
-## Scenario 5: Update All Documentation
+## Scenario 4: Update All Documentation
 
 **Goal:** Update docs after adding a new feature
 
@@ -266,7 +210,7 @@ Changed files:
   - docs/reference/commands.md
   - docs/REFCARD.md
 
-💡 Next: Run /craft:docs:check to validate everything
+💡 Next: Run /folio:docs:check to validate everything
 ```
 
 **What You Learn:**
@@ -277,7 +221,7 @@ Changed files:
 
 ---
 
-## Scenario 6: Release Workflow
+## Scenario 5: Release Workflow
 
 **Goal:** Run a full release audit before publishing
 
@@ -353,10 +297,7 @@ Now that you've seen how commands work, try these challenges:
     Run `/craft:check` → fix any issues → run again until it passes
 
 !!! example "Challenge 4: Documentation"
-    Run `/craft:docs:sync` to see if your docs are stale
-
-!!! example "Challenge 5: Site Creation"
-    Run `/craft:site:create --preset adhd-focus --quick` to create a docs site
+    Run `/folio:docs:sync` to see if your docs are stale
 
 ---
 
@@ -407,7 +348,7 @@ You've seen individual commands in action. Now learn how they work together:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    Explore all 115 commands organized by category
+    Explore all 47 commands organized by category
 
 - :rocket:{ .lg .middle } **[Quick Reference](REFCARD.md)**
 

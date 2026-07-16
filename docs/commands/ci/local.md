@@ -56,9 +56,9 @@ Runs continuous integration checks locally before pushing to catch issues early.
 | **Lint** | `/craft:code:lint --strict` | 0 errors | ~3s |
 | **Types** | mypy/tsc/etc. | 0 errors | ~45s |
 | **Tests** | `/craft:test` | 100% pass | ~15s |
-| **Coverage** | `/craft:code:coverage` | 80% minimum | ~20s |
+| **Coverage** | `/craft:test --coverage` | 80% minimum | ~20s |
 | **Security** | `/craft:code:deps-audit` | No critical | ~8s |
-| **Docs** | `/craft:docs:validate` | 0 errors | ~5s |
+| **Docs** | `/craft:docs:changelog` | 0 errors | ~5s |
 
 ---
 
@@ -112,4 +112,3 @@ Run with --fix to auto-fix lint issues.
 - [/craft:code:lint](../code/lint.md) — Code style checks
 - [/craft:code:deps-audit](../code/deps-audit.md) — Security audit
 - [/craft:check](../check.md) — Pre-flight validation
-- [/craft:git:sync](../git/sync.md) — Commit and push with validation

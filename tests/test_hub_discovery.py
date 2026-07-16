@@ -132,8 +132,10 @@ def test_discovery_finds_all_commands():
     plugin_dir = Path(__file__).parent.parent
     commands = stub_discover_commands(plugin_dir)
 
-    # Expected: at least 100 commands (count grows as features are added)
-    min_expected = 100
+    # Floor reflects the v4 command consolidation (2026-07) — see docs/MIGRATION-v4.md.
+    # commands/git/* (7 files) folded entirely into the dev/git skill; floor
+    # dropped from 50 to 44 to give a little headroom below the current 46.
+    min_expected = 44
     found = len(commands)
 
     assert found >= min_expected, f"Expected at least {min_expected} commands, found {found}"
@@ -148,7 +150,7 @@ def test_category_inference():
     # Note: discovery module returns relative filenames, not full paths
     test_cases = {
         "code/lint.md": "code",
-        "git/worktree.md": "git",
+        "docs/changelog.md": "docs",
         "hub.md": "hub",
     }
 
@@ -347,9 +349,13 @@ def test_all_categories_present():
     stats = stub_get_command_stats(commands)
 
     # Expected categories based on directory structure
+    # "workflow" category dropped from commands/ in the v4 consolidation
+    # (workflow:insights folded into a skill reference) — see docs/MIGRATION-v4.md.
+    # "git" category dropped in the same consolidation — all 7 commands/git/*.md
+    # files were folded into the dev/git skill; commands/git/ is now empty.
     expected_categories = {
-        "code", "test", "docs", "git", "site",
-        "arch", "ci", "dist", "workflow", "hub"
+        "code", "test", "docs", "site",
+        "arch", "ci", "dist", "hub"
     }
 
     found_categories = set(stats["categories"].keys())

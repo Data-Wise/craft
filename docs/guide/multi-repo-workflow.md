@@ -11,7 +11,7 @@ Most features live in a single repository. But when you maintain a plugin that i
 Craft's cross-repo coordination workflow handles this automatically:
 
 1. Write a spec that references paths in multiple repos
-2. Run `/craft:orch:plan SPEC.md` — craft detects the cross-repo paths and creates paired worktrees
+2. Run `/craft:plan SPEC.md` — craft detects the cross-repo paths and creates paired worktrees
 3. Develop in each worktree in parallel, with ORCHESTRATE files that reference each other
 4. Monitor CI across all repos with `/craft:ci:status`
 5. Create PRs in each repo, linking them to each other
@@ -79,7 +79,7 @@ The branch name must be identical across all repos. Use a descriptive feature na
 
 ## What `orchestrate:plan` Does on Detection
 
-When `/craft:orch:plan SPEC.md` detects cross-repo paths, it runs this sequence:
+When `/craft:plan SPEC.md` detects cross-repo paths, it runs this sequence:
 
 1. **Identifies all repos** referenced in the spec
 2. **Verifies each repo exists** at the referenced path (exits with an error if not)
@@ -188,11 +188,11 @@ Use the same branch name to maintain cross-repo coordination.
 ```mermaid
 sequenceDiagram
     participant User
-    participant Craft as craft:orch:plan
+    participant Craft as craft:plan
     participant RepoA as Repo A (main)
     participant RepoB as Repo B (dependency)
 
-    User->>Craft: /craft:orch:plan SPEC.md
+    User->>Craft: /craft:plan SPEC.md
     Craft->>Craft: Detect cross-repo paths in spec
     Craft->>RepoA: git worktree add feature/auth
     Craft->>RepoB: git worktree add feature/auth
@@ -344,7 +344,7 @@ Here is a complete walkthrough for adding a new data export format to a plugin e
 
 ```bash
 cd ~/projects/dev-tools/craft
-/craft:orch:plan specs/SPEC-csv-export-2026-02-20.md
+/craft:plan specs/SPEC-csv-export-2026-02-20.md
 ```
 
 Craft creates:
@@ -481,4 +481,4 @@ This is the hardest case. Options:
 - [Git Worktree Setup Tutorial](../tutorials/TUTORIAL-worktree-setup.md) — Getting started with worktrees
 - [Orchestrate Pipeline Guide](pipeline-orchestrate-guide.md) — Full orchestration reference
 - [/craft:ci:status](../commands/ci/status.md) — CI status command reference
-- [/craft:git:worktree](../commands/git/worktree.md) — Worktree command reference
+- [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Worktree command reference

@@ -15,7 +15,7 @@ def test_scaffold_templates_exist():
 
 
 DEFAULT_ON = {"commands/brainstorm.md", "commands/plan/feature.md", "commands/grill.md"}
-OPT_IN = {"commands/arch/plan.md", "commands/workflow/spec-review.md"}
+OPT_IN = {"commands/arch/plan.md"}
 
 def test_scaffold_flag_scope():
     no_tests, no_docs, opt_tests, opt_docs = set(), set(), set(), set()

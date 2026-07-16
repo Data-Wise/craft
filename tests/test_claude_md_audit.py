@@ -399,7 +399,7 @@ class TestReportGeneration(unittest.TestCase):
         self.assertIn("⚠️  Warnings (1)", report)
         self.assertIn("📝 Info (1)", report)
         self.assertIn("Summary:", report)
-        self.assertIn("/craft:docs:claude-md:sync --fix", report)
+        self.assertIn("Ask Claude to sync + auto-fix CLAUDE.md", report)
 
 
 if __name__ == "__main__":

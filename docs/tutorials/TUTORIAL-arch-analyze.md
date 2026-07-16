@@ -69,5 +69,5 @@ Useful for scoping analysis to a module you're about to refactor.
 ## What's Next
 
 - Use `/craft:arch:plan` to turn analysis findings into an implementation plan
-- Use `/craft:docs:mermaid` to render the diagram output
+- Use `/folio:docs:mermaid` to render the diagram output
 - Run after large refactors to verify architectural integrity is maintained

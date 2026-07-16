@@ -788,7 +788,7 @@ Orchestrator: 2s baseline
 /craft:do "fix typo in README.md" --routing commands
 
 # Or use direct command
-/craft:docs:sync  # Simpler approach
+/folio:docs:sync  # Simpler approach
 ```
 
 ### Issue: Complex Task Routes to Agent Only

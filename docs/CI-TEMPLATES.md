@@ -277,7 +277,7 @@ jobs:
           # Checks all documentation links
           # - Critical broken links (not in .linkcheck-ignore) → Exit 1
           # - Expected broken links (in .linkcheck-ignore) → Exit 0 (warning)
-          claude "/craft:docs:check-links"
+          claude "/folio:docs:check-links"
 
       - name: Comment PR with results (optional)
         if: failure() && github.event_name == 'pull_request'
@@ -288,7 +288,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '❌ Documentation link check failed. Run `/craft:docs:check-links` locally to see details.'
+              body: '❌ Documentation link check failed. Run `/folio:docs:check-links` locally to see details.'
             })
 ```
 

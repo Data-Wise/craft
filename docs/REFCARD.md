@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.61.2 (released 2026-07-09)                       │
+│  Version: 4.0.0 (released 2026-07-09)                       │
 │  Commands: 115 | Agents: 8 | Skills: 45                     │
 │  Documentation: 99% complete | Tests: 2056+ passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.61.2: Guard Suite Consolidation                          │
+│  v4.0.0: Guard Suite Consolidation                          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -37,11 +37,11 @@
 ```bash
 # Simple task (score: 2) → Direct command
 /craft:do "lint markdown files"
-# Routes to: /craft:docs:lint
+# Routes to: /folio:docs:lint
 
 # Medium task (score: 6) → Command sequence
 /craft:do "add user authentication with JWT"
-# Routes to: /craft:arch:plan, /craft:code:test-gen, /craft:git:branch (no agent dispatch)
+# Routes to: /craft:arch:plan, /craft:code:test-gen, dev/git skill (create branch) (no agent dispatch)
 
 # Complex task (score: 9) → Orchestrator
 /craft:do "prepare v2.0 release with tests, docs, and changelog"
@@ -135,11 +135,11 @@
 # Help in specific context
 # (in a Git repository with uncommitted changes)
 /craft:help
-# Suggests: /craft:check, /craft:git:status, /craft:git:sync
+# Suggests: /craft:check, ask "git status" (dev/git skill), /craft:git:worktree
 
 # (in a documentation directory)
 /craft:help
-# Suggests: /craft:docs:update, /craft:docs:check, /craft:docs:lint
+# Suggests: /craft:docs:update, /folio:docs:check, /folio:docs:lint
 ```
 
 **Smart suggestions based on:**
@@ -188,7 +188,7 @@
 **Categories:**
 
 - Smart Commands (do, check, orchestrate, hub)
-- Documentation (21 commands)
+- Documentation (47 commands)
 - Site Management (16 commands)
 - Code (15 commands) & Testing (3 commands)
 - Git (14 commands incl. guides) & CI (4 commands)
@@ -300,33 +300,33 @@ for the topic.
 
 ### Core Documentation Commands
 
-#### /craft:docs:lint
+#### /folio:docs:lint
 
-**Purpose:** Markdown linting with 24 rules + auto-fix (NEW v2.8.0)
+**Purpose:** Markdown linting with 24 rules + auto-fix (NEW v2.8.0). Moved to folio.
 
 **Examples:**
 
 ```bash
 # Check all markdown files
-/craft:docs:lint
+/folio:docs:lint
 # Checks: 24 rules (lists, headings, code blocks, links, whitespace)
 # Reports: Violations with line numbers
 
 # Auto-fix violations
-/craft:docs:lint --fix
+/folio:docs:lint --fix
 # Fixes: Blank lines, list markers, trailing whitespace
 # Safe: Only applies non-destructive fixes
 
 # Check specific directory
-/craft:docs:lint docs/guide/
+/folio:docs:lint docs/guide/
 # Faster: Focused on subset of files
 
 # Check specific file
-/craft:docs:lint docs/REFCARD.md
+/folio:docs:lint docs/REFCARD.md
 # Useful: Before committing individual file
 
 # Strict mode (exit on warnings)
-/craft:docs:lint --strict
+/folio:docs:lint --strict
 # For CI: Fails build on any violation
 ```
 
@@ -416,26 +416,26 @@ for the topic.
 
 **See:** [REFCARD-DOCS-UPDATE.md](reference/REFCARD-DOCS-UPDATE.md) for complete reference
 
-#### /craft:docs:sync
+#### /folio:docs:sync
 
-**Purpose:** Detect code changes and classify documentation impact.
+**Purpose:** Detect code changes and classify documentation impact. Moved to folio.
 
 **Examples:**
 
 ```bash
 # Detect stale documentation
-/craft:docs:sync
+/folio:docs:sync
 # Analyzes: git diff since last commit
 # Reports: Which docs need updating
 # Categories: Stale, missing, broken links
 
 # Full project scan
-/craft:docs:sync --full
+/folio:docs:sync --full
 # Scans: Entire codebase vs docs
 # Time: ~30 seconds for medium projects
 
 # Report-only mode (for CI)
-/craft:docs:sync --report-only
+/folio:docs:sync --report-only
 # No modifications, just report
 # Exit code: 1 if stale docs found
 ```
@@ -463,11 +463,11 @@ for the topic.
 
 ```bash
 # Non-interactive (for CI/automation)
-/craft:docs:sync --headless
+/folio:docs:sync --headless
 # Auto-approves all changes, commits with standard message
 
 # Preview what would change
-/craft:docs:sync --headless --dry-run
+/folio:docs:sync --headless --dry-run
 
 # CI automation via GitHub Actions
 # See: .github/workflows/docs-sync.yml
@@ -499,29 +499,29 @@ A companion **Site Consistency** checklist (mkdocs nav / index / `site:update`+
 `docs-staleness-check.sh`) is advisory, not part of the numeric score — see
 `skills/workflow/brainstorm-insights/references/scaffold-templates.md`.
 
-#### /craft:docs:check
+#### /folio:docs:check
 
-**Purpose:** Comprehensive documentation validation.
+**Purpose:** Comprehensive documentation validation. Moved to folio.
 
 **Examples:**
 
 ```bash
 # Full validation
-/craft:docs:check
+/folio:docs:check
 # Checks: Links, nav structure, frontmatter
 # Time: ~10 seconds
 
 # With auto-fix
-/craft:docs:check --fix
+/folio:docs:check --fix
 # Fixes: Broken internal links, nav structure
 
 # Report-only (CI mode)
-/craft:docs:check --report-only
+/folio:docs:check --report-only
 # Exit: 1 if issues found
 # Output: Machine-readable report
 
 # Specific checks
-/craft:docs:check --only=links
+/folio:docs:check --only=links
 # Faster: Only link validation
 ```
 
@@ -534,20 +534,20 @@ A companion **Site Consistency** checklist (mkdocs nav / index / `site:update`+
 - Code block syntax highlighting
 - **Mermaid diagram validation** (Phase 5) — regex pre-checks + health score
 
-#### /craft:docs:mermaid
+#### /folio:docs:mermaid
 
-**Purpose:** Mermaid diagrams — templates, NL creation, MCP validation, live preview.
+**Purpose:** Mermaid diagrams — templates, NL creation, MCP validation, live preview. Moved to folio.
 
 **Examples:**
 
 ```bash
 # Template selection
-/craft:docs:mermaid workflow
-/craft:docs:mermaid sequence
+/folio:docs:mermaid workflow
+/folio:docs:mermaid sequence
 
 # NL creation (NEW)
-/craft:docs:mermaid "show release pipeline from dev to main"
-/craft:docs:mermaid "auth flow with OAuth2" --validate --preview
+/folio:docs:mermaid "show release pipeline from dev to main"
+/folio:docs:mermaid "auth flow with OAuth2" --validate --preview
 
 # Validation scripts
 python3 scripts/mermaid-validate.py docs/ --health-score
@@ -569,9 +569,9 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 **Markdown Linting Execution Layer**
 
 - Auto-detect `markdownlint-cli2` globally or use `npx` fallback
-- Check markdown: `/craft:docs:lint` (30+ rules configured)
-- Auto-fix: `/craft:docs:lint --fix` (apply safe fixes)
-- Path targeting: `/craft:docs:lint docs/guide/` (check specific directories)
+- Check markdown: `/folio:docs:lint` (30+ rules configured)
+- Auto-fix: `/folio:docs:lint --fix` (apply safe fixes)
+- Path targeting: `/folio:docs:lint docs/guide/` (check specific directories)
 - Pre-commit integration: Auto-fix on staged markdown
 - All 1432 tests passing (100%)
 - [Release Notes](RELEASE-v2.8.0.md) | [Docs Command Reference](commands/docs.md)
@@ -589,54 +589,9 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 
 ### Core Site Commands
 
-#### /craft:site:create
+#### /folio:site:build
 
-**Purpose:** Interactive site creation wizard with 8 ADHD-friendly presets.
-
-**Examples:**
-
-```bash
-# Interactive wizard (recommended)
-/craft:site:create
-# Prompts: Project type, color scheme, features
-# Generates: Full site structure, config, theme
-
-# Quick start with preset
-/craft:site:create --preset data-wise
-# Uses: DT's preferred colors (blue/orange)
-# Includes: All standard features
-
-# Ultra-quick (skip all prompts)
-/craft:site:create --preset data-wise --quick
-# Fastest: Uses all defaults
-# Time: ~10 seconds
-
-# Custom configuration
-/craft:site:create --features docs,blog,search
-# Selective: Only specified features
-
-# Preview before creating
-/craft:site:create --preset adhd-focus --dry-run
-# Shows: What would be created
-# Safe: No files written
-```
-
-**Available presets:**
-
-| Preset       | Colors              | Best For                  |
-| ------------ | ------------------- | ------------------------- |
-| `data-wise`  | Blue/Orange         | DT's standard (energetic) |
-| `adhd-focus` | Forest Green        | Calm, focused work        |
-| `adhd-calm`  | Warm Earth Tones    | Reduced stimulation       |
-| `adhd-dark`  | Dark Mode First     | Eye strain reduction      |
-| `adhd-light` | Warm Light          | Never harsh white         |
-| `academic`   | Navy/Gray           | Professional, formal      |
-| `tech`       | Cyan/Purple         | Modern, technical         |
-| `minimal`    | Black/White         | Clean, distraction-free   |
-
-#### /craft:site:build
-
-**Purpose:** Build documentation site (MkDocs, Quarto, pkgdown).
+**Purpose:** Build documentation site (MkDocs, Quarto, pkgdown). Moved to folio.
 
 **Teaching-aware:** Auto-detects teaching mode from `.flow/teach-config.yml`
 
@@ -644,31 +599,31 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 
 ```bash
 # Standard build
-/craft:site:build
+/folio:site:build
 # Detects: Project type (MkDocs/Quarto/pkgdown)
 # Builds: To site/ directory
 # Time: ~5 seconds
 
 # Clean build (from scratch)
-/craft:site:build --clean
+/folio:site:build --clean
 # Removes: Previous build artifacts
 # Slower: Full rebuild
 # When: After major changes
 
 # Watch mode (auto-rebuild)
-/craft:site:build --watch
+/folio:site:build --watch
 # Watches: Source files for changes
 # Rebuilds: Automatically on save
 # Useful: During active editing
 
 # Strict mode (fail on warnings)
-/craft:site:build --strict
+/folio:site:build --strict
 # For CI: Fails on any warning
 # Quality: Ensures no issues
 
 # Teaching mode (auto-detected)
 # If .flow/teach-config.yml exists:
-/craft:site:build
+/folio:site:build
 # Shows: Semester progress
 # Validates: Required content (syllabus, schedule)
 # Warns: Missing weeks, incomplete assignments
@@ -680,15 +635,15 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 - Quarto: `_site/` directory
 - pkgdown: `docs/` directory
 
-#### /craft:site:publish (Teaching Mode)
+#### /folio:site:publish (Teaching Mode)
 
-**Purpose:** Safe publication workflow - Preview → Validate → Deploy.
+**Purpose:** Safe publication workflow - Preview → Validate → Deploy. Moved to folio.
 
 **Teaching mode workflow:**
 
 ```bash
 # Full publishing workflow
-/craft:site:publish
+/folio:site:publish
 
 # Step-by-step what happens:
 # 1. Check current branch (must be on 'dev' for preview)
@@ -708,18 +663,18 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 # 6. Confirm: "Published to https://..."
 
 # Validate only (don't deploy)
-/craft:site:publish --validate-only
+/folio:site:publish --validate-only
 # Runs: All validation checks
 # Skips: Actual deployment
 # Useful: Before committing
 
 # Dry-run (show what would happen)
-/craft:site:publish --dry-run
+/folio:site:publish --dry-run
 # Shows: Complete workflow plan
 # Safe: No changes made
 
 # Force publish (skip validation)
-/craft:site:publish --force
+/folio:site:publish --force
 # Dangerous: Skips safety checks
 # Use: Only for urgent fixes
 ```
@@ -738,24 +693,24 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 ```
 dev (preview branch)
   ↓ make changes
-  ↓ test with /craft:site:build
-  ↓ validate with /craft:site:publish --validate-only
-  ↓ publish with /craft:site:publish
+  ↓ test with /folio:site:build
+  ↓ validate with /folio:site:publish --validate-only
+  ↓ publish with /folio:site:publish
   ↓
 main (production branch)
   ↓ auto-merged from dev
   ↓ deployed to GitHub Pages
 ```
 
-#### /craft:site:progress (Teaching Mode)
+#### /folio:site:progress (Teaching Mode)
 
-**Purpose:** Semester progress dashboard.
+**Purpose:** Semester progress dashboard. Moved to folio.
 
 **Examples:**
 
 ```bash
 # Show progress dashboard
-/craft:site:progress
+/folio:site:progress
 
 # Output shows:
 # ╭─ Semester Progress ─────────────────────────────╮
@@ -779,12 +734,12 @@ main (production branch)
 # ╰─────────────────────────────────────────────────╯
 
 # Compact format (for quick check)
-/craft:site:progress --compact
+/folio:site:progress --compact
 # Shows: One-line summary
 # Example: "Week 8/16 (50%) • 3 assignments due soon"
 
 # JSON output (for scripts)
-/craft:site:progress --json
+/folio:site:progress --json
 # Returns: Machine-readable progress data
 ```
 
@@ -804,7 +759,7 @@ main (production branch)
 
 # Build and deploy
 /craft:site:deploy --build
-# Runs: /craft:site:build first
+# Runs: /folio:site:build first
 # Then: Deploys result
 
 # Deploy with custom message
@@ -887,7 +842,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
 
-## Code & Testing (18 commands)
+## Code & Testing (47 commands)
 
 **Core Commands** (15 code + 2 test; core subset shown):
 
@@ -903,6 +858,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:ci:fix`         | ----- | Diagnose and fix CI failures |
 | `/craft:code:fewer-prompts`    | ----- | Install read-only Bash allowlist (--dry-run, --global, --reset) |
 | `/craft:code:skill-standards`  | ----- | Audit plugin skills against Anthropic Skill Standards (--fix, --json, --refresh-standards) |
+| `/craft:code:demo`             | ----- | Create working code demonstrations and examples |
 
 **Test Commands:**
 
@@ -922,23 +878,19 @@ Layer 3: /craft:check     → catches anything that slipped through
 /craft:test release --coverage  # Full coverage analysis
 ```
 
-## Git Commands (11 commands)
+## Git Commands (9 commands)
 
 **Core Git Commands:**
 
 | Command                       | Description                                                                  |
 | ----------------------------- | ---------------------------------------------------------------------------- |
-| `/craft:git:init`             | Initialize repository with craft workflow                                    |
 | `/craft:git:worktree`         | Parallel development with git worktrees                                      |
-| `/craft:git:sync`             | Smart git sync                                                               |
-| `/craft:git:clean`            | Clean merged branches                                                        |
-| `/craft:git:git-recap`            | Activity summary                                                             |
-| `/craft:git:branch`           | Branch management                                                            |
-| `/craft:git:status`           | Enhanced git status (teaching-aware)                                         |
-| `/craft:git:protect`          | Re-enable local hook (branch-guard) protection                               |
-| `/craft:git:protect-baseline` | **NEW v2.32.0** GitHub-side protection (PR required, no force-push, no delete) |
-| `/craft:git:unprotect`        | Temporarily bypass local hook                                                |
-| `/craft:git:guard`            | Manage guard suite (list, enable, disable, mute, profile)                    |
+| `/craft:git:issue-check`      | Verify a GitHub issue's premise still holds before implementing its fix      |
+
+Clean, branch, git status, protect, protect-baseline, unprotect, and guard
+management were folded into the `dev/git` skill (2026-07 v4 consolidation) —
+ask naturally or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
 **Worktree Subcommands:**
 
@@ -1126,12 +1078,9 @@ npm test
 **Quick examples:**
 
 ```bash
-/craft:git:init                      # Interactive wizard
-/craft:git:init --dry-run            # Preview changes
 /craft:git:worktree create feat/auth # Create feature worktree
 /craft:git:worktree move             # Move current work to worktree
-/craft:git:sync                      # Sync with remote
-/craft:git:clean                     # Clean merged branches
+# ask "clean up merged branches" (dev/git skill)
 ```
 
 **See:** [Git Worktree Reference](reference/REFCARD-GIT-WORKTREE.md) | [Advanced Patterns](guide/worktree-advanced-patterns.md)
@@ -1229,7 +1178,7 @@ claude plugin update <name>@local-plugins
 # Orchestrate specific commands with --orch flag (v2.5.0)
 /craft:do "add auth" --orch=optimize      # Quick orchestration
 /craft:check --orch=release               # Orchestrated validation
-/craft:docs:sync --orch=default           # Orchestrated docs sync
+/folio:docs:sync --orch=default           # Orchestrated docs sync
 /craft:ci:generate --orch=optimize        # Orchestrated CI generation
 /craft:git:worktree "create feat" --orch  # Orchestrated worktree creation
 
@@ -1295,7 +1244,7 @@ graph LR
 |------|---------|--------|
 | 1. Brainstorm | `/brainstorm d:8 "feature"` | `BRAINSTORM-feature.md` |
 | 2. Capture spec | Brainstorm Step 5 (auto) | `docs/specs/SPEC-feature.md` |
-| 3. Create orchestration | `/craft:orch:plan` | `ORCHESTRATE-feature.md` + worktree |
+| 3. Create orchestration | `/craft:plan` | `ORCHESTRATE-feature.md` + worktree |
 | 4. Implement | Work in worktree | Commits on `feature/*` branch |
 | 5. Integrate | `/craft:git:worktree finish` | PR to `dev` |
 
@@ -1304,7 +1253,7 @@ graph LR
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Pipeline** | `/craft:plan` or brainstorm | Long-lived | `feature/*` | Always |
 | **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 
@@ -1576,20 +1525,10 @@ graph LR
 **Other Workflow Commands:**
 
 ```bash
-# Start focused work session
-/workflow:focus
-# Sets: Timer, goal, distraction blocking
-# Prompts: Every 25 minutes (Pomodoro)
-
 # Get next step
 /workflow:next
 # Analyzes: Current state, recent changes
 # Suggests: Next logical step
-
-# Get unstuck
-/workflow:stuck
-# Asks: What's blocking you?
-# Provides: 3-5 concrete solutions
 
 # Complete session
 /workflow:done
@@ -1598,7 +1537,7 @@ graph LR
 # Prompts: Next session goal
 # NEW in v2.22.0: Doc drift detection
 #   Cross-references changed files against docs
-#   Offers to run /craft:docs:sync if drift found
+#   Offers to run /folio:docs:sync if drift found
 # NEW in v2.61.0: Auto-git, CLAUDE.md sync, worktree status, learning loop
 #   Option A auto-commits + pushes (skip on main, never force-push)
 #   CLAUDE.md counts synced silently before commit
@@ -1623,7 +1562,7 @@ Use `--no-tests` or `--no-docs` to suppress either.
 
 **See:** [Brainstorm Documentation](commands/brainstorm.md) for complete guide
 
-## Skills (45 total)
+## Skills (40 total)
 
 Auto-triggered expertise:
 
@@ -1647,7 +1586,7 @@ Auto-triggered expertise:
 | `session-state`           | Orchestrator state tracking                         |
 | ...and 23 more            | See [Skills & Agents Guide](skills-agents.md) |
 
-## Agents (8 specialized)
+## Agents (2 specialized)
 
 | Agent               | Specialty                        |
 | ------------------- | -------------------------------- |
@@ -1763,21 +1702,23 @@ Comprehensive guides and references:
 
 ### Documentation Commands
 
+Most of these moved to the `folio` plugin (`/craft:docs:changelog` stays in craft).
+
 | Command | Description |
 | ------- | ----------- |
-| `/craft:docs:generate` | Unified router across all 9 doc generators (api, guide, help, prompt, quickstart, site, tutorial, website, workflow) |
-| `/craft:docs:api` | Generate OpenAPI 3.1 specifications and interactive documentation |
+| `/folio:docs:generate` | Unified router across all 9 doc generators (api, guide, help, prompt, quickstart, site, tutorial, website, workflow) |
+| `/folio:docs:api` | Generate OpenAPI 3.1 specifications and interactive documentation |
 | `/craft:docs:changelog` | Auto-update CHANGELOG.md based on git commits |
-| `/craft:docs:check-links` | Internal link validation for documentation |
-| `/craft:docs:demo` | Terminal recording & GIF generator with dependency management |
-| `/craft:docs:guide` | Orchestrated guide generator — complete feature docs with mermaid, GIFs, refcards |
-| `/craft:docs:help` | Generate comprehensive help documentation for commands |
-| `/craft:docs:prompt` | Generate reusable documentation maintenance prompts |
-| `/craft:docs:quickstart` | Generate a 5-minute quickstart guide for any project |
-| `/craft:docs:site` | Update all website-related docs and optionally deploy |
-| `/craft:docs:tutorial` | Create progressive, interactive tutorials with GIF demos and mermaid diagrams |
-| `/craft:docs:website` | ADHD-friendly website enhancement — analyze and improve documentation sites |
-| `/craft:docs:workflow` | Generate task-focused workflow documentation for multi-step processes |
+| `/folio:docs:check-links` | Internal link validation for documentation |
+| `/folio:docs:demo` | Terminal recording & GIF generator with dependency management |
+| `/folio:docs:guide` | Orchestrated guide generator — complete feature docs with mermaid, GIFs, refcards |
+| `/folio:docs:help` | Generate comprehensive help documentation for commands |
+| `/folio:docs:prompt` | Generate reusable documentation maintenance prompts |
+| `/folio:docs:quickstart` | Generate a 5-minute quickstart guide for any project |
+| `/folio:docs:site` | Update all website-related docs and optionally deploy |
+| `/folio:docs:tutorial` | Create progressive, interactive tutorials with GIF demos and mermaid diagrams |
+| `/folio:docs:website` | ADHD-friendly website enhancement — analyze and improve documentation sites |
+| `/folio:docs:workflow` | Generate task-focused workflow documentation for multi-step processes |
 
 ### Orchestrate Commands
 

@@ -82,7 +82,7 @@ Preview which commands will be executed without actually running them:
 │ ✓ Routing Decision: Feature category command sequence         │
 │   - Reason: Medium complexity (4/10), feature development     │
 │   - Commands: /craft:arch:plan → /craft:code:test-gen →       │
-│     /craft:git:branch                                         │
+│     dev/git skill (create branch)                              │
 │   - Estimated: ~15 minutes                                    │
 │                                                               │
 │ ✓ Alternative Routes:                                         │
@@ -232,7 +232,7 @@ Claude analyzes:
 Keywords: "add", "OAuth", "login"
 Category: Feature Development
 Score: 4/10
-→ Commands: /craft:arch:plan → /craft:code:test-gen → /craft:git:branch
+→ Commands: /craft:arch:plan → /craft:code:test-gen → dev/git skill (create branch)
 ```
 
 ### Step 3: Result Synthesis
@@ -288,7 +288,7 @@ If orchestrator-v2 delegation fails or is denied:
 # Routes to:
 # 1. /craft:arch:plan - Design the feature
 # 2. /craft:code:test-gen - Generate tests
-# 3. /craft:git:branch - Create feature branch
+# 3. dev/git skill - Create feature branch (folded from /craft:git:branch, 2026-07 v4)
 ```
 
 ### Bug Fixing
@@ -319,9 +319,8 @@ If orchestrator-v2 delegation fails or is denied:
 /craft:do update documentation
 
 # Routes to:
-# 1. /craft:docs:sync - Sync docs with code
-# 2. /craft:docs:validate - Check links
-# 3. /craft:docs:changelog - Update changelog
+# 1. /craft:docs:changelog - Update changelog
+# (docs building/linting/tutorials moved to /folio:docs:*)
 ```
 
 ### Guard Audit
@@ -465,7 +464,7 @@ mapping, not a general intent classification:
 | **Feature**      | arch:plan, code:test-gen, git:branch     |
 | **Bug**          | code:debug, test, test debug             |
 | **Quality**      | code:lint, test --coverage, code:refactor|
-| **Docs**         | docs:sync, docs:validate, docs:changelog |
+| **Docs**         | docs:changelog (build/lint/tutorial moved to `folio`) |
 | **Test**         | test, test --coverage, test debug        |
 | **Release**      | deps-audit, lint, test, code:release     |
 | **Architecture** | arch:analyze, arch:plan, arch:diagram    |
@@ -541,7 +540,7 @@ Only Score 8-10 delegates to an agent — Score 4-7 stays on command routing:
 │ Step 2: /craft:code:test-gen                       │
 │   ✓ 12 test cases generated                        │
 │                                                     │
-│ Step 3: /craft:git:branch                          │
+│ Step 3: dev/git skill (branch creation)             │
 │   ✓ Branch 'feature/user-auth' created             │
 │                                                     │
 │ Step 4: Ready to implement                         │
@@ -852,7 +851,7 @@ if score >= 6 and category == "feature":
         #
         # AskUserQuestion:
         #   Options:
-        #     - "Yes — create worktree + ORCHESTRATE" → /craft:orch:plan {spec}
+        #     - "Yes — create worktree + ORCHESTRATE" → /craft:plan {spec}
         #     - "No — proceed with spec context" → load spec, continue to Step 3
         pass
 ```
@@ -896,13 +895,15 @@ keyword-rescan step here; `category` was already determined in Step 1.
 ```python
 def route_to_commands(task, category):
     if category == "feature":
-        execute(["/craft:arch:plan", "/craft:code:test-gen", "/craft:git:branch"])
+        execute(["/craft:arch:plan", "/craft:code:test-gen"])
+        # Branch creation now asks the dev/git skill directly (folded from
+        # /craft:git:branch, 2026-07 v4 consolidation) rather than executing a command.
     elif category == "bug":
         execute(["/craft:code:debug", "/craft:test"])
     elif category == "quality":
         execute(["/craft:code:lint", "/craft:test --coverage"])
     elif category == "docs":
-        execute(["/craft:docs:sync", "/craft:docs:validate", "/craft:docs:changelog"])
+        execute(["/craft:docs:changelog"])
     elif category == "test":
         execute(["/craft:test", "/craft:test --coverage"])
     elif category == "release":

@@ -7,7 +7,72 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [4.0.0] - 2026-07-16
+
+### Changed
+
+- **BREAKING: folio split** ([#290](https://github.com/Data-Wise/craft/pull/290)) — the
+  docs-authoring/publishing surface (24 commands, 6 agents, 6 skills) was extracted
+  history-preserving (`git filter-repo`) into a new public plugin,
+  [`Data-Wise/folio`](https://github.com/Data-Wise/folio), released as folio v1.0.0. Craft
+  goes from 94→47 commands / 45→40 skills / 8→2 agents. Full command migration table in
+  [docs/MIGRATION-v4.md](../docs/MIGRATION-v4.md).
+- **Native-first Phase 1 pruning** ([#279](https://github.com/Data-Wise/craft/pull/279)) —
+  21 dead commands removed, dead docs excluded from the build (115→94 commands, pre-folio-split
+  baseline).
+- **`/goal` availability check made empirical, not predictive**
+  ([#282](https://github.com/Data-Wise/craft/pull/282)).
+- **`issue-premise-check` skill added** ([#283](https://github.com/Data-Wise/craft/pull/283)) —
+  verifies a GitHub issue's premise before implementing a fix.
+- **Cowork drift quantification + recovery script**
+  ([#280](https://github.com/Data-Wise/craft/pull/280)).
+
+### Added
+
+- **`ci-bash-suites` validator** ([#291](https://github.com/Data-Wise/craft/pull/291)) — closes
+  the gate-divergence gap where `/craft:check` never ran the shell suites CI invokes directly
+  (pytest doesn't collect `tests/*.sh`). Derives the suite list from `.github/workflows/*.yml`
+  rather than hardcoding it; advisory in default mode, blocking in release mode. Root-caused two
+  of the three CI blockers the v4 folio-split branch carried (a deleted-command PR cited a green
+  pytest run while a CI-required bash suite had been red for days).
+- **`docs/RUNBOOK-v4-release-rollback.md`** ([#293](https://github.com/Data-Wise/craft/pull/293))
+  — rollback paths for the v4.0.0 release train (craft revert, folio revert); the
+  partial-rollback case (folio ships, craft's release stalls) is documented as an open question
+  rather than answered.
+
+### Fixed
+
+- **Branch-guard quote-aware detection + path scoping**
+  ([#292](https://github.com/Data-Wise/craft/pull/292)) — closes 4 live false positives from a
+  greedy quote-stripping regex; combined sed passes into a single alternation, added a
+  cross-quote regression test.
+- **`orchestrate-dispatch` self-containment hardening**
+  ([#289](https://github.com/Data-Wise/craft/pull/289)) — prompt + docs.
+- **`guards.json` write-race closed** — a confirmed lost-update race (40/80
+  concurrent writes lost under the unlocked `jq`-mutate pattern) in
+  `~/.claude/guards.json`'s two writers — Operation 12's `enable`/`disable`/
+  `profile` and `install-guards.sh`'s seed/merge path — is now closed by a
+  shared mkdir-based lock helper (`lib/guards-lock.sh`, atomic on macOS and
+  Linux, with a staleness timeout so a crashed holder can't wedge the lock
+  permanently). See `tests/test_guards_registry_concurrency.sh` and
+  `docs/specs/SPEC-guard-hardening-adversarial-review-2026-07-15.md` (PR B).
+- **`delete-git-dir` removed from the `hard_deny` catalog** — the classifier
+  enforcing `hard_deny` has no git execution context, so it could not be
+  scoped to "same repo only" as intended; `rm -rf .git` is now confirmed
+  (not hard-blocked) via `branch-guard.sh`'s existing universal catastrophic
+  check on every branch. See
+  `docs/specs/GRILL-branch-guard-target-resolution-2026-07-14.md`.
+- **`REFCARD-BRANCH-GUARD.md` corrected** — the "HIGH (Hard Block)" tier
+  previously documented `rm -rf .git` as a hard block; the actual hook code
+  has always routed it through `_confirm` (ASK tier). Doc now matches code.
+- **Cumulative `cd`-target resolution in both Guard Suite hooks** — a compound
+  Bash command with multiple `cd` clauses (`cd a && cd b && git …`) now resolves
+  to the **last** directory (cumulative tracking), not the first. Extends #284's
+  single-hop leading-`cd`/`-C` resolution to `no-switch-guard.sh` (was `-C`-only)
+  and retrofits `branch-guard.sh`'s §8d0 resolver, so worktree pushes and
+  cross-repo switches are gated against the branch they actually target. Quote-,
+  `$`-, and backtick-bearing paths are skipped; a `;`/`&&` inside a quoted arg is
+  still out of scope (documented limitation).
 
 ## [2.61.1] - 2026-07-08
 

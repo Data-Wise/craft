@@ -125,17 +125,27 @@ class TestTeachingWorkflowIntegration(unittest.TestCase):
         self.assertEqual(config["course"]["title"], "Test Course")
 
     def test_04_teaching_commands_exist(self):
-        """Test: Teaching-related commands exist."""
+        """Test: Teaching-related site logic is preserved somewhere.
+
+        publish.md/progress.md/build.md were KILLED (not moved) in the folio
+        split (Phase 3, 2026-07-12) — their unique logic was salvage-merged
+        into folio's site-management skill references per ADR-002, not kept
+        as standalone command files in either repo. This checks the salvage
+        landed, rather than asserting command files that no longer exist
+        anywhere."""
         # Arrange
-        commands_dir = plugin_dir / "commands" / "site"
+        folio_refs_dir = plugin_dir.parent / "folio" / "skills" / "docs" / "site-management" / "references"
 
-        expected_commands = ["publish.md", "progress.md", "build.md"]
+        expected_refs = ["publish.md", "build.md"]
 
-        for cmd in expected_commands:
-            with self.subTest(command=cmd):
+        if not folio_refs_dir.exists():
+            self.skipTest("folio repo not present alongside craft")
+
+        for ref in expected_refs:
+            with self.subTest(reference=ref):
                 # Assert
-                cmd_path = commands_dir / cmd
-                self.assertTrue(cmd_path.exists(), f"Command {cmd} should exist")
+                ref_path = folio_refs_dir / ref
+                self.assertTrue(ref_path.exists(), f"Salvaged reference {ref} should exist")
 
     def test_05_teaching_utilities_exist(self):
         """Test: Teaching utility modules exist."""

@@ -21,7 +21,8 @@ REPO = Path(__file__).resolve().parent.parent
 # Files that make LIVE, plugin-wide count claims. Deliberately EXCLUDES:
 #   - README.md — its top badge is maintained by bump-version.sh; its lower
 #     half is release-history ("Total: 67 commands" per past version).
-#   - commands/docs/claude-md/init.md — illustrative sample OUTPUT blocks with
+#   - skills/docs/claude-md/references/init.md (was commands/docs/claude-md/init.md
+#     before the v4 consolidation) — illustrative sample OUTPUT blocks with
 #     intentionally-varied fake numbers (commands: 108 / skills: 21), not claims.
 CURATED_FILES = [
     "commands/dist/homebrew.md",
@@ -168,6 +169,9 @@ DOCS_EXCLUDE_RELPATHS = {
     "tutorials/claude-md-workflows.md",  # terminal-output transcript example
     "tutorials/interactive-docs-update-tutorial.md",  # before/after diff example
     "tutorials/TUTORIAL-first-10-minutes.md",  # dated UI mockup screenshot: "v2.22.0" / 107 Commands
+    "guide/check-command-mastery.md",  # illustrative /craft:check output: deliberately shows
+    # a stale-count WARNING ("CLAUDE.md shows '70 commands' — actual count is 107") to
+    # demonstrate the detector catching drift; frozen scenario, not a live claim.
 }
 
 

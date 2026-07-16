@@ -4,7 +4,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Complete guide to installing and using craft's 115 commands, 45 skills, and 8 agents
+> - **What:** Complete guide to installing and using craft's 47 commands, 40 skills, and 2 agents
 > - **Why:** Master the full-stack toolkit to automate your entire development workflow
 > - **How:** Install plugin → verify with `/craft:hub` → start with `/craft:do "task"`
 > - **Next:** Read about [Skills & Agents](../skills-agents.md) to understand AI automation
@@ -48,51 +48,7 @@ ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
 /craft:hub
 ```
 
-You should see all 115 commands listed.
-
-## Initialize a New Project (Optional)
-
-!!! tip "Starting from Scratch?"
-    Skip this section if you already have a git repository. This is for brand new projects.
-
-If you're starting a new project, use craft to set up the complete git workflow:
-
-```bash
-/craft:git:init
-```
-
-This interactive wizard will:
-
-- Initialize git repository
-- Create `main` + `dev` branch structure
-- Enable branch protection on `main`
-- Auto-detect and generate CI workflow
-- Create project tracking files (`.STATUS`, `CLAUDE.md`)
-- Add PR template
-- Create initial commit
-- Push to GitHub (if desired)
-
-**Quick setup:**
-
-```bash
-# Interactive wizard
-/craft:git:init
-
-# Preview what would happen
-/craft:git:init --dry-run
-
-# Skip prompts, use defaults
-/craft:git:init --yes --remote user/repo
-```
-
-After initialization, you'll have:
-
-- ✅ Protected `main` branch (PR + CI required)
-- ✅ `dev` branch ready for work
-- ✅ CI workflow configured
-- ✅ Project documentation
-
-See [/craft:git:init](../commands/git-init-reference.md) for full details.
+You should see all 47 commands listed.
 
 ## Your First Commands
 
@@ -138,13 +94,7 @@ Update all documentation:
 Check for stale docs:
 
 ```bash
-/craft:docs:sync
-```
-
-### 4. Create a Documentation Site
-
-```bash
-/craft:site:create --preset data-wise --quick
+/folio:docs:sync
 ```
 
 ## Complex Feature Workflow
@@ -171,7 +121,7 @@ graph LR
 # → Saves BRAINSTORM-auth.md, optionally captures spec
 
 # 2. Create orchestration + worktree from spec
-/craft:orch:plan docs/specs/SPEC-auth.md
+/craft:plan docs/specs/SPEC-auth.md
 # → Generates ORCHESTRATE-auth.md
 # → Creates worktree at ~/.git-worktrees/<project>/feature-auth
 
