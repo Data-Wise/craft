@@ -1,6 +1,6 @@
 ---
 description: Execute a coded, fixed-control-flow workflow (parallel/pipeline/loop/verify) with schema-gated agents, data-driven fan-out, and cached/resumable replay
-category: orchestrate
+category: orch
 arguments:
   - name: workflow
     description: "Path to a WORKFLOW-*.yaml (or shape-DSL) file (default: newest WORKFLOW-*.yaml in the worktree root)"

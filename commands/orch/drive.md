@@ -1,6 +1,6 @@
 ---
 description: Drive an approved SPEC to completion via the native /goal turn-loop, with a real verify gate; stops at verified green and prints the PR command
-category: orchestrate
+category: orch
 arguments:
   - name: spec
     description: "Path to SPEC-*.md (default: newest docs/specs/SPEC-*.md or the one referenced by the worktree's ORCHESTRATE-*.md)"
