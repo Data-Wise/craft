@@ -208,24 +208,30 @@ task if/when this tooling matters again.
 > engines with no real duplication, same verdict as `arch` (D6). `orch.md`/`drive.md`/
 > `workflow.md` are left completely untouched.
 
-### Workstream B — code:audit router (own PR)
+### Workstream B — code:audit router (own PR) — SHRUNK to 2 commands (D12)
 
-- [ ] **T3.6.B1** Verify `--format`/`--fix` semantics compatible across all 5 subcommands
-  (command-audit, deps-audit, deps-check, docs-check, skill-standards) — **XS**
-  - Already verified in the grill (D2): format = output rendering, fix = safe mechanical
-    auto-fix, consistent across command-audit/skill-standards. Re-confirm for deps-audit/
-    deps-check/docs-check before building.
-- [ ] **T3.6.B2** NEW `code:audit` router + shared `--format`/`--fix` dispatch — **M** —
-  command-audit 131 · deps-audit 170 · deps-check 88 · docs-check 248 · skill-standards 167
-  (Σ804L) — subcommand-specific extras (`--ignore`/`--fail-on` etc.) stay per-reference, not
-  promoted to the shared set
-  - Acceptance: `/craft:code:command-audit` etc. all still directly slash-invocable (D3)
-- [ ] **T3.6.B3** Salvage all 5 bodies into `skills/code/audit-router/references/` (ADR-002
-  line-conservation diff) — **M**
+> Corrected 2026-07-16: full read of all 5 bodies showed only `command-audit`+`skill-standards`
+> genuinely share shape/flags (both validate craft's own frontmatter). `deps-audit`/`deps-check`/
+> `docs-check` are generic cross-project tools with incompatible flag surfaces — left untouched.
+
+- [x] **T3.6.B1** Verify `--format`/`--fix` semantics compatible across command-audit +
+  skill-standards — **XS** — DONE in grill (D2): format = output rendering, fix = safe
+  mechanical auto-fix, consistent across both.
+- [ ] **T3.6.B2** Consolidate `command-audit` + `skill-standards` shared vocabulary into
+  `skills/code/audit-router/SKILL.md` + shrink both command files to thin shims (frontmatter
+  unchanged, body points to the skill) — **S** — command-audit 131 · skill-standards 167
+  (Σ298L)
+  - Acceptance: `/craft:code:command-audit` and `/craft:code:skill-standards` both still
+    directly slash-invocable (D3) — no path deleted
+- [ ] **T3.6.B3** Salvage both bodies verbatim into `skills/code/audit-router/references/`
+  (ADR-002 line-conservation diff) — **S**
 - [ ] **T3.6.B4** Regen `commands/_cache.json` before final verification — **XS** (D9)
-- [ ] **T3.6.B5** Suites green + slash-invocability spot-check on all 5 entry points — **S**
+- [ ] **T3.6.B5** Suites green + slash-invocability spot-check on both entry points — **S**
 - [ ] **CP-3.6.B** (ASK): Workstream B all green → own PR `feature/folio-split`→`dev` → merge
   on your go.
+
+**Explicitly out of scope (D12):** `deps-audit.md`, `deps-check.md`, `docs-check.md` stay
+completely untouched.
 
 ### Workstream C — ci router (own PR, do last — largest family)
 

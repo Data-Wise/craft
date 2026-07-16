@@ -115,6 +115,27 @@ shared flag semantics (D2).
 **Decision:** distinction holds — code:audit router proceeds as the sole remaining workstream
 alongside the orch.md refactor (D1/D7). Final Phase 3.6 scope: **2 workstreams, not 4.**
 
+### D12 — Workstream B shrinks to 2 commands (correction)
+
+**Process note:** D8's "cohesive audit shape" verdict was decided from line counts and a
+partial flag check (only `command-audit.md`/`skill-standards.md` were read in full for D2) —
+the same mistake pattern as D11. Caught during Workstream B implementation, before any file
+was changed.
+
+Full read of all 5 bodies shows the family splits into distinct clusters: **craft-schema
+validators** (`command-audit`, `skill-standards` — both validate craft's own frontmatter, both
+share genuine `--format`/`--fix` semantics, verified in D2) vs. **generic cross-project tools**
+(`deps-audit`: security audit of any project's deps, `--json`/`--ignore`/`--fail-on`/`--dry-run`,
+no `--format`; `deps-check`: dependency freshness of any project, `--outdated`/`--unused`/
+`--missing`/`--update`, no `--format`/`--fix` at all) and `docs-check` (a full generic docs/
+site preflight+deploy pipeline for any project — version sync, badges, links, build, deploy,
+CI monitor — no formal `arguments:` frontmatter, barely related to schema-audit at all).
+
+**Decision:** Workstream B shrinks to `command-audit` + `skill-standards` only (298 lines) —
+the only 2 that genuinely share shape and verified-compatible flags. `deps-audit.md`,
+`deps-check.md`, `docs-check.md` stay completely untouched; they don't belong under a
+"code:audit" umbrella just because they live in `commands/code/`.
+
 ### D9 — explicit discovery-cache regen step
 
 `commands/_cache.json` (61KB, gitignored per `.gitignore:42`) exists in this worktree. If stale
@@ -193,11 +214,19 @@ execution here.
 
 ## Post-Handoff Correction Log
 
-This ledger was corrected twice after the initial grill pass, both caught before code was
-written:
+This ledger was corrected three times after the initial grill pass, all caught before code
+was written for the affected scope:
 
 1. **`ci` family miss** (D10) — caught during plan-handoff, before implementation started.
 2. **Workstream A drop** (D11) — caught at the start of implementation itself, when reading
    `drive.md`/`workflow.md` in full (not done during the original grill) showed the "absorb"
    premise didn't hold. No `orch.md`/`drive.md`/`workflow.md` changes were made before this
    was caught.
+3. **Workstream B shrink** (D12) — caught during Workstream B implementation, when reading
+   `deps-audit.md`/`deps-check.md`/`docs-check.md` in full (not done during the original
+   grill) showed only 2 of the 5 commands genuinely share shape/flags. No file changes were
+   made before this was caught.
+
+**Pattern across all 3 corrections:** each was caught by reading full command bodies that the
+original grill pass had only spot-checked (line counts, flag names, or a subset of files).
+None reached implementation before being caught.
