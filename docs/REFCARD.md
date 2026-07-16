@@ -1560,7 +1560,7 @@ Use `--no-tests` or `--no-docs` to suppress either.
 
 **See:** [Brainstorm Documentation](commands/brainstorm.md) for complete guide
 
-## Skills (39 total)
+## Skills (40 total)
 
 Auto-triggered expertise:
 

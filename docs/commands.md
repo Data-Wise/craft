@@ -392,7 +392,7 @@ See [DRY-RUN-SUMMARY.md](https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUM
 
 ## See Also
 
-- **[Skills & Agents Guide](skills-agents.md)** - 39 skills, 2 agents
+- **[Skills & Agents Guide](skills-agents.md)** - 40 skills, 2 agents
 - **[Architecture Guide](architecture.md)** - How Craft works
 - **[Orchestrator Guide](orchestrator.md)** - Multi-agent coordination
 - **[Mode System](skills-agents.md#mode-aware-behavior)** - Mode system (default/debug/optimize/release)
