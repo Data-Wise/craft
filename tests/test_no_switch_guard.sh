@@ -465,6 +465,61 @@ run_registry "test_registry_corrupt_failopen"    ask    CORRUPT      "git switch
 
 echo ""
 
+# --------------------------------------------------------------------------
+# Group 6: Cross-context / cumulative cd-target resolution
+# (2026-07-15, guard-cd-resolution). A `cd <path> &&`/`-C <path>` retargets
+# the repo whose dirtiness/branch the guard checks — NOT the hook's own
+# invocation cwd. Multi-hop chains resolve to the LAST cd (cumulative), not
+# the first. Mirrors the BRAINSTORM Context Scan scenario.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Cross-Context / Cumulative cd Resolution ---${T_NC}"
+
+# Helper: a repo with a dirty working tree (untracked file), on dev.
+make_dirty_repo() {
+    local repo; repo=$(make_tmpdir)
+    (
+        cd "$repo"
+        git init -b main --quiet
+        git config user.email "test@test.com"; git config user.name "Test"
+        echo "initial" > README.md; git add -A; git commit -m "init" --quiet
+        git branch dev; git checkout dev --quiet 2>/dev/null
+        echo "dirty" > untracked.txt          # untracked → dirty
+    )
+    echo "$repo"
+}
+
+# Scenario A (Context Scan main case): session repo is DIRTY, but the command
+# cd's into a CLEAN worktree and switches there → the guard must check the
+# CLEAN target, not the dirty session → NOT blocked (YELLOW announce).
+XC_SESSION_DIRTY=$(make_dirty_repo)
+XC_WT_CLEAN=$(init_repo)                          # clean, on dev
+(cd "$XC_WT_CLEAN" && git branch feature/xc-clean)
+run_yellow "test_xctx_cd_into_clean_worktree_from_dirty_session_NOT_blocked" \
+    "cd $XC_WT_CLEAN && git switch feature/xc-clean" \
+    "$XC_SESSION_DIRTY"
+
+# Scenario B (inverse): session repo is CLEAN, but the command cd's into a
+# DIRTY worktree and switches there → the guard must check the DIRTY target →
+# blocked (RED confirm).
+XC_SESSION_CLEAN=$(init_repo)                     # clean, on dev
+XC_WT_DIRTY=$(make_dirty_repo)
+run_red "test_xctx_cd_into_dirty_worktree_from_clean_session_IS_blocked" \
+    "cd $XC_WT_DIRTY && git switch dev" \
+    "$XC_SESSION_CLEAN"
+
+# Scenario C (pure multi-hop): `cd <dirty> && cd <clean> && git switch` — the
+# LAST cd wins (cumulative), so the guard checks the CLEAN repo → YELLOW. The
+# pre-change single-hop resolver picked the FIRST cd (dirty) and would RED.
+XC_A_DIRTY=$(make_dirty_repo)
+XC_B_CLEAN=$(init_repo)
+(cd "$XC_B_CLEAN" && git branch feature/xc-multihop)
+run_yellow "test_xctx_multihop_cd_last_wins_resolves_to_clean_NOT_blocked" \
+    "cd $XC_A_DIRTY && cd $XC_B_CLEAN && git switch feature/xc-multihop" \
+    "$XC_A_DIRTY"
+
+echo ""
+
 # ============================================================================
 # --classify / GUARD_DRY_RUN=1 ground-truth mode
 # (SPEC-branch-protection-consolidation-2026-07-07 §4.6 #3 / §6 dogfood tier)

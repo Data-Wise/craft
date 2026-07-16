@@ -1,11 +1,11 @@
 ---
 name: background-task-manager
-description: This skill should be used when the user asks to "check task status", "view task output", "cancel task", "kill background task", "list running tasks", "wait for task", "show task results", "stop background job", or mentions background task IDs from `/workflow:brainstorm --background`, `/workflow:refine`, or other backgrounded commands. Manages the lifecycle of already-launched background tasks — status inspection, output retrieval, and cancellation.
+description: This skill should be used when the user asks to "check task status", "view task output", "cancel task", "kill background task", "list running tasks", "wait for task", "show task results", "stop background job", or mentions background task IDs from `/craft:orch`'s `orchestrate-dispatch` mode or other backgrounded commands. Manages the lifecycle of already-launched background tasks — status inspection, output retrieval, and cancellation.
 ---
 
 # Background Task Manager Skill
 
-Expert in the **lifecycle of already-launched background tasks** in craft workflows. Covers the three post-launch operations: checking status, retrieving output, and cancelling. Does not launch tasks itself — that is done by `/workflow:brainstorm --background`, `/workflow:refine` option 2, and similar backgrounding commands.
+Expert in the **lifecycle of already-launched background tasks** in craft workflows. Covers the three post-launch operations: checking status, retrieving output, and cancelling. Does not launch tasks itself — that is done by `/craft:orch`'s `orchestrate-dispatch` mode and similar backgrounding commands. `/craft:refine` never launches background tasks: its own Scope note states that a background-execution option was considered and dropped during the ADR-002 consolidation.
 
 ## When to Use
 

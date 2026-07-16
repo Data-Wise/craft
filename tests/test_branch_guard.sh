@@ -805,15 +805,20 @@ run_test \
 rm -f "$REPO_ADV/.claude/branch-guard.json"
 switch_branch "$REPO_ADV" "dev"
 
-# git -C <path> commit on main — current pattern doesn't catch this
-# because grep expects "git<space>commit" but sees "git -C ... commit"
-# This is a known limitation — documenting the behavior
+# git -C <path> commit on main — FIXED 2026-07-14 (GRILL-branch-guard-
+# target-resolution). Was previously NOT caught: the classification regex
+# expected "git<space>commit" but saw "git -C ... commit". The regex now
+# tolerates an optional -C flag. /some/path doesn't exist on disk, so the
+# 8d0 cross-context resolver can't resolve a real target and falls back to
+# the session's own branch (main, block-all) — the safe conservative
+# default when a -C target can't be verified. Still blocks, as it always
+# should have for an unresolvable target on a protected branch.
 REPO_GIT_C=$(init_repo)
 switch_branch "$REPO_GIT_C" "main"
 
 run_test \
-    "test_bash_git_dash_c_commit_on_main_not_caught" \
-    0 \
+    "test_bash_git_dash_c_commit_on_main_now_caught" \
+    2 \
     "$(json_bash "git -C /some/path commit -m test" "$REPO_GIT_C")" \
     "$REPO_GIT_C"
 
@@ -1575,6 +1580,115 @@ run_classify_test \
     "^ALLOW:" \
     "$(json_write "$REPO_CLASSIFY/anything.py" "$REPO_CLASSIFY")" \
     "$REPO_CLASSIFY"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group: Cross-context target resolution (2026-07-14, GRILL-branch-guard-
+# target-resolution) — a leading `cd <path> &&`/`cd <path>;` or `-C <path>`
+# retargets the command to a DIFFERENT directory than the session cwd; the
+# hook must classify against the RESOLVED target, not the session's own
+# branch/protection.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Cross-Context Target Resolution ---${T_NC}"
+
+# Scenario 1: session on dev, command cd's into an unprotected feature
+# worktree and pushes from there — must ALLOW (was: false-positive block,
+# because the hook only ever looked at the session's own 'dev' branch).
+REPO_XCTX=$(init_repo)
+switch_branch "$REPO_XCTX" "dev"
+XCTX_WORKTREE=$(make_tmpdir)
+rmdir "$XCTX_WORKTREE"
+(cd "$REPO_XCTX" && git worktree add --quiet -b feature/xctx-test "$XCTX_WORKTREE" dev)
+
+run_test \
+    "test_cd_into_feature_worktree_push_is_ALLOW" \
+    0 \
+    "$(json_bash "cd $XCTX_WORKTREE && git push origin feature/xctx-test" "$REPO_XCTX")" \
+    "$REPO_XCTX"
+
+# Scenario 2: session on dev, command `-C <other-repo>` targets a DIFFERENT
+# repository whose current branch is main — must CONFIRM (exit 2, [CONFIRM]
+# in stderr), never a hard [BLOCK] with no bypass path. This is the explicit
+# "I do not want hard gate to disrupt" decision.
+REPO_XCTX2=$(init_repo)
+switch_branch "$REPO_XCTX2" "dev"
+OTHER_REPO=$(make_tmpdir)
+(cd "$OTHER_REPO" && git init -b main --quiet && git config user.email t@t.com && git config user.name T && git commit -m init --quiet --allow-empty)
+
+run_test_with_stderr \
+    "test_cross_repo_C_flag_push_to_other_main_is_CONFIRM" \
+    2 \
+    "$(json_bash "git -C $OTHER_REPO push origin main" "$REPO_XCTX2")" \
+    "$REPO_XCTX2" \
+    "\[CONFIRM\]"
+
+# Scenario 2b: same cross-repo push must NOT contain a bare "[BLOCK]" tag —
+# regression guard against silently reverting to the old hard-block path.
+run_test_with_stderr \
+    "test_cross_repo_C_flag_push_is_not_hard_BLOCK" \
+    2 \
+    "$(json_bash "git -C $OTHER_REPO push origin main" "$REPO_XCTX2")" \
+    "$REPO_XCTX2" \
+    "smart mode"
+
+# Scenario 3: same-repo compound command (no cd/-C retarget) is UNAFFECTED —
+# regression guard that the new resolver doesn't touch ordinary same-repo
+# classification. `git push --force` on dev still confirms as before.
+REPO_XCTX3=$(init_repo)
+switch_branch "$REPO_XCTX3" "dev"
+
+run_test_with_stderr \
+    "test_same_repo_force_push_still_CONFIRM" \
+    2 \
+    "$(json_bash "git push --force origin dev" "$REPO_XCTX3")" \
+    "$REPO_XCTX3" \
+    "\[CONFIRM\]"
+
+# --------------------------------------------------------------------------
+# Multi-hop cumulative cd tracking (2026-07-15, guard-cd-resolution) — a
+# compound command with MORE THAN ONE cd retargets to the LAST directory, not
+# the first. The pre-#284 single-hop resolver (regex anchored ^cd, head -1)
+# picked the FIRST cd and would classify against the wrong repo.
+# --------------------------------------------------------------------------
+
+# Scenario 4: `cd <main-repo> && cd <feature-worktree> && git push` — the FIRST
+# cd lands on a repo checked out on main (would CONFIRM/block if it were the
+# target), the SECOND cd lands on an unprotected feature worktree. Cumulative
+# tracking must resolve to the worktree → ALLOW (exit 0). Single-hop-first
+# would have picked the main repo and blocked — this is the differentiator.
+REPO_MH_MAIN=$(init_repo)          # left on main (protected)
+REPO_MH_BASE=$(init_repo)
+switch_branch "$REPO_MH_BASE" "dev"
+MH_WORKTREE=$(make_tmpdir); rmdir "$MH_WORKTREE"
+(cd "$REPO_MH_BASE" && git worktree add --quiet -b feature/mh-test "$MH_WORKTREE" dev)
+
+run_test \
+    "test_multihop_cd_last_wins_resolves_to_feature_worktree_ALLOW" \
+    0 \
+    "$(json_bash "cd $REPO_MH_MAIN && cd $MH_WORKTREE && git push origin feature/mh-test" "$REPO_MH_BASE")" \
+    "$REPO_MH_BASE"
+
+# Scenario 5: mixed `cd <main-repo> && git -C <feature-worktree> push` — the
+# `-C` target (feature worktree) is resolved against the cd'd effective cwd and
+# wins → ALLOW (exit 0).
+run_test \
+    "test_multihop_cd_then_C_flag_resolves_to_feature_worktree_ALLOW" \
+    0 \
+    "$(json_bash "cd $REPO_MH_MAIN && git -C $MH_WORKTREE push origin feature/mh-test" "$REPO_MH_BASE")" \
+    "$REPO_MH_BASE"
+
+# Scenario 6: inverse — `cd <feature-worktree> && cd <main-repo> && git push`.
+# Last cd lands on a repo checked out on main; cumulative tracking must resolve
+# there and CONFIRM (exit 2), proving last-wins gates the protected target even
+# when an unprotected dir came first.
+run_test_with_stderr \
+    "test_multihop_cd_last_wins_resolves_to_main_CONFIRM" \
+    2 \
+    "$(json_bash "cd $MH_WORKTREE && cd $REPO_MH_MAIN && git push origin main" "$REPO_MH_BASE")" \
+    "$REPO_MH_BASE" \
+    "\[CONFIRM\]"
 
 echo ""
 

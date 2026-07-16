@@ -159,24 +159,52 @@ fi
 # ---------------------------------------------------------------------------
 # 4. Seed guards.json registry (if not present)
 # ---------------------------------------------------------------------------
+# guards.json has a second mutator (skills/dev/git/SKILL.md Operation 12's
+# enable/disable/profile) — both writers coordinate through the same
+# mkdir-based lock so a concurrent run can't lose an update (lib/guards-lock.sh).
 GUARDS_JSON="${HOME}/.claude/guards.json"
+GUARDS_LOCK="${GUARDS_JSON}.lock"
+GUARDS_LOCK_HELPER="${REPO_ROOT}/lib/guards-lock.sh"
+
+guards_lock_acquire() {
+  bash "$GUARDS_LOCK_HELPER" acquire "$GUARDS_LOCK"
+}
+
+guards_lock_release() {
+  bash "$GUARDS_LOCK_HELPER" release "$GUARDS_LOCK"
+}
 
 if [[ ! -f "$GUARDS_JSON" ]]; then
-  jq -n '{
-    "guards": {
-      "branch-guard":   { "enabled": true, "muted_until": null, "mute_window_min": 30 },
-      "no-switch-guard":{ "enabled": true, "muted_until": null, "mute_window_min": 30 }
-    }
-  }' > "$GUARDS_JSON"
-  ok "Created guards.json registry at ${GUARDS_JSON}"
+  guards_lock_acquire
+  trap guards_lock_release EXIT
+  # Re-check under the lock: another racer may have created the file
+  # while we were waiting to acquire it (avoids clobbering a concurrent seed).
+  if [[ ! -f "$GUARDS_JSON" ]]; then
+    jq -n '{
+      "guards": {
+        "branch-guard":   { "enabled": true, "muted_until": null, "mute_window_min": 30 },
+        "no-switch-guard":{ "enabled": true, "muted_until": null, "mute_window_min": 30 }
+      }
+    }' > "$GUARDS_JSON"
+    ok "Created guards.json registry at ${GUARDS_JSON}"
+  fi
+  guards_lock_release
+  trap - EXIT
 else
-  # Add any missing guard entries (idempotent merge)
+  # Add any missing guard entries (idempotent merge). Each guard's
+  # check-then-write is its own acquire/release — NOT one lock held across
+  # the whole loop — so a concurrent Operation 12 mutation isn't blocked for
+  # the full loop duration.
   for guard in branch-guard no-switch-guard; do
+    guards_lock_acquire
+    trap guards_lock_release EXIT
     if ! jq -e --arg g "$guard" '.guards[$g]' "$GUARDS_JSON" &>/dev/null; then
       jq --arg g "$guard" '.guards[$g] = {"enabled":true,"muted_until":null,"mute_window_min":30}' \
         "$GUARDS_JSON" > "${GUARDS_JSON}.tmp" && mv "${GUARDS_JSON}.tmp" "$GUARDS_JSON"
       ok "Added ${guard} to guards.json"
     fi
+    guards_lock_release
+    trap - EXIT
   done
   ok "guards.json already exists (entries verified)"
 fi

@@ -54,17 +54,36 @@ Follow these steps in order. Do NOT skip any step.
 Use the `spec` arg; else the newest `docs/specs/SPEC-*.md`; else the spec
 referenced by the worktree's `ORCHESTRATE-*.md`. Report which was chosen.
 
-### Step 2: Precondition checks (block with remedy on failure)
+### Step 2: Issue-premise pre-filter (advisory only, zero cost when silent)
+
+Scan the located spec's text for an issue citation matching `#\d+` (e.g.
+`#199`). This is a cheap pre-filter — it never runs the classifier
+unconditionally, avoiding the "unnecessary tax" pattern.
+
+- **No `#NNN` found** → skip entirely, no further action, zero added cost.
+- **`#NNN` found** → invoke `/craft:git:issue-check <N>` (fresh fetch, never
+  cached — see that command's Step 1) and surface its verdict + cited
+  evidence in the transcript. **Never blocks** — proceed to Step 3
+  regardless of the verdict (`valid`, `moot`, or `unclear`). If `moot`,
+  call it out prominently so the user can decide whether to still proceed,
+  but do not stop the loop.
+
+### Step 3: Precondition checks (block with remedy on failure)
 
 | Check | Block reason | Remedy shown |
 |-------|--------------|--------------|
 | Worktree on `feature/*` | Not isolated | `git worktree add … -b feature/<topic> dev` |
-| `/goal` available (Claude Code ≥ v2.1.139) | Engine missing | Upgrade Claude Code |
 | Hooks not blocking `/goal` (`disableAllHooks` / `allowManagedHooksOnly`) | `/goal` disabled by policy | Adjust hook policy |
 | Workspace trust accepted | `/goal` needs trust | Accept workspace trust |
 | Auto mode on (unless `--no-auto`) | Loop can't run unattended | Offer to enable in confirm gate |
 
-### Step 3: Synthesize the `/goal` condition
+**Whether the `/goal` engine exists at all (Claude Code CLI vs. any other harness) is NOT
+checkable here** — `/goal` is a native slash command, not an introspectable tool, so no prose
+instruction at this step can reliably detect its absence ahead of time (see
+`GRILL-goal-engine-detection-2026-07-14.md`). That check is empirical and happens at Step 7
+instead — do not attempt to predict it in this table.
+
+### Step 4: Synthesize the `/goal` condition
 
 From the spec's **Acceptance Criteria** + **Review Checklist**, build a
 condition that is (a) measurable, (b) provable-in-transcript by showing
@@ -74,29 +93,40 @@ Template:
 > output in the transcript (e.g. test runner exit, git status). Do not
 > change <stated constraints>. Or stop after <max-turns> turns.`
 
-### Step 4: `--dry-run` (zero side effects)
+### Step 5: `--dry-run` (zero side effects)
 
 If `--dry-run`, print the derived condition + dispatch plan (from
-`drive-engine`) + precondition report, then STOP. Set no goal; change no
-auto-mode state.
+`drive-engine`) + precondition report + the Step 2 pre-filter result, then
+STOP. Set no goal; change no auto-mode state.
 
-### Step 5: Confirm gate (defaults to No)
+### Step 6: Confirm gate (defaults to No)
 
 Show the condition. If auto mode is off and `--no-auto` not set, OFFER to
 enable it here (never silent). Proceed only on explicit Yes or `--yes`.
 
-### Step 6: Drive the loop
+### Step 7: Drive the loop
 
-Emit `/goal <condition>`. Per turn, invoke the `drive-engine` skill to
-dispatch `--agents N` (default 1) file-scoped subagents.
+Emit `/goal <condition>`. **This emission IS the `/goal`-availability check** — no separate
+probe (a probe would either be redundant in a working session or would itself set a real goal
+state, which defeats the point of "harmless"). If there is no observable effect (no goal-status
+echo, no state change reported back), STOP immediately and report: "No observable effect after
+emitting `/goal` — this harness likely doesn't support the native `/goal` engine. For a
+single-scope spec, implement it directly in the worktree (same as any other feature work); use
+`/craft:orch --swarm` only if the spec genuinely decomposes into independent parallel scopes."
+Do not fall back to `drive-engine`'s dispatch loop without a working `/goal` — that loop's
+termination depends on the `/goal` evaluator clearing, which never happens if the engine isn't
+there.
 
-### Step 7: Real verify gate (authoritative)
+Otherwise (goal set successfully), per turn invoke the `drive-engine` skill to dispatch
+`--agents N` (default 1) file-scoped subagents.
+
+### Step 8: Real verify gate (authoritative)
 
 When the goal clears, the `drive-engine` skill runs the project's actual
 verify command + `git status --short`. Green is required to declare done —
 a green-looking transcript alone is NOT sufficient.
 
-### Step 8: Green handoff (no auto-PR)
+### Step 9: Green handoff (no auto-PR)
 
 On verified green, STOP and print the exact command for the user to run,
 e.g. `gh pr create --base dev`. Never open the PR yourself.
@@ -112,3 +142,5 @@ e.g. `gh pr create --base dev`. Never open the PR yourself.
 - `/craft:orch` — free-form multi-agent orchestration (`--swarm`)
 - `plan-orchestrator` skill — produce an ORCHESTRATE file from a spec
 - `drive-engine` skill — the dispatch + verify body this command calls
+- `/craft:git:issue-check` — the issue-premise classifier Step 2's
+  pre-filter invokes when a `#NNN` citation is found

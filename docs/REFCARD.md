@@ -877,7 +877,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 /craft:test release --coverage  # Full coverage analysis
 ```
 
-## Git Commands (11 commands)
+## Git Commands (9 commands)
 
 **Core Git Commands:**
 

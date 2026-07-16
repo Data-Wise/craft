@@ -14,7 +14,7 @@
 > [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
 >
 > **v2.36.0 — Deterministic Workflow Engine** 🚀
-> **46 commands** | **40 skills** | **2 agents** | **1994 tests passing**
+> **47 commands** | **40 skills** | **2 agents** | **1994 tests passing**
 > New `/craft:orch:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orch`), drive (`:drive`), and workflow (`:workflow`).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
@@ -153,7 +153,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 46 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 47 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)

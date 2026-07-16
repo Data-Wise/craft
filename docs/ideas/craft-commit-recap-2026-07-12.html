@@ -1,0 +1,315 @@
+<title>craft — Last 25 Commits</title>
+<style>
+:root{
+  --bg:#faf9f6;
+  --surface:#ffffff;
+  --border:#e4e1d8;
+  --text:#1b1d1c;
+  --text-dim:#5c5f5a;
+  --accent:#1f6f5c;
+  --accent-soft:#e2efe9;
+  --warn:#a15a1f;
+  --warn-soft:#f5e9dc;
+  --info:#3a5a8c;
+  --info-soft:#e6ecf5;
+  --mono-tint:#f2f1ea;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#14171a;
+    --surface:#1c2023;
+    --border:#2d3236;
+    --text:#e9eae6;
+    --text-dim:#9aa09a;
+    --accent:#4fb99e;
+    --accent-soft:#1e2f2a;
+    --warn:#d99456;
+    --warn-soft:#2f2519;
+    --info:#7fa0d6;
+    --info-soft:#1c2733;
+    --mono-tint:#202427;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171a; --surface:#1c2023; --border:#2d3236; --text:#e9eae6; --text-dim:#9aa09a;
+  --accent:#4fb99e; --accent-soft:#1e2f2a; --warn:#d99456; --warn-soft:#2f2519;
+  --info:#7fa0d6; --info-soft:#1c2733; --mono-tint:#202427;
+}
+:root[data-theme="light"]{
+  --bg:#faf9f6; --surface:#ffffff; --border:#e4e1d8; --text:#1b1d1c; --text-dim:#5c5f5a;
+  --accent:#1f6f5c; --accent-soft:#e2efe9; --warn:#a15a1f; --warn-soft:#f5e9dc;
+  --info:#3a5a8c; --info-soft:#e6ecf5; --mono-tint:#f2f1ea;
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  line-height:1.5;
+}
+.wrap{max-width:840px; margin:0 auto; padding:2.5rem 1.5rem 4rem;}
+
+.masthead{display:flex; flex-direction:column; gap:.35rem; margin-bottom:2rem;}
+.eyebrow{
+  font:600 .72rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--accent);
+}
+h1{margin:0; font-size:1.7rem; font-weight:700; text-wrap:balance;}
+.meta{color:var(--text-dim); font-size:.9rem;}
+.meta strong{color:var(--text); font-variant-numeric:tabular-nums;}
+
+.tldr{
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:1.1rem 1.3rem; margin-bottom:2rem; display:flex; flex-direction:column; gap:.55rem;
+}
+.tldr-row{display:flex; gap:.6rem; align-items:baseline;}
+.tldr-label{
+  flex:0 0 auto; font:600 .68rem/1.2 ui-monospace,monospace; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--text-dim); width:5.2rem;
+}
+.tldr-val{font-size:.94rem;}
+.pill{
+  display:inline-block; font:600 .7rem/1 ui-monospace,monospace; padding:.28rem .55rem;
+  border-radius:999px; letter-spacing:.03em; margin-right:.3rem;
+}
+.pill-do{background:var(--accent-soft); color:var(--accent);}
+.pill-check{background:var(--warn-soft); color:var(--warn);}
+
+section{margin-bottom:2.1rem;}
+.section-head{
+  display:flex; align-items:baseline; gap:.6rem; margin-bottom:.7rem;
+  border-bottom:1px solid var(--border); padding-bottom:.4rem;
+}
+.section-title{font-size:1.02rem; font-weight:700;}
+.section-count{
+  font:500 .78rem ui-monospace,monospace; color:var(--text-dim);
+  background:var(--mono-tint); padding:.15rem .5rem; border-radius:6px;
+}
+.section-why{color:var(--text-dim); font-size:.86rem; margin:.2rem 0 .8rem;}
+
+.card{
+  background:var(--surface); border:1px solid var(--border); border-radius:8px;
+  padding:.85rem 1rem; margin-bottom:.55rem;
+  display:grid; grid-template-columns:5.6rem 1fr; gap:.2rem 1rem; align-items:start;
+}
+.hash{
+  font:600 .82rem ui-monospace,monospace; color:var(--accent); align-self:center;
+}
+.msg{font-size:.93rem;}
+.submeta{
+  grid-column:2; font-size:.78rem; color:var(--text-dim); margin-top:.1rem;
+  font-variant-numeric:tabular-nums;
+}
+
+.decision{
+  border-left:3px solid var(--warn); background:var(--warn-soft);
+  border-radius:0 8px 8px 0; padding:1rem 1.1rem; display:flex; flex-direction:column; gap:.5rem;
+}
+.decision-title{font-weight:700; font-size:.95rem;}
+.decision ul{margin:.2rem 0 0; padding-left:1.1rem; font-size:.88rem;}
+.decision li{margin-bottom:.35rem;}
+
+.next{
+  background:var(--accent-soft); border:1px solid var(--accent); border-radius:10px;
+  padding:1.1rem 1.3rem; display:flex; flex-direction:column; gap:.5rem;
+}
+.next-title{font-weight:700; color:var(--accent); font-size:.95rem;}
+.next ol{margin:.2rem 0 0; padding-left:1.2rem; font-size:.92rem;}
+.next li{margin-bottom:.4rem;}
+
+footer{margin-top:2.5rem; font-size:.78rem; color:var(--text-dim); text-align:center;}
+</style>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <span class="eyebrow">Git recap · dev-tools/craft · dev branch</span>
+    <h1>Last 25 commits, at a glance</h1>
+    <div class="meta">HEAD <strong>d5e07fd3c</strong> · span <strong>2–3 days</strong> · worktree still open: <strong>feature/folio-split</strong></div>
+  </div>
+
+  <div class="tldr">
+    <div class="tldr-row">
+      <span class="tldr-label">Shipped</span>
+      <span class="tldr-val"><span class="pill pill-do">craft#199</span> Cowork drift detection + recovery script — merged, done.</span>
+    </div>
+    <div class="tldr-row">
+      <span class="tldr-label">In motion</span>
+      <span class="tldr-val">Folio-split Phase 1–2 complete (folio repo live, CI green); Phase 3 (craft-side deletion) not started.</span>
+    </div>
+    <div class="tldr-row">
+      <span class="tldr-label">Parked</span>
+      <span class="tldr-val">v4 "skills-first surface" + SPEC-D — planning docs only, explicitly queued behind the v4 pin.</span>
+    </div>
+    <div class="tldr-row">
+      <span class="tldr-label">Watch</span>
+      <span class="tldr-val"><span class="pill pill-check">unverified</span> Two Phase-3 pre-reqs are flagged but not confirmed — see Next Steps.</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <span class="section-title">1 · Cowork drift fix — craft#199</span>
+      <span class="section-count">3 commits</span>
+    </div>
+    <p class="section-why">Reopened issue closed the previous fix as done in v2.50.0 even though it never touched Cowork. Re-fixed and merged.</p>
+    <div class="card">
+      <span class="hash">3ced7f7</span>
+      <div>
+        <div class="msg">feat(release): quantify Cowork drift + add recovery script (#280)</div>
+        <div class="submeta">verify-surfaces.sh now reports releases-behind · new cowork-recover.sh</div>
+      </div>
+    </div>
+    <div class="card">
+      <span class="hash">9d97313</span>
+      <div class="msg">docs: .STATUS — folio PR #1 merged, release-readiness gap logged</div>
+    </div>
+    <div class="card">
+      <span class="hash">d5e07fd</span>
+      <div class="msg">docs(status): sync .STATUS for craft#199 fix merge + worktree cleanup</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-title">2 · Folio-split — execution</span>
+      <span class="section-count">7 commits</span>
+    </div>
+    <p class="section-why">The active initiative: pulling docs/publishing commands out of craft into a new <code>folio</code> plugin. Phase 2 reached its checkpoint this window.</p>
+    <div class="card">
+      <span class="hash">ab66ab6</span>
+      <div class="msg">docs: .STATUS — folio-split CP-2 reached + pre-Phase-3 verification passed</div>
+    </div>
+    <div class="card">
+      <span class="hash">9fcf69d</span>
+      <div class="msg">docs: add session HTML reports (actions-minutes, v4-surface, folio-spec-review, folio-split)</div>
+    </div>
+    <div class="card">
+      <span class="hash">d7258aa</span>
+      <div class="msg">chore: .STATUS — session wrap, folio-split Phase 2 paused</div>
+    </div>
+    <div class="card">
+      <span class="hash">07b34a5</span>
+      <div class="msg">chore: .STATUS — folio-split worktree live (T1.1)</div>
+    </div>
+    <div class="card">
+      <span class="hash">3697c14</span>
+      <div class="msg">docs(folio): CP-A cleared — execution breakdown human-approved</div>
+    </div>
+    <div class="card">
+      <span class="hash">d4169e9</span>
+      <div class="msg">docs(folio): combined amendment — review fixes + border filter + v4 rider</div>
+    </div>
+    <div class="card">
+      <span class="hash">f54af5a</span>
+      <div class="msg">docs(folio): record verified P0 partition + public-visibility/protection amendments</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-title">3 · v4 surface &amp; SPEC-D — planning only</span>
+      <span class="section-count">5 commits</span>
+    </div>
+    <p class="section-why">Bigger, later question: what should craft's command surface look like after folio leaves? No code changed — pure ideation, deliberately sequenced behind the folio work.</p>
+    <div class="card">
+      <span class="hash">9abed94</span>
+      <div class="msg">docs(v4): roster grilled &amp; locked — 26 commands, full disposition table</div>
+    </div>
+    <div class="card">
+      <span class="hash">1f8ee82</span>
+      <div class="msg">docs(v4): skills-first surface brainstorm — "69 is an illusion", target ~22 cmds</div>
+    </div>
+    <div class="card">
+      <span class="hash">21bee88</span>
+      <div class="msg">docs(folio): border-filter brainstorm — kill 7 deprecated at the border</div>
+    </div>
+    <div class="card">
+      <span class="hash">05839d1</span>
+      <div class="msg">docs(specs): add SPEC-D proposal — domain specialist gates (agent-skills)</div>
+    </div>
+    <div class="card">
+      <span class="hash">155dd86</span>
+      <div class="msg">docs(spec-d): sequencing note — queued behind v4 surface pin</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-title">4 · Folio-split — origination</span>
+      <span class="section-count">5 commits</span>
+    </div>
+    <p class="section-why">Where the initiative started: grill → plan → workflow spec, before any execution.</p>
+    <div class="card">
+      <span class="hash">9e9161e</span>
+      <div class="msg">docs(folio): workflow-execution SPEC (W1–W5) + close execution grill</div>
+    </div>
+    <div class="card">
+      <span class="hash">d68d88a</span>
+      <div class="msg">docs(plan): ORCHESTRATE-folio-split — 5-phase cross-repo plan from grill</div>
+    </div>
+    <div class="card">
+      <span class="hash">ce5c698</span>
+      <div class="msg">docs(grill): folio split decision ledger — 5 branches locked</div>
+    </div>
+    <div class="card">
+      <span class="hash">451ed63</span>
+      <div class="msg">chore: .STATUS — docs-audit committed, folio split planned + P0 verified</div>
+    </div>
+    <div class="card">
+      <span class="hash">2a8ad3b</span>
+      <div class="msg">fix: extend heredoc-prose exclusion to tee/cp/touch write-through patterns</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="section-title">5 · Native-first prune — Phase 1 (shipped)</span>
+      <span class="section-count">5 commits</span>
+    </div>
+    <p class="section-why">Older, closed thread: deleted 21 dead commands, 115→94, PR #279 merged and cleaned up.</p>
+    <div class="card">
+      <span class="hash">d6aaa90</span>
+      <div class="msg">docs: strip 21 deleted-command refs from docs + website (115→94 cleanup)</div>
+    </div>
+    <div class="card">
+      <span class="hash">7712592</span>
+      <div class="msg">chore: .STATUS — worktree + remote branch cleaned up (PR #279)</div>
+    </div>
+    <div class="card">
+      <span class="hash">5255c6a</span>
+      <div class="msg">docs: post-merge status + ORCHESTRATE close-out for PR #279</div>
+    </div>
+    <div class="card">
+      <span class="hash">4fa44fb</span>
+      <div class="msg">feat(prune)!: native-first Phase 1 — prune 21 dead commands (#279)</div>
+    </div>
+    <div class="card">
+      <span class="hash">82862290</span>
+      <div class="msg">fix: stop branch-guard.sh crashing on stderr-redirect Bash commands</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="decision">
+      <span class="decision-title">⚠ Two claims flagged as unverified, not yet checked</span>
+      <ul>
+        <li><strong>homebrew-tap</strong> — folio formula fix sits on local-only branch <code>feature/folio-formula</code>, never pushed or PR'd.</li>
+        <li><strong>claude-plugins marketplace.json</strong> — still has no row for folio; blocks <code>aggregator-sync.yml</code> on a real release.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="next">
+      <span class="next-title">Recommended next step</span>
+      <ol>
+        <li><strong>Verify before touching Phase 3.</strong> Confirm folio's GitHub secrets (APP_ID/APP_PRIVATE_KEY) actually exist and every ROSTER-MOVE command is genuinely present in folio — two prior "done" claims this session already proved false.</li>
+        <li>Only then resume the open <code>feature/folio-split</code> worktree to delete craft's copies of the 15 moved commands.</li>
+        <li>v4 surface / SPEC-D stay parked — no action needed until Phase 3 lands.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>Generated from <code>git log</code> on the <code>dev</code> branch · dev-tools/craft</footer>
+</div>

@@ -9,6 +9,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`guards.json` write-race closed** — a confirmed lost-update race (40/80
+  concurrent writes lost under the unlocked `jq`-mutate pattern) in
+  `~/.claude/guards.json`'s two writers — Operation 12's `enable`/`disable`/
+  `profile` and `install-guards.sh`'s seed/merge path — is now closed by a
+  shared mkdir-based lock helper (`lib/guards-lock.sh`, atomic on macOS and
+  Linux, with a staleness timeout so a crashed holder can't wedge the lock
+  permanently). See `tests/test_guards_registry_concurrency.sh` and
+  `docs/specs/SPEC-guard-hardening-adversarial-review-2026-07-15.md` (PR B).
+- **`delete-git-dir` removed from the `hard_deny` catalog** — the classifier
+  enforcing `hard_deny` has no git execution context, so it could not be
+  scoped to "same repo only" as intended; `rm -rf .git` is now confirmed
+  (not hard-blocked) via `branch-guard.sh`'s existing universal catastrophic
+  check on every branch. See
+  `docs/specs/GRILL-branch-guard-target-resolution-2026-07-14.md`.
+- **`REFCARD-BRANCH-GUARD.md` corrected** — the "HIGH (Hard Block)" tier
+  previously documented `rm -rf .git` as a hard block; the actual hook code
+  has always routed it through `_confirm` (ASK tier). Doc now matches code.
+- **Cumulative `cd`-target resolution in both Guard Suite hooks** — a compound
+  Bash command with multiple `cd` clauses (`cd a && cd b && git …`) now resolves
+  to the **last** directory (cumulative tracking), not the first. Extends #284's
+  single-hop leading-`cd`/`-C` resolution to `no-switch-guard.sh` (was `-C`-only)
+  and retrofits `branch-guard.sh`'s §8d0 resolver, so worktree pushes and
+  cross-repo switches are gated against the branch they actually target. Quote-,
+  `$`-, and backtick-bearing paths are skipped; a `;`/`&&` inside a quoted arg is
+  still out of scope (documented limitation).
+
 ## [2.61.1] - 2026-07-08
 
 ### Changed

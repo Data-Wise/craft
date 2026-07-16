@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 46 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.61.2 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types), dead-agent-dispatch cleanup with verify-surfaces --report-only/--version flags and a release-rollback runbook (PR #270), and guard-suite consolidation with --classify/GUARD_DRY_RUN=1 ground-truth mode across both hooks (PR #272)."
+site_description: "Full-stack developer toolkit - 47 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v2.61.2 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types), dead-agent-dispatch cleanup with verify-surfaces --report-only/--version flags and a release-rollback runbook (PR #270), and guard-suite consolidation with --classify/GUARD_DRY_RUN=1 ground-truth mode across both hooks (PR #272)."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -230,6 +230,7 @@ nav:
       - dist:surfaces Tutorial: tutorials/TUTORIAL-dist-surfaces.md
       - docs:changelog Tutorial: tutorials/TUTORIAL-docs-changelog.md
       - git:guard Tutorial: tutorials/TUTORIAL-git-guard.md
+      - git:issue-check Tutorial: tutorials/TUTORIAL-git-issue-check.md
       - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
 
   # 3. TEACHING - Dedicated teaching workflow section
@@ -281,6 +282,7 @@ nav:
       - /craft:code:release-watch: commands/code/release-watch.md
       - /craft:code:sync-features: commands/code/sync-features.md
       - /craft:test: commands/test.md
+      - /craft:git:issue-check: commands/git/issue-check.md
       - /craft:arch:diagram: commands/arch/diagram.md
       - /craft:arch:plan: commands/arch/plan.md
       - /craft:arch:review: commands/arch/review.md
