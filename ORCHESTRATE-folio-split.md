@@ -197,14 +197,36 @@ ledger-recorded deviations.
 
 ## Phase 4: `/folio:do` + Coordinated Release (craft v4.0.0 / folio v1.0.0)
 
-- [ ] 4.1 Thin `/folio:do` (routes folio's own commands only — no cross-plugin dispatch).
+> **Re-grounded 2026-07-16** — verified directly against both repos' actual state (not this
+> doc's own prior claims) before resuming: folio's `origin/main` is still the single init-scaffold
+> commit (Phase 1+2 only ever landed on `origin/dev` via PR #1) — 4.2's "folio v1.0.0 FIRST" is a
+> first-ever dev→main for that repo, not routine. `/folio:do` (4.1) doesn't exist as a file yet.
+> CP-2's flagged release-readiness gap (zero e2e/dogfood tests, `plugin.json` still `0.1.0`) was
+> never turned into a tracked task here — it's due now that Phase 3 is confirmed complete. Full
+> re-grounded task breakdown (acceptance + verification per task, corrected dependency order):
+> `tasks/todo.md` Phase 4 + `tasks/plan.md`'s P4 dependency graph.
+>
+> **Adversarially re-checked, same day, second pass:** folio's `main` branch protection has
+> `required_status_checks: None` (confirmed via `gh api`, not assumed) — 4.2's "confirmed live"
+> release step needs a status-check configured first, since `main` has never had a PR run
+> against it. folio's own `tasks/` dir already has leftover cruft (not just craft's) — GATE 4's
+> cleanup line covers both repos now. The rollback runbook (4.3) still has no answer for a
+> partial rollback (folio ships, craft's release then stalls) — open, unresolved.
+
+- [x] 4.1 Thin `/folio:do` (routes folio's own commands only — no cross-plugin dispatch) — DONE
+      2026-07-16: folio PR #2 (`do.md`), #6 (tests), #7 (docs+version), all merged. Corrected
+      task numbering + full acceptance/verification: `tasks/todo.md` T4.1/T4.1b/T4.1c.
 - [ ] 4.2 **Release ORDER (fixes devops-M5): folio v1.0.0 FIRST** — confirmed live +
       `brew install` verified — **then craft v4.0.0 tag LAST**. Both dev→main merge-commit.
       Ask before EACH step.
-- [ ] 4.3 **Rollback runbook** (written BEFORE 4.2 executes): craft revert = delete tag +
-      restore prior `Formula/craft.rb` + un-bump marketplace pin + revert merge on main;
-      folio revert = yank release + tap/marketplace entry removal. Note: `release: published`
-      auto-fires irreversible tap/marketplace pushes — the runbook is the undo map.
+- [x] 4.3 **Rollback runbook** (written BEFORE 4.2 executes) — DONE 2026-07-16, craft PR
+      [#293](https://github.com/Data-Wise/craft/pull/293) MERGED:
+      `docs/RUNBOOK-v4-release-rollback.md`. craft revert = revert PR on `main` + restore prior
+      `Formula/craft.rb` (url+sha256) + annotate (not delete) the release; folio revert = delete
+      release/tag (its first-ever release, no prior version to fall back to) + remove
+      `Formula/folio.rb` entirely + unpublish marketplace entry. The partial-rollback question
+      (folio ships, craft stalls) is stated explicitly as unresolved — the runbook instructs
+      surfacing it, not guessing.
 - [ ] 4.4 wf-p4-verify: both suites on main, brew audit both formulas, site checks.
 - [ ] **GATE 4**: two independent plugins; neither needs the other to ship. Record OUTCOME in
       ORCHESTRATE + .STATUS + memory; delete `tasks/` from the branch before final merge.
