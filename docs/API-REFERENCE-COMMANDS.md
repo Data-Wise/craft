@@ -16,7 +16,7 @@ Complete OpenAPI-style documentation for all 97 Craft commands organized by cate
 4. **[CI/CD Commands](#cicd-commands)** (3 commands) - Continuous integration
 5. **[Check Commands](#check-commands)** (1 command) - Pre-flight validation
 6. **[Distribution Commands](#distribution-commands)** (4 commands) - Release & packaging
-7. **[Documentation Commands](#documentation-commands)** (46 commands) - Docs & tutorials
+7. **[Documentation Commands](#documentation-commands)** (47 commands) - Docs & tutorials
 8. **[Git Commands](#git-commands)** (11 commands) - Version control workflows
 9. **[Plan Commands](#plan-commands)** (3 commands) - Project planning
 10. **[Site Commands](#site-commands)** (16 commands) - Static site generation
@@ -178,7 +178,7 @@ MAIN MENU
 │  ├─ /craft:code:test-gen
 │  └─ ... more
 ├─ Tests (7 commands)
-├─ Documentation (46 commands)
+├─ Documentation (47 commands)
 └─ ... more categories
 ```
 

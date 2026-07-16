@@ -26,7 +26,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | project-detector | Smart detection of project types, build tools, and CI requirements | `skills/ci/SKILL.md` |
 
-### Code (4)
+### Code (5)
 
 | Name | Description | Path |
 |------|-------------|------|
@@ -34,6 +34,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 | demonstration-builder | Designs progressive runnable code examples for tutorials, vignettes, presentations, and documentation | `skills/code/demonstration-builder/SKILL.md` |
 | command-skill-token-efficiency | Checks where content belongs (command vs. skill) when authoring/resizing command, skill, or agent files, and runs the quantitative line-ratio check | `skills/code/command-skill-token-efficiency/SKILL.md` |
 | plugin-audit | Diffs installed plugins' command/skill surfaces to flag cross-namespace name collisions (e.g. `workflow` vs. `craft:workflow`) | `skills/code/plugin-audit/SKILL.md` |
+| audit-router | Shared vocabulary + reference bodies for `/craft:code:command-audit` and `/craft:code:skill-standards` | `skills/code/audit-router/SKILL.md` |
 
 ### Design (3)
 

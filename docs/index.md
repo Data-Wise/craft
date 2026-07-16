@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-2.61.2-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.0.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -215,7 +215,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 | **Utils**          | 2       | Misc helpers                                                                                                                                                       |
 | **Total**          | **115** | **Complete development workflow coverage**                                                                                                                         |
 
-!!! info "Latest: v2.61.2 — Guard Suite Consolidation"
+!!! info "Latest: v4.0.0 — Guard Suite Consolidation"
     [PR #272](https://github.com/Data-Wise/craft/pull/272) consolidates the branch-guard and
     no-switch-guard into a skill-driven operations layer under `skills/dev/git/`, adds
     `--classify`/`GUARD_DRY_RUN=1` ground-truth mode, a portable `sedi()` wrapper, and 62 new

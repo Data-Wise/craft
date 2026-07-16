@@ -8,7 +8,7 @@
 
 > `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (7 commands)
 
-**Current Version:** v2.61.2 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
+**Current Version:** v4.0.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
@@ -87,8 +87,8 @@ performance) · `release` (<300s, thorough). Example: `/craft:code:lint debug`.
 
 | Directory | Purpose |
 |-----------|---------|
-| `commands/` | 46 commands (auto-discovered, one `.md` per command) |
-| `skills/` | 39 skills (`SKILL.md` pattern) |
+| `commands/` | 47 commands (auto-discovered, one `.md` per command) |
+| `skills/` | 40 skills (`SKILL.md` pattern) |
 | `agents/` | 8 agent definitions |
 | `tests/` | Unit, e2e, dogfood, and integration test suites |
 | `scripts/` | Release, validation, and maintenance scripts |

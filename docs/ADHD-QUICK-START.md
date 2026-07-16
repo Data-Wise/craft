@@ -23,7 +23,7 @@ brew tap data-wise/tap && brew install craft  # Homebrew (macOS)
 claude plugin add github:Data-Wise/craft      # GitHub marketplace
 
 # Then verify:
-/craft:hub                                    # Verify 46 commands are available
+/craft:hub                                    # Verify 47 commands are available
 ```
 
 **Expected:** You'll see a categorized list of all craft commands.
@@ -69,7 +69,7 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 
 | Question | Answer |
 |----------|--------|
-| Where are my commands? | Run `/craft:hub` to see all 46 commands |
+| Where are my commands? | Run `/craft:hub` to see all 47 commands |
 | How do I automate docs? | Use `/craft:docs:update` for smart full cycle |
 | What's the universal command? | `/craft:do "task"` - AI routes automatically |
 

@@ -12,7 +12,7 @@ Complete reference for all 116 Craft commands organized by category. Craft provi
 Use `/craft:hub` to discover all available commands interactively.
 
 !!! tip "Preview Before Executing"
-    27 commands support dry-run mode. Add `--dry-run` or `-n` to preview actions before executing. See [Dry-Run Commands](#dry-run-commands) below.
+    47 commands support dry-run mode. Add `--dry-run` or `-n` to preview actions before executing. See [Dry-Run Commands](#dry-run-commands) below.
 
 ## Smart Commands
 

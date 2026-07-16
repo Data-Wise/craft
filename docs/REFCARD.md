@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 2.61.2 (released 2026-07-09)                       │
+│  Version: 4.0.0 (released 2026-07-09)                       │
 │  Commands: 115 | Agents: 8 | Skills: 45                     │
 │  Documentation: 99% complete | Tests: 2056+ passing           │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v2.61.2: Guard Suite Consolidation                          │
+│  v4.0.0: Guard Suite Consolidation                          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -188,7 +188,7 @@
 **Categories:**
 
 - Smart Commands (do, check, orchestrate, hub)
-- Documentation (46 commands)
+- Documentation (47 commands)
 - Site Management (16 commands)
 - Code (15 commands) & Testing (3 commands)
 - Git (14 commands incl. guides) & CI (4 commands)
@@ -842,7 +842,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
 
-## Code & Testing (46 commands)
+## Code & Testing (47 commands)
 
 **Core Commands** (15 code + 2 test; core subset shown):
 
@@ -858,6 +858,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 | `/craft:ci:fix`         | ----- | Diagnose and fix CI failures |
 | `/craft:code:fewer-prompts`    | ----- | Install read-only Bash allowlist (--dry-run, --global, --reset) |
 | `/craft:code:skill-standards`  | ----- | Audit plugin skills against Anthropic Skill Standards (--fix, --json, --refresh-standards) |
+| `/craft:code:demo`             | ----- | Create working code demonstrations and examples |
 
 **Test Commands:**
 
@@ -884,6 +885,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 | Command                       | Description                                                                  |
 | ----------------------------- | ---------------------------------------------------------------------------- |
 | `/craft:git:worktree`         | Parallel development with git worktrees                                      |
+| `/craft:git:issue-check`      | Verify a GitHub issue's premise still holds before implementing its fix      |
 
 Clean, branch, git status, protect, protect-baseline, unprotect, and guard
 management were folded into the `dev/git` skill (2026-07 v4 consolidation) —

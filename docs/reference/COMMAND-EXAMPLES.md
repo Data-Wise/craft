@@ -152,7 +152,7 @@ MAIN MENU
 │  ├─ /craft:code:test-gen - Generate test stubs
 │  └─ ... more
 ├─ Tests (7 commands) ............................... /craft:test:*
-├─ Documentation (46 commands) ....................... /craft:docs:*
+├─ Documentation (47 commands) ....................... /craft:docs:*
 └─ ... more categories
 
 Press UP/DOWN to browse
