@@ -1,6 +1,6 @@
 ---
 description: Run CI checks locally before pushing (lint, test, coverage, security)
-category: code
+category: ci
 arguments:
   - name: quick
     description: Skip slow checks (coverage, security)

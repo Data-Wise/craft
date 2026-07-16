@@ -1,6 +1,6 @@
 ---
 description: Fix CI Failures
-category: code
+category: ci
 ---
 
 # Fix CI Failures
