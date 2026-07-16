@@ -932,9 +932,35 @@ if [[ "$PROTECTION" == "smart" ]]; then
       # ---------------------------------------------------------------
       # Bash write-through detection (file creation via redirection)
       # Catches: echo/cat/printf > file, tee file, cp src dst
-      # Skips: markdown files, variables in paths, existing files
+      # Skips: markdown files, variables in paths, existing files,
+      #        out-of-repo targets, quoted program/pattern text
       # ---------------------------------------------------------------
       BASH_TARGET=""
+
+      # Quoted-span stripping (2026-07-16 fix): Patterns 1-4 below coarse-scan
+      # $COMMAND for shell metacharacters/keywords with plain grep, which has
+      # no notion of quoting. A `>` or `cp `/`tee `/`touch ` substring INSIDE
+      # a single- or double-quoted argument — e.g. `awk 'NR>=203'`,
+      # `grep -E '>[^=]'`, `grep "cp \|redirect"` — is program/pattern TEXT,
+      # not real shell syntax, but was scanned identically to an unquoted
+      # redirect. This is the same failure class Group 14c (2026-07-10)
+      # already fixed for heredoc bodies via HAS_HEREDOC; this generalizes it
+      # to any quoted span, not just heredoc bodies.
+      #
+      # COMMAND_SCAN is used ONLY for the coarse `grep -q` presence checks
+      # below, deciding whether a pattern applies at all. Extraction
+      # (`grep -oE`) still runs against the ORIGINAL $COMMAND, so a real
+      # target quoted for spaces (e.g. `cp a.py "new file.py"`) is unaffected
+      # — only text that would otherwise cause a pattern to fire on content
+      # that was never real shell syntax is suppressed.
+      #
+      # Single-quoted spans are stripped exactly: bash disallows a literal '
+      # inside '...' with no escape mechanism, so `'[^']*'` cannot mismatch a
+      # real single-quoted span. Double-quoted spans are a best-effort
+      # approximation (bash permits \" inside "..."); under-stripping here
+      # only returns to the prior (already-shipped) behavior for that rare
+      # case — it can never introduce a NEW false positive.
+      COMMAND_SCAN="$(printf '%s' "$COMMAND" | sed -E "s/'[^']*'/'Q'/g" | sed -E 's/"[^"]*"/"Q"/g')"
 
       # Heredoc bodies (e.g. `git commit -m "$(cat <<'EOF' ... EOF)"`) are
       # free-form text that can contain a literal '>' with no relation to a
@@ -957,8 +983,9 @@ if [[ "$PROTECTION" == "smart" ]]; then
       # "no match" case the `[[ -z "$BASH_TARGET" ]]` checks below already
       # handle correctly. `|| true` makes a real no-match behave like the
       # empty-string fallback it was always meant to be, instead of a crash.
-      if [[ "$HAS_HEREDOC" == false ]] && echo "$COMMAND" | grep -qE '>[[:space:]]*[^>]'; then
-        # Extract the target after the last >
+      if [[ "$HAS_HEREDOC" == false ]] && echo "$COMMAND_SCAN" | grep -qE '>[[:space:]]*[^>]'; then
+        # Extract the target after the last > — against the ORIGINAL
+        # command, so a real quoted target (spaces, etc.) is found intact.
         BASH_TARGET="$(echo "$COMMAND" | grep -oE '>[[:space:]]*[^>|&;[:space:]]+' | tail -1 | sed 's/^>[[:space:]]*//' || true)"
       fi
 
@@ -967,19 +994,19 @@ if [[ "$PROTECTION" == "smart" ]]; then
       # grep is line-oriented, so a heredoc body line that happens to start
       # with "tee "/"touch "/contain "cp <word> <word>" as prose is
       # indistinguishable from real shell syntax without it.
-      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'tee[[:space:]]+[^-]'; then
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE 'tee[[:space:]]+[^-]'; then
         BASH_TARGET="$(echo "$COMMAND" | grep -oE 'tee[[:space:]]+(-a[[:space:]]+)?[^|;&[:space:]]+' | head -1 | sed 's/^tee[[:space:]]*\(-a[[:space:]]*\)\{0,1\}//' || true)"
       fi
 
       # Pattern 3: cp <src> <dst>  e.g. "cp template.py new.py"
-      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE 'cp[[:space:]]'; then
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE 'cp[[:space:]]'; then
         BASH_TARGET="$(echo "$COMMAND" | grep -oE 'cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}' || true)"
       fi
 
       # Pattern 4: touch <file>  e.g. "touch .claude/allow-once"
       # (extensionless targets like guard-bypass markers use touch, not
       # redirection — patterns 1-3 alone never see them)
-      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*touch[[:space:]]'; then
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE '(^|;|&&|\|\|)[[:space:]]*touch[[:space:]]'; then
         BASH_TARGET="$(echo "$COMMAND" | grep -oE 'touch[[:space:]]+[^|;&[:space:]]+' | tail -1 | sed 's/^touch[[:space:]]*//' || true)"
       fi
 
@@ -1024,6 +1051,38 @@ if [[ "$PROTECTION" == "smart" ]]; then
               BASH_ACTUAL="$BASH_TARGET"
               [[ "$BASH_TARGET" != /* ]] && BASH_ACTUAL="${CWD}/${BASH_TARGET}"
 
+              # Path scoping (2026-07-16 fix): a write to /tmp, $HOME, or any
+              # absolute path outside PROJECT_ROOT poses no risk to THIS
+              # repo's ${BRANCH} — e.g. backing up an installed hook to the
+              # scratchpad before re-installing it. Only /dev/* was excluded
+              # before (line ~1013); an out-of-repo real path was still
+              # flagged as "creates a new code file on ${BRANCH}", which is
+              # false — the file isn't in the repo tree at all.
+              #
+              # PROJECT_ROOT is a REALPATH (from `git rev-parse
+              # --show-toplevel`, which resolves symlinks). $CWD is whatever
+              # the caller passed — often NOT canonicalized (e.g. macOS's
+              # /tmp is a symlink to /private/tmp; `mktemp -d` returns the
+              # /tmp form). A literal-prefix compare of the raw BASH_ACTUAL
+              # against PROJECT_ROOT would then mismatch for every in-repo
+              # write under a symlinked ancestor — a real regression, not a
+              # fix. Canonicalize BASH_ACTUAL's directory the same way
+              # PROJECT_ROOT was canonicalized before comparing. `pwd -P` is
+              # POSIX and avoids `realpath`/`readlink -f`, which aren't
+              # universally available (see memory:
+              # macos-shell-portability-gotchas). If the directory doesn't
+              # exist yet, fall back to the raw path — no worse than the
+              # unscoped behavior this replaces.
+              BASH_ACTUAL_DIR="$(dirname "$BASH_ACTUAL")"
+              BASH_ACTUAL_DIR_REAL="$(cd "$BASH_ACTUAL_DIR" 2>/dev/null && pwd -P || printf '%s' "$BASH_ACTUAL_DIR")"
+              BASH_ACTUAL_REAL="${BASH_ACTUAL_DIR_REAL}/$(basename "$BASH_ACTUAL")"
+
+              if [[ "$BASH_ACTUAL_REAL" != "${PROJECT_ROOT}" && "$BASH_ACTUAL_REAL" != "${PROJECT_ROOT}/"* ]]; then
+                BASH_TARGET=""
+              fi
+            fi
+
+            if [[ -n "$BASH_TARGET" ]] && [[ "$BASH_IS_CODE" == true ]]; then
               if [[ ! -f "$BASH_ACTUAL" ]] && [[ ! -f "${PROJECT_ROOT}/${BASH_TARGET}" ]]; then
                 _confirm "bash_write_through" \
                   "Bash creates new .${BASH_EXT} file: ${BASH_TARGET}" \

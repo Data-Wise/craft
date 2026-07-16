@@ -1692,6 +1692,112 @@ run_test_with_stderr \
 
 echo ""
 
+# --------------------------------------------------------------------------
+# Group 22: Quoted-span + path-scoping false-positive regression (2026-07-16)
+#
+# Same failure class as Group 14c (heredoc prose), generalized. Patterns 1-4
+# coarse-scanned $COMMAND with plain grep, which has no notion of quoting: a
+# `>` or `cp `/`tee `/`touch ` substring INSIDE a single- or double-quoted
+# argument (an awk/grep/sed program, a search pattern) was scanned as if it
+# were real shell syntax. Three of these fired live during a session auditing
+# THIS exact bug class: `awk 'NR>=203 && ...'`, `grep -E '>[^=]'`, and a grep
+# whose search pattern literally contained "cp " as quoted text. A fourth,
+# unrelated bug fired alongside it: `cp <installed-hook> /tmp/...bak` was
+# flagged as "creates a new code file on dev" even though /tmp is nowhere
+# near the repo — only /dev/* was excluded, not general out-of-repo targets.
+#
+# Fix: COMMAND_SCAN strips quoted-span CONTENTS before the coarse `grep -q`
+# checks (detection only — extraction still runs against the ORIGINAL
+# $COMMAND, so a real quoted target survives); BASH_ACTUAL is now checked
+# against a PROJECT_ROOT prefix before being flagged.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- Quoted-Span + Path-Scoping Regression ---${T_NC}"
+
+REPO_QS=$(init_repo)
+switch_branch "$REPO_QS" "dev"
+
+# The exact awk invocation that fired live: '>=' inside a single-quoted
+# program is program syntax, not a shell redirect.
+run_test \
+    "test_bash_awk_single_quoted_ge_allowed" \
+    0 \
+    "$(json_bash "awk 'NR>=203 && /^## / {exit} NR>=203' file.md" "$REPO_QS")" \
+    "$REPO_QS"
+
+# The exact grep invocation that fired live: '>[^=]' inside a single-quoted
+# -E pattern is regex syntax, not a shell redirect.
+run_test \
+    "test_bash_grep_pattern_with_gt_allowed" \
+    0 \
+    "$(json_bash "grep -E '>[^=]' scripts/branch-guard.sh" "$REPO_QS")" \
+    "$REPO_QS"
+
+# A literal "cp " substring inside a double-quoted grep search pattern (not
+# an invocation of cp) must not trip Pattern 3.
+run_test \
+    "test_bash_grep_quoted_cp_substring_allowed" \
+    0 \
+    "$(json_bash_multiline 'grep -n "cp \|redirect" tests/test_branch_guard.sh' "$REPO_QS")" \
+    "$REPO_QS"
+
+# Backing up an installed hook to /tmp before re-running an installer — the
+# real command from the session that surfaced the path-scoping bug. /tmp is
+# outside PROJECT_ROOT entirely; must never be flagged as "creates a new
+# code file on dev".
+run_test \
+    "test_bash_cp_to_tmp_outside_repo_allowed" \
+    0 \
+    "$(json_bash "cp ~/.claude/hooks/branch-guard.sh /tmp/branch-guard-pre-install-copy" "$REPO_QS")" \
+    "$REPO_QS"
+
+# Same class: redirecting output to a file under $HOME, well outside the repo.
+run_test \
+    "test_bash_redirect_to_home_outside_repo_allowed" \
+    0 \
+    '{"tool_name":"Bash","tool_input":{"command":"echo backup > /tmp/scratch_notes.py"},"cwd":"'"$REPO_QS"'"}' \
+    "$REPO_QS"
+
+# --- Regression guards: the fix must not weaken real detection ---
+
+# A real redirect immediately after a single-quoted grep pattern must still
+# be caught — proves COMMAND_SCAN stripping doesn't eat an UNQUOTED '>'
+# elsewhere in the same command.
+run_test \
+    "test_bash_quoted_pattern_plus_real_redirect_still_blocked" \
+    2 \
+    "$(json_bash "grep 'pattern' file.py > brand_new_output.py" "$REPO_QS")" \
+    "$REPO_QS"
+
+# A real redirect to a quoted target (spaces in the filename) must still be
+# caught with the CORRECT target extracted — proves extraction against the
+# ORIGINAL command (not the quote-stripped scan copy) still works.
+run_test \
+    "test_bash_redirect_quoted_target_with_space_still_blocked" \
+    2 \
+    "$(json_bash "cat > 'new file.py'" "$REPO_QS")" \
+    "$REPO_QS"
+
+# cp to a genuinely new code file INSIDE the repo must still be caught —
+# proves path-scoping only excludes out-of-repo targets, not in-repo ones.
+run_test \
+    "test_bash_cp_inside_repo_still_blocked" \
+    2 \
+    "$(json_bash "cp template.py brand_new_inside.py" "$REPO_QS")" \
+    "$REPO_QS"
+
+# A real, unquoted touch of a guard-bypass marker must still fire even when
+# the same command also contains an unrelated quoted string mentioning
+# "touch" as prose — proves the fix doesn't over-suppress real Pattern 4
+# matches just because a quoted decoy exists elsewhere.
+run_test \
+    "test_bash_real_touch_bypass_with_quoted_decoy_still_blocked" \
+    2 \
+    "$(json_bash "echo 'note: touch base first' && touch .claude/allow-once" "$REPO_QS")" \
+    "$REPO_QS"
+
+echo ""
+
 # ============================================================================
 # Summary
 # ============================================================================
