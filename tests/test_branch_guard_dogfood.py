@@ -573,7 +573,12 @@ class TestPerformance(unittest.TestCase):
             times.append(elapsed)
 
         avg = sum(times) / len(times)
-        self.assertLess(avg, 200, f"Block avg {avg:.0f}ms exceeds 200ms budget")
+        # Block path does more work (git status, path resolution) than the allow
+        # path above. 350ms budget, not 200ms: A/B timing against branch-guard.sh
+        # at 3 prior commits (733837d11, 5be951273, ebd27fe49) showed 207-360ms on
+        # this machine even on pre-#287 code — bash subprocess-spawn overhead, not
+        # a regression from cumulative-cwd resolution.
+        self.assertLess(avg, 350, f"Block avg {avg:.0f}ms exceeds 350ms budget")
 
 
 # ============================================================================
