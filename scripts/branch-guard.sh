@@ -954,16 +954,29 @@ if [[ "$PROTECTION" == "smart" ]]; then
       # — only text that would otherwise cause a pattern to fire on content
       # that was never real shell syntax is suppressed.
       #
+      # MUST be a single alternation pattern (`'...'|"..."`), not two
+      # independent s/// passes for single- and double-quotes. Two independent
+      # passes let a single-quote-pair span cross entirely unrelated
+      # double-quoted strings — e.g. `echo "it's" > f.py && echo "don't"` has
+      # two double-quoted words that each contain exactly one apostrophe; a
+      # standalone `s/'[^']*'/Q/g` pairs those two apostrophes across the ` >
+      # f.py && echo ` in between and erases the REAL redirect from
+      # COMMAND_SCAN, causing a genuine write-through to go undetected (a
+      # false NEGATIVE, not just a false positive — confirmed live against
+      # this exact command on 2026-07-16). The combined alternation resolves
+      # quote-type at the first quote character encountered, so it can never
+      # pair across a boundary of the other quote type.
+      #
       # Single-quoted spans are stripped exactly: bash disallows a literal '
       # inside '...' with no escape mechanism, so `'[^']*'` cannot mismatch a
       # real single-quoted span. Double-quoted spans are a best-effort
       # approximation (bash permits \" inside "..."); under-stripping here
       # only returns to the prior (already-shipped) behavior for that rare
       # case — it can never introduce a NEW false positive.
-      # Single sed invocation (both expressions, no printf/pipe) — this runs
-      # on every Bash tool call, so process-fork count matters for the
-      # dogfood perf budget (test_branch_guard_under_200ms).
-      COMMAND_SCAN="$(sed -E -e "s/'[^']*'/'Q'/g" -e 's/"[^"]*"/"Q"/g' <<< "$COMMAND")"
+      # Single sed invocation — this runs on every Bash tool call, so
+      # process-fork count matters for the dogfood perf budget
+      # (test_branch_guard_under_200ms).
+      COMMAND_SCAN="$(sed -E "s/'[^']*'|\"[^\"]*\"/Q/g" <<< "$COMMAND")"
 
       # Heredoc bodies (e.g. `git commit -m "$(cat <<'EOF' ... EOF)"`) are
       # free-form text that can contain a literal '>' with no relation to a

@@ -1760,6 +1760,20 @@ run_test \
 
 # --- Regression guards: the fix must not weaken real detection ---
 
+# Two SEPARATE double-quoted strings that each contain exactly one apostrophe,
+# straddling a REAL unquoted redirect — proves COMMAND_SCAN's single-quote
+# stripping is a combined alternation (resolves quote-type at the first quote
+# char) rather than two independent passes. Two independent passes would pair
+# the apostrophe in "it's" with the one in "don't" across the redirect in
+# between and erase it from the scan, letting a genuine write-through on dev
+# go completely undetected — confirmed live as a false negative before this
+# test was added (2026-07-16).
+run_test \
+    "test_bash_cross_quote_apostrophes_dont_eat_real_redirect" \
+    2 \
+    "$(json_bash_multiline "echo \"it's ready\" > brand_new_cross_quote.py && echo \"don't tell\"" "$REPO_QS")" \
+    "$REPO_QS"
+
 # A real redirect immediately after a single-quoted grep pattern must still
 # be caught — proves COMMAND_SCAN stripping doesn't eat an UNQUOTED '>'
 # elsewhere in the same command.
