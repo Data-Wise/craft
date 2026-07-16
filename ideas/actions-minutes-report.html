@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitHub Actions — Zero-CI Strategy (Executed)</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f2430;
+    --ink: #e8eaed;
+    --muted: #9aa4b2;
+    --line: #2a2f3a;
+    --accent: #6ea8fe;
+    --green: #5bd6a0;
+    --amber: #f5c26b;
+    --red: #f2727f;
+    --purple: #b48ef2;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f7f9; --card: #ffffff; --card2: #f0f2f6;
+      --ink: #1a1d23; --muted: #5b6472; --line: #e2e6ec;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 0 0 80px;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; padding: 0 20px; }
+  header {
+    padding: 44px 20px 28px; text-align: center;
+    background: linear-gradient(160deg, rgba(91,214,160,.14), transparent 70%);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.5px; }
+  header .sub { color: var(--muted); font-size: 15px; }
+  .pill {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px; margin: 2px;
+    background: var(--card2); color: var(--muted); border: 1px solid var(--line);
+  }
+  .pill.hot { color: var(--red); border-color: rgba(242,114,127,.4); }
+  .pill.ok  { color: var(--green); border-color: rgba(91,214,160,.4); }
+  .pill.warn{ color: var(--amber); border-color: rgba(245,194,107,.4); }
+  h2 {
+    font-size: 21px; margin: 40px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--line); scroll-margin-top: 20px;
+  }
+  h2 .emoji { margin-right: 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 20px; margin: 14px 0;
+  }
+  .tldr {
+    background: linear-gradient(150deg, rgba(91,214,160,.12), rgba(110,168,254,.06));
+    border: 1px solid rgba(91,214,160,.35);
+  }
+  .tldr b { color: var(--green); }
+  .grid { display: grid; gap: 12px; }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 680px) { .g4, .g2 { grid-template-columns: 1fr 1fr; } }
+  .stat {
+    background: var(--card2); border-radius: 12px; padding: 16px; text-align: center;
+    border: 1px solid var(--line);
+  }
+  .stat .n { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+  .stat .n.bad { color: var(--red); }
+  .stat .n.warn { color: var(--amber); }
+  .stat .n.good { color: var(--green); }
+  table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .scroll { overflow-x: auto; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .4px; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  .dead { color: var(--red); font-weight: 700; }
+  .live { color: var(--green); font-weight: 700; }
+  .done li { list-style: none; position: relative; padding-left: 26px; margin: 8px 0; }
+  .done li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+  .todo li { list-style: none; position: relative; padding-left: 26px; margin: 8px 0; }
+  .todo li::before { content: "☐"; position: absolute; left: 0; color: var(--accent); font-size: 17px; top: -1px; }
+  ul.tight { margin: 6px 0; padding-left: 20px; }
+  ul.tight li { margin: 5px 0; }
+  code {
+    background: var(--card2); padding: 1px 6px; border-radius: 5px;
+    font-size: 13.5px; font-family: "SF Mono", ui-monospace, Menlo, monospace;
+  }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .toc a {
+    font-size: 13px; text-decoration: none; color: var(--accent);
+    background: var(--card2); padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+  }
+  .toc a:hover { border-color: var(--accent); }
+  .callout {
+    background: rgba(242,114,127,.08); border: 1px solid rgba(242,114,127,.35);
+    border-radius: 12px; padding: 14px 16px; margin: 14px 0; font-size: 14.5px;
+  }
+  .callout b { color: var(--red); }
+  .rec {
+    background: rgba(91,214,160,.08); border: 1px solid rgba(91,214,160,.4);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .rec b { color: var(--green); }
+  footer { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 40px; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>🛑 GitHub Actions — Zero-CI Strategy</h1>
+    <div class="sub">Data-Wise account · executed 2026-07-09 · pool resets Aug 1</div>
+    <div style="margin-top:14px">
+      <span class="pill ok">✓ EXECUTED — spend now ~0 min/day</span>
+      <span class="pill warn">was: 2,700/3,000 min in 9 days</span>
+      <span class="pill hot">⚠ self-hosted no longer free (research)</span>
+    </div>
+    <div class="toc">
+      <a href="#tldr">TL;DR</a>
+      <a href="#shipped">What Shipped</a>
+      <a href="#gates">Where the Gates Live Now</a>
+      <a href="#research">Online-CI Research</a>
+      <a href="#revert">Revert Paths</a>
+      <a href="#next">Aug 1 Plan</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="card tldr" id="tldr">
+    <p style="margin:0"><b>TL;DR</b> — Diagnosed (savant = ~2,650 of the 2,700 min: 373 push-runs ×
+    ~7.1 billed-min from per-job rounding), then executed in two steps the same day:
+    <b>PR #168</b> consolidated 5 CI jobs → 1 (measured 7.1 → 3 billed min, −58%), then
+    <b>PR #169</b> went all the way to <b>zero-CI mode</b>: savant CI is dispatch-only, main's
+    required checks emptied, and <b>12 workflows disabled across 4 other private repos</b>.
+    All gating moved local (<code>scripts/ci-local.sh</code>). Projected GitHub spend rest of
+    cycle: <b>~0 min</b>. Research bonus: GitHub's March 2026 pricing change means self-hosted
+    runners are <b>no longer free</b> for private repos — the earlier proposal's claim is corrected.</p>
+  </div>
+
+  <div class="grid g4" style="margin-top:14px">
+    <div class="stat"><div class="n bad">2,700</div><div class="l muted">min burned, day 9</div></div>
+    <div class="stat"><div class="n warn">7.1 → 3</div><div class="l muted">billed min/run (PR #168)</div></div>
+    <div class="stat"><div class="n good">0</div><div class="l muted">automatic runs now (PR #169)</div></div>
+    <div class="stat"><div class="n good">~300</div><div class="l muted">min banked for the cycle</div></div>
+  </div>
+
+  <h2 id="shipped"><span class="emoji">🚢</span>What Shipped (all merged, all verified)</h2>
+  <div class="card">
+    <ul class="done">
+      <li><b>savant PR #168</b> — 5 jobs → 1 <code>Savant CI</code> job (single per-job rounding,
+      single checkout/npm ci) + <code>concurrency: cancel-in-progress</code>. Live E2E: the PR's own
+      CI run passed at <b>3 billed min</b> (2.88 real). Merged <code>0c30ea2</code>.</li>
+      <li><b>savant PR #169</b> — <b>zero-CI mode</b>: <code>workflow_dispatch</code> is the only
+      trigger; <code>Savant CI</code> removed from main's required contexts (PR-required stays);
+      NEW <code>scripts/ci-local.sh</code> = mandatory local gate for dev PRs AND releases
+      (CLAUDE.md steps 4–5 updated). E2E: ci-local.sh ALL GATES PASSED (1241/0 tests) incl. the
+      engines-absent degrade path. Merged <code>a1604a6</code>.</li>
+      <li><b>12 workflows disabled</b> via <code>gh workflow disable</code>: opencode-resources (CI,
+      PR Metadata) · nexus-cli (all 7 — CI, Docs, Homebrew Release, PyPI, Quality, Release, Tests) ·
+      claude-statistical-research-mcp (CI, Docs) · project-refactor-mcp (Tests).</li>
+      <li><b>Memory + STATUS records</b>: craft memory <code>github-actions-zero-ci-strategy-2026-07</code>,
+      savant memory <code>zero-ci-mode-local-gates</code> (+ superseded a stale entry), savant + craft
+      <code>.STATUS</code> updated and pushed.</li>
+    </ul>
+    <p class="muted" style="margin-bottom:0">Not touched: <b>public repos</b> (craft, flow-cli, atlas,
+    rmediation, medfit… — free forever) and <b>private R repos</b> (no active workflows existed;
+    rforge's local <code>R CMD check --as-cran</code> was already their gate).</p>
+  </div>
+
+  <h2 id="gates"><span class="emoji">🚦</span>Where the Gates Live Now</h2>
+  <div class="card">
+    <div class="scroll">
+    <table>
+      <tr><th>Flow</th><th>Old gate</th><th>Gate now</th></tr>
+      <tr><td>savant feature → dev PR</td><td class="muted">Savant CI on PR</td><td class="live">bash scripts/ci-local.sh (required, CLAUDE.md step 4)</td></tr>
+      <tr><td>savant dev → main release</td><td class="muted">required check "Savant CI"</td><td class="live">ci-local.sh on dev (step 5); no required contexts on main</td></tr>
+      <tr><td>savant pushes to dev</td><td class="muted">full CI every push (~41/day!)</td><td class="live">nothing — 0 min</td></tr>
+      <tr><td>nexus-cli / opencode / mcp repos</td><td class="muted">armed on next push</td><td class="live">disabled (re-enable before any release!)</td></tr>
+      <tr><td>craft + all public repos</td><td class="live">unchanged</td><td class="live">unchanged (free)</td></tr>
+    </table>
+    </div>
+    <p class="muted" style="margin-bottom:0">⚠ Behavioral note for future sessions (captured in memory):
+    a savant PR showing <b>"no checks"</b> is now EXPECTED — it is not the usual merge-conflict signal.
+    Gate evidence = the ci-local.sh transcript quoted in the PR body.</p>
+  </div>
+
+  <h2 id="research"><span class="emoji">🔬</span>Online-CI Research — does an external platform make sense?</h2>
+
+  <div class="callout">
+    <b>Key correction found:</b> since <b>March 1, 2026</b>, GitHub charges a $0.002/min
+    "Actions cloud platform" fee for <b>self-hosted runners in private repos</b> (drawn from the
+    included 3,000-min pool first; public repos stay free). The earlier proposal's
+    "self-hosted = 0 pool minutes forever" claim is <b>wrong post-March</b> — still ~4× cheaper
+    than hosted overage ($0.008/min) and Mac-fast, but no longer a free escape hatch.
+  </div>
+
+  <div class="card">
+    <div class="scroll">
+    <table>
+      <tr><th>Option</th><th>Free capacity (private)</th><th>Verdict for this account</th></tr>
+      <tr><td><b>Zero-CI + local gates</b> (current)</td><td>$0, zero integration</td><td class="live">✅ Best now — single maintainer, gates already local</td></tr>
+      <tr><td>Buildkite Developer</td><td>free ≤5 users, unlimited min on own agents, native GitHub checks</td><td>Best fallback IF automation is wanted back without GitHub's meter</td></tr>
+      <tr><td>GitLab self-managed runner</td><td>0 compute min charged, any plan</td><td>Unlimited but requires mirroring repos across forges — friction</td></tr>
+      <tr><td>CircleCI Free</td><td>30k credits/mo private (400k OSS)</td><td>Modest allowance; a second platform to maintain</td></tr>
+      <tr><td>GitHub self-hosted runner</td><td>$0.002/min after pool (post-2026-03)</td><td>No longer free — advantage reduced to speed + cheaper overage</td></tr>
+    </table>
+    </div>
+    <p class="muted" style="margin-bottom:0"><b>Verdict: no external CI now.</b> Every option costs
+    integration effort to replace something local gates currently do for $0. Reconsider only if
+    automation needs outgrow the 3,000-min pool again after restoration — Buildkite first.</p>
+  </div>
+
+  <h2 id="revert"><span class="emoji">↩️</span>Revert Paths (all one-command / one-edit)</h2>
+  <div class="card">
+    <ul class="tight">
+      <li><b>savant CI back on:</b> restore <code>push:</code> + <code>pull_request:</code> triggers
+      for <code>[dev, main]</code> in <code>ci.yml</code> (keeps the −58% single-job shape) and re-add
+      <code>Savant CI</code> to main's required contexts via <code>gh api -X PUT …/branches/main/protection</code>.</li>
+      <li><b>Any disabled workflow:</b> <code>gh workflow enable "&lt;name&gt;" --repo Data-Wise/&lt;repo&gt;</code>.</li>
+      <li><b>Before releasing nexus-cli:</b> re-enable its Homebrew Release / PyPI / Release workflows FIRST.</li>
+    </ul>
+  </div>
+
+  <h2 id="next"><span class="emoji">🎯</span>Aug 1 Plan (cycle reset)</h2>
+  <div class="rec">
+    <ul class="todo" style="margin:0">
+      <li><b>Restore savant's consolidated 1-job CI with <code>pull_request</code>-only triggers</b>
+      (~3 min/PR ≈ 100–150 min/month — comfortably inside 3,000). Not an external platform.</li>
+      <li>Keep push-triggered CI OFF permanently — the 41-pushes/day agent cadence is the real
+      cost driver; PR-gating catches everything pushes did.</li>
+      <li>Optional safety net anytime: $0 Actions budget at github.com/settings/billing/budgets —
+      pure upside in zero-CI mode (nothing automatic left to block).</li>
+      <li>Re-enable other repos' workflows lazily — only when a repo actually needs a release.</li>
+    </ul>
+  </div>
+
+  <footer>
+    Updated 2026-07-09 (supersedes the pre-execution version of this report) · measured via gh api ·
+    records: craft memory <code>github-actions-zero-ci-strategy-2026-07</code> · savant memory
+    <code>zero-ci-mode-local-gates</code> · savant/craft .STATUS ·
+    <code>~/projects/dev-tools/PROPOSAL-github-actions-minutes-2026-07.md</code>
+  </footer>
+
+</div>
+</body>
+</html>

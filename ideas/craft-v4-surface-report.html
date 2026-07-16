@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>craft v4 — Skills-First Surface (69 → ~22)</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f2430;
+    --ink: #e8eaed;
+    --muted: #9aa4b2;
+    --line: #2a2f3a;
+    --accent: #6ea8fe;
+    --green: #5bd6a0;
+    --amber: #f5c26b;
+    --red: #f2727f;
+    --purple: #b48ef2;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f7f9; --card: #ffffff; --card2: #f0f2f6;
+      --ink: #1a1d23; --muted: #5b6472; --line: #e2e6ec;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 0 0 80px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+  header {
+    padding: 44px 20px 28px; text-align: center;
+    background: linear-gradient(160deg, rgba(110,168,254,.16), transparent 70%);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.5px; }
+  header .sub { color: var(--muted); font-size: 15px; }
+  .pill {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px; margin: 2px;
+    background: var(--card2); color: var(--muted); border: 1px solid var(--line);
+  }
+  .pill.hot { color: var(--red); border-color: rgba(242,114,127,.4); }
+  .pill.ok  { color: var(--green); border-color: rgba(91,214,160,.4); }
+  .pill.acc { color: var(--accent); border-color: rgba(110,168,254,.4); }
+  h2 {
+    font-size: 21px; margin: 40px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--line); scroll-margin-top: 20px;
+  }
+  h2 .emoji { margin-right: 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 20px; margin: 14px 0;
+  }
+  .tldr {
+    background: linear-gradient(150deg, rgba(110,168,254,.12), rgba(91,214,160,.06));
+    border: 1px solid rgba(110,168,254,.35);
+  }
+  .tldr b { color: var(--accent); }
+  .grid { display: grid; gap: 12px; }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .g5 { grid-template-columns: repeat(5, 1fr); }
+  @media (max-width: 680px) { .g4, .g5 { grid-template-columns: 1fr 1fr; } }
+  .stat {
+    background: var(--card2); border-radius: 12px; padding: 16px; text-align: center;
+    border: 1px solid var(--line);
+  }
+  .stat .n { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+  .stat .n.bad { color: var(--red); }
+  .stat .n.warn { color: var(--amber); }
+  .stat .n.good { color: var(--green); }
+  .stat .n.acc { color: var(--accent); }
+  .stat .l { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .scroll { overflow-x: auto; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .4px; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
+  tr:last-child td { border-bottom: none; }
+  .funnel {
+    background: var(--card2); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; font: 13.5px/1.7 "SF Mono", ui-monospace, Menlo, monospace;
+    overflow-x: auto; white-space: pre;
+  }
+  .funnel .k { color: var(--red); font-weight: 700; }
+  .funnel .r { color: var(--accent); font-weight: 700; }
+  .funnel .g { color: var(--green); font-weight: 800; }
+  .ok-list li { list-style: none; position: relative; padding-left: 26px; margin: 8px 0; }
+  .ok-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+  .gate li { list-style: none; position: relative; padding-left: 26px; margin: 8px 0; }
+  .gate li::before { content: "⛩"; position: absolute; left: 0; color: var(--amber); }
+  code {
+    background: var(--card2); padding: 1px 6px; border-radius: 5px;
+    font-size: 13px; font-family: "SF Mono", ui-monospace, Menlo, monospace;
+  }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .toc a {
+    font-size: 13px; text-decoration: none; color: var(--accent);
+    background: var(--card2); padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+  }
+  .toc a:hover { border-color: var(--accent); }
+  .callout {
+    background: rgba(245,194,107,.08); border: 1px solid rgba(245,194,107,.35);
+    border-radius: 12px; padding: 14px 16px; margin: 14px 0; font-size: 14.5px;
+  }
+  .callout b { color: var(--amber); }
+  .rec {
+    background: rgba(91,214,160,.08); border: 1px solid rgba(91,214,160,.4);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .rec b { color: var(--green); }
+  footer { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 40px; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>🎯 craft v4 — Skills-First Surface</h1>
+    <div class="sub">Adversarial-creative review: "69 commands is too much" · 2026-07-09</div>
+    <div style="margin-top:14px">
+      <span class="pill acc">verdict: 69 is an ILLUSION — real surface is 32</span>
+      <span class="pill ok">target: ~22 commands + ~40 skills</span>
+      <span class="pill hot">does NOT re-run refuted native-first</span>
+    </div>
+    <div class="toc">
+      <a href="#tldr">TL;DR</a>
+      <a href="#anatomy">The Anatomy</a>
+      <a href="#funnel">The Funnel</a>
+      <a href="#attack">Self-Attack</a>
+      <a href="#anthropic">Anthropic Alignment</a>
+      <a href="#next">Next Step</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="card tldr" id="tldr">
+    <p style="margin:0"><b>TL;DR</b> — A per-file classification of the post-split 69 shows
+    <b>27 are ALREADY deprecated shims</b> pointing at skills that carry their behavior — the
+    v3 skill-migration debt craft scheduled but never executed. Only <b>32 commands are
+    genuinely rich</b>. Complete the shim-kill at v4 (with the ADR-002 salvage gate), kill 2
+    teaching-residue utils, and consolidate 5 verb-families into subcommand routers (savant's
+    proven pattern) → <b>craft v4 ≈ 22 commands</b>, with ~40 skills carrying all behavior.
+    From this morning's 115 → 22. One breaking release (the folio v4.0.0 train), one
+    MIGRATION doc, one cascade.</p>
+  </div>
+
+  <div class="grid g5" style="margin-top:14px">
+    <div class="stat"><div class="n">69</div><div class="l">post-split "commands"</div></div>
+    <div class="stat"><div class="n bad">27</div><div class="l">already-deprecated shims</div></div>
+    <div class="stat"><div class="n warn">32</div><div class="l">genuinely rich</div></div>
+    <div class="stat"><div class="n good">~22</div><div class="l">v4 target commands</div></div>
+    <div class="stat"><div class="n acc">~40</div><div class="l">skills carry behavior</div></div>
+  </div>
+
+  <h2 id="anatomy"><span class="emoji">🔬</span>The Anatomy (per-file classification, repo-verified)</h2>
+  <div class="card">
+    <div class="scroll">
+    <table>
+      <tr><th>Type</th><th class="num">N</th><th>What it really is</th></tr>
+      <tr><td><b>Deprecated shims</b> (<code>replaced-by:</code> a skill)</td><td class="num">27</td><td>v3 migration debt: git:* (9), dist extras (3), plan (3), claude-md (3), check (2), done/next, demo, coverage, brainstorm, refine, insights, orch:plan</td></tr>
+      <tr><td>Thin shims, not deprecated</td><td class="num">2</td><td>grill, code:release — slash entries over skills</td></tr>
+      <tr><td>Routers</td><td class="num">6</td><td>do, plan, orch, smart-help, orch:drive, orch:workflow — dispatch, not behavior</td></tr>
+      <tr><td>References</td><td class="num">2</td><td>hub (catalog), discovery-usage (<code>internal: true</code>)</td></tr>
+      <tr><td><b>Genuinely rich</b></td><td class="num">32</td><td>The real surface — top 5: dist:homebrew (1691L), docs:update (1046L), ci:generate (730L), ci:validate, ci:detect</td></tr>
+    </table>
+    </div>
+    <p class="muted" style="margin-bottom:0">Overlap hot-spots found: ci:* (8 facets of one operation,
+    one skill) · git:* (all 9 already shims; the protect family is 4 near-duplicates) · five planning
+    entry points backed by one plan-orchestrator skill · 3 orchestration entries over two engines.</p>
+  </div>
+
+  <h2 id="funnel"><span class="emoji">⏬</span>The Funnel — 69 → ~22</h2>
+  <div class="funnel">69 post-split commands
+ ├─ <span class="k">−27</span>  KILL deprecated shims — complete the v3 migration at v4
+ │        ⛩ ADR-002 salvage gate per shim (PR #279 base rate: ~12% secretly rich-body)
+ ├─ <span class="k">−2</span>   KILL teaching residue (utils:readme-teach-config, readme-semester-progress)
+ ├─ <span class="k">−1</span>   DEMOTE discovery-usage → docs page
+ ├─ <span class="r">−7</span>   ci: 8 → 1      /craft:ci &lt;detect|fix|generate|local|status|triage|validate|watch&gt;
+ ├─ <span class="r">−3</span>   arch: 4 → 1    /craft:arch &lt;analyze|diagram|plan|review&gt;
+ ├─ <span class="r">−4</span>   code audits: 5 → 1   /craft:code:audit &lt;deps|deps-quick|docs|commands|skills&gt;
+ ├─ <span class="r">−2</span>   orch: 3 → 1    /craft:orch [--drive|--workflow]
+ ├─ <span class="r">−1</span>   plan: 2 → 1    root plan absorbs plan:feature
+ └─ <span class="g">= ~22 commands</span>   (do · hub · check · test · brief · next · done · refine · brainstorm ·
+      grill · plan · orch · ci · arch · smart-help · code:{lint,debug,refactor,test-gen,audit,
+      release,release-watch,fewer-prompts} · dist:{homebrew,surfaces} · docs:{update,changelog})</div>
+    <p class="muted">Subcommand routers use savant's proven depth-1 pattern (<code>repo voice-init</code>) —
+    subcommands cost ZERO count-cascade. Exact 22-roster is a spec deliverable (±3).</p>
+
+  <h2 id="attack"><span class="emoji">⚔️</span>Self-Attack — 6 angles, all survived (2 with hard gates)</h2>
+  <div class="card">
+    <ul class="gate">
+      <li><b>~12% of "shims" are secretly rich-body</b> (PR #279: git:docs:refcard 363L,
+      gen-validator 447L, insights 194L; claude-md trio = 1,317L vs one skill) → per-shim
+      body-vs-skill diff + salvage into <code>references/</code> BEFORE deletion; tripwire =
+      <code>test_skill_referenced_commands_exist</code> + bash suites.</li>
+      <li><b>Skill slash-invocability is NOT universal</b> — nested skills can't be name-invoked
+      (memory: prompt-refiner). → Per-skill invocability test; failures keep a 5-line shim or get
+      promoted top-level.</li>
+    </ul>
+    <ul class="ok-list">
+      <li>Discoverability → hub + smart-help remain the catalog; skill descriptions drive auto-fire.</li>
+      <li>Deterministic pipelines (release, check, do) stay commands — Anthropic's own boundary.</li>
+      <li>Count-cascade cost → rides the already-breaking v4.0.0; a later standalone major would cost MORE.</li>
+      <li>Not the refuted native-first: behavior stays in craft's OWN skills — the 4-axis gate compared
+      craft vs third-party replacements; here the replacement is craft itself.</li>
+    </ul>
+  </div>
+
+  <h2 id="anthropic"><span class="emoji">📐</span>Anthropic Alignment</h2>
+  <div class="card">
+    <ul class="ok-list" style="margin:0">
+      <li><b>Skills = on-demand, progressive disclosure, one concern each</b> — SKILL.md is the entry
+      point; references/scripts load only when needed. craft's references/ pattern is already this.</li>
+      <li><b>Commands = few explicit entry points</b> for deterministic user-triggered workflows —
+      exactly the surviving 22.</li>
+      <li><b>Skills auto-fire on task match AND are slash-invocable</b> (top-level) — the shim layer
+      is structurally redundant where invocability holds.</li>
+      <li>"If a skill tries to do two things at once, it is probably confusing" — the subcommand
+      routers keep one skill per concern behind one verb.</li>
+    </ul>
+  </div>
+
+  <div class="callout">
+    <b>Sequencing:</b> this is <b>Phase 3.5 of the same v4.0.0 train</b> — folio split lands first
+    (craft at 69 momentarily), then the consolidation, same branch family, same MIGRATION-v4.md.
+    Critical interaction with the spec review: the CI-floor fix (blocker B2) must target the FINAL
+    number (~22), not 67 — write the amendment once against the real target.
+  </div>
+
+  <h2 id="next"><span class="emoji">🎯</span>Next Step</h2>
+  <div class="rec">
+    <p style="margin-top:0"><b>→ Accept ~22/~40 as the v4 target shape</b>, fold it into the pending
+    combined amendment (review fixes + border filter + this), then grill the exact 22-roster + per-shim
+    salvage list as a short spec before Phase 3.5 executes. Say <b>"apply"</b> for the amendment or
+    <b>"grill the roster"</b> to pin the 22 first.</p>
+    <p style="margin-bottom:0" class="muted">Sources: docs/specs/BRAINSTORM-craft-v4-skills-first-surface-2026-07-09.md
+    (committed 1f8ee82ef) · classification: Explore agent over all 69 files · Anthropic Agent Skills
+    engineering guidance + platform docs.</p>
+  </div>
+
+  <footer>
+    Generated 2026-07-09 · the day's arc: 115 → 94 (shipped) → 69 (folio planned) → ~22 (this target) ·
+    method: classify, don't guess — the surface was already 60% migrated on paper
+  </footer>
+
+</div>
+</body>
+</html>

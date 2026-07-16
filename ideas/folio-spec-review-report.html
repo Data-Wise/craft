@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>folio Split — Adversarial Spec Review</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f2430;
+    --ink: #e8eaed;
+    --muted: #9aa4b2;
+    --line: #2a2f3a;
+    --accent: #6ea8fe;
+    --green: #5bd6a0;
+    --amber: #f5c26b;
+    --red: #f2727f;
+    --purple: #b48ef2;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f7f9; --card: #ffffff; --card2: #f0f2f6;
+      --ink: #1a1d23; --muted: #5b6472; --line: #e2e6ec;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 0 0 80px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+  header {
+    padding: 44px 20px 28px; text-align: center;
+    background: linear-gradient(160deg, rgba(242,114,127,.14), transparent 70%);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.5px; }
+  header .sub { color: var(--muted); font-size: 15px; }
+  .pill {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    padding: 3px 10px; border-radius: 999px; margin: 2px;
+    background: var(--card2); color: var(--muted); border: 1px solid var(--line);
+  }
+  .pill.hot { color: var(--red); border-color: rgba(242,114,127,.4); }
+  .pill.ok  { color: var(--green); border-color: rgba(91,214,160,.4); }
+  .pill.warn{ color: var(--amber); border-color: rgba(245,194,107,.4); }
+  h2 {
+    font-size: 21px; margin: 40px 0 14px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--line); scroll-margin-top: 20px;
+  }
+  h2 .emoji { margin-right: 8px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 20px; margin: 14px 0;
+  }
+  .tldr {
+    background: linear-gradient(150deg, rgba(242,114,127,.10), rgba(245,194,107,.06));
+    border: 1px solid rgba(242,114,127,.35);
+  }
+  .tldr b { color: var(--red); }
+  .grid { display: grid; gap: 12px; }
+  .g4 { grid-template-columns: repeat(4, 1fr); }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 680px) { .g4, .g3 { grid-template-columns: 1fr 1fr; } }
+  .stat {
+    background: var(--card2); border-radius: 12px; padding: 16px; text-align: center;
+    border: 1px solid var(--line);
+  }
+  .stat .n { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+  .stat .n.bad { color: var(--red); }
+  .stat .n.warn { color: var(--amber); }
+  .stat .n.good { color: var(--green); }
+  .stat .l { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .scroll { overflow-x: auto; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12.5px; text-transform: uppercase; letter-spacing: .4px; }
+  tr:last-child td { border-bottom: none; }
+  .sev { font-weight: 800; white-space: nowrap; }
+  .sev.b { color: var(--red); }
+  .sev.m { color: var(--amber); }
+  .lens { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+  .lens.ux { background: rgba(110,168,254,.15); color: var(--accent); }
+  .lens.be { background: rgba(180,142,242,.15); color: var(--purple); }
+  .lens.do { background: rgba(245,194,107,.15); color: var(--amber); }
+  .ok-list li { list-style: none; position: relative; padding-left: 26px; margin: 8px 0; }
+  .ok-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 800; }
+  code {
+    background: var(--card2); padding: 1px 6px; border-radius: 5px;
+    font-size: 13px; font-family: "SF Mono", ui-monospace, Menlo, monospace;
+  }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .toc a {
+    font-size: 13px; text-decoration: none; color: var(--accent);
+    background: var(--card2); padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+  }
+  .toc a:hover { border-color: var(--accent); }
+  .rec {
+    background: rgba(91,214,160,.08); border: 1px solid rgba(91,214,160,.4);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .rec b { color: var(--green); }
+  .verify { font-size: 12px; color: var(--green); white-space: nowrap; }
+  footer { text-align: center; color: var(--muted); font-size: 12.5px; margin-top: 40px; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>⚔️ folio Split — Adversarial Spec Review</h1>
+    <div class="sub">3 lenses (UX · Backend · DevOps) attacking SPEC-folio-split-workflow + ORCHESTRATE · 2026-07-09</div>
+    <div style="margin-top:14px">
+      <span class="pill hot">verdict: NOT ready for Phase 1</span>
+      <span class="pill warn">6 BLOCKERs · 9 MAJORs</span>
+      <span class="pill ok">architecture survived — fixes are amendments</span>
+    </div>
+    <div class="toc">
+      <a href="#verdict">Verdict</a>
+      <a href="#blockers">Blockers</a>
+      <a href="#majors">Majors</a>
+      <a href="#survived">What Survived</a>
+      <a href="#next">Next Step</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="card tldr" id="verdict">
+    <p style="margin:0"><b>Verdict</b> — The spec is <b>not ready for Phase 1</b>: 6 verified
+    BLOCKERs. But none refute the architecture (B1–B5, W1–W2 all held) — every blocker is a
+    <b>scoping-precision failure</b>, fixable as paragraph-level amendments to the SPEC +
+    ORCHESTRATE. The sharpest catches: the extraction <b>mechanism doesn't work as written</b>
+    (subtree split can't express the moves-set), a <b>hardcoded CI floor</b> would block the
+    amputation PR itself, and <b>Gate 3.4 is false-green by design</b> (strict build can't see
+    prose refs to dead commands).</p>
+  </div>
+
+  <div class="grid g4" style="margin-top:14px">
+    <div class="stat"><div class="n bad">6</div><div class="l">BLOCKERs (all repo-verified)</div></div>
+    <div class="stat"><div class="n warn">9</div><div class="l">MAJORs</div></div>
+    <div class="stat"><div class="n good">7</div><div class="l">angles attacked &amp; survived</div></div>
+    <div class="stat"><div class="n good">3+1</div><div class="l">review agents + parent spot-verify</div></div>
+  </div>
+
+  <h2 id="blockers"><span class="emoji">🔴</span>Blockers — fix before CP-A approval</h2>
+  <div class="card">
+    <div class="scroll">
+    <table>
+      <tr><th>#</th><th>Lens</th><th>Finding</th><th>Fix</th></tr>
+      <tr>
+        <td class="sev b">B1</td><td><span class="lens be">BACKEND</span></td>
+        <td><b><code>git subtree split</code> cannot express the moves-set.</b> Single <code>--prefix</code>, no exclusions — the set is 5+ scattered roots with intra-dir exclusions (commands/docs minus 3, site minus 1, 4-of-8 skills…). The spec's primary mechanism is broken as written.</td>
+        <td>Rewrite Phase 2 around <code>git filter-repo</code> with one <code>--path</code> per moving root.</td>
+      </tr>
+      <tr>
+        <td class="sev b">B2</td><td><span class="lens do">DEVOPS</span></td>
+        <td><b><code>ci.yml:92</code> hardcodes <code>COMMAND_COUNT -lt 86</code></b> in the REQUIRED "Validate Plugin Structure" check. Post-amputation ≈67 → exits 1 → blocks the amputation PR and the v4.0.0 merge. PR #279's pytest≠bash lesson, one level up. <span class="verify">✓ grep-verified</span></td>
+        <td>Edit ci.yml floors (86→~60, skills 26→re-baseline) in the SAME amputation PR.</td>
+      </tr>
+      <tr>
+        <td class="sev b">B3</td><td><span class="lens do">DEVOPS</span></td>
+        <td><b>folio's release choreography doesn't exist and isn't scoped.</b> No homebrew-release/aggregator-sync workflows, no GitHub App secrets on folio, no <code>formulas['folio']</code> generator entry, no marketplace row. v1.0.0 would propagate nothing to brew/marketplace.</td>
+        <td>Phase 2.4 scaffolds both workflows + App install + tap/marketplace entries — not a Phase-4 one-liner.</td>
+      </tr>
+      <tr>
+        <td class="sev b">B4</td><td><span class="lens be">BACKEND</span></td>
+        <td><b>"~64/~28" is unreachable arithmetic.</b> 94 − 26 moves − 1 deleted alias = <b>67 / 26 (±trio)</b>. No branch of the trio decision yields 64/28. <span class="verify">✓ 94 counted</span></td>
+        <td>Correct every count reference to 67/26 ± the trio's stated ±2.</td>
+      </tr>
+      <tr>
+        <td class="sev b">B5</td><td><span class="lens be">BACKEND</span></td>
+        <td><b><code>docs:claude-md:*</code> trio double-booked.</b> MOVES(26) already splits it (edit+init move, sync stays) while the judgment call says "decide as ONE unit, leaning STAYS." The 26 that everything downstream keys on is unstable.</td>
+        <td>Decide the trio FIRST (T1.3 → T0); counts follow the decision.</td>
+      </tr>
+      <tr>
+        <td class="sev b">B6</td><td><span class="lens ux">UX</span></td>
+        <td><b>Gate 3.4 is false-green by design.</b> 78 docs/ source files reference the 26 moved commands in prose; <code>mkdocs build --strict</code> only sees broken links/nav, never prose command names — and docs.yml auto-deploys on push-to-main. Live site would teach dead commands. (Precedent: 21 commands = 264-ref sweep.)</td>
+        <td>New Phase 3 task: grep-sweep docs/ refs to the moves-set → repoint to /folio:* or MIGRATION-v4; gate = grep-zero, not the strict build.</td>
+      </tr>
+    </table>
+    </div>
+  </div>
+
+  <h2 id="majors"><span class="emoji">🟡</span>Majors — fold into the same amendment</h2>
+  <div class="card">
+    <div class="scroll">
+    <table>
+      <tr><th>Lens</th><th>Finding → fix</th></tr>
+      <tr><td><span class="lens be">BACKEND</span></td><td><b>Skills partition never audited</b> — skills/docs has <b>8</b> dirs (plan says 4); ADRs/changelog-automation/claude-md have live craft callers. → Run a Phase-0-equivalent caller-audit for skills. <span class="verify">✓ ls-verified</span></td></tr>
+      <tr><td><span class="lens be">BACKEND</span></td><td><b>wf-p3-sweep violates the spec's own boundary</b> — 4 concurrent agents race on shared files (hub.md, plugin.json) AND counts belong to bump-version.sh ("Never: manual count edits"). → Parent runs the script; agents get disjoint non-count files only.</td></tr>
+      <tr><td><span class="lens do">DEVOPS</span></td><td><b>Protection/CI bootstrap deadlock</b> — Phase 1.5 requires a check name that exists only after 2.4; GitHub waits forever on nonexistent contexts. → Bare protection at 1.5; add the required check after first green run.</td></tr>
+      <tr><td><span class="lens do">DEVOPS</span></td><td><b>folio's mirrored ci.yml inherits craft's floors</b> (-lt 86 / -lt 26) → folio CI can never pass. → Retune floors in the authoring task.</td></tr>
+      <tr><td><span class="lens do">DEVOPS</span></td><td><b>No v4.0.0 rollback runbook</b>; release automation auto-pushes tap+marketplace irreversibly. → Add rollback runbook; tag craft LAST, after folio confirmed installable.</td></tr>
+      <tr><td><span class="lens do">DEVOPS</span></td><td><b>Dirty-tree recovery unspecified</b> — resumeFromRunId recovers agent state, not git state. → Mandate commit-per-completed-batch checkpoints.</td></tr>
+      <tr><td><span class="lens be">BACKEND</span></td><td><b>Wrong test-breakage set</b> — git-shim suite is unaffected; real breaks: test_hub_integration.py:119 (docs≥19 <span class="verify">✓</span>), test_site_publish.py (relocate to folio), test_dist_doc_accuracy.py:29. → Enumerate explicitly in T3.2.</td></tr>
+      <tr><td><span class="lens ux">UX</span></td><td><b>/folio:hub ships LAST</b> — 26 commands with zero discovery until Phase 4. → Move the hub/index into Phase 2 (ship discovery with the surface).</td></tr>
+      <tr><td><span class="lens ux">UX</span></td><td><b>No point-of-failure breadcrumb + blanket DOCS removal hides the 3 STAYING commands.</b> → 3.3 rebuilds the DOCS hub section to the staying-set + one "authoring → folio (MIGRATION-v4)" pointer line; link MIGRATION-v4 from README/CHANGELOG.</td></tr>
+    </table>
+    </div>
+    <p class="muted" style="margin-bottom:0">Minor (recorded, non-gating): do.md's <code>docs:validate</code> phantom + routing-table lines beyond :905 · ADR-002 test can't verify cross-repo targets (MIGRATION-v4 is the real safety net — hard-delete, no shims) · <code>exclusions.txt</code> lives at <code>scripts/config/</code> · T1.5's 5 scripts share one category schema — one agent must own the schema · folio README-only launch contradicts Phase 2.4's own site-build exit criterion (resolve one way).</p>
+  </div>
+
+  <h2 id="survived"><span class="emoji">🟢</span>What survived the attack</h2>
+  <div class="card">
+    <ul class="ok-list" style="margin:0">
+      <li><b>The caller-based cut (B2)</b> — backend independently re-verified <code>docs:update --post-merge</code> is inline logic (update.md:379–500); no moved command on the release path.</li>
+      <li><b>Router honesty (B3)</b> and the two-router no-bridge design.</li>
+      <li><b>History preservation intent (B5)</b> — goal sound; only the tool named was wrong (B1).</li>
+      <li><b>W1/W2 execution model</b> — parent gates + content-only agents held under attack.</li>
+      <li><b>Zero-CI budget compliance</b> — no crons anywhere; folio public = free; cross-repo pushes cost no minutes.</li>
+      <li><b>Count tooling duplication (B4)</b> and per-repo cascade shrink.</li>
+      <li><b>Phase 0's command partition</b> — 30/30 coverage reconfirmed; only the SKILLS partition lacked the same rigor.</li>
+    </ul>
+  </div>
+
+  <h2 id="next"><span class="emoji">🎯</span>Next step</h2>
+  <div class="rec">
+    <p style="margin-top:0"><b>→ Apply all fixes as ONE amendment commit</b> to SPEC-folio-split-workflow +
+    ORCHESTRATE-folio-split (each blocker is a paragraph-level edit: filter-repo mechanism swap, two
+    CI-floor callouts, 67/26 counts, trio-decision-first ordering, new docs-content-sweep task with a
+    grep-zero gate, Phase 2.4 release-choreography scaffold + the 9 majors). Then re-gate at CP-A.
+    Say <b>"apply"</b> to execute the amendment.</p>
+    <p style="margin-bottom:0" class="muted">Method note: 3 parallel adversarial Explore agents (UX/Backend/DevOps),
+    each instructed to refute and to verify against the repo before claiming; parent independently spot-verified
+    the 4 highest-impact claims (ci.yml floors, skills/docs count, hub floor, command count) — all TRUE.</p>
+  </div>
+
+  <footer>
+    Generated 2026-07-09 · reviews grounded in: ci.yml · homebrew-release.yml · aggregator-sync.yml ·
+    update.md · test_hub_integration.py · scripts/bump-version.sh · the 4 folio spec/plan/grill docs ·
+    verdict: amend, don't rebuild
+  </footer>
+
+</div>
+</body>
+</html>
