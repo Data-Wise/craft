@@ -195,36 +195,18 @@ task if/when this tooling matters again.
 ## Phase 3.6 — router consolidations ✅ RE-GRILLED, RE-SCOPED (2026-07-15, not yet executed)
 
 > **Superseded 2026-07-15** by `docs/specs/GRILL-phase-3-6-router-consolidation-2026-07-15.md`
-> (10 decisions, D1-D10) after the T3.6.0 re-grill this section itself called for. Full
+> (11 decisions, D1-D11) after the T3.6.0 re-grill this section itself called for. Full
 > reasoning lives in that GRILL file — this section states the resulting task breakdown only.
-> Net scope change: **3 independent workstreams/PRs, not one bundled CP-3.6 gate**; `plan:feature`
+> Net scope change: **2 independent workstreams/PRs, not one bundled CP-3.6 gate**; `plan:feature`
 > stays excluded (D2 lock unchanged); `arch` dropped entirely (D6 — 519L/4 commands, no real
 > duplication to consolidate); framed as **organizational cleanup, not command-count reduction**
 > (D4 — every subcommand keeps direct slash-invocability per D3, so 46→~26 was never reachable
-> this way). `orch.md` (369L, pre-existing top-level command) turned out to already half-implement
-> the router this phase wanted to build (D1) — refactor it in place, don't build fresh alongside it.
-
-### Workstream A — orch.md refactor (own PR)
-
-- [ ] **T3.6.A1** Disentangle `orch.md`'s orchestrator-v2-launch logic (task/mode/swarm/engine
-  execution) from its embedded drive/workflow dispatch logic (lines 250-301, 365) — **M**
-  - Acceptance: launch logic isolated as its own testable unit before the router restructure
-- [ ] **T3.6.A2** Move launch logic to a new skill (e.g.
-  `skills/orchestration/orchestrator-launch/`) — **S** (D7)
-  - Acceptance: matches the check.md/dist-extras/claude-md salvage pattern already used in this
-    branch; `orch.md` shrinks to a thin call into the skill + the router table
-- [ ] **T3.6.A3** `orch.md` becomes the formal router: bare-mode dispatch table (drive /
-  workflow / direct launch) built from its existing confirm-gate logic — **M** (D1)
-  - Acceptance: `/craft:orch`, `/craft:orch:drive`, `/craft:orch:workflow` all still directly
-    slash-invocable (D3) — no path deleted, only bodies moved to references
-- [ ] **T3.6.A4** Salvage `drive.md`/`workflow.md` bodies into
-  `skills/orchestration/orch-router/references/` (ADR-002 line-conservation diff) — **S**
-- [ ] **T3.6.A5** Regen `commands/_cache.json` (or the repo's cache-regen script) before final
-  verification — **XS** (D9)
-- [ ] **T3.6.A6** Suites green: pytest + relevant bash suites + `mkdocs build --strict` +
-  slash-invocability spot-check on all 3 entry points — **S**
-- [ ] **CP-3.6.A** (ASK): Workstream A all green → own PR `feature/folio-split`→`dev`
-  (leak-scan, evidence in body) → merge on your go.
+> this way). `orch`/`drive`/`workflow` router **dropped entirely** (D11, correction found at
+> implementation start): `drive.md`/`workflow.md` turned out to already be thin command wrappers
+> delegating to their own skills (`drive-engine`/`workflow-engine`) — the exact end-state the
+> original plan wanted to build — and the 3 commands document genuinely distinct execution
+> engines with no real duplication, same verdict as `arch` (D6). `orch.md`/`drive.md`/
+> `workflow.md` are left completely untouched.
 
 ### Workstream B — code:audit router (own PR)
 
@@ -264,12 +246,15 @@ task if/when this tooling matters again.
   on your go.
 
 **Explicitly out of scope:** `arch` router (dropped, D6) — `commands/arch/{analyze,diagram,
-plan,review}.md` stay untouched. `plan` absorbing `plan:feature` — still excluded per the
-pre-existing D2 lock (`SPEC-orchestrator-consolidation-2026-07-04.md`), unchanged by this grill.
-No `bump-version.sh`/`ci.yml`-floor cascade — command count is not a target of this phase (D4).
+plan,review}.md` stay untouched. `orch`/`drive`/`workflow` router (dropped, D11) —
+`commands/orch.md`, `commands/orch/{drive,workflow}.md` stay untouched. `plan` absorbing
+`plan:feature` — still excluded per the pre-existing D2 lock
+(`SPEC-orchestrator-consolidation-2026-07-04.md`), unchanged by this grill. No
+`bump-version.sh`/`ci.yml`-floor cascade — command count is not a target of this phase (D4).
 
-**To resume:** each workstream is independently startable — no ordering dependency between A
-and B; C should come last (largest, most salvage work). Full reasoning + all 10 locked decisions:
+**To resume:** the 2 surviving workstreams (B, C) are independently startable — no ordering
+dependency between them; C is larger (2117L vs 804L) so do it second if doing both in one
+sitting. Full reasoning + all 11 locked decisions:
 `docs/specs/GRILL-phase-3-6-router-consolidation-2026-07-15.md`.
 
 Worktree: `~/.git-worktrees/craft/feature-folio-split` (branch `feature/folio-split`).

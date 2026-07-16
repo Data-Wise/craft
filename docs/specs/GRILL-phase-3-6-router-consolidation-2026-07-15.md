@@ -18,7 +18,7 @@ time/token pressure").
 
 ## Locked Decisions
 
-### D1 — `orch.md` is the router, not a fresh build
+### D1 — SUPERSEDED 2026-07-15 (see D11) — `orch.md` is the router, not a fresh build
 
 `commands/orch.md` (369 lines, "Launch orchestrator mode") already exists and already has
 embedded coupling to the two commands T3.6.2 planned to "absorb": it dispatches to
@@ -85,7 +85,7 @@ review) with no real duplication or flag overlap to consolidate.
 **Decision:** T3.6.3 is dropped. `commands/arch/{analyze,diagram,plan,review}.md` stay exactly
 as they are — no router built.
 
-### D7 — orch.md's launch logic moves to a skill
+### D7 — SUPERSEDED 2026-07-15 (see D11) — orch.md's launch logic moves to a skill
 
 D1 requires disentangling orch.md's own orchestrator-v2-launch logic (task/mode/swarm/engine
 execution) from its drive/workflow routing logic.
@@ -136,29 +136,58 @@ of the build (status.md's short-name acceptance becomes an explicit alias/expans
 dropped) — not left as a latent inconsistency. Largest and highest-line-count of the 3 — do it
 last, per the original plan's own sequencing note for this family.
 
+### D11 — Workstream A (orch.md refactor) DROPPED entirely (correction)
+
+**Process note:** D1/D7 were locked from line-counts and flag-name checks alone — the grill
+never read `drive.md`/`workflow.md` in full before deciding to "absorb" them. Caught at
+implementation start, before any code was written.
+
+Full read shows `drive.md` (114L) and `workflow.md` (126L) are **already thin command
+wrappers** that delegate all real logic to skills (`drive-engine`, `workflow-engine`
+respectively) — the exact "thin command + skill body" end-state D1/D7 were trying to build.
+`orch.md`, `orch:drive`, `orch:workflow` document three genuinely distinct execution engines
+(fan-out/swarm, spec-anchored `/goal` loop, coded YAML workflow DSL) with no real logic
+duplication between them. Applying the same test D6 used for `arch` (independent activities,
+no real duplication → drop) gives the same verdict here.
+
+**Decision:** Workstream A is dropped entirely. `orch.md`/`drive.md`/`workflow.md` stay
+untouched — D1's "orch.md becomes the router" and D7's "launch logic moves to a skill" are
+superseded, not executed. Phase 3.6 proceeds with **2 real workstreams**: code:audit router
+(B) and ci router (C).
+
 ## Net Effect on Phase 3.6 Scope
 
 | | Original plan | Post-grill |
 |---|---|---|
-| Workstreams | 5 (plan:feature excluded, orch, arch, code:audit, ci) | 3 (orch.md refactor, code:audit router, ci router) |
+| Workstreams | 5 (plan:feature excluded, orch, arch, code:audit, ci) | **2** (code:audit router, ci router) |
 | `plan:feature` | excluded (D2 lock, pre-existing) | unchanged — still excluded |
 | `arch` router | planned (T3.6.3) | **dropped** (D6) |
+| `orch`/`drive`/`workflow` router | planned (T3.6.2) | **dropped** (D11, supersedes D1/D7) |
 | `ci` router | planned (T3.6.5), initially omitted from this grill | **kept**, re-verified (D10) |
 | Command count goal | 46 → ~26 | **not a goal** — organizational only (D4) |
 | Invocability | unspecified | preserved for every subcommand (D3) |
-| PR batching | 1 bundled (CP-3.6) | 3 independent PRs (D5 + D10) |
-| orch.md treatment | build fresh router alongside orch.md | **orch.md itself becomes the router** (D1, D7) |
+| PR batching | 1 bundled (CP-3.6) | 2 independent PRs (D5, scope reduced from 3 by D11) |
 
 ## Open Questions (deferred to /craft:plan)
 
-- Sequencing: ci router last (per D10); no design dependency between orch-refactor and
-  code:audit — pure scheduling between those two.
-- Exact reference-file layout for the new orchestrator-launch skill, the code:audit references,
-  and the ci references (per-subcommand file naming, ADR-002 line-conservation diff targets).
+- Exact reference-file layout for the code:audit references and the ci references
+  (per-subcommand file naming, ADR-002 line-conservation diff targets).
 - Whether `tasks/todo.md`'s Phase 3.6 section (T3.6.1–T3.6.7) should be rewritten in place to
-  match this scope, or superseded by a fresh task breakdown scoped to the 3 workstreams.
+  match this scope, or superseded by a fresh task breakdown scoped to the 2 surviving workstreams.
 
 ## Handoff
 
-Ready for `/craft:plan` (plan-orchestrator tier) to turn this into task breakdowns for the 3
-workstreams. Grill interrogates and hands the artifact forward — no execution here.
+Ready for `/craft:plan` (plan-orchestrator tier) to turn this into task breakdowns for the 2
+surviving workstreams (code:audit, ci). Grill interrogates and hands the artifact forward — no
+execution here.
+
+## Post-Handoff Correction Log
+
+This ledger was corrected twice after the initial grill pass, both caught before code was
+written:
+
+1. **`ci` family miss** (D10) — caught during plan-handoff, before implementation started.
+2. **Workstream A drop** (D11) — caught at the start of implementation itself, when reading
+   `drive.md`/`workflow.md` in full (not done during the original grill) showed the "absorb"
+   premise didn't hold. No `orch.md`/`drive.md`/`workflow.md` changes were made before this
+   was caught.
