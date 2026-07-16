@@ -53,8 +53,18 @@ Semantics genuinely compatible; D2 holds without revision.
 
 **Decision:** every absorbed subcommand stays individually slash-invocable
 (`/craft:orch:drive` keeps working) — the router is an *additional* discovery layer, not a
-replacement. Matches the T3.5.1 salvage precedent (dist/claude-md/git families kept invocable
-via skill, not deleted). Avoids silently breaking the 8 test files' literal-path assertions.
+replacement. Avoids silently breaking the 8 test files' literal-path assertions.
+
+**Citation correction (2026-07-15, caught during Workstream B implementation):** this
+decision originally cited "the T3.5.1 salvage precedent (dist/claude-md/git families kept
+invocable via skill, not deleted)" — that's factually wrong. T3.5.1 actually **deleted** the
+dist:pypi/curl-install/marketplace command files entirely after salvaging their bodies (commit
+`840e57d8`: "salvaged... then deleted the 3 commands"). The distinguishing factor T3.5.1 relied
+on was that those 3 were **already `deprecated: true`** shims before being touched — a
+fundamentally different case from Phase 3.6's targets, which T3.6.0 confirmed are all live,
+non-deprecated commands. Deleting an already-dead-end shim is not the same call as deleting a
+live command people invoke directly. The conclusion (preserve invocability here) still holds —
+on the live/non-deprecated distinction, not the miscited precedent.
 
 ### D4 — reframe around organization, not command count
 
