@@ -192,59 +192,87 @@ task if/when this tooling matters again.
   PR was opened this phase (per design — @26 was never reached, @46 is the real landing
   point). Craft's command count is 46, not the original @26 target — see Phase 3.6.
 
-## Phase 3.6 — router consolidations (deferred, not yet scoped for execution)
+## Phase 3.6 — router consolidations ✅ RE-GRILLED, RE-SCOPED (2026-07-15, not yet executed)
 
-> Split out from Phase 3.5 (2026-07-13) after discovering all 5 target families are
-> **live, non-deprecated commands** (unlike T3.5.1/T3.5.2's confirmed-redundant shims) —
-> checked via `deprecated: true` frontmatter, all 5 came back negative. `orch:drive` is
-> called out by name in `CLAUDE.md`'s own TL;DR as active; `plan:feature` carries a
-> **locked prior decision** (`SPEC-orchestrator-consolidation-2026-07-04.md` D2,
-> enforced by `tests/test_scaffold_defaults_e2e.py::test_logic_lives_in_skills_not_deprecated_commands`)
-> that it was deliberately *un-deprecated* — NOT a redirect, genuine independent content.
-> This means "consolidate into a router" here means real architecture design (preserve
-> full argument surfaces while restructuring), not simple shim deletion. Do not execute
-> under time/token pressure — needs its own grill/spec pass before implementation.
+> **Superseded 2026-07-15** by `docs/specs/GRILL-phase-3-6-router-consolidation-2026-07-15.md`
+> (10 decisions, D1-D10) after the T3.6.0 re-grill this section itself called for. Full
+> reasoning lives in that GRILL file — this section states the resulting task breakdown only.
+> Net scope change: **3 independent workstreams/PRs, not one bundled CP-3.6 gate**; `plan:feature`
+> stays excluded (D2 lock unchanged); `arch` dropped entirely (D6 — 519L/4 commands, no real
+> duplication to consolidate); framed as **organizational cleanup, not command-count reduction**
+> (D4 — every subcommand keeps direct slash-invocability per D3, so 46→~26 was never reachable
+> this way). `orch.md` (369L, pre-existing top-level command) turned out to already half-implement
+> the router this phase wanted to build (D1) — refactor it in place, don't build fresh alongside it.
 
-- [ ] **T3.6.0** (before any implementation) Re-grill this phase: for EACH of the 5
-  families below, confirm against current repo state whether consolidation is still the
-  right call (re-check `deprecated:` frontmatter, cross-reference any newer specs/ADRs,
-  and specifically re-verify `plan:feature`'s D2 exclusion still holds) — do not assume
-  the 2026-07-09 ROSTER's assumptions are current.
-- [ ] **T3.6.1** `plan` absorbs `plan:feature` — **XS** — **LIKELY N/A**: superseded by
-  the locked D2 decision (see above); `plan/feature.md` was left untouched this session.
-  Re-confirm before touching.
-- [ ] **T3.6.2** `orch` absorbs `orch:drive` + `orch:workflow` — **S** — drive.md (114L)
-  has its own full arg surface (spec/dry-run/yes/max-turns/no-auto/agents/condition) and
-  delegates to a separate `drive-engine` skill already; workflow.md (126L) not yet
-  inspected. Neither carries `deprecated: true`.
-- [ ] **T3.6.3** NEW `arch` router (4→router+refs) — **S** — analyze 147 · diagram 130 ·
-  plan 133 · review 109 (Σ519L), none deprecated.
-- [ ] **T3.6.4** NEW `code:audit` router (5→router+refs) — **M** — command-audit 131 ·
-  deps-audit 170 · deps-check 88 · docs-check 248 · skill-standards 167 (Σ804L), none
-  deprecated.
-- [ ] **T3.6.5** NEW `ci` router (8→router+refs) — **M** — detect 292 · fix 96 ·
-  generate 730 · local 219 · status 166 · triage 176 · validate 303 · watch 135
-  (Σ2117L), none deprecated. Largest family — do last.
-- [ ] **T3.6.6** Cascade @26 (only if T3.6.1–5 land): bump-version + hub REGEN + ci.yml
-  floor→18 + MIGRATION-v4.md rows for every consolidated name — **M** (parent)
-- [ ] **T3.6.7** Suites green @26 + slash-invocability spot-checks — **S**
-- [ ] **CP-3.6** (ASK): craft@26 all green → ONE PR feature/folio-split→dev (leak-scan,
-  evidence in body) → merge on your go. Same PR-approval-only gate as the old CP-3.5.
+### Workstream A — orch.md refactor (own PR)
 
-**To start Phase 3.6 in a future session**, use a freshly-scoped `/goal` — do NOT reuse
-the old Phase-3.5 condition (it references CP-3.5/T3.5.x names that no longer map to
-open work). Suggested starting point:
+- [ ] **T3.6.A1** Disentangle `orch.md`'s orchestrator-v2-launch logic (task/mode/swarm/engine
+  execution) from its embedded drive/workflow dispatch logic (lines 250-301, 365) — **M**
+  - Acceptance: launch logic isolated as its own testable unit before the router restructure
+- [ ] **T3.6.A2** Move launch logic to a new skill (e.g.
+  `skills/orchestration/orchestrator-launch/`) — **S** (D7)
+  - Acceptance: matches the check.md/dist-extras/claude-md salvage pattern already used in this
+    branch; `orch.md` shrinks to a thin call into the skill + the router table
+- [ ] **T3.6.A3** `orch.md` becomes the formal router: bare-mode dispatch table (drive /
+  workflow / direct launch) built from its existing confirm-gate logic — **M** (D1)
+  - Acceptance: `/craft:orch`, `/craft:orch:drive`, `/craft:orch:workflow` all still directly
+    slash-invocable (D3) — no path deleted, only bodies moved to references
+- [ ] **T3.6.A4** Salvage `drive.md`/`workflow.md` bodies into
+  `skills/orchestration/orch-router/references/` (ADR-002 line-conservation diff) — **S**
+- [ ] **T3.6.A5** Regen `commands/_cache.json` (or the repo's cache-regen script) before final
+  verification — **XS** (D9)
+- [ ] **T3.6.A6** Suites green: pytest + relevant bash suites + `mkdocs build --strict` +
+  slash-invocability spot-check on all 3 entry points — **S**
+- [ ] **CP-3.6.A** (ASK): Workstream A all green → own PR `feature/folio-split`→`dev`
+  (leak-scan, evidence in body) → merge on your go.
 
-```
-/goal tasks/todo.md on feature/folio-split shows Phase 3.6 (T3.6.0-T3.6.7) and CP-3.6
-all checked off, final pytest run clean (only the 3 known dev-baseline failures),
-mkdocs build --strict clean, and no PR opened — CP-3.6 stops at presenting the PR
-command for my approval, not executing it
-```
+### Workstream B — code:audit router (own PR)
+
+- [ ] **T3.6.B1** Verify `--format`/`--fix` semantics compatible across all 5 subcommands
+  (command-audit, deps-audit, deps-check, docs-check, skill-standards) — **XS**
+  - Already verified in the grill (D2): format = output rendering, fix = safe mechanical
+    auto-fix, consistent across command-audit/skill-standards. Re-confirm for deps-audit/
+    deps-check/docs-check before building.
+- [ ] **T3.6.B2** NEW `code:audit` router + shared `--format`/`--fix` dispatch — **M** —
+  command-audit 131 · deps-audit 170 · deps-check 88 · docs-check 248 · skill-standards 167
+  (Σ804L) — subcommand-specific extras (`--ignore`/`--fail-on` etc.) stay per-reference, not
+  promoted to the shared set
+  - Acceptance: `/craft:code:command-audit` etc. all still directly slash-invocable (D3)
+- [ ] **T3.6.B3** Salvage all 5 bodies into `skills/code/audit-router/references/` (ADR-002
+  line-conservation diff) — **M**
+- [ ] **T3.6.B4** Regen `commands/_cache.json` before final verification — **XS** (D9)
+- [ ] **T3.6.B5** Suites green + slash-invocability spot-check on all 5 entry points — **S**
+- [ ] **CP-3.6.B** (ASK): Workstream B all green → own PR `feature/folio-split`→`dev` → merge
+  on your go.
+
+### Workstream C — ci router (own PR, do last — largest family)
+
+- [ ] **T3.6.C1** Normalize `repo` flag to `OWNER/NAME` format across all 3 commands that
+  carry it — **S** — `status.md` currently accepts short names ("craft", "homebrew-tap");
+  `triage.md`/`watch.md` require `OWNER/NAME`. Add explicit short-name→OWNER/NAME expansion in
+  status.md rather than silently dropping the short-name UX (D10).
+- [ ] **T3.6.C2** NEW `ci` router + shared `--dry-run`/`--fix`/`--json` dispatch — **M** —
+  detect 292 · fix 96 · generate 730 · local 219 · status 166 · triage 176 · validate 303 ·
+  watch 135 (Σ2117L, largest family) — verified compatible (D10) except `repo` (fixed in C1)
+  - Acceptance: `/craft:ci:detect` etc. all still directly slash-invocable (D3)
+- [ ] **T3.6.C3** Salvage all 8 bodies into `skills/ci/ci-router/references/` (ADR-002
+  line-conservation diff) — **L** (generate.md alone is 730 lines — largest single salvage
+  in this phase)
+- [ ] **T3.6.C4** Regen `commands/_cache.json` before final verification — **XS** (D9)
+- [ ] **T3.6.C5** Suites green + slash-invocability spot-check on all 8 entry points — **S**
+- [ ] **CP-3.6.C** (ASK): Workstream C all green → own PR `feature/folio-split`→`dev` → merge
+  on your go.
+
+**Explicitly out of scope:** `arch` router (dropped, D6) — `commands/arch/{analyze,diagram,
+plan,review}.md` stay untouched. `plan` absorbing `plan:feature` — still excluded per the
+pre-existing D2 lock (`SPEC-orchestrator-consolidation-2026-07-04.md`), unchanged by this grill.
+No `bump-version.sh`/`ci.yml`-floor cascade — command count is not a target of this phase (D4).
+
+**To resume:** each workstream is independently startable — no ordering dependency between A
+and B; C should come last (largest, most salvage work). Full reasoning + all 10 locked decisions:
+`docs/specs/GRILL-phase-3-6-router-consolidation-2026-07-15.md`.
 
 Worktree: `~/.git-worktrees/craft/feature-folio-split` (branch `feature/folio-split`).
-Start with T3.6.0 (re-grill) before touching any files — do not assume this note's
-line counts or deprecation findings are still current by the time you resume.
 
 ## Phase 4 — coordinated release
 

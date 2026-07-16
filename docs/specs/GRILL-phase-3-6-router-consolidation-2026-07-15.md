@@ -112,31 +112,53 @@ relative to the new router structure during dev/testing, discovery-based tests/d
 silently read pre-refactor routing data.
 
 **Decision:** add an explicit cache-regen step (`rm commands/_cache.json` or the regen script,
-whichever the repo uses) to each of the 2 workstreams' task lists, before the final verification
-pass — cheap insurance beyond what the full suite already catches incidentally.
+whichever the repo uses) to each workstream's task list, before the final verification pass —
+cheap insurance beyond what the full suite already catches incidentally.
+
+### D10 — `ci` router: build it as a 3rd workstream (correction)
+
+**Process note:** the original Phase 3.6 plan had **5** target families
+(`plan:feature`, `orch:drive`/`workflow`, `arch`, `code:audit`, `ci`) — this grill's first pass
+covered only 4 and omitted `ci` entirely (8 commands: detect/fix/generate/local/status/triage/
+validate/watch, 2117 lines, the largest family). Caught and corrected during plan-handoff, before
+any implementation started.
+
+Verified same as D2/D8: `dry-run`/`fix`/`json` mean the same thing everywhere they appear across
+the 8 commands (preview / auto-fix / structured-output, respectively). One real mismatch found:
+`repo` accepts short names ("craft", "homebrew-tap") in `status.md` but requires `OWNER/NAME`
+format in `triage.md`/`watch.md` — same flag name, incompatible input contract. Structurally, the
+8 commands form a cohesive CI lifecycle (detect→fix→generate→run→status→triage→validate→watch),
+closer to code:audit's structural-similarity case than arch's independent-activities case (D6).
+
+**Decision:** build the `ci` router as a 3rd independent workstream/PR, alongside the orch.md
+refactor and the code:audit router. `repo` must be normalized to `OWNER/NAME` everywhere as part
+of the build (status.md's short-name acceptance becomes an explicit alias/expansion, not silently
+dropped) — not left as a latent inconsistency. Largest and highest-line-count of the 3 — do it
+last, per the original plan's own sequencing note for this family.
 
 ## Net Effect on Phase 3.6 Scope
 
 | | Original plan | Post-grill |
 |---|---|---|
-| Workstreams | 4 (plan:feature excluded, orch, arch, code:audit) | 2 (orch.md refactor, code:audit router) |
+| Workstreams | 5 (plan:feature excluded, orch, arch, code:audit, ci) | 3 (orch.md refactor, code:audit router, ci router) |
 | `plan:feature` | excluded (D2 lock, pre-existing) | unchanged — still excluded |
 | `arch` router | planned (T3.6.3) | **dropped** (D6) |
+| `ci` router | planned (T3.6.5), initially omitted from this grill | **kept**, re-verified (D10) |
 | Command count goal | 46 → ~26 | **not a goal** — organizational only (D4) |
 | Invocability | unspecified | preserved for every subcommand (D3) |
-| PR batching | 1 bundled (CP-3.6) | 2 independent PRs (D5) |
+| PR batching | 1 bundled (CP-3.6) | 3 independent PRs (D5 + D10) |
 | orch.md treatment | build fresh router alongside orch.md | **orch.md itself becomes the router** (D1, D7) |
 
 ## Open Questions (deferred to /craft:plan)
 
-- Sequencing: which of the 2 workstreams (orch.md refactor vs. code:audit router) lands first —
-  no design dependency between them, pure scheduling.
-- Exact reference-file layout for the new orchestrator-launch skill and the code:audit
-  references (per-subcommand file naming, ADR-002 line-conservation diff targets).
+- Sequencing: ci router last (per D10); no design dependency between orch-refactor and
+  code:audit — pure scheduling between those two.
+- Exact reference-file layout for the new orchestrator-launch skill, the code:audit references,
+  and the ci references (per-subcommand file naming, ADR-002 line-conservation diff targets).
 - Whether `tasks/todo.md`'s Phase 3.6 section (T3.6.1–T3.6.7) should be rewritten in place to
-  match this scope, or superseded by a fresh task breakdown scoped to just the 2 workstreams.
+  match this scope, or superseded by a fresh task breakdown scoped to the 3 workstreams.
 
 ## Handoff
 
-Ready for `/craft:plan` (plan-orchestrator tier) to turn this into task breakdowns for the 2
+Ready for `/craft:plan` (plan-orchestrator tier) to turn this into task breakdowns for the 3
 workstreams. Grill interrogates and hands the artifact forward — no execution here.
