@@ -28,10 +28,32 @@
 2. Cross-repo `main` case → `[CONFIRM]`, not hard block (brainstorm decision 2).
 3. Remove `delete-git-dir` from `scripts/hard-deny-rules.json` + `/craft:git:protect` install list; let branch-guard.sh's HIGH tier own `rm -rf .git` (confirm on dev/draft, block on main) (this ledger's decisions 2–4).
 
+> **2026-07-15 correction:** item 1's "compound-string-match, worktree-cleanup false
+> positives" claim for `no-switch-guard.sh` did not hold up under a follow-up adversarial
+> re-check — neither scenario reproduces in that file (verified by direct code read; see
+> [`BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md`](../../BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md)
+> Context Scan). The real bug found instead — `no-switch-guard.sh`'s `git_dir` resolution
+> only honored `-C`, never a leading `cd` — was fixed in
+> [#287](https://github.com/Data-Wise/craft/pull/287), together with a retrofit of
+> `branch-guard.sh`'s own single-hop #284 resolver to cumulative-cwd tracking.
+
 **Explicitly out of scope, deferred to a separate initiative:**
 
 - Concurrency-safety for guard state under Workflow/orchestrate parallel dispatch (this ledger's decision 5).
 
+> **2026-07-15 update:** addressed, broader than originally scoped. The 2026-07-15
+> adversarial review found and fixed a real, empirically-confirmed lost-update race in
+> `~/.claude/guards.json`'s write path — not scoped to Workflow/orchestrate dispatch
+> specifically, but the same class of concurrent-write hazard this decision anticipated.
+> Fixed in [#288](https://github.com/Data-Wise/craft/pull/288) (shared mkdir-lock helper,
+> both writers). See
+> [`GRILL-guard-hardening-adversarial-review-2026-07-15.md`](GRILL-guard-hardening-adversarial-review-2026-07-15.md).
+
 **Unresolved, needs a build-time decision (not re-grilled):**
 
 - cd/-C cumulative-state tracking mechanics.
+
+> **2026-07-15 resolution:** locked as **cumulative-cwd tracking** (not per-clause-only or
+> cd-always-confirms) during the 2026-07-15 grill, and implemented in both
+> `no-switch-guard.sh` and a retrofit of `branch-guard.sh`'s #284-era single-hop resolver.
+> Shipped in [#287](https://github.com/Data-Wise/craft/pull/287).
