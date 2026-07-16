@@ -1597,7 +1597,7 @@ The generator assembles a complete formula with:
 
 ### Existing Plugin Formulas
 
-All 6 plugin formulas are generated from the manifest:
+All 7 plugin formulas are generated from the manifest:
 
 | Formula | Features | Status |
 |---------|----------|--------|
@@ -1607,6 +1607,7 @@ All 6 plugin formulas are generated from the manifest:
 | `rforge.rb` | head-only (no releases) | `brew audit --strict` clean |
 | `rforge-orchestrator.rb` | monorepo URL pattern | `brew audit --strict` clean |
 | `workflow.rb` | ADHD workflow automation | `brew audit --strict` clean |
+| `folio.rb` | schema-cleanup (command count: see `plugin.json`) | `brew audit --strict` clean |
 
 ### Testing Plugin Installation
 
