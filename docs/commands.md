@@ -12,7 +12,7 @@ Complete reference for all 116 Craft commands organized by category. Craft provi
 Use `/craft:hub` to discover all available commands interactively.
 
 !!! tip "Preview Before Executing"
-    46 commands now support dry-run mode. Add `--dry-run` or `-n` to preview actions before executing. See [Dry-Run Commands](#dry-run-commands) below.
+    27 commands support dry-run mode. Add `--dry-run` or `-n` to preview actions before executing. See [Dry-Run Commands](#dry-run-commands) below.
 
 ## Smart Commands
 
@@ -202,7 +202,9 @@ Read-only view of the multi-surface release registry — verify gate states and 
 
 ## Documentation Commands (docs/)
 
-46 commands for documentation generation, validation, and site management.
+2 commands for documentation updates and changelog automation. The remaining 17 rows below are
+kept as migration pointers — documentation generation, validation, and site management moved to
+the [folio plugin](MIGRATION-v4.md) in v4.
 
 | Command | Description | Help |
 |---------|-------------|------|
