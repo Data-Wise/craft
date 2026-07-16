@@ -89,8 +89,14 @@ jobs:
       - name: Validate command count
         run: |
           COMMAND_COUNT=$(find commands -name "*.md" -type f | wc -l | tr -d ' ')
-          if [ "$COMMAND_COUNT" -lt 60 ]; then
-            echo "❌ Expected at least 60 commands, found $COMMAND_COUNT"
+          # Floor is a mass-deletion guardrail, not a target: it must sit BELOW the
+          # real surface with headroom for churn. v4 folio-split landed craft at 47
+          # (docs surface extracted to the folio plugin), so 40 leaves ~15% slack.
+          # Keep it below the actual count — a floor at/above the surface hard-fails
+          # CI on every run (this check went stale twice: 86 -> 60 while the real
+          # count fell 94 -> 70 -> 47).
+          if [ "$COMMAND_COUNT" -lt 40 ]; then
+            echo "❌ Expected at least 40 commands, found $COMMAND_COUNT"
             exit 1
           fi
           echo "✅ Found $COMMAND_COUNT command files"

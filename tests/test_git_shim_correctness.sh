@@ -1,14 +1,27 @@
 #!/usr/bin/env bash
 #
-# Shim-correctness test (SPEC-branch-protection-consolidation-2026-07-07 §4.7 / §6)
+# git-migration-completeness test
+# (SPEC-branch-protection-consolidation-2026-07-07 §4.7 / §6 -> T3.5.2 -> v4 folio-split)
 #
-# For each thinned commands/git/*.md shim, assert:
-#   1. frontmatter declares deprecated: true + replaced-by: "skills/dev/git/"
-#   2. the shim references at least one real "Operation N" that exists as a
-#      "### N." heading in skills/dev/git/SKILL.md
-#   3. the file is actually thin (line count under a generous ceiling) —
-#      prevents the exact drift this SPEC found: frontmatter claiming a
-#      migration that never happened.
+# HISTORY — why this file inverted its assertions (2026-07-16):
+#   Originally this suite asserted each commands/git/*.md was a genuine THIN SHIM
+#   (deprecated: true + replaced-by: "skills/dev/git/" + under a line ceiling). Its
+#   purpose was to catch "frontmatter claiming a migration that never happened."
+#
+#   T3.5.2 then COMPLETED that migration: all 11 git command shims were deleted and
+#   their content now lives in skills/dev/git/SKILL.md as numbered Operations. The
+#   original assertions became unsatisfiable — they required files the migration was
+#   designed to remove — and the suite failed 7/21 on the v4 branch while passing on
+#   dev, where the files still existed. (It is a CI-required check, ci.yml; pytest
+#   does not run it, which is why the breakage went unnoticed: T3.5.2's verification
+#   cited a green pytest run as its evidence.)
+#
+#   The shim-drift risk this file guarded is now structurally impossible — there are
+#   no shims left to carry false frontmatter. So the assertions are INVERTED to guard
+#   the migration's END STATE instead, which is a live invariant:
+#     1. the 11 former shims stay deleted (nobody silently re-adds one)
+#     2. skills/dev/git/SKILL.md still carries the Operations that replaced them
+#     3. the one sanctioned live command (issue-check) stays live and non-deprecated
 #
 # Usage: bash tests/test_git_shim_correctness.sh
 
@@ -28,23 +41,34 @@ PASS=0
 FAIL=0
 declare -a FAILED_NAMES=()
 
-# name -> max line count considered "thin"
-declare -A SHIMS=(
-  [guard.md]=90
-  [protect.md]=70
-  [status.md]=70
-  [clean.md]=70
-  [branch.md]=80
-  [worktree.md]=260
-  [unprotect.md]=160
+# The 11 former commands/git/*.md shims, deleted in T3.5.2. None may come back:
+# their content lives in skills/dev/git/SKILL.md as Operations (see the mapping
+# table in that file's "Integration" section).
+DELETED_SHIMS=(
+  guard.md
+  protect.md
+  protect-baseline.md
+  status.md
+  clean.md
+  branch.md
+  worktree.md
+  unprotect.md
+  init.md
+  sync.md
+  git-recap.md
 )
-# NOTE: git-recap.md + sync.md removed in the v3.0.0 native-first prune
-# (deleted, zero external callers). init.md also deleted (never in this list).
 
-# Files unchanged by this SPEC (already thin shims per prior migrations) that
-# don't necessarily cite "Operation N" by that literal string — skip the
-# op-ref check for these, still enforce frontmatter + thinness.
-SKIP_OPREF="unprotect.md"
+# Operations that must survive in SKILL.md as "### N." headings. These are the
+# replacement surface — if one disappears, the migration has silently regressed
+# and the deleted commands have no home.
+REQUIRED_OPS=(1 2 3 4 5 6 7 8 9 10 11 12)
+
+# The ONLY sanctioned live command under commands/git/. Deliberately not folded
+# into the skill: tests/test_issue_check_unit.py extracts its classify_issue()
+# block from this exact path and exec()s it, so the command file is the single
+# source of truth for the classifier (same constraint as commands/ci/triage.md,
+# recorded as D13 in GRILL-phase-3-6-router-consolidation-2026-07-15.md).
+LIVE_COMMANDS=(issue-check.md)
 
 check() {
   local name="$1"
@@ -61,63 +85,59 @@ check() {
   fi
 }
 
-for shim in "${!SHIMS[@]}"; do
-  file="$ROOT/commands/git/$shim"
-  max_lines="${SHIMS[$shim]}"
-
-  if [[ ! -f "$file" ]]; then
-    check "exists:$shim" false "file not found"
-    continue
-  fi
-
-  # 1. frontmatter
-  if grep -q 'deprecated: true' "$file" && grep -q 'replaced-by: "skills/dev/git/"' "$file"; then
-    check "frontmatter:$shim" true "deprecated + replaced-by present"
+# 1. The former shims stay deleted.
+for shim in "${DELETED_SHIMS[@]}"; do
+  if [[ -f "$ROOT/commands/git/$shim" ]]; then
+    check "deleted:$shim" false "resurrected — content belongs in skills/dev/git/SKILL.md"
   else
-    check "frontmatter:$shim" false "missing deprecated/replaced-by frontmatter"
-  fi
-
-  # 2. references a real Operation N that exists in SKILL.md
-  if [[ " $SKIP_OPREF " == *" $shim "* ]]; then
-    check "op-ref:$shim" true "skipped (pre-existing shim, unchanged by this SPEC)"
-    lines=$(wc -l < "$file" | tr -d ' ')
-    if (( lines <= max_lines )); then
-      check "thin:$shim" true "$lines lines (<= $max_lines)"
-    else
-      check "thin:$shim" false "$lines lines (> $max_lines ceiling)"
-    fi
-    continue
-  fi
-  ops="$(grep -oE 'Operation [0-9]+' "$file" | grep -oE '[0-9]+' | sort -u)"
-  if [[ -z "$ops" ]]; then
-    check "op-ref:$shim" false "no 'Operation N' reference found in shim"
-  else
-    all_found=true
-    missing=""
-    for op in $ops; do
-      if ! grep -qE "^### ${op}\." "$SKILL_FILE"; then
-        all_found=false
-        missing="$missing $op"
-      fi
-    done
-    if [[ "$all_found" == true ]]; then
-      check "op-ref:$shim" true "references Operation(s):$ops, all present in SKILL.md"
-    else
-      check "op-ref:$shim" false "references Operation(s) not found in SKILL.md:$missing"
-    fi
-  fi
-
-  # 3. thin (line count under ceiling)
-  lines=$(wc -l < "$file" | tr -d ' ')
-  if (( lines <= max_lines )); then
-    check "thin:$shim" true "$lines lines (<= $max_lines)"
-  else
-    check "thin:$shim" false "$lines lines (> $max_lines ceiling — no longer a thin shim)"
+    check "deleted:$shim" true "still absent (migrated to skills/dev/git/)"
   fi
 done
 
+# 2. SKILL.md exists and still carries the replacement Operations.
+if [[ ! -f "$SKILL_FILE" ]]; then
+  check "skill:exists" false "skills/dev/git/SKILL.md not found — migration target is gone"
+else
+  check "skill:exists" true "skills/dev/git/SKILL.md present"
+  for op in "${REQUIRED_OPS[@]}"; do
+    if grep -qE "^### ${op}\." "$SKILL_FILE"; then
+      check "op:$op" true "Operation $op present"
+    else
+      check "op:$op" false "Operation $op missing from SKILL.md"
+    fi
+  done
+fi
+
+# 3. The sanctioned live command stays live and non-deprecated.
+for cmd in "${LIVE_COMMANDS[@]}"; do
+  file="$ROOT/commands/git/$cmd"
+  if [[ ! -f "$file" ]]; then
+    check "live:$cmd" false "missing — expected a live command at commands/git/$cmd"
+  elif grep -q 'deprecated: true' "$file"; then
+    check "live:$cmd" false "marked deprecated — it is a live command, not a shim"
+  else
+    check "live:$cmd" true "live and non-deprecated"
+  fi
+done
+
+# 4. No UNSANCTIONED command files under commands/git/ — anything new here is
+#    either a resurrected shim or an undocumented addition that skipped the
+#    skill-first convention. Fail loudly rather than let the surface drift back.
+if [[ -d "$ROOT/commands/git" ]]; then
+  while IFS= read -r found; do
+    base="$(basename "$found")"
+    sanctioned=false
+    for cmd in "${LIVE_COMMANDS[@]}"; do
+      [[ "$base" == "$cmd" ]] && sanctioned=true && break
+    done
+    if [[ "$sanctioned" == false ]]; then
+      check "unsanctioned:$base" false "unexpected command under commands/git/ — add to LIVE_COMMANDS with a reason, or move it into skills/dev/git/"
+    fi
+  done < <(find "$ROOT/commands/git" -maxdepth 1 -name '*.md' -type f 2>/dev/null)
+fi
+
 echo ""
-echo -e "${T_BOLD}Shim-correctness summary: ${PASS}/${TOTAL} passed${T_NC}"
+echo -e "${T_BOLD}git-migration-completeness summary: ${PASS}/${TOTAL} passed${T_NC}"
 
 if [[ $FAIL -gt 0 ]]; then
   echo -e "${T_RED}Failed:${T_NC}"
