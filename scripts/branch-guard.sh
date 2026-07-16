@@ -960,7 +960,10 @@ if [[ "$PROTECTION" == "smart" ]]; then
       # approximation (bash permits \" inside "..."); under-stripping here
       # only returns to the prior (already-shipped) behavior for that rare
       # case — it can never introduce a NEW false positive.
-      COMMAND_SCAN="$(printf '%s' "$COMMAND" | sed -E "s/'[^']*'/'Q'/g" | sed -E 's/"[^"]*"/"Q"/g')"
+      # Single sed invocation (both expressions, no printf/pipe) — this runs
+      # on every Bash tool call, so process-fork count matters for the
+      # dogfood perf budget (test_branch_guard_under_200ms).
+      COMMAND_SCAN="$(sed -E -e "s/'[^']*'/'Q'/g" -e 's/"[^"]*"/"Q"/g' <<< "$COMMAND")"
 
       # Heredoc bodies (e.g. `git commit -m "$(cat <<'EOF' ... EOF)"`) are
       # free-form text that can contain a literal '>' with no relation to a
