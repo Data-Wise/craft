@@ -87,6 +87,42 @@
     a clear reason rather than guessing at a redesign.
 - [ ] **T3.4** ci.yml:92 floor 86→60 (skills floor 26 OK) — **XS**, SAME PR
   - Verify: grep the floor; CI green on PR run
+  - ⚠️ **STALE A SECOND TIME (2026-07-16).** This task targeted 86→60, but Phase 3.5 then cut
+    the surface to **46 commands** — so `ci.yml:92`'s current floor of 60 is now *above* the
+    actual count and **CI will hard-fail** ("Expected at least 60 commands, found 46"). The
+    skills floor (26) is still fine — actual is 40. Picking the new number is a **decision, not
+    a mechanical edit**: the floor is a mass-deletion guardrail, so it depends on whether 46 is
+    the intended final v4 surface or Phase 4 moves it again. Do not guess it.
+
+## ⛔ BRANCH PARKED (2026-07-16) — read before resuming
+
+This branch is **not PR-ready** and was deliberately parked, not abandoned. Phase 3.6 work is
+committed and safe (`204822aa`, `bbd9c3314`, `63f43ba23`, `16d34a0fe`). All Phase 3.6 gates that
+*can* pass locally do: pytest **2561 passed / 4 failed** (the 4 are the documented `dev`
+baseline — hook-install drift + the `test_v115` trio), `validate-counts.sh` exit 0 (46/40/2),
+`mkdocs build --strict` exit 0 / zero warnings, repo-wide `category:` mismatches **0**.
+
+**Scope reality:** `feature/folio-split → dev` is **not** a Workstream B+C PR — it is the entire
+v4 train (36 commits, Phases 3 + 3.5 + 3.6), and the branch is **41 commits behind `dev`** off a
+merge-base from 2026-07-09. Landing it is the gated operation this plan always intended
+("branch holds — 3.5 rides the same train"), not a small follow-up.
+
+**Three CI blockers, three unrelated causes — triaged 2026-07-16. Do NOT treat as one bucket:**
+
+| Blocker | Cause | Fix |
+|---|---|---|
+| `test_branch_guard.sh` — `test_bash_git_dash_c_commit_on_main_not_caught` (expects 0, gets 2) | **Stale branch, NOT a regression.** A characterization test that encoded a known *limitation*; guard-hardening PRs #287–#289 (on `dev`) closed the gap. `dev` already renamed it `..._now_caught` expecting 2. The suite runs the **installed** hook at `$HOME/.claude/hooks/` (machine-global), not the repo copy — which is why it passes on `dev` and fails here with identical code. | Comes **free with a `dev` merge**. Edit nothing. |
+| `ci.yml:92` command floor 60 vs actual 46 | The open **T3.4**, stale a second time (see above). | Needs a **user decision** on the number. |
+| `test_git_shim_correctness.sh` — 7 `exists:` failures (21/21 on `dev`) | **The only true branch debt.** T3.5.2 deleted all of `commands/git/` (consolidated into `skills/dev/git/`), but this suite still asserts those 7 shims exist. Its stated purpose — catching "frontmatter claiming a migration that never happened" — is obsolete now that the migration fully happened. **A `dev` merge does NOT fix this** (`dev`'s copy also expects the files). | Update/remove the suite **+ its `ci.yml:180` line**. |
+
+**Why pytest never caught the last one:** these are **bash** suites (`ci.yml:177–180`); pytest
+does not run them. T3.5.2's verification cites "full pytest 2575 passed" as its evidence — that
+is exactly the blind spot. **Run the bash suites, not just pytest, before calling this branch
+green.**
+
+**On merging `dev` in:** not a formality. This branch modified `no-switch-guard.sh`,
+`install-guards.sh`, and `version-check.sh` — precisely the files `dev`'s #287–#289 hardening
+touched. Expect real conflicts in the guard scripts.
 
 **BACKLOG (2026-07-12, user-decided, not a Phase 3 blocker):** `scripts/dependency-manager.sh`
 
