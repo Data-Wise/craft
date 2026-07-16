@@ -964,7 +964,7 @@ Each repo's worktree gets its own ORCHESTRATE file, scoped to that repo's work b
   ORCHESTRATE-oauth2.md   ← describes web-app work, refs auth-core worktree
 ```
 
-When `/craft:orch:plan` detects cross-repo paths in a spec, it creates both worktrees and writes both ORCHESTRATE files automatically.
+When `/craft:plan` detects cross-repo paths in a spec, it creates both worktrees and writes both ORCHESTRATE files automatically.
 
 ### Development Order
 
@@ -1027,6 +1027,6 @@ Merge library first, consumer second. See [Multi-Repo Workflow Guide](multi-repo
 
 - **Tutorial:** [Worktree Setup Tutorial](../tutorials/TUTORIAL-worktree-setup.md) — Beginner guide
 - **Quick reference:** [Worktree Refcard](../reference/REFCARD-GIT-WORKTREE.md) — Common commands
-- **Command docs:** [/craft:git:worktree](../commands/git/worktree.md) — Full documentation
+- **Command docs:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Full documentation
 - **Workflow:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — Complete git workflow
 - **Cross-repo:** [Multi-Repo Workflow Guide](multi-repo-workflow.md) — Features spanning multiple repositories

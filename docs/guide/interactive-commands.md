@@ -163,7 +163,7 @@ This shows the full interactive flow from brainstorm to PR, demonstrating how ea
 # → Offers to capture spec
 
 # Step 2: Create orchestration from spec (v2.21.0)
-/craft:orch:plan docs/specs/SPEC-notifications.md
+/craft:plan docs/specs/SPEC-notifications.md
 #
 # Plan:
 #   1. Parse spec for phases (found 3 phases)
@@ -227,4 +227,4 @@ claude
 - **Tutorial:** [Interactive Orchestration Tutorial](../tutorials/interactive-orchestration.md)
 - **Check command:** [/craft:check](../commands/check.md)
 - **Docs update:** [/craft:docs:update](../commands/docs/update.md)
-- **Worktree:** [/craft:git:worktree](../commands/git/worktree.md)
+- **Worktree:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)

@@ -116,14 +116,6 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:discovery-usage
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| format | enum | No | `markdown` | - | `markdown`, `json`, `html` |
-
----
-
 ## Architecture Commands Parameters
 
 ### /craft:arch:analyze
@@ -244,7 +236,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:code:coverage
+### /craft:test --coverage
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -396,7 +388,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Documentation Commands Parameters
 
-### /craft:docs:api
+### /folio:docs:api
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -418,7 +410,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:check-links
+### /folio:docs:check-links
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -429,7 +421,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:check
+### /folio:docs:check
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -445,7 +437,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:demo
+### /folio:docs:demo
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -454,7 +446,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:guide
+### /folio:docs:guide
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -464,7 +456,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:help
+### /folio:docs:help
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -473,7 +465,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:lint
+### /folio:docs:lint
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -482,7 +474,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:mermaid
+### /folio:docs:mermaid
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -492,7 +484,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:nav-update
+### /folio:docs:nav-update
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -500,7 +492,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:prompt
+### /folio:docs:prompt
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -508,7 +500,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:quickstart
+### /folio:docs:quickstart
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -517,7 +509,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:site
+### /folio:docs:site
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -527,7 +519,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:sync
+### /folio:docs:sync
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -535,7 +527,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:tutorial
+### /folio:docs:tutorial
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -554,7 +546,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:workflow
+### /folio:docs:workflow
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -563,7 +555,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:website
+### /folio:docs:website
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -574,41 +566,13 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ## Git Commands Parameters
 
-### /craft:git:status
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| detailed | boolean | No | false | `-d` | Detailed info |
-| suggest | boolean | No | true | `--no-suggest` | Show suggestions |
-
----
-
-### /craft:git:branch
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| action | enum | Yes | - | - | `create`, `list`, `delete`, `rename` |
-| name | string | No | - | - | Branch name |
-| type | enum | No | `feature` | - | `feature`, `hotfix`, `release` |
-
----
-
-### /craft:git:worktree
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| action | enum | Yes | - | - | `setup`, `create`, `move`, `list`, `clean`, `install`, `finish` |
-| branch | string | No | - | - | Branch name |
-| dry-run | boolean | No | false | `-n` | Preview |
-
----
-
-### /craft:git:clean
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| dry-run | boolean | No | false | `-n` | Preview |
-| remote | boolean | No | false | `--clean-remote` | Clean remote |
+All git commands — status, branch, worktree, clean, protect, unprotect, and
+guard — were folded into the `dev/git` skill (2026-07 v4 consolidation);
+there are no remaining `/craft:git:*` slash commands or their parameter
+tables. Ask naturally and the skill infers equivalent options from context,
+or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md)
+for the full operation list.
 
 ---
 
@@ -624,27 +588,15 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:plan:sprint
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| duration | string | No | `1w` | - | Sprint duration |
-| capacity | number | No | 40 | - | Team capacity (hours) |
-
----
-
-### /craft:plan:roadmap
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| horizon | enum | No | `1y` | - | `6m`, `1y`, `2y` |
-| format | enum | No | `timeline` | - | `timeline`, `kanban`, `swimlanes` |
+> Sprint planning and roadmap generation moved into the `plan-orchestrator`
+> skill (Modes 3–4) — no longer separate slash commands. Invoke `/craft:plan`
+> and describe the sprint/roadmap need.
 
 ---
 
 ## Site Commands Parameters
 
-### /craft:site:build
+### /folio:site:build
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -662,7 +614,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:publish
+### /folio:site:publish
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -670,7 +622,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:check
+### /folio:site:check
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -678,7 +630,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:update
+### /folio:site:update
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -686,7 +638,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:status
+### /folio:site:status
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -694,7 +646,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:site:progress
+### /folio:site:progress
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
@@ -776,24 +728,6 @@ Comprehensive parameter reference for all 97 Craft commands.
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
 | task | string | Yes | - | - | Task to refine |
-
----
-
-## Utility Commands Parameters
-
-### /craft:utils:readme-teach-config
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| examples | boolean | No | false | `-e` | Show examples |
-
----
-
-### /craft:utils:readme-semester-progress
-
-| Parameter | Type | Required | Default | Aliases | Description |
-|-----------|------|----------|---------|---------|-------------|
-| template | boolean | No | false | `-t` | Show template |
 
 ---
 

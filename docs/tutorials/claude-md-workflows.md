@@ -1025,7 +1025,7 @@ cat DESCRIPTION
 
 ## See Also
 
-- **Command Reference:** [CLAUDE-MD Commands](../commands/docs/claude-md.md)
+- **Skill Reference:** `skills/docs/claude-md/` (init/sync/edit folded into this skill in the v4 consolidation)
 - **Quick Reference:** [REFCARD-CLAUDE-MD](../reference/REFCARD-CLAUDE-MD.md)
 - **Interactive Commands Guide:** [Interactive Commands](../guide/interactive-commands.md)
 - **Templates:** `templates/claude-md/`

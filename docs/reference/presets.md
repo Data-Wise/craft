@@ -146,7 +146,7 @@ Warm light, never harsh white.
 
 ## Using Presets
 
-Set a preset in `.craft/site-design.yaml`, then apply it with `/craft:site:update` (see [Customizing Presets](#customizing-presets) below).
+Set a preset in `.craft/site-design.yaml`, then apply it with `/folio:site:update` (moved to folio) (see [Customizing Presets](#customizing-presets) below).
 
 ## Customizing Presets
 
@@ -169,7 +169,7 @@ features:
 Then regenerate with:
 
 ```bash
-/craft:site:update
+/folio:site:update
 ```
 
 ## Next Steps

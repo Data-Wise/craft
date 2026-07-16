@@ -1,6 +1,6 @@
 # Documentation Index - Dependency Management System
 
-Complete documentation suite for the `/craft:docs:demo` dependency management system.
+Complete documentation suite for the `/folio:docs:demo` dependency management system (moved to folio).
 
 ---
 

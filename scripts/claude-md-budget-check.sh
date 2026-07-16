@@ -67,7 +67,7 @@ if [[ "$ERRORS" -gt 0 ]]; then
     echo "" >&2
     echo "CLAUDE.md budget exceeded in $ERRORS file(s)." >&2
     echo "  Budget: $BUDGET lines (configure in .claude-plugin/config.json)" >&2
-    echo "  Run: /craft:docs:claude-md:sync --optimize" >&2
+    echo "  Ask Claude to run the CLAUDE.md sync (docs/claude-md skill) with --optimize" >&2
     exit 1
 fi
 

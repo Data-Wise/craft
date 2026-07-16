@@ -15,16 +15,16 @@
 asciinema rec docs/demos/teaching-workflow.cast
 
 # In Claude Code, run your commands:
-# /craft:git:status
-# /craft:site:build
+# ask "git status" (dev/git skill)
+# /folio:site:build
 # ... etc
 # Press Ctrl+D when done
 
 # 2. Convert to GIF (single file)
-/craft:docs:demo --convert docs/demos/teaching-workflow.cast
+/folio:docs:demo --convert docs/demos/teaching-workflow.cast
 
 # OR: Batch convert all .cast files
-/craft:docs:demo --batch
+/folio:docs:demo --batch
 
 # 3. Review
 open docs/demos/teaching-workflow.gif
@@ -36,16 +36,16 @@ open docs/demos/teaching-workflow.gif
 
 ```bash
 # Dry run - preview what would be converted
-/craft:docs:demo --batch --dry-run
+/folio:docs:demo --batch --dry-run
 
 # Convert all new .cast files (skip existing GIFs)
-/craft:docs:demo --batch
+/folio:docs:demo --batch
 
 # Force overwrite all GIFs
-/craft:docs:demo --batch --force
+/folio:docs:demo --batch --force
 
 # Custom search path
-/craft:docs:demo --batch --search-path custom/demos
+/folio:docs:demo --batch --search-path custom/demos
 ```
 
 **What batch conversion does:**
@@ -99,11 +99,11 @@ open docs/demos/*.gif docs/gifs/*.gif
 **Commands to test:**
 
 ```bash
-/craft:git:status
-/craft:site:build
-/craft:site:progress
-/craft:site:publish --dry-run
-/craft:site:publish
+# ask "git status" (dev/git skill)
+/folio:site:build
+/folio:site:progress
+/folio:site:publish --dry-run
+/folio:site:publish
 ```
 
 **What to capture:**
@@ -195,7 +195,7 @@ gifsicle -O3 --colors 128 --lossy=80 \
 #### Before (Simulated)
 
 ```tape
-Type "$ /craft:site:build"
+Type "$ /folio:site:build"
 Enter
 Sleep 300ms
 Type "✓ Built successfully"
@@ -204,7 +204,7 @@ Type "✓ Built successfully"
 #### After (Accurate)
 
 ```tape
-Type "$ /craft:site:build"
+Type "$ /folio:site:build"
 Enter
 Sleep 500ms
 Type "┌─────────────────────────────────────────┐"

@@ -68,14 +68,14 @@ fi
 # --------------------------------------------------------------------------
 
 # --- output helpers -------------------------------------------------------
-# Statusline: /craft:git:guard list shows guard state; claude-hud renders guards.json if available
+# Statusline: ask "list guards" (dev/git skill) shows guard state; claude-hud renders guards.json if available
 ask() {       # $1 = reason → confirmation prompt
   if [ "$CLASSIFY_MODE" = true ]; then
     echo "ASK: $1"
     exit 0
   fi
   jq -nc --arg r "$1" \
-    '{hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"ask",permissionDecisionReason:($r + "\n\nTo mute this guard: /craft:git:guard disable no-switch-guard")}}'
+    '{hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"ask",permissionDecisionReason:($r + "\n\nTo mute this guard: ask \"disable no-switch-guard\" (dev/git skill)")}}'
   exit 0
 }
 announce() {  # $1 = notice → allowed, but shown to the user

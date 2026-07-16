@@ -4,7 +4,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Complete guide to installing and using craft's 95 commands, 45 skills, and 8 agents
+> - **What:** Complete guide to installing and using craft's 47 commands, 40 skills, and 2 agents
 > - **Why:** Master the full-stack toolkit to automate your entire development workflow
 > - **How:** Install plugin → verify with `/craft:hub` → start with `/craft:do "task"`
 > - **Next:** Read about [Skills & Agents](../skills-agents.md) to understand AI automation
@@ -48,7 +48,7 @@ ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
 /craft:hub
 ```
 
-You should see all 95 commands listed.
+You should see all 47 commands listed.
 
 ## Your First Commands
 
@@ -94,7 +94,7 @@ Update all documentation:
 Check for stale docs:
 
 ```bash
-/craft:docs:sync
+/folio:docs:sync
 ```
 
 ## Complex Feature Workflow
@@ -121,7 +121,7 @@ graph LR
 # → Saves BRAINSTORM-auth.md, optionally captures spec
 
 # 2. Create orchestration + worktree from spec
-/craft:orch:plan docs/specs/SPEC-auth.md
+/craft:plan docs/specs/SPEC-auth.md
 # → Generates ORCHESTRATE-auth.md
 # → Creates worktree at ~/.git-worktrees/<project>/feature-auth
 

@@ -198,37 +198,19 @@ else
     log_fail "metadata.description too long ($MKT_DESC_LEN chars)" "Should be under 100 chars"
 fi
 
-# ─── 3. dist:marketplace Command ────────────────────────────────────────────
+# ─── 3. dist:marketplace Reference (was a command; folded into dist-extras skill) ──
 
-section "3. dist:marketplace Command"
+section "3. dist:marketplace Reference (dist-extras skill)"
 
-MKT_CMD="commands/dist/marketplace.md"
+# dist:marketplace was folded into the dist-extras skill in the v4 command
+# consolidation (Phase 3.5, 2026-07-12) — content moved to a skill reference,
+# so the frontmatter checks (this was a command) no longer apply.
+MKT_CMD="skills/distribution/dist-extras/references/marketplace.md"
 
 if [[ -f "$MKT_CMD" ]]; then
-    log_pass "marketplace.md command file exists"
+    log_pass "marketplace.md skill reference exists"
 else
-    log_fail "marketplace.md command file missing" "Expected at $MKT_CMD"
-fi
-
-# Has YAML frontmatter
-if head -1 "$MKT_CMD" | grep -q '^---$'; then
-    log_pass "Has YAML frontmatter"
-else
-    log_fail "Missing YAML frontmatter"
-fi
-
-# Has description in frontmatter
-if grep -q '^description:' "$MKT_CMD"; then
-    log_pass "Frontmatter has description"
-else
-    log_fail "Frontmatter missing description"
-fi
-
-# Has arguments in frontmatter
-if grep -q 'arguments:' "$MKT_CMD"; then
-    log_pass "Frontmatter has arguments"
-else
-    log_fail "Frontmatter missing arguments"
+    log_fail "marketplace.md skill reference missing" "Expected at $MKT_CMD"
 fi
 
 # All 4 subcommands documented

@@ -2,12 +2,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** 95 commands organized into 17 categories covering the full development lifecycle
+> - **What:** 46 commands organized into 17 categories covering the full development lifecycle
 > - **Why:** One plugin handles your entire development workflow from docs to deployment
 > - **How:** Use `/craft:hub` to discover all commands by category
 > - **Next:** Start with `/craft:do` for AI-powered task routing or `/craft:check` for pre-flight validation
 
-Craft provides **95 commands** for full-stack development workflows.
+Craft provides **46 commands** for full-stack development workflows.
 
 ## Command Routing
 
@@ -43,11 +43,10 @@ flowchart TD
 Universal commands with AI-powered routing:
 
 - `/craft:do <task>` — Universal task router
-- `/craft:check [--for]` — Pre-flight checks (+`gen-validator`)
+- `/craft:check [--for]` — Pre-flight checks
 - `/craft:orch <task> [mode]` — Enhanced orchestrator (+`plan`, `resume`)
 - `/craft:hub` — Command discovery
 - `/craft:smart-help` — Context-aware help
-- `/craft:discovery-usage` — Discovery engine guide
 
 ### 📚 Documentation Commands (21)
 
@@ -140,7 +139,7 @@ Many commands support execution modes:
 | I want to... | Use this command |
 |--------------|------------------|
 | Generate docs | `/craft:docs:update` |
-| Build a site | `/craft:site:build` |
+| Build a site | `/folio:site:build` |
 | Run tests | `/craft:test` |
 | Manage git worktrees | `/craft:git:worktree` |
 | Check before commit | `/craft:check` |
@@ -184,7 +183,7 @@ Four key commands use the **"Show Steps First" pattern**:
 # Scope detection and auto-setup
 ```
 
-[Learn more →](git/worktree.md) | [Tutorial](../tutorials/TUTORIAL-worktree-setup.md) | [Quick reference](../reference/REFCARD-GIT-WORKTREE.md)
+[Learn more →](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) | [Tutorial](../tutorials/TUTORIAL-worktree-setup.md) | [Quick reference](../reference/REFCARD-GIT-WORKTREE.md)
 
 ### /craft:docs:update - Documentation Generator
 
@@ -259,7 +258,7 @@ Four key commands use the **"Show Steps First" pattern**:
 
 ### Level 3: Advanced (Ongoing)
 
-1. **Site building:** `/craft:site:build`
+1. **Site building:** `/folio:site:build`
 2. **CI/CD setup:** `/craft:ci:generate`
 3. **Architecture analysis:** `/craft:arch:analyze`
 4. **Distribution:** `/craft:dist:homebrew`

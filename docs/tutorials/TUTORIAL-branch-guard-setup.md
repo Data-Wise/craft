@@ -215,15 +215,15 @@ You: Yes
 
 For merge conflicts or maintenance requiring many protected operations:
 
-```bash
-# Bypass protection
-/craft:git:unprotect merge-conflict
+```text
+# Bypass protection (dev/git skill — ask naturally)
+ask "unprotect for a merge conflict"
 
 # Do your work — all guards disabled
 # Edit files, write new code, etc.
 
 # Re-enable when done
-/craft:git:protect
+ask "protect"
 ```
 
 ### Dry-Run Mode (Testing)
@@ -245,22 +245,22 @@ rm .claude/branch-guard-dryrun
 
 ## Step 6: Check Guard Status
 
-### Via /craft:git:status
+### Via git status (dev/git skill)
 
-The status command shows guard information:
+Asking "git status" (folded from `/craft:git:status`) shows guard information:
 
-```bash
-/craft:git:status
+```text
+ask "git status"
 # Output includes:
 # │ Guard: smart (3 confirms) · one-shot: inactive  │
 ```
 
-### Via /craft:git:protect --show
+### Via protect --show (dev/git skill)
 
 See detailed protection status:
 
-```bash
-/craft:git:protect --show
+```text
+ask "show protection status"
 # Shows:
 # - Current protection level
 # - Session counter (confirms this session)
@@ -279,8 +279,8 @@ See detailed protection status:
 | `jq: command not found` | Install jq (`brew install jq`) or the hook falls back to Python |
 | Permission denied | `chmod +x ~/.claude/hooks/branch-guard.sh` |
 | Config not loading | Verify `.claude/branch-guard.json` is valid JSON (`jq . .claude/branch-guard.json`) |
-| Session counter stale | Delete `.claude/guard-session-counts` or use `/craft:git:protect --reset` |
-| Need to bypass everything | `/craft:git:unprotect maintenance` |
+| Session counter stale | Delete `.claude/guard-session-counts` or ask "reset protection counters" (dev/git skill) |
+| Need to bypass everything | ask "unprotect for maintenance" (dev/git skill) |
 
 ---
 
@@ -289,7 +289,7 @@ See detailed protection status:
 - Read the [Smart Mode Guide](../guide/branch-guard-smart-mode.md) for detailed risk classification
 - Check the [Quick Reference Card](../reference/REFCARD-BRANCH-GUARD.md) for at-a-glance lookup
 - Learn the [Git Feature Workflow](../workflows/git-feature-workflow.md) that the guard supports
-- Review [Safety Rails](https://github.com/Data-Wise/craft/blob/dev/commands/git/docs/safety-rails.md) for progressive trust philosophy
+- Review [Safety Rails](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/safety-rails.md) for progressive trust philosophy
 
 ---
 
@@ -301,6 +301,6 @@ See detailed protection status:
 3. Auto-detects: main=block-all, dev=smart, feature=unrestricted
 4. Customize with .claude/branch-guard.json (optional)
 5. Approve [CONFIRM] prompts for one-shot access
-6. /craft:git:unprotect for bulk bypass
-7. /craft:git:protect to re-enable
+6. ask "unprotect" (dev/git skill) for bulk bypass
+7. ask "protect" (dev/git skill) to re-enable
 ```

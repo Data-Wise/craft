@@ -8,7 +8,7 @@
 > - **What:** Set up Craft's teaching workflows for your course
 > - **Why:** Automated validation, safe publishing, progress tracking
 > - **How:** Create config file → Test detection → Validate → Publish
-> - **Next:** Use `/craft:site:progress` weekly, `/craft:site:publish` for releases
+> - **Next:** Use `/folio:site:progress` weekly, `/folio:site:publish` for releases
 
 Teaching Mode transforms Craft into a comprehensive teaching workflow automation tool. This tutorial walks you through first-time setup for a Quarto-based course website.
 
@@ -123,7 +123,7 @@ Test that your config file is valid:
 
 ```bash
 # In Claude Code
-/craft:site:status
+/folio:site:status
 ```
 
 **Expected output:**
@@ -149,7 +149,7 @@ Verify that Craft recognizes your project as a teaching project.
 ### 2.1 Check Status
 
 ```bash
-/craft:site:status
+/folio:site:status
 ```
 
 **What to look for:**
@@ -274,7 +274,7 @@ git checkout draft
 ### 4.2 Run Publish Command
 
 ```bash
-/craft:site:publish
+/folio:site:publish
 ```
 
 ### 4.3 Review Preview
@@ -342,7 +342,7 @@ The command will:
 
 💡 Next Steps:
    • Review the live site: https://yourname.github.io/stat-440/
-   • Clean up worktree with /craft:git:clean
+   • Clean up worktree by asking "clean up merged branches" (dev/git skill)
    • Continue editing on draft branch
 
 ⏱ Deployment may take 1-2 minutes to fully propagate.
@@ -372,7 +372,7 @@ Use the progress dashboard to monitor semester status.
 ### 5.1 Run Progress Command
 
 ```bash
-/craft:site:progress
+/folio:site:progress
 ```
 
 **Example output:**
@@ -406,7 +406,7 @@ Use the progress dashboard to monitor semester status.
 
 ### 5.2 Weekly Check-In
 
-Run `/craft:site:progress` at the start of each week to:
+Run `/folio:site:progress` at the start of each week to:
 
 - Confirm current week is correct
 - Plan upcoming content
@@ -415,7 +415,7 @@ Run `/craft:site:progress` at the start of each week to:
 !!! tip "Manual Override"
     Need to test future weeks? Use `--week` flag:
     ```bash
-    /craft:site:progress --week 8
+    /folio:site:progress --week 8
     ```
 
 ## Common Workflows
@@ -430,7 +430,7 @@ Run `/craft:site:progress` at the start of each week to:
 /craft:site:validate
 
 # 3. Publish to production
-/craft:site:publish
+/folio:site:publish
 ```
 
 ### Assignment Releases
@@ -446,7 +446,7 @@ Run `/craft:site:progress` at the start of each week to:
 /craft:site:validate
 
 # 4. Publish
-/craft:site:publish
+/folio:site:publish
 ```
 
 ### Schedule Changes
@@ -459,7 +459,7 @@ Run `/craft:site:progress` at the start of each week to:
 /craft:site:validate
 
 # 3. Preview changes
-/craft:site:publish
+/folio:site:publish
 # (review CRITICAL CHANGES section carefully)
 
 # 4. Confirm and publish
@@ -469,7 +469,7 @@ Run `/craft:site:progress` at the start of each week to:
 
 ### Teaching Mode Not Detected
 
-**Symptom:** `/craft:site:status` doesn't show teaching mode
+**Symptom:** `/folio:site:status` doesn't show teaching mode
 
 **Solution:**
 
@@ -479,7 +479,7 @@ Run `/craft:site:progress` at the start of each week to:
 
 ### Validation Errors Block Publishing
 
-**Symptom:** Errors prevent `/craft:site:publish` from proceeding
+**Symptom:** Errors prevent `/folio:site:publish` from proceeding
 
 **Solution:**
 
@@ -500,7 +500,7 @@ git checkout production
 git merge draft
 # Resolve conflicts
 git commit
-/craft:site:publish  # Try again
+/folio:site:publish  # Try again
 ```
 
 ### Progress Inaccurate
@@ -531,10 +531,10 @@ Now that teaching mode is set up:
 
 **Weekly tasks:**
 
-- [ ] Run `/craft:site:progress` each Monday
+- [ ] Run `/folio:site:progress` each Monday
 - [ ] Update content on `draft` branch
 - [ ] Validate with `/craft:site:validate`
-- [ ] Publish with `/craft:site:publish`
+- [ ] Publish with `/folio:site:publish`
 
 **Semester tasks:**
 

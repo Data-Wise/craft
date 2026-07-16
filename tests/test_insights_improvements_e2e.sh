@@ -415,8 +415,9 @@ else
     assert_fail "orchestrate_has_swarm_flag" "Missing --swarm in orchestrate.md"
 fi
 
-# Test: worktree.md has validate action
-if grep -q "validate" "$CRAFT_ROOT/commands/git/worktree.md"; then
+# Test: worktree reference has validate action (folded from a command into
+# skills/dev/git/ in the v4 consolidation, Phase 3.5, 2026-07-12)
+if grep -q "validate" "$CRAFT_ROOT/skills/dev/git/references/worktree.md"; then
     assert_pass "worktree_has_validate_action"
 else
     assert_fail "worktree_has_validate_action" "Missing validate in worktree.md"
@@ -508,7 +509,7 @@ CMD_ERRORS=0
 CMD_COUNT=0
 for cmd_file in "$CRAFT_ROOT/commands/check.md" "$CRAFT_ROOT/commands/do.md" \
     "$CRAFT_ROOT/commands/smart-help.md" \
-    "$CRAFT_ROOT/commands/orchestrate.md" "$CRAFT_ROOT/commands/git/worktree.md"; do
+    "$CRAFT_ROOT/commands/orchestrate.md"; do
     CMD_COUNT=$((CMD_COUNT + 1))
     if ! head -1 "$cmd_file" | grep -q "^---$"; then
         CMD_ERRORS=$((CMD_ERRORS + 1))

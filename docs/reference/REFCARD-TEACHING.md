@@ -6,11 +6,13 @@
 
 ## Essential Commands
 
+> Site/docs commands below moved to the `folio` plugin.
+
 ```bash
-/craft:site:build          # Build preview (current branch)
-/craft:site:publish        # Validate → Switch to main → Deploy
-/craft:site:progress       # Semester progress dashboard
-/craft:git:status          # Teaching-aware git status
+/folio:site:build          # Build preview (current branch)
+/folio:site:publish        # Validate → Switch to main → Deploy
+/folio:site:progress       # Semester progress dashboard
+ask "git status" (dev/git skill) # Teaching-aware git status
 ```
 
 ## Quick Start
@@ -31,13 +33,13 @@ teaching:
 EOF
 
 # 2. Test
-/craft:git:status          # Should show teaching mode
+ask "git status" (dev/git skill) # Should show teaching mode
 
 # 3. Preview
-/craft:site:build
+/folio:site:build
 
 # 4. Publish
-/craft:site:publish
+/folio:site:publish
 ```
 
 ## Common Workflows
@@ -47,14 +49,14 @@ EOF
 ```bash
 git checkout dev           # Start on preview
 # ... edit content ...
-/craft:site:build          # Preview changes
-/craft:site:publish        # Deploy to production
+/folio:site:build          # Preview changes
+/folio:site:publish        # Deploy to production
 ```
 
 ### Check Progress
 
 ```bash
-/craft:site:progress       # Semester dashboard
+/folio:site:progress       # Semester dashboard
 ```
 
 ### Emergency Fix
@@ -62,7 +64,7 @@ git checkout dev           # Start on preview
 ```bash
 git checkout main          # Go to production
 # ... fix issue ...
-/craft:site:build          # Build
+/folio:site:build          # Build
 git push origin main       # Deploy
 git checkout dev           # Back to preview
 ```
@@ -72,7 +74,7 @@ git checkout dev           # Back to preview
 ### Check Before Publish
 
 ```bash
-/craft:site:publish --dry-run --validate-only
+/folio:site:publish --dry-run --validate-only
 ```
 
 ### Common Issues
@@ -81,13 +83,13 @@ git checkout dev           # Back to preview
 |-------|-----|
 | Missing week | Add to schedule.qmd |
 | Date out of range | Check assignment due dates |
-| Broken links | `/craft:docs:check-links` |
+| Broken links | `/folio:docs:check-links` |
 | Bad YAML | Validate teach-config.yml |
 
 ### Skip Validation (Emergency)
 
 ```bash
-/craft:site:publish --skip-validation
+/folio:site:publish --skip-validation
 ```
 
 ## Branch Strategy
@@ -101,9 +103,9 @@ dev (preview) ← You edit here
 **Rules:**
 
 - Edit on `dev`
-- Preview with `/craft:site:build`
-- Publish with `/craft:site:publish` (auto-switches branches)
-- `/craft:git:status` shows which branch you're on
+- Preview with `/folio:site:build`
+- Publish with `/folio:site:publish` (auto-switches branches)
+- Asking "git status" (dev/git skill) shows which branch you're on
 
 ## Configuration
 
@@ -162,28 +164,28 @@ See [Config Schema](../teaching-config-schema.md#flow-cli-config-compatibility) 
 
 ## Flags
 
-### `/craft:site:build`
+### `/folio:site:build`
 
 ```bash
-/craft:site:build              # Normal build
-/craft:site:build --force      # Force rebuild
+/folio:site:build              # Normal build
+/folio:site:build --force      # Force rebuild
 ```
 
-### `/craft:site:publish`
+### `/folio:site:publish`
 
 ```bash
-/craft:site:publish                    # Full workflow
-/craft:site:publish --dry-run          # Preview what would happen
-/craft:site:publish --validate-only    # Just run validation
-/craft:site:publish --skip-validation  # Emergency publish
-/craft:site:publish --force-rebuild    # Force site rebuild
+/folio:site:publish                    # Full workflow
+/folio:site:publish --dry-run          # Preview what would happen
+/folio:site:publish --validate-only    # Just run validation
+/folio:site:publish --skip-validation  # Emergency publish
+/folio:site:publish --force-rebuild    # Force site rebuild
 ```
 
-### `/craft:site:progress`
+### `/folio:site:progress`
 
 ```bash
-/craft:site:progress           # Full dashboard
-/craft:site:progress --json    # JSON output
+/folio:site:progress           # Full dashboard
+/folio:site:progress --json    # JSON output
 ```
 
 ## Troubleshooting
@@ -198,13 +200,13 @@ ls .flow/teach-config.yml
 grep "enabled: true" .flow/teach-config.yml
 
 # Test detection
-/craft:git:status              # Should show teaching context
+ask "git status" (dev/git skill) # Should show teaching context
 ```
 
 ### Wrong Branch
 
 ```bash
-/craft:git:status              # Shows current branch + context
+ask "git status" (dev/git skill) # Shows current branch + context
 git checkout dev               # Switch to preview
 git checkout main              # Switch to production
 ```
@@ -213,10 +215,10 @@ git checkout main              # Switch to production
 
 ```bash
 # See what's wrong
-/craft:site:publish --dry-run --validate-only
+/folio:site:publish --dry-run --validate-only
 
 # Fix issues, then try again
-/craft:site:publish
+/folio:site:publish
 ```
 
 ### Site Not Updating
@@ -227,7 +229,7 @@ git checkout main              # Switch to production
 
 # 2. Force rebuild
 git checkout main
-/craft:site:build --force
+/folio:site:build --force
 git push origin main
 ```
 

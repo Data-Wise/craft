@@ -832,7 +832,7 @@ except Exception as e:
 
 ## References
 
-- [Command Reference](commands/docs/claude-md.md)
+- Skill Reference: `skills/docs/claude-md/` (init/sync/edit folded into this skill in the v4 consolidation)
 - [Tutorial Guide](tutorials/claude-md-workflows.md)
 - [Quick Reference](reference/REFCARD-CLAUDE-MD.md)
 

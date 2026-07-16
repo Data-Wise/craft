@@ -153,7 +153,7 @@ Based on the complexity score, tasks are routed to different handlers:
 **Handler:** Direct command execution
 **Examples:**
 
-- Lint markdown files → `/craft:docs:lint`
+- Lint markdown files → `/folio:docs:lint` (moved to folio)
 - Run tests → `/craft:test`
 - Check code → `/craft:check`
 
@@ -174,7 +174,7 @@ backing agent definition).
 
 **Examples:**
 
-- Add JWT authentication → `/craft:arch:plan`, `/craft:code:test-gen`, `/craft:git:branch`
+- Add JWT authentication → `/craft:arch:plan`, `/craft:code:test-gen`, the dev/git skill
 - Create tutorial → `/craft:docs:*` sequence
 - Generate test suite → `/craft:code:test-gen`, `/craft:test`
 
@@ -229,7 +229,7 @@ backing agent definition).
 
 **Routing:** Zone 1 - Simple
 **Handler:** Direct command
-**Executes:** `/craft:docs:lint`
+**Executes:** `/folio:docs:lint`
 **Time:** 3-5 seconds
 
 ---
@@ -253,7 +253,7 @@ backing agent definition).
 
 **Routing:** Zone 2 - Medium
 **Handler:** Category-based command sequence
-**Runs:** `/craft:arch:plan`, `/craft:code:test-gen`, `/craft:git:branch` (no agent dispatch)
+**Runs:** `/craft:arch:plan`, `/craft:code:test-gen`, the dev/git skill (no agent dispatch)
 **What the sequence does:**
 
 1. Reviews existing auth system
@@ -353,7 +353,7 @@ backing agent definition).
 
 ```bash
 # Instead of guessing:
-/craft:docs:update? /craft:docs:sync? /craft:docs:check?
+/craft:docs:update? /folio:docs:sync? /folio:docs:check?
 
 # Just describe the goal:
 /craft:do "update documentation for new API endpoints"
@@ -421,7 +421,7 @@ for file in *.md; do
 done
 
 # ✅ Batch operation:
-/craft:docs:lint
+/folio:docs:lint
 ```
 
 ## Decision Tree

@@ -246,12 +246,12 @@ done
   ⚠  scripts/version-sync.sh added → consider adding docs reference
   ✅ commands/done.md → docs already up to date
 
-  Run /craft:docs:sync to update? [Y/n]
+  Run /folio:docs:sync to update? [Y/n]
 ```
 
 **Behavior:**
 
-- If drift detected: offer to run `/craft:docs:sync` before committing
+- If drift detected: offer to run `/folio:docs:sync` before committing
 - If no drift: show green checkmark, proceed normally
 - Skippable with `SKIP_DOC_DRIFT=1` environment variable
 
@@ -331,7 +331,7 @@ updated_rules = [f.name for f in rules_dir.glob('*.md') if f.stat().st_mtime > s
 ⚙️  SETTINGS CHECK:
   Allowlist: 3 entries in global not in project settings
   Rules updated since last session: response-style.md, no-unrequested-branch-switch.md
-  → Run /craft:docs:claude-md:sync to pull in updated rules
+  → Ask Claude to sync CLAUDE.md (docs/claude-md skill) to pull in updated rules
 ```
 
 **Key behaviors:**
@@ -667,7 +667,7 @@ Present findings and ask user to confirm/edit:
 │ ⚙️  SETTINGS: [if drift found — omit if none]               │
 │    • 3 allowlist entries in global missing from project     │
 │    • 2 rules files modified since last session              │
-│    → Run /craft:docs:claude-md:sync to pull in updates      │
+│    → Ask Claude to sync CLAUDE.md (docs/claude-md skill) to pull in updates      │
 │                                                             │
 │ 🧠 MEMORY: [if learnings captured — omit if none]            │
 │    • Saved 2 learnings to MEMORY.md                          │

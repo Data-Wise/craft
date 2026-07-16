@@ -1,6 +1,6 @@
 ---
 description: Run CI checks locally before pushing (lint, test, coverage, security)
-category: code
+category: ci
 arguments:
   - name: quick
     description: Skip slow checks (coverage, security)
@@ -74,7 +74,7 @@ Preview CI checks that will be performed:
 │       Estimated: ~15 seconds                                  │
 │                                                               │
 │   [4/6] Coverage                                              │
-│       Command: /craft:code:coverage                           │
+│       Command: /craft:test --coverage                           │
 │       Tool: pytest --cov                                      │
 │       Threshold: 80% minimum                                  │
 │       Estimated: ~20 seconds                                  │
@@ -151,7 +151,7 @@ Preview CI checks that will be performed:
 |-------|---------|-----------|
 | Lint | `/craft:code:lint --strict` | 0 errors |
 | Tests | `/craft:test` | 100% pass |
-| Coverage | `/craft:code:coverage` | 80% minimum |
+| Coverage | `/craft:test --coverage` | 80% minimum |
 | Security | `/craft:code:deps-audit` | No critical |
 | Types | mypy/tsc/etc. | 0 errors |
 | Docs | `/craft:docs:validate` | 0 errors |

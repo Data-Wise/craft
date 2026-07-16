@@ -638,7 +638,7 @@ Thorough mode automatically parallelizes:
 | ----------------------- | ----------------------------------------- |
 | `/craft:code:lint`      | Code quality only                         |
 | `/craft:test`       | Testing only                              |
-| `/craft:docs:check`     | Documentation only                        |
+| `/folio:docs:check`     | Documentation only (moved to folio)       |
 | `/craft:check:deps`     | Dependencies only                         |
 | `/craft:check --fix`    | Auto-fix safe issues                      |
 

@@ -100,8 +100,8 @@ Get intelligent help based on your project and question.
 │ Suggested:                                     │
 │   /craft:guard:audit     Analyze guard config, │
 │                          find false positives   │
-│   /craft:git:unprotect   Session-scoped bypass │
-│                          (temporary)            │
+│   ask "unprotect"        Session-scoped bypass │
+│   (dev/git skill)        (temporary)            │
 │                                                │
 ╰────────────────────────────────────────────────╯
 ```

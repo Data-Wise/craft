@@ -5,7 +5,6 @@ category: "cookbook"
 level: "beginner"
 time_estimate: "3 minutes"
 related:
-  - ../../commands/docs/claude-md.md
   - ../../reference/REFCARD-CLAUDE-MD.md
 ---
 
@@ -91,5 +90,5 @@ bash scripts/claude-md-budget-check.sh   # should pass without warnings
 
 ## Related
 
-- [CLAUDE.md Command Reference](../../commands/docs/claude-md.md) -- init, sync, and edit commands
+- `skills/docs/claude-md/` -- init, sync, and edit folded into this skill (v4 consolidation)
 - [CLAUDE.md Quick Reference](../../reference/REFCARD-CLAUDE-MD.md) -- Cheat sheet for CLAUDE.md management

@@ -502,13 +502,12 @@ You learn features when they're relevant.
 
 ### Example Gallery
 
-Each command includes examples. Reference them:
+Each git operation includes examples. Reference them:
 
-```bash
-# See examples in command files:
-~/.claude/commands/git/commit.md      # Section: "Examples"
-~/.claude/commands/git/branch.md      # Section: "Examples"
-# etc.
+```text
+# See examples in skills/dev/git/SKILL.md — Operation 2 (Branch Management),
+# and skills/dev/git/references/ for deeper walkthroughs.
+# (commands/git/*.md examples were folded here, 2026-07 v4 consolidation.)
 ```
 
 ## 🚫 Common Learning Pitfalls

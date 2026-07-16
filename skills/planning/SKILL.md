@@ -89,4 +89,4 @@ backlog, or roadmap file)? That's `plan-orchestrator`, not this skill.
 - `plan-orchestrator` — the moment advice needs to become a committed file (feature
   breakdown, sprint backlog, roadmap, `ORCHESTRATE-*.md`), hand off here. This skill
   never produces those artifacts itself.
-- `/craft:git:branch` — once a strategy is agreed, create the feature branch to act on it.
+- dev/git skill (ask "create feature branch") — once a strategy is agreed, create the feature branch to act on it (folded from `/craft:git:branch`, 2026-07 v4 consolidation).

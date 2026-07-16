@@ -227,7 +227,7 @@ graph TB
     R0_3 -->|Simple| Map1[Map to Command]
     Map1 --> Exec1["/craft:code:lint"]
     Map1 --> Exec2["/craft:test"]
-    Map1 --> Exec3["/craft:git:status"]
+    Map1 --> Exec3["dev/git skill: git status"]
 
     R4_7 -->|Medium| Map2[Select Agent]
     Map2 --> A1[code-quality agent]

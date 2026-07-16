@@ -297,7 +297,7 @@ preview = render_simple_preview(
 
 - Specification: `docs/specs/SPEC-dry-run-feature-2026-01-15.md`
 - Utility: `utils/dry_run_output.py`
-- Examples: `commands/git/clean.md`, `commands/ci/generate.md`
+- Examples: `commands/ci/generate.md` (git clean's dry-run pattern moved into `skills/dev/git/SKILL.md`, 2026-07 v4 consolidation)
 
 ## Questions?
 

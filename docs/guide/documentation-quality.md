@@ -2,8 +2,8 @@
 
 > **TL;DR** (2 minutes)
 >
-> - **Step 1**: Run `/craft:docs:lint --fix` to auto-fix markdown issues
-> - **Step 2**: Run `/craft:docs:check-links` to validate all links
+> - **Step 1**: Run `/folio:docs:lint --fix` to auto-fix markdown issues
+> - **Step 2**: Run `/folio:docs:check-links` to validate all links
 > - **Goal**: Zero broken links and consistent markdown quality
 
 Complete tutorial for using Craft's documentation quality automation system.
@@ -47,7 +47,7 @@ npm install --save-dev markdownlint-cli2
 brew install lychee
 
 # Or let Craft install markdownlint when first used
-/craft:docs:lint  # Auto-installs if missing
+/folio:docs:lint  # Auto-installs if missing
 ```
 
 ### Check Installation
@@ -69,7 +69,7 @@ Let's start by checking the current state of your documentation.
 #### Run Initial Lint Check
 
 ```bash
-/craft:docs:lint
+/folio:docs:lint
 ```
 
 **What to expect:**
@@ -89,7 +89,7 @@ Found 12 issues (8 auto-fixable)
 #### Run Initial Link Check
 
 ```bash
-/craft:docs:check-links
+/folio:docs:check-links
 ```
 
 **What to expect:**
@@ -115,7 +115,7 @@ Checking docs/commands/git.md...
 Many markdown quality issues can be fixed automatically:
 
 ```bash
-/craft:docs:lint --fix
+/folio:docs:lint --fix
 ```
 
 **Auto-fixed issues include:**
@@ -146,7 +146,7 @@ Fixing docs/commands/git.md...
 Want to see what would be changed without actually modifying files?
 
 ```bash
-/craft:docs:lint --fix --dry-run
+/folio:docs:lint --fix --dry-run
 ```
 
 **Output shows:**
@@ -261,7 +261,7 @@ docs/guide/tutorial.md:45:1: MD030 - Spaces after list markers
 1. Ordered with 1 space
 ```
 
-**Auto-fix:** Run `/craft:docs:lint --fix` to automatically normalize spacing.
+**Auto-fix:** Run `/folio:docs:lint --fix` to automatically normalize spacing.
 
 ---
 
@@ -291,7 +291,7 @@ docs/guide/tutorial.md:67:1: MD004 - Unordered list style
 - Item with dash
 ```
 
-**Auto-fix:** Run `/craft:docs:lint --fix` to automatically change markers to `-`.
+**Auto-fix:** Run `/folio:docs:lint --fix` to automatically change markers to `-`.
 
 ---
 
@@ -302,7 +302,7 @@ docs/guide/tutorial.md:67:1: MD004 - Unordered list style
 Ensure all internal documentation links work:
 
 ```bash
-/craft:docs:check-links
+/folio:docs:check-links
 ```
 
 #### Understanding Link Validation
@@ -343,7 +343,7 @@ docs/guide/tutorial.md:15:1: Broken link → ../commands/old-name.md
 
 ```bash
 # After fixing
-/craft:docs:check-links docs/guide/tutorial.md
+/folio:docs:check-links docs/guide/tutorial.md
 ```
 
 #### Scenario 2: Broken Anchor
@@ -373,7 +373,7 @@ docs/commands/git.md:42:3: Broken anchor → tutorial.md#getting-started
 Include anchor validation:
 
 ```bash
-/craft:docs:check-links release
+/folio:docs:check-links release
 ```
 
 **Additional checks:**
@@ -420,10 +420,10 @@ The `/craft:check` command automatically runs documentation validation when docs
 vim docs/guide/tutorial.md
 
 # 2. Auto-fix issues
-/craft:docs:lint --fix
+/folio:docs:lint --fix
 
 # 3. Validate links
-/craft:docs:check-links
+/folio:docs:check-links
 
 # 4. Commit changes
 git add docs/
@@ -577,13 +577,13 @@ jobs:
 
 ```bash
 # Single file
-/craft:docs:lint docs/guide/tutorial.md
+/folio:docs:lint docs/guide/tutorial.md
 
 # Directory
-/craft:docs:check-links docs/commands/
+/folio:docs:check-links docs/commands/
 
 # Multiple files with glob
-/craft:docs:lint docs/**/*.md
+/folio:docs:lint docs/**/*.md
 ```
 
 ### Debug Mode
@@ -591,8 +591,8 @@ jobs:
 Get detailed information about checks:
 
 ```bash
-/craft:docs:lint debug docs/guide/tutorial.md
-/craft:docs:check-links debug
+/folio:docs:lint debug docs/guide/tutorial.md
+/folio:docs:check-links debug
 ```
 
 **Output includes:**
@@ -607,8 +607,8 @@ Get detailed information about checks:
 Fast validation for automated pipelines:
 
 ```bash
-/craft:docs:lint optimize --fix
-/craft:docs:check-links optimize
+/folio:docs:lint optimize --fix
+/folio:docs:check-links optimize
 ```
 
 **Features:**
@@ -622,8 +622,8 @@ Fast validation for automated pipelines:
 Thorough validation before releases:
 
 ```bash
-/craft:docs:lint release
-/craft:docs:check-links release
+/folio:docs:lint release
+/folio:docs:check-links release
 ```
 
 **Additional checks:**
@@ -646,10 +646,10 @@ Craft includes a test file with known violations:
 cat docs/test-violations.md
 
 # Test lint detection
-/craft:docs:lint docs/test-violations.md
+/folio:docs:lint docs/test-violations.md
 
 # Test link detection
-/craft:docs:check-links docs/test-violations.md
+/folio:docs:check-links docs/test-violations.md
 ```
 
 **Expected output:**
@@ -664,7 +664,7 @@ docs/test-violations.md:27:3: Broken anchor → commands.md#invalid-section
 
 ```bash
 # Test auto-fix on violations file
-/craft:docs:lint docs/test-violations.md --fix --dry-run
+/folio:docs:lint docs/test-violations.md --fix --dry-run
 
 # Should show what would be fixed
 ```
@@ -705,7 +705,7 @@ npm ci  # Install from lockfile (recommended)
 **Solution:** Read error message and fix manually:
 
 ```bash
-/craft:docs:lint debug docs/file.md  # Get detailed explanation
+/folio:docs:lint debug docs/file.md  # Get detailed explanation
 ```
 
 #### "Pre-commit hook blocking all commits"
@@ -734,18 +734,18 @@ chmod +x .git/hooks/pre-commit  # Re-enable
 /craft:check
 
 # While writing
-/craft:docs:lint --fix  # Run frequently
+/folio:docs:lint --fix  # Run frequently
 
 # Before committing
-/craft:docs:check-links
+/folio:docs:check-links
 ```
 
 ### Before Pull Requests
 
 ```bash
 # Comprehensive check
-/craft:docs:lint release
-/craft:docs:check-links release
+/folio:docs:lint release
+/folio:docs:check-links release
 
 # If all passes, create PR
 gh pr create
@@ -771,14 +771,14 @@ gh pr create
 
 | Task | Command |
 |------|---------|
-| Quick lint check | `/craft:docs:lint` |
-| Auto-fix safe issues | `/craft:docs:lint --fix` |
-| Check all links | `/craft:docs:check-links` |
-| Comprehensive check | `/craft:docs:lint release && /craft:docs:check-links release` |
-| Test with violations | `/craft:docs:lint docs/test-violations.md` |
-| Debug specific file | `/craft:docs:lint debug docs/file.md` |
-| Preview auto-fixes | `/craft:docs:lint --fix --dry-run` |
-| Check specific directory | `/craft:docs:check-links docs/commands/` |
+| Quick lint check | `/folio:docs:lint` |
+| Auto-fix safe issues | `/folio:docs:lint --fix` |
+| Check all links | `/folio:docs:check-links` |
+| Comprehensive check | `/folio:docs:lint release && /folio:docs:check-links release` |
+| Test with violations | `/folio:docs:lint docs/test-violations.md` |
+| Debug specific file | `/folio:docs:lint debug docs/file.md` |
+| Preview auto-fixes | `/folio:docs:lint --fix --dry-run` |
+| Check specific directory | `/folio:docs:check-links docs/commands/` |
 | Integrated validation | `/craft:check` (auto-runs when docs change) |
 
 ---
@@ -794,8 +794,8 @@ gh pr create
 
 ```bash
 # View command help
-/craft:docs:lint --help
-/craft:docs:check-links --help
+/folio:docs:lint --help
+/folio:docs:check-links --help
 
 # Check command documentation
 claude "Read commands/docs/lint.md"
@@ -815,9 +815,9 @@ Found a bug or have a suggestion?
 
 You've learned how to:
 
-✅ **Validate markdown quality** with `/craft:docs:lint`
+✅ **Validate markdown quality** with `/folio:docs:lint`
 ✅ **Auto-fix common issues** with `--fix` flag
-✅ **Check internal links** with `/craft:docs:check-links`
+✅ **Check internal links** with `/folio:docs:check-links`
 ✅ **Set up pre-commit hooks** for automatic validation
 ✅ **Integrate with CI/CD** for PR validation
 ✅ **Troubleshoot common issues** effectively

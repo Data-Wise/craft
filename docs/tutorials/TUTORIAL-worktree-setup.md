@@ -109,7 +109,7 @@ git branch --show-current
 **IMPORTANT:** The main repo should always stay on `main` (or `dev` if that's your integration branch). Never do feature work in the main repo after setting up worktrees.
 
 !!! tip "Branch Protection (v2.16.0)"
-    Craft includes a `branch-guard.sh` PreToolUse hook that **automatically prevents** accidental edits on protected branches. With it enabled, `main` blocks all edits and `dev` blocks new code files — so even if you forget to switch to a worktree, the guard catches it. See `/craft:git:protect` and `/craft:git:unprotect`.
+    Craft includes a `branch-guard.sh` PreToolUse hook that **automatically prevents** accidental edits on protected branches. With it enabled, `main` blocks all edits and `dev` blocks new code files — so even if you forget to switch to a worktree, the guard catches it. Ask "protect" or "unprotect" (dev/git skill) to manage it.
 
 ---
 
@@ -700,7 +700,7 @@ If you used `/brainstorm` to plan a feature and captured a spec, you can create 
 # → docs/specs/SPEC-notifications-2026-02-15.md saved
 
 # 2. Create ORCHESTRATE + worktree from the spec
-/craft:orch:plan docs/specs/SPEC-notifications-2026-02-15.md
+/craft:plan docs/specs/SPEC-notifications-2026-02-15.md
 
 # Output:
 # Orchestration Plan:
@@ -739,10 +739,10 @@ The generated ORCHESTRATE file includes:
 
 ### Without a Spec
 
-If you don't have a spec, `/craft:orch:plan` will scan for available specs and brainstorms:
+If you don't have a spec, `/craft:plan` will scan for available specs and brainstorms:
 
 ```bash
-/craft:orch:plan
+/craft:plan
 
 # Output:
 # Available specs:
@@ -773,7 +773,7 @@ You've learned:
 
 ## Next Steps
 
-- **Command reference:** [/craft:git:worktree](../commands/git/worktree.md) — Full documentation
+- **Command reference:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Full documentation
 - **Quick reference:** [Git Worktree Refcard](../reference/REFCARD-GIT-WORKTREE.md) — Cheat sheet
 - **Workflow guide:** [Git Feature Workflow](../workflows/git-feature-workflow.md) — Complete git workflow
 - **Pattern guide:** [Interactive Commands Guide](../guide/interactive-commands.md) — How this pattern works

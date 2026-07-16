@@ -175,12 +175,12 @@ TMPDIR_T3=$(mktemp -d)
 
 run_test 3 "Dev branch block message is readable" \
     "echo '{\"tool_name\":\"Write\",\"tool_input\":{\"file_path\":\"src/new.py\",\"content\":\"x\"},\"cwd\":\"$TMPDIR_T3\"}' | (cd '$TMPDIR_T3' && bash '$HOOK_SCRIPT') 2>&1 || true" \
-    "Clear error with: BRANCH PROTECTION, file path, options (worktree, edit existing, /craft:git:unprotect)"
+    "Clear error with: BRANCH PROTECTION, file path, options (worktree, edit existing, ask \"unprotect\" via dev/git skill)"
 
 rm -rf "$TMPDIR_T3"
 
 # ============================================
-# TEST 4: Bypass marker from /craft:git:unprotect
+# TEST 4: Bypass marker from "unprotect" (dev/git skill)
 # ============================================
 
 run_test 4 "Bypass marker format check" \
@@ -188,12 +188,12 @@ run_test 4 "Bypass marker format check" \
     "Either valid JSON with reason/timestamp/branch, or message that no marker exists"
 
 # ============================================
-# TEST 5: /craft:git:status shows Guard line
+# TEST 5: dev/git skill mentions guard status
 # ============================================
 
-run_test 5 "Git status command mentions guard" \
-    "test -f commands/git/status.md && grep -i 'guard\|protect' commands/git/status.md | head -5 || echo 'status.md not found'" \
-    "status.md should reference branch protection / guard indicator"
+run_test 5 "Git status (dev/git skill) mentions guard" \
+    "test -f skills/dev/git/SKILL.md && grep -i 'guard\|protect' skills/dev/git/SKILL.md | head -5 || echo 'skills/dev/git/SKILL.md not found'" \
+    "SKILL.md should reference branch protection / guard indicator"
 
 # ============================================
 # TEST 6: /craft:check shows branch context

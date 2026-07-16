@@ -71,6 +71,4 @@ Generates sections in this order:
 
 ## See Also
 
-- [/craft:docs:sync](sync.md) — Smart documentation detection
-- [/craft:docs:check](check.md) — Documentation health check
 - [Site Management](../site.md) — Documentation site commands

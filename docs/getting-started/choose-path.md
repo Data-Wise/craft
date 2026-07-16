@@ -49,7 +49,7 @@ Welcome to Craft! Find the path that matches your experience level and goals.
 ### Recommended Resources
 
 - **[Command Overview](../commands/overview.md)**
-  Browse all 95 commands organized by category
+  Browse all 46 commands organized by category
 
 - **[Quick Reference Card](../REFCARD.md)**
   Printable cheatsheet with the most common commands
@@ -63,9 +63,9 @@ Welcome to Craft! Find the path that matches your experience level and goals.
 ### Common Tasks
 
 - **Check code quality:** `/craft:code:lint` or `/craft:ci:local`
-- **Update documentation:** `/craft:docs:update` or `/craft:docs:sync`
-- **Create a site:** `/craft:site:build` → `/craft:site:deploy`
-- **Manage git workflow:** `/craft:git:worktree` → `/craft:git:branch`
+- **Update documentation:** `/craft:docs:update` or `/folio:docs:sync` (moved to folio)
+- **Create a site:** `/folio:site:build` (moved to folio) → `/craft:site:deploy`
+- **Manage git workflow:** ask the dev/git skill ("create a worktree", "create a feature branch")
 - **Smart routing:** `/craft:do <task>` (auto-detects the right command)
 
 ---

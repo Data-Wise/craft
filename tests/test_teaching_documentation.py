@@ -39,9 +39,10 @@ class TestTeachingDocumentation:
         assert refcard_path.exists(), "Teaching refcard not found"
 
         content = refcard_path.read_text()
-        assert "/craft:site:publish" in content, "Missing publish command"
-        assert "/craft:site:progress" in content, "Missing progress command"
-        assert "/craft:site:build" in content, "Missing build command"
+        # site:publish/progress/build moved to folio in the folio split (Phase 3, 2026-07-12)
+        assert "/folio:site:publish" in content, "Missing publish command"
+        assert "/folio:site:progress" in content, "Missing progress command"
+        assert "/folio:site:build" in content, "Missing build command"
 
     def test_teaching_demo_exists(self):
         """VHS demo tape should exist"""
@@ -50,7 +51,8 @@ class TestTeachingDocumentation:
 
         content = demo_path.read_text()
         assert "Output" in content, "Missing output directive"
-        assert "/craft:site:publish" in content, "Demo doesn't show publish workflow"
+        # site:publish moved to folio in the folio split (Phase 3, 2026-07-12)
+        assert "/folio:site:publish" in content, "Demo doesn't show publish workflow"
 
     def test_teaching_tutorial_exists(self):
         """Teaching mode setup tutorial should exist (from PR)"""
@@ -68,13 +70,15 @@ class TestTeachingDocumentation:
         assert migration_path.exists(), "Teaching migration guide not found"
 
     def test_teaching_commands_documented(self):
-        """All teaching commands should be documented"""
-        commands = [
-            "site/publish.md",
-            "site/progress.md",
-            "site/build.md",
-            "git/status.md"
-        ]
+        """All teaching commands should be documented.
+
+        site/publish.md, site/progress.md, site/build.md moved to the `folio`
+        plugin in the folio split (Phase 3, 2026-07-12) — folio now owns that
+        surface. git/status.md (formerly craft's only remaining
+        teaching-adjacent command) was folded entirely into the dev/git skill
+        in the v4 consolidation (Phase 3.5, 2026-07) — commands/git/ is now
+        empty, so no teaching-adjacent commands remain to check here."""
+        commands: list[str] = []
 
         for cmd in commands:
             cmd_path = COMMANDS_DIR / cmd
@@ -95,8 +99,9 @@ class TestTeachingDocumentation:
         assert refcard_path.exists(), "Main REFCARD.md not found"
 
         content = refcard_path.read_text()
-        assert "/craft:site:publish" in content, "Publish command not in main refcard"
-        assert "/craft:site:progress" in content, "Progress command not in main refcard"
+        # site:publish/progress moved to folio in the folio split (Phase 3, 2026-07-12)
+        assert "/folio:site:publish" in content, "Publish command not in main refcard"
+        assert "/folio:site:progress" in content, "Progress command not in main refcard"
         assert "Teaching Mode" in content, "Teaching mode section missing"
 
     def test_changelog_includes_v122(self):
@@ -230,17 +235,8 @@ class TestTeachingDocumentation:
                     assert target.exists(), f"Broken link in {doc_path.name}: {link_url}"
 
     def test_teaching_utilities_have_readme(self):
-        """Teaching utilities should have documentation"""
-        utils_dir = Path(__file__).parent.parent / "commands" / "utils"
-
-        readme_files = [
-            "readme-teach-config.md",
-            "readme-semester-progress.md"
-        ]
-
-        for readme in readme_files:
-            readme_path = utils_dir / readme
-            assert readme_path.exists(), f"Missing utility readme: {readme}"
+        """readme-teach-config / readme-semester-progress were removed as teaching
+        residue in the v4 command consolidation (2026-07) — no replacement needed."""
 
     def test_teaching_examples_exist(self):
         """Teaching config examples should exist"""

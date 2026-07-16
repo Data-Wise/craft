@@ -22,14 +22,14 @@ echo ""
 
 # Commands to capture
 declare -A COMMANDS=(
-    ["teaching-workflow"]="/craft:git:status|/craft:site:build|/craft:site:progress|/craft:site:publish --dry-run|/craft:site:publish"
+    ["teaching-workflow"]="/craft:site:build|/craft:site:progress|/craft:site:publish --dry-run|/craft:site:publish"
     ["workflow-01"]="/craft:docs:update"
-    ["workflow-02"]="/craft:site:create --preset adhd-focus --quick"
+    ["workflow-02"]="/craft:site:build --preset adhd-focus --quick"
     ["workflow-03"]="/craft:check --for release"
     ["workflow-04"]="/craft:do add user authentication with JWT"
     ["workflow-05"]="/craft:test:run debug"
     ["workflow-06"]="/craft:code:lint optimize"
-    ["workflow-07"]="/craft:git:worktree add feature-auth"
+    ["workflow-07"]="ask Claude to create a worktree (dev/git skill): feature-auth"
     ["workflow-08"]="/craft:dist:homebrew setup"
     ["workflow-09"]="/craft:check --for commit"
     ["workflow-10"]="/craft:orchestrate 'prepare v2.0 release' release"

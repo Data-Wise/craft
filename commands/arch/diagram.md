@@ -123,7 +123,7 @@ Works with:
 
 - `/craft:arch:analyze` - Analysis data
 - `/craft:arch:plan` - Visualize plans
-- `/craft:docs:sync` - Embed in docs
+- `/folio:docs:sync` - Embed in docs
 
 ## See Also
 

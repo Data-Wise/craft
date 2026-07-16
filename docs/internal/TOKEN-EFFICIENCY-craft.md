@@ -68,7 +68,7 @@ While fixing `/refine` and `/brainstorm`, a broader question came up: how many o
 python3 scripts/audit-deprecated-commands.py --threshold 2.0
 ```
 
-It scans every `commands/**/*.md` with `deprecated: true`, finds its `replaced-by:` skill, and computes `command_lines / skill_lines`. Top of the list at threshold 2.0 (18 commands flagged):
+It scans every `commands/**/*.md` with `deprecated: true`, finds its `replaced-by:` skill, and computes `command_lines / skill_lines`. Top of the list at threshold 2.0 (46 commands flagged):
 
 | Command | Lines | Skill lines | Ratio |
 |---|---:|---:|---:|

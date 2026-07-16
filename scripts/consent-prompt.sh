@@ -232,7 +232,7 @@ show_installation_summary() {
     fi
 
     box_empty_row
-    box_row " Next: Run /craft:docs:demo --check to verify"
+    box_row " Next: Run /folio:docs:demo --check to verify"
     box_empty_row
     box_footer
     echo ""

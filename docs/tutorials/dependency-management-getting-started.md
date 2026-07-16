@@ -4,7 +4,7 @@
 **Time**: ~10 minutes
 **Prerequisites**: None
 
-Learn how to use the `/craft:docs:demo` dependency management system to check, install, and manage tools for terminal GIF generation.
+Learn how to use the `/folio:docs:demo` dependency management system to check, install, and manage tools for terminal GIF generation.
 
 ---
 
@@ -58,7 +58,7 @@ ls -la commands/docs/demo.md
 
 **What this means:**
 
-- The `/craft:docs:demo` command is installed
+- The `/folio:docs:demo` command is installed
 - The dependency management system is ready to use
 
 ---
@@ -70,7 +70,7 @@ Let's see what tools you already have installed.
 **Command:**
 
 ```bash
-/craft:docs:demo --check
+/folio:docs:demo --check
 ```
 
 **What happens:**
@@ -126,7 +126,7 @@ The system supports two methods for creating GIFs:
 **Check this method:**
 
 ```bash
-/craft:docs:demo --check --method asciinema
+/folio:docs:demo --check --method asciinema
 ```
 
 ### Method 2: VHS
@@ -145,7 +145,7 @@ The system supports two methods for creating GIFs:
 **Check this method:**
 
 ```bash
-/craft:docs:demo --check --method vhs
+/folio:docs:demo --check --method vhs
 ```
 
 **💡 Tip**: Most users start with asciinema for real recordings.
@@ -159,7 +159,7 @@ If you have missing tools, the system can install them automatically.
 **Command:**
 
 ```bash
-/craft:docs:demo --fix
+/folio:docs:demo --fix
 ```
 
 **What happens:**
@@ -207,7 +207,7 @@ After installation, check that everything is working.
 **Command:**
 
 ```bash
-/craft:docs:demo --check
+/folio:docs:demo --check
 ```
 
 **Expected output (all green):**
@@ -252,7 +252,7 @@ The asciinema method offers several advantages:
 **1. Verify asciinema method is ready:**
 
 ```bash
-/craft:docs:demo --check
+/folio:docs:demo --check
 # Should show all asciinema tools installed
 ```
 
@@ -275,7 +275,7 @@ asciinema rec my-demo.cast
 # vhs my-demo.tape   # Generates my-demo.gif
 
 # New asciinema workflow:
-/craft:docs:demo --convert my-demo.cast
+/folio:docs:demo --convert my-demo.cast
 # Generates my-demo.gif using agg + gifsicle
 ```
 
@@ -296,7 +296,7 @@ asciinema rec my-demo.cast
 
 ```bash
 # VHS is still available via --method flag
-/craft:docs:demo --method vhs my-old-tape.tape
+/folio:docs:demo --method vhs my-old-tape.tape
 
 # Or if you prefer VHS for specific demos:
 vhs my-scripted-demo.tape
@@ -371,7 +371,7 @@ Convert your .cast recording to an optimized GIF.
 **Command:**
 
 ```bash
-/craft:docs:demo --convert my-first-demo.cast
+/folio:docs:demo --convert my-first-demo.cast
 ```
 
 **What happens:**
@@ -425,7 +425,7 @@ docs/
 **Batch conversion:**
 
 ```bash
-/craft:docs:demo --batch
+/folio:docs:demo --batch
 ```
 
 **What happens:**
@@ -456,13 +456,13 @@ Total size: 430KB
 
 ```bash
 # Search different directory
-/craft:docs:demo --batch --search-path examples/
+/folio:docs:demo --batch --search-path examples/
 
 # Overwrite existing GIFs
-/craft:docs:demo --batch --force
+/folio:docs:demo --batch --force
 
 # Preview without converting
-/craft:docs:demo --batch --dry-run
+/folio:docs:demo --batch --dry-run
 ```
 
 ---
@@ -531,7 +531,7 @@ asciinema --version
 
 # Reinstall
 brew uninstall asciinema
-/craft:docs:demo --fix
+/folio:docs:demo --fix
 ```
 
 ---
@@ -593,7 +593,7 @@ Congratulations! You've completed the getting started tutorial. 🎉
 **Get JSON output for scripting:**
 
 ```bash
-/craft:docs:demo --check --json
+/folio:docs:demo --check --json
 ```
 
 **Check specific tool versions:**
@@ -614,13 +614,13 @@ Congratulations! You've completed the getting started tutorial. 🎉
 
 | Task | Command |
 |------|---------|
-| Check all dependencies | `/craft:docs:demo --check` |
-| Check specific method | `/craft:docs:demo --check --method asciinema` |
-| Install missing tools | `/craft:docs:demo --fix` |
+| Check all dependencies | `/folio:docs:demo --check` |
+| Check specific method | `/folio:docs:demo --check --method asciinema` |
+| Install missing tools | `/folio:docs:demo --fix` |
 | Record terminal | `asciinema rec demo.cast` |
-| Convert single file | `/craft:docs:demo --convert demo.cast` |
-| Batch convert | `/craft:docs:demo --batch` |
-| Get JSON output | `/craft:docs:demo --check --json` |
+| Convert single file | `/folio:docs:demo --convert demo.cast` |
+| Batch convert | `/folio:docs:demo --batch` |
+| Get JSON output | `/folio:docs:demo --check --json` |
 
 ---
 

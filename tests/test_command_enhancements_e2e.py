@@ -21,19 +21,26 @@ pytestmark = [pytest.mark.e2e, pytest.mark.commands]
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # The 4 enhanced command files
+# NOTE: git_worktree was folded from a command into a skill reference during the
+# v4 consolidation (Phase 3.5) — it has no YAML frontmatter and no separate
+# docs/commands/ mirror page anymore. See docs/MIGRATION-v4.md.
 COMMAND_FILES = {
     "orchestrate": os.path.join(BASE, "commands", "orch.md"),
     "check": os.path.join(BASE, "commands", "check.md"),
     "docs_update": os.path.join(BASE, "commands", "docs", "update.md"),
-    "git_worktree": os.path.join(BASE, "commands", "git", "worktree.md"),
+    "git_worktree": os.path.join(BASE, "skills", "dev", "git", "references", "worktree.md"),
 }
 
-# Corresponding help/doc files in docs/commands/
+# Corresponding help/doc files in docs/commands/ (git_worktree has no mirror; see above)
 HELP_FILES = {
     "orchestrate": os.path.join(BASE, "docs", "commands", "orch.md"),
     "check": os.path.join(BASE, "docs", "commands", "check.md"),
     "docs_update": os.path.join(BASE, "docs", "commands", "docs", "update.md"),
-    "git_worktree": os.path.join(BASE, "docs", "commands", "git", "worktree.md"),
+}
+
+# Commands whose frontmatter must be validated (git_worktree is a skill reference, no frontmatter)
+FRONTMATTER_COMMAND_FILES = {
+    k: v for k, v in COMMAND_FILES.items() if k != "git_worktree"
 }
 
 # New documentation files
@@ -97,19 +104,19 @@ class TestCommandFilesExist:
 class TestYAMLFrontmatter:
     """Command files must have valid YAML frontmatter with required fields."""
 
-    @pytest.mark.parametrize("name,path", COMMAND_FILES.items())
+    @pytest.mark.parametrize("name,path", FRONTMATTER_COMMAND_FILES.items())
     def test_has_yaml_frontmatter(self, name, path):
         content = _read_file(path)
         assert content.startswith("---"), f"{name} missing YAML frontmatter"
         assert "---" in content[3:], f"{name} frontmatter not closed"
 
-    @pytest.mark.parametrize("name,path", COMMAND_FILES.items())
+    @pytest.mark.parametrize("name,path", FRONTMATTER_COMMAND_FILES.items())
     def test_frontmatter_has_description(self, name, path):
         fm = _extract_frontmatter(_read_file(path))
         assert "description" in fm, f"{name} frontmatter missing 'description'"
         assert len(fm["description"]) > 10, f"{name} description too short"
 
-    @pytest.mark.parametrize("name,path", COMMAND_FILES.items())
+    @pytest.mark.parametrize("name,path", FRONTMATTER_COMMAND_FILES.items())
     def test_frontmatter_has_arguments_or_flags(self, name, path):
         fm = _extract_frontmatter(_read_file(path))
         has_args = "arguments" in fm or "flags" in fm
@@ -138,10 +145,9 @@ class TestYAMLFrontmatter:
         content = _read_file(COMMAND_FILES["docs_update"])
         assert "--post-merge" in content, "docs:update missing --post-merge flag"
 
-    def test_git_worktree_has_action_argument(self):
-        fm = _extract_frontmatter(_read_file(COMMAND_FILES["git_worktree"]))
-        arg_names = [a.get("name") for a in fm.get("arguments", [])]
-        assert "action" in arg_names, "git:worktree missing 'action' argument"
+    # git:worktree's 'action' argument was defined via YAML frontmatter when it was a
+    # command; the extracted skill reference has no frontmatter (see FRONTMATTER_COMMAND_FILES
+    # note above). Its action list is covered instead by test_defines_actions below.
 
 
 # ============================================================================
@@ -454,7 +460,10 @@ class TestHelpFileContent:
         assert "--for" in content, "Check help missing --for flag"
 
     def test_worktree_help_mentions_auto_setup(self):
-        content = _read_file(HELP_FILES["git_worktree"])
+        # git:worktree has no separate docs/commands/ mirror since the v4 consolidation
+        # (skills/dev/git/references/worktree.md is now both command spec and help);
+        # check the skill reference file itself instead.
+        content = _read_file(COMMAND_FILES["git_worktree"])
         has_auto = (
             "auto-setup" in content.lower()
             or "auto setup" in content.lower()

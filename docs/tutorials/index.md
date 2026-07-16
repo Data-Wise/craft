@@ -46,7 +46,6 @@
 | [Brainstorm Power User](TUTORIAL-brainstorm-power-user.md) | 20 min | Advanced brainstorming patterns and expert workflows |
 | [Refine Flag](TUTORIAL-refine-flag.md) | 10 min | Sharpen a vague prompt before any command runs (`--refine`) |
 | [Insights-Driven Workflow](TUTORIAL-insights-workflow.md) | 20 min | Session insights, friction prevention, guard tuning, CI monitoring |
-| [Docs Generate](TUTORIAL-docs-generate.md) | 5 min | Reach any of the 9 documentation generators via one router command |
 | [Plan Feature](TUTORIAL-plan-feature.md) | 10 min | Turn a feature idea into a scoped, estimated task breakdown |
 
 ## Release & Distribution

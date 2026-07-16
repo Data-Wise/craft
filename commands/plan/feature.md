@@ -130,10 +130,6 @@ Total Estimate: 16 hours (2 days)
 
 Works with:
 
-- `/craft:plan:sprint` - Sprint planning
+- `/craft:plan` - Sprint planning and roadmap generation (`plan-orchestrator` skill, Modes 3–4)
 - `/craft:arch:plan` - Architecture planning
-- `/craft:git:branch` - Create feature branch
-
-## See Also
-
-- `/craft:plan:roadmap` - Roadmap Generation
+- dev/git skill (ask "create feature branch") - Create feature branch (folded from `/craft:git:branch`, 2026-07 v4)

@@ -1,5 +1,5 @@
 # VHS Tape for Site Creation Workflow
-# Demonstrates /craft:site:create command
+# Demonstrates /folio:site:build command
 
 Output docs/gifs/workflow-02-site-creation.gif
 
@@ -28,7 +28,7 @@ Sleep 1s
 Type "# Create site with ADHD-friendly preset"
 Sleep 500ms
 Enter
-Type "/craft:site:create --preset adhd-focus --quick"
+Type "/folio:site:build --preset adhd-focus --quick"
 Sleep 500ms
 Enter
 Sleep 2s

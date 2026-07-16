@@ -57,7 +57,7 @@ The `--orch` flag enables orchestration directly from supported commands:
 | `/craft:do` | `/craft:do "task" --orch=[mode]` |
 | `/craft:brainstorm` | `/brainstorm "topic" --orch=[mode]` |
 | `/craft:check` | `/craft:check --orch=[mode]` |
-| `/craft:docs:sync` | `/craft:docs:sync --orch=[mode]` |
+| `/folio:docs:sync` (moved to folio) | `/folio:docs:sync --orch=[mode]` |
 | `/craft:ci:generate` | `/craft:ci:generate --orch=[mode]` |
 
 **Benefits:**
@@ -244,9 +244,9 @@ Choosing the right approach depends on your task scope and need for isolation:
 |----------|----------|---------|-----|
 | Quick task, clear scope | Direct command | `/craft:do "task"` | No orchestration overhead |
 | Multi-step task, single session | Orchestrator | `/craft:orch "task"` | Agent delegation + monitoring |
-| Multi-phase feature from spec | Pipeline | `/craft:orch:plan SPEC.md` | Full brainstorm → PR traceability |
+| Multi-phase feature from spec | Pipeline | `/craft:plan SPEC.md` | Full brainstorm → PR traceability |
 | Parallel isolated implementation | Swarm | `/craft:orch --swarm "task"` | Each agent gets own worktree |
-| Feature spanning multiple repos | Cross-repo pipeline | `/craft:orch:plan` (auto-detects) | Same branch name, paired worktrees |
+| Feature spanning multiple repos | Cross-repo pipeline | `/craft:plan` (auto-detects) | Same branch name, paired worktrees |
 | Quick feature, no spec | Manual worktree | `/craft:git:worktree create feature/name` | Simple isolation without orchestration |
 
 ### Worktree Types
@@ -254,7 +254,7 @@ Choosing the right approach depends on your task scope and need for isolation:
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
 | **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
-| **Pipeline** | `/craft:orch:plan` or brainstorm | Long-lived | `feature/*` | Always |
+| **Pipeline** | `/craft:plan` or brainstorm | Long-lived | `feature/*` | Always |
 | **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
 

@@ -1,6 +1,6 @@
 ---
 name: brainstorm-insights
-description: This skill should be used when the user asks "what's my friction", "session insights", "friction report", "what patterns am I hitting", "analyze my sessions", "generate insights report", "aggregate facets", or "show CLAUDE.md suggestions". Aggregates session facet history into a friction/goals report. Formerly bundled with the brainstorm skill (ideation); split out because the two operations share no input or output. Directory name kept as brainstorm-insights for path stability — tests and commands/workflow/insights.md reference it.
+description: This skill should be used when the user asks "what's my friction", "session insights", "friction report", "what patterns am I hitting", "analyze my sessions", "generate insights report", "aggregate facets", or "show CLAUDE.md suggestions". Aggregates session facet history into a friction/goals report. Formerly bundled with the brainstorm skill (ideation); split out because the two operations share no input or output. Directory name kept as brainstorm-insights for path stability — tests and references/insights.md reference it.
 ---
 
 # Brainstorm Insights
@@ -18,7 +18,8 @@ friction analysis (`~/.claude/usage-data/facets/*.json` → friction/goals
 report). They shared no input and no output, so ideation moved to its own
 `skills/workflow/brainstorm/`. This directory kept the `brainstorm-insights`
 name rather than renaming to `session-insights`, to avoid a path break for
-existing references (`commands/workflow/insights.md`, the dogfood/e2e
+existing references (`references/insights.md` — folded from a command into
+this skill in the v4 consolidation, Phase 3.5, 2026-07-12 — the dogfood/e2e
 scaffold-default tests, `insights-apply`, and `references/scaffold-templates.md`
 which is shared with `orchestrate`). Only the Insights operation remains here.
 
@@ -143,7 +144,7 @@ When this skill emits a BRAINSTORM or SPEC artifact, it also emits a Documentati
 
 ### Which docs to emit
 
-Derive which documentation artifacts are needed by running the existing doc-scorer rubric from `commands/docs/sync.md` (threshold ≥3). Do **not** invent a new rubric — reuse the scorer as the single source of truth.
+Derive which documentation artifacts are needed by running the existing doc-scorer rubric from [`skills/orchestration/references/doc-impact-rubric.md`](../../orchestration/references/doc-impact-rubric.md) (threshold ≥3). Do **not** invent a new rubric — reuse the scorer as the single source of truth.
 
 For each doc type the scorer evaluates (guide, refcard, demo, mermaid), pre-check (`[x]`) boxes that meet the threshold, and mark the rest `N/A — score <N>`. The template for the Documentation section lives in `references/scaffold-templates.md`.
 

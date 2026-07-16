@@ -1,14 +1,17 @@
 # Guard Suite
 
-> **Command surface note:** `/craft:git:guard` and `/craft:git:protect` are now thin shims over
-> `skills/dev/git/SKILL.md` — Operation 12 (Guard Registry CLI) and Operation 8 (Local Branch
-> Protection), respectively (`SPEC-branch-protection-consolidation-2026-07-07`). This guide
-> documents the guard suite's architecture and behavior, which is unchanged; for the exact
-> command/flag contract, see the skill's Operations directly. Operation 12 also adds a unified
-> `explain` dry-run across both hooks via each script's new `--classify` / `GUARD_DRY_RUN=1`
-> ground-truth mode (see "The `--classify` / `GUARD_DRY_RUN=1` Mode" below).
+> **Command surface note (2026-07 v4 consolidation):** "guard ..." (dev/git skill) and
+> "protect" (dev/git skill) have been removed entirely — their functionality lives
+> only in `skills/dev/git/SKILL.md` now (Operation 12: Guard Registry CLI;
+> Operation 8: Local Branch Protection), invoked by asking naturally rather
+> than via a slash command (`SPEC-branch-protection-consolidation-2026-07-07`).
+> This guide documents the guard suite's architecture and behavior, which is
+> unchanged; for the exact operation contract, see the skill directly.
+> Operation 12 also adds a unified `explain` dry-run across both hooks via
+> each script's new `--classify` / `GUARD_DRY_RUN=1` ground-truth mode (see
+> "The `--classify` / `GUARD_DRY_RUN=1` Mode" below).
 
-The Guard Suite is a two-hook safety layer that intercepts destructive git operations before Claude executes them. It replaces the single monolithic `branch-guard.sh` with a purpose-built pair of hooks, a shared registry for enable/disable/muting, and a `/craft:git:guard` command for runtime management.
+The Guard Suite is a two-hook safety layer that intercepts destructive git operations before Claude executes them. It replaces the single monolithic `branch-guard.sh` with a purpose-built pair of hooks, a shared registry for enable/disable/muting, and the `dev/git` skill (ask naturally) for runtime management.
 
 ## Architecture Overview
 
@@ -145,7 +148,7 @@ Both guards read a shared registry before deciding whether to act.
 
 **Muting** is a temporary bypass — the guard stays registered and enabled in principle but bypasses all checks until `muted_until` expires. Use muting when you know you'll be making a series of legitimate branch switches and don't want to approve each one.
 
-**Disabling** is a permanent bypass (until you run `/craft:git:guard enable <name>`). Use disabling only when you're doing extended work that genuinely doesn't need protection — not as a lazy alternative to muting.
+**Disabling** is a permanent bypass (until you ask "guard enable `<name>`"). Use disabling only when you're doing extended work that genuinely doesn't need protection — not as a lazy alternative to muting.
 
 ### Registry Reads and the jq Quirk
 
@@ -161,14 +164,14 @@ In jq, `false // true` evaluates to `true` (because `false` is falsy in jq's `//
 
 ---
 
-## The `/craft:git:guard` Command
+## Guard Management (dev/git skill)
 
-`/craft:git:guard` is the runtime management interface for the Guard Suite. It has 7 actions.
+Asking "guard ..." naturally (dev/git skill) is the runtime management interface for the Guard Suite. It has 7 actions.
 
 ### `list` — Show all guards
 
 ```
-/craft:git:guard list
+ask "guard list"
 ```
 
 Prints the current state of every registered guard.
@@ -190,7 +193,7 @@ Guard Suite status:
 ### `status` — Summary view
 
 ```
-/craft:git:guard status
+ask "guard status"
 ```
 
 Prints a one-line summary per guard, plus the active profile if one is set.
@@ -198,7 +201,7 @@ Prints a one-line summary per guard, plus the active profile if one is set.
 ### `explain` — Why a guard fired
 
 ```
-/craft:git:guard explain no-switch-guard
+ask "guard explain no-switch-guard"
 ```
 
 Prints the harm taxonomy for a guard: which operations are GREEN/YELLOW/RED, and why each tier is classified as it is. Useful when you're unsure why a confirmation appeared.
@@ -206,7 +209,7 @@ Prints the harm taxonomy for a guard: which operations are GREEN/YELLOW/RED, and
 ### `test` — Dry-run coverage check
 
 ```
-/craft:git:guard test
+ask "guard test"
 ```
 
 Runs a dry-run sweep against known GREEN/YELLOW/RED operations and reports which are correctly handled. Equivalent to `/craft:guard-audit` but scoped to the guard-suite hooks only.
@@ -221,9 +224,9 @@ Guard coverage test:
 ### `enable` — Re-enable a disabled guard
 
 ```
-/craft:git:guard enable no-switch-guard
-/craft:git:guard enable branch-guard
-/craft:git:guard enable all
+ask "guard enable no-switch-guard"
+ask "guard enable branch-guard"
+ask "guard enable all"
 ```
 
 Sets `enabled: true` and clears `muted_until` in the registry.
@@ -231,9 +234,9 @@ Sets `enabled: true` and clears `muted_until` in the registry.
 ### `disable` — Disable a guard (permanent until re-enabled)
 
 ```
-/craft:git:guard disable no-switch-guard
-/craft:git:guard disable branch-guard
-/craft:git:guard disable all
+ask "guard disable no-switch-guard"
+ask "guard disable branch-guard"
+ask "guard disable all"
 ```
 
 Sets `enabled: false`. The guard is skipped entirely on every subsequent invocation until you run `enable`.
@@ -241,9 +244,9 @@ Sets `enabled: false`. The guard is skipped entirely on every subsequent invocat
 ### `profile` — Apply a named configuration preset
 
 ```
-/craft:git:guard profile focus
-/craft:git:guard profile yolo
-/craft:git:guard profile spec
+ask "guard profile focus"
+ask "guard profile yolo"
+ask "guard profile spec"
 ```
 
 Profiles are named registry presets. See the Profiles section below.
@@ -257,7 +260,7 @@ Profiles let you switch between common guard configurations with a single comman
 ### `focus` — All guards on
 
 ```
-/craft:git:guard profile focus
+ask "guard profile focus"
 ```
 
 Sets both guards to `enabled: true, muted_until: null`. Maximum protection. Use when you're in deep implementation work and want every safeguard active.
@@ -271,7 +274,7 @@ Sets both guards to `enabled: true, muted_until: null`. Maximum protection. Use 
 ### `yolo` — All guards muted for 30 minutes
 
 ```
-/craft:git:guard profile yolo
+ask "guard profile yolo"
 ```
 
 Mutes both guards for 30 minutes. Use for exploratory sessions where you'll be switching branches, creating branches, and discarding changes frequently and know what you're doing.
@@ -287,7 +290,7 @@ The mute expires automatically — you don't need to remember to re-enable anyth
 ### `spec` — branch-guard on, no-switch-guard muted
 
 ```
-/craft:git:guard profile spec
+ask "guard profile spec"
 ```
 
 Keeps commit/push protection active but silences the branch-switch guard. Use when doing spec-only work on `dev` where you legitimately need to switch branches to read context but don't want the model asking for approval each time.
@@ -326,7 +329,7 @@ echo '{"tool_input":{"command":"git switch main"}}' \
 
 This reuses each script's real classification call sites (`block()`/`_confirm()`/`_low_note()` in
 branch-guard.sh; `ask()`/`announce()` in no-switch-guard.sh) — it prints the tier instead of
-emitting the real blocking contract, so `/craft:git:guard explain` and the dogfood test tier get
+emitting the real blocking contract, so "guard explain" (dev/git skill) and the dogfood test tier get
 ground truth instead of LLM narration. It does **not** change either script's actual emission
 mechanism (exit 2+stderr vs. `permissionDecision` JSON stay separate, per the rejected-unification
 decision in `SPEC-craft-guard-suite-2026-06-19.md` §2).
@@ -350,7 +353,7 @@ Fail-open means a broken registry degrades to "no protection" rather than "locke
 To verify the registry is healthy:
 
 ```
-/craft:git:guard status
+ask "guard status"
 ```
 
 If status shows guards as active, the registry is readable. If it shows "registry unreadable," check `~/.claude/guards.json` for syntax errors.
@@ -359,17 +362,17 @@ If status shows guards as active, the registry is readable. If it shows "registr
 
 ## Interaction with Existing Protections
 
-The Guard Suite is additive — it does not replace the session-scoped `/craft:git:unprotect` mechanism.
+The Guard Suite is additive — it does not replace the session-scoped "unprotect" (dev/git skill) mechanism.
 
 | Mechanism | Scope | What it gates |
 |-----------|-------|---------------|
 | `branch-guard.sh` | Per-operation | Commit/push to protected branches |
 | `no-switch-guard.sh` | Per-operation | Switch/restore/worktree ops |
-| `/craft:git:unprotect` | Session (until reset) | Disables branch-guard for the session |
+| "unprotect" (dev/git skill) | Session (until reset) | Disables branch-guard for the session |
 | `guards.json` mute | Time-boxed (N minutes) | Either or both guards |
 | `guards.json` disable | Permanent | Either or both guards |
 
-When `/craft:git:unprotect` is active, branch-guard is bypassed at the hook level. The `guards.json` registry is independent — it affects whether the hook binary runs at all, not what the hook decides when it runs.
+When "unprotect" (dev/git skill) is active, branch-guard is bypassed at the hook level. The `guards.json` registry is independent — it affects whether the hook binary runs at all, not what the hook decides when it runs.
 
 ---
 
@@ -387,13 +390,13 @@ This script:
 2. Creates `~/.claude/guards.json` with default values if it doesn't exist
 3. Verifies `jq` is available (warns if not, but does not abort)
 
-After installation, run `/craft:git:guard status` to confirm both guards are active.
+After installation, ask "guard status" to confirm both guards are active.
 
 ---
 
 ## See Also
 
-- [`/craft:git:unprotect`](../commands/git/unprotect.md) — session-scoped bypass for branch-guard
+- [dev/git skill](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) — ask "unprotect" for a session-scoped bypass for branch-guard
 - [Branch Guard Smart Mode](branch-guard-smart-mode.md) — smart-mode protection for `dev`/`draft` branches
 - `/craft:guard-audit` — audit that guard coverage matches the taxonomy
 - [Guard Suite Tutorial](../tutorials/TUTORIAL-guard-suite.md) — hands-on walkthrough

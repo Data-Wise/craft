@@ -302,7 +302,7 @@ When this skill emits an ORCHESTRATE artifact, it also emits a Documentation sec
 
 ### Which docs to emit
 
-Derive which documentation artifacts are needed by running the existing doc-scorer rubric from `commands/docs/sync.md` (tiered thresholds — see that file for the current type list, per-type weights, and threshold rule). Do **not** invent a new rubric, and do **not** hardcode a parallel type list here — always defer to `commands/docs/sync.md` as the single source of truth for which types exist and what their thresholds are.
+Derive which documentation artifacts are needed by running the existing doc-scorer rubric from [`skills/orchestration/references/doc-impact-rubric.md`](../references/doc-impact-rubric.md) (tiered thresholds — see that file for the current type list, per-type weights, and threshold rule). Do **not** invent a new rubric, and do **not** hardcode a parallel type list here — always defer to that file as the single source of truth for which types exist and what their thresholds are.
 
 For each doc type the scorer evaluates, pre-check (`[x]`) boxes that meet that type's threshold, and mark the rest `N/A — score <N>`. The template for the Documentation section — including the Site Consistency checklist — lives in [`../../workflow/brainstorm-insights/references/scaffold-templates.md`](../../workflow/brainstorm-insights/references/scaffold-templates.md).
 

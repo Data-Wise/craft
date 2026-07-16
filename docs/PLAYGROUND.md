@@ -33,7 +33,7 @@ Try these commands yourself and see the magic happen!
 │ /craft:hub - Command Discovery                              │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ 95 commands available across 9 categories                   │
+│ 46 commands available across 9 categories                   │
 │                                                             │
 │ 🎯 SMART (4 commands)                                       │
 │   /craft:do              - Universal task router            │
@@ -43,8 +43,8 @@ Try these commands yourself and see the magic happen!
 │                                                             │
 │ 📚 DOCUMENTATION (13 commands)                              │
 │   /craft:docs:update     - Smart doc generation             │
-│   /craft:docs:sync       - Stale doc detection              │
-│   /craft:docs:check      - Doc validation                   │
+│   /folio:docs:sync       - Stale doc detection (folio)      │
+│   /folio:docs:check      - Doc validation (folio)           │
 │   ...                                                       │
 │                                                             │
 │ [... more categories ...]                                   │
@@ -210,7 +210,7 @@ Changed files:
   - docs/reference/commands.md
   - docs/REFCARD.md
 
-💡 Next: Run /craft:docs:check to validate everything
+💡 Next: Run /folio:docs:check to validate everything
 ```
 
 **What You Learn:**
@@ -297,7 +297,7 @@ Now that you've seen how commands work, try these challenges:
     Run `/craft:check` → fix any issues → run again until it passes
 
 !!! example "Challenge 4: Documentation"
-    Run `/craft:docs:sync` to see if your docs are stale
+    Run `/folio:docs:sync` to see if your docs are stale
 
 ---
 
@@ -348,7 +348,7 @@ You've seen individual commands in action. Now learn how they work together:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    Explore all 95 commands organized by category
+    Explore all 46 commands organized by category
 
 - :rocket:{ .lg .middle } **[Quick Reference](REFCARD.md)**
 

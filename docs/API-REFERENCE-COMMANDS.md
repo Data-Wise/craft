@@ -16,7 +16,7 @@ Complete OpenAPI-style documentation for all 97 Craft commands organized by cate
 4. **[CI/CD Commands](#cicd-commands)** (3 commands) - Continuous integration
 5. **[Check Commands](#check-commands)** (1 command) - Pre-flight validation
 6. **[Distribution Commands](#distribution-commands)** (4 commands) - Release & packaging
-7. **[Documentation Commands](#documentation-commands)** (19 commands) - Docs & tutorials
+7. **[Documentation Commands](#documentation-commands)** (46 commands) - Docs & tutorials
 8. **[Git Commands](#git-commands)** (11 commands) - Version control workflows
 9. **[Plan Commands](#plan-commands)** (3 commands) - Project planning
 10. **[Site Commands](#site-commands)** (16 commands) - Static site generation
@@ -178,7 +178,7 @@ MAIN MENU
 │  ├─ /craft:code:test-gen
 │  └─ ... more
 ├─ Tests (7 commands)
-├─ Documentation (19 commands)
+├─ Documentation (46 commands)
 └─ ... more categories
 ```
 
@@ -256,26 +256,9 @@ Monitor with: /craft:orch status
 
 ---
 
-### /craft:discovery-usage
-
-**Category**: Documentation | **Complexity**: Simple | **Time**: < 5s
-**Description**: Generate discovery interface documentation for developers
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `format` | enum | No | `markdown` | Output format: `markdown`, `json`, `html` |
-
-#### Examples
-
-```bash
-/craft:discovery-usage
-/craft:discovery-usage json
-/craft:discovery-usage html
-```
-
-**File**: `commands/discovery-usage.md`
+> `discovery-usage` was never a user-invocable slash command (`internal: true`) — demoted to
+> a plain docs page in the v4 consolidation (2026-07). See
+> [`docs/internal/DISCOVERY-ENGINE-USAGE.md`](internal/DISCOVERY-ENGINE-USAGE.md).
 
 ---
 
@@ -530,7 +513,7 @@ Development workflow and code manipulation tools.
 
 ---
 
-### /craft:code:coverage
+### /craft:test --coverage
 
 **Category**: Testing | **Complexity**: Simple | **Time**: 1-3 min
 **Description**: Analyze and report test coverage
@@ -546,9 +529,9 @@ Development workflow and code manipulation tools.
 #### Examples
 
 ```bash
-/craft:code:coverage
-/craft:code:coverage --threshold 85
-/craft:code:coverage --report html
+/craft:test --coverage
+/craft:test --coverage --threshold 85
+/craft:test --coverage --report html
 ```
 
 **File**: `commands/code/coverage.md`
@@ -894,7 +877,7 @@ Marketplace distribution management — init, validate, test, publish.
 
 Documentation generation, maintenance, and publication.
 
-### /craft:docs:api
+### /folio:docs:api
 
 **Category**: Reference | **Complexity**: Moderate | **Time**: 2-5 min
 **Description**: Generate API documentation from code
@@ -909,8 +892,8 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:api
-/craft:docs:api swagger --output api-spec.yaml
+/folio:docs:api
+/folio:docs:api swagger --output api-spec.yaml
 ```
 
 **File**: `commands/docs/api.md`
@@ -942,7 +925,7 @@ Documentation generation, maintenance, and publication.
 
 ---
 
-### /craft:docs:check-links
+### /folio:docs:check-links
 
 **Category**: Validation | **Complexity**: Simple | **Time**: 1-3 min
 **Description**: Validate all documentation links
@@ -957,16 +940,16 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:check-links
-/craft:docs:check-links --external
-/craft:docs:check-links --fix
+/folio:docs:check-links
+/folio:docs:check-links --external
+/folio:docs:check-links --fix
 ```
 
 **File**: `commands/docs/check-links.md`
 
 ---
 
-### /craft:docs:check
+### /folio:docs:check
 
 **Category**: Validation | **Complexity**: Simple | **Time**: < 60s
 **Description**: Validate documentation completeness
@@ -980,8 +963,8 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:check
-/craft:docs:check --strict
+/folio:docs:check
+/folio:docs:check --strict
 ```
 
 **File**: `commands/docs/check.md`
@@ -1010,7 +993,7 @@ Documentation generation, maintenance, and publication.
 
 ---
 
-### /craft:docs:demo
+### /folio:docs:demo
 
 **Category**: Content | **Complexity**: Moderate | **Time**: 1-5 min
 **Description**: Generate demo documentation
@@ -1024,15 +1007,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:demo
-/craft:docs:demo feature
+/folio:docs:demo
+/folio:docs:demo feature
 ```
 
 **File**: `commands/docs/demo.md`
 
 ---
 
-### /craft:docs:guide
+### /folio:docs:guide
 
 **Category**: Content | **Complexity**: Moderate | **Time**: 2-5 min
 **Description**: Generate step-by-step guides
@@ -1047,15 +1030,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:guide "setting up authentication"
-/craft:docs:guide "advanced testing" intermediate
+/folio:docs:guide "setting up authentication"
+/folio:docs:guide "advanced testing" intermediate
 ```
 
 **File**: `commands/docs/guide.md`
 
 ---
 
-### /craft:docs:help
+### /folio:docs:help
 
 **Category**: Reference | **Complexity**: Simple | **Time**: < 30s
 **Description**: Generate command help documentation
@@ -1069,15 +1052,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:help
-/craft:docs:help --no-examples
+/folio:docs:help
+/folio:docs:help --no-examples
 ```
 
 **File**: `commands/docs/help.md`
 
 ---
 
-### /craft:docs:lint
+### /folio:docs:lint
 
 **Category**: Validation | **Complexity**: Simple | **Time**: < 60s
 **Description**: Lint documentation for style and consistency
@@ -1091,15 +1074,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:lint
-/craft:docs:lint --fix
+/folio:docs:lint
+/folio:docs:lint --fix
 ```
 
 **File**: `commands/docs/lint.md`
 
 ---
 
-### /craft:docs:mermaid
+### /folio:docs:mermaid
 
 **Category**: Visualization | **Complexity**: Moderate | **Time**: 1-3 min
 **Description**: Generate Mermaid diagrams for documentation
@@ -1114,15 +1097,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:mermaid flowchart
-/craft:docs:mermaid sequence --interactive
+/folio:docs:mermaid flowchart
+/folio:docs:mermaid sequence --interactive
 ```
 
 **File**: `commands/docs/mermaid.md`
 
 ---
 
-### /craft:docs:nav-update
+### /folio:docs:nav-update
 
 **Category**: Site | **Complexity**: Simple | **Time**: < 30s
 **Description**: Update documentation site navigation
@@ -1136,15 +1119,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:nav-update
-/craft:docs:nav-update --manual
+/folio:docs:nav-update
+/folio:docs:nav-update --manual
 ```
 
 **File**: `commands/docs/nav-update.md`
 
 ---
 
-### /craft:docs:prompt
+### /folio:docs:prompt
 
 **Category**: Development | **Complexity**: Simple | **Time**: < 30s
 **Description**: Generate system prompts for documentation tasks
@@ -1158,15 +1141,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:prompt "write API reference for authentication"
-/craft:docs:prompt "create getting started guide"
+/folio:docs:prompt "write API reference for authentication"
+/folio:docs:prompt "create getting started guide"
 ```
 
 **File**: `commands/docs/prompt.md`
 
 ---
 
-### /craft:docs:quickstart
+### /folio:docs:quickstart
 
 **Category**: Content | **Complexity**: Simple | **Time**: 1-2 min
 **Description**: Generate quick-start guides
@@ -1180,15 +1163,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:quickstart "setting up a new project"
-/craft:docs:quickstart "deploying to production"
+/folio:docs:quickstart "setting up a new project"
+/folio:docs:quickstart "deploying to production"
 ```
 
 **File**: `commands/docs/quickstart.md`
 
 ---
 
-### /craft:docs:site
+### /folio:docs:site
 
 **Category**: Site | **Complexity**: Moderate | **Time**: 2-5 min
 **Description**: Manage documentation website
@@ -1202,17 +1185,17 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:site build
-/craft:docs:site deploy
-/craft:docs:site preview
-/craft:docs:site serve
+/folio:docs:site build
+/folio:docs:site deploy
+/folio:docs:site preview
+/folio:docs:site serve
 ```
 
 **File**: `commands/docs/site.md`
 
 ---
 
-### /craft:docs:sync
+### /folio:docs:sync
 
 **Category**: Maintenance | **Complexity**: Simple | **Time**: < 60s
 **Description**: Sync documentation with code
@@ -1226,15 +1209,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:sync
-/craft:docs:sync --fix
+/folio:docs:sync
+/folio:docs:sync --fix
 ```
 
 **File**: `commands/docs/sync.md`
 
 ---
 
-### /craft:docs:tutorial
+### /folio:docs:tutorial
 
 **Category**: Content | **Complexity**: Moderate | **Time**: 2-5 min
 **Description**: Generate interactive tutorials
@@ -1249,8 +1232,8 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:tutorial "authentication workflow"
-/craft:docs:tutorial "testing best practices" --interactive
+/folio:docs:tutorial "authentication workflow"
+/folio:docs:tutorial "testing best practices" --interactive
 ```
 
 **File**: `commands/docs/tutorial.md`
@@ -1281,7 +1264,7 @@ Documentation generation, maintenance, and publication.
 
 ---
 
-### /craft:docs:workflow
+### /folio:docs:workflow
 
 **Category**: Workflow | **Complexity**: Simple | **Time**: < 30s
 **Description**: Document development workflows
@@ -1295,15 +1278,15 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:workflow "feature development"
-/craft:docs:workflow "release process"
+/folio:docs:workflow "feature development"
+/folio:docs:workflow "release process"
 ```
 
 **File**: `commands/docs/workflow.md`
 
 ---
 
-### /craft:docs:website
+### /folio:docs:website
 
 **Category**: Site | **Complexity**: Moderate | **Time**: 2-5 min
 **Description**: Manage overall website structure
@@ -1317,8 +1300,8 @@ Documentation generation, maintenance, and publication.
 #### Examples
 
 ```bash
-/craft:docs:website init
-/craft:docs:website add "new section"
+/folio:docs:website init
+/folio:docs:website add "new section"
 ```
 
 **File**: `commands/docs/website.md`
@@ -1329,51 +1312,14 @@ Documentation generation, maintenance, and publication.
 
 Version control and collaboration workflows.
 
-### /craft:git:status
+### Git status, branch, protect, unprotect, clean, guard, protect-baseline
 
-**Category**: Inspection | **Complexity**: Simple | **Time**: < 5s
-**Description**: Show enhanced git status with suggestions
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--detailed` | boolean | No | false | Show detailed information |
-| `--suggest` | boolean | No | true | Show suggested next actions |
-
-#### Examples
-
-```bash
-/craft:git:status
-/craft:git:status --detailed
-```
-
-**File**: `commands/git/status.md`
-
----
-
-### /craft:git:branch
-
-**Category**: Branching | **Complexity**: Simple | **Time**: < 30s
-**Description**: Create and manage feature branches
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `action` | enum | Yes | - | Action: `create`, `list`, `delete`, `rename` |
-| `name` | string | No | - | Branch name |
-| `--type` | enum | No | `feature` | Type: `feature`, `hotfix`, `release` |
-
-#### Examples
-
-```bash
-/craft:git:branch create my-feature
-/craft:git:branch list
-/craft:git:branch delete old-branch
-```
-
-**File**: `commands/git/branch.md`
+**Folded into the `dev/git` skill (2026-07 v4 consolidation)** — these are no
+longer separate slash commands. Ask naturally ("show git status", "create
+feature branch my-feature", "protect this branch", "unprotect for a merge
+conflict", "clean up merged branches", "manage guards", "apply baseline
+protection") or see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
 ---
 
@@ -1400,54 +1346,6 @@ Version control and collaboration workflows.
 ```
 
 **File**: `commands/git/worktree.md`
-
----
-
-### /craft:git:clean
-
-**Category**: Maintenance | **Complexity**: Simple | **Time**: < 30s
-**Description**: Clean up merged branches and stale refs
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--dry-run` | boolean | No | false | Preview cleanup |
-| `--remote` | boolean | No | false | Clean remote branches too |
-
-#### Examples
-
-```bash
-/craft:git:clean
-/craft:git:clean --dry-run
-/craft:git:clean --remote
-```
-
-**File**: `commands/git/clean.md`
-
----
-
-### /craft:git:issue-check
-
-**Category**: Inspection | **Complexity**: Simple | **Time**: < 10s
-**Description**: Check whether an open GitHub issue's premise still holds against current code
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `issue` | string | Yes | - | Issue number (e.g. `199`) |
-| `--repo` | string | No | `Data-Wise/craft` | Repo in `OWNER/NAME` form |
-| `--json` | boolean | No | false | Output structured JSON instead of the verdict box |
-
-#### Examples
-
-```bash
-/craft:git:issue-check 199
-/craft:git:issue-check 199 --json
-```
-
-**File**: `commands/git/issue-check.md`
 
 ---
 
@@ -1494,49 +1392,11 @@ Project planning and roadmap tools.
 
 ---
 
-### /craft:plan:sprint
-
-**Category**: Planning | **Complexity**: Moderate | **Time**: 1-2 hours
-**Description**: Plan sprint with task breakdown
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `duration` | string | No | `1w` | Sprint duration: `1w`, `2w`, `custom` |
-| `--capacity` | number | No | 40 | Team capacity (hours) |
-
-#### Examples
-
-```bash
-/craft:plan:sprint
-/craft:plan:sprint 2w --capacity 80
-```
-
-**File**: `commands/plan/sprint.md`
-
----
-
-### /craft:plan:roadmap
-
-**Category**: Planning | **Complexity**: Complex | **Time**: 2-4 hours
-**Description**: Create and manage project roadmap
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--horizon` | string | No | `1y` | Planning horizon: `6m`, `1y`, `2y` |
-| `--format` | enum | No | `timeline` | Format: `timeline`, `kanban`, `swimlanes` |
-
-#### Examples
-
-```bash
-/craft:plan:roadmap
-/craft:plan:roadmap --horizon 2y --format swimlanes
-```
-
-**File**: `commands/plan/roadmap.md`
+> Sprint planning and roadmap generation (formerly `/craft:plan:sprint` and
+> `/craft:plan:roadmap`) were folded into the `plan-orchestrator` skill
+> (Modes 3–4) in the v4 command consolidation (2026-07). Invoke `/craft:plan`
+> and describe the sprint/roadmap need, or read
+> [`skills/orchestration/plan-orchestrator/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/orchestration/plan-orchestrator/SKILL.md).
 
 ---
 
@@ -1544,7 +1404,7 @@ Project planning and roadmap tools.
 
 Static site generation and website management.
 
-### /craft:site:build
+### /folio:site:build
 
 **Category**: Build | **Complexity**: Simple | **Time**: 1-3 min
 **Description**: Build static site
@@ -1559,8 +1419,8 @@ Static site generation and website management.
 #### Examples
 
 ```bash
-/craft:site:build
-/craft:site:build --production --minify
+/folio:site:build
+/folio:site:build --production --minify
 ```
 
 **File**: `commands/site/build.md`
@@ -1591,7 +1451,7 @@ Static site generation and website management.
 
 ---
 
-### /craft:site:publish
+### /folio:site:publish
 
 **Category**: Release | **Complexity**: Moderate | **Time**: 2-5 min
 **Description**: Publish site (build + deploy)
@@ -1605,15 +1465,15 @@ Static site generation and website management.
 #### Examples
 
 ```bash
-/craft:site:publish
-/craft:site:publish --skip-build
+/folio:site:publish
+/folio:site:publish --skip-build
 ```
 
 **File**: `commands/site/publish.md`
 
 ---
 
-### /craft:site:check
+### /folio:site:check
 
 **Category**: Validation | **Complexity**: Simple | **Time**: < 60s
 **Description**: Validate site configuration and content
@@ -1627,15 +1487,15 @@ Static site generation and website management.
 #### Examples
 
 ```bash
-/craft:site:check
-/craft:site:check --strict
+/folio:site:check
+/folio:site:check --strict
 ```
 
 **File**: `commands/site/check.md`
 
 ---
 
-### /craft:site:update
+### /folio:site:update
 
 **Category**: Maintenance | **Complexity**: Simple | **Time**: 1-2 min
 **Description**: Update site configuration and dependencies
@@ -1649,15 +1509,15 @@ Static site generation and website management.
 #### Examples
 
 ```bash
-/craft:site:update
-/craft:site:update --dry-run
+/folio:site:update
+/folio:site:update --dry-run
 ```
 
 **File**: `commands/site/update.md`
 
 ---
 
-### /craft:site:status
+### /folio:site:status
 
 **Category**: Inspection | **Complexity**: Simple | **Time**: < 30s
 **Description**: Show site build status
@@ -1671,15 +1531,15 @@ Static site generation and website management.
 #### Examples
 
 ```bash
-/craft:site:status
-/craft:site:status --details
+/folio:site:status
+/folio:site:status --details
 ```
 
 **File**: `commands/site/status.md`
 
 ---
 
-### /craft:site:progress
+### /folio:site:progress
 
 **Category**: Inspection | **Complexity**: Simple | **Time**: < 30s
 **Description**: Show site completion progress
@@ -1693,8 +1553,8 @@ Static site generation and website management.
 #### Examples
 
 ```bash
-/craft:site:progress
-/craft:site:progress --breakdown
+/folio:site:progress
+/folio:site:progress --breakdown
 ```
 
 **File**: `commands/site/progress.md`
@@ -1893,47 +1753,8 @@ Development workflow and productivity tools.
 
 Helper utilities and reference tools.
 
-### /craft:utils:readme-teach-config
-
-**Category**: Reference | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Teaching configuration documentation
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--examples` | boolean | No | false | Show examples |
-
-#### Examples
-
-```bash
-/craft:utils:readme-teach-config
-/craft:utils:readme-teach-config --examples
-```
-
-**File**: `commands/utils/readme-teach-config.md`
-
----
-
-### /craft:utils:readme-semester-progress
-
-**Category**: Reference | **Complexity**: Simple | **Time**: < 5 min
-**Description**: Semester progress tracking documentation
-
-#### Arguments
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `--template` | boolean | No | false | Show template |
-
-#### Examples
-
-```bash
-/craft:utils:readme-semester-progress
-/craft:utils:readme-semester-progress --template
-```
-
-**File**: `commands/utils/readme-semester-progress.md`
+> `readme-teach-config` and `readme-semester-progress` (teaching-residue commands) were
+> removed in the v4 command consolidation (2026-07) — no replacement, no longer needed.
 
 ---
 
@@ -1968,7 +1789,7 @@ Commands that make changes support `--dry-run` or `-n`:
 
 ```bash
 /craft:code:lint --dry-run        # Preview changes
-/craft:git:clean --dry-run        # Preview branch cleanup
+# ask "clean up merged branches --dry-run" (dev/git skill) — preview branch cleanup
 /craft:site:deploy --dry-run      # Preview deployment
 ```
 
@@ -1991,7 +1812,7 @@ Commands support multiple output formats:
 |------|---|
 | Create a feature | `/craft:plan:feature` → `/craft:git:worktree` → `/craft:code:test-gen` |
 | Release a project | `/craft:code:lint` → `/craft:test release` → `/craft:code:release` |
-| Document code | `/craft:docs:api` → `/craft:docs:guide` → `/craft:docs:site publish` |
+| Document code | `/folio:docs:api` → `/folio:docs:guide` → `/folio:docs:site publish` |
 | Debug issues | `/craft:code:debug` → `/craft:test debug` |
 
 ---
@@ -2002,8 +1823,8 @@ Commands support multiple output formats:
 
 | Complexity | Typical Time | Example |
 |-----------|--------------|---------|
-| Simple | < 30s | `/craft:git:status`, `/craft:code:lint` |
-| Moderate | 1-5 min | `/craft:test`, `/craft:docs:api` |
+| Simple | < 30s | ask "git status" (dev/git skill), `/craft:code:lint` |
+| Moderate | 1-5 min | `/craft:test`, `/folio:docs:api` |
 | Complex | 5-30 min | `/craft:plan:feature`, `/craft:orch` |
 
 ### Optimization Tips

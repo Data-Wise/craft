@@ -11,7 +11,11 @@
 - You're onboarding a new project area and want a baseline applied to all repos
 - You want to standardize after a security review
 
-This recipe is the natural follow-up to [`/craft:git:protect-baseline`](../../commands/git/protect-baseline.md) — that command protects one repo at a time. This recipe shows how to scale it.
+This recipe is the natural follow-up to asking the `dev/git` skill to
+"protect-baseline" a repo (folded from `/craft:git:protect-baseline`, 2026-07
+v4 consolidation; see
+[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md))
+— that protects one repo at a time. This recipe shows how to scale it.
 
 ---
 
@@ -209,7 +213,7 @@ This means you can safely run the audit-then-apply pipeline on a schedule (e.g.,
 
 ## See Also
 
-- [/craft:git:protect-baseline](../../commands/git/protect-baseline.md) — Single-repo command
+- [dev/git skill](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) — "protect-baseline" for a single repo (folded from `/craft:git:protect-baseline`)
 - [REFCARD-PROTECT-BASELINE](../../reference/REFCARD-PROTECT-BASELINE.md) — Quick reference
 - [TUTORIAL-protect-new-repo](../../tutorials/TUTORIAL-protect-new-repo.md) — Step-by-step single-repo walkthrough
 - [Branch Protection Architecture](../../architecture.md#5-branch-protection-hooks) — Defense-in-depth model

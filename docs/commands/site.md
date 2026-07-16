@@ -4,8 +4,8 @@
 >
 > - **What:** 15 commands for complete documentation site lifecycle (build, update, deploy, check)
 > - **Why:** Zero-to-deployed in minutes with smart automation
-> - **How:** `/craft:site:build` to compile, `/craft:site:status` for health check
-> - **Next:** Run `/craft:site:update` for content sync or `/craft:site:deploy` to publish
+> - **How:** `/folio:site:build` to compile, `/folio:site:status` for health check
+> - **Next:** Run `/folio:site:update` for content sync or `/craft:site:deploy` to publish
 
 Full documentation site lifecycle management - 15 commands.
 
@@ -13,10 +13,10 @@ Full documentation site lifecycle management - 15 commands.
 
 | Scenario | Command | Why |
 |----------|---------|-----|
-| Already have mkdocs.yml, need to build | `/craft:site:build` | Compiles site without modifying config |
+| Already have mkdocs.yml, need to build | `/folio:site:build` | Compiles site without modifying config |
 | Push to GitHub Pages | `/craft:site:deploy` | Build + deploy in one step |
-| Content changed, update site | `/craft:site:update` | Sync code changes into site content |
-| Check site health | `/craft:site:check` | Validate config, links, deploy readiness |
+| Content changed, update site | `/folio:site:update` | Sync code changes into site content |
+| Check site health | `/folio:site:check` | Validate config, links, deploy readiness |
 
 **Common confusion:**
 
@@ -27,15 +27,15 @@ Full documentation site lifecycle management - 15 commands.
 
 ## Management Commands
 
-### /craft:site:status
+### /folio:site:status
 
 Dashboard and health check
 
-### /craft:site:update
+### /folio:site:update
 
 Update site content from code changes
 
-### /craft:site:build
+### /folio:site:build
 
 Build site
 
@@ -43,13 +43,13 @@ Build site
 
 Deploy to GitHub Pages
 
-### /craft:site:check
+### /folio:site:check
 
 Validate site configuration, broken links, and deployment readiness
 
 ```bash
-/craft:site:check           # Full validation
-/craft:site:check --links   # Links only
+/folio:site:check           # Full validation
+/folio:site:check --links   # Links only
 ```
 
 ## Framework Support

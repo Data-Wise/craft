@@ -368,7 +368,7 @@ graph TD
 
 **Route To:** Category-based command sequence — same routing mechanism as Zone 1,
 chaining the category's commands (e.g. `/craft:arch:plan`, `/craft:code:test-gen`,
-`/craft:git:branch` for a feature task); no per-domain agent dispatch
+asking the dev/git skill to create a feature branch); no per-domain agent dispatch
 
 **Examples:**
 

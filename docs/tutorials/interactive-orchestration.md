@@ -108,7 +108,7 @@ Delegation strategy: hybrid
 After confirmation, the orchestrator spawns agents for Wave 1:
 
 ```
-Spawning Wave 1 agents...
+Spawning Wave 2 agents...
   arch-1: Design auth flow (running)
   code-1: Implement backend (running)
 ```
@@ -141,7 +141,7 @@ Next: Wave 2
 | Choice | When to use |
 |--------|-------------|
 | **Yes - Continue** | Results look good, proceed to next wave |
-| **Review results first** | Want to see detailed output from Wave 1 agents |
+| **Review results first** | Want to see detailed output from Wave 2 agents |
 | **Modify next wave** | Need to adjust Wave 2 tasks based on Wave 1 results |
 | **Stop here** | Wave 1 output is sufficient, don't need more waves |
 

@@ -406,7 +406,7 @@ When creating an ORCHESTRATE file, insights data automatically feeds into the "F
 /craft:insights
 
 # 2. Create ORCHESTRATE — friction prevention is auto-populated
-/craft:orch:plan docs/specs/SPEC-feature.md
+/craft:plan docs/specs/SPEC-feature.md
 # → ORCHESTRATE file includes project-specific guardrails
 ```
 
@@ -432,7 +432,7 @@ graph TD
 ## See Also
 
 - [Branch Guard Smart Mode Guide](branch-guard-smart-mode.md) — How the guard works
-- [/craft:insights Command](../commands/workflow/insights.md) — Full command reference
+- [Insights skill reference](https://github.com/Data-Wise/craft/blob/dev/skills/workflow/brainstorm-insights/references/insights.md) — Full command reference
 - [Check Command Mastery](check-command-mastery.md) — All check modes and flags
 - [Worktree Advanced Patterns](worktree-advanced-patterns.md) — Multi-worktree management
 - [Version History](../VERSION-HISTORY.md) — v2.18.0 release notes

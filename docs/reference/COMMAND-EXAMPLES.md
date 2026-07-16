@@ -33,7 +33,7 @@ Practical examples and real-world usage patterns for all Craft commands.
 | **Quick linting** | `/craft:code:lint` | Default mode |
 | **Run tests** | `/craft:test` | Quick smoke tests |
 | **Detailed testing** | `/craft:test release` | Full suite with coverage |
-| **Publish docs** | `/craft:site:publish` | Build + deploy |
+| **Publish docs** | `/folio:site:publish` | Build + deploy |
 | **Release new version** | `/craft:code:release` | Full workflow |
 
 ---
@@ -152,7 +152,7 @@ MAIN MENU
 │  ├─ /craft:code:test-gen - Generate test stubs
 │  └─ ... more
 ├─ Tests (7 commands) ............................... /craft:test:*
-├─ Documentation (19 commands) ....................... /craft:docs:*
+├─ Documentation (46 commands) ....................... /craft:docs:*
 └─ ... more categories
 
 Press UP/DOWN to browse
@@ -463,20 +463,20 @@ Next: Edit tests/unit/auth.test.ts and implement test bodies
 
 ---
 
-### /craft:code:coverage - Test Coverage
+### /craft:test --coverage - Test Coverage
 
 ```bash
 # Check coverage
-/craft:code:coverage
+/craft:test --coverage
 
 # With threshold
-/craft:code:coverage --threshold 85
+/craft:test --coverage --threshold 85
 
 # HTML report
-/craft:code:coverage --report html
+/craft:test --coverage --report html
 
 # JSON for CI
-/craft:code:coverage --report json > coverage.json
+/craft:test --coverage --report json > coverage.json
 ```
 
 **Output Example**:
@@ -636,43 +636,45 @@ cd /original/craft
 
 ---
 
-### /craft:git:branch - Branch Management
+### Branch Management (dev/git skill)
 
-```bash
+Folded into the `dev/git` skill (2026-07 v4 consolidation) — ask naturally:
+
+```text
 # Create feature branch
-/craft:git:branch create feature/auth
+ask "create feature branch feature/auth"
 
 # Create hotfix branch
-/craft:git:branch create hotfix/security-patch --type hotfix
+ask "create hotfix branch hotfix/security-patch"
 
 # List all branches
-/craft:git:branch list
+ask "list branches"
 
 # Delete merged branch
-/craft:git:branch delete old-feature
+ask "delete branch old-feature"
 
 # Rename branch
-/craft:git:branch rename old-name new-name
+ask "rename branch old-name to new-name"
 ```
 
 ---
 
 ## Documentation Examples
 
-### /craft:docs:api - Generate API Docs
+### /folio:docs:api - Generate API Docs
 
 ```bash
 # Generate OpenAPI spec
-/craft:docs:api
+/folio:docs:api
 
 # Generate Swagger spec
-/craft:docs:api swagger
+/folio:docs:api swagger
 
 # Save to file
-/craft:docs:api openapi --output api-spec.yaml
+/folio:docs:api openapi --output api-spec.yaml
 
 # Include security schemes
-/craft:docs:api --with-security
+/folio:docs:api --with-security
 ```
 
 **Output Example** (OpenAPI 3.1):
@@ -756,35 +758,35 @@ paths:
 
 ---
 
-### /craft:docs:check-links - Validate Links
+### /folio:docs:check-links - Validate Links
 
 ```bash
 # Check internal links only
-/craft:docs:check-links
+/folio:docs:check-links
 
 # Include external URLs
-/craft:docs:check-links --external
+/folio:docs:check-links --external
 
 # Auto-fix broken links
-/craft:docs:check-links --fix
+/folio:docs:check-links --fix
 
 # Save report
-/craft:docs:check-links --report json > links.json
+/folio:docs:check-links --report json > links.json
 ```
 
 ---
 
-### /craft:docs:guide - Generate Guides
+### /folio:docs:guide - Generate Guides
 
 ```bash
 # Generate getting started guide
-/craft:docs:guide "getting started"
+/folio:docs:guide "getting started"
 
 # Intermediate level
-/craft:docs:guide "advanced testing" intermediate
+/folio:docs:guide "advanced testing" intermediate
 
 # Expert level
-/craft:docs:guide "deployment and devops" advanced
+/folio:docs:guide "deployment and devops" advanced
 ```
 
 ---
@@ -858,17 +860,17 @@ SUMMARY: 156/156 passing (2.4s)
 
 ## Site Management Examples
 
-### /craft:site:build - Build Site
+### /folio:site:build - Build Site
 
 ```bash
 # Development build
-/craft:site:build
+/folio:site:build
 
 # Production build
-/craft:site:build --production
+/folio:site:build --production
 
 # With minification
-/craft:site:build --production --minify
+/folio:site:build --production --minify
 ```
 
 ---
@@ -891,14 +893,14 @@ SUMMARY: 156/156 passing (2.4s)
 
 ---
 
-### /craft:site:publish - Build + Deploy
+### /folio:site:publish - Build + Deploy
 
 ```bash
 # One-command publish
-/craft:site:publish
+/folio:site:publish
 
 # Skip build (if already built)
-/craft:site:publish --skip-build
+/folio:site:publish --skip-build
 ```
 
 ---
@@ -930,7 +932,7 @@ SUMMARY: 156/156 passing (2.4s)
 /craft:code:lint release
 
 # 8. Generate docs
-/craft:docs:api --output api-spec.yaml
+/folio:docs:api --output api-spec.yaml
 
 # 9. Complete and create PR
 /craft:git:worktree finish
@@ -947,7 +949,7 @@ SUMMARY: 156/156 passing (2.4s)
 
 # 2. Validate everything
 /craft:code:lint release
-/craft:code:coverage --threshold 85
+/craft:test --coverage --threshold 85
 
 # 3. Build and test locally
 /craft:ci:local
@@ -956,7 +958,7 @@ SUMMARY: 156/156 passing (2.4s)
 /craft:code:release
 
 # 5. Deploy
-/craft:site:publish
+/folio:site:publish
 
 # 6. Verify in production
 # ... manual testing ...
@@ -991,7 +993,6 @@ SUMMARY: 156/156 passing (2.4s)
 alias cc='/craft:check'
 alias ct='/craft:test'
 alias cl='/craft:code:lint'
-alias cs='/craft:git:status'
 alias cw='cd ~/.git-worktrees/craft'
 ```
 
@@ -1001,8 +1002,10 @@ Usage:
 cc          # Run /craft:check
 ct release  # Run /craft:test release
 cl --fix    # Run /craft:code:lint --fix
-cs          # Run /craft:git:status
 ```
+
+Git status is now a `dev/git` skill operation — ask "git status" naturally
+instead of aliasing a slash command (folded from `/craft:git:status`, 2026-07 v4).
 
 ---
 
@@ -1013,15 +1016,15 @@ cs          # Run /craft:git:status
 ```bash
 /craft:check                    # < 30s
 /craft:code:lint                # < 10s
-/craft:git:status               # < 5s
+# ask "git status" (dev/git skill) — < 5s
 ```
 
 ### Normal Development (1-5 min)
 
 ```bash
 /craft:test                 # ~2 min
-/craft:code:coverage            # ~1 min
-/craft:docs:check-links         # ~2 min
+/craft:test --coverage            # ~1 min
+/folio:docs:check-links         # ~2 min
 ```
 
 ### Full Pre-Release (5-30 min)
@@ -1029,8 +1032,8 @@ cs          # Run /craft:git:status
 ```bash
 /craft:test release         # ~5 min
 /craft:code:lint release        # ~3 min
-/craft:code:coverage --threshold 90  # ~1 min
-/craft:site:build --production  # ~5 min
+/craft:test --coverage --threshold 90  # ~1 min
+/folio:site:build --production  # ~5 min
 ```
 
 ---

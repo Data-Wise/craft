@@ -17,10 +17,10 @@ The dependency management system ensures that tools required by commands (like `
 !!! abstract "Check Dependencies"
     ```bash
     # Check status of all dependencies
-    /craft:docs:demo --check
+    /folio:docs:demo --check
 
     # Fix missing or broken dependencies
-    /craft:docs:demo --fix
+    /folio:docs:demo --fix
     ```
 
 ## System Architecture
@@ -189,13 +189,13 @@ Caches detection results for performance:
 
 ```bash
 # First check - detects and caches
-/craft:docs:demo --check    # ~500ms
+/folio:docs:demo --check    # ~500ms
 
 # Second check within 60s - uses cache
-/craft:docs:demo --check    # ~50ms (10x faster!)
+/folio:docs:demo --check    # ~50ms (10x faster!)
 
 # After 60s - cache expires, re-detects
-/craft:docs:demo --check    # ~500ms
+/folio:docs:demo --check    # ~500ms
 ```
 
 ### 4. Version Management (version-check.sh)
@@ -239,7 +239,7 @@ BROKEN if unexpected exit code
 
 ### Workflow 1: Check Dependencies
 
-**Command:** `/craft:docs:demo --check`
+**Command:** `/folio:docs:demo --check`
 
 **Steps:**
 
@@ -264,7 +264,7 @@ BROKEN if unexpected exit code
 └──────────────┴────────────┴──────────┴─────────┴─────────────┘
 
 Summary: 1 missing, 0 broken
-Run: /craft:docs:demo --fix
+Run: /folio:docs:demo --fix
 ```
 
 **Exit Codes:**
@@ -274,7 +274,7 @@ Run: /craft:docs:demo --fix
 
 ### Workflow 2: Install Missing Dependencies
 
-**Command:** `/craft:docs:demo --fix`
+**Command:** `/folio:docs:demo --fix`
 
 **Steps:**
 
@@ -321,7 +321,7 @@ Installation complete!
 
 ### Workflow 3: Repair Broken Dependencies
 
-**Command:** `/craft:docs:demo --repair` (or automatic with --fix)
+**Command:** `/folio:docs:demo --repair` (or automatic with --fix)
 
 **Steps:**
 
@@ -710,7 +710,7 @@ All operations logged to:
 
 ### Optimization Tips
 
-1. **Reuse commands** - Use `/craft:docs:demo --check` twice within 60s
+1. **Reuse commands** - Use `/folio:docs:demo --check` twice within 60s
 2. **Batch installs** - Install multiple tools at once (faster than individual)
 3. **Avoid network calls** - cache.sh stores results locally
 4. **CI/CD** - Pre-cache dependencies in CI step for speed
@@ -721,13 +721,13 @@ All operations logged to:
 
 ```yaml
 - name: Check dependencies
-  run: /craft:docs:demo --check
+  run: /folio:docs:demo --check
 
 - name: Install missing tools
-  run: /craft:docs:demo --fix
+  run: /folio:docs:demo --fix
 
 - name: Run command
-  run: /craft:docs:demo asciinema
+  run: /folio:docs:demo asciinema
 ```
 
 ### GitLab CI Example
@@ -735,8 +735,8 @@ All operations logged to:
 ```yaml
 check-dependencies:
   script:
-    - /craft:docs:demo --check
-    - /craft:docs:demo --fix
+    - /folio:docs:demo --check
+    - /folio:docs:demo --fix
 ```
 
 ## Troubleshooting
@@ -803,9 +803,9 @@ check_cmd: "asciinema --version | grep -oE '[0-9.]+' | head -1"
 
 ## Next Steps
 
-1. **Run check:** `/craft:docs:demo --check`
-2. **Install missing:** `/craft:docs:demo --fix`
-3. **Run demo:** `/craft:docs:demo asciinema`
+1. **Run check:** `/folio:docs:demo --check`
+2. **Install missing:** `/folio:docs:demo --fix`
+3. **Run demo:** `/folio:docs:demo asciinema`
 4. **Read integration tests:** [Integration Testing Guide](integration-testing.md)
 5. **Explore orchestration:** [Orchestrator Guide](orchestrator.md)
 

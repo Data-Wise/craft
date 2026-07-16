@@ -258,4 +258,4 @@ During orchestration, design decisions use structured prompts:
 - [/craft:orch](../commands/orch.md) — Full command reference
 - [/craft:check](../commands/check.md) — Full command reference
 - [/craft:docs:update](../commands/docs/update.md) — Full command reference
-- [/craft:git:worktree](../commands/git/worktree.md) — Full command reference
+- [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Full command reference

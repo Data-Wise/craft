@@ -312,4 +312,4 @@ Works with:
 - `/craft:docs:check-links` - Documentation link validation
 - `/craft:ci:fix` - Auto-fix issues
 - `/craft:ci:local` - Full CI simulation
-- `/craft:check:gen-validator` - Scaffold a new custom validator (see the skill's "Validator Generation" section for the full flow)
+- Scaffold a new custom validator: see `skills/check/SKILL.md`'s "Validator Generation" section (folded into the skill in the v4 consolidation)

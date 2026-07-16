@@ -213,7 +213,5 @@ Use craft box-drawing format throughout. Each step shows progress:
 
 - `scripts/branch-guard.sh` — The guard script (read-only for this skill)
 - `.claude/branch-guard.json` — Per-project config (this skill's output)
-- `/craft:git:unprotect` — Session-scoped bypass (temporary)
-- `/craft:git:protect` — Re-enable protection
-- `/craft:git:guard` — List, enable, or disable individual guards
+- [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) — unprotect, protect, and guard management (ask naturally; folded from `/craft:git:unprotect`/`protect`/`guard`, 2026-07 v4 consolidation)
 - `docs/guide/guard-suite.md` — Guard suite concepts and usage guide

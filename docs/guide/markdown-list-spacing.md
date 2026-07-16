@@ -10,7 +10,7 @@
 Complete guide for maintaining list formatting standards across Craft documentation.
 
 !!! info "Related Documentation"
-    - **[Command Reference](../commands/docs.md)** - `/craft:docs:lint` command details
+    - **[Command Reference](../commands/docs.md)** - `/folio:docs:lint` command details
     - **[Quality Guide](documentation-quality.md)** - Complete markdown quality workflow
 
 ## What You'll Learn
@@ -62,7 +62,7 @@ When your markdown works everywhere, you avoid:
 
 With consistent rules, you can:
 
-- Fix issues automatically: `/craft:docs:lint --fix`
+- Fix issues automatically: `/folio:docs:lint --fix`
 - Prevent new violations with pre-commit hooks
 - Focus on content, not formatting
 - Save time on manual cleanup
@@ -267,7 +267,7 @@ Then run the setup script.
 Run the auto-fix command:
 
 ```bash
-/craft:docs:lint --fix
+/folio:docs:lint --fix
 ```
 
 **What it does:**
@@ -280,7 +280,7 @@ Run the auto-fix command:
 **Preview first:**
 
 ```bash
-/craft:docs:lint --fix --dry-run
+/folio:docs:lint --fix --dry-run
 ```
 
 ### Manual Fixes
@@ -290,7 +290,7 @@ Run the auto-fix command:
 1. **Find violations:**
 
    ```bash
-   /craft:docs:lint
+   /folio:docs:lint
    ```
 
 2. **Locate each issue:**
@@ -307,7 +307,7 @@ Run the auto-fix command:
 4. **Verify fix:**
 
    ```bash
-   /craft:docs:lint docs/guide/tutorial.md
+   /folio:docs:lint docs/guide/tutorial.md
    ```
 
 ---
@@ -353,7 +353,7 @@ Would you like to auto-fix these issues? (y/n)
 1. **Use `-` consistently** - Always type dash for list markers
 2. **Type 1 space** - Always type exactly one space after `-`
 3. **Add blank lines** - Always press Enter before and after lists
-4. **Run lint regularly** - Check with `/craft:docs:lint` as you work
+4. **Run lint regularly** - Check with `/folio:docs:lint` as you work
 5. **Fix immediately** - Don't let violations accumulate
 
 ---
@@ -366,10 +366,10 @@ Always validate before committing:
 
 ```bash
 # Check specific file
-/craft:docs:lint docs/guide/new-feature.md
+/folio:docs:lint docs/guide/new-feature.md
 
 # Check all markdown
-/craft:docs:lint "docs/**/*.md" "commands/**/*.md"
+/folio:docs:lint "docs/**/*.md" "commands/**/*.md"
 ```
 
 ### Preview Rendering
@@ -518,7 +518,7 @@ This is details.
 
 ### Issue: Auto-fix not working
 
-**Problem:** `/craft:docs:lint --fix` doesn't fix violations.
+**Problem:** `/folio:docs:lint --fix` doesn't fix violations.
 
 **Possible causes:**
 
@@ -534,22 +534,22 @@ This is details.
 ls -la docs/guide/tutorial.md
 
 # Run auto-fix with verbose output
-/craft:docs:lint --fix docs/guide/tutorial.md
+/folio:docs:lint --fix docs/guide/tutorial.md
 ```
 
 ### Issue: Too many violations
 
-**Problem:** `/craft:docs:lint` shows hundreds of violations.
+**Problem:** `/folio:docs:lint` shows hundreds of violations.
 
 **Solution:** Fix gradually, not all at once.
 
 ```bash
 # Start with critical files
-/craft:docs:lint README.md CLAUDE.md
+/folio:docs:lint README.md CLAUDE.md
 
 # Fix those, then move on
-/craft:docs:lint --fix README.md
-/craft:docs:lint --fix CLAUDE.md
+/folio:docs:lint --fix README.md
+/folio:docs:lint --fix CLAUDE.md
 
 # Repeat for other files
 ```
@@ -618,7 +618,7 @@ Definition lists (`:` syntax) have different rules:
 
 ### Command Documentation
 
-- **[`/craft:docs:lint`](../commands/docs.md)** - Markdown quality command
+- **[`/folio:docs:lint`](../commands/docs.md)** - Markdown quality command
 - **[`/craft:check`](../commands/check.md)** - Pre-flight validation
 
 ### Guides
@@ -648,16 +648,16 @@ Definition lists (`:` syntax) have different rules:
 
 ```bash
 # Check all markdown
-/craft:docs:lint
+/folio:docs:lint
 
 # Auto-fix issues
-/craft:docs:lint --fix
+/folio:docs:lint --fix
 
 # Check specific file
-/craft:docs:lint README.md
+/folio:docs:lint README.md
 
 # Preview changes
-/craft:docs:lint --fix --dry-run
+/folio:docs:lint --fix --dry-run
 ```
 
 ---
@@ -669,7 +669,7 @@ Definition lists (`:` syntax) have different rules:
 1. Always use `-` for list markers
 2. Always use exactly 1 space after markers
 3. Always add blank lines around lists
-4. Use `/craft:docs:lint --fix` to automate fixes
+4. Use `/folio:docs:lint --fix` to automate fixes
 5. Pre-commit hooks prevent new violations
 
 **Benefits:**

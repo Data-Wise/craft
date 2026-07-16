@@ -699,13 +699,13 @@ This mirrors the weekly progression in the Safety Rails guide — maximum safety
 
 ### One-Shot Approval
 
-When Claude shows a `[CONFIRM]` prompt and you approve, the guard creates a one-shot marker that allows the next action. No need to run `/craft:git:unprotect` for individual operations.
+When Claude shows a `[CONFIRM]` prompt and you approve, the guard creates a one-shot marker that allows the next action. No need to ask "unprotect" (dev/git skill) for individual operations.
 
-### Related Commands
+### Related Operations (dev/git skill)
 
-- `/craft:git:protect --show` — See current protection level and session counter
-- `/craft:git:protect --level smart` — Explicitly set smart mode
-- `/craft:git:unprotect` — Bulk bypass for maintenance sessions
+- ask "show protection status" — See current protection level and session counter (folded from `/craft:git:protect --show`, 2026-07 v4 consolidation)
+- ask "set protection level smart" — Explicitly set smart mode (folded from `/craft:git:protect --level smart`)
+- ask "unprotect for maintenance" — Bulk bypass for maintenance sessions (folded from `/craft:git:unprotect`)
 
 ---
 
