@@ -26,7 +26,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | project-detector | Smart detection of project types, build tools, and CI requirements | `skills/ci/SKILL.md` |
 
-### Code (5)
+### Code (4)
 
 | Name | Description | Path |
 |------|-------------|------|

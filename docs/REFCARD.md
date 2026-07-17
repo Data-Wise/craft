@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 4.0.0 (released 2026-07-09)                       │
-│  Commands: 115 | Agents: 8 | Skills: 45                     │
-│  Documentation: 99% complete | Tests: 2056+ passing           │
+│  Version: 4.1.0 (released 2026-07-17)                       │
+│  Commands: 48 | Agents: 2 | Skills: 40                      │
+│  Tests: 2647+ passing                                        │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v4.0.0: Guard Suite Consolidation                          │
+│  v4.1.0: /craft:restore + post-v4 doc-staleness cleanup      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -135,7 +135,7 @@
 # Help in specific context
 # (in a Git repository with uncommitted changes)
 /craft:help
-# Suggests: /craft:check, ask "git status" (dev/git skill), /craft:git:worktree
+# Suggests: /craft:check, ask "git status" (dev/git skill), ask "create a worktree" (dev/git skill)
 
 # (in a documentation directory)
 /craft:help
@@ -170,31 +170,32 @@
 ```bash
 # Browse all commands
 /craft:hub
-# Shows: 8 categories (docs, site, code, test, git, arch, ci, dist)
+# Shows: categories (code, ci, arch, dist, docs, git, plan, orch, site)
 
 # Filter by category
-/craft:hub docs
-# Shows: All 21 documentation commands
+/craft:hub code
+# Shows: All 13 code & testing commands
 
 # Search for commands
-/craft:hub "worktree"
-# Shows: All worktree-related commands
+/craft:hub "ci"
+# Shows: All CI-related commands
 
 # Show command details
-/craft:hub git:worktree
+/craft:hub ci:triage
 # Shows: Description, arguments, examples, related commands
 ```
 
 **Categories:**
 
-- Smart Commands (do, check, orchestrate, hub)
-- Documentation (47 commands)
-- Site Management (16 commands)
-- Code (15 commands) & Testing (3 commands)
-- Git (14 commands incl. guides) & CI (4 commands)
+- Smart Commands (do, check, orchestrate, hub — root-level)
+- Documentation (2 commands; most doc-authoring commands moved to the `folio` plugin)
+- Site Management (1 command; site-authoring moved to `folio`)
+- Code & Testing (13 commands)
+- Git (1 command; branch/worktree operations moved to the `dev/git` skill)
+- CI (8 commands)
 - Architecture (4 commands)
-- Distribution (4 commands)
-- Workflow (13 commands) & Planning (3 commands)
+- Distribution (2 commands)
+- Planning (1 command; brainstorm/task/spec capture moved to the `workflow` skill family)
 
 ## Global Flags
 
@@ -204,13 +205,12 @@
 
 ## Interactive Command Behavior
 
-**"Show Steps First" Pattern** - All 4 most-used commands now show plan before executing:
+**"Show Steps First" Pattern** - key commands show plan before executing:
 
 ```bash
 /craft:check               # Shows: steps to run, asks confirmation
 /craft:do "task"           # Shows: routing plan, asks confirmation
 /craft:orch "task"  # Shows: mode selection, wave plan, checkpoints
-/craft:git:worktree create # Shows: scope detection, file generation plan
 ```
 
 **Interactive Orchestration:**
@@ -296,7 +296,7 @@ for the topic.
 /craft:plan:feature "avatar upload" --scope full    # full-build scope
 ```
 
-## Smart Documentation (17 commands)
+## Smart Documentation (2 commands)
 
 ### Core Documentation Commands
 
@@ -476,7 +476,7 @@ for the topic.
 **Three-Layer Doc Sync:**
 
 ```text
-Layer 1: /workflow:done     → catches drift at session end
+Layer 1: /craft:done        → catches drift at session end
 Layer 2: --headless         → on-demand bulk sync
 Layer 3: GitHub Actions     → safety net after merge to main
 ```
@@ -585,7 +585,7 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 - Dry-run preview mode
 - [Tutorial](tutorials/interactive-docs-update-tutorial.md) | [Reference](reference/REFCARD-DOCS-UPDATE.md)
 
-## Site Commands (16 commands)
+## Site Commands (1 command; site authoring/build moved to `folio`)
 
 ### Core Site Commands
 
@@ -842,9 +842,9 @@ Layer 3: /craft:check     → catches anything that slipped through
 
 **See:** [Check Command Mastery Guide](guide/check-command-mastery.md)
 
-## Code & Testing (47 commands)
+## Code & Testing (13 commands)
 
-**Core Commands** (15 code + 2 test; core subset shown):
+**Core Commands** (subset shown):
 
 | Command                  | Modes | Description                 |
 | ------------------------ | ----- | --------------------------- |
@@ -865,8 +865,7 @@ Layer 3: /craft:check     → catches anything that slipped through
 | Command                  | Description                        |
 | ------------------------ | ---------------------------------- |
 | `/craft:test`            | Unified runner with categories     |
-| `/craft:test:gen`        | Generate test suites (type-aware)  |
-| `/craft:test:template`   | Manage Jinja2 test templates       |
+| `/craft:code:test-gen`   | Generate test suites (type-aware)  |
 
 **Modes:** `default` (<10s) | `debug` (<120s) | `optimize` (<180s) | `release` (<300s)
 
@@ -878,212 +877,28 @@ Layer 3: /craft:check     → catches anything that slipped through
 /craft:test release --coverage  # Full coverage analysis
 ```
 
-## Git Commands (9 commands)
+## Git Commands (1 command)
 
 **Core Git Commands:**
 
 | Command                       | Description                                                                  |
 | ----------------------------- | ---------------------------------------------------------------------------- |
-| `/craft:git:worktree`         | Parallel development with git worktrees                                      |
 | `/craft:git:issue-check`      | Verify a GitHub issue's premise still holds before implementing its fix      |
 
-Clean, branch, git status, protect, protect-baseline, unprotect, and guard
-management were folded into the `dev/git` skill (2026-07 v4 consolidation) —
-ask naturally or see
+Worktree creation/move/list/clean/finish, branch, git status, protect,
+protect-baseline, unprotect, and guard management were all folded into the
+`dev/git` skill (2026-07 v4 consolidation) — ask naturally (e.g. "create a
+worktree for feature X", "clean up merged branches") or see
 [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
-
-**Worktree Subcommands:**
-
-```bash
-/craft:git:worktree setup          # First-time folder creation
-/craft:git:worktree create <name>  # Create worktree for branch
-/craft:git:worktree move           # Move current branch to worktree
-/craft:git:worktree list           # Show all worktrees
-/craft:git:worktree clean          # Remove merged worktrees
-/craft:git:worktree install        # Install deps in worktree
-/craft:git:worktree finish         # Complete: tests → changelog → cleanup ORCHESTRATE → PR
-/craft:git:worktree validate       # Check worktree health (v2.18.0)
-```
-
-**Complete Worktree Workflow Examples:**
-
-**Example 1: New Feature Development**
-
-```bash
-# Starting point: On dev branch in main repo
-git branch --show-current  # Output: dev
-
-# Step 1: Create worktree for feature
-/craft:git:worktree create feature/user-auth
-
-# What happens (v2.9.0):
-# - Creates ~/.git-worktrees/craft/feature-user-auth/
-# - Branches from dev
-# - Auto-detects scope: "authentication"
-# - Generates ORCHESTRATE.md with phases
-# - Generates SPEC.md with technical details
-# - Installs dependencies (detects Node.js/Python/etc)
-# - Output: "Ready at ~/.git-worktrees/craft/feature-user-auth"
-
-# Step 2: Switch to worktree
-cd ~/.git-worktrees/craft/feature-user-auth
-
-# Step 3: Check auto-generated files
-ls -la
-# Shows: ORCHESTRATE.md, SPEC.md, all project files
-
-cat ORCHESTRATE.md
-# Contains: Phase breakdown, agent delegation, timeline
-
-# Step 4: Start development
-claude  # Or your preferred editor
-
-# Step 5: Make changes, commit regularly
-git commit -m "feat: add JWT authentication"
-git commit -m "feat: add login endpoint"
-git commit -m "test: add auth integration tests"
-
-# Step 6: Finish feature
-/craft:git:worktree finish
-
-# What happens:
-# - Runs tests (auto-detected: pytest/jest/etc)
-# - Generates changelog entry from commits
-# - Removes ORCHESTRATE-*.md files (merge cleanup)
-# - Creates PR with AI-generated description
-# - Output: PR URL
-
-# Step 7: After PR is merged
-/craft:git:worktree clean
-
-# What happens:
-# - Detects merged branches
-# - Prompts: "Remove worktree for feature/user-auth?"
-# - Removes worktree directory
-# - Deletes local branch
-# - Prunes git references
-```
-
-**Example 2: Moving Current Work to Worktree**
-
-```bash
-# Scenario: Working on feature in main repo, want to isolate it
-
-# Current situation:
-git branch --show-current  # Output: feature/payment-processing
-git status                 # 15 files changed, 237 insertions
-
-# Problem: Need to switch to main for urgent fix
-
-# Solution: Move to worktree
-/craft:git:worktree move
-
-# What happens:
-# - Stashes all uncommitted work (37 files)
-# - Switches main repo to 'main' branch
-# - Creates worktree at ~/.git-worktrees/craft/feature-payment-processing
-# - Restores stashed work in worktree
-# - Installs dependencies in worktree
-# - Output: "Your 37 files are now in the worktree"
-
-# Result:
-# Main repo: Clean, on 'main' branch
-# Worktree: All your work, on feature branch
-
-# Now you can:
-cd ~/projects/dev-tools/craft  # Main repo
-git checkout -b hotfix/urgent-bug
-# Work on urgent fix without losing feature work
-
-# Later, continue feature:
-cd ~/.git-worktrees/craft/feature-payment-processing
-# All your changes are here
-```
-
-**Example 3: Multiple Parallel Features**
-
-```bash
-# Scenario: Working on 3 features simultaneously
-
-# Feature 1: Authentication (in progress)
-/craft:git:worktree create feature/auth
-cd ~/.git-worktrees/craft/feature-auth
-# ... work on auth ...
-
-# Feature 2: Payments (in progress)
-/craft:git:worktree create feature/payments
-cd ~/.git-worktrees/craft/feature-payments
-# ... work on payments ...
-
-# Feature 3: Notifications (in progress)
-/craft:git:worktree create feature/notifications
-cd ~/.git-worktrees/craft/feature-notifications
-# ... work on notifications ...
-
-# List all worktrees
-/craft:git:worktree list
-
-# Output:
-# ╭─ Git Worktrees ─────────────────────────────────╮
-# │ Main: ~/projects/dev-tools/craft (main)         │
-# │   ✓ Clean, no uncommitted changes               │
-# │                                                 │
-# │ feature-auth (3 days old)                       │
-# │   ~/...git-worktrees/craft/feature-auth         │
-# │   ⚠ 5 uncommitted changes                       │
-# │                                                 │
-# │ feature-payments (1 day old)                    │
-# │   ~/...git-worktrees/craft/feature-payments     │
-# │   ✓ Clean                                       │
-# │                                                 │
-# │ feature-notifications (2 hours old)             │
-# │   ~/...git-worktrees/craft/feature-notifications│
-# │   ⚠ 12 uncommitted changes                      │
-# ╰─────────────────────────────────────────────────╯
-
-# Switch between features easily:
-cd ~/.git-worktrees/craft/feature-auth      # Work on auth
-cd ~/.git-worktrees/craft/feature-payments  # Work on payments
-# No git checkout needed!
-
-# Cleanup after features merge:
-/craft:git:worktree clean
-# Prompts for each merged branch
-# Removes all at once
-```
-
-**Example 4: Different Dependency Versions**
-
-```bash
-# Scenario: Testing with different Node.js versions
-
-# Feature 1: Uses Node 18
-/craft:git:worktree create feature/node18-test
-cd ~/.git-worktrees/craft/feature/node18-test
-nvm use 18
-npm install
-npm test
-
-# Feature 2: Uses Node 20
-/craft:git:worktree create feature/node20-test
-cd ~/.git-worktrees/craft/feature-node20-test
-nvm use 20
-npm install
-npm test
-
-# Both can run simultaneously with different dependencies!
-# Main repo remains unaffected
-```
 
 **Quick examples:**
 
 ```bash
-/craft:git:worktree create feat/auth # Create feature worktree
-/craft:git:worktree move             # Move current work to worktree
+# ask "create a worktree for feature/auth" (dev/git skill)
+# ask "move my current work to a worktree" (dev/git skill)
 # ask "clean up merged branches" (dev/git skill)
+/craft:git:issue-check 123   # Verify GitHub issue #123's premise before fixing
 ```
-
-**See:** [Git Worktree Reference](reference/REFCARD-GIT-WORKTREE.md) | [Advanced Patterns](guide/worktree-advanced-patterns.md)
 
 ## Architecture Commands (4 commands)
 
@@ -1102,7 +917,7 @@ npm test
 /craft:arch:plan                # Plan an architecture change
 ```
 
-## CI/CD Commands (6 commands)
+## CI/CD Commands (8 commands)
 
 | Command                  | Description                                   |
 | ------------------------ | --------------------------------------------- |
@@ -1112,6 +927,8 @@ npm test
 | `/craft:ci:status`       | **v2.22.1** Cross-repo CI status dashboard    |
 | `/craft:ci:triage`       | Classify a failing/stuck check (diff vs infra) |
 | `/craft:ci:watch`        | Poll a run to completion; merge or triage     |
+| `/craft:ci:fix`          | Diagnose and fix CI failures                  |
+| `/craft:ci:local`        | Run CI checks locally                         |
 
 **Quick examples:**
 
@@ -1124,24 +941,22 @@ npm test
 /craft:ci:validate              # Validate existing CI
 ```
 
-## Distribution Commands (5 commands)
+## Distribution Commands (2 commands)
 
 | Command                        | Description                            |
 | ------------------------------ | -------------------------------------- |
-| `/craft:dist:marketplace`      | Marketplace init, validate, test, publish |
 | `/craft:dist:homebrew`         | Generate Homebrew formula              |
-| `/craft:dist:pypi`             | Package for PyPI                       |
-| `/craft:dist:curl-install`     | Generate curl installer                |
 | `/craft:dist:surfaces`         | Read-only view of surface registry + version matrix |
+
+Marketplace init/validate, PyPI packaging, and curl-installer generation are
+now skill reference material under `skills/distribution/dist-extras/references/`
+rather than standalone commands — ask naturally (e.g. "validate the marketplace
+config") or read the reference doc directly.
 
 **Quick examples:**
 
 ```bash
-/craft:dist:marketplace         # Validate marketplace config (default)
-/craft:dist:marketplace init    # Generate marketplace.json
 /craft:dist:homebrew            # Generate Homebrew formula
-/craft:dist:pypi                # Package for PyPI
-/craft:dist:curl-install        # Generate curl installer
 /craft:dist:surfaces            # View surface registry + gate states
 /craft:dist:surfaces --json     # Raw registry JSON
 ```
@@ -1180,7 +995,6 @@ claude plugin update <name>@local-plugins
 /craft:check --orch=release               # Orchestrated validation
 /folio:docs:sync --orch=default           # Orchestrated docs sync
 /craft:ci:generate --orch=optimize        # Orchestrated CI generation
-/craft:git:worktree "create feat" --orch  # Orchestrated worktree creation
 
 # Session management
 /craft:orch status                 # Agent dashboard
@@ -1230,7 +1044,7 @@ claude plugin update <name>@local-plugins
 The full pipeline connects brainstorming through to implementation:
 
 ```mermaid
-graph LR
+flowchart LR
     A[brainstorm] --> B[spec]
     B --> C[ORCHESTRATE]
     C --> D[worktree]
@@ -1246,13 +1060,13 @@ graph LR
 | 2. Capture spec | Brainstorm Step 5 (auto) | `docs/specs/SPEC-feature.md` |
 | 3. Create orchestration | `/craft:plan` | `ORCHESTRATE-feature.md` + worktree |
 | 4. Implement | Work in worktree | Commits on `feature/*` branch |
-| 5. Integrate | `/craft:git:worktree finish` | PR to `dev` |
+| 5. Integrate | ask "finish this worktree" (dev/git skill) | PR to `dev` |
 
 **Worktree Types:**
 
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
-| **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
+| **Manual** | dev/git skill ("create a worktree") | Long-lived | `feature/*` | Optional |
 | **Pipeline** | `/craft:plan` or brainstorm | Long-lived | `feature/*` | Always |
 | **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
@@ -1493,30 +1307,24 @@ end tell'
 }
 ```
 
-**Insights (v2.21.0):**
+**Insights (skill-routed, not a slash command):**
 
 ```bash
 # Generate session insights report
-/craft:insights
+# ask "generate an insights report" (workflow/brainstorm-insights skill)
 # Aggregates: Friction patterns, goal categories, outcomes
 # Suggests: CLAUDE.md rules to prevent recurring issues
 
-# HTML report for sharing
-/craft:insights --format html
-
-# Last 7 days, specific project
-/craft:insights --since 7 --project craft
-
 # Apply suggestions to CLAUDE.md
-/craft:insights-apply
+# ask "apply the insights suggestions" (insights-apply skill)
 ```
 
 **Insights Lifecycle:**
 
 ```mermaid
-graph LR
+flowchart LR
     A[sessions] --> B[facets data]
-    B --> C["/craft:insights"]
+    B --> C[insights skill]
     C --> D[CLAUDE.md rules]
     C --> E[ORCHESTRATE friction prevention]
     C --> F[brainstorm context]
@@ -1525,13 +1333,22 @@ graph LR
 **Other Workflow Commands:**
 
 ```bash
+# Restore context (git + session state)
+/craft:restore
+# Combines: dev/git skill's git-activity recap (commits, branch
+#   ahead/behind, unpushed work, open PRs) + adhd-workflow's
+#   .STATUS-based session recap in one read-only summary
+# Modes: default | detailed | summary (apply to the git-activity
+#   portion; adhd-workflow's recap has no mode support)
+# Read-only — no --sync, never writes .STATUS or commits
+
 # Get next step
-/workflow:next
+/craft:next
 # Analyzes: Current state, recent changes
 # Suggests: Next logical step
 
 # Complete session
-/workflow:done
+/craft:done
 # Summarizes: What you accomplished
 # Saves: Session notes
 # Prompts: Next session goal
@@ -1732,26 +1549,23 @@ Most of these moved to the `folio` plugin (`/craft:docs:changelog` stays in craf
 | Command | Description |
 | ------- | ----------- |
 | `/craft:dist:homebrew` | Complete Homebrew automation — formulas, casks, workflows, auditing, and dependency management |
+| `/craft:dist:surfaces` | Read-only view of surface registry + version matrix |
 
 ### Site Commands
 
 | Command | Description |
 | ------- | ----------- |
-| `/craft:site:docs:frameworks` | Documentation framework comparison — choose between MkDocs, Quarto, and pkgdown |
+| `/craft:site:deploy` | Build and deploy the documentation site, with context-aware pre-deploy checks |
 
 ### Smart Commands
 
 | Command | Description |
 | ------- | ----------- |
 | `/craft:smart-help` | Context-aware help that suggests relevant commands based on current situation |
-
-### Workflow Commands
-
-| Command | Description |
-| ------- | ----------- |
+| `/craft:refine` | Refine a task prompt through a structured elicitation pass before running it |
 
 ## Links
 
-- **[Full Documentation](guide/getting-started.md)** (99% complete)
+- **[Full Documentation](guide/getting-started.md)**
 - **[GitHub Issues](https://github.com/Data-Wise/craft/issues)**
 - **[ROADMAP](https://github.com/Data-Wise/craft/blob/main/docs/archive/ROADMAP.md)**

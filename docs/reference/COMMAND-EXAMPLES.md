@@ -152,7 +152,7 @@ MAIN MENU
 │  ├─ /craft:code:test-gen - Generate test stubs
 │  └─ ... more
 ├─ Tests (7 commands) ............................... /craft:test:*
-├─ Documentation (47 commands) ....................... /craft:docs:*
+├─ Documentation (48 commands) ....................... /craft:docs:*
 └─ ... more categories
 
 Press UP/DOWN to browse
@@ -278,7 +278,7 @@ Complexity Score: 6.5/10 (moderate)
 **Output Example** (Mermaid):
 
 ```mermaid
-graph TB
+flowchart TB
     Client[Client App]
     API[API Gateway]
     Auth[Auth Service]

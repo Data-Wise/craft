@@ -72,7 +72,7 @@ flowchart TD
     A["command --refine \"arg\""] --> B{--refine set?}
     B -->|no| Z[Run command normally on arg]
     B -->|yes| C[Invoke prompt-refiner skill]
-    C --> D[Read project context: type, branch, .STATUS]
+    C --> D["Read project context: type, branch, .STATUS"]
     D --> E["Return {refined, changed_summary}"]
     E --> F[Show original -> refined + what changed]
     F --> G{--yes or auto?}

@@ -13,14 +13,14 @@ flowchart TD
 
     DryRun -->|No| CheckGit{.git exists?}
 
-    CheckGit -->|Yes| AskAction[Ask: What to do?]
+    CheckGit -->|Yes| AskAction["Ask: What to do?"]
     AskAction --> ActionChoice{User Choice}
     ActionChoice -->|Add dev+protection| Step3
     ActionChoice -->|Fix/sync dev| SyncDev[Sync dev with main]
     ActionChoice -->|Re-init| ForceCheck{--force flag?}
     ActionChoice -->|Cancel| End
 
-    ForceCheck -->|No| Error1[Error: Requires --force]
+    ForceCheck -->|No| Error1["Error: Requires --force"]
     Error1 --> End
     ForceCheck -->|Yes| RemoveGit[Remove .git]
     RemoveGit --> InitRepo
@@ -28,10 +28,10 @@ flowchart TD
     CheckGit -->|No| InitRepo[Initialize Git Repository]
 
     SyncDev --> Step3
-    InitRepo --> Step2[Step 2: Remote Setup]
+    InitRepo --> Step2["Step 2: Remote Setup"]
 
     Step2 --> RemoteChoice{Remote option?}
-    RemoteChoice -->|Local only| Step3[Step 3: Branch Structure]
+    RemoteChoice -->|Local only| Step3["Step 3: Branch Structure"]
     RemoteChoice -->|Connect existing| AddRemote[git remote add]
     RemoteChoice -->|Create new| CreateRepo[gh repo create]
 
@@ -44,19 +44,19 @@ flowchart TD
     WorkflowType -->|simple| CreateMain[Create main only]
     WorkflowType -->|gitflow| CreateGitFlow[Create main + develop]
 
-    CreateMainDev --> Step4[Step 4: Branch Protection]
+    CreateMainDev --> Step4["Step 4: Branch Protection"]
     CreateMain --> Step4
     CreateGitFlow --> Step4
 
     Step4 --> ProtectChoice{Enable protection?}
     ProtectChoice -->|Yes| SetProtection[Configure GitHub protection rules]
-    ProtectChoice -->|No| Step5[Step 5: CI Workflow]
+    ProtectChoice -->|No| Step5["Step 5: CI Workflow"]
 
     SetProtection --> Step5
 
     Step5 --> CIChoice{Generate CI?}
     CIChoice -->|Yes| DetectType[Auto-detect project type]
-    CIChoice -->|No| Step6[Step 6: Project Files]
+    CIChoice -->|No| Step6["Step 6: Project Files"]
 
     DetectType --> SelectTemplate[User selects CI template]
     SelectTemplate --> GenerateCI[Generate .github/workflows/ci.yml]
@@ -64,25 +64,25 @@ flowchart TD
 
     Step6 --> FilesChoice{Create files?}
     FilesChoice -->|Yes| CreateFiles[Create .STATUS, CLAUDE.md, PR template]
-    FilesChoice -->|No| Step7[Step 7: Initial Commit]
+    FilesChoice -->|No| Step7["Step 7: Initial Commit"]
 
     CreateFiles --> Step7
 
     Step7 --> CommitChoice{Create commit?}
     CommitChoice -->|Yes| StageFiles[git add -A]
-    CommitChoice -->|No| Step8[Step 8: Push to Remote]
+    CommitChoice -->|No| Step8["Step 8: Push to Remote"]
 
     StageFiles --> CreateCommit[git commit with conventional message]
     CreateCommit --> Step8
 
     Step8 --> PushChoice{Push to GitHub?}
     PushChoice -->|Yes| Push[git push origin main dev]
-    PushChoice -->|No| Step9[Step 9: Validation]
+    PushChoice -->|No| Step9["Step 9: Validation"]
 
     Push --> Step9
 
     Step9 --> ValidateChoice{Run /craft:check?}
-    ValidateChoice -->|Yes| RunCheck[Execute /craft:check]
+    ValidateChoice -->|Yes| RunCheck["Execute /craft:check"]
     ValidateChoice -->|No| Success
 
     RunCheck --> CheckResult{Validation pass?}
@@ -93,12 +93,12 @@ flowchart TD
     Warning --> End
 
     %% Error handling paths
-    InitRepo -.->|Error| Rollback1[Rollback: Remove .git]
-    CreateRepo -.->|Error| Rollback2[Rollback: Offer to delete repo]
-    SetProtection -.->|Error| Rollback3[Rollback: Disable protection]
-    GenerateCI -.->|Error| Rollback4[Rollback: Delete CI file]
-    CreateFiles -.->|Error| Rollback5[Rollback: Delete created files]
-    CreateCommit -.->|Error| Rollback6[Rollback: Reset HEAD]
+    InitRepo -.->|Error| Rollback1["Rollback: Remove .git"]
+    CreateRepo -.->|Error| Rollback2["Rollback: Offer to delete repo"]
+    SetProtection -.->|Error| Rollback3["Rollback: Disable protection"]
+    GenerateCI -.->|Error| Rollback4["Rollback: Delete CI file"]
+    CreateFiles -.->|Error| Rollback5["Rollback: Delete created files"]
+    CreateCommit -.->|Error| Rollback6["Rollback: Reset HEAD"]
 
     Rollback1 --> ErrorEnd([Exit with error])
     Rollback2 --> ErrorEnd
@@ -143,7 +143,7 @@ gitGraph
 **Branch Flow:**
 
 ```mermaid
-graph LR
+flowchart LR
     Feature[feature/*] -->|PR| Dev[dev]
     Dev -->|PR| Main[main]
     Main -->|Deploy| Production[Production]
@@ -168,7 +168,7 @@ gitGraph
 **Branch Flow:**
 
 ```mermaid
-graph LR
+flowchart LR
     Main[main] -->|Direct commits| Main
     Main -->|Deploy| Production[Production]
 
@@ -209,7 +209,7 @@ gitGraph
 **Branch Flow:**
 
 ```mermaid
-graph TB
+flowchart TB
     Feature[feature/*] -->|PR| Develop[develop]
     Develop -->|PR| Release[release/*]
     Release -->|PR| Main[main]
@@ -229,7 +229,7 @@ graph TB
 ## Component Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "User Interface"
         CLI["/craft:git:init CLI"]
         SmartRouter["/craft:do Smart Router"]
@@ -467,7 +467,7 @@ flowchart LR
 ## Integration Points
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "Command Entry"
         DirectCall["/craft:git:init"]
         SmartDo["/craft:do 'initialize project'"]
@@ -568,10 +568,10 @@ stateDiagram-v2
 ## File System Operations
 
 ```mermaid
-graph TB
+flowchart TB
     Start[Start] --> CheckCWD{Current dir writable?}
 
-    CheckCWD -->|No| Error[Error: Permission denied]
+    CheckCWD -->|No| Error["Error: Permission denied"]
     CheckCWD -->|Yes| CreateGit[Create .git/]
 
     CreateGit --> CreateBranches[Create branches]

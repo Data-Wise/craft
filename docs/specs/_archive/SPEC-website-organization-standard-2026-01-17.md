@@ -337,7 +337,7 @@ plugins:
 ### User Flow: New User Journey
 
 ```mermaid
-graph TD
+flowchart TD
     Land[Land on site] --> GetStart[See "🚀 Getting Started"]
     GetStart --> Quick[Click "Quick Start"]
     Quick --> Run[Run first command in 30s]
@@ -353,7 +353,7 @@ graph TD
 ### User Flow: Daily User Journey
 
 ```mermaid
-graph TD
+flowchart TD
     Need[Need to do X] --> Cookbook{Check Cookbook?}
     Cookbook -->|Recipe exists| Follow[Follow recipe]
     Cookbook -->|No recipe| Commands[Commands & Reference]

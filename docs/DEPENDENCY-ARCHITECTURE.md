@@ -17,7 +17,7 @@ Visual architecture diagrams and system design documentation.
 ## System Overview
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "User Interface"
         CMD["/folio:docs:demo"]
         CLI["CLI Flags<br/>--check, --fix, --convert, --batch"]
@@ -92,9 +92,9 @@ graph TB
 ### Phase 1: Dependency Detection
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph "Input"
-        YAML[YAML Frontmatter<br/>Tool Specs]
+        YAML["YAML Frontmatter<br/>Tool Specs"]
     end
 
     subgraph "Core Logic"
@@ -134,7 +134,7 @@ graph LR
 ### Phase 2: Installation Pipeline
 
 ```mermaid
-graph TD
+flowchart TD
     START[Missing Tool Detected]
     CONSENT{User<br/>Consent?}
     STRATEGY{Installation<br/>Strategy}
@@ -176,7 +176,7 @@ graph TD
 ### Phase 3: Conversion Workflow
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph "Input"
         CAST1[demo1.cast]
         CAST2[demo2.cast]
@@ -190,15 +190,15 @@ graph LR
     end
 
     subgraph "Conversion"
-        AGG[agg Converter<br/>font-size: 16<br/>theme: monokai]
-        OPT[gifsicle Optimizer<br/>-O3 --colors 256]
+        AGG["agg Converter<br/>font-size: 16<br/>theme: monokai"]
+        OPT["gifsicle Optimizer<br/>-O3 --colors 256"]
     end
 
     subgraph "Output"
         GIF1[demo1.gif]
         GIF2[demo2.gif]
         GIFN[demoN.gif]
-        STATS[Summary Stats<br/>Time, Size]
+        STATS["Summary Stats<br/>Time, Size"]
     end
 
     CAST1 --> FIND
@@ -222,7 +222,7 @@ graph LR
 ### Phase 4: Health & Repair System
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "Health Checks"
         RHC[run_health_check]
         VAH[validate_all_health]
@@ -478,15 +478,15 @@ flowchart TD
 ### Dependency Status Decision
 
 ```mermaid
-graph TD
+flowchart TD
     START{Tool<br/>Installed?}
     HEALTH{Health<br/>Check?}
     VERSION{Version<br/>OK?}
 
-    STATUS_OK[Status: OK ✅]
-    STATUS_BROKEN[Status: Broken ⚠️]
-    STATUS_OUTDATED[Status: Outdated ⚠️]
-    STATUS_MISSING[Status: Missing ❌]
+    STATUS_OK["Status: OK ✅"]
+    STATUS_BROKEN["Status: Broken ⚠️"]
+    STATUS_OUTDATED["Status: Outdated ⚠️"]
+    STATUS_MISSING["Status: Missing ❌"]
 
     START -->|Yes| HEALTH
     START -->|No| STATUS_MISSING
@@ -506,7 +506,7 @@ graph TD
 ### Installation Strategy Selection
 
 ```mermaid
-graph TD
+flowchart TD
     START{Platform?}
     PKG_MGR{Package<br/>Manager?}
 
@@ -518,11 +518,11 @@ graph TD
     HAS_APT{APT<br/>Available?}
     HAS_YUM{YUM<br/>Available?}
 
-    USE_BREW[Use: brew install]
-    USE_CARGO[Use: cargo install]
-    USE_BINARY[Use: Binary download]
-    USE_APT[Use: apt install]
-    USE_YUM[Use: yum install]
+    USE_BREW["Use: brew install"]
+    USE_CARGO["Use: cargo install"]
+    USE_BINARY["Use: Binary download"]
+    USE_APT["Use: apt install"]
+    USE_YUM["Use: yum install"]
 
     START --> MACOS
     START --> LINUX
@@ -554,7 +554,7 @@ graph TD
 ### Batch Conversion Decision
 
 ```mermaid
-graph TD
+flowchart TD
     START[.cast File Found]
     EXISTS{.gif<br/>Exists?}
     FORCE{--force<br/>Flag?}
@@ -586,7 +586,7 @@ graph TD
 ### CI/CD Integration Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "GitHub Actions"
         TRIGGER[Push/PR Event]
         CHECKOUT[Checkout Code]
@@ -640,9 +640,9 @@ graph TB
 ### Command Integration Flow
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph "demo.md Frontmatter"
-        YAML[YAML Spec<br/>Dependencies]
+        YAML["YAML Spec<br/>Dependencies"]
     end
 
     subgraph "Command Execution"
@@ -688,7 +688,7 @@ graph LR
 ### Caching Strategy
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph "Cache Lifecycle"
         INIT[Session Start]
         CREATE[Create Cache File]
@@ -726,13 +726,13 @@ graph TD
 ### Parallel Processing
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "Batch Conversion"
         QUEUE[Conversion Queue]
-        T1[Thread 1: file1.cast]
-        T2[Thread 2: file2.cast]
-        T3[Thread 3: file3.cast]
-        TN[Thread N: fileN.cast]
+        T1["Thread 1: file1.cast"]
+        T2["Thread 2: file2.cast"]
+        T3["Thread 3: file3.cast"]
+        TN["Thread N: fileN.cast"]
     end
 
     subgraph "Progress Tracking"
@@ -761,5 +761,5 @@ graph TB
 ---
 
 **Last Updated**: 2026-02-19
-**Version**: 4.0.0
+**Version**: 4.1.0
 **Status**: Production Ready

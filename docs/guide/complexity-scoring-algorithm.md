@@ -199,7 +199,7 @@ Each factor adds **+2 points** (max 10, factors are independent):
 ### Score: 0/10 → Route: Commands
 
 ```mermaid
-graph LR
+flowchart LR
     A["Fix typo in README"] -->|Factor 1| B["Multi-step? No"]
     A -->|Factor 2| C["Cross-cat? No"]
     A -->|Factor 3| D["Planning? No"]
@@ -240,7 +240,7 @@ graph LR
 ### Score: 6/10 → Route: Command Sequence
 
 ```mermaid
-graph LR
+flowchart LR
     A["Add feature with comprehensive tests and documentation"] -->|Factor 1| B["✓ Multi-step: +2"]
     A -->|Factor 2| C["✓ 3 categories: +2"]
     A -->|Factor 3| D["Planning? No"]
@@ -280,7 +280,7 @@ graph LR
 ### Score: 10/10 (capped) → Route: Orchestrator
 
 ```mermaid
-graph LR
+flowchart LR
     A["Design comprehensive auth system with OAuth2, sessions,<br/>error handling, tests, and documentation"]
 
     A -->|Factor 1| B["✓ Multi-step: +2"]
@@ -338,7 +338,7 @@ graph LR
 **Time:** < 30 seconds
 
 ```mermaid
-graph TD
+flowchart TD
     A["0-3 Points"] --> B["Simple Task"]
     B --> C["Single Operation"]
     B --> D["One Category"]
@@ -381,7 +381,7 @@ asking the dev/git skill to create a feature branch); no per-domain agent dispat
 **Reasoning:** Chaining several category commands handles multiple aspects better than a single command, but the task isn't complex enough for full orchestration
 
 ```mermaid
-graph TD
+flowchart TD
     A["4-7 Points"] --> B["Moderate Task"]
     B --> C["2-3 Operations"]
     B --> D["2-3 Categories"]
@@ -421,7 +421,7 @@ graph TD
 **Reasoning:** Requires parallel multi-agent coordination with tight integration
 
 ```mermaid
-graph TD
+flowchart TD
     A["8-10 Points"] --> B["Complex Task"]
     B --> C["4+ Operations"]
     B --> D["4+ Categories"]

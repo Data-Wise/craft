@@ -8,7 +8,7 @@
 The Claude Code 2.1.0 integration enhances the Craft plugin with intelligent task routing, hot-reload validation, and agent orchestration capabilities across 4 implementation waves.
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "User Interface"
         User[User Task]
     end
@@ -122,7 +122,7 @@ flowchart LR
 **Purpose**: Auto-discover and execute validators without restart
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "Discovery Phase"
         Scan[Scan .claude-plugin/skills/validation/]
         Parse[Parse YAML Frontmatter]
@@ -217,7 +217,7 @@ release:  MAX_AGENTS=4
 **Purpose**: Route tasks to optimal execution strategy
 
 ```mermaid
-graph TB
+flowchart TB
     Task[User Task] --> Score[Complexity Scorer]
 
     Score --> R0_3{Score 0-3}
@@ -258,7 +258,7 @@ graph TB
 **Purpose**: Dynamic validator loading without restart
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph "Scan Phase"
         S1[List files in validation/]
         S2[Read frontmatter]
@@ -348,7 +348,7 @@ stateDiagram-v2
 **Purpose**: Community-contributed validators marketplace
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "Developer"
         D1[Write Validator]
         D2[Test Locally]

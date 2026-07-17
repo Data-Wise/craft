@@ -84,28 +84,28 @@ Discovers specs, parses phases, generates ORCHESTRATE files, and creates worktre
 
 ```mermaid
 flowchart TD
-    Start(["/craft:plan"]) --> D[Step 1: Discover Specs]
+    Start(["/craft:plan"]) --> D["Step 1: Discover Specs"]
     D --> D1{Specs found?}
     D1 -->|Yes| Choose[User picks spec]
     D1 -->|No brainstorms| Err[Suggest /brainstorm first]
 
-    Choose --> Parse[Step 2: Parse Spec]
+    Choose --> Parse["Step 2: Parse Spec"]
     Parse --> P1[Extract phases, tasks, criteria]
 
-    P1 --> Cross[Step 3: Cross-Repo Detection]
+    P1 --> Cross["Step 3: Cross-Repo Detection"]
     Cross --> C1{Multi-repo paths found?}
     C1 -->|Yes| Paired[Plan paired worktrees]
     C1 -->|No| Single[Single repo]
 
-    Paired --> Confirm[Step 4: Confirm Plan]
+    Paired --> Confirm["Step 4: Confirm Plan"]
     Single --> Confirm
 
-    Confirm --> Gen[Step 5: Generate ORCHESTRATE]
+    Confirm --> Gen["Step 5: Generate ORCHESTRATE"]
     Gen --> WT{Step 6: Create Worktree?}
     WT -->|Yes| Create[git worktree add]
     WT -->|No| Skip[Save to current dir]
 
-    Create --> Track[Step 7: Update .STATUS]
+    Create --> Track["Step 7: Update .STATUS"]
     Skip --> Track
     Track --> Done([Step 8: Summary + next steps])
 
@@ -240,7 +240,7 @@ A consistent 4-type taxonomy used across all documentation:
 The full flow from sessions to workflow improvements:
 
 ```mermaid
-graph TD
+flowchart TD
     S[Sessions] --> F[Facets Data]
     F --> I["/craft:insights"]
     I --> R1[CLAUDE.md Rules]

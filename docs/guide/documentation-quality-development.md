@@ -33,7 +33,7 @@ By the end of this guide, you'll know how to:
 ### System Components
 
 ```mermaid
-graph TB
+flowchart TB
     A[User Command] --> B{Command Router}
     B -->|lint| C["folio:docs:lint"]
     B -->|check-links| D["folio:docs:check-links"]

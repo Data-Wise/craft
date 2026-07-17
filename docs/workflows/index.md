@@ -18,7 +18,7 @@ Visual guides to craft's most common workflows - see how commands, skills, and a
 Not sure where to start? This decision tree shows you the right workflow for your task.
 
 ```mermaid
-graph TD
+flowchart TD
     Start["🎯 What do you need to do?"] --> Goal{Choose Your Goal}
 
     Goal -->|"📚 Update docs"| Docs["Documentation Workflow"]
@@ -304,7 +304,7 @@ flowchart TD
 High-level comparison of all four workflows - choose based on your task type.
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph docs["📚 Documentation Workflow"]
         d1["Code Changes<br/>↓<br/>Detect & Fix<br/>↓<br/>Deploy"]
     end

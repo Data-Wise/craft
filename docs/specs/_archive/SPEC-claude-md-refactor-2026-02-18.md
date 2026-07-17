@@ -53,7 +53,7 @@ Restructure Claude Code's instruction hierarchy from a flat, scattered 819-line 
 ## Architecture
 
 ```mermaid
-graph TD
+flowchart TD
     A["Session Start"] --> B["Load System Prompt"]
     B --> C["Load Global CLAUDE.md (~80 lines)"]
     B --> D["Load Project CLAUDE.md (~80 lines)"]

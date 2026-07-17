@@ -152,7 +152,7 @@
 ### Before: Separate Commands (Current)
 
 ```mermaid
-graph TD
+flowchart TD
     User[User] -->|runs| Sync["/craft:docs:sync"]
     Sync -->|scans| Git[Git History]
     Sync -->|outputs| Report[Report: "3 docs stale, guide score: 7"]
@@ -180,7 +180,7 @@ graph TD
 ### After: Merged Command (Proposed)
 
 ```mermaid
-graph TD
+flowchart TD
     User[User] -->|runs| Update["/craft:docs:update"]
 
     Update -->|Step 1| Detect[Auto-detect changes]
@@ -195,8 +195,8 @@ graph TD
     Report -->|Yes| ShowReport[Show report + exit]
     Report -->|No| Prompts[Interactive prompts]
 
-    Prompts -->|prioritized order| HighPriority[Help files: score 10]
-    HighPriority -->|user approves| NextCategory[Changelog: score 9]
+    Prompts -->|prioritized order| HighPriority["Help files: score 10"]
+    HighPriority -->|user approves| NextCategory["Changelog: score 9"]
     NextCategory -->|user approves| Continue[... more categories]
 
     Continue -->|all done| Changes[Apply changes]

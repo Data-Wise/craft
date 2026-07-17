@@ -53,16 +53,16 @@ Hub v2.0 is a zero-maintenance command discovery and navigation system for the C
 ### System Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "User Interface Layer"
-        U[User Invokes /craft:hub]
+        U["User Invokes /craft:hub"]
     end
 
     subgraph "Hub Command Layer"
         H[commands/hub.md]
-        L1[Layer 1: Main Menu]
-        L2[Layer 2: Category View]
-        L3[Layer 3: Command Detail]
+        L1["Layer 1: Main Menu"]
+        L2["Layer 2: Category View"]
+        L3["Layer 3: Command Detail"]
     end
 
     subgraph "Discovery Engine Layer"

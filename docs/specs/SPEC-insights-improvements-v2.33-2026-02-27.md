@@ -50,7 +50,7 @@ Four targeted improvements to Craft's release and development workflow, driven b
 ### Feature Integration Map
 
 ```mermaid
-graph TD
+flowchart TD
     subgraph "Feature 1: Version Sync"
         CHECK["/ craft:check --version"]
         VAL["validation/version.md<br/>(hot-reload validator)"]

@@ -63,7 +63,7 @@ The command examines:
 ```
 ╭─ Architecture Overview ─────────────────────────────╮
 │ Project: craft | Type: Claude Code Plugin          │
-│ Structure: commands/ agents/ skills/ (47 commands) │
+│ Structure: commands/ agents/ skills/ (48 commands) │
 ├─────────────────────────────────────────────────────┤
 │ Commands: 9 categories (docs, site, code, etc.)    │
 │ Agents: 8 (orchestrator-v2, docs-architect, etc.)  │
@@ -127,7 +127,7 @@ Create visual architecture diagrams in Mermaid format.
 Generates mermaid diagrams like:
 
 ```mermaid
-graph TB
+flowchart TB
     CLI[CLI Layer] --> COMMANDS[Commands]
     COMMANDS --> SKILLS[Skills]
     SKILLS --> AGENTS[Agents]

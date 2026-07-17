@@ -430,10 +430,35 @@ def test_refine_delegates_to_skill():
     for rel in targets:
         text = (PLUGIN_DIR / rel).read_text(encoding="utf-8")
         delegates = "prompt-refiner" in text
-        restates = "Accept/Edit/Use original" in text or "Accept / Edit / Use original" in text
+        restates = (
+            "Accept/Edit/Use original" in text
+            or "Accept / Edit / Use original" in text
+            or "Accept/Edit/Use-original" in text
+        )
         if not delegates or restates:
             bad.append(rel)
     assert not bad, f"commands must delegate to prompt-refiner, not restate the flow: {bad}"
+
+
+def test_refine_callers_reference_current_vocabulary():
+    """--refine callers must reference the current 4-way confirm vocabulary
+    (Execute now / Copy for elsewhere / Edit first / Skip), not the retired
+    3-way Accept/Edit/Use-original — locked 2026-07-17 (BRAINSTORM-refine-
+    root-command-fix), replacing the stale wording carried since 2026-07-01."""
+    targets = [
+        "commands/refine.md",
+        "commands/brainstorm.md",
+        "commands/do.md",
+        "commands/orch.md",
+        "commands/plan/feature.md",
+        "commands/arch/plan.md",
+    ]
+    bad = []
+    for rel in targets:
+        text = (PLUGIN_DIR / rel).read_text(encoding="utf-8")
+        if "Execute now" not in text:
+            bad.append(rel)
+    assert not bad, f"--refine callers must reference the 4-way confirm vocabulary: {bad}"
 
 
 # ============================================================================

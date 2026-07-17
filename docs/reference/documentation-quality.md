@@ -493,7 +493,7 @@ GitHub Actions workflow:
 ### Development Cycle
 
 ```mermaid
-graph LR
+flowchart LR
     A[Edit Docs] --> B{Run /craft:check}
     B -->|Docs Changed| C["/folio:docs:lint --fix"]
     C --> D["/folio:docs:check-links"]

@@ -46,7 +46,7 @@ Redesign `scripts/release-watch.py` to track both Claude Code CLI and Claude Des
 ## Architecture
 
 ```mermaid
-graph TD
+flowchart TD
     CLI["release-watch.py --product all"] --> Cache["Cache Check<br/>~/.claude/release-watch-cache.json"]
     Cache -->|stale| GH["GitHub Releases API<br/>?per_page=10"]
     Cache -->|stale| CL["GitHub CHANGELOG.md<br/>raw content fetch"]

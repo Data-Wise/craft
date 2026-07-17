@@ -96,7 +96,7 @@ Time: < 30 sec
 **Analysis:**
 
 ```mermaid
-graph LR
+flowchart LR
     A["Fix typo"] -->|Multi-step?| B["No"]
     A -->|Cross-category?| C["No"]
     A -->|Planning?| D["No"]
@@ -131,7 +131,7 @@ Time: 5-30 min
 **Analysis:**
 
 ```mermaid
-graph LR
+flowchart LR
     A["Add feature with<br/>comprehensive tests<br/>and documentation"]
     A -->|Multi-step?| B["✓ Yes +2"]
     A -->|Cross-category?| C["✓ 3 areas +2"]
@@ -167,7 +167,7 @@ Time: 30 min - several hours
 **Analysis:**
 
 ```mermaid
-graph LR
+flowchart LR
     A["Design & implement<br/>comprehensive auth<br/>with OAuth2, sessions,<br/>errors, tests, docs"]
 
     A -->|Multi-step?| B["✓ Yes +2"]
@@ -257,7 +257,7 @@ complexity routing; they're invoked directly by the docs commands that need them
 ### Category-Based Routing Logic
 
 ```mermaid
-graph TD
+flowchart TD
     A["Task Routed<br/>Score 4-7"] --> B{{"Determine category<br/>from Step 1"}}
 
     B -->|"add", "feature", "implement"| C["/craft:arch:plan<br/>/craft:code:test-gen<br/>dev/git skill: create branch"]
@@ -354,7 +354,7 @@ When a task scores 8-10 points, /craft:orch v2 coordinates multiple agents.
 ### Multi-Agent Coordination
 
 ```mermaid
-graph TD
+flowchart TD
     A["Complex Task<br/>Score: 8-10"] -->|"Plan phases"| B["Wave 1<br/>Architecture<br/>Planning"]
 
     B --> C["Spawn parallel<br/>agents"]
@@ -546,7 +546,7 @@ Result aggregation: < 1 minute
 - [Complexity Scoring Algorithm](complexity-scoring-algorithm.md) - Deep dive into 7 factors
 - [Teaching Workflow Guide](teaching-workflow.md) - Specialized workflow for courses
 - [Orchestrator Documentation](orchestrator.md) - Advanced multi-agent features
-- [Commands Reference](../commands.md) - All 47 commands
+- [Commands Reference](../commands.md) - All 48 commands
 
 ---
 

@@ -127,11 +127,11 @@ flowchart TD
     H -->|no| X
     H -->|yes| I[Offer auto mode in confirm gate]
     I --> J[Emit /goal <condition>]
-    J --> K[Per-turn: shared skill dispatches 1 file-scoped subagent default]
+    J --> K["Per-turn: shared skill dispatches 1 file-scoped subagent default"]
     K --> L{Haiku evaluator: condition met in transcript?}
     L -->|no| K
     L -->|yes| M[Goal auto-clears]
-    M --> N[REAL verify gate: run test suite + git status]
+    M --> N["REAL verify gate: run test suite + git status"]
     N -->|fail| K
     N -->|green| O[Stop · print gh pr create command · user opens PR]
 ```
@@ -281,7 +281,7 @@ flowchart LR
     F --> C
     E -->|yes| G["/craft:orchestrate:drive (confirm gate: enable auto mode?)"]
     G --> H[Autonomous /goal loop runs]
-    H --> I[Real verify gate: tests + git status]
+    H --> I["Real verify gate: tests + git status"]
     I -->|red| H
     I -->|green| J[drive prints gh pr create]
     J --> K[You review + open the PR]

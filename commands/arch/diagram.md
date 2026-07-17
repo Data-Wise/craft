@@ -60,7 +60,7 @@ Generate architecture diagrams from code or descriptions.
 Generating component diagram...
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "Frontend"
         UI[React App]
     end

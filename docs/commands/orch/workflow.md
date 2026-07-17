@@ -45,7 +45,7 @@ in a `parallel` stage flexes to upstream data.
 
 ```mermaid
 flowchart TD
-    A[WORKFLOW definition: YAML or shape-DSL] --> B[Compile to deterministic wave plan]
+    A["WORKFLOW definition: YAML or shape-DSL"] --> B[Compile to deterministic wave plan]
     B --> C{--dry-run?}
     C -->|Yes| D[Print wave plan and exit, no agents spawned]
     C -->|No| E[Execute waves under run-wide semaphore]

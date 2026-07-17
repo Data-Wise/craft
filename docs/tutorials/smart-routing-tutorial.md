@@ -432,7 +432,7 @@ Use this to decide between `/craft:do` and direct commands:
 flowchart TD
     A[I need to...] --> B{Know exact command?}
     B -->|Yes| C{Single step?}
-    B -->|No| D[Use /craft:do]
+    B -->|No| D["Use /craft:do"]
 
     C -->|Yes| E[Use direct command]
     C -->|No| F{Multiple categories?}

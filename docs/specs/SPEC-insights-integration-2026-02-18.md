@@ -62,7 +62,7 @@ Update existing craft commands with enhancements identified by the Claude Code I
 ## Architecture
 
 ```mermaid
-graph TD
+flowchart TD
     A["Session Start"] --> B["Load Rules"]
     B --> C["action-verb-execution.md"]
 

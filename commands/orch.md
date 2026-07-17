@@ -56,10 +56,12 @@ arguments:
 
 When `--refine` is set, do NOT act on the raw argument. First invoke the
 `prompt-refiner` skill with the argument and project context. Follow that
-skill's canonical flow (before/after → Accept/Edit/Use-original; `--yes`
-or auto mode auto-accepts). Then proceed using the prompt the skill
-returns. On no-argument interactive commands, refine AFTER the topic is
-captured.
+skill's canonical flow (before/after box → fenced refined-prompt block →
+4-way confirm: Execute now / Copy for elsewhere / Edit first / Skip; `--yes`
+or auto mode auto-accepts Execute now). **If the user picks "Copy for
+elsewhere," stop here — do not start orchestration.** Otherwise proceed
+using the prompt the skill returns. On no-argument interactive commands,
+refine AFTER the topic is captured.
 
 `--yes` cascades: the prompt-refiner auto-accepts AND the interactive loop is suppressed —
 one flag, fully headless.

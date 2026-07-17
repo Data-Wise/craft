@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.1.0] - 2026-07-17
+
+### Added
+
+- **`/craft:restore`** — new root command combining git-activity recap
+  (`dev/git` skill, Operation 7 — mode-aware `default`/`detailed`/`summary`)
+  and `.STATUS`-based session recap (`adhd-workflow` skill) into one
+  read-only "restore my context" entry point. Replaces the deleted
+  `git-recap`/`recap` commands (removed 2026-07-09). No `--sync`; a
+  cross-plugin `/restore` dispatcher (routing to `savant:restore` for
+  research projects) was investigated and explicitly descoped — craft's
+  `/do`/`/hub` routers cannot dispatch into another plugin's namespace.
+  See [`docs/specs/SPEC-craft-restore-2026-07-17.md`](specs/SPEC-craft-restore-2026-07-17.md)
+  and [`docs/architecture/craft-restore-pipeline.md`](architecture/craft-restore-pipeline.md).
+
+### Fixed
+
+- Post-v4.0.0 doc-staleness cascade: full "47→48 commands" count-drift sweep
+  across ~35 doc files (`docs-staleness-check.sh --fix`), CLAUDE.md sync
+  (3 stale command refs to already-deleted commands removed), mermaid
+  syntax health score 82.3→91.0 then 100/100 on newly-authored diagrams
+  (`<br/>` quoting, deprecated `graph`→`flowchart`, 178 safe autofixes).
+- `hub.md`/`docs/commands/hub.md` stale "ask git recap" reference now
+  points at `/craft:restore`.
+- 2 real test regressions caught by the above fixes: a stale literal-string
+  assertion (`graph TD`/`graph LR` only) now also accepts `flowchart`; 2
+  README lines bump-version.sh's fixed file list doesn't cover.
+
 ## [4.0.0] - 2026-07-16
 
 ### Changed
@@ -16,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   history-preserving (`git filter-repo`) into a new public plugin,
   [`Data-Wise/folio`](https://github.com/Data-Wise/folio), released as folio v1.0.0. Craft
   goes from 94→47 commands / 45→40 skills / 8→2 agents. Full command migration table in
-  [docs/MIGRATION-v4.md](../docs/MIGRATION-v4.md).
+  [docs/MIGRATION-v4.md](MIGRATION-v4.md).
 - **Native-first Phase 1 pruning** ([#279](https://github.com/Data-Wise/craft/pull/279)) —
   21 dead commands removed, dead docs excluded from the build (115→94 commands, pre-folio-split
   baseline).

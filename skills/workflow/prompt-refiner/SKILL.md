@@ -46,7 +46,9 @@ turns out to need one.
 1. **Read context** (read-only): detect project type, branch, `.STATUS`.
 2. **Rewrite** the prompt to add scope, specifics, and intent — without
    inventing requirements the user didn't imply.
-3. **Show before/after** in a boxed display:
+3. **Show before/after** in a boxed display, THEN print the refined prompt
+   in its own fenced, copy-paste-ready code block — two separate visible
+   blocks, both emitted as response text:
 
    ```
 
@@ -58,14 +60,32 @@ turns out to need one.
 
    ```
 
-4. **Confirm** via AskUserQuestion — Accept (Recommended) / Edit /
-   Use original. On **Edit**, present the refined text and take the
-   user's edited version **inline** (no $EDITOR). With `--yes` or auto
-   mode, skip the picker and auto-accept, printing
-   `refined (auto-accepted)`. This is the `--yes` cascade: one flag
+   ```text
+   REWRITTEN
+   ```
+
+   **Ordering constraint (fixes a confirmed bug — do not skip):** both blocks
+   above MUST render as visible response text in this turn BEFORE the
+   `AskUserQuestion` tool call in step 4 fires. Never collapse steps 3 and 4
+   into a single tool-call-only turn with no interstitial text — that
+   produces a confirm question with nothing shown first, which is exactly
+   the failure this ordering constraint exists to prevent.
+
+4. **Confirm** via AskUserQuestion, exactly these four options:
+
+   | Option | Meaning |
+   |---|---|
+   | **Execute now** (Recommended when a clear action is implied) | Accept the rewrite AND act on it in this session (dispatch, run a command, apply as a rule). Falls back to just returning the text when no downstream action is implied — never force an artificial action. |
+   | **Copy for elsewhere** | Accept the rewrite, take NO further action here — the refined prompt was for pasting into a different session/context. Short-circuits whatever called `--refine`: the caller's own downstream flow (e.g. brainstorm's depth/focus questions) must not start in this branch. |
+   | **Edit first** | Present the refined text and take the user's edited version **inline** (no $EDITOR), then re-ask this same question with the edited version. |
+   | **Skip** | Keep the original, unrefined text — proceed with it, not an abort. |
+
+   With `--yes` or auto mode, skip the picker and auto-accept **Execute now**,
+   printing `refined (auto-accepted)`. This is the `--yes` cascade: one flag
    both auto-accepts the prompt-refiner AND suppresses the caller's
    interactive loop — fully headless.
-5. **Return** the chosen prompt string to the caller.
+5. **Return** the chosen prompt string to the caller (empty/no-op return on
+   **Copy for elsewhere**, since that branch takes no further action).
 
 ## Constraints
 

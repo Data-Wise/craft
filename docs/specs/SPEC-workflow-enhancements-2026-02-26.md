@@ -49,7 +49,7 @@ Overhaul three core workflow commands (`/workflow:done`, `/craft:do`, `/craft:hu
 ### Data Flow Diagram
 
 ```mermaid
-graph TD
+flowchart TD
     DONE["/workflow:done"] -->|writes| MEMORY["MEMORY.md"]
     DONE -->|writes| FACETS["facets/*.json"]
     DONE -->|updates| STATUS[".STATUS"]

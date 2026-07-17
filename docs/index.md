@@ -1,11 +1,11 @@
 # Craft Plugin
 
-[![Documentation](https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg)](https://data-wise.github.io/craft/)
+[![Documentation](https://img.shields.io/badge/docs-comprehensive-brightgreen.svg)](https://data-wise.github.io/craft/)
 [![Docs Sync](https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml)
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.0.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.1.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -14,24 +14,24 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 47 commands, 2 AI agents, and 40 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 48 commands, 2 AI agents, and 40 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 47 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 48 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **46 Commands**
+- :rocket:{ .lg .middle } **47 Commands**
 
-    Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
+    Smart commands, docs, code, testing, git, CI, architecture, distribution (Homebrew), planning, and workflow automation — all in one toolkit. Docs-authoring/site-publishing commands live in the sibling [`folio`](https://github.com/Data-Wise/folio) plugin.
 
-- :brain:{ .lg .middle } **8 Specialized Agents**
+- :brain:{ .lg .middle } **2 Agents**
 
-    Docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and 2 orchestrators (default + v2.1)
+    `orchestrator` and `orchestrator-v2` (mode-aware, subagent-monitoring multi-step orchestration). The docs-focused agents (mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder) moved to `folio`.
 
 - :sparkles:{ .lg .middle } **40 Skills**
 
@@ -47,7 +47,7 @@
 
 - :books:{ .lg .middle } **Documentation Excellence**
 
-    99% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation pipeline with health score
+    Comprehensive guides, 80+ Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation pipeline with health score
 
 </div>
 
@@ -110,13 +110,13 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 115 Craft commands:
+Reference documentation for all 47 Craft commands:
 
 <div class="grid cards" markdown>
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 47 commands organized by category with parameters, usage examples, and output formats
+    Index into per-command pages ([docs/commands/](commands/overview.md)) and the [REFCARD](REFCARD.md) cheat sheet, organized by category
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -134,7 +134,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 
 **Quick Links:**
 
-- [All 46 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 47 Commands, Indexed by Category](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -193,7 +193,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 47 commands
+    Index into per-command documentation for all 47 commands
 
 </div>
 
@@ -215,7 +215,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 | **Utils**          | 2       | Misc helpers                                                                                                                                                       |
 | **Total**          | **115** | **Complete development workflow coverage**                                                                                                                         |
 
-!!! info "Latest: v4.0.0 — Guard Suite Consolidation"
+!!! info "Latest: v4.1.0 — Guard Suite Consolidation"
     [PR #272](https://github.com/Data-Wise/craft/pull/272) consolidates the branch-guard and
     no-switch-guard into a skill-driven operations layer under `skills/dev/git/`, adds
     `--classify`/`GUARD_DRY_RUN=1` ground-truth mode, a portable `sedi()` wrapper, and 62 new

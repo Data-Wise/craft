@@ -22,10 +22,10 @@ approved spec to green, use `/craft:orch:drive`.
 ```mermaid
 flowchart TD
     A[Multi-agent work] --> B{Steps known and repeatable?}
-    B -->|No, exploratory| C[Use /craft:orch]
+    B -->|No, exploratory| C["Use /craft:orch"]
     B -->|Yes| D{Driving one approved spec to green?}
-    D -->|Yes| E[Use /craft:orch:drive]
-    D -->|No, fixed shape| F[Use /craft:orch:workflow]
+    D -->|Yes| E["Use /craft:orch:drive"]
+    D -->|No, fixed shape| F["Use /craft:orch:workflow"]
 ```
 
 ## Quick start
