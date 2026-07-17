@@ -72,20 +72,27 @@ description: /restore - Restore Git & Session Context
 
 ## When invoked
 
-1. Run the `dev/git` skill's Operation 7 (git activity recap): today/week commits,
-   branch ahead/behind, unpushed work, open PRs.
-2. Run the `adhd-workflow` skill's session-recap operation: last `.STATUS` state,
-   what was in progress, suggested next step.
-3. Present both as one combined, ADHD-friendly summary — git state first, then
-   session state, then a single "what's next" line.
+1. Run the `adhd-workflow` skill's §2 "Context Restoration (recap)" operation:
+   `.STATUS` state, git activity (last 48h), open PRs/issues, planning files,
+   Obsidian flow status.
+2. Run the `dev/git` skill's Operation 7 (git activity recap) for the mode-aware
+   git slice: today/week commits, branch ahead/behind, unpushed work, open PRs.
+   **Known overlap:** both sources independently surface recent git activity and
+   open PRs — the shim de-dupes on presentation (one git-activity block, not two),
+   it does not run either source's git-fetching logic twice.
+3. Present as one combined, ADHD-friendly summary — git state first (mode-aware),
+   then session state (single-verbosity), then a single "what's next" line.
 4. **Do not reimplement either operation here.** Changes to git-recap logic go in
    `dev/git`; changes to session-recap logic go in `adhd-workflow`.
 
 ## Modes
 
-`default` | `detailed` | `summary` — same 3-mode shape already documented in
-`skills/dev/git/SKILL.md` Operation 7; `adhd-workflow`'s recap output follows the
-same mode for consistency.
+`default` | `detailed` | `summary` apply to the **git-activity portion only**
+(`skills/dev/git/SKILL.md` Operation 7, which already implements them).
+`adhd-workflow`'s recap operation (§2 "Context Restoration") has no mode support
+today — verified 2026-07-17, not assumed — so its output stays single-verbosity
+regardless of the mode passed. Adding modes to adhd-workflow's side is explicitly
+deferred (see Open Questions).
 ```
 
 No `deprecated`/`replaced-by` frontmatter — this is a net-new command name, not a
