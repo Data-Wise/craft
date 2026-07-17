@@ -169,6 +169,7 @@ nav:
       - Version Sync Architecture: architecture/version-sync.md
       - Mermaid Pipeline Architecture: architecture/mermaid-validation-pipeline.md
       - "/craft:restore Architecture": architecture/craft-restore-pipeline.md
+      - "prompt-refiner Architecture": architecture/prompt-refiner-pipeline.md
       - "ADR-001: Workflow vs Worktree": adr/ADR-001-workflow-branch-guard.md
       - "ADR-002: Done Command/Skill Consolidation": adr/ADR-002-done-command-skill-consolidation.md
       - "ADR-003: Release Drift Advisory": adr/ADR-003-release-drift-advisory-not-hard-gate.md

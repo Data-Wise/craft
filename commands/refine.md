@@ -17,10 +17,13 @@ replaced-by: "skills/workflow/prompt-refiner/"
 
 1. **Load the canonical procedure:** read
    [`skills/workflow/prompt-refiner/SKILL.md`](../skills/workflow/prompt-refiner/SKILL.md)
-   and follow it exactly — read context, rewrite, show before/after, confirm
-   via AskUserQuestion, return the chosen prompt. With no downstream command
-   (standalone `/refine "..."` ), stop after the before/after + confirm step
-   and print the refined prompt.
+   and follow it exactly — read context, rewrite, show the before/after box
+   AND the fenced copy-paste-ready refined-prompt block (both as visible
+   response text, before the confirm question), confirm via AskUserQuestion
+   (Execute now / Copy for elsewhere / Edit first / Skip), return the chosen
+   prompt. With no downstream command (standalone `/refine "..."`), stop
+   after the confirm step regardless of which option is chosen — there is no
+   caller to hand the result to.
    > Note: `prompt-refiner` won't appear in the Skill tool's available-skill
    > list (it's a nested, non-command-shaped skill) — invoke it by reading
    > the file directly, not by guessing a Skill-tool name.
