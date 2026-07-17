@@ -2,7 +2,7 @@
 
 > Source: [`SPEC-craft-restore-2026-07-17.md`](SPEC-craft-restore-2026-07-17.md)
 
-**Status:** DRAFT — awaiting review *(as stated in the source doc)*
+**Status:** SHIPPED — implemented as `commands/restore.md`, released in v4.1.0 (2026-07-17) *(source doc status corrected 2026-07-17; it read "DRAFT" from before the command was actually released)*
 
 ## tl;dr
 
