@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   history-preserving (`git filter-repo`) into a new public plugin,
   [`Data-Wise/folio`](https://github.com/Data-Wise/folio), released as folio v1.0.0. Craft
   goes from 94→47 commands / 45→40 skills / 8→2 agents. Full command migration table in
-  [docs/MIGRATION-v4.md](../docs/MIGRATION-v4.md).
+  [docs/MIGRATION-v4.md](MIGRATION-v4.md).
 - **Native-first Phase 1 pruning** ([#279](https://github.com/Data-Wise/craft/pull/279)) —
   21 dead commands removed, dead docs excluded from the build (115→94 commands, pre-folio-split
   baseline).

@@ -25,13 +25,13 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **46 Commands**
+- :rocket:{ .lg .middle } **47 Commands**
 
-    Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit
+    Smart commands, docs, code, testing, git, CI, architecture, distribution (Homebrew), planning, and workflow automation — all in one toolkit. Docs-authoring/site-publishing commands live in the sibling [`folio`](https://github.com/Data-Wise/folio) plugin.
 
-- :brain:{ .lg .middle } **8 Specialized Agents**
+- :brain:{ .lg .middle } **2 Agents**
 
-    Docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and 2 orchestrators (default + v2.1)
+    `orchestrator` and `orchestrator-v2` (mode-aware, subagent-monitoring multi-step orchestration). The docs-focused agents (mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder) moved to `folio`.
 
 - :sparkles:{ .lg .middle } **40 Skills**
 
@@ -110,13 +110,13 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Complete OpenAPI-style documentation for all 115 Craft commands:
+Reference documentation for all 47 Craft commands:
 
 <div class="grid cards" markdown>
 
 - :scroll:{ .lg .middle } **[API Reference - Commands](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 47 commands organized by category with parameters, usage examples, and output formats
+    Index into per-command pages ([docs/commands/](commands/overview.md)) and the [REFCARD](REFCARD.md) cheat sheet, organized by category
 
 - :gear:{ .lg .middle } **[Command Parameters](reference/COMMAND-PARAMETERS.md)**
 
@@ -134,7 +134,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 
 **Quick Links:**
 
-- [All 46 Commands with Full Documentation](API-REFERENCE-COMMANDS.md)
+- [All 47 Commands, Indexed by Category](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -193,7 +193,7 @@ Complete OpenAPI-style documentation for all 115 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Complete documentation for all 47 commands
+    Index into per-command documentation for all 47 commands
 
 </div>
 

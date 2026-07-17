@@ -28,15 +28,15 @@ stats = get_command_stats()
 commands = load_cached_commands()
 
 # Available data:
-# - stats['total']: Total command count (e.g., 109)
-# - stats['categories']: Dict of category counts (e.g., {'code': 15, 'test': 3, ...})
+# - stats['total']: Total command count (e.g., 47)
+# - stats['categories']: Dict of category counts (e.g., {'code': 13, 'ci': 8, ...})
 # - stats['with_modes']: Commands supporting modes
 # - stats['with_dry_run']: Commands with dry-run support
 # - commands: Full list of command objects with metadata
 
 # Count skills, agents, and tests for banner
 from pathlib import Path
-skill_count = len(list((plugin_dir / 'skills').glob('*.md'))) if (plugin_dir / 'skills').exists() else 0
+skill_count = len(list((plugin_dir / 'skills').rglob('SKILL.md'))) if (plugin_dir / 'skills').exists() else 0
 agent_count = len(list((plugin_dir / 'agents').glob('*.md'))) if (plugin_dir / 'agents').exists() else 0
 
 # Read test count from CLAUDE.md or .STATUS (extract number from "N tests passing")
@@ -81,13 +81,17 @@ if status_path.exists():
             in_next_action = True
             continue
         elif in_next_action:
+            # Stop at next section header (emoji + title or blank line after content)
             if line.strip() and (line.strip()[0] in '🔴✅🔄📋⚠️' or line.startswith('##')):
                 break
             if line.strip():
                 next_action_lines.append(line.strip())
+
+# next_action_lines contains the parsed next action entries (A/B/C options)
+# If empty, skip the NEXT ACTION display section gracefully
 ```
 
-**Display**: If `next_action_lines` is non-empty, show a `NEXT ACTION` section at the top of the hub. If `.STATUS` doesn't exist or has no Next Action, skip silently.
+**Display**: If `next_action_lines` is non-empty, show a `NEXT ACTION` section at the top of the hub (see Step 2 template below). If `.STATUS` doesn't exist or has no Next Action, skip this section silently.
 
 ### Step 1.6: Detect Active Worktrees (NEW in v2.31.0)
 
@@ -97,13 +101,65 @@ Parse `git worktree list` to detect active worktrees for the WORKTREES section:
 # Get all worktrees (porcelain format for reliable parsing)
 worktree_data=$(git worktree list --porcelain 2>/dev/null)
 
-# For each worktree (skip main working tree):
-#   - branch name and ahead/behind dev
-#   - uncommitted file count (git status --short | wc -l)
-#   - staleness flag (no commits in 3+ days)
+# Parse each worktree entry
+# Format: worktree <path>\nHEAD <sha>\nbranch refs/heads/<name>\n\n
+# Skip the first entry (main working tree)
+worktrees=()
+while IFS= read -r path; do
+    branch=$(git -C "$path" branch --show-current 2>/dev/null || echo "detached")
+    ahead=$(git rev-list --count dev.."$branch" 2>/dev/null || echo "?")
+    behind=$(git rev-list --count "$branch"..dev 2>/dev/null || echo "?")
+    uncommitted=$(git -C "$path" status --short 2>/dev/null | wc -l | tr -d ' ')
+    last_commit=$(git -C "$path" log -1 --format="%cr" 2>/dev/null || echo "unknown")
+
+    # Flag stale: no commits in 3+ days
+    days_since=$(git -C "$path" log -1 --format="%ct" 2>/dev/null)
+    # Compare with current epoch to determine staleness
+done
 ```
 
-**If no worktrees exist:** Skip the WORKTREES section entirely.
+**If no worktrees exist (only main working tree):** Skip the WORKTREES section entirely (graceful degradation).
+
+### Step 1.7: Load Recent Usage from Facets (NEW in v2.31.0)
+
+Read recent session facets to populate the "Recently Used" footer:
+
+```python
+import json, glob, os, sys
+from collections import Counter
+
+facets_dir = os.path.expanduser("~/.claude/usage-data/facets/")
+recent_commands = Counter()
+
+# Read last 10 facet files (most recent first)
+facet_files = sorted(glob.glob(f"{facets_dir}/session-*.json"), reverse=True)[:10]
+
+for fpath in facet_files:
+    try:
+        with open(fpath, encoding="utf-8") as f:
+            facet = json.load(f)
+        # Extract command invocations if tracked in facet
+        for cmd in facet.get("commands_used", []):
+            recent_commands[cmd] += 1
+    except (json.JSONDecodeError, KeyError, TypeError,
+            FileNotFoundError, UnicodeDecodeError, OSError) as exc:
+        # Defensive parsing contract — see
+        # skills/workflow/brainstorm-insights/references/insights.md.
+        print(
+            f"warning: skipping malformed facet {fpath}: "
+            f"{type(exc).__name__}: {exc}",
+            file=sys.stderr,
+        )
+        continue
+
+# Format: "/craft:do (3x) · /craft:check (2x) · /done (2x)"
+# Show top 3-5 commands by frequency, with recency tiebreaker
+recent_usage_line = " · ".join(
+    f"{cmd} ({count}x)" for cmd, count in recent_commands.most_common(5)
+)
+```
+
+**If no facets directory or no facet files exist:** Skip the "Recently Used" row entirely (graceful degradation).
 
 ### Step 2: Display Hub (Layer 1 - Main Menu)
 
@@ -139,51 +195,52 @@ Display template:
 │    release  < 300s  Comprehensive checks, full audit                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
-│ CODE (13)                         TEST (0)                              │
-│   /craft:code:lint [mode]          /craft:test [mode]                   │
-│   /craft:test --coverage [mode]      /craft:test:gen                      │
-│   /craft:code:debug                                                     │
-│   /craft:code:refactor           ARCH (4)                               │
-│   /craft:code:deps-audit           /craft:arch:analyze [mode]           │
-│   /craft:ci:local             /craft:arch:plan                     │
-│   /craft:ci:fix               /craft:arch:review                   │
-│                                    /craft:arch:diagram                  │
-│ DOCS (2)                                                               │
-│   /craft:docs:update             PLAN (1)                               │
-│   /folio:docs:sync                 /craft:plan:feature                  │
-│   /folio:docs:lint                                                      │
-│   /folio:docs:check                                                     │
-│   /craft:docs:changelog                                                 │
-│   /craft:docs:claude-md          CI (8)                                 │
-│   /folio:docs:nav-update           /craft:ci:detect                    │
-│   /folio:docs:demo                 /craft:ci:generate                  │
-│   /folio:docs:mermaid              /craft:ci:validate                  │
-│   /folio:docs:check-links          /craft:ci:status                    │
-│                                                                         │
-│ GIT (0, folded into dev/git skill) WORKFLOW (0)                       │
-│   worktree/sync/recap/init/            /brainstorm [depth|focus] "topic"   │
-│   protect/unprotect/status/            /workflow:done                      │
-│   clean/branch/guard: ask              /craft:insights                     │
-│   dev/git skill                                                          │
-│                                   DIST (2)                               │
-│                                     /craft:dist:marketplace             │
-│                                    /craft:dist:homebrew                 │
-│ SITE (1)                          /craft:dist:curl-install             │
-│   /folio:site:build                /craft:dist:pypi                    │
-│   /craft:site:deploy                                                    │
-│   /folio:site:check              ORCHESTRATE (2)                        │
-│   /folio:site:update               /craft:orch [mode]           │
-│   /folio:site:publish                                                  │
+│ CODE (13)                         ARCH (4)                              │
+│   /craft:code:lint [mode]          /craft:arch:analyze [mode]           │
+│   /craft:code:debug                /craft:arch:plan                     │
+│   /craft:code:refactor             /craft:arch:review                   │
+│   /craft:code:test-gen             /craft:arch:diagram                  │
+│   /craft:code:deps-audit                                                │
+│   /craft:code:deps-check         TEST (0)                               │
+│   /craft:code:docs-check           /craft:test [mode]                   │
+│   /craft:code:demo                                                      │
+│   /craft:code:release            PLAN (2)                               │
+│   /craft:code:release-watch        /craft:plan [mode]                   │
+│   /craft:code:command-audit        /craft:plan:feature                  │
+│   /craft:code:skill-standards                                           │
+│   /craft:code:fewer-prompts      DIST (2)                               │
+│                                     /craft:dist:homebrew                │
+│ CI (8)                             /craft:dist:surfaces                │
+│   /craft:ci:local                                                       │
+│   /craft:ci:fix                  DOCS (2)                               │
+│   /craft:ci:detect                 /craft:docs:update                  │
+│   /craft:ci:generate               /craft:docs:changelog                │
+│   /craft:ci:validate                                                    │
+│   /craft:ci:status               SITE (1)                               │
+│   /craft:ci:triage                 /craft:site:deploy                   │
+│   /craft:ci:watch                                                       │
+│                                   ORCHESTRATE (2)                       │
+│ GIT (1, rest folded into          /craft:orch [mode]                    │
+│      dev/git skill)                /craft:orch:drive                    │
+│   /craft:git:issue-check           /craft:orch:workflow                 │
+│   worktree/sync/recap/init/                                             │
+│   protect/unprotect/status/      WORKFLOW (6, root-level)               │
+│   clean/branch/guard: ask          /brainstorm [depth|focus] "topic"     │
+│   dev/git skill                    /brief                               │
+│                                     /done                                │
+│                                     /next                                │
+│                                     /grill                              │
+│                                     /refine                             │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  Quick Actions:                                                          │
 │    /craft:do "fix bug"          /craft:check --for pr                    │
 │    /brainstorm deep feat "auth" ask "create a worktree for feat/x"      │
 │    /craft:test debug            /release --dry-run                       │
-│    ask "sync with remote"       /craft:insights --since 7                │
+│    ask "sync with remote"       ask "show session insights"              │
 │                                                                         │
 │  Recently Used: [if facets data exists — omit section if no data]       │
-│    /craft:do (3x) · /craft:check (2x) · /workflow:done (2x)           │
+│    /craft:do (3x) · /craft:check (2x) · /done (2x)                    │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -280,6 +337,7 @@ Display:
 ```
 Intelligently routes your task to the right workflow:
 
+ /craft:do initialize project    -> git:init (interactive wizard)
  /craft:do add authentication    -> arch:plan + code:test-gen + git:branch
  /craft:do fix login bug         -> code:debug + test + test debug
  /craft:do improve quality       -> code:lint + test --coverage + code:refactor
@@ -364,8 +422,6 @@ TEST COMMANDS (0) - Unified Testing
 Command                  | Description                    | Modes
 ─────────────────────────┼────────────────────────────────┼─────────────
 /craft:test [mode]       | Unified test runner            | yes
-/craft:test:gen          | Generate test suites (Jinja2)  | -
-/craft:test:template     | Manage Jinja2 test templates   | -
 ─────────────────────────────────────────────────────────────────────────
 
 Usage:
@@ -373,40 +429,31 @@ Usage:
   /craft:test debug               # Verbose with traces
   /craft:test --coverage          # Coverage analysis
   /craft:test release             # Full suite + coverage report
-  /craft:test:gen                 # Auto-detect project, generate tests
+  /craft:code:test-gen            # Auto-detect project, generate tests (CODE category)
 ─────────────────────────────────────────────────────────────────────────
 ```
 
 ### `/craft:hub docs`
 
 ```
-DOCS COMMANDS (2) - Documentation Automation (most moved to folio)
+DOCS COMMANDS (2) - Documentation Automation
 ─────────────────────────────────────────────────────────────────────────
 Command                        | Description
 ───────────────────────────────┼─────────────────────────────────────
 /craft:docs:update             | Smart doc generator (detect + generate)
-/folio:docs:sync               | Detect changes, classify doc needs
-/folio:docs:lint               | Markdown quality checks
-/folio:docs:check              | Documentation health check (links, stale, nav, mermaid)
-/folio:docs:check-links        | Internal link validation
 /craft:docs:changelog          | Auto-update CHANGELOG.md
-/folio:docs:nav-update         | Update mkdocs.yml navigation
-/folio:docs:demo               | Terminal recording & GIF generator
-/folio:docs:mermaid            | Mermaid diagrams: templates, NL creation, MCP validation
-/folio:docs:guide              | Generate feature guides
-/folio:docs:tutorial           | Generate step-by-step tutorials
-/folio:docs:api                | Generate API documentation
-/folio:docs:quickstart         | Generate quickstart guides
-/folio:docs:help               | Generate help pages
-/folio:docs:prompt             | Generate documentation prompts
-/folio:docs:site               | Website documentation focus
-/folio:docs:website            | ADHD-friendly website enhancement
-/folio:docs:workflow           | Workflow documentation generator
 
-CLAUDE.md Management:
-  /craft:docs:claude-md:init   | Create from lean template (< 150 lines)
-  /craft:docs:claude-md:sync   | 4-phase pipeline (detect/audit/fix/optimize)
-  /craft:docs:claude-md:edit   | Interactive section editing
+Note: docs-authoring/publishing (sync, lint, check, nav-update, demo,
+mermaid, guide, tutorial, api, quickstart, help, prompt, site, website,
+workflow) moved to the `folio` plugin in the v4 split — see
+docs/MIGRATION-v4.md for the full command migration table.
+
+CLAUDE.md Management (folded into the claude-md-lifecycle skill,
+2026-07 v4 rider — ask naturally, e.g. "sync CLAUDE.md", or see
+skills/docs/claude-md/SKILL.md):
+  create/scaffold  | From project-type templates (< 150 lines)
+  sync             | Detect + audit + fix + optimize
+  edit             | Interactive section editing
 
 Reference Files (.claude/reference/):
   agents.md              | Agent inventory (model, description)
@@ -426,8 +473,11 @@ Worktree, sync, recap, init, branch protection, unprotect, status,
 cleanup, quick-branch, and guard management: ask naturally or see
 skills/dev/git/SKILL.md.
 
-Guides:
-  /craft:git:refcard        Quick reference card
+Guides (reference docs inside the skill, not commands):
+  skills/dev/git/references/refcard.md         Quick reference card
+  skills/dev/git/references/undo-guide.md       Emergency undo guide
+  skills/dev/git/references/safety-rails.md     Safety rails guide
+  skills/dev/git/references/learning-guide.md   Learning guide
 
 Branch Protection (v2.16.0):
   main   = block all (code + docs + commits)
@@ -439,7 +489,7 @@ Branch Protection (v2.16.0):
 ### `/craft:hub workflow`
 
 ```
-WORKFLOW COMMANDS (0) - ADHD-Friendly Workflow Management
+WORKFLOW COMMANDS (6, root-level) - ADHD-Friendly Workflow Management
 ────────────────────────────────────────────────────────────────────────
 Brainstorming:
   /brainstorm "topic"                | Default depth (2 questions)
@@ -451,31 +501,41 @@ Brainstorming:
   Focus: f(eat) | a(rch) | x(ux) | b(api) | u(i) | o(ps)
   Action: s(ave) — capture as SPEC file
 
-Session Management:
-  /workflow:next                     | Get next step
-  /workflow:done                     | Complete session + capture context
+Convergent counterpart:
+  /grill [target]                    | Interrogate a spec/plan one question at a time
 
-Insights (v2.21.0):
-  /craft:insights                    | Generate session insights report
-  /craft:insights --format html      | HTML report for sharing
-  /craft:insights --since 7          | Last 7 days only
+Session Management (adhd-workflow skill — /done and /next are
+deprecated shim commands that redirect to the skill; ask naturally
+for "focus"/"stuck", which have no dedicated command at all):
+  /done                              | Complete session + capture context (deprecated shim)
+  /next                              | Get next step (deprecated shim)
+  ask "start a focused work session" | Focus mode
+  ask "I'm stuck"                    | Unstuck help
+  ask "review specs" / "approve X"   | Spec management
+
+Brief & Refine:
+  /brief [--plan]                    | 3-line action block, optional mini-plan
+  /refine <prompt>                   | Sharpen a vague request via before/after
+
+Insights (brainstorm-insights skill — ask naturally, no dedicated command):
+  ask "show session insights"        | Generate session insights report
+  ask "generate insights report"     | Same, alternate phrasing
 ────────────────────────────────────────────────────────────────────────
 ```
 
 ### `/craft:hub site`
 
 ```
-SITE COMMANDS (1) - Documentation Sites (most moved to folio)
+SITE COMMANDS (1) - Documentation Sites
 ─────────────────────────────────────────────────────────────────────────
 Command                  | R Package        | Other (MkDocs)
 ─────────────────────────┼──────────────────┼─────────────────────
-/folio:site:build        | pkgdown::build   | mkdocs build
 /craft:site:deploy       | gh-pages push    | mkdocs gh-deploy
-/folio:site:check        | validate site    | validate site
-/folio:site:update       | sync code->docs  | sync code->docs
-/folio:site:publish      | teaching site    | teaching site
-/folio:site:status       | site health      | site health
-/folio:site:progress     | semester dash    | semester dash
+
+Note: build/check/update/preview/publish/init/create/status/progress
+were consolidated into `/folio:docs:site`, `/folio:docs:website`, and
+`/folio:docs:check` in the `folio` plugin (v4 split) — see
+docs/MIGRATION-v4.md.
 ─────────────────────────────────────────────────────────────────────────
 ```
 
@@ -503,7 +563,11 @@ Command                  | Description
 /craft:ci:detect         | Detect project type and build tools
 /craft:ci:generate       | Generate GitHub Actions workflow
 /craft:ci:validate       | Validate existing CI workflow
-/craft:ci:status         | Cross-repo CI status dashboard
+/craft:ci:status         | Cross-repo CI status dashboard (--post-release mode)
+/craft:ci:local          | Run CI checks locally
+/craft:ci:fix            | Diagnose and fix CI failures
+/craft:ci:triage         | Triage a red PR/run
+/craft:ci:watch          | Watch a running CI job to completion
 ─────────────────────────────────────────────────────────────────────────
 ```
 
@@ -514,15 +578,8 @@ DIST COMMANDS (2) - Distribution & Packaging
 ─────────────────────────────────────────────────────────────────────────
 Command                  | Description
 ─────────────────────────┼────────────────────────────────────────────
-/craft:dist:marketplace  | Marketplace init, validate, test, publish
-/craft:dist:homebrew     | Generate Homebrew formula
-/craft:dist:curl-install | Generate curl installer
-/craft:dist:pypi         | Package for PyPI
-
-Recommended Install Hierarchy:
-  1. Marketplace (Recommended) — works everywhere, one command
-  2. Homebrew — macOS power users, auto-updates
-  3. Manual — contributors and developers
+/craft:dist:homebrew     | Generate/verify Homebrew formula
+/craft:dist:surfaces     | Read-only view of the multi-surface release registry
 ─────────────────────────────────────────────────────────────────────────
 ```
 
@@ -540,13 +597,14 @@ Command                  | Description
 Sprint planning and roadmap generation moved into the `plan-orchestrator`
 skill (Modes 3–4) — invoke `/craft:plan` and describe the need.
 
-### `/craft:hub orchestrate`
+### `/craft:hub orch`
 
 ```
 ORCHESTRATE COMMANDS (2) - Multi-Agent Coordination
 ────────────────────────────────────────────────────────────────────────
 /craft:orch "task" [mode]     | Launch orchestrator (free-form, fan-out)
 /craft:orch:drive [spec]      | Spec-driven autonomous /goal loop → verified green
+/craft:orch:workflow [file]   | Coded, deterministic workflow (fixed waves, schema-gated)
 /craft:orch:plan              | (deprecated → plan-orchestrator skill)
 
 Modes:
@@ -564,7 +622,7 @@ Quick orchestration (--orch flag on any command):
 
 ---
 
-## Skills (38 Auto-Activated)
+## Skills (39 Auto-Activated)
 
 Skills activate automatically from conversation context — no command needed.
 Full catalog with trigger phrases: **[Skills & Agents](../skills-agents.md)**.
@@ -574,13 +632,14 @@ Full catalog with trigger phrases: **[Skills & Agents](../skills-agents.md)**.
 | Documentation | 8 | doc-classifier, mermaid-linter, changelog-automation, openapi-spec |
 | Distribution | 6 | homebrew-formula/workflow/multi-formula/setup, pypi, marketplace |
 | Orchestration | 4 | **drive-engine** (NEW), plan-orchestrator, task-analyzer, session-state |
-| Workflow | 5 | **prompt-refiner** (NEW — `--refine`), adhd-workflow, **brainstorm**, **brainstorm-insights** (split from brainstorm), task-management |
+| Workflow | 5 | **prompt-refiner** (default-on for brainstorm/do/plan/grill; `--no-refine` to skip), adhd-workflow, **brainstorm** (test plan + Documentation section default-on; `--no-tests`/`--no-docs` to skip), **brainstorm-insights** (session friction reports, split from brainstorm), task-management (background task lifecycle) |
 | Design | 3 | backend / frontend / devops designers |
 | Code · Testing · Guard&Insights | 2 each | lint/refactor, test-strategist/generator, guard-audit/insights-apply |
 | Architecture · Check · CI · Dev · Modes · Planning · Release | 1 each | architecture, preflight-check, project-detector, git-workflow, mode-controller, project-planner, release |
 
 > Newest: `drive-engine` (powers `/craft:orch:drive`) and `prompt-refiner`
-> (powers the `--refine` flag, replacing the deprecated `/refine`).
+> (runs **by default** on brainstorm/do/plan/grill; `--no-refine` to skip, `--yes` to auto-accept).
+> Spec-producers (`brainstorm`/`plan:feature`/`grill`) also scaffold a **tier-inferred test plan** + **doc-scorer Documentation section** by default (`--no-tests`/`--no-docs` to opt out). `arch:plan`/`spec-review` opt in via `--tests`/`--docs`.
 
 ## Agents (8 Specialized)
 
@@ -604,8 +663,8 @@ Full catalog with trigger phrases: **[Skills & Agents](../skills-agents.md)**.
 /release --dry-run        Preview release plan without executing
 /release --autonomous     Fully automated (no prompts, auto-admin)
 
-Pipeline: pre-flight -> bump -> commit -> PR -> CI monitor -> merge ->
-          GitHub release -> docs deploy -> Homebrew tap -> sync dev ->
+Pipeline: pre-flight -> bump -> commit -> PR -> merge ->
+          GitHub release -> Homebrew tap -> docs deploy -> sync dev ->
           verify CI on main -> downstream verification
 
 Version bump: bump-version.sh syncs version across 13 files atomically
@@ -623,8 +682,8 @@ SUGGESTED FOR CLAUDE CODE PLUGIN:
   /craft:check --for release  Full pre-release audit
   /craft:test                 Run pytest suite
   /release --dry-run          Preview release plan
-  /craft:dist:marketplace     Marketplace distribution
-  /craft:docs:claude-md:sync  Sync CLAUDE.md with project state
+  /craft:dist:homebrew        Homebrew formula distribution
+  ask "sync CLAUDE.md"        claude-md-lifecycle skill
 ```
 
 ### Python Package (pyproject.toml detected)
@@ -647,9 +706,10 @@ SUGGESTED FOR R PACKAGE:
   /craft:do "check package"   Smart workflow
   /craft:test                 Run testthat
   /craft:code:release         CRAN submission prep
-  /folio:site:build           Build pkgdown/altdoc site
   /craft:arch:analyze         Check package structure
 ```
+
+Site scaffolding (pkgdown/altdoc setup) moved to `/folio:docs:site` in the v4 split.
 
 ### Node.js Project (package.json detected)
 
@@ -699,19 +759,17 @@ SUGGESTED FOR NODE PROJECT:
 │                                                                        │
 │ Documentation:                                                         │
 │   /craft:docs:update       -> Smart detection + generation             │
-│   /craft:docs:claude-md:sync -> 4-phase CLAUDE.md pipeline            │
-│   /folio:docs:lint         -> Markdown quality checks                  │
-│   /folio:docs:check-links  -> Internal link validation                 │
+│   ask "sync CLAUDE.md"     -> claude-md-lifecycle skill                │
 │                                                                        │
 │ Brainstorming:                                                         │
 │   /brainstorm "topic"              -> Default depth                   │
 │   /brainstorm deep feat s "auth"   -> Deep + feature + save spec      │
 │   /brainstorm "API" --orch         -> Hand off to orchestrator        │
 │                                                                        │
-│ Insights & Guard:                                                      │
-│   /craft:insights          -> Session friction report                  │
-│   /craft:guard:audit       -> Audit guard config                       │
-│   /craft:insights:apply    -> Apply insights to CLAUDE.md              │
+│ Insights & Guard (skill-routed, ask naturally):                       │
+│   ask "show session insights"      -> Friction/goals report            │
+│   ask "audit guard config"         -> Audit guard false positives     │
+│   ask "apply insights to rules"    -> Apply report to CLAUDE.md       │
 │   /craft:check --context   -> Front-load session context               │
 │                                                                        │
 │ CI/CD:                                                                 │
@@ -720,6 +778,6 @@ SUGGESTED FOR NODE PROJECT:
 │   /craft:ci:detect         -> Detect project type + build tools        │
 │                                                                        │
 │ Daily:                                                                 │
-│   ask "git status" -> /craft:check -> ask "sync with remote"           │
+│   ask "git recap" -> /craft:check -> ask "sync with remote"                │
 └────────────────────────────────────────────────────────────────────────┘
 ```
