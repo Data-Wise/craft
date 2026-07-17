@@ -204,7 +204,7 @@ Display template:
 │   /craft:code:deps-check         TEST (0)                               │
 │   /craft:code:docs-check           /craft:test [mode]                   │
 │   /craft:code:demo                                                      │
-│   /craft:code:release            PLAN (2)                               │
+│   /craft:code:release            PLAN (1)                               │
 │   /craft:code:release-watch        /craft:plan [mode]                   │
 │   /craft:code:command-audit        /craft:plan:feature                  │
 │   /craft:code:skill-standards                                           │
@@ -778,6 +778,6 @@ SUGGESTED FOR NODE PROJECT:
 │   /craft:ci:detect         -> Detect project type + build tools        │
 │                                                                        │
 │ Daily:                                                                 │
-│   ask "git recap" -> /craft:check -> ask "sync with remote"                │
+│   /craft:restore -> /craft:check -> ask "sync with remote"                 │
 └────────────────────────────────────────────────────────────────────────┘
 ```
