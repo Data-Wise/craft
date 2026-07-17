@@ -142,7 +142,12 @@ class TestTeachingDocumentation:
         content = guide_path.read_text()
 
         assert "```mermaid" in content, "Missing Mermaid diagram"
-        assert "graph TD" in content or "graph LR" in content, "Mermaid diagram incomplete"
+        assert (
+            "graph TD" in content
+            or "graph LR" in content
+            or "flowchart TD" in content
+            or "flowchart LR" in content
+        ), "Mermaid diagram incomplete"
 
     def test_teaching_guide_has_code_examples(self):
         """Teaching guide should include practical examples"""

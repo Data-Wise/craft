@@ -107,7 +107,7 @@ claude
 
 ```
 Craft v4.0.0 loaded
-47 commands available
+48 commands available
 ```
 
 ### Using in Claude Code CLI
@@ -504,7 +504,7 @@ protection") or see
 **For plugin development and contributions:**
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
-- 📖 **[Commands Reference](docs/commands.md)** - All 47 commands documented
+- 📖 **[Commands Reference](docs/commands.md)** - All 48 commands documented
 - 📖 **[Skills & Agents](docs/skills-agents.md)** - 40 skills, 2 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
