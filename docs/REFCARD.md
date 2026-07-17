@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 4.0.0 (released 2026-07-09)                       │
-│  Commands: 47 | Agents: 2 | Skills: 40                      │
-│  Tests: 2056+ passing                                        │
+│  Version: 4.1.0 (released 2026-07-17)                       │
+│  Commands: 48 | Agents: 2 | Skills: 40                      │
+│  Tests: 2647+ passing                                        │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v4.0.0: Guard Suite Consolidation                          │
+│  v4.1.0: /craft:restore + post-v4 doc-staleness cleanup      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
