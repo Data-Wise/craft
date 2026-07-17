@@ -168,6 +168,7 @@ nav:
       - CI Monitoring Architecture: architecture/ci-monitoring.md
       - Version Sync Architecture: architecture/version-sync.md
       - Mermaid Pipeline Architecture: architecture/mermaid-validation-pipeline.md
+      - "/craft:restore Architecture": architecture/craft-restore-pipeline.md
       - "ADR-001: Workflow vs Worktree": adr/ADR-001-workflow-branch-guard.md
       - "ADR-002: Done Command/Skill Consolidation": adr/ADR-002-done-command-skill-consolidation.md
       - "ADR-003: Release Drift Advisory": adr/ADR-003-release-drift-advisory-not-hard-gate.md
@@ -232,6 +233,7 @@ nav:
       - docs:changelog Tutorial: tutorials/TUTORIAL-docs-changelog.md
       - git:guard Tutorial: tutorials/TUTORIAL-git-guard.md
       - git:issue-check Tutorial: tutorials/TUTORIAL-git-issue-check.md
+      - site:deploy Tutorial: tutorials/TUTORIAL-site-deploy.md
       - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
 
   # 3. TEACHING - Dedicated teaching workflow section
@@ -423,6 +425,7 @@ nav:
       - Command & Spec Conventions: internal/COMMAND-SPEC-CONVENTIONS.md
       - Session Grounding Prompt: internal/GROUNDING-craft.md
       - Token Efficiency: internal/TOKEN-EFFICIENCY-craft.md
+      - Discovery Engine Usage: internal/DISCOVERY-ENGINE-USAGE.md
 
   # 8. QUICK REFERENCE CARD - Printable reference
   - 📋 Quick Reference Card: REFCARD.md
