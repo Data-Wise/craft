@@ -1,5 +1,7 @@
 # Tutorial: Git Worktree Setup and Workflow
 
+> **Note (2026-07 v4 consolidation):** `/craft:git:worktree` was folded into the `dev/git` skill — the command itself no longer exists. The concepts below are still accurate; replace any `/craft:git:worktree <args>` example with a natural request (e.g. "create a worktree for feature/x") and the skill runs the equivalent steps. See [`skills/dev/git/references/worktree.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) for the current reference.
+
 > **What you'll learn:** How to use git worktrees with craft's auto-setup feature for parallel development without branch switching.
 >
 > **Level:** Beginner to Intermediate

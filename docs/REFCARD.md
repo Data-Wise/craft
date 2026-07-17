@@ -1557,6 +1557,6 @@ Most of these moved to the `folio` plugin (`/craft:docs:changelog` stays in craf
 
 ## Links
 
-- **[Full Documentation](guide/getting-started.md)** (99% complete)
+- **[Full Documentation](guide/getting-started.md)**
 - **[GitHub Issues](https://github.com/Data-Wise/craft/issues)**
 - **[ROADMAP](https://github.com/Data-Wise/craft/blob/main/docs/archive/ROADMAP.md)**
