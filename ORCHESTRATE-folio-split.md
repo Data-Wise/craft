@@ -216,9 +216,13 @@ ledger-recorded deviations.
 - [x] 4.1 Thin `/folio:do` (routes folio's own commands only — no cross-plugin dispatch) — DONE
       2026-07-16: folio PR #2 (`do.md`), #6 (tests), #7 (docs+version), all merged. Corrected
       task numbering + full acceptance/verification: `tasks/todo.md` T4.1/T4.1b/T4.1c.
-- [ ] 4.2 **Release ORDER (fixes devops-M5): folio v1.0.0 FIRST** — confirmed live +
-      `brew install` verified — **then craft v4.0.0 tag LAST**. Both dev→main merge-commit.
-      Ask before EACH step.
+- [x] 4.2 **Release ORDER (fixes devops-M5): folio v1.0.0 FIRST** — DONE 2026-07-16. folio
+      v1.0.0 released first (after a premature-tag mistake was caught by
+      `pre-release-check.sh` before any Homebrew damage, deleted, and redone properly with
+      the real version bump + CHANGELOG); `brew install`/`brew audit` verified clean. craft
+      v4.0.0 tagged LAST (PR #294 dev→main, tag+release, `homebrew-release.yml` 3/3 jobs
+      green, `brew audit`/`brew upgrade` verified clean). Every merge/tag/release step asked
+      first, per plan.
 - [x] 4.3 **Rollback runbook** (written BEFORE 4.2 executes) — DONE 2026-07-16, craft PR
       [#293](https://github.com/Data-Wise/craft/pull/293) MERGED:
       `docs/RUNBOOK-v4-release-rollback.md`. craft revert = revert PR on `main` + restore prior
@@ -227,9 +231,25 @@ ledger-recorded deviations.
       `Formula/folio.rb` entirely + unpublish marketplace entry. The partial-rollback question
       (folio ships, craft stalls) is stated explicitly as unresolved — the runbook instructs
       surfacing it, not guessing.
-- [ ] 4.4 wf-p4-verify: both suites on main, brew audit both formulas, site checks.
-- [ ] **GATE 4**: two independent plugins; neither needs the other to ship. Record OUTCOME in
-      ORCHESTRATE + .STATUS + memory; delete `tasks/` from the branch before final merge.
+- [x] 4.4 wf-p4-verify — DONE 2026-07-16: both `main`s green (craft 5/5 workflows post-merge;
+      folio 2/2 Folio CI runs); `brew audit` clean for both formulas; craft's docs site
+      (Deploy Documentation workflow) confirmed green. Folio has no separate docs-site
+      workflow of its own. Folio's Aggregator Sync fails BY DESIGN — it's a new plugin never
+      added to the shared Data-Wise aggregator's `marketplace.json`, and
+      `aggregator-sync.sh` deliberately refuses to silently add unknown plugins (a separate,
+      reviewed decision, not part of this release train).
+- [x] **GATE 4** — DONE 2026-07-16. Two independent plugins shipped; neither needed the
+      other. Outcome recorded in `.STATUS` (milestone entry), ORCHESTRATE (this file), and
+      session memory. `tasks/` deleted: craft's (`plan.md`/`todo.md`/`filter-repo-paths.txt`)
+      direct-committed to `dev` (unprotected); folio's (`tasks/session-plan-T2.4-CP2.md`) via
+      PRs [#15](https://github.com/Data-Wise/folio/pull/15) (dev) and
+      [#16](https://github.com/Data-Wise/folio/pull/16) (main) — a direct-branch delete was
+      blocked by the permission classifier, so a small reviewable PR was used instead.
+
+**Known follow-up, not part of this train**: `docs/REFCARD.md` has the same staleness
+pattern found in `commands/hub.md` during this release's docs sweep (stale per-category
+subtotals, 20+ examples for `/craft:git:worktree` which no longer exists as a command) —
+flagged during the T4.4 docs pass, not yet fixed.
 
 ---
 
