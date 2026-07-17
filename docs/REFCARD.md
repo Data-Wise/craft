@@ -1333,6 +1333,15 @@ flowchart LR
 **Other Workflow Commands:**
 
 ```bash
+# Restore context (git + session state)
+/craft:restore
+# Combines: dev/git skill's git-activity recap (commits, branch
+#   ahead/behind, unpushed work, open PRs) + adhd-workflow's
+#   .STATUS-based session recap in one read-only summary
+# Modes: default | detailed | summary (apply to the git-activity
+#   portion; adhd-workflow's recap has no mode support)
+# Read-only — no --sync, never writes .STATUS or commits
+
 # Get next step
 /craft:next
 # Analyzes: Current state, recent changes

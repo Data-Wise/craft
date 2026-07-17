@@ -14,7 +14,7 @@ this page is now a thin index into the two places that stay current:
 
 ## Full Command List
 
-47 commands across 10 categories. See [docs/commands.md](commands.md) for the complete A-Z table,
+48 commands across 10 categories. See [docs/commands.md](commands.md) for the complete A-Z table,
 or use `/craft:hub` (and `/craft:hub <category>`) to browse interactively from within Claude Code.
 
 | Category | Count | Reference |

@@ -275,6 +275,7 @@ nav:
       - /craft:brainstorm: commands/brainstorm.md
       - /craft:brief: commands/brief.md
       - /craft:done: commands/done.md
+      - /craft:restore: commands/restore.md
       - /craft:arch:analyze: commands/arch/analyze.md
       - /craft:code:lint: commands/code/lint.md
       - /craft:code:deps-audit: commands/code/deps-audit.md

@@ -33,7 +33,7 @@ Try these commands yourself and see the magic happen!
 │ /craft:hub - Command Discovery                              │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│ 47 commands available across 9 categories                   │
+│ 48 commands available across 9 categories                   │
 │                                                             │
 │ 🎯 SMART (4 commands)                                       │
 │   /craft:do              - Universal task router            │
@@ -348,7 +348,7 @@ You've seen individual commands in action. Now learn how they work together:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    Explore all 47 commands organized by category
+    Explore all 48 commands organized by category
 
 - :rocket:{ .lg .middle } **[Quick Reference](REFCARD.md)**
 
