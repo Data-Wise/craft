@@ -82,7 +82,7 @@ Transform `/craft:docs:update` from an all-or-nothing batch operation into an in
 ### Workflow Phases
 
 ```mermaid
-graph TD
+flowchart TD
     Start["/craft:docs:update"] --> DryRun{--dry-run?}
 
     DryRun -->|Yes| Preview[Show all changes]

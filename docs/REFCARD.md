@@ -1044,7 +1044,7 @@ claude plugin update <name>@local-plugins
 The full pipeline connects brainstorming through to implementation:
 
 ```mermaid
-graph LR
+flowchart LR
     A[brainstorm] --> B[spec]
     B --> C[ORCHESTRATE]
     C --> D[worktree]
@@ -1322,7 +1322,7 @@ end tell'
 **Insights Lifecycle:**
 
 ```mermaid
-graph LR
+flowchart LR
     A[sessions] --> B[facets data]
     B --> C[insights skill]
     C --> D[CLAUDE.md rules]

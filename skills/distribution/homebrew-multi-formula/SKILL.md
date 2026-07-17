@@ -281,7 +281,7 @@ Generate Mermaid diagram of formula dependencies:
 Output:
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph "Data-Wise Tap"
         aiterm
         atlas

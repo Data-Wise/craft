@@ -30,26 +30,26 @@ A read-only 5-step pipeline that analyzes your `branch-guard.sh` for false posit
 
 ```mermaid
 flowchart TD
-    Start(["/guard-audit"]) --> D[Step 1: Discovery]
+    Start(["/guard-audit"]) --> D["Step 1: Discovery"]
     D --> D1[Read branch-guard.sh]
     D1 --> D2[Extract protection rules]
     D2 --> D3[Read .claude/branch-guard.json]
     D3 --> D4[Present rule summary]
 
-    D4 --> F[Step 2: Friction Analysis]
+    D4 --> F["Step 2: Friction Analysis"]
     F --> F1[Map each rule to false positive scenarios]
     F1 --> F2{False positives found?}
     F2 -->|No| Clean[Report clean audit — no changes needed]
-    F2 -->|Yes| T[Step 3: Test Harness]
+    F2 -->|Yes| T["Step 3: Test Harness"]
 
     T --> T1[Generate test scenarios]
     T1 --> T2[Run tests against guard script]
     T2 --> T3[Identify incorrect triggers]
 
-    T3 --> R[Step 4: Friction Report]
+    T3 --> R["Step 4: Friction Report"]
     R --> R1[Show recommendations with config changes]
 
-    R1 --> A[Step 5: Apply]
+    R1 --> A["Step 5: Apply"]
     A --> A1{User confirms?}
     A1 -->|Yes| A2[Write .claude/branch-guard.json]
     A1 -->|No| Skip[Keep existing config]
@@ -76,14 +76,14 @@ Bridges the gap between `/insights` (which analyzes your usage patterns) and you
 
 ```mermaid
 flowchart TD
-    Start(["/insights-apply"]) --> P[Step 1: Parse Insights]
+    Start(["/insights-apply"]) --> P["Step 1: Parse Insights"]
     P --> P1{report.html exists?}
     P1 -->|Yes| P3[Extract claude_md_additions]
     P1 -->|No| P2{facets/ exists?}
     P2 -->|Yes| P3
-    P2 -->|No| Err[Error: Run /insights first]
+    P2 -->|No| Err["Error: Run /insights first"]
 
-    P3 --> S[Step 2: Present Suggestions]
+    P3 --> S["Step 2: Present Suggestions"]
     S --> Loop{Next suggestion?}
     Loop -->|Yes| Show[Show title + content + priority]
     Show --> Ask{User decision?}
@@ -94,15 +94,15 @@ flowchart TD
     Approve --> Loop
     Skip --> Loop
 
-    Loop -->|No more| Apply[Step 3: Apply via Sync Pipeline]
+    Loop -->|No more| Apply["Step 3: Apply via Sync Pipeline"]
     Apply --> Sync{sync pipeline available?}
     Sync -->|Yes| S1[python3 claude_md_sync.py --add-section]
     Sync -->|No| S2[Direct append to CLAUDE.md]
 
-    S1 --> Budget[Step 4: Budget Check]
+    S1 --> Budget["Step 4: Budget Check"]
     S2 --> Budget
     Budget --> B1{Over 200 lines?}
-    B1 -->|No| Report[Step 5: Report]
+    B1 -->|No| Report["Step 5: Report"]
     B1 -->|Yes| Warn[Show budget warning + options]
     Warn --> Report
     Report --> Done([Done — CLAUDE.md updated])
@@ -167,12 +167,12 @@ flowchart TD
     Detect --> Phase[Phase Detection]
 
     Phase --> P1{On dev branch?}
-    P1 -->|Yes| Release[Phase: release]
+    P1 -->|Yes| Release["Phase: release"]
     P1 -->|No| P2{PR exists for branch?}
-    P2 -->|Yes| PRPrep[Phase: pr-prep]
+    P2 -->|Yes| PRPrep["Phase: pr-prep"]
     P2 -->|No| P3{Test files modified recently?}
-    P3 -->|Yes| Testing[Phase: testing]
-    P3 -->|No| Impl[Phase: implementation]
+    P3 -->|Yes| Testing["Phase: testing"]
+    P3 -->|No| Impl["Phase: implementation"]
 
     Release --> Display
     PRPrep --> Display
@@ -259,12 +259,12 @@ flowchart TD
     S4 -->|No| Abort4["ABORTED: Open blockers exist"]
     S4 -->|Yes| Pipeline[Begin Pipeline]
 
-    Pipeline --> V[Step 1: Version bump — auto-detect]
-    V --> CL[Step 2: Changelog — auto-generate]
-    CL --> Commit[Step 3: Commit + tag — auto-confirm]
-    Commit --> PR[Step 4: Create PR — auto-fill]
+    Pipeline --> V["Step 1: Version bump — auto-detect"]
+    V --> CL["Step 2: Changelog — auto-generate"]
+    CL --> Commit["Step 3: Commit + tag — auto-confirm"]
+    Commit --> PR["Step 4: Create PR — auto-fill"]
     PR --> Merge{Step 5: Merge PR}
-    Merge -->|Success| Pub[Step 6: Publish — Homebrew/PyPI]
+    Merge -->|Success| Pub["Step 6: Publish — Homebrew/PyPI"]
     Merge -->|Fail| AbortM["ABORTED at merge\nState preserved for recovery"]
     Pub --> Done([Done — released])
 
@@ -294,24 +294,24 @@ Instead of forking agent contexts in the same directory (risking file conflicts)
 
 ```mermaid
 flowchart TD
-    Start(["/craft:orch --swarm"]) --> Parse[Step 1: Parse ORCHESTRATE file]
+    Start(["/craft:orch --swarm"]) --> Parse["Step 1: Parse ORCHESTRATE file"]
     Parse --> Plan[Extract agent assignments + file scopes]
     Plan --> Base["Step 2: Create convergence branch\nfeature/swarm-task"]
 
-    Base --> Agents[Step 3: Create worktrees per agent]
+    Base --> Agents["Step 3: Create worktrees per agent"]
     Agents --> W1["Agent 1: swarm-task-agent1\nFocus: tests/"]
     Agents --> W2["Agent 2: swarm-task-agent2\nFocus: src/"]
     Agents --> W3["Agent 3: swarm-task-agent3\nFocus: docs/"]
 
-    W1 --> Launch[Step 4: Launch agents in parallel]
+    W1 --> Launch["Step 4: Launch agents in parallel"]
     W2 --> Launch
     W3 --> Launch
 
-    Launch --> Wait[Step 5: Wait for completion]
-    Wait --> Converge[Step 6: Merge all branches]
+    Launch --> Wait["Step 5: Wait for completion"]
+    Wait --> Converge["Step 6: Merge all branches"]
     Converge --> M1{Merge conflicts?}
     M1 -->|Yes| Conflict["Stop — report conflicts\nAsk user to resolve"]
-    M1 -->|No| Test[Step 7: Run tests on merged branch]
+    M1 -->|No| Test["Step 7: Run tests on merged branch"]
     Test --> T1{Tests pass?}
     T1 -->|Yes| PR["Step 8: Create PR to dev"]
     T1 -->|No| Fix["Report failures — user fixes"]
@@ -415,7 +415,7 @@ When creating an ORCHESTRATE file, insights data automatically feeds into the "F
 The full insights lifecycle from session data to workflow improvements:
 
 ```mermaid
-graph TD
+flowchart TD
     S[Sessions] --> F[Facets Data]
     F --> I["/craft:insights"]
     I --> R1[CLAUDE.md Rules]

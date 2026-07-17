@@ -108,7 +108,7 @@ priority: high
 ### Integration Points
 
 ```mermaid
-graph TB
+flowchart TB
     A[User Action] --> B{Which Command?}
 
     B -->|/craft:site:update| C[Site Update Flow]

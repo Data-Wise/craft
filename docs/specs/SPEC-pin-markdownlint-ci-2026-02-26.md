@@ -45,7 +45,7 @@ Pin `markdownlint-cli2` as an exact-version devDependency, commit `package-lock.
 ### Dependency Resolution Flow
 
 ```mermaid
-graph TD
+flowchart TD
     PKG["package.json<br/>markdownlint-cli2: 0.14.0"] --> LOCK["package-lock.json<br/>(committed to git)"]
     LOCK --> CI_MAIN["ci.yml<br/>npm ci + cache"]
     LOCK --> CI_DOCS["docs-quality.yml<br/>npm ci + cache"]

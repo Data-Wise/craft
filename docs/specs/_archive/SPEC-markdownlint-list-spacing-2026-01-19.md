@@ -57,9 +57,9 @@ Enhance Craft's `/craft:docs:lint` command to strictly enforce MD030 (spaces aft
 ### Current State
 
 ```mermaid
-graph TD
-    User[User runs /craft:docs:lint] --> CLI[Command Parser]
-    CLI --> Detect[Detect Scope<br/>docs/*.md]
+flowchart TD
+    User["User runs /craft:docs:lint"] --> CLI[Command Parser]
+    CLI --> Detect["Detect Scope<br/>docs/*.md"]
     Detect --> MLint[markdownlint-cli2]
     MLint --> Config[.markdownlint.json]
     Config --> Rules{Rules Check}
@@ -80,15 +80,15 @@ graph TD
 ### Proposed State
 
 ```mermaid
-graph TD
-    User[User runs /craft:docs:lint] --> CLI[Command Parser]
-    CLI --> Detect[Detect Scope<br/>docs/*.md]
+flowchart TD
+    User["User runs /craft:docs:lint"] --> CLI[Command Parser]
+    CLI --> Detect["Detect Scope<br/>docs/*.md"]
     Detect --> MLint[markdownlint-cli2]
-    MLint --> Config[.markdownlint.json<br/>+ MD030 explicit]
+    MLint --> Config[".markdownlint.json<br/>+ MD030 explicit"]
     Config --> Rules{Rules Check}
-    Rules -->|MD032 enabled| Check1[Blank lines: strict]
-    Rules -->|MD030 enabled| Check2[List spacing: 1 space]
-    Rules -->|MD004 enforced| Check3[Marker style: consistent]
+    Rules -->|MD032 enabled| Check1["Blank lines: strict"]
+    Rules -->|MD030 enabled| Check2["List spacing: 1 space"]
+    Rules -->|MD004 enforced| Check3["Marker style: consistent"]
     Rules -->|Other rules| Check4[40+ other rules]
     Check1 --> Report[Detailed Report]
     Check2 --> Report

@@ -2,6 +2,8 @@
 
 ## Active Work
 
+> **TL;DR**: Use `/craft:do <task>` for smart routing, `/craft:check` before commits, `/craft:git:worktree` for feature branches. **Always start work from `dev` branch** - never commit to `main` directly.
+
 **48 commands** · **40 skills** · **2 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 > `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (7 commands)
@@ -55,9 +57,11 @@ Override local hook: ask "unprotect dev" / "bypass branch guard" (`dev/git` skil
 | Smart routing | `/craft:do <task>` |
 | Pre-flight check | `/craft:check` |
 | Lint code | `/craft:code:lint` |
+| Lint markdown | `/craft:docs:lint` |
 | Release pipeline | `/release` or `/release -n` |
 | Brainstorm | `/craft:brainstorm` |
 | Orchestrate | `/craft:orch` |
+| CLAUDE.md sync | `/craft:docs:claude-md:sync` |
 
 ## Execution Modes
 

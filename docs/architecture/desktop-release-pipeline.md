@@ -18,7 +18,7 @@ The pipeline is implemented across two files:
 ## 2. Component Relationships
 
 ```mermaid
-graph TB
+flowchart TB
     release["/release skill"]
     homebrew["/craft:dist:homebrew"]
 
@@ -138,7 +138,7 @@ sequenceDiagram
 The cask updater treats a `.rb` cask file as having three distinct zones with different update frequencies and triggers.
 
 ```mermaid
-graph LR
+flowchart LR
     subgraph "Cask File Zones"
         Z1["Zone 1: Version + SHA256\n──────────────────\nversion '1.21.0'\non_arm { sha256 '...' }\non_intel { sha256 '...' }\n\nUpdated: every release\nTrigger: always (10b-7)"]
 

@@ -66,7 +66,7 @@ Consolidate Craft's test infrastructure from 7 overlapping commands + 2 skills i
 ## Architecture
 
 ```mermaid
-graph TD
+flowchart TD
     A["/craft:test:gen"] -->|detects| B{Project Type}
     B -->|plugin.json| C[Claude Plugin Template]
     B -->|*.zsh| D[ZSH Plugin Template]

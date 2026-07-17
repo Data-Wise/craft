@@ -127,7 +127,7 @@ Create visual architecture diagrams in Mermaid format.
 Generates mermaid diagrams like:
 
 ```mermaid
-graph TB
+flowchart TB
     CLI[CLI Layer] --> COMMANDS[Commands]
     COMMANDS --> SKILLS[Skills]
     SKILLS --> AGENTS[Agents]

@@ -278,7 +278,7 @@ Complexity Score: 6.5/10 (moderate)
 **Output Example** (Mermaid):
 
 ```mermaid
-graph TB
+flowchart TB
     Client[Client App]
     API[API Gateway]
     Auth[Auth Service]

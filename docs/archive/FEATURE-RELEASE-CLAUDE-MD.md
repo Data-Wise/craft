@@ -209,7 +209,7 @@ The Claude-MD Command Suite is a comprehensive set of tools for managing CLAUDE.
 ### System Overview
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "Commands Layer"
         Sync[sync.md]
         Init[init.md]

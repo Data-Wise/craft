@@ -41,7 +41,7 @@ Refactor craft's Homebrew automation to close CI coverage gaps, codify hard-won 
 ## Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "craft commands"
         FORMULA["/craft:dist:homebrew formula"]
         WORKFLOW["/craft:dist:homebrew workflow"]

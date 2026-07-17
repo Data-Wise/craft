@@ -53,14 +53,14 @@ documentation, not enforcement, and the very drift the system exists to prevent 
 ```mermaid
 flowchart LR
   subgraph Local["Local machine (session-gated rules live here)"]
-    SS[SessionStart hook<br/>run_rules.py --target ~/.claude/skills]
-    PC[pre-commit<br/>--selftest + render --check]
+    SS["SessionStart hook<br/>run_rules.py --target ~/.claude/skills"]
+    PC["pre-commit<br/>--selftest + render --check"]
   end
   subgraph Remote["GitHub"]
-    CI[CI job<br/>pytest -m governance + selftest + drift]
-    REL[release pre-flight<br/>run_rules.py --json]
+    CI["CI job<br/>pytest -m governance + selftest + drift"]
+    REL["release pre-flight<br/>run_rules.py --json"]
   end
-  RULES[(RULES.yaml<br/>single source of truth)]
+  RULES["(RULES.yaml<br/>single source of truth)"]
   RULES --> SS & PC & CI & REL
   SS -. "surfaces RED into session context<br/>(visibility, not block)" .-> Dev
   PC -. "blocks the commit (author gate)" .-> Dev[(developer)]

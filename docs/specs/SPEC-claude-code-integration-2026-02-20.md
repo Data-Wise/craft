@@ -70,10 +70,10 @@ Integrate three Claude Code v2.1.49 platform features into craft's existing comm
 ## Architecture
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "Plugin Config (New)"
-        SJ[settings.json<br/>Default config] --> CJ[config.json<br/>User overrides]
-        CJ --> Runtime[Runtime Config<br/>Merged values]
+        SJ["settings.json<br/>Default config"] --> CJ[config.json<br/>User overrides]
+        CJ --> Runtime["Runtime Config<br/>Merged values"]
     end
 
     subgraph "Agent Enhancements (New)"
@@ -86,13 +86,13 @@ graph TB
 
     subgraph "Multi-Repo Flow (Existing, Now Documented)"
         SPEC[Spec with cross-repo paths] --> DETECT["orchestrate:plan<br/>Auto-detects ~/projects/..."]
-        DETECT --> PAIR[Paired Worktrees<br/>Same branch name]
-        PAIR --> ORCH1[ORCHESTRATE.md<br/>Repo A]
-        PAIR --> ORCH2[ORCHESTRATE.md<br/>Repo B]
-        ORCH1 --> CI[ci:status<br/>Cross-repo dashboard]
+        DETECT --> PAIR["Paired Worktrees<br/>Same branch name"]
+        PAIR --> ORCH1["ORCHESTRATE.md<br/>Repo A"]
+        PAIR --> ORCH2["ORCHESTRATE.md<br/>Repo B"]
+        ORCH1 --> CI["ci:status<br/>Cross-repo dashboard"]
         ORCH2 --> CI
-        CI --> PR1[PR to dev<br/>Repo A]
-        CI --> PR2[PR to dev<br/>Repo B]
+        CI --> PR1["PR to dev<br/>Repo A"]
+        CI --> PR2["PR to dev<br/>Repo B"]
     end
 ```
 

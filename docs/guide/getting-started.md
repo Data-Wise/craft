@@ -105,7 +105,7 @@ Check for stale docs:
 For features that need planning, orchestration, and isolated development:
 
 ```mermaid
-graph LR
+flowchart LR
     A[brainstorm] --> B[spec]
     B --> C[ORCHESTRATE]
     C --> D[worktree]

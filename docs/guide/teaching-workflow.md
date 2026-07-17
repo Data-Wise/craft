@@ -115,7 +115,7 @@ if mode.is_teaching:
 ### Preview-Before-Publish Workflow
 
 ```mermaid
-graph TD
+flowchart TD
     A[Working on dev] -->|/folio:site:build| B[Preview Build]
     B --> C{Looks good?}
     C -->|No| A

@@ -84,7 +84,7 @@ Embed dependency checking, installation, and management directly into `/craft:do
 ### Component Diagram
 
 ```mermaid
-graph TB
+flowchart TB
     subgraph "Command Layer"
         Demo["/craft:docs:demo"]
         Check["--check flag"]
@@ -466,23 +466,23 @@ See API Design section for YAML structure.
 
 ```mermaid
 flowchart TD
-    Start[User runs:<br/>/craft:docs:demo 'feature'] --> CheckCache{Cache<br/>exists?}
+    Start["User runs:<br/>/craft:docs:demo 'feature'"] --> CheckCache{Cache<br/>exists?}
 
     CheckCache -->|No| RunCheck[Run dependency check]
     CheckCache -->|Yes| UseCache[Use cached results]
 
-    RunCheck --> DetectMissing[Detect: agg is missing]
+    RunCheck --> DetectMissing["Detect: agg is missing"]
     UseCache --> DetectMissing
 
     DetectMissing --> ShowTable["┌─────────────────────────────────┐<br/>│ ⚠️  MISSING DEPENDENCIES       │<br/>├─────────────────────────────────┤<br/>│ Tool      Status    Version     │<br/>│ asciinema ✓ OK      2.3.0       │<br/>│ agg       ✗ MISSING -           │<br/>│ gifsicle  ✓ OK      1.96        │<br/>└─────────────────────────────────┘"]
 
     ShowTable --> AskConsent["❓ Install missing dependencies?<br/>(agg via cargo install)"]
 
-    AskConsent -->|Yes| TryBrew[Try: cargo install agg]
+    AskConsent -->|Yes| TryBrew["Try: cargo install agg"]
     AskConsent -->|No| ShowManual["📋 Manual install:<br/>cargo install --git https://github.com/asciinema/agg"]
 
     TryBrew -->|Success| UpdateCache[Update cache]
-    TryBrew -->|Failed| TryCargo[Try: binary download]
+    TryBrew -->|Failed| TryCargo["Try: binary download"]
 
     TryCargo -->|Success| UpdateCache
     TryCargo -->|Failed| ShowManual
