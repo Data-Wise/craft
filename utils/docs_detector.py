@@ -639,7 +639,7 @@ class DocsDetector:
         """Extract command name from file path or frontmatter"""
         # Try to extract from first line (e.g., "# /craft:do - Title")
         with open(cmd_file, encoding='utf-8') as f:
-            first_lines = f.read(500)
+            first_lines = f.read(2000)
 
         match = re.search(r'/craft:[^\s]+', first_lines)
         if match:
