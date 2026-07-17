@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 47 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.0.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types), dead-agent-dispatch cleanup with verify-surfaces --report-only/--version flags and a release-rollback runbook (PR #270), and guard-suite consolidation with --classify/GUARD_DRY_RUN=1 ground-truth mode across both hooks (PR #272).">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.1.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2651,6 +2651,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../architecture/craft-restore-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/prompt-refiner-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prompt-refiner Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
         
   
@@ -3278,10 +3334,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_59" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_59" id="__nav_2_4_59_label" tabindex="0">
             
   
   
@@ -3299,8 +3355,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_57">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_59_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_59">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4483,6 +4539,34 @@
     
   
     git:issue-check Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-site-deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    site:deploy Tutorial
   
 
     
@@ -5753,6 +5837,34 @@
     
   
     /craft:done
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore
   
 
     
@@ -10041,6 +10153,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/DISCOVERY-ENGINE-USAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discovery Engine Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10459,26 +10599,26 @@
 <p><strong>When to use:</strong> After the guard blocks something it shouldn't, or periodically to tune sensitivity.</p>
 <p><strong>Key principle:</strong> The guard script is the "engine" and <code>.claude/branch-guard.json</code> is the "tuning knobs." This skill only adjusts the knobs.</p>
 <pre class="mermaid"><code>flowchart TD
-    Start(["/guard-audit"]) --&gt; D[Step 1: Discovery]
+    Start(["/guard-audit"]) --&gt; D["Step 1: Discovery"]
     D --&gt; D1[Read branch-guard.sh]
     D1 --&gt; D2[Extract protection rules]
     D2 --&gt; D3[Read .claude/branch-guard.json]
     D3 --&gt; D4[Present rule summary]
 
-    D4 --&gt; F[Step 2: Friction Analysis]
+    D4 --&gt; F["Step 2: Friction Analysis"]
     F --&gt; F1[Map each rule to false positive scenarios]
     F1 --&gt; F2{False positives found?}
     F2 --&gt;|No| Clean[Report clean audit — no changes needed]
-    F2 --&gt;|Yes| T[Step 3: Test Harness]
+    F2 --&gt;|Yes| T["Step 3: Test Harness"]
 
     T --&gt; T1[Generate test scenarios]
     T1 --&gt; T2[Run tests against guard script]
     T2 --&gt; T3[Identify incorrect triggers]
 
-    T3 --&gt; R[Step 4: Friction Report]
+    T3 --&gt; R["Step 4: Friction Report"]
     R --&gt; R1[Show recommendations with config changes]
 
-    R1 --&gt; A[Step 5: Apply]
+    R1 --&gt; A["Step 5: Apply"]
     A --&gt; A1{User confirms?}
     A1 --&gt;|Yes| A2[Write .claude/branch-guard.json]
     A1 --&gt;|No| Skip[Keep existing config]
@@ -10497,14 +10637,14 @@
 <p><strong>When to use:</strong> After running <code>/insights</code> and seeing suggestions you want to persist.</p>
 <p><strong>Key principle:</strong> Targets global CLAUDE.md only — insights are cross-project patterns, not project-specific.</p>
 <pre class="mermaid"><code>flowchart TD
-    Start(["/insights-apply"]) --&gt; P[Step 1: Parse Insights]
+    Start(["/insights-apply"]) --&gt; P["Step 1: Parse Insights"]
     P --&gt; P1{report.html exists?}
     P1 --&gt;|Yes| P3[Extract claude_md_additions]
     P1 --&gt;|No| P2{facets/ exists?}
     P2 --&gt;|Yes| P3
-    P2 --&gt;|No| Err[Error: Run /insights first]
+    P2 --&gt;|No| Err["Error: Run /insights first"]
 
-    P3 --&gt; S[Step 2: Present Suggestions]
+    P3 --&gt; S["Step 2: Present Suggestions"]
     S --&gt; Loop{Next suggestion?}
     Loop --&gt;|Yes| Show[Show title + content + priority]
     Show --&gt; Ask{User decision?}
@@ -10515,15 +10655,15 @@
     Approve --&gt; Loop
     Skip --&gt; Loop
 
-    Loop --&gt;|No more| Apply[Step 3: Apply via Sync Pipeline]
+    Loop --&gt;|No more| Apply["Step 3: Apply via Sync Pipeline"]
     Apply --&gt; Sync{sync pipeline available?}
     Sync --&gt;|Yes| S1[python3 claude_md_sync.py --add-section]
     Sync --&gt;|No| S2[Direct append to CLAUDE.md]
 
-    S1 --&gt; Budget[Step 4: Budget Check]
+    S1 --&gt; Budget["Step 4: Budget Check"]
     S2 --&gt; Budget
     Budget --&gt; B1{Over 200 lines?}
-    B1 --&gt;|No| Report[Step 5: Report]
+    B1 --&gt;|No| Report["Step 5: Report"]
     B1 --&gt;|Yes| Warn[Show budget warning + options]
     Warn --&gt; Report
     Report --&gt; Done([Done — CLAUDE.md updated])
@@ -10571,12 +10711,12 @@
     Detect --&gt; Phase[Phase Detection]
 
     Phase --&gt; P1{On dev branch?}
-    P1 --&gt;|Yes| Release[Phase: release]
+    P1 --&gt;|Yes| Release["Phase: release"]
     P1 --&gt;|No| P2{PR exists for branch?}
-    P2 --&gt;|Yes| PRPrep[Phase: pr-prep]
+    P2 --&gt;|Yes| PRPrep["Phase: pr-prep"]
     P2 --&gt;|No| P3{Test files modified recently?}
-    P3 --&gt;|Yes| Testing[Phase: testing]
-    P3 --&gt;|No| Impl[Phase: implementation]
+    P3 --&gt;|Yes| Testing["Phase: testing"]
+    P3 --&gt;|No| Impl["Phase: implementation"]
 
     Release --&gt; Display
     PRPrep --&gt; Display
@@ -10649,12 +10789,12 @@
     S4 --&gt;|No| Abort4["ABORTED: Open blockers exist"]
     S4 --&gt;|Yes| Pipeline[Begin Pipeline]
 
-    Pipeline --&gt; V[Step 1: Version bump — auto-detect]
-    V --&gt; CL[Step 2: Changelog — auto-generate]
-    CL --&gt; Commit[Step 3: Commit + tag — auto-confirm]
-    Commit --&gt; PR[Step 4: Create PR — auto-fill]
+    Pipeline --&gt; V["Step 1: Version bump — auto-detect"]
+    V --&gt; CL["Step 2: Changelog — auto-generate"]
+    CL --&gt; Commit["Step 3: Commit + tag — auto-confirm"]
+    Commit --&gt; PR["Step 4: Create PR — auto-fill"]
     PR --&gt; Merge{Step 5: Merge PR}
-    Merge --&gt;|Success| Pub[Step 6: Publish — Homebrew/PyPI]
+    Merge --&gt;|Success| Pub["Step 6: Publish — Homebrew/PyPI"]
     Merge --&gt;|Fail| AbortM["ABORTED at merge\nState preserved for recovery"]
     Pub --&gt; Done([Done — released])
 
@@ -10676,24 +10816,24 @@
 <p><strong>When to use:</strong> Parallel feature implementation where agents would conflict on the same files.</p>
 <p><strong>Requirement:</strong> An ORCHESTRATE file with per-agent file scopes.</p>
 <pre class="mermaid"><code>flowchart TD
-    Start(["/craft:orch --swarm"]) --&gt; Parse[Step 1: Parse ORCHESTRATE file]
+    Start(["/craft:orch --swarm"]) --&gt; Parse["Step 1: Parse ORCHESTRATE file"]
     Parse --&gt; Plan[Extract agent assignments + file scopes]
     Plan --&gt; Base["Step 2: Create convergence branch\nfeature/swarm-task"]
 
-    Base --&gt; Agents[Step 3: Create worktrees per agent]
+    Base --&gt; Agents["Step 3: Create worktrees per agent"]
     Agents --&gt; W1["Agent 1: swarm-task-agent1\nFocus: tests/"]
     Agents --&gt; W2["Agent 2: swarm-task-agent2\nFocus: src/"]
     Agents --&gt; W3["Agent 3: swarm-task-agent3\nFocus: docs/"]
 
-    W1 --&gt; Launch[Step 4: Launch agents in parallel]
+    W1 --&gt; Launch["Step 4: Launch agents in parallel"]
     W2 --&gt; Launch
     W3 --&gt; Launch
 
-    Launch --&gt; Wait[Step 5: Wait for completion]
-    Wait --&gt; Converge[Step 6: Merge all branches]
+    Launch --&gt; Wait["Step 5: Wait for completion"]
+    Wait --&gt; Converge["Step 6: Merge all branches"]
     Converge --&gt; M1{Merge conflicts?}
     M1 --&gt;|Yes| Conflict["Stop — report conflicts\nAsk user to resolve"]
-    M1 --&gt;|No| Test[Step 7: Run tests on merged branch]
+    M1 --&gt;|No| Test["Step 7: Run tests on merged branch"]
     Test --&gt; T1{Tests pass?}
     T1 --&gt;|Yes| PR["Step 8: Create PR to dev"]
     T1 --&gt;|No| Fix["Report failures — user fixes"]
@@ -10758,7 +10898,7 @@
 </span></code></pre></div>
 <h3 id="workflow-9-insights-lifecycle-v2210">Workflow 9: Insights Lifecycle (v2.21.0)<a class="headerlink" href="#workflow-9-insights-lifecycle-v2210" title="Permanent link">&para;</a></h3>
 <p>The full insights lifecycle from session data to workflow improvements:</p>
-<pre class="mermaid"><code>graph TD
+<pre class="mermaid"><code>flowchart TD
     S[Sessions] --&gt; F[Facets Data]
     F --&gt; I["/craft:insights"]
     I --&gt; R1[CLAUDE.md Rules]
@@ -10836,7 +10976,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascripts/mermaid-init.js"></script>
       

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 47 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.0.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types), dead-agent-dispatch cleanup with verify-surfaces --report-only/--version flags and a release-rollback runbook (PR #270), and guard-suite consolidation with --classify/GUARD_DRY_RUN=1 ground-truth mode across both hooks (PR #272).">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.1.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2331,6 +2331,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture/craft-restore-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/prompt-refiner-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prompt-refiner Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
         
   
@@ -2958,10 +3014,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_59" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_59" id="__nav_2_4_59_label" tabindex="0">
             
   
   
@@ -2979,8 +3035,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_57">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_59_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_59">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4163,6 +4219,34 @@
     
   
     git:issue-check Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-site-deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    site:deploy Tutorial
   
 
     
@@ -5433,6 +5517,34 @@
     
   
     /craft:done
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore
   
 
     
@@ -10088,6 +10200,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/DISCOVERY-ENGINE-USAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discovery Engine Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10505,7 +10645,7 @@
 </ul>
 <hr />
 <h2 id="system-overview">System Overview<a class="headerlink" href="#system-overview" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph TB
+<pre class="mermaid"><code>flowchart TB
     subgraph "User Interface"
         CMD["/folio:docs:demo"]
         CLI["CLI Flags&lt;br/&gt;--check, --fix, --convert, --batch"]
@@ -10574,9 +10714,9 @@
 <hr />
 <h2 id="component-diagrams">Component Diagrams<a class="headerlink" href="#component-diagrams" title="Permanent link">&para;</a></h2>
 <h3 id="phase-1-dependency-detection">Phase 1: Dependency Detection<a class="headerlink" href="#phase-1-dependency-detection" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph LR
+<pre class="mermaid"><code>flowchart LR
     subgraph "Input"
-        YAML[YAML Frontmatter&lt;br/&gt;Tool Specs]
+        YAML["YAML Frontmatter&lt;br/&gt;Tool Specs"]
     end
 
     subgraph "Core Logic"
@@ -10612,7 +10752,7 @@
     style CD fill:#BBDEFB
     style JSON fill:#90CAF9</code></pre>
 <h3 id="phase-2-installation-pipeline">Phase 2: Installation Pipeline<a class="headerlink" href="#phase-2-installation-pipeline" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
+<pre class="mermaid"><code>flowchart TD
     START[Missing Tool Detected]
     CONSENT{User&lt;br/&gt;Consent?}
     STRATEGY{Installation&lt;br/&gt;Strategy}
@@ -10650,7 +10790,7 @@
     style FAIL fill:#F44336
     style CONSENT fill:#FF9800</code></pre>
 <h3 id="phase-3-conversion-workflow">Phase 3: Conversion Workflow<a class="headerlink" href="#phase-3-conversion-workflow" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph LR
+<pre class="mermaid"><code>flowchart LR
     subgraph "Input"
         CAST1[demo1.cast]
         CAST2[demo2.cast]
@@ -10664,15 +10804,15 @@
     end
 
     subgraph "Conversion"
-        AGG[agg Converter&lt;br/&gt;font-size: 16&lt;br/&gt;theme: monokai]
-        OPT[gifsicle Optimizer&lt;br/&gt;-O3 --colors 256]
+        AGG["agg Converter&lt;br/&gt;font-size: 16&lt;br/&gt;theme: monokai"]
+        OPT["gifsicle Optimizer&lt;br/&gt;-O3 --colors 256"]
     end
 
     subgraph "Output"
         GIF1[demo1.gif]
         GIF2[demo2.gif]
         GIFN[demoN.gif]
-        STATS[Summary Stats&lt;br/&gt;Time, Size]
+        STATS["Summary Stats&lt;br/&gt;Time, Size"]
     end
 
     CAST1 --&gt; FIND
@@ -10692,7 +10832,7 @@
     style AGG fill:#9C27B0
     style OPT fill:#673AB7</code></pre>
 <h3 id="phase-4-health-repair-system">Phase 4: Health &amp; Repair System<a class="headerlink" href="#phase-4-health-repair-system" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TB
+<pre class="mermaid"><code>flowchart TB
     subgraph "Health Checks"
         RHC[run_health_check]
         VAH[validate_all_health]
@@ -10914,15 +11054,15 @@
 <hr />
 <h2 id="decision-trees">Decision Trees<a class="headerlink" href="#decision-trees" title="Permanent link">&para;</a></h2>
 <h3 id="dependency-status-decision">Dependency Status Decision<a class="headerlink" href="#dependency-status-decision" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
+<pre class="mermaid"><code>flowchart TD
     START{Tool&lt;br/&gt;Installed?}
     HEALTH{Health&lt;br/&gt;Check?}
     VERSION{Version&lt;br/&gt;OK?}
 
-    STATUS_OK[Status: OK ✅]
-    STATUS_BROKEN[Status: Broken ⚠️]
-    STATUS_OUTDATED[Status: Outdated ⚠️]
-    STATUS_MISSING[Status: Missing ❌]
+    STATUS_OK["Status: OK ✅"]
+    STATUS_BROKEN["Status: Broken ⚠️"]
+    STATUS_OUTDATED["Status: Outdated ⚠️"]
+    STATUS_MISSING["Status: Missing ❌"]
 
     START --&gt;|Yes| HEALTH
     START --&gt;|No| STATUS_MISSING
@@ -10938,7 +11078,7 @@
     style STATUS_OUTDATED fill:#FFC107
     style STATUS_MISSING fill:#F44336</code></pre>
 <h3 id="installation-strategy-selection">Installation Strategy Selection<a class="headerlink" href="#installation-strategy-selection" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
+<pre class="mermaid"><code>flowchart TD
     START{Platform?}
     PKG_MGR{Package&lt;br/&gt;Manager?}
 
@@ -10950,11 +11090,11 @@
     HAS_APT{APT&lt;br/&gt;Available?}
     HAS_YUM{YUM&lt;br/&gt;Available?}
 
-    USE_BREW[Use: brew install]
-    USE_CARGO[Use: cargo install]
-    USE_BINARY[Use: Binary download]
-    USE_APT[Use: apt install]
-    USE_YUM[Use: yum install]
+    USE_BREW["Use: brew install"]
+    USE_CARGO["Use: cargo install"]
+    USE_BINARY["Use: Binary download"]
+    USE_APT["Use: apt install"]
+    USE_YUM["Use: yum install"]
 
     START --&gt; MACOS
     START --&gt; LINUX
@@ -10982,7 +11122,7 @@
     style USE_APT fill:#4CAF50
     style USE_YUM fill:#4CAF50</code></pre>
 <h3 id="batch-conversion-decision">Batch Conversion Decision<a class="headerlink" href="#batch-conversion-decision" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
+<pre class="mermaid"><code>flowchart TD
     START[.cast File Found]
     EXISTS{.gif&lt;br/&gt;Exists?}
     FORCE{--force&lt;br/&gt;Flag?}
@@ -11008,7 +11148,7 @@
 <hr />
 <h2 id="system-integration-points">System Integration Points<a class="headerlink" href="#system-integration-points" title="Permanent link">&para;</a></h2>
 <h3 id="cicd-integration-architecture">CI/CD Integration Architecture<a class="headerlink" href="#cicd-integration-architecture" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TB
+<pre class="mermaid"><code>flowchart TB
     subgraph "GitHub Actions"
         TRIGGER[Push/PR Event]
         CHECKOUT[Checkout Code]
@@ -11058,9 +11198,9 @@
     style PASS fill:#4CAF50
     style FAIL fill:#F44336</code></pre>
 <h3 id="command-integration-flow">Command Integration Flow<a class="headerlink" href="#command-integration-flow" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph LR
+<pre class="mermaid"><code>flowchart LR
     subgraph "demo.md Frontmatter"
-        YAML[YAML Spec&lt;br/&gt;Dependencies]
+        YAML["YAML Spec&lt;br/&gt;Dependencies"]
     end
 
     subgraph "Command Execution"
@@ -11100,7 +11240,7 @@
 <hr />
 <h2 id="performance-characteristics">Performance Characteristics<a class="headerlink" href="#performance-characteristics" title="Permanent link">&para;</a></h2>
 <h3 id="caching-strategy">Caching Strategy<a class="headerlink" href="#caching-strategy" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
+<pre class="mermaid"><code>flowchart TD
     subgraph "Cache Lifecycle"
         INIT[Session Start]
         CREATE[Create Cache File]
@@ -11134,13 +11274,13 @@
     style USE fill:#4CAF50
     style MISS fill:#FFC107</code></pre>
 <h3 id="parallel-processing">Parallel Processing<a class="headerlink" href="#parallel-processing" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TB
+<pre class="mermaid"><code>flowchart TB
     subgraph "Batch Conversion"
         QUEUE[Conversion Queue]
-        T1[Thread 1: file1.cast]
-        T2[Thread 2: file2.cast]
-        T3[Thread 3: file3.cast]
-        TN[Thread N: fileN.cast]
+        T1["Thread 1: file1.cast"]
+        T2["Thread 2: file2.cast"]
+        T3["Thread 3: file3.cast"]
+        TN["Thread N: fileN.cast"]
     end
 
     subgraph "Progress Tracking"
@@ -11166,7 +11306,7 @@
     style PROGRESS fill:#4CAF50</code></pre>
 <hr />
 <p><strong>Last Updated</strong>: 2026-02-19
-<strong>Version</strong>: 4.0.0
+<strong>Version</strong>: 4.1.0
 <strong>Status</strong>: Production Ready</p>
 
 
@@ -11226,7 +11366,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascripts/mermaid-init.js"></script>
       

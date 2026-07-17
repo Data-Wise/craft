@@ -6,14 +6,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 47 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.0.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types), dead-agent-dispatch cleanup with verify-surfaces --report-only/--version flags and a release-rollback runbook (PR #270), and guard-suite consolidation with --classify/GUARD_DRY_RUN=1 ground-truth mode across both hooks (PR #272).">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.1.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
       
       
       
         <link rel="canonical" href="https://data-wise.github.io/craft/REFCARD/">
       
       
-        <link rel="prev" href="../internal/TOKEN-EFFICIENCY-craft/">
+        <link rel="prev" href="../internal/DISCOVERY-ENGINE-USAGE/">
       
       
       
@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2329,6 +2329,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture/craft-restore-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/prompt-refiner-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prompt-refiner Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
         
   
@@ -2956,10 +3012,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_59" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_59" id="__nav_2_4_59_label" tabindex="0">
             
   
   
@@ -2977,8 +3033,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_57">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_59_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_59">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4161,6 +4217,34 @@
     
   
     git:issue-check Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-site-deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    site:deploy Tutorial
   
 
     
@@ -5431,6 +5515,34 @@
     
   
     /craft:done
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../commands/restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore
   
 
     
@@ -9719,6 +9831,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/DISCOVERY-ENGINE-USAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discovery Engine Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -9923,15 +10063,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#smart-documentation-17-commands" class="md-nav__link">
+  <a href="#smart-documentation-2-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Smart Documentation (17 commands)
+        Smart Documentation (2 commands)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Smart Documentation (17 commands)">
+    <nav class="md-nav" aria-label="Smart Documentation (2 commands)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -10012,15 +10152,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#site-commands-16-commands" class="md-nav__link">
+  <a href="#site-commands-1-command-site-authoringbuild-moved-to-folio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Site Commands (16 commands)
+        Site Commands (1 command; site authoring/build moved to folio)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Site Commands (16 commands)">
+    <nav class="md-nav" aria-label="Site Commands (1 command; site authoring/build moved to folio)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -10101,10 +10241,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-testing-47-commands" class="md-nav__link">
+  <a href="#code-testing-13-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Code &amp; Testing (47 commands)
+        Code &amp; Testing (13 commands)
       
     </span>
   </a>
@@ -10112,10 +10252,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#git-commands-9-commands" class="md-nav__link">
+  <a href="#git-commands-1-command" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Git Commands (9 commands)
+        Git Commands (1 command)
       
     </span>
   </a>
@@ -10134,10 +10274,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cicd-commands-6-commands" class="md-nav__link">
+  <a href="#cicd-commands-8-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CI/CD Commands (6 commands)
+        CI/CD Commands (8 commands)
       
     </span>
   </a>
@@ -10145,10 +10285,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#distribution-commands-5-commands" class="md-nav__link">
+  <a href="#distribution-commands-2-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Distribution Commands (5 commands)
+        Distribution Commands (2 commands)
       
     </span>
   </a>
@@ -10366,17 +10506,6 @@
     <span class="md-ellipsis">
       
         Smart Commands
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#workflow-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workflow Commands
       
     </span>
   </a>
@@ -10556,15 +10685,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#smart-documentation-17-commands" class="md-nav__link">
+  <a href="#smart-documentation-2-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Smart Documentation (17 commands)
+        Smart Documentation (2 commands)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Smart Documentation (17 commands)">
+    <nav class="md-nav" aria-label="Smart Documentation (2 commands)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -10645,15 +10774,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#site-commands-16-commands" class="md-nav__link">
+  <a href="#site-commands-1-command-site-authoringbuild-moved-to-folio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Site Commands (16 commands)
+        Site Commands (1 command; site authoring/build moved to folio)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Site Commands (16 commands)">
+    <nav class="md-nav" aria-label="Site Commands (1 command; site authoring/build moved to folio)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -10734,10 +10863,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code-testing-47-commands" class="md-nav__link">
+  <a href="#code-testing-13-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Code &amp; Testing (47 commands)
+        Code &amp; Testing (13 commands)
       
     </span>
   </a>
@@ -10745,10 +10874,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#git-commands-9-commands" class="md-nav__link">
+  <a href="#git-commands-1-command" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Git Commands (9 commands)
+        Git Commands (1 command)
       
     </span>
   </a>
@@ -10767,10 +10896,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cicd-commands-6-commands" class="md-nav__link">
+  <a href="#cicd-commands-8-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CI/CD Commands (6 commands)
+        CI/CD Commands (8 commands)
       
     </span>
   </a>
@@ -10778,10 +10907,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#distribution-commands-5-commands" class="md-nav__link">
+  <a href="#distribution-commands-2-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Distribution Commands (5 commands)
+        Distribution Commands (2 commands)
       
     </span>
   </a>
@@ -11005,17 +11134,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#workflow-commands" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Workflow Commands
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -11061,11 +11179,11 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  CRAFT PLUGIN QUICK REFERENCE                               │
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 4.0.0 (released 2026-07-09)                       │
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 115 | Agents: 8 | Skills: 45                     │
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Documentation: 99% complete | Tests: 2056+ passing           │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 4.1.0 (released 2026-07-17)                       │
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 48 | Agents: 2 | Skills: 40                      │
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Tests: 2647+ passing                                        │
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  Docs: https://data-wise.github.io/craft/                   │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v4.0.0: Guard Suite Consolidation                          │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v4.1.0: /craft:restore + post-v4 doc-staleness cleanup      │
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>└─────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permanent link">&para;</a></h2>
@@ -11175,7 +11293,7 @@
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># Help in specific context</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># (in a Git repository with uncommitted changes)</span>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>/craft:help
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1"># Suggests: /craft:check, ask &quot;git status&quot; (dev/git skill), /craft:git:worktree</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1"># Suggests: /craft:check, ask &quot;git status&quot; (dev/git skill), ask &quot;create a worktree&quot; (dev/git skill)</span>
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
 </span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="c1"># (in a documentation directory)</span>
 </span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>/craft:help
@@ -11205,30 +11323,31 @@
 <p><strong>Examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Browse all commands</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/craft:hub
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Shows: 8 categories (docs, site, code, test, git, arch, ci, dist)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Shows: categories (code, ci, arch, dist, docs, git, plan, orch, site)</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Filter by category</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>/craft:hub<span class="w"> </span>docs
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Shows: All 21 documentation commands</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>/craft:hub<span class="w"> </span>code
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Shows: All 13 code &amp; testing commands</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Search for commands</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>/craft:hub<span class="w"> </span><span class="s2">&quot;worktree&quot;</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># Shows: All worktree-related commands</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>/craft:hub<span class="w"> </span><span class="s2">&quot;ci&quot;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># Shows: All CI-related commands</span>
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
 </span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># Show command details</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>/craft:hub<span class="w"> </span>git:worktree
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>/craft:hub<span class="w"> </span>ci:triage
 </span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="c1"># Shows: Description, arguments, examples, related commands</span>
 </span></code></pre></div>
 <p><strong>Categories:</strong></p>
 <ul>
-<li>Smart Commands (do, check, orchestrate, hub)</li>
-<li>Documentation (47 commands)</li>
-<li>Site Management (16 commands)</li>
-<li>Code (15 commands) &amp; Testing (3 commands)</li>
-<li>Git (14 commands incl. guides) &amp; CI (4 commands)</li>
+<li>Smart Commands (do, check, orchestrate, hub — root-level)</li>
+<li>Documentation (2 commands; most doc-authoring commands moved to the <code>folio</code> plugin)</li>
+<li>Site Management (1 command; site-authoring moved to <code>folio</code>)</li>
+<li>Code &amp; Testing (13 commands)</li>
+<li>Git (1 command; branch/worktree operations moved to the <code>dev/git</code> skill)</li>
+<li>CI (8 commands)</li>
 <li>Architecture (4 commands)</li>
-<li>Distribution (4 commands)</li>
-<li>Workflow (13 commands) &amp; Planning (3 commands)</li>
+<li>Distribution (2 commands)</li>
+<li>Planning (1 command; brainstorm/task/spec capture moved to the <code>workflow</code> skill family)</li>
 </ul>
 <h2 id="global-flags">Global Flags<a class="headerlink" href="#global-flags" title="Permanent link">&para;</a></h2>
 <table>
@@ -11246,11 +11365,10 @@
 </tbody>
 </table>
 <h2 id="interactive-command-behavior">Interactive Command Behavior<a class="headerlink" href="#interactive-command-behavior" title="Permanent link">&para;</a></h2>
-<p><strong>"Show Steps First" Pattern</strong> - All 4 most-used commands now show plan before executing:</p>
+<p><strong>"Show Steps First" Pattern</strong> - key commands show plan before executing:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:check<span class="w">               </span><span class="c1"># Shows: steps to run, asks confirmation</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w">           </span><span class="c1"># Shows: routing plan, asks confirmation</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w">  </span><span class="c1"># Shows: mode selection, wave plan, checkpoints</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span><span class="c1"># Shows: scope detection, file generation plan</span>
 </span></code></pre></div>
 <p><strong>Interactive Orchestration:</strong></p>
 <ul>
@@ -11313,7 +11431,7 @@ for the topic.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;avatar upload&quot;</span><span class="w">                </span><span class="c1"># MVP-scope by default</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;avatar upload&quot;</span><span class="w"> </span>--scope<span class="w"> </span>full<span class="w">    </span><span class="c1"># full-build scope</span>
 </span></code></pre></div>
-<h2 id="smart-documentation-17-commands">Smart Documentation (17 commands)<a class="headerlink" href="#smart-documentation-17-commands" title="Permanent link">&para;</a></h2>
+<h2 id="smart-documentation-2-commands">Smart Documentation (2 commands)<a class="headerlink" href="#smart-documentation-2-commands" title="Permanent link">&para;</a></h2>
 <h3 id="core-documentation-commands">Core Documentation Commands<a class="headerlink" href="#core-documentation-commands" title="Permanent link">&para;</a></h3>
 <h4 id="foliodocslint">/folio:docs:lint<a class="headerlink" href="#foliodocslint" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose:</strong> Markdown linting with 24 rules + auto-fix (NEW v2.8.0). Moved to folio.</p>
@@ -11525,7 +11643,7 @@ for the topic.</p>
 </span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="c1"># See: .github/workflows/docs-sync.yml</span>
 </span></code></pre></div>
 <p><strong>Three-Layer Doc Sync:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Layer 1: /workflow:done     → catches drift at session end
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Layer 1: /craft:done        → catches drift at session end
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Layer 2: --headless         → on-demand bulk sync
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>Layer 3: GitHub Actions     → safety net after merge to main
 </span></code></pre></div>
@@ -11617,7 +11735,7 @@ read it rather than duplicating the type list).</p>
 <li>Dry-run preview mode</li>
 <li><a href="../tutorials/interactive-docs-update-tutorial/">Tutorial</a> | <a href="../reference/REFCARD-DOCS-UPDATE/">Reference</a></li>
 </ul>
-<h2 id="site-commands-16-commands">Site Commands (16 commands)<a class="headerlink" href="#site-commands-16-commands" title="Permanent link">&para;</a></h2>
+<h2 id="site-commands-1-command-site-authoringbuild-moved-to-folio">Site Commands (1 command; site authoring/build moved to <code>folio</code>)<a class="headerlink" href="#site-commands-1-command-site-authoringbuild-moved-to-folio" title="Permanent link">&para;</a></h2>
 <h3 id="core-site-commands">Core Site Commands<a class="headerlink" href="#core-site-commands" title="Permanent link">&para;</a></h3>
 <h4 id="foliositebuild">/folio:site:build<a class="headerlink" href="#foliositebuild" title="Permanent link">&para;</a></h4>
 <p><strong>Purpose:</strong> Build documentation site (MkDocs, Quarto, pkgdown). Moved to folio.</p>
@@ -11905,8 +12023,8 @@ read it rather than duplicating the type list).</p>
 </span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>pr<span class="w">           </span><span class="c1"># PR-specific checks (stale refs, hook conflicts)</span>
 </span></code></pre></div>
 <p><strong>See:</strong> <a href="../guide/check-command-mastery/">Check Command Mastery Guide</a></p>
-<h2 id="code-testing-47-commands">Code &amp; Testing (47 commands)<a class="headerlink" href="#code-testing-47-commands" title="Permanent link">&para;</a></h2>
-<p><strong>Core Commands</strong> (15 code + 2 test; core subset shown):</p>
+<h2 id="code-testing-13-commands">Code &amp; Testing (13 commands)<a class="headerlink" href="#code-testing-13-commands" title="Permanent link">&para;</a></h2>
+<p><strong>Core Commands</strong> (subset shown):</p>
 <table>
 <thead>
 <tr>
@@ -11987,12 +12105,8 @@ read it rather than duplicating the type list).</p>
 <td>Unified runner with categories</td>
 </tr>
 <tr>
-<td><code>/craft:test:gen</code></td>
+<td><code>/craft:code:test-gen</code></td>
 <td>Generate test suites (type-aware)</td>
-</tr>
-<tr>
-<td><code>/craft:test:template</code></td>
-<td>Manage Jinja2 test templates</td>
 </tr>
 </tbody>
 </table>
@@ -12002,7 +12116,7 @@ read it rather than duplicating the type list).</p>
 </span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>/craft:test<span class="w"> </span>debug<span class="w">               </span><span class="c1"># Verbose with suggestions</span>
 </span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>/craft:test<span class="w"> </span>release<span class="w"> </span>--coverage<span class="w">  </span><span class="c1"># Full coverage analysis</span>
 </span></code></pre></div>
-<h2 id="git-commands-9-commands">Git Commands (9 commands)<a class="headerlink" href="#git-commands-9-commands" title="Permanent link">&para;</a></h2>
+<h2 id="git-commands-1-command">Git Commands (1 command)<a class="headerlink" href="#git-commands-1-command" title="Permanent link">&para;</a></h2>
 <p><strong>Core Git Commands:</strong></p>
 <table>
 <thead>
@@ -12013,192 +12127,22 @@ read it rather than duplicating the type list).</p>
 </thead>
 <tbody>
 <tr>
-<td><code>/craft:git:worktree</code></td>
-<td>Parallel development with git worktrees</td>
-</tr>
-<tr>
 <td><code>/craft:git:issue-check</code></td>
 <td>Verify a GitHub issue's premise still holds before implementing its fix</td>
 </tr>
 </tbody>
 </table>
-<p>Clean, branch, git status, protect, protect-baseline, unprotect, and guard
-management were folded into the <code>dev/git</code> skill (2026-07 v4 consolidation) —
-ask naturally or see
+<p>Worktree creation/move/list/clean/finish, branch, git status, protect,
+protect-baseline, unprotect, and guard management were all folded into the
+<code>dev/git</code> skill (2026-07 v4 consolidation) — ask naturally (e.g. "create a
+worktree for feature X", "clean up merged branches") or see
 <a href="https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md"><code>skills/dev/git/SKILL.md</code></a>.</p>
-<p><strong>Worktree Subcommands:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>/craft:git:worktree<span class="w"> </span>setup<span class="w">          </span><span class="c1"># First-time folder creation</span>
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>&lt;name&gt;<span class="w">  </span><span class="c1"># Create worktree for branch</span>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>/craft:git:worktree<span class="w"> </span>move<span class="w">           </span><span class="c1"># Move current branch to worktree</span>
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>/craft:git:worktree<span class="w"> </span>list<span class="w">           </span><span class="c1"># Show all worktrees</span>
-</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>/craft:git:worktree<span class="w"> </span>clean<span class="w">          </span><span class="c1"># Remove merged worktrees</span>
-</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>/craft:git:worktree<span class="w"> </span>install<span class="w">        </span><span class="c1"># Install deps in worktree</span>
-</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>/craft:git:worktree<span class="w"> </span>finish<span class="w">         </span><span class="c1"># Complete: tests → changelog → cleanup ORCHESTRATE → PR</span>
-</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>/craft:git:worktree<span class="w"> </span>validate<span class="w">       </span><span class="c1"># Check worktree health (v2.18.0)</span>
-</span></code></pre></div>
-<p><strong>Complete Worktree Workflow Examples:</strong></p>
-<p><strong>Example 1: New Feature Development</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1"># Starting point: On dev branch in main repo</span>
-</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="w">  </span><span class="c1"># Output: dev</span>
-</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>
-</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="c1"># Step 1: Create worktree for feature</span>
-</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/user-auth
-</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>
-</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="c1"># What happens (v2.9.0):</span>
-</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="c1"># - Creates ~/.git-worktrees/craft/feature-user-auth/</span>
-</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="c1"># - Branches from dev</span>
-</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="c1"># - Auto-detects scope: &quot;authentication&quot;</span>
-</span><span id="__span-30-11"><a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a><span class="c1"># - Generates ORCHESTRATE.md with phases</span>
-</span><span id="__span-30-12"><a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a><span class="c1"># - Generates SPEC.md with technical details</span>
-</span><span id="__span-30-13"><a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a><span class="c1"># - Installs dependencies (detects Node.js/Python/etc)</span>
-</span><span id="__span-30-14"><a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a><span class="c1"># - Output: &quot;Ready at ~/.git-worktrees/craft/feature-user-auth&quot;</span>
-</span><span id="__span-30-15"><a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a>
-</span><span id="__span-30-16"><a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a><span class="c1"># Step 2: Switch to worktree</span>
-</span><span id="__span-30-17"><a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-user-auth
-</span><span id="__span-30-18"><a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a>
-</span><span id="__span-30-19"><a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a><span class="c1"># Step 3: Check auto-generated files</span>
-</span><span id="__span-30-20"><a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a>ls<span class="w"> </span>-la
-</span><span id="__span-30-21"><a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a><span class="c1"># Shows: ORCHESTRATE.md, SPEC.md, all project files</span>
-</span><span id="__span-30-22"><a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a>
-</span><span id="__span-30-23"><a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a>cat<span class="w"> </span>ORCHESTRATE.md
-</span><span id="__span-30-24"><a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a><span class="c1"># Contains: Phase breakdown, agent delegation, timeline</span>
-</span><span id="__span-30-25"><a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a>
-</span><span id="__span-30-26"><a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a><span class="c1"># Step 4: Start development</span>
-</span><span id="__span-30-27"><a id="__codelineno-30-27" name="__codelineno-30-27" href="#__codelineno-30-27"></a>claude<span class="w">  </span><span class="c1"># Or your preferred editor</span>
-</span><span id="__span-30-28"><a id="__codelineno-30-28" name="__codelineno-30-28" href="#__codelineno-30-28"></a>
-</span><span id="__span-30-29"><a id="__codelineno-30-29" name="__codelineno-30-29" href="#__codelineno-30-29"></a><span class="c1"># Step 5: Make changes, commit regularly</span>
-</span><span id="__span-30-30"><a id="__codelineno-30-30" name="__codelineno-30-30" href="#__codelineno-30-30"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add JWT authentication&quot;</span>
-</span><span id="__span-30-31"><a id="__codelineno-30-31" name="__codelineno-30-31" href="#__codelineno-30-31"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add login endpoint&quot;</span>
-</span><span id="__span-30-32"><a id="__codelineno-30-32" name="__codelineno-30-32" href="#__codelineno-30-32"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;test: add auth integration tests&quot;</span>
-</span><span id="__span-30-33"><a id="__codelineno-30-33" name="__codelineno-30-33" href="#__codelineno-30-33"></a>
-</span><span id="__span-30-34"><a id="__codelineno-30-34" name="__codelineno-30-34" href="#__codelineno-30-34"></a><span class="c1"># Step 6: Finish feature</span>
-</span><span id="__span-30-35"><a id="__codelineno-30-35" name="__codelineno-30-35" href="#__codelineno-30-35"></a>/craft:git:worktree<span class="w"> </span>finish
-</span><span id="__span-30-36"><a id="__codelineno-30-36" name="__codelineno-30-36" href="#__codelineno-30-36"></a>
-</span><span id="__span-30-37"><a id="__codelineno-30-37" name="__codelineno-30-37" href="#__codelineno-30-37"></a><span class="c1"># What happens:</span>
-</span><span id="__span-30-38"><a id="__codelineno-30-38" name="__codelineno-30-38" href="#__codelineno-30-38"></a><span class="c1"># - Runs tests (auto-detected: pytest/jest/etc)</span>
-</span><span id="__span-30-39"><a id="__codelineno-30-39" name="__codelineno-30-39" href="#__codelineno-30-39"></a><span class="c1"># - Generates changelog entry from commits</span>
-</span><span id="__span-30-40"><a id="__codelineno-30-40" name="__codelineno-30-40" href="#__codelineno-30-40"></a><span class="c1"># - Removes ORCHESTRATE-*.md files (merge cleanup)</span>
-</span><span id="__span-30-41"><a id="__codelineno-30-41" name="__codelineno-30-41" href="#__codelineno-30-41"></a><span class="c1"># - Creates PR with AI-generated description</span>
-</span><span id="__span-30-42"><a id="__codelineno-30-42" name="__codelineno-30-42" href="#__codelineno-30-42"></a><span class="c1"># - Output: PR URL</span>
-</span><span id="__span-30-43"><a id="__codelineno-30-43" name="__codelineno-30-43" href="#__codelineno-30-43"></a>
-</span><span id="__span-30-44"><a id="__codelineno-30-44" name="__codelineno-30-44" href="#__codelineno-30-44"></a><span class="c1"># Step 7: After PR is merged</span>
-</span><span id="__span-30-45"><a id="__codelineno-30-45" name="__codelineno-30-45" href="#__codelineno-30-45"></a>/craft:git:worktree<span class="w"> </span>clean
-</span><span id="__span-30-46"><a id="__codelineno-30-46" name="__codelineno-30-46" href="#__codelineno-30-46"></a>
-</span><span id="__span-30-47"><a id="__codelineno-30-47" name="__codelineno-30-47" href="#__codelineno-30-47"></a><span class="c1"># What happens:</span>
-</span><span id="__span-30-48"><a id="__codelineno-30-48" name="__codelineno-30-48" href="#__codelineno-30-48"></a><span class="c1"># - Detects merged branches</span>
-</span><span id="__span-30-49"><a id="__codelineno-30-49" name="__codelineno-30-49" href="#__codelineno-30-49"></a><span class="c1"># - Prompts: &quot;Remove worktree for feature/user-auth?&quot;</span>
-</span><span id="__span-30-50"><a id="__codelineno-30-50" name="__codelineno-30-50" href="#__codelineno-30-50"></a><span class="c1"># - Removes worktree directory</span>
-</span><span id="__span-30-51"><a id="__codelineno-30-51" name="__codelineno-30-51" href="#__codelineno-30-51"></a><span class="c1"># - Deletes local branch</span>
-</span><span id="__span-30-52"><a id="__codelineno-30-52" name="__codelineno-30-52" href="#__codelineno-30-52"></a><span class="c1"># - Prunes git references</span>
-</span></code></pre></div>
-<p><strong>Example 2: Moving Current Work to Worktree</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># Scenario: Working on feature in main repo, want to isolate it</span>
-</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
-</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="c1"># Current situation:</span>
-</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="w">  </span><span class="c1"># Output: feature/payment-processing</span>
-</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>git<span class="w"> </span>status<span class="w">                 </span><span class="c1"># 15 files changed, 237 insertions</span>
-</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>
-</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="c1"># Problem: Need to switch to main for urgent fix</span>
-</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>
-</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="c1"># Solution: Move to worktree</span>
-</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>/craft:git:worktree<span class="w"> </span>move
-</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>
-</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="c1"># What happens:</span>
-</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="c1"># - Stashes all uncommitted work (37 files)</span>
-</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="c1"># - Switches main repo to &#39;main&#39; branch</span>
-</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a><span class="c1"># - Creates worktree at ~/.git-worktrees/craft/feature-payment-processing</span>
-</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a><span class="c1"># - Restores stashed work in worktree</span>
-</span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a><span class="c1"># - Installs dependencies in worktree</span>
-</span><span id="__span-31-18"><a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a><span class="c1"># - Output: &quot;Your 37 files are now in the worktree&quot;</span>
-</span><span id="__span-31-19"><a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a>
-</span><span id="__span-31-20"><a id="__codelineno-31-20" name="__codelineno-31-20" href="#__codelineno-31-20"></a><span class="c1"># Result:</span>
-</span><span id="__span-31-21"><a id="__codelineno-31-21" name="__codelineno-31-21" href="#__codelineno-31-21"></a><span class="c1"># Main repo: Clean, on &#39;main&#39; branch</span>
-</span><span id="__span-31-22"><a id="__codelineno-31-22" name="__codelineno-31-22" href="#__codelineno-31-22"></a><span class="c1"># Worktree: All your work, on feature branch</span>
-</span><span id="__span-31-23"><a id="__codelineno-31-23" name="__codelineno-31-23" href="#__codelineno-31-23"></a>
-</span><span id="__span-31-24"><a id="__codelineno-31-24" name="__codelineno-31-24" href="#__codelineno-31-24"></a><span class="c1"># Now you can:</span>
-</span><span id="__span-31-25"><a id="__codelineno-31-25" name="__codelineno-31-25" href="#__codelineno-31-25"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/craft<span class="w">  </span><span class="c1"># Main repo</span>
-</span><span id="__span-31-26"><a id="__codelineno-31-26" name="__codelineno-31-26" href="#__codelineno-31-26"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hotfix/urgent-bug
-</span><span id="__span-31-27"><a id="__codelineno-31-27" name="__codelineno-31-27" href="#__codelineno-31-27"></a><span class="c1"># Work on urgent fix without losing feature work</span>
-</span><span id="__span-31-28"><a id="__codelineno-31-28" name="__codelineno-31-28" href="#__codelineno-31-28"></a>
-</span><span id="__span-31-29"><a id="__codelineno-31-29" name="__codelineno-31-29" href="#__codelineno-31-29"></a><span class="c1"># Later, continue feature:</span>
-</span><span id="__span-31-30"><a id="__codelineno-31-30" name="__codelineno-31-30" href="#__codelineno-31-30"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-payment-processing
-</span><span id="__span-31-31"><a id="__codelineno-31-31" name="__codelineno-31-31" href="#__codelineno-31-31"></a><span class="c1"># All your changes are here</span>
-</span></code></pre></div>
-<p><strong>Example 3: Multiple Parallel Features</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># Scenario: Working on 3 features simultaneously</span>
-</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
-</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="c1"># Feature 1: Authentication (in progress)</span>
-</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/auth
-</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-auth
-</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="c1"># ... work on auth ...</span>
-</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a>
-</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="c1"># Feature 2: Payments (in progress)</span>
-</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/payments
-</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-payments
-</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="c1"># ... work on payments ...</span>
-</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a>
-</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="c1"># Feature 3: Notifications (in progress)</span>
-</span><span id="__span-32-14"><a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/notifications
-</span><span id="__span-32-15"><a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-notifications
-</span><span id="__span-32-16"><a id="__codelineno-32-16" name="__codelineno-32-16" href="#__codelineno-32-16"></a><span class="c1"># ... work on notifications ...</span>
-</span><span id="__span-32-17"><a id="__codelineno-32-17" name="__codelineno-32-17" href="#__codelineno-32-17"></a>
-</span><span id="__span-32-18"><a id="__codelineno-32-18" name="__codelineno-32-18" href="#__codelineno-32-18"></a><span class="c1"># List all worktrees</span>
-</span><span id="__span-32-19"><a id="__codelineno-32-19" name="__codelineno-32-19" href="#__codelineno-32-19"></a>/craft:git:worktree<span class="w"> </span>list
-</span><span id="__span-32-20"><a id="__codelineno-32-20" name="__codelineno-32-20" href="#__codelineno-32-20"></a>
-</span><span id="__span-32-21"><a id="__codelineno-32-21" name="__codelineno-32-21" href="#__codelineno-32-21"></a><span class="c1"># Output:</span>
-</span><span id="__span-32-22"><a id="__codelineno-32-22" name="__codelineno-32-22" href="#__codelineno-32-22"></a><span class="c1"># ╭─ Git Worktrees ─────────────────────────────────╮</span>
-</span><span id="__span-32-23"><a id="__codelineno-32-23" name="__codelineno-32-23" href="#__codelineno-32-23"></a><span class="c1"># │ Main: ~/projects/dev-tools/craft (main)         │</span>
-</span><span id="__span-32-24"><a id="__codelineno-32-24" name="__codelineno-32-24" href="#__codelineno-32-24"></a><span class="c1"># │   ✓ Clean, no uncommitted changes               │</span>
-</span><span id="__span-32-25"><a id="__codelineno-32-25" name="__codelineno-32-25" href="#__codelineno-32-25"></a><span class="c1"># │                                                 │</span>
-</span><span id="__span-32-26"><a id="__codelineno-32-26" name="__codelineno-32-26" href="#__codelineno-32-26"></a><span class="c1"># │ feature-auth (3 days old)                       │</span>
-</span><span id="__span-32-27"><a id="__codelineno-32-27" name="__codelineno-32-27" href="#__codelineno-32-27"></a><span class="c1"># │   ~/...git-worktrees/craft/feature-auth         │</span>
-</span><span id="__span-32-28"><a id="__codelineno-32-28" name="__codelineno-32-28" href="#__codelineno-32-28"></a><span class="c1"># │   ⚠ 5 uncommitted changes                       │</span>
-</span><span id="__span-32-29"><a id="__codelineno-32-29" name="__codelineno-32-29" href="#__codelineno-32-29"></a><span class="c1"># │                                                 │</span>
-</span><span id="__span-32-30"><a id="__codelineno-32-30" name="__codelineno-32-30" href="#__codelineno-32-30"></a><span class="c1"># │ feature-payments (1 day old)                    │</span>
-</span><span id="__span-32-31"><a id="__codelineno-32-31" name="__codelineno-32-31" href="#__codelineno-32-31"></a><span class="c1"># │   ~/...git-worktrees/craft/feature-payments     │</span>
-</span><span id="__span-32-32"><a id="__codelineno-32-32" name="__codelineno-32-32" href="#__codelineno-32-32"></a><span class="c1"># │   ✓ Clean                                       │</span>
-</span><span id="__span-32-33"><a id="__codelineno-32-33" name="__codelineno-32-33" href="#__codelineno-32-33"></a><span class="c1"># │                                                 │</span>
-</span><span id="__span-32-34"><a id="__codelineno-32-34" name="__codelineno-32-34" href="#__codelineno-32-34"></a><span class="c1"># │ feature-notifications (2 hours old)             │</span>
-</span><span id="__span-32-35"><a id="__codelineno-32-35" name="__codelineno-32-35" href="#__codelineno-32-35"></a><span class="c1"># │   ~/...git-worktrees/craft/feature-notifications│</span>
-</span><span id="__span-32-36"><a id="__codelineno-32-36" name="__codelineno-32-36" href="#__codelineno-32-36"></a><span class="c1"># │   ⚠ 12 uncommitted changes                      │</span>
-</span><span id="__span-32-37"><a id="__codelineno-32-37" name="__codelineno-32-37" href="#__codelineno-32-37"></a><span class="c1"># ╰─────────────────────────────────────────────────╯</span>
-</span><span id="__span-32-38"><a id="__codelineno-32-38" name="__codelineno-32-38" href="#__codelineno-32-38"></a>
-</span><span id="__span-32-39"><a id="__codelineno-32-39" name="__codelineno-32-39" href="#__codelineno-32-39"></a><span class="c1"># Switch between features easily:</span>
-</span><span id="__span-32-40"><a id="__codelineno-32-40" name="__codelineno-32-40" href="#__codelineno-32-40"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-auth<span class="w">      </span><span class="c1"># Work on auth</span>
-</span><span id="__span-32-41"><a id="__codelineno-32-41" name="__codelineno-32-41" href="#__codelineno-32-41"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-payments<span class="w">  </span><span class="c1"># Work on payments</span>
-</span><span id="__span-32-42"><a id="__codelineno-32-42" name="__codelineno-32-42" href="#__codelineno-32-42"></a><span class="c1"># No git checkout needed!</span>
-</span><span id="__span-32-43"><a id="__codelineno-32-43" name="__codelineno-32-43" href="#__codelineno-32-43"></a>
-</span><span id="__span-32-44"><a id="__codelineno-32-44" name="__codelineno-32-44" href="#__codelineno-32-44"></a><span class="c1"># Cleanup after features merge:</span>
-</span><span id="__span-32-45"><a id="__codelineno-32-45" name="__codelineno-32-45" href="#__codelineno-32-45"></a>/craft:git:worktree<span class="w"> </span>clean
-</span><span id="__span-32-46"><a id="__codelineno-32-46" name="__codelineno-32-46" href="#__codelineno-32-46"></a><span class="c1"># Prompts for each merged branch</span>
-</span><span id="__span-32-47"><a id="__codelineno-32-47" name="__codelineno-32-47" href="#__codelineno-32-47"></a><span class="c1"># Removes all at once</span>
-</span></code></pre></div>
-<p><strong>Example 4: Different Dependency Versions</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Scenario: Testing with different Node.js versions</span>
-</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>
-</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="c1"># Feature 1: Uses Node 18</span>
-</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/node18-test
-</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature/node18-test
-</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>nvm<span class="w"> </span>use<span class="w"> </span><span class="m">18</span>
-</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>npm<span class="w"> </span>install
-</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>npm<span class="w"> </span><span class="nb">test</span>
-</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>
-</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a><span class="c1"># Feature 2: Uses Node 20</span>
-</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feature/node20-test
-</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/craft/feature-node20-test
-</span><span id="__span-33-13"><a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a>nvm<span class="w"> </span>use<span class="w"> </span><span class="m">20</span>
-</span><span id="__span-33-14"><a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a>npm<span class="w"> </span>install
-</span><span id="__span-33-15"><a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a>npm<span class="w"> </span><span class="nb">test</span>
-</span><span id="__span-33-16"><a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>
-</span><span id="__span-33-17"><a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a><span class="c1"># Both can run simultaneously with different dependencies!</span>
-</span><span id="__span-33-18"><a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a><span class="c1"># Main repo remains unaffected</span>
-</span></code></pre></div>
 <p><strong>Quick examples:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>/craft:git:worktree<span class="w"> </span>create<span class="w"> </span>feat/auth<span class="w"> </span><span class="c1"># Create feature worktree</span>
-</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>/craft:git:worktree<span class="w"> </span>move<span class="w">             </span><span class="c1"># Move current work to worktree</span>
-</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="c1"># ask &quot;clean up merged branches&quot; (dev/git skill)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># ask &quot;create a worktree for feature/auth&quot; (dev/git skill)</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="c1"># ask &quot;move my current work to a worktree&quot; (dev/git skill)</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="c1"># ask &quot;clean up merged branches&quot; (dev/git skill)</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>/craft:git:issue-check<span class="w"> </span><span class="m">123</span><span class="w">   </span><span class="c1"># Verify GitHub issue #123&#39;s premise before fixing</span>
 </span></code></pre></div>
-<p><strong>See:</strong> <a href="../reference/REFCARD-GIT-WORKTREE/">Git Worktree Reference</a> | <a href="../guide/worktree-advanced-patterns/">Advanced Patterns</a></p>
 <h2 id="architecture-commands-4-commands">Architecture Commands (4 commands)<a class="headerlink" href="#architecture-commands-4-commands" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -12227,11 +12171,11 @@ ask naturally or see
 </tbody>
 </table>
 <p><strong>Quick examples:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>/craft:arch:analyze<span class="w"> </span>optimize<span class="w">     </span><span class="c1"># Fast architecture analysis</span>
-</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>/craft:arch:diagram<span class="w">             </span><span class="c1"># Generate Mermaid diagrams</span>
-</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>/craft:arch:plan<span class="w">                </span><span class="c1"># Plan an architecture change</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>/craft:arch:analyze<span class="w"> </span>optimize<span class="w">     </span><span class="c1"># Fast architecture analysis</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>/craft:arch:diagram<span class="w">             </span><span class="c1"># Generate Mermaid diagrams</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>/craft:arch:plan<span class="w">                </span><span class="c1"># Plan an architecture change</span>
 </span></code></pre></div>
-<h2 id="cicd-commands-6-commands">CI/CD Commands (6 commands)<a class="headerlink" href="#cicd-commands-6-commands" title="Permanent link">&para;</a></h2>
+<h2 id="cicd-commands-8-commands">CI/CD Commands (8 commands)<a class="headerlink" href="#cicd-commands-8-commands" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -12264,17 +12208,25 @@ ask naturally or see
 <td><code>/craft:ci:watch</code></td>
 <td>Poll a run to completion; merge or triage</td>
 </tr>
+<tr>
+<td><code>/craft:ci:fix</code></td>
+<td>Diagnose and fix CI failures</td>
+</tr>
+<tr>
+<td><code>/craft:ci:local</code></td>
+<td>Run CI checks locally</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Quick examples:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>/craft:ci:generate<span class="w">              </span><span class="c1"># Interactive CI generation</span>
-</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>/craft:ci:generate<span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview workflow</span>
-</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>/craft:ci:status<span class="w">                </span><span class="c1"># Cross-repo CI dashboard</span>
-</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>/craft:ci:status<span class="w"> </span>--json<span class="w">         </span><span class="c1"># Machine-readable output</span>
-</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>/craft:ci:detect<span class="w">                </span><span class="c1"># Detect project type</span>
-</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>/craft:ci:validate<span class="w">              </span><span class="c1"># Validate existing CI</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>/craft:ci:generate<span class="w">              </span><span class="c1"># Interactive CI generation</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>/craft:ci:generate<span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview workflow</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>/craft:ci:status<span class="w">                </span><span class="c1"># Cross-repo CI dashboard</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>/craft:ci:status<span class="w"> </span>--json<span class="w">         </span><span class="c1"># Machine-readable output</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>/craft:ci:detect<span class="w">                </span><span class="c1"># Detect project type</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>/craft:ci:validate<span class="w">              </span><span class="c1"># Validate existing CI</span>
 </span></code></pre></div>
-<h2 id="distribution-commands-5-commands">Distribution Commands (5 commands)<a class="headerlink" href="#distribution-commands-5-commands" title="Permanent link">&para;</a></h2>
+<h2 id="distribution-commands-2-commands">Distribution Commands (2 commands)<a class="headerlink" href="#distribution-commands-2-commands" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
@@ -12284,20 +12236,8 @@ ask naturally or see
 </thead>
 <tbody>
 <tr>
-<td><code>/craft:dist:marketplace</code></td>
-<td>Marketplace init, validate, test, publish</td>
-</tr>
-<tr>
 <td><code>/craft:dist:homebrew</code></td>
 <td>Generate Homebrew formula</td>
-</tr>
-<tr>
-<td><code>/craft:dist:pypi</code></td>
-<td>Package for PyPI</td>
-</tr>
-<tr>
-<td><code>/craft:dist:curl-install</code></td>
-<td>Generate curl installer</td>
 </tr>
 <tr>
 <td><code>/craft:dist:surfaces</code></td>
@@ -12305,14 +12245,14 @@ ask naturally or see
 </tr>
 </tbody>
 </table>
+<p>Marketplace init/validate, PyPI packaging, and curl-installer generation are
+now skill reference material under <code>skills/distribution/dist-extras/references/</code>
+rather than standalone commands — ask naturally (e.g. "validate the marketplace
+config") or read the reference doc directly.</p>
 <p><strong>Quick examples:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>/craft:dist:marketplace<span class="w">         </span><span class="c1"># Validate marketplace config (default)</span>
-</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>/craft:dist:marketplace<span class="w"> </span>init<span class="w">    </span><span class="c1"># Generate marketplace.json</span>
-</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>/craft:dist:homebrew<span class="w">            </span><span class="c1"># Generate Homebrew formula</span>
-</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>/craft:dist:pypi<span class="w">                </span><span class="c1"># Package for PyPI</span>
-</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>/craft:dist:curl-install<span class="w">        </span><span class="c1"># Generate curl installer</span>
-</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>/craft:dist:surfaces<span class="w">            </span><span class="c1"># View surface registry + gate states</span>
-</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>/craft:dist:surfaces<span class="w"> </span>--json<span class="w">     </span><span class="c1"># Raw registry JSON</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>/craft:dist:homebrew<span class="w">            </span><span class="c1"># Generate Homebrew formula</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>/craft:dist:surfaces<span class="w">            </span><span class="c1"># View surface registry + gate states</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>/craft:dist:surfaces<span class="w"> </span>--json<span class="w">     </span><span class="c1"># Raw registry JSON</span>
 </span></code></pre></div>
 <p><strong>Homebrew release gates (plugin formula):</strong></p>
 <table>
@@ -12341,33 +12281,32 @@ ask naturally or see
 </tr>
 </tbody>
 </table>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c1"># Run all gates (Steps 10b/10c/10d)</span>
-</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>python3<span class="w"> </span>scripts/verify_caveats.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FORMULA</span><span class="s2">&quot;</span><span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span>
-</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>python3<span class="w"> </span>scripts/post_install_check.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FORMULA</span><span class="s2">&quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span>
-</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>bash<span class="w"> </span>scripts/aggregator-sync.sh<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
-</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>
-</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a><span class="c1"># After publish: Cowork/Desktop update (marketplace cache FIRST)</span>
-</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>claude<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>update<span class="w"> </span>local-plugins
-</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>&lt;name&gt;@local-plugins
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Run all gates (Steps 10b/10c/10d)</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>python3<span class="w"> </span>scripts/verify_caveats.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FORMULA</span><span class="s2">&quot;</span><span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>python3<span class="w"> </span>scripts/post_install_check.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FORMULA</span><span class="s2">&quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>bash<span class="w"> </span>scripts/aggregator-sync.sh<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="c1"># After publish: Cowork/Desktop update (marketplace cache FIRST)</span>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>claude<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>update<span class="w"> </span>local-plugins
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>claude<span class="w"> </span>plugin<span class="w"> </span>update<span class="w"> </span>&lt;name&gt;@local-plugins
 </span></code></pre></div>
 <h2 id="orchestrator-enhanced-v21-v250-v290">Orchestrator (Enhanced v2.1, v2.5.0, v2.9.0)<a class="headerlink" href="#orchestrator-enhanced-v21-v250-v290" title="Permanent link">&para;</a></h2>
 <p><strong>Main Commands:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># Interactive mode (v2.9.0) - Shows mode selection, wave plan, checkpoints</span>
-</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w">           </span><span class="c1"># Interactive: pick mode + confirm plan</span>
-</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>optimize<span class="w">  </span><span class="c1"># Direct mode selection</span>
-</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;large task&quot;</span><span class="w"> </span>--swarm<span class="w"> </span><span class="c1"># Unlimited parallel agents (v2.18.0)</span>
-</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a>
-</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="c1"># Orchestrate specific commands with --orch flag (v2.5.0)</span>
-</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">      </span><span class="c1"># Quick orchestration</span>
-</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>/craft:check<span class="w"> </span>--orch<span class="o">=</span>release<span class="w">               </span><span class="c1"># Orchestrated validation</span>
-</span><span id="__span-39-9"><a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a>/folio:docs:sync<span class="w"> </span>--orch<span class="o">=</span>default<span class="w">           </span><span class="c1"># Orchestrated docs sync</span>
-</span><span id="__span-39-10"><a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a>/craft:ci:generate<span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">        </span><span class="c1"># Orchestrated CI generation</span>
-</span><span id="__span-39-11"><a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a>/craft:git:worktree<span class="w"> </span><span class="s2">&quot;create feat&quot;</span><span class="w"> </span>--orch<span class="w">  </span><span class="c1"># Orchestrated worktree creation</span>
-</span><span id="__span-39-12"><a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a>
-</span><span id="__span-39-13"><a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a><span class="c1"># Session management</span>
-</span><span id="__span-39-14"><a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a>/craft:orch<span class="w"> </span>status<span class="w">                 </span><span class="c1"># Agent dashboard</span>
-</span><span id="__span-39-15"><a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a>/craft:orch<span class="w"> </span>timeline<span class="w">               </span><span class="c1"># Execution timeline</span>
-</span><span id="__span-39-16"><a id="__codelineno-39-16" name="__codelineno-39-16" href="#__codelineno-39-16"></a>/craft:orch<span class="w"> </span><span class="k">continue</span><span class="w">               </span><span class="c1"># Resume session</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Interactive mode (v2.9.0) - Shows mode selection, wave plan, checkpoints</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w">           </span><span class="c1"># Interactive: pick mode + confirm plan</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>optimize<span class="w">  </span><span class="c1"># Direct mode selection</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;large task&quot;</span><span class="w"> </span>--swarm<span class="w"> </span><span class="c1"># Unlimited parallel agents (v2.18.0)</span>
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="c1"># Orchestrate specific commands with --orch flag (v2.5.0)</span>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">      </span><span class="c1"># Quick orchestration</span>
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>/craft:check<span class="w"> </span>--orch<span class="o">=</span>release<span class="w">               </span><span class="c1"># Orchestrated validation</span>
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>/folio:docs:sync<span class="w"> </span>--orch<span class="o">=</span>default<span class="w">           </span><span class="c1"># Orchestrated docs sync</span>
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>/craft:ci:generate<span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">        </span><span class="c1"># Orchestrated CI generation</span>
+</span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a>
+</span><span id="__span-34-12"><a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a><span class="c1"># Session management</span>
+</span><span id="__span-34-13"><a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a>/craft:orch<span class="w"> </span>status<span class="w">                 </span><span class="c1"># Agent dashboard</span>
+</span><span id="__span-34-14"><a id="__codelineno-34-14" name="__codelineno-34-14" href="#__codelineno-34-14"></a>/craft:orch<span class="w"> </span>timeline<span class="w">               </span><span class="c1"># Execution timeline</span>
+</span><span id="__span-34-15"><a id="__codelineno-34-15" name="__codelineno-34-15" href="#__codelineno-34-15"></a>/craft:orch<span class="w"> </span><span class="k">continue</span><span class="w">               </span><span class="c1"># Resume session</span>
 </span></code></pre></div>
 <p><strong>Spec-driven drive:</strong></p>
 <table>
@@ -12452,7 +12391,7 @@ ask naturally or see
 <p><strong>See:</strong> <a href="../tutorials/interactive-orchestration/">Interactive Orchestration Tutorial</a> | <a href="../tutorials/orchestrator-modes-compared/">Orchestrator Modes Compared</a></p>
 <h3 id="orchestrate-worktree-pipeline-v2210">Orchestrate + Worktree Pipeline (v2.21.0)<a class="headerlink" href="#orchestrate-worktree-pipeline-v2210" title="Permanent link">&para;</a></h3>
 <p>The full pipeline connects brainstorming through to implementation:</p>
-<pre class="mermaid"><code>graph LR
+<pre class="mermaid"><code>flowchart LR
     A[brainstorm] --&gt; B[spec]
     B --&gt; C[ORCHESTRATE]
     C --&gt; D[worktree]
@@ -12490,7 +12429,7 @@ ask naturally or see
 </tr>
 <tr>
 <td>5. Integrate</td>
-<td><code>/craft:git:worktree finish</code></td>
+<td>ask "finish this worktree" (dev/git skill)</td>
 <td>PR to <code>dev</code></td>
 </tr>
 </tbody>
@@ -12509,7 +12448,7 @@ ask naturally or see
 <tbody>
 <tr>
 <td><strong>Manual</strong></td>
-<td><code>/craft:git:worktree create</code></td>
+<td>dev/git skill ("create a worktree")</td>
 <td>Long-lived</td>
 <td><code>feature/*</code></td>
 <td>Optional</td>
@@ -12582,60 +12521,60 @@ ask naturally or see
 <li><code>m</code> (max): Maximum context gathering</li>
 </ul>
 <p><strong>Examples:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c1"># Quick start (0-2 questions)</span>
-</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
-</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="c1"># Questions: None, straight to brainstorming</span>
-</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Time: ~2 minutes</span>
-</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="c1"># Use: When you know exactly what you want</span>
-</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>
-</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>/brainstorm<span class="w"> </span>q:2<span class="w"> </span><span class="s2">&quot;refactor database&quot;</span>
-</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="c1"># Questions: 2 quick clarifying questions</span>
-</span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="c1"># Time: ~3 minutes</span>
-</span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="c1"># Use: Small tweaks to direction</span>
-</span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>
-</span><span id="__span-40-12"><a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="c1"># Balanced (5-8 questions)</span>
-</span><span id="__span-40-13"><a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;design payment system&quot;</span>
-</span><span id="__span-40-14"><a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="c1"># Questions: 5 carefully selected questions</span>
-</span><span id="__span-40-15"><a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a><span class="c1"># Time: ~10 minutes</span>
-</span><span id="__span-40-16"><a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="c1"># Use: Standard features, moderate complexity</span>
-</span><span id="__span-40-17"><a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a>
-</span><span id="__span-40-18"><a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span><span class="s2">&quot;oauth integration&quot;</span>
-</span><span id="__span-40-19"><a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="c1"># Questions: 8 questions covering all aspects</span>
-</span><span id="__span-40-20"><a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a><span class="c1"># Time: ~15 minutes</span>
-</span><span id="__span-40-21"><a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a><span class="c1"># Use: Complex features needing thorough planning</span>
-</span><span id="__span-40-22"><a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a>
-</span><span id="__span-40-23"><a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a><span class="c1"># Maximum context (12-20 questions)</span>
-</span><span id="__span-40-24"><a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span><span class="s2">&quot;rewrite authentication&quot;</span>
-</span><span id="__span-40-25"><a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a><span class="c1"># Questions: 12 comprehensive questions</span>
-</span><span id="__span-40-26"><a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a><span class="c1"># Time: ~20 minutes</span>
-</span><span id="__span-40-27"><a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a><span class="c1"># Use: Major architectural changes</span>
-</span><span id="__span-40-28"><a id="__codelineno-40-28" name="__codelineno-40-28" href="#__codelineno-40-28"></a>
-</span><span id="__span-40-29"><a id="__codelineno-40-29" name="__codelineno-40-29" href="#__codelineno-40-29"></a>/brainstorm<span class="w"> </span>d:20<span class="w"> </span><span class="s2">&quot;microservices migration&quot;</span>
-</span><span id="__span-40-30"><a id="__codelineno-40-30" name="__codelineno-40-30" href="#__codelineno-40-30"></a><span class="c1"># Questions: Unlimited mode (prompts every 4 questions)</span>
-</span><span id="__span-40-31"><a id="__codelineno-40-31" name="__codelineno-40-31" href="#__codelineno-40-31"></a><span class="c1"># Time: ~30+ minutes</span>
-</span><span id="__span-40-32"><a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a><span class="c1"># Use: Project-level planning</span>
-</span><span id="__span-40-33"><a id="__codelineno-40-33" name="__codelineno-40-33" href="#__codelineno-40-33"></a>
-</span><span id="__span-40-34"><a id="__codelineno-40-34" name="__codelineno-40-34" href="#__codelineno-40-34"></a><span class="c1"># Category filtering (-C flag)</span>
-</span><span id="__span-40-35"><a id="__codelineno-40-35" name="__codelineno-40-35" href="#__codelineno-40-35"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;caching layer&quot;</span><span class="w"> </span>-C<span class="w"> </span>tech,risk
-</span><span id="__span-40-36"><a id="__codelineno-40-36" name="__codelineno-40-36" href="#__codelineno-40-36"></a><span class="c1"># Questions: Only technical + risk questions</span>
-</span><span id="__span-40-37"><a id="__codelineno-40-37" name="__codelineno-40-37" href="#__codelineno-40-37"></a><span class="c1"># Categories available:</span>
-</span><span id="__span-40-38"><a id="__codelineno-40-38" name="__codelineno-40-38" href="#__codelineno-40-38"></a><span class="c1">#   req (requirements), usr (users), scope,</span>
-</span><span id="__span-40-39"><a id="__codelineno-40-39" name="__codelineno-40-39" href="#__codelineno-40-39"></a><span class="c1">#   tech (technical), timeline, risk (risks),</span>
-</span><span id="__span-40-40"><a id="__codelineno-40-40" name="__codelineno-40-40" href="#__codelineno-40-40"></a><span class="c1">#   exist (existing), success (success criteria)</span>
-</span><span id="__span-40-41"><a id="__codelineno-40-41" name="__codelineno-40-41" href="#__codelineno-40-41"></a>
-</span><span id="__span-40-42"><a id="__codelineno-40-42" name="__codelineno-40-42" href="#__codelineno-40-42"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;payment api&quot;</span><span class="w"> </span>--categories<span class="w"> </span>req,tech,exist
-</span><span id="__span-40-43"><a id="__codelineno-40-43" name="__codelineno-40-43" href="#__codelineno-40-43"></a><span class="c1"># Flags:</span>
-</span><span id="__span-40-44"><a id="__codelineno-40-44" name="__codelineno-40-44" href="#__codelineno-40-44"></a><span class="c1">#   f = feature (generates feature spec)</span>
-</span><span id="__span-40-45"><a id="__codelineno-40-45" name="__codelineno-40-45" href="#__codelineno-40-45"></a><span class="c1">#   Categories: requirements, technical, existing systems</span>
-</span><span id="__span-40-46"><a id="__codelineno-40-46" name="__codelineno-40-46" href="#__codelineno-40-46"></a>
-</span><span id="__span-40-47"><a id="__codelineno-40-47" name="__codelineno-40-47" href="#__codelineno-40-47"></a><span class="c1"># Combined flags for full control</span>
-</span><span id="__span-40-48"><a id="__codelineno-40-48" name="__codelineno-40-48" href="#__codelineno-40-48"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">&quot;user analytics&quot;</span>
-</span><span id="__span-40-49"><a id="__codelineno-40-49" name="__codelineno-40-49" href="#__codelineno-40-49"></a><span class="c1"># Flags:</span>
-</span><span id="__span-40-50"><a id="__codelineno-40-50" name="__codelineno-40-50" href="#__codelineno-40-50"></a><span class="c1">#   d:15 = deep mode, 15 questions</span>
-</span><span id="__span-40-51"><a id="__codelineno-40-51" name="__codelineno-40-51" href="#__codelineno-40-51"></a><span class="c1">#   f = feature spec output</span>
-</span><span id="__span-40-52"><a id="__codelineno-40-52" name="__codelineno-40-52" href="#__codelineno-40-52"></a><span class="c1">#   s = spec document format</span>
-</span><span id="__span-40-53"><a id="__codelineno-40-53" name="__codelineno-40-53" href="#__codelineno-40-53"></a><span class="c1">#   -C = filter to 3 categories</span>
-</span><span id="__span-40-54"><a id="__codelineno-40-54" name="__codelineno-40-54" href="#__codelineno-40-54"></a><span class="c1"># Output: Feature spec + technical spec</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Quick start (0-2 questions)</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="c1"># Questions: None, straight to brainstorming</span>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="c1"># Time: ~2 minutes</span>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="c1"># Use: When you know exactly what you want</span>
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>/brainstorm<span class="w"> </span>q:2<span class="w"> </span><span class="s2">&quot;refactor database&quot;</span>
+</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="c1"># Questions: 2 quick clarifying questions</span>
+</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="c1"># Time: ~3 minutes</span>
+</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a><span class="c1"># Use: Small tweaks to direction</span>
+</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a>
+</span><span id="__span-35-12"><a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a><span class="c1"># Balanced (5-8 questions)</span>
+</span><span id="__span-35-13"><a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;design payment system&quot;</span>
+</span><span id="__span-35-14"><a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a><span class="c1"># Questions: 5 carefully selected questions</span>
+</span><span id="__span-35-15"><a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a><span class="c1"># Time: ~10 minutes</span>
+</span><span id="__span-35-16"><a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a><span class="c1"># Use: Standard features, moderate complexity</span>
+</span><span id="__span-35-17"><a id="__codelineno-35-17" name="__codelineno-35-17" href="#__codelineno-35-17"></a>
+</span><span id="__span-35-18"><a id="__codelineno-35-18" name="__codelineno-35-18" href="#__codelineno-35-18"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span><span class="s2">&quot;oauth integration&quot;</span>
+</span><span id="__span-35-19"><a id="__codelineno-35-19" name="__codelineno-35-19" href="#__codelineno-35-19"></a><span class="c1"># Questions: 8 questions covering all aspects</span>
+</span><span id="__span-35-20"><a id="__codelineno-35-20" name="__codelineno-35-20" href="#__codelineno-35-20"></a><span class="c1"># Time: ~15 minutes</span>
+</span><span id="__span-35-21"><a id="__codelineno-35-21" name="__codelineno-35-21" href="#__codelineno-35-21"></a><span class="c1"># Use: Complex features needing thorough planning</span>
+</span><span id="__span-35-22"><a id="__codelineno-35-22" name="__codelineno-35-22" href="#__codelineno-35-22"></a>
+</span><span id="__span-35-23"><a id="__codelineno-35-23" name="__codelineno-35-23" href="#__codelineno-35-23"></a><span class="c1"># Maximum context (12-20 questions)</span>
+</span><span id="__span-35-24"><a id="__codelineno-35-24" name="__codelineno-35-24" href="#__codelineno-35-24"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span><span class="s2">&quot;rewrite authentication&quot;</span>
+</span><span id="__span-35-25"><a id="__codelineno-35-25" name="__codelineno-35-25" href="#__codelineno-35-25"></a><span class="c1"># Questions: 12 comprehensive questions</span>
+</span><span id="__span-35-26"><a id="__codelineno-35-26" name="__codelineno-35-26" href="#__codelineno-35-26"></a><span class="c1"># Time: ~20 minutes</span>
+</span><span id="__span-35-27"><a id="__codelineno-35-27" name="__codelineno-35-27" href="#__codelineno-35-27"></a><span class="c1"># Use: Major architectural changes</span>
+</span><span id="__span-35-28"><a id="__codelineno-35-28" name="__codelineno-35-28" href="#__codelineno-35-28"></a>
+</span><span id="__span-35-29"><a id="__codelineno-35-29" name="__codelineno-35-29" href="#__codelineno-35-29"></a>/brainstorm<span class="w"> </span>d:20<span class="w"> </span><span class="s2">&quot;microservices migration&quot;</span>
+</span><span id="__span-35-30"><a id="__codelineno-35-30" name="__codelineno-35-30" href="#__codelineno-35-30"></a><span class="c1"># Questions: Unlimited mode (prompts every 4 questions)</span>
+</span><span id="__span-35-31"><a id="__codelineno-35-31" name="__codelineno-35-31" href="#__codelineno-35-31"></a><span class="c1"># Time: ~30+ minutes</span>
+</span><span id="__span-35-32"><a id="__codelineno-35-32" name="__codelineno-35-32" href="#__codelineno-35-32"></a><span class="c1"># Use: Project-level planning</span>
+</span><span id="__span-35-33"><a id="__codelineno-35-33" name="__codelineno-35-33" href="#__codelineno-35-33"></a>
+</span><span id="__span-35-34"><a id="__codelineno-35-34" name="__codelineno-35-34" href="#__codelineno-35-34"></a><span class="c1"># Category filtering (-C flag)</span>
+</span><span id="__span-35-35"><a id="__codelineno-35-35" name="__codelineno-35-35" href="#__codelineno-35-35"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;caching layer&quot;</span><span class="w"> </span>-C<span class="w"> </span>tech,risk
+</span><span id="__span-35-36"><a id="__codelineno-35-36" name="__codelineno-35-36" href="#__codelineno-35-36"></a><span class="c1"># Questions: Only technical + risk questions</span>
+</span><span id="__span-35-37"><a id="__codelineno-35-37" name="__codelineno-35-37" href="#__codelineno-35-37"></a><span class="c1"># Categories available:</span>
+</span><span id="__span-35-38"><a id="__codelineno-35-38" name="__codelineno-35-38" href="#__codelineno-35-38"></a><span class="c1">#   req (requirements), usr (users), scope,</span>
+</span><span id="__span-35-39"><a id="__codelineno-35-39" name="__codelineno-35-39" href="#__codelineno-35-39"></a><span class="c1">#   tech (technical), timeline, risk (risks),</span>
+</span><span id="__span-35-40"><a id="__codelineno-35-40" name="__codelineno-35-40" href="#__codelineno-35-40"></a><span class="c1">#   exist (existing), success (success criteria)</span>
+</span><span id="__span-35-41"><a id="__codelineno-35-41" name="__codelineno-35-41" href="#__codelineno-35-41"></a>
+</span><span id="__span-35-42"><a id="__codelineno-35-42" name="__codelineno-35-42" href="#__codelineno-35-42"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;payment api&quot;</span><span class="w"> </span>--categories<span class="w"> </span>req,tech,exist
+</span><span id="__span-35-43"><a id="__codelineno-35-43" name="__codelineno-35-43" href="#__codelineno-35-43"></a><span class="c1"># Flags:</span>
+</span><span id="__span-35-44"><a id="__codelineno-35-44" name="__codelineno-35-44" href="#__codelineno-35-44"></a><span class="c1">#   f = feature (generates feature spec)</span>
+</span><span id="__span-35-45"><a id="__codelineno-35-45" name="__codelineno-35-45" href="#__codelineno-35-45"></a><span class="c1">#   Categories: requirements, technical, existing systems</span>
+</span><span id="__span-35-46"><a id="__codelineno-35-46" name="__codelineno-35-46" href="#__codelineno-35-46"></a>
+</span><span id="__span-35-47"><a id="__codelineno-35-47" name="__codelineno-35-47" href="#__codelineno-35-47"></a><span class="c1"># Combined flags for full control</span>
+</span><span id="__span-35-48"><a id="__codelineno-35-48" name="__codelineno-35-48" href="#__codelineno-35-48"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">&quot;user analytics&quot;</span>
+</span><span id="__span-35-49"><a id="__codelineno-35-49" name="__codelineno-35-49" href="#__codelineno-35-49"></a><span class="c1"># Flags:</span>
+</span><span id="__span-35-50"><a id="__codelineno-35-50" name="__codelineno-35-50" href="#__codelineno-35-50"></a><span class="c1">#   d:15 = deep mode, 15 questions</span>
+</span><span id="__span-35-51"><a id="__codelineno-35-51" name="__codelineno-35-51" href="#__codelineno-35-51"></a><span class="c1">#   f = feature spec output</span>
+</span><span id="__span-35-52"><a id="__codelineno-35-52" name="__codelineno-35-52" href="#__codelineno-35-52"></a><span class="c1">#   s = spec document format</span>
+</span><span id="__span-35-53"><a id="__codelineno-35-53" name="__codelineno-35-53" href="#__codelineno-35-53"></a><span class="c1">#   -C = filter to 3 categories</span>
+</span><span id="__span-35-54"><a id="__codelineno-35-54" name="__codelineno-35-54" href="#__codelineno-35-54"></a><span class="c1"># Output: Feature spec + technical spec</span>
 </span></code></pre></div>
 <p><strong>Question Categories (8 total):</strong></p>
 <table>
@@ -12691,172 +12630,175 @@ ask naturally or see
 </table>
 <p><strong>Milestone Prompts:</strong></p>
 <p>When asking many questions, brainstorm batches them:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>After 8 questions:
-</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>╭─ Questions Complete ────────────────────────────╮
-</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>│ 8 of 12 questions answered                      │
-</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>│                                                 │
-</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>│ Continue with:                                  │
-</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>│   [D] Done - Start brainstorming now            │
-</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>│   [+4] Ask 4 more questions                     │
-</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>│   [+8] Ask all remaining questions              │
-</span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a>│   [K] Keep going mode (prompt every 4)          │
-</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a>╰─────────────────────────────────────────────────╯
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>After 8 questions:
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>╭─ Questions Complete ────────────────────────────╮
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>│ 8 of 12 questions answered                      │
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>│                                                 │
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>│ Continue with:                                  │
+</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>│   [D] Done - Start brainstorming now            │
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a>│   [+4] Ask 4 more questions                     │
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a>│   [+8] Ask all remaining questions              │
+</span><span id="__span-36-9"><a id="__codelineno-36-9" name="__codelineno-36-9" href="#__codelineno-36-9"></a>│   [K] Keep going mode (prompt every 4)          │
+</span><span id="__span-36-10"><a id="__codelineno-36-10" name="__codelineno-36-10" href="#__codelineno-36-10"></a>╰─────────────────────────────────────────────────╯
 </span></code></pre></div>
 <p><strong>Output Formats:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># Default: Saved markdown file</span>
-</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;feature&quot;</span>
-</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="c1"># Creates: BRAINSTORM-feature-2026-01-29.md</span>
-</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="c1"># Location: Current directory or ~/</span>
-</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="c1"># Opens: iA Writer (macOS) for review</span>
-</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>
-</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="c1"># Feature spec format</span>
-</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;oauth&quot;</span>
-</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a><span class="c1"># Output: Feature specification structure</span>
-</span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a><span class="c1"># Includes: Requirements, user stories, acceptance criteria</span>
-</span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a>
-</span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a><span class="c1"># Technical spec format</span>
-</span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;caching&quot;</span>
-</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a><span class="c1"># Output: Technical specification structure</span>
-</span><span id="__span-42-15"><a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a><span class="c1"># Includes: Architecture, data flow, API design</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Default: Saved markdown file</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;feature&quot;</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="c1"># Creates: BRAINSTORM-feature-2026-01-29.md</span>
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="c1"># Location: Current directory or ~/</span>
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="c1"># Opens: iA Writer (macOS) for review</span>
+</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>
+</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="c1"># Feature spec format</span>
+</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;oauth&quot;</span>
+</span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a><span class="c1"># Output: Feature specification structure</span>
+</span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a><span class="c1"># Includes: Requirements, user stories, acceptance criteria</span>
+</span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a>
+</span><span id="__span-37-12"><a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a><span class="c1"># Technical spec format</span>
+</span><span id="__span-37-13"><a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;caching&quot;</span>
+</span><span id="__span-37-14"><a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a><span class="c1"># Output: Technical specification structure</span>
+</span><span id="__span-37-15"><a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a><span class="c1"># Includes: Architecture, data flow, API design</span>
 </span></code></pre></div>
 <p><strong>Real-World Examples:</strong></p>
 <p><strong>Example 1: Quick Bug Fix Planning</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">&quot;fix login timeout issue&quot;</span>
-</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="c1"># No questions, goes straight to brainstorming</span>
-</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="c1"># Generates: Problem analysis, potential causes, solutions</span>
-</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1"># Time: 2 minutes</span>
-</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="c1"># File: BRAINSTORM-fix-login-timeout-2026-01-29.md</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">&quot;fix login timeout issue&quot;</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="c1"># No questions, goes straight to brainstorming</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="c1"># Generates: Problem analysis, potential causes, solutions</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="c1"># Time: 2 minutes</span>
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="c1"># File: BRAINSTORM-fix-login-timeout-2026-01-29.md</span>
 </span></code></pre></div>
 <p><strong>Example 2: New Feature Planning</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;two-factor authentication&quot;</span>
-</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>
-</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="c1"># Asks 8 questions:</span>
-</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="c1"># 1. [requirements] What are the core requirements?</span>
-</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="c1">#    → SMS and app-based TOTP</span>
-</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a><span class="c1"># 2. [users] Who will use this?</span>
-</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a><span class="c1">#    → All users, optional for regular accounts, mandatory for admin</span>
-</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a><span class="c1"># 3. [scope] What&#39;s in scope?</span>
-</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a><span class="c1">#    → Setup flow, verification, backup codes</span>
-</span><span id="__span-44-10"><a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a><span class="c1"># 4. [technical] Technical constraints?</span>
-</span><span id="__span-44-11"><a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a><span class="c1">#    → Must support existing session system</span>
-</span><span id="__span-44-12"><a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a><span class="c1"># 5. [timeline] Timeline?</span>
-</span><span id="__span-44-13"><a id="__codelineno-44-13" name="__codelineno-44-13" href="#__codelineno-44-13"></a><span class="c1">#    → 2 weeks for MVP</span>
-</span><span id="__span-44-14"><a id="__codelineno-44-14" name="__codelineno-44-14" href="#__codelineno-44-14"></a><span class="c1"># 6. [risks] Main risks?</span>
-</span><span id="__span-44-15"><a id="__codelineno-44-15" name="__codelineno-44-15" href="#__codelineno-44-15"></a><span class="c1">#    → SMS delivery reliability, user confusion</span>
-</span><span id="__span-44-16"><a id="__codelineno-44-16" name="__codelineno-44-16" href="#__codelineno-44-16"></a><span class="c1"># 7. [existing] Affected systems?</span>
-</span><span id="__span-44-17"><a id="__codelineno-44-17" name="__codelineno-44-17" href="#__codelineno-44-17"></a><span class="c1">#    → Login flow, user settings, database schema</span>
-</span><span id="__span-44-18"><a id="__codelineno-44-18" name="__codelineno-44-18" href="#__codelineno-44-18"></a><span class="c1"># 8. [success] Success criteria?</span>
-</span><span id="__span-44-19"><a id="__codelineno-44-19" name="__codelineno-44-19" href="#__codelineno-44-19"></a><span class="c1">#    → &gt;80% adoption, &lt;1% support tickets</span>
-</span><span id="__span-44-20"><a id="__codelineno-44-20" name="__codelineno-44-20" href="#__codelineno-44-20"></a>
-</span><span id="__span-44-21"><a id="__codelineno-44-21" name="__codelineno-44-21" href="#__codelineno-44-21"></a><span class="c1"># Generates feature spec:</span>
-</span><span id="__span-44-22"><a id="__codelineno-44-22" name="__codelineno-44-22" href="#__codelineno-44-22"></a><span class="c1"># - User stories</span>
-</span><span id="__span-44-23"><a id="__codelineno-44-23" name="__codelineno-44-23" href="#__codelineno-44-23"></a><span class="c1"># - Acceptance criteria</span>
-</span><span id="__span-44-24"><a id="__codelineno-44-24" name="__codelineno-44-24" href="#__codelineno-44-24"></a><span class="c1"># - Technical approach (3 options)</span>
-</span><span id="__span-44-25"><a id="__codelineno-44-25" name="__codelineno-44-25" href="#__codelineno-44-25"></a><span class="c1"># - Implementation phases</span>
-</span><span id="__span-44-26"><a id="__codelineno-44-26" name="__codelineno-44-26" href="#__codelineno-44-26"></a><span class="c1"># - Testing strategy</span>
-</span><span id="__span-44-27"><a id="__codelineno-44-27" name="__codelineno-44-27" href="#__codelineno-44-27"></a>
-</span><span id="__span-44-28"><a id="__codelineno-44-28" name="__codelineno-44-28" href="#__codelineno-44-28"></a><span class="c1"># Saves to: BRAINSTORM-two-factor-auth-2026-01-29.md</span>
-</span><span id="__span-44-29"><a id="__codelineno-44-29" name="__codelineno-44-29" href="#__codelineno-44-29"></a><span class="c1"># Opens in: iA Writer for review</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;two-factor authentication&quot;</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="c1"># Asks 8 questions:</span>
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="c1"># 1. [requirements] What are the core requirements?</span>
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="c1">#    → SMS and app-based TOTP</span>
+</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="c1"># 2. [users] Who will use this?</span>
+</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="c1">#    → All users, optional for regular accounts, mandatory for admin</span>
+</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="c1"># 3. [scope] What&#39;s in scope?</span>
+</span><span id="__span-39-9"><a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="c1">#    → Setup flow, verification, backup codes</span>
+</span><span id="__span-39-10"><a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a><span class="c1"># 4. [technical] Technical constraints?</span>
+</span><span id="__span-39-11"><a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a><span class="c1">#    → Must support existing session system</span>
+</span><span id="__span-39-12"><a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a><span class="c1"># 5. [timeline] Timeline?</span>
+</span><span id="__span-39-13"><a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a><span class="c1">#    → 2 weeks for MVP</span>
+</span><span id="__span-39-14"><a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a><span class="c1"># 6. [risks] Main risks?</span>
+</span><span id="__span-39-15"><a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a><span class="c1">#    → SMS delivery reliability, user confusion</span>
+</span><span id="__span-39-16"><a id="__codelineno-39-16" name="__codelineno-39-16" href="#__codelineno-39-16"></a><span class="c1"># 7. [existing] Affected systems?</span>
+</span><span id="__span-39-17"><a id="__codelineno-39-17" name="__codelineno-39-17" href="#__codelineno-39-17"></a><span class="c1">#    → Login flow, user settings, database schema</span>
+</span><span id="__span-39-18"><a id="__codelineno-39-18" name="__codelineno-39-18" href="#__codelineno-39-18"></a><span class="c1"># 8. [success] Success criteria?</span>
+</span><span id="__span-39-19"><a id="__codelineno-39-19" name="__codelineno-39-19" href="#__codelineno-39-19"></a><span class="c1">#    → &gt;80% adoption, &lt;1% support tickets</span>
+</span><span id="__span-39-20"><a id="__codelineno-39-20" name="__codelineno-39-20" href="#__codelineno-39-20"></a>
+</span><span id="__span-39-21"><a id="__codelineno-39-21" name="__codelineno-39-21" href="#__codelineno-39-21"></a><span class="c1"># Generates feature spec:</span>
+</span><span id="__span-39-22"><a id="__codelineno-39-22" name="__codelineno-39-22" href="#__codelineno-39-22"></a><span class="c1"># - User stories</span>
+</span><span id="__span-39-23"><a id="__codelineno-39-23" name="__codelineno-39-23" href="#__codelineno-39-23"></a><span class="c1"># - Acceptance criteria</span>
+</span><span id="__span-39-24"><a id="__codelineno-39-24" name="__codelineno-39-24" href="#__codelineno-39-24"></a><span class="c1"># - Technical approach (3 options)</span>
+</span><span id="__span-39-25"><a id="__codelineno-39-25" name="__codelineno-39-25" href="#__codelineno-39-25"></a><span class="c1"># - Implementation phases</span>
+</span><span id="__span-39-26"><a id="__codelineno-39-26" name="__codelineno-39-26" href="#__codelineno-39-26"></a><span class="c1"># - Testing strategy</span>
+</span><span id="__span-39-27"><a id="__codelineno-39-27" name="__codelineno-39-27" href="#__codelineno-39-27"></a>
+</span><span id="__span-39-28"><a id="__codelineno-39-28" name="__codelineno-39-28" href="#__codelineno-39-28"></a><span class="c1"># Saves to: BRAINSTORM-two-factor-auth-2026-01-29.md</span>
+</span><span id="__span-39-29"><a id="__codelineno-39-29" name="__codelineno-39-29" href="#__codelineno-39-29"></a><span class="c1"># Opens in: iA Writer for review</span>
 </span></code></pre></div>
 <p><strong>Example 3: Architecture Planning</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;microservices migration&quot;</span><span class="w"> </span>-C<span class="w"> </span>tech,exist,risk
-</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>
-</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="c1"># Filters to 3 categories, asks 12 questions:</span>
-</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a><span class="c1"># Technical (4 questions):</span>
-</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a><span class="c1"># - Current monolith size?</span>
-</span><span id="__span-45-6"><a id="__codelineno-45-6" name="__codelineno-45-6" href="#__codelineno-45-6"></a><span class="c1"># - Performance requirements?</span>
-</span><span id="__span-45-7"><a id="__codelineno-45-7" name="__codelineno-45-7" href="#__codelineno-45-7"></a><span class="c1"># - Technology stack preferences?</span>
-</span><span id="__span-45-8"><a id="__codelineno-45-8" name="__codelineno-45-8" href="#__codelineno-45-8"></a><span class="c1"># - Infrastructure constraints?</span>
-</span><span id="__span-45-9"><a id="__codelineno-45-9" name="__codelineno-45-9" href="#__codelineno-45-9"></a>
-</span><span id="__span-45-10"><a id="__codelineno-45-10" name="__codelineno-45-10" href="#__codelineno-45-10"></a><span class="c1"># Existing (4 questions):</span>
-</span><span id="__span-45-11"><a id="__codelineno-45-11" name="__codelineno-45-11" href="#__codelineno-45-11"></a><span class="c1"># - Current dependencies?</span>
-</span><span id="__span-45-12"><a id="__codelineno-45-12" name="__codelineno-45-12" href="#__codelineno-45-12"></a><span class="c1"># - Team expertise?</span>
-</span><span id="__span-45-13"><a id="__codelineno-45-13" name="__codelineno-45-13" href="#__codelineno-45-13"></a><span class="c1"># - Existing deployment pipeline?</span>
-</span><span id="__span-45-14"><a id="__codelineno-45-14" name="__codelineno-45-14" href="#__codelineno-45-14"></a><span class="c1"># - Monitoring/observability setup?</span>
-</span><span id="__span-45-15"><a id="__codelineno-45-15" name="__codelineno-45-15" href="#__codelineno-45-15"></a>
-</span><span id="__span-45-16"><a id="__codelineno-45-16" name="__codelineno-45-16" href="#__codelineno-45-16"></a><span class="c1"># Risks (4 questions):</span>
-</span><span id="__span-45-17"><a id="__codelineno-45-17" name="__codelineno-45-17" href="#__codelineno-45-17"></a><span class="c1"># - Data consistency concerns?</span>
-</span><span id="__span-45-18"><a id="__codelineno-45-18" name="__codelineno-45-18" href="#__codelineno-45-18"></a><span class="c1"># - Migration strategy?</span>
-</span><span id="__span-45-19"><a id="__codelineno-45-19" name="__codelineno-45-19" href="#__codelineno-45-19"></a><span class="c1"># - Rollback plan?</span>
-</span><span id="__span-45-20"><a id="__codelineno-45-20" name="__codelineno-45-20" href="#__codelineno-45-20"></a><span class="c1"># - Timeline constraints?</span>
-</span><span id="__span-45-21"><a id="__codelineno-45-21" name="__codelineno-45-21" href="#__codelineno-45-21"></a>
-</span><span id="__span-45-22"><a id="__codelineno-45-22" name="__codelineno-45-22" href="#__codelineno-45-22"></a><span class="c1"># Generates technical spec:</span>
-</span><span id="__span-45-23"><a id="__codelineno-45-23" name="__codelineno-45-23" href="#__codelineno-45-23"></a><span class="c1"># - Architecture diagrams (Mermaid)</span>
-</span><span id="__span-45-24"><a id="__codelineno-45-24" name="__codelineno-45-24" href="#__codelineno-45-24"></a><span class="c1"># - Service boundaries</span>
-</span><span id="__span-45-25"><a id="__codelineno-45-25" name="__codelineno-45-25" href="#__codelineno-45-25"></a><span class="c1"># - Data flow</span>
-</span><span id="__span-45-26"><a id="__codelineno-45-26" name="__codelineno-45-26" href="#__codelineno-45-26"></a><span class="c1"># - Migration phases</span>
-</span><span id="__span-45-27"><a id="__codelineno-45-27" name="__codelineno-45-27" href="#__codelineno-45-27"></a><span class="c1"># - Risk mitigation strategies</span>
-</span><span id="__span-45-28"><a id="__codelineno-45-28" name="__codelineno-45-28" href="#__codelineno-45-28"></a>
-</span><span id="__span-45-29"><a id="__codelineno-45-29" name="__codelineno-45-29" href="#__codelineno-45-29"></a><span class="c1"># Saves to: SPEC-microservices-migration-2026-01-29.md</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;microservices migration&quot;</span><span class="w"> </span>-C<span class="w"> </span>tech,exist,risk
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="c1"># Filters to 3 categories, asks 12 questions:</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Technical (4 questions):</span>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="c1"># - Current monolith size?</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="c1"># - Performance requirements?</span>
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="c1"># - Technology stack preferences?</span>
+</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="c1"># - Infrastructure constraints?</span>
+</span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>
+</span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="c1"># Existing (4 questions):</span>
+</span><span id="__span-40-11"><a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a><span class="c1"># - Current dependencies?</span>
+</span><span id="__span-40-12"><a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="c1"># - Team expertise?</span>
+</span><span id="__span-40-13"><a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a><span class="c1"># - Existing deployment pipeline?</span>
+</span><span id="__span-40-14"><a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="c1"># - Monitoring/observability setup?</span>
+</span><span id="__span-40-15"><a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a>
+</span><span id="__span-40-16"><a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="c1"># Risks (4 questions):</span>
+</span><span id="__span-40-17"><a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a><span class="c1"># - Data consistency concerns?</span>
+</span><span id="__span-40-18"><a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a><span class="c1"># - Migration strategy?</span>
+</span><span id="__span-40-19"><a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="c1"># - Rollback plan?</span>
+</span><span id="__span-40-20"><a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a><span class="c1"># - Timeline constraints?</span>
+</span><span id="__span-40-21"><a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a>
+</span><span id="__span-40-22"><a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a><span class="c1"># Generates technical spec:</span>
+</span><span id="__span-40-23"><a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a><span class="c1"># - Architecture diagrams (Mermaid)</span>
+</span><span id="__span-40-24"><a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="c1"># - Service boundaries</span>
+</span><span id="__span-40-25"><a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a><span class="c1"># - Data flow</span>
+</span><span id="__span-40-26"><a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a><span class="c1"># - Migration phases</span>
+</span><span id="__span-40-27"><a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a><span class="c1"># - Risk mitigation strategies</span>
+</span><span id="__span-40-28"><a id="__codelineno-40-28" name="__codelineno-40-28" href="#__codelineno-40-28"></a>
+</span><span id="__span-40-29"><a id="__codelineno-40-29" name="__codelineno-40-29" href="#__codelineno-40-29"></a><span class="c1"># Saves to: SPEC-microservices-migration-2026-01-29.md</span>
 </span></code></pre></div>
 <p><strong>Auto-Open Behavior (macOS):</strong></p>
 <p>After generating, brainstorm uses AppleScript to open files:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="c1"># Default: iA Writer (DT&#39;s preference)</span>
-</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>osascript<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;tell application &quot;iA Writer&quot;</span>
-</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="s1">    activate</span>
-</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="s1">    open POSIX file &quot;/path/to/BRAINSTORM-feature.md&quot;</span>
-</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="s1">end tell&#39;</span>
-</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>
-</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="c1"># Alternative editors can be configured</span>
-</span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a><span class="c1"># Set in ~/.claude/settings.json:</span>
-</span><span id="__span-46-9"><a id="__codelineno-46-9" name="__codelineno-46-9" href="#__codelineno-46-9"></a><span class="o">{</span>
-</span><span id="__span-46-10"><a id="__codelineno-46-10" name="__codelineno-46-10" href="#__codelineno-46-10"></a><span class="w">  </span><span class="s2">&quot;brainstorm&quot;</span>:<span class="w"> </span><span class="o">{</span>
-</span><span id="__span-46-11"><a id="__codelineno-46-11" name="__codelineno-46-11" href="#__codelineno-46-11"></a><span class="w">    </span><span class="s2">&quot;editor&quot;</span>:<span class="w"> </span><span class="s2">&quot;code&quot;</span><span class="w">  </span><span class="c1"># VS Code, Cursor, Sublime, etc.</span>
-</span><span id="__span-46-12"><a id="__codelineno-46-12" name="__codelineno-46-12" href="#__codelineno-46-12"></a><span class="w">  </span><span class="o">}</span>
-</span><span id="__span-46-13"><a id="__codelineno-46-13" name="__codelineno-46-13" href="#__codelineno-46-13"></a><span class="o">}</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Default: iA Writer (DT&#39;s preference)</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>osascript<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;tell application &quot;iA Writer&quot;</span>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="s1">    activate</span>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="s1">    open POSIX file &quot;/path/to/BRAINSTORM-feature.md&quot;</span>
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="s1">end tell&#39;</span>
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>
+</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="c1"># Alternative editors can be configured</span>
+</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a><span class="c1"># Set in ~/.claude/settings.json:</span>
+</span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a><span class="o">{</span>
+</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a><span class="w">  </span><span class="s2">&quot;brainstorm&quot;</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a><span class="w">    </span><span class="s2">&quot;editor&quot;</span>:<span class="w"> </span><span class="s2">&quot;code&quot;</span><span class="w">  </span><span class="c1"># VS Code, Cursor, Sublime, etc.</span>
+</span><span id="__span-41-12"><a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a><span class="w">  </span><span class="o">}</span>
+</span><span id="__span-41-13"><a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a><span class="o">}</span>
 </span></code></pre></div>
-<p><strong>Insights (v2.21.0):</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c1"># Generate session insights report</span>
-</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>/craft:insights
-</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="c1"># Aggregates: Friction patterns, goal categories, outcomes</span>
-</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="c1"># Suggests: CLAUDE.md rules to prevent recurring issues</span>
-</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>
-</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="c1"># HTML report for sharing</span>
-</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a>/craft:insights<span class="w"> </span>--format<span class="w"> </span>html
-</span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a>
-</span><span id="__span-47-9"><a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="c1"># Last 7 days, specific project</span>
-</span><span id="__span-47-10"><a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a>/craft:insights<span class="w"> </span>--since<span class="w"> </span><span class="m">7</span><span class="w"> </span>--project<span class="w"> </span>craft
-</span><span id="__span-47-11"><a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a>
-</span><span id="__span-47-12"><a id="__codelineno-47-12" name="__codelineno-47-12" href="#__codelineno-47-12"></a><span class="c1"># Apply suggestions to CLAUDE.md</span>
-</span><span id="__span-47-13"><a id="__codelineno-47-13" name="__codelineno-47-13" href="#__codelineno-47-13"></a>/craft:insights-apply
+<p><strong>Insights (skill-routed, not a slash command):</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># Generate session insights report</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="c1"># ask &quot;generate an insights report&quot; (workflow/brainstorm-insights skill)</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="c1"># Aggregates: Friction patterns, goal categories, outcomes</span>
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="c1"># Suggests: CLAUDE.md rules to prevent recurring issues</span>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="c1"># Apply suggestions to CLAUDE.md</span>
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="c1"># ask &quot;apply the insights suggestions&quot; (insights-apply skill)</span>
 </span></code></pre></div>
 <p><strong>Insights Lifecycle:</strong></p>
-<pre class="mermaid"><code>graph LR
+<pre class="mermaid"><code>flowchart LR
     A[sessions] --&gt; B[facets data]
-    B --&gt; C["/craft:insights"]
+    B --&gt; C[insights skill]
     C --&gt; D[CLAUDE.md rules]
     C --&gt; E[ORCHESTRATE friction prevention]
     C --&gt; F[brainstorm context]</code></pre>
 <p><strong>Other Workflow Commands:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c1"># Get next step</span>
-</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>/workflow:next
-</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="c1"># Analyzes: Current state, recent changes</span>
-</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a><span class="c1"># Suggests: Next logical step</span>
-</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>
-</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="c1"># Complete session</span>
-</span><span id="__span-48-7"><a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a>/workflow:done
-</span><span id="__span-48-8"><a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a><span class="c1"># Summarizes: What you accomplished</span>
-</span><span id="__span-48-9"><a id="__codelineno-48-9" name="__codelineno-48-9" href="#__codelineno-48-9"></a><span class="c1"># Saves: Session notes</span>
-</span><span id="__span-48-10"><a id="__codelineno-48-10" name="__codelineno-48-10" href="#__codelineno-48-10"></a><span class="c1"># Prompts: Next session goal</span>
-</span><span id="__span-48-11"><a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a><span class="c1"># NEW in v2.22.0: Doc drift detection</span>
-</span><span id="__span-48-12"><a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a><span class="c1">#   Cross-references changed files against docs</span>
-</span><span id="__span-48-13"><a id="__codelineno-48-13" name="__codelineno-48-13" href="#__codelineno-48-13"></a><span class="c1">#   Offers to run /folio:docs:sync if drift found</span>
-</span><span id="__span-48-14"><a id="__codelineno-48-14" name="__codelineno-48-14" href="#__codelineno-48-14"></a><span class="c1"># NEW in v2.61.0: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
-</span><span id="__span-48-15"><a id="__codelineno-48-15" name="__codelineno-48-15" href="#__codelineno-48-15"></a><span class="c1">#   Option A auto-commits + pushes (skip on main, never force-push)</span>
-</span><span id="__span-48-16"><a id="__codelineno-48-16" name="__codelineno-48-16" href="#__codelineno-48-16"></a><span class="c1">#   CLAUDE.md counts synced silently before commit</span>
-</span><span id="__span-48-17"><a id="__codelineno-48-17" name="__codelineno-48-17" href="#__codelineno-48-17"></a><span class="c1">#   Worktree branch ahead/behind shown in summary</span>
-</span><span id="__span-48-18"><a id="__codelineno-48-18" name="__codelineno-48-18" href="#__codelineno-48-18"></a><span class="c1">#   Memory capture: saves learnings to MEMORY.md (SKIP_MEMORY_UPDATE=1)</span>
-</span><span id="__span-48-19"><a id="__codelineno-48-19" name="__codelineno-48-19" href="#__codelineno-48-19"></a><span class="c1">#   Insights capture: writes facet JSON for friction analysis (SKIP_INSIGHTS=1)</span>
-</span><span id="__span-48-20"><a id="__codelineno-48-20" name="__codelineno-48-20" href="#__codelineno-48-20"></a><span class="c1">#   SKIP_GIT_SYNC=1 / SKIP_CLAUDE_MD_SYNC=1 to opt out</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># Restore context (git + session state)</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>/craft:restore
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="c1"># Combines: dev/git skill&#39;s git-activity recap (commits, branch</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1">#   ahead/behind, unpushed work, open PRs) + adhd-workflow&#39;s</span>
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="c1">#   .STATUS-based session recap in one read-only summary</span>
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a><span class="c1"># Modes: default | detailed | summary (apply to the git-activity</span>
+</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="c1">#   portion; adhd-workflow&#39;s recap has no mode support)</span>
+</span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a><span class="c1"># Read-only — no --sync, never writes .STATUS or commits</span>
+</span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>
+</span><span id="__span-43-10"><a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a><span class="c1"># Get next step</span>
+</span><span id="__span-43-11"><a id="__codelineno-43-11" name="__codelineno-43-11" href="#__codelineno-43-11"></a>/craft:next
+</span><span id="__span-43-12"><a id="__codelineno-43-12" name="__codelineno-43-12" href="#__codelineno-43-12"></a><span class="c1"># Analyzes: Current state, recent changes</span>
+</span><span id="__span-43-13"><a id="__codelineno-43-13" name="__codelineno-43-13" href="#__codelineno-43-13"></a><span class="c1"># Suggests: Next logical step</span>
+</span><span id="__span-43-14"><a id="__codelineno-43-14" name="__codelineno-43-14" href="#__codelineno-43-14"></a>
+</span><span id="__span-43-15"><a id="__codelineno-43-15" name="__codelineno-43-15" href="#__codelineno-43-15"></a><span class="c1"># Complete session</span>
+</span><span id="__span-43-16"><a id="__codelineno-43-16" name="__codelineno-43-16" href="#__codelineno-43-16"></a>/craft:done
+</span><span id="__span-43-17"><a id="__codelineno-43-17" name="__codelineno-43-17" href="#__codelineno-43-17"></a><span class="c1"># Summarizes: What you accomplished</span>
+</span><span id="__span-43-18"><a id="__codelineno-43-18" name="__codelineno-43-18" href="#__codelineno-43-18"></a><span class="c1"># Saves: Session notes</span>
+</span><span id="__span-43-19"><a id="__codelineno-43-19" name="__codelineno-43-19" href="#__codelineno-43-19"></a><span class="c1"># Prompts: Next session goal</span>
+</span><span id="__span-43-20"><a id="__codelineno-43-20" name="__codelineno-43-20" href="#__codelineno-43-20"></a><span class="c1"># NEW in v2.22.0: Doc drift detection</span>
+</span><span id="__span-43-21"><a id="__codelineno-43-21" name="__codelineno-43-21" href="#__codelineno-43-21"></a><span class="c1">#   Cross-references changed files against docs</span>
+</span><span id="__span-43-22"><a id="__codelineno-43-22" name="__codelineno-43-22" href="#__codelineno-43-22"></a><span class="c1">#   Offers to run /folio:docs:sync if drift found</span>
+</span><span id="__span-43-23"><a id="__codelineno-43-23" name="__codelineno-43-23" href="#__codelineno-43-23"></a><span class="c1"># NEW in v2.61.0: Auto-git, CLAUDE.md sync, worktree status, learning loop</span>
+</span><span id="__span-43-24"><a id="__codelineno-43-24" name="__codelineno-43-24" href="#__codelineno-43-24"></a><span class="c1">#   Option A auto-commits + pushes (skip on main, never force-push)</span>
+</span><span id="__span-43-25"><a id="__codelineno-43-25" name="__codelineno-43-25" href="#__codelineno-43-25"></a><span class="c1">#   CLAUDE.md counts synced silently before commit</span>
+</span><span id="__span-43-26"><a id="__codelineno-43-26" name="__codelineno-43-26" href="#__codelineno-43-26"></a><span class="c1">#   Worktree branch ahead/behind shown in summary</span>
+</span><span id="__span-43-27"><a id="__codelineno-43-27" name="__codelineno-43-27" href="#__codelineno-43-27"></a><span class="c1">#   Memory capture: saves learnings to MEMORY.md (SKIP_MEMORY_UPDATE=1)</span>
+</span><span id="__span-43-28"><a id="__codelineno-43-28" name="__codelineno-43-28" href="#__codelineno-43-28"></a><span class="c1">#   Insights capture: writes facet JSON for friction analysis (SKIP_INSIGHTS=1)</span>
+</span><span id="__span-43-29"><a id="__codelineno-43-29" name="__codelineno-43-29" href="#__codelineno-43-29"></a><span class="c1">#   SKIP_GIT_SYNC=1 / SKIP_CLAUDE_MD_SYNC=1 to opt out</span>
 </span></code></pre></div>
 <p><strong>Scaffold defaults (v2.52.0):</strong> emits a tier-inferred test plan + Documentation section by default.
 Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 <p><strong>3-line action block (v2.54.0):</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="c1"># End-of-session action block</span>
-</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>/craft:brief
-</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="c1"># Outputs: Next step / Watch out for / Connects to</span>
-</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="c1"># Flags: --plan (add mini-plan), --verbose (expand each line), --show-context</span>
-</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="c1"># Via /craft:do: appended to output with --brief flag (block only)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c1"># End-of-session action block</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>/craft:brief
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="c1"># Outputs: Next step / Watch out for / Connects to</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="c1"># Flags: --plan (add mini-plan), --verbose (expand each line), --show-context</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="c1"># Via /craft:do: appended to output with --brief flag (block only)</span>
 </span></code></pre></div>
 <p><strong>See:</strong> <a href="../commands/brainstorm/">Brainstorm Documentation</a> for complete guide</p>
 <h2 id="skills-40-total">Skills (40 total)<a class="headerlink" href="#skills-40-total" title="Permanent link">&para;</a></h2>
@@ -13404,6 +13346,10 @@ Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 <td><code>/craft:dist:homebrew</code></td>
 <td>Complete Homebrew automation — formulas, casks, workflows, auditing, and dependency management</td>
 </tr>
+<tr>
+<td><code>/craft:dist:surfaces</code></td>
+<td>Read-only view of surface registry + version matrix</td>
+</tr>
 </tbody>
 </table>
 <h3 id="site-commands">Site Commands<a class="headerlink" href="#site-commands" title="Permanent link">&para;</a></h3>
@@ -13416,8 +13362,8 @@ Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>/craft:site:docs:frameworks</code></td>
-<td>Documentation framework comparison — choose between MkDocs, Quarto, and pkgdown</td>
+<td><code>/craft:site:deploy</code></td>
+<td>Build and deploy the documentation site, with context-aware pre-deploy checks</td>
 </tr>
 </tbody>
 </table>
@@ -13434,26 +13380,15 @@ Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
 <td><code>/craft:smart-help</code></td>
 <td>Context-aware help that suggests relevant commands based on current situation</td>
 </tr>
-</tbody>
-</table>
-<h3 id="workflow-commands">Workflow Commands<a class="headerlink" href="#workflow-commands" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
 <tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td></td>
+<td><code>/craft:refine</code></td>
+<td>Refine a task prompt through a structured elicitation pass before running it</td>
 </tr>
 </tbody>
 </table>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong><a href="../guide/getting-started/">Full Documentation</a></strong> (99% complete)</li>
+<li><strong><a href="../guide/getting-started/">Full Documentation</a></strong></li>
 <li><strong><a href="https://github.com/Data-Wise/craft/issues">GitHub Issues</a></strong></li>
 <li><strong><a href="https://github.com/Data-Wise/craft/blob/main/docs/archive/ROADMAP.md">ROADMAP</a></strong></li>
 </ul>
@@ -13515,7 +13450,7 @@ Use <code>--no-tests</code> or <code>--no-docs</code> to suppress either.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascripts/mermaid-init.js"></script>
       

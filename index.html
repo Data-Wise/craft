@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 47 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.0.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types), dead-agent-dispatch cleanup with verify-surfaces --report-only/--version flags and a release-rollback runbook (PR #270), and guard-suite consolidation with --classify/GUARD_DRY_RUN=1 ground-truth mode across both hooks (PR #272).">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.1.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
       
       
       
@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2469,6 +2469,62 @@
   
   
     <li class="md-nav__item">
+      <a href="architecture/craft-restore-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="architecture/prompt-refiner-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prompt-refiner Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
         
   
@@ -3096,10 +3152,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_59" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_59" id="__nav_2_4_59_label" tabindex="0">
             
   
   
@@ -3117,8 +3173,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_57">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_59_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_59">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4301,6 +4357,34 @@
     
   
     git:issue-check Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tutorials/TUTORIAL-site-deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    site:deploy Tutorial
   
 
     
@@ -5571,6 +5655,34 @@
     
   
     /craft:done
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="commands/restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore
   
 
     
@@ -9859,6 +9971,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internal/DISCOVERY-ENGINE-USAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discovery Engine Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10041,12 +10181,12 @@
 
 
 <h1 id="craft-plugin">Craft Plugin<a class="headerlink" href="#craft-plugin" title="Permanent link">&para;</a></h1>
-<p><a href="https://data-wise.github.io/craft/"><img alt="Documentation" src="https://img.shields.io/badge/docs-98%25%20complete-brightgreen.svg" /></a>
+<p><a href="https://data-wise.github.io/craft/"><img alt="Documentation" src="https://img.shields.io/badge/docs-comprehensive-brightgreen.svg" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml"><img alt="Docs Sync" src="https://github.com/Data-Wise/craft/actions/workflows/docs-sync.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
-<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.0.0-brightgreen.svg" /></a></p>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.1.0-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -10071,23 +10211,23 @@
 <blockquote>
 <p><strong>TL;DR</strong> (30 seconds)</p>
 <ul>
-<li><strong>What:</strong> Full-stack developer toolkit with 47 commands, 2 AI agents, and 40 auto-triggered skills</li>
+<li><strong>What:</strong> Full-stack developer toolkit with 48 commands, 2 AI agents, and 40 auto-triggered skills</li>
 <li><strong>Why:</strong> Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command</li>
 <li><strong>How:</strong> Install via <code>claude plugin install craft@local-plugins</code></li>
 <li><strong>Next:</strong> Run <code>/craft:do "your task"</code> and let AI route to the best workflow</li>
 </ul>
-<p>Full-stack developer toolkit for Claude Code — 47 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows</p>
+<p>Full-stack developer toolkit for Claude Code — 48 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows</p>
 </blockquote>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
 <div class="grid cards">
 <ul>
 <li>
-<p><img alt="🚀" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f680.svg" title=":rocket:" /> <strong>46 Commands</strong></p>
-<p>Smart commands, docs, site management, CLAUDE.md maintenance, code, testing, git, CI, architecture, distribution (marketplace + Homebrew + PyPI), planning, and workflow automation - all in one toolkit</p>
+<p><img alt="🚀" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f680.svg" title=":rocket:" /> <strong>47 Commands</strong></p>
+<p>Smart commands, docs, code, testing, git, CI, architecture, distribution (Homebrew), planning, and workflow automation — all in one toolkit. Docs-authoring/site-publishing commands live in the sibling <a href="https://github.com/Data-Wise/folio"><code>folio</code></a> plugin.</p>
 </li>
 <li>
-<p><img alt="🧠" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f9e0.svg" title=":brain:" /> <strong>8 Specialized Agents</strong></p>
-<p>Docs architect, mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder, and 2 orchestrators (default + v2.1)</p>
+<p><img alt="🧠" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f9e0.svg" title=":brain:" /> <strong>2 Agents</strong></p>
+<p><code>orchestrator</code> and <code>orchestrator-v2</code> (mode-aware, subagent-monitoring multi-step orchestration). The docs-focused agents (mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder) moved to <code>folio</code>.</p>
 </li>
 <li>
 <p><img alt="✨" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2728.svg" title=":sparkles:" /> <strong>40 Skills</strong></p>
@@ -10103,7 +10243,7 @@
 </li>
 <li>
 <p><img alt="📚" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4da.svg" title=":books:" /> <strong>Documentation Excellence</strong></p>
-<p>99% complete documentation with comprehensive guides, 17 Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation pipeline with health score</p>
+<p>Comprehensive guides, 80+ Mermaid diagrams, complete version history, smart doc generation, TL;DR boxes, time estimates, mermaid validation pipeline with health score</p>
 </li>
 </ul>
 </div>
@@ -10153,12 +10293,12 @@
 </ul>
 </div>
 <h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
-<p>Complete OpenAPI-style documentation for all 115 Craft commands:</p>
+<p>Reference documentation for all 47 Craft commands:</p>
 <div class="grid cards">
 <ul>
 <li>
 <p><img alt="📜" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4dc.svg" title=":scroll:" /> <strong><a href="API-REFERENCE-COMMANDS/">API Reference - Commands</a></strong></p>
-<p>Complete documentation for all 47 commands organized by category with parameters, usage examples, and output formats</p>
+<p>Index into per-command pages (<a href="commands/overview/">docs/commands/</a>) and the <a href="REFCARD/">REFCARD</a> cheat sheet, organized by category</p>
 </li>
 <li>
 <p><img alt="⚙" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/2699.svg" title=":gear:" /> <strong><a href="reference/COMMAND-PARAMETERS/">Command Parameters</a></strong></p>
@@ -10176,7 +10316,7 @@
 </div>
 <p><strong>Quick Links:</strong></p>
 <ul>
-<li><a href="API-REFERENCE-COMMANDS/">All 46 Commands with Full Documentation</a></li>
+<li><a href="API-REFERENCE-COMMANDS/">All 47 Commands, Indexed by Category</a></li>
 <li><a href="reference/COMMAND-PARAMETERS/">Parameters Quick Reference</a></li>
 <li><a href="reference/ERROR-SCENARIOS/">Error Recovery Guide</a></li>
 <li><a href="reference/COMMAND-EXAMPLES/">Real-World Examples</a></li>
@@ -10230,7 +10370,7 @@
 </li>
 <li>
 <p><img alt="📜" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4dc.svg" title=":scroll:" /> <strong><a href="API-REFERENCE-COMMANDS/">API Reference</a></strong></p>
-<p>Complete documentation for all 47 commands</p>
+<p>Index into per-command documentation for all 47 commands</p>
 </li>
 </ul>
 </div>
@@ -10312,7 +10452,7 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v4.0.0 — Guard Suite Consolidation</p>
+<p class="admonition-title">Latest: v4.1.0 — Guard Suite Consolidation</p>
 <p><a href="https://github.com/Data-Wise/craft/pull/272">PR #272</a> consolidates the branch-guard and
 no-switch-guard into a skill-driven operations layer under <code>skills/dev/git/</code>, adds
 <code>--classify</code>/<code>GUARD_DRY_RUN=1</code> ground-truth mode, a portable <code>sedi()</code> wrapper, and 62 new
@@ -10386,7 +10526,7 @@ See the <a href="CHANGELOG/">full changelog</a> for all releases, or visit the <
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="javascripts/mermaid-init.js"></script>
       

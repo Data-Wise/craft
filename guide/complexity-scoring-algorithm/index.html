@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 47 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.0.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types), dead-agent-dispatch cleanup with verify-surfaces --report-only/--version flags and a release-rollback runbook (PR #270), and guard-suite consolidation with --classify/GUARD_DRY_RUN=1 ground-truth mode across both hooks (PR #272).">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.1.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2773,6 +2773,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../architecture/craft-restore-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/prompt-refiner-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prompt-refiner Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
         
   
@@ -3400,10 +3456,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_59" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_59" id="__nav_2_4_59_label" tabindex="0">
             
   
   
@@ -3421,8 +3477,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_57">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_59_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_59">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4605,6 +4661,34 @@
     
   
     git:issue-check Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/TUTORIAL-site-deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    site:deploy Tutorial
   
 
     
@@ -5875,6 +5959,34 @@
     
   
     /craft:done
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../commands/restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore
   
 
     
@@ -10163,6 +10275,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../internal/DISCOVERY-ENGINE-USAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discovery Engine Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -10808,7 +10948,7 @@
 <li>No architectural pattern → No architecture</li>
 </ul>
 <h3 id="score-010-route-commands">Score: 0/10 → Route: Commands<a class="headerlink" href="#score-010-route-commands" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph LR
+<pre class="mermaid"><code>flowchart LR
     A["Fix typo in README"] --&gt;|Factor 1| B["Multi-step? No"]
     A --&gt;|Factor 2| C["Cross-cat? No"]
     A --&gt;|Factor 3| D["Planning? No"]
@@ -10843,7 +10983,7 @@
 <li>No architectural pattern → 0</li>
 </ul>
 <h3 id="score-610-route-command-sequence">Score: 6/10 → Route: Command Sequence<a class="headerlink" href="#score-610-route-command-sequence" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph LR
+<pre class="mermaid"><code>flowchart LR
     A["Add feature with comprehensive tests and documentation"] --&gt;|Factor 1| B["✓ Multi-step: +2"]
     A --&gt;|Factor 2| C["✓ 3 categories: +2"]
     A --&gt;|Factor 3| D["Planning? No"]
@@ -10877,7 +11017,7 @@
 <li>"design" + "system" pattern → +2 architecture</li>
 </ul>
 <h3 id="score-1010-capped-route-orchestrator">Score: 10/10 (capped) → Route: Orchestrator<a class="headerlink" href="#score-1010-capped-route-orchestrator" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph LR
+<pre class="mermaid"><code>flowchart LR
     A["Design comprehensive auth system with OAuth2, sessions,&lt;br/&gt;error handling, tests, and documentation"]
 
     A --&gt;|Factor 1| B["✓ Multi-step: +2"]
@@ -10926,7 +11066,7 @@
 <li>"fix typo"</li>
 </ul>
 <p><strong>Time:</strong> &lt; 30 seconds</p>
-<pre class="mermaid"><code>graph TD
+<pre class="mermaid"><code>flowchart TD
     A["0-3 Points"] --&gt; B["Simple Task"]
     B --&gt; C["Single Operation"]
     B --&gt; D["One Category"]
@@ -10962,7 +11102,7 @@ asking the dev/git skill to create a feature branch); no per-domain agent dispat
 </ul>
 <p><strong>Time:</strong> 5-30 minutes
 <strong>Reasoning:</strong> Chaining several category commands handles multiple aspects better than a single command, but the task isn't complex enough for full orchestration</p>
-<pre class="mermaid"><code>graph TD
+<pre class="mermaid"><code>flowchart TD
     A["4-7 Points"] --&gt; B["Moderate Task"]
     B --&gt; C["2-3 Operations"]
     B --&gt; D["2-3 Categories"]
@@ -10995,7 +11135,7 @@ asking the dev/git skill to create a feature branch); no per-domain agent dispat
 </ul>
 <p><strong>Time:</strong> 30 minutes - several hours
 <strong>Reasoning:</strong> Requires parallel multi-agent coordination with tight integration</p>
-<pre class="mermaid"><code>graph TD
+<pre class="mermaid"><code>flowchart TD
     A["8-10 Points"] --&gt; B["Complex Task"]
     B --&gt; C["4+ Operations"]
     B --&gt; D["4+ Categories"]
@@ -11198,7 +11338,7 @@ asking the dev/git skill to create a feature branch); no per-domain agent dispat
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascripts/mermaid-init.js"></script>
       

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 47 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.0.0 adds grill attack-angles (7 project-agnostic adversarial axes), the orchestrate-dispatch output mode (background-agent dispatch from the planning session, with confirm gate + hang detection), a doc-impact rubric extension (Tutorial/API/Cookbook/Architecture-doc types), dead-agent-dispatch cleanup with verify-surfaces --report-only/--version flags and a release-rollback runbook (PR #270), and guard-suite consolidation with --classify/GUARD_DRY_RUN=1 ground-truth mode across both hooks (PR #272).">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.1.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2331,6 +2331,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../architecture/craft-restore-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/prompt-refiner-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    prompt-refiner Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
         
   
@@ -2958,10 +3014,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_57" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_59" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_57" id="__nav_2_4_57_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_59" id="__nav_2_4_59_label" tabindex="0">
             
   
   
@@ -2979,8 +3035,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_57_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_57">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_59_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_59">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4163,6 +4219,34 @@
     
   
     git:issue-check Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/TUTORIAL-site-deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    site:deploy Tutorial
   
 
     
@@ -6051,6 +6135,34 @@
     
   
     /craft:done
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    /craft:restore
   
 
     
@@ -10339,6 +10451,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internal/DISCOVERY-ENGINE-USAGE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Discovery Engine Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -11002,13 +11142,13 @@
 <p>Complete reference for all 116 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.</p>
 <h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
 <p><strong>Smart Commands:</strong> <code>/craft:do</code>, <code>/craft:check</code>, <code>/craft:help</code>, <code>/craft:hub</code>
-<strong>Dry-Run Support:</strong> 27 of 47 commands support <code>--dry-run</code> / <code>-n</code> preview mode
+<strong>Dry-Run Support:</strong> 27 of 48 commands support <code>--dry-run</code> / <code>-n</code> preview mode
 <strong>Prompt Refinement (default-on):</strong> <code>/brainstorm</code>, <code>/craft:do</code>, <code>/craft:plan:feature</code>, <code>/craft:grill</code> run the <code>prompt-refiner</code> skill automatically before acting. Use <code>--no-refine</code> to skip; pass <code>--yes</code> to auto-accept the refined prompt without a confirm step.
 <strong>17 Categories:</strong> arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow</p>
 <p>Use <code>/craft:hub</code> to discover all available commands interactively.</p>
 <div class="admonition tip">
 <p class="admonition-title">Preview Before Executing</p>
-<p>47 commands support dry-run mode. Add <code>--dry-run</code> or <code>-n</code> to preview actions before executing. See <a href="#dry-run-commands">Dry-Run Commands</a> below.</p>
+<p>48 commands support dry-run mode. Add <code>--dry-run</code> or <code>-n</code> to preview actions before executing. See <a href="#dry-run-commands">Dry-Run Commands</a> below.</p>
 </div>
 <h2 id="smart-commands">Smart Commands<a class="headerlink" href="#smart-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftdo">/craft:do 🔍<a class="headerlink" href="#craftdo" title="Permanent link">&para;</a></h3>
@@ -11325,7 +11465,7 @@ directly.</p>
 <li><strong>Test (3):</strong> run, cli-gen, cli-run</li>
 </ul>
 <h2 id="dry-run-commands">Dry-Run Commands<a class="headerlink" href="#dry-run-commands" title="Permanent link">&para;</a></h2>
-<p>27 of 47 commands support <code>--dry-run</code> / <code>-n</code> preview mode. <strong>Target exceeded:</strong> 57% of target commands vs 52% goal.</p>
+<p>27 of 48 commands support <code>--dry-run</code> / <code>-n</code> preview mode. <strong>Target exceeded:</strong> 57% of target commands vs 52% goal.</p>
 <h3 id="git-commands-66-100">Git Commands (6/6) — 100% ✅<a class="headerlink" href="#git-commands-66-100" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>git:branch</code> - Preview branch operations</li>
@@ -11445,7 +11585,7 @@ directly.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../javascripts/mermaid-init.js"></script>
       
