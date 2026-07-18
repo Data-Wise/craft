@@ -1,6 +1,6 @@
 # Tutorial: Session Wrap with Memory Optimization & Settings Sync
 
-**Commands covered:** `/craft:done`  
+**Commands covered:** `/craft:finish`  
 **Added in:** v2.49.0  
 **Time:** ~10 minutes
 
@@ -101,4 +101,4 @@ A ghost entry is a line in `MEMORY.md` that links to a `.md` file that no longer
 
 - [Memory Optimization Reference](../help/memory-optimization.md)
 - [CLAUDE.md Sync tutorial](claude-md-workflows.md)
-- `/craft:done` command reference
+- `/craft:finish` command reference

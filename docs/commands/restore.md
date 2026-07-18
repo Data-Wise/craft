@@ -70,7 +70,7 @@ WHAT'S NEXT
 
 | Command | Role |
 |---------|------|
-| `/craft:done` | **Produces** the `.STATUS` state this command consumes |
+| `/craft:finish` | **Produces** the `.STATUS` state this command consumes |
 | `/craft:next` | Suggests the next task from the same `.STATUS` state |
 | `/craft:restore` | Read-only opener — run first when returning after a break |
 
@@ -94,6 +94,6 @@ scope here — see the spec's Open Questions.
 
 ## See Also
 
-- **Session completion:** `/craft:done` - Save context, produces the `.STATUS` this reads
+- **Session completion:** `/craft:finish` - Save context, produces the `.STATUS` this reads
 - **Decision support:** `/craft:next` - What to do next
 - **Spec:** [`docs/specs/SPEC-craft-restore-2026-07-17.md`](../specs/SPEC-craft-restore-2026-07-17.md)

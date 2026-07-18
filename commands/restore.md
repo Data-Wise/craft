@@ -45,9 +45,9 @@ only reads and reports. There is no `--sync` flag (unlike `savant:restore`, whic
 optionally applies diff-gated doc updates). If write-back is ever wanted, that is
 a separate, explicitly-scoped addition — not part of this command today.
 
-## Relationship to `/craft:done` and `/craft:next`
+## Relationship to `/craft:finish` and `/craft:next`
 
-`/craft:done` (session completion) *produces* the `.STATUS` state this command
+`/craft:finish` (session completion) *produces* the `.STATUS` state this command
 *consumes*. `/craft:next` suggests the next task from that same state. `/craft:restore`
 is the read-only "where did I leave off" opener that precedes both — run it first
 when returning to a project after a break.

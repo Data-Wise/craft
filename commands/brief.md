@@ -321,5 +321,5 @@ Key risk:  [condition → mitigation]
 ## See Also
 
 - `/craft:do <task> --brief` — execute + append block
-- `/craft:done` — full session completion flow
+- `/craft:finish` — full session completion flow
 - `/craft:brainstorm` — full planning session from scratch

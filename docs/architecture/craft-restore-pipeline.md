@@ -57,7 +57,7 @@ flowchart LR
     end
 
     subgraph "Sibling Commands"
-        DONE["/craft:done, produces .STATUS"]
+        DONE["/craft:finish, produces .STATUS"]
         NEXT["/craft:next, consumes .STATUS"]
     end
 
@@ -71,7 +71,7 @@ flowchart LR
 
 `commands/restore.md` contains no recap logic of its own — every fact it
 reports is computed by one of the two source skills. This mirrors the
-`commands/done.md` convention already used across the plugin: the slash
+`commands/finish.md` convention already used across the plugin: the slash
 command is a routing/discovery entry point; behavior changes happen in the
 skill, never duplicated into the shim. See
 [`SPEC-craft-restore-2026-07-17.md`](../specs/SPEC-craft-restore-2026-07-17.md)

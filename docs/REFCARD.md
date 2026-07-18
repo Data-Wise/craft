@@ -476,7 +476,7 @@ for the topic.
 **Three-Layer Doc Sync:**
 
 ```text
-Layer 1: /craft:done        → catches drift at session end
+Layer 1: /craft:finish        → catches drift at session end
 Layer 2: --headless         → on-demand bulk sync
 Layer 3: GitHub Actions     → safety net after merge to main
 ```
@@ -1348,7 +1348,7 @@ flowchart LR
 # Suggests: Next logical step
 
 # Complete session
-/craft:done
+/craft:finish
 # Summarizes: What you accomplished
 # Saves: Session notes
 # Prompts: Next session goal
