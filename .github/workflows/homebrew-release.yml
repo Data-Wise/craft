@@ -155,6 +155,7 @@ jobs:
           ruby -c Formula/craft.rb
 
       - name: Commit and push to tap
+        id: commit
         env:
           VERSION: ${{ needs.prepare.outputs.version }}
         working-directory: homebrew-tap
@@ -164,7 +165,33 @@ jobs:
           git add Formula/craft.rb generator/manifest.json
           if git diff --staged --quiet; then
             echo "No changes to commit (formula already at v${VERSION})"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          BRANCH="craft-release/v${VERSION}"
+          git checkout -b "$BRANCH"
           git commit -m "craft: update to v${VERSION}"
-          git push origin main
+          git push origin "$BRANCH"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      # main is protected (PR + 2 required checks: "Regen vs committed",
+      # "Check .STATUS for conflict markers") — a direct push here is rejected
+      # with GH006. Open a PR from the branch above and auto-merge it once
+      # those checks pass; this is a mechanical, already-validated content
+      # change (formula regenerated + ruby-syntax-checked in the prior step).
+      - name: Open and auto-merge PR against tap
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+          BRANCH: ${{ steps.commit.outputs.branch }}
+        working-directory: homebrew-tap
+        run: |
+          PR_URL=$(gh pr create \
+            --repo Data-Wise/homebrew-tap \
+            --base main \
+            --head "$BRANCH" \
+            --title "craft: update to v${VERSION}" \
+            --body "Automated formula update from craft release v${VERSION}.")
+          gh pr merge "$PR_URL" --repo Data-Wise/homebrew-tap --squash --auto
