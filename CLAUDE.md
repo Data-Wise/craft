@@ -6,7 +6,7 @@
 
 > `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (7 commands) · `/craft:restore` — combined git+`.STATUS` recap (v4.1.0)
 
-**Current Version:** v4.1.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
+**Current Version:** v4.2.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
