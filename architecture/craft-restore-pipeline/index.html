@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.1.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.2.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
       
       
       
@@ -2625,6 +2625,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../adr/ADR-006-done-renamed-to-finish/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-006: Done Renamed to Finish
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
@@ -3112,10 +3140,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_59" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_60" >
         
           
-          <label class="md-nav__link" for="__nav_2_4_59" id="__nav_2_4_59_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2_4_60" id="__nav_2_4_60_label" tabindex="0">
             
   
   
@@ -3133,8 +3161,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_59_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2_4_59">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_4_60_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4_60">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -5607,14 +5635,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commands/done/" class="md-nav__link">
+      <a href="../../commands/finish/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    /craft:done
+    /craft:finish
   
 
     
@@ -10146,7 +10174,7 @@ separate printouts of the same commits.</p>
     end
 
     subgraph "Sibling Commands"
-        DONE["/craft:done, produces .STATUS"]
+        DONE["/craft:finish, produces .STATUS"]
         NEXT["/craft:next, consumes .STATUS"]
     end
 
@@ -10157,7 +10185,7 @@ separate printouts of the same commits.</p>
 <h2 id="why-a-shim-not-a-reimplementation">Why a Shim, Not a Reimplementation<a class="headerlink" href="#why-a-shim-not-a-reimplementation" title="Permanent link">&para;</a></h2>
 <p><code>commands/restore.md</code> contains no recap logic of its own — every fact it
 reports is computed by one of the two source skills. This mirrors the
-<code>commands/done.md</code> convention already used across the plugin: the slash
+<code>commands/finish.md</code> convention already used across the plugin: the slash
 command is a routing/discovery entry point; behavior changes happen in the
 skill, never duplicated into the shim. See
 <a href="../../specs/SPEC-craft-restore-2026-07-17/"><code>SPEC-craft-restore-2026-07-17.md</code></a>
