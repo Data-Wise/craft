@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 4.1.0 (released 2026-07-17)                       │
+│  Version: 4.2.0 (released 2026-07-17)                       │
 │  Commands: 48 | Agents: 2 | Skills: 40                      │
 │  Tests: 2647+ passing                                        │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v4.1.0: /craft:restore + post-v4 doc-staleness cleanup      │
+│  v4.2.0: /craft:restore + post-v4 doc-staleness cleanup      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -476,7 +476,7 @@ for the topic.
 **Three-Layer Doc Sync:**
 
 ```text
-Layer 1: /craft:done        → catches drift at session end
+Layer 1: /craft:finish        → catches drift at session end
 Layer 2: --headless         → on-demand bulk sync
 Layer 3: GitHub Actions     → safety net after merge to main
 ```
@@ -1348,7 +1348,7 @@ flowchart LR
 # Suggests: Next logical step
 
 # Complete session
-/craft:done
+/craft:finish
 # Summarizes: What you accomplished
 # Saves: Session notes
 # Prompts: Next session goal

@@ -1,4 +1,4 @@
-# /craft:done
+# /craft:finish
 
 > **Session completion and context capture - never lose progress at session boundaries.**
 

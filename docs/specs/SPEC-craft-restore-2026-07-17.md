@@ -1,7 +1,7 @@
 # Spec: `/craft:restore`
 
 **Date:** 2026-07-17
-**Status:** DRAFT — awaiting review
+**Status:** SHIPPED — implemented as `commands/restore.md`, released in v4.1.0 (2026-07-17)
 **Supersedes:** `git-recap` and `recap` (both deleted 2026-07-09, PR #279)
 
 ## Objective

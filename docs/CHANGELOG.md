@@ -7,6 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.2.0] - 2026-07-19
+
+### Changed
+
+- **BREAKING: `/craft:done` renamed to `/craft:finish`** ([ADR-006](adr/ADR-006-done-renamed-to-finish.md))
+  — the session-completion shim moves to a name matching the existing zsh
+  `finish` alias. No backward-compat shim kept; the old `/craft:done` slash
+  entry point no longer resolves. Command count unchanged (48) — this is a
+  rename, not an addition. All live docs, skill references, and tests swept;
+  historical docs (specs, other ADRs, changelog) intentionally left
+  unchanged per this repo's staleness-check exclusion convention.
+
+### Fixed
+
+- `docs/specs/SPEC-craft-restore-2026-07-17.md` and its companion report
+  corrected from `DRAFT` to `SHIPPED` status — `/craft:restore` had already
+  shipped in v4.1.0 when these docs were written.
+
+### Added
+
+- `docs/specs/REPORT-craft-restore-2026-07-17.md` — ADHD-friendly report
+  view of the `/craft:restore` spec.
+
+---
+
 ## [4.1.0] - 2026-07-17
 
 ### Added

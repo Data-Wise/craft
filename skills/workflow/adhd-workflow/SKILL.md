@@ -31,7 +31,7 @@ Capture progress before context evaporates — typically the highest-leverage mo
 
 > **Canonical procedure:** the full session-completion flow lives in
 > [`references/done.md`](references/done.md) — the single source of truth shared
-> with the `/craft:done` slash shim. For anything beyond the quick
+> with the `/craft:finish` slash shim. For anything beyond the quick
 > summary below (Settings Sync, Memory Optimize, Insights Capture, Worktree
 > Status, the interactive summary, auto-git), **load `references/done.md` and
 > follow it.** Never reimplement that flow here or in the command shim. See
@@ -167,7 +167,7 @@ This skill replaces the seven `commands/workflow/*.md` commands during the v2.34
 - `/spec-review` → operation 6 (Spec Review)
 - `/refine` → operation 7 (Prompt Refinement)
 
-Both invocation paths work during the deprecation cycle. The skill auto-fires on natural-language match; explicit slash paths continue to function until v3.0.0 — `/craft:done`, `/craft:next`, and `/craft:refine` are now root commands (promoted from `workflow:`), while `/craft:workflow:recap`, `/craft:workflow:focus`, and `/craft:workflow:spec-review` remain nested.
+Both invocation paths work during the deprecation cycle. The skill auto-fires on natural-language match; explicit slash paths continue to function until v3.0.0 — `/craft:finish` (renamed from `/craft:done`, ADR-006), `/craft:next`, and `/craft:refine` are now root commands (promoted from `workflow:`), while `/craft:workflow:recap`, `/craft:workflow:focus`, and `/craft:workflow:spec-review` remain nested.
 
 For ADHD-friendly workflow strategy prose (not an operation, no behavior), see [`references/adhd-guide.md`](references/adhd-guide.md).
 

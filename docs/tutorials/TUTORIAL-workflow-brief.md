@@ -153,4 +153,4 @@ unsure what the block will be based on.
 
 ---
 
-*See also: [`/craft:do --brief`](../commands/do.md) (execute + append block), [`/craft:done`](../commands/done.md) (full session completion), [`/craft:brainstorm`](../commands/brainstorm.md) (full planning session from scratch)*
+*See also: [`/craft:do --brief`](../commands/do.md) (execute + append block), [`/craft:finish`](../commands/finish.md) (full session completion), [`/craft:brainstorm`](../commands/brainstorm.md) (full planning session from scratch)*

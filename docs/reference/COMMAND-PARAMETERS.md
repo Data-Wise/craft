@@ -714,7 +714,7 @@ for the full operation list.
 
 ---
 
-### /craft:done
+### /craft:finish
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|
