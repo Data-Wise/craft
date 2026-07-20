@@ -10,31 +10,27 @@
       
       
       
-        <link rel="canonical" href="https://data-wise.github.io/craft/RUNBOOK-v4-release-rollback/">
+        <link rel="canonical" href="https://data-wise.github.io/craft/reports/REPORT-craft-restore-2026-07-17/">
       
       
-        <link rel="prev" href="../MIGRATION-v4/">
-      
-      
-        <link rel="next" href="../guide/getting-started/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>v4 Release Rollback Runbook - Craft Plugin</title>
+        <title>Report: /craft:restore Spec - Craft Plugin</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +49,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#runbook-v400-train-rollback-craft-folio" class="md-skip">
+        <a href="#report-craftrestore-spec" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../.." title="Craft Plugin" class="md-header__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -114,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              v4 Release Rollback Runbook
+              Report: /craft:restore Spec
             
           </span>
         </div>
@@ -225,13 +221,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href=".." class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
           
   
   
@@ -251,7 +245,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../guide/getting-started/" class="md-tabs__link">
+        <a href="../../guide/getting-started/" class="md-tabs__link">
           
   
   
@@ -271,7 +265,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../teaching/" class="md-tabs__link">
+        <a href="../../teaching/" class="md-tabs__link">
           
   
   
@@ -291,7 +285,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../commands/overview/" class="md-tabs__link">
+        <a href="../../commands/overview/" class="md-tabs__link">
           
   
   
@@ -311,7 +305,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../cookbook/" class="md-tabs__link">
+        <a href="../../cookbook/" class="md-tabs__link">
           
   
   
@@ -331,7 +325,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../reference/configuration/" class="md-tabs__link">
+        <a href="../../reference/configuration/" class="md-tabs__link">
           
   
   
@@ -351,7 +345,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../guide/documentation-quality-development/" class="md-tabs__link">
+        <a href="../../guide/documentation-quality-development/" class="md-tabs__link">
           
   
   
@@ -369,7 +363,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../REFCARD/" class="md-tabs__link">
+      <a href="../../REFCARD/" class="md-tabs__link">
         
   
   
@@ -404,7 +398,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
+    <a href="../.." title="Craft Plugin" class="md-nav__button md-logo" aria-label="Craft Plugin" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -431,29 +425,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
         
           
-          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
             
   
   
@@ -471,7 +460,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -489,7 +478,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -517,7 +506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../QUICK-START/" class="md-nav__link">
+      <a href="../../QUICK-START/" class="md-nav__link">
         
   
   
@@ -545,7 +534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ADHD-QUICK-START/" class="md-nav__link">
+      <a href="../../ADHD-QUICK-START/" class="md-nav__link">
         
   
   
@@ -573,7 +562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../getting-started/choose-path/" class="md-nav__link">
+      <a href="../../getting-started/choose-path/" class="md-nav__link">
         
   
   
@@ -601,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflows/" class="md-nav__link">
+      <a href="../../workflows/" class="md-nav__link">
         
   
   
@@ -629,7 +618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../PLAYGROUND/" class="md-nav__link">
+      <a href="../../PLAYGROUND/" class="md-nav__link">
         
   
   
@@ -657,7 +646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../MIGRATION-v4/" class="md-nav__link">
+      <a href="../../MIGRATION-v4/" class="md-nav__link">
         
   
   
@@ -682,37 +671,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    v4 Release Rollback Runbook
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../RUNBOOK-v4-release-rollback/" class="md-nav__link">
         
   
   
@@ -728,181 +690,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#current-state-as-of-this-writing-verify-again-before-acting-dont-trust-this-doc" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Current state (as of this writing — verify again before acting, don't trust this doc)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-a-roll-back-crafts-v400" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Path A: Roll back craft's v4.0.0
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Path A: Roll back craft&#39;s v4.0.0">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#a1-identify-the-revert-target" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A1. Identify the revert target
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a2-revert-on-main" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A2. Revert on main
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a3-re-point-homebrew" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A3. Re-point Homebrew
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a4-github-release-tag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A4. GitHub release / tag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a5-secrets-app-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A5. Secrets / App installation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-b-roll-back-folios-v100" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Path B: Roll back folio's v1.0.0
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Path B: Roll back folio&#39;s v1.0.0">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#b1-yank-the-github-release-tag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B1. Yank the GitHub release + tag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b2-revert-originmain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B2. Revert origin/main
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b3-remove-the-homebrew-formula-entry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B3. Remove the Homebrew formula entry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b4-unpublish-from-the-marketplace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B4. Unpublish from the marketplace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#path-c-partial-rollback-folio-ships-craft-doesnt" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Path C: Partial rollback — folio ships, craft doesn't
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -972,7 +759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/getting-started/" class="md-nav__link">
+      <a href="../../guide/getting-started/" class="md-nav__link">
         
   
   
@@ -1050,7 +837,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -1078,7 +865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/claude-code-2.1-integration/" class="md-nav__link">
+      <a href="../../guide/claude-code-2.1-integration/" class="md-nav__link">
         
   
   
@@ -1106,7 +893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/complexity-scoring-algorithm/" class="md-nav__link">
+      <a href="../../guide/complexity-scoring-algorithm/" class="md-nav__link">
         
   
   
@@ -1134,7 +921,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../TESTING-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -1162,7 +949,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../API-REFERENCE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -1190,7 +977,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
+      <a href="../../ARCHITECTURE-CLAUDE-CODE-2.1/" class="md-nav__link">
         
   
   
@@ -1218,7 +1005,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/claude-code-2.1-guide/" class="md-nav__link">
+      <a href="../../guide/claude-code-2.1-guide/" class="md-nav__link">
         
   
   
@@ -1304,7 +1091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/documentation-quality/" class="md-nav__link">
+      <a href="../../guide/documentation-quality/" class="md-nav__link">
         
   
   
@@ -1332,7 +1119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
+      <a href="../../tutorials/interactive-docs-update-tutorial/" class="md-nav__link">
         
   
   
@@ -1360,7 +1147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/release-watch/" class="md-nav__link">
+      <a href="../../guide/release-watch/" class="md-nav__link">
         
   
   
@@ -1388,7 +1175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-release-watch-v2/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-release-watch-v2/" class="md-nav__link">
         
   
   
@@ -1416,7 +1203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/ci-triage-and-watch/" class="md-nav__link">
+      <a href="../../guide/ci-triage-and-watch/" class="md-nav__link">
         
   
   
@@ -1444,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflows/release-workflow/" class="md-nav__link">
+      <a href="../../workflows/release-workflow/" class="md-nav__link">
         
   
   
@@ -1472,7 +1259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflows/git-feature-workflow/" class="md-nav__link">
+      <a href="../../workflows/git-feature-workflow/" class="md-nav__link">
         
   
   
@@ -1500,7 +1287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workflows/pre-commit-workflow/" class="md-nav__link">
+      <a href="../../workflows/pre-commit-workflow/" class="md-nav__link">
         
   
   
@@ -1586,7 +1373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/bash-formatting-library/" class="md-nav__link">
+      <a href="../../guide/bash-formatting-library/" class="md-nav__link">
         
   
   
@@ -1614,7 +1401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-formatting-migration/" class="md-nav__link">
         
   
   
@@ -1642,7 +1429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/badge-management/" class="md-nav__link">
+      <a href="../../guide/badge-management/" class="md-nav__link">
         
   
   
@@ -1670,7 +1457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-badge-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-badge-workflow/" class="md-nav__link">
         
   
   
@@ -1698,7 +1485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/headless-recipes/" class="md-nav__link">
+      <a href="../../guide/headless-recipes/" class="md-nav__link">
         
   
   
@@ -1726,7 +1513,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/interactive-commands/" class="md-nav__link">
+      <a href="../../guide/interactive-commands/" class="md-nav__link">
         
   
   
@@ -1754,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/check-command-mastery/" class="md-nav__link">
+      <a href="../../guide/check-command-mastery/" class="md-nav__link">
         
   
   
@@ -1782,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/worktree-advanced-patterns/" class="md-nav__link">
+      <a href="../../guide/worktree-advanced-patterns/" class="md-nav__link">
         
   
   
@@ -1810,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/multi-repo-workflow/" class="md-nav__link">
+      <a href="../../guide/multi-repo-workflow/" class="md-nav__link">
         
   
   
@@ -1838,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/branch-guard-smart-mode/" class="md-nav__link">
+      <a href="../../guide/branch-guard-smart-mode/" class="md-nav__link">
         
   
   
@@ -1866,7 +1653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-branch-guard-setup/" class="md-nav__link">
         
   
   
@@ -1894,7 +1681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-protect-new-repo/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-protect-new-repo/" class="md-nav__link">
         
   
   
@@ -1922,7 +1709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/guard-suite/" class="md-nav__link">
+      <a href="../../guide/guard-suite/" class="md-nav__link">
         
   
   
@@ -1950,7 +1737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/guard-design/" class="md-nav__link">
+      <a href="../../guide/guard-design/" class="md-nav__link">
         
   
   
@@ -1978,7 +1765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-guard-suite/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-guard-suite/" class="md-nav__link">
         
   
   
@@ -2006,7 +1793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-grill/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-grill/" class="md-nav__link">
         
   
   
@@ -2034,7 +1821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/GRILL-PROMPT-craft/" class="md-nav__link">
+      <a href="../../reference/GRILL-PROMPT-craft/" class="md-nav__link">
         
   
   
@@ -2062,7 +1849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/claude-md-workflows/" class="md-nav__link">
+      <a href="../../tutorials/claude-md-workflows/" class="md-nav__link">
         
   
   
@@ -2090,7 +1877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/interactive-orchestration/" class="md-nav__link">
+      <a href="../../tutorials/interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -2118,7 +1905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-post-merge-pipeline/" class="md-nav__link">
         
   
   
@@ -2146,7 +1933,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-worktree-setup/" class="md-nav__link">
         
   
   
@@ -2174,7 +1961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/orchestrator-modes-compared/" class="md-nav__link">
+      <a href="../../tutorials/orchestrator-modes-compared/" class="md-nav__link">
         
   
   
@@ -2202,7 +1989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-release-pipeline/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-release-pipeline/" class="md-nav__link">
         
   
   
@@ -2230,7 +2017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-homebrew-setup/" class="md-nav__link">
         
   
   
@@ -2258,7 +2045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-homebrew-gates/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-homebrew-gates/" class="md-nav__link">
         
   
   
@@ -2286,7 +2073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-insights-workflow/" class="md-nav__link">
         
   
   
@@ -2314,7 +2101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-insights-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-insights-setup/" class="md-nav__link">
         
   
   
@@ -2342,7 +2129,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/insights-improvements-guide/" class="md-nav__link">
+      <a href="../../guide/insights-improvements-guide/" class="md-nav__link">
         
   
   
@@ -2370,7 +2157,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/learning-loop-session-completion/" class="md-nav__link">
+      <a href="../../guide/learning-loop-session-completion/" class="md-nav__link">
         
   
   
@@ -2398,7 +2185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/hub-live-dashboard/" class="md-nav__link">
+      <a href="../../guide/hub-live-dashboard/" class="md-nav__link">
         
   
   
@@ -2426,7 +2213,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-version-sync-setup/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-version-sync-setup/" class="md-nav__link">
         
   
   
@@ -2454,7 +2241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/ci-monitoring/" class="md-nav__link">
+      <a href="../../architecture/ci-monitoring/" class="md-nav__link">
         
   
   
@@ -2482,7 +2269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/version-sync/" class="md-nav__link">
+      <a href="../../architecture/version-sync/" class="md-nav__link">
         
   
   
@@ -2510,7 +2297,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/mermaid-validation-pipeline/" class="md-nav__link">
+      <a href="../../architecture/mermaid-validation-pipeline/" class="md-nav__link">
         
   
   
@@ -2538,7 +2325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/craft-restore-pipeline/" class="md-nav__link">
+      <a href="../../architecture/craft-restore-pipeline/" class="md-nav__link">
         
   
   
@@ -2566,7 +2353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/prompt-refiner-pipeline/" class="md-nav__link">
+      <a href="../../architecture/prompt-refiner-pipeline/" class="md-nav__link">
         
   
   
@@ -2594,7 +2381,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
+      <a href="../../adr/ADR-001-workflow-branch-guard/" class="md-nav__link">
         
   
   
@@ -2622,7 +2409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-002-done-command-skill-consolidation/" class="md-nav__link">
+      <a href="../../adr/ADR-002-done-command-skill-consolidation/" class="md-nav__link">
         
   
   
@@ -2650,7 +2437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-003-release-drift-advisory-not-hard-gate/" class="md-nav__link">
+      <a href="../../adr/ADR-003-release-drift-advisory-not-hard-gate/" class="md-nav__link">
         
   
   
@@ -2678,7 +2465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-004-release-surface-registry/" class="md-nav__link">
+      <a href="../../adr/ADR-004-release-surface-registry/" class="md-nav__link">
         
   
   
@@ -2706,7 +2493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
+      <a href="../../adr/ADR-005-shim-canonical-path-resolution/" class="md-nav__link">
         
   
   
@@ -2734,7 +2521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../adr/ADR-006-done-renamed-to-finish/" class="md-nav__link">
+      <a href="../../adr/ADR-006-done-renamed-to-finish/" class="md-nav__link">
         
   
   
@@ -2762,7 +2549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-brainstorm-power-user/" class="md-nav__link">
         
   
   
@@ -2790,7 +2577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-craft-001-emoji-spacing/" class="md-nav__link">
         
   
   
@@ -2818,7 +2605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-first-10-minutes/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-first-10-minutes/" class="md-nav__link">
         
   
   
@@ -2846,7 +2633,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/check-tutorial-beginner/" class="md-nav__link">
+      <a href="../../tutorials/check-tutorial-beginner/" class="md-nav__link">
         
   
   
@@ -2874,7 +2661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/smart-routing-tutorial/" class="md-nav__link">
+      <a href="../../tutorials/smart-routing-tutorial/" class="md-nav__link">
         
   
   
@@ -2902,7 +2689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-refine-flag/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-refine-flag/" class="md-nav__link">
         
   
   
@@ -2930,7 +2717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../help/refine-flag/" class="md-nav__link">
+      <a href="../../help/refine-flag/" class="md-nav__link">
         
   
   
@@ -2958,7 +2745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-workflow-brief/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-workflow-brief/" class="md-nav__link">
         
   
   
@@ -2986,7 +2773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-plan-feature/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-plan-feature/" class="md-nav__link">
         
   
   
@@ -3014,7 +2801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-orch-drive/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-orch-drive/" class="md-nav__link">
         
   
   
@@ -3042,7 +2829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../help/orch-drive/" class="md-nav__link">
+      <a href="../../help/orch-drive/" class="md-nav__link">
         
   
   
@@ -3070,7 +2857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-orch-workflow/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-orch-workflow/" class="md-nav__link">
         
   
   
@@ -3098,7 +2885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../help/orch-workflow/" class="md-nav__link">
+      <a href="../../help/orch-workflow/" class="md-nav__link">
         
   
   
@@ -3126,7 +2913,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-done-optimization/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-done-optimization/" class="md-nav__link">
         
   
   
@@ -3154,7 +2941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../help/memory-optimization/" class="md-nav__link">
+      <a href="../../help/memory-optimization/" class="md-nav__link">
         
   
   
@@ -3182,7 +2969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/mermaid-authoring/" class="md-nav__link">
+      <a href="../../guide/mermaid-authoring/" class="md-nav__link">
         
   
   
@@ -3210,7 +2997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/mermaid-troubleshooting/" class="md-nav__link">
+      <a href="../../guide/mermaid-troubleshooting/" class="md-nav__link">
         
   
   
@@ -3288,7 +3075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/testing-quickstart/" class="md-nav__link">
+      <a href="../../tutorials/testing-quickstart/" class="md-nav__link">
         
   
   
@@ -3316,7 +3103,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/test-commands/" class="md-nav__link">
+      <a href="../../guide/test-commands/" class="md-nav__link">
         
   
   
@@ -3344,7 +3131,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/test-architecture/" class="md-nav__link">
+      <a href="../../guide/test-architecture/" class="md-nav__link">
         
   
   
@@ -3372,7 +3159,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/test-migration/" class="md-nav__link">
+      <a href="../../guide/test-migration/" class="md-nav__link">
         
   
   
@@ -3408,7 +3195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/test-wrapper-pattern/" class="md-nav__link">
+      <a href="../../guide/test-wrapper-pattern/" class="md-nav__link">
         
   
   
@@ -3436,7 +3223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/pipeline-orchestrate-guide/" class="md-nav__link">
+      <a href="../../guide/pipeline-orchestrate-guide/" class="md-nav__link">
         
   
   
@@ -3464,7 +3251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/orchestrator/" class="md-nav__link">
+      <a href="../../guide/orchestrator/" class="md-nav__link">
         
   
   
@@ -3492,7 +3279,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/orch-flag-usage/" class="md-nav__link">
+      <a href="../../guide/orch-flag-usage/" class="md-nav__link">
         
   
   
@@ -3520,7 +3307,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/marketplace-distribution/" class="md-nav__link">
+      <a href="../../guide/marketplace-distribution/" class="md-nav__link">
         
   
   
@@ -3548,7 +3335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/homebrew-installation/" class="md-nav__link">
+      <a href="../../guide/homebrew-installation/" class="md-nav__link">
         
   
   
@@ -3576,7 +3363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/homebrew-automation/" class="md-nav__link">
+      <a href="../../guide/homebrew-automation/" class="md-nav__link">
         
   
   
@@ -3604,7 +3391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/desktop-release/" class="md-nav__link">
+      <a href="../../guide/desktop-release/" class="md-nav__link">
         
   
   
@@ -3632,7 +3419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/plugin-release-runbook/" class="md-nav__link">
+      <a href="../../guide/plugin-release-runbook/" class="md-nav__link">
         
   
   
@@ -3660,7 +3447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../skills-agents/" class="md-nav__link">
+      <a href="../../skills-agents/" class="md-nav__link">
         
   
   
@@ -3688,7 +3475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/governance/" class="md-nav__link">
+      <a href="../../guide/governance/" class="md-nav__link">
         
   
   
@@ -3716,7 +3503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/integration-testing/" class="md-nav__link">
+      <a href="../../guide/integration-testing/" class="md-nav__link">
         
   
   
@@ -3744,7 +3531,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/markdown-list-spacing/" class="md-nav__link">
+      <a href="../../guide/markdown-list-spacing/" class="md-nav__link">
         
   
   
@@ -3772,7 +3559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/dependency-management-advanced/" class="md-nav__link">
+      <a href="../../guide/dependency-management-advanced/" class="md-nav__link">
         
   
   
@@ -3800,7 +3587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ACCESSIBILITY/" class="md-nav__link">
+      <a href="../../ACCESSIBILITY/" class="md-nav__link">
         
   
   
@@ -3886,7 +3673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-arch-analyze/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-arch-analyze/" class="md-nav__link">
         
   
   
@@ -3914,7 +3701,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-arch-plan/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-arch-plan/" class="md-nav__link">
         
   
   
@@ -3942,7 +3729,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-ci-detect/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-detect/" class="md-nav__link">
         
   
   
@@ -3970,7 +3757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-ci-generate/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-generate/" class="md-nav__link">
         
   
   
@@ -3998,7 +3785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-ci-status/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-status/" class="md-nav__link">
         
   
   
@@ -4026,7 +3813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-ci-triage/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-triage/" class="md-nav__link">
         
   
   
@@ -4054,7 +3841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-ci-validate/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-validate/" class="md-nav__link">
         
   
   
@@ -4082,7 +3869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-ci-watch/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-watch/" class="md-nav__link">
         
   
   
@@ -4110,7 +3897,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-ci-local/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-ci-local/" class="md-nav__link">
         
   
   
@@ -4138,7 +3925,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-code-command-audit/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-command-audit/" class="md-nav__link">
         
   
   
@@ -4166,7 +3953,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-code-deps-audit/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-deps-audit/" class="md-nav__link">
         
   
   
@@ -4194,7 +3981,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-code-fewer-prompts/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-fewer-prompts/" class="md-nav__link">
         
   
   
@@ -4222,7 +4009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-code-lint/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-lint/" class="md-nav__link">
         
   
   
@@ -4250,7 +4037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-code-release-watch/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-release-watch/" class="md-nav__link">
         
   
   
@@ -4278,7 +4065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-code-skill-standards/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-code-skill-standards/" class="md-nav__link">
         
   
   
@@ -4306,7 +4093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-command-skill-token-efficiency/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-command-skill-token-efficiency/" class="md-nav__link">
         
   
   
@@ -4334,7 +4121,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-dist-homebrew/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-dist-homebrew/" class="md-nav__link">
         
   
   
@@ -4362,7 +4149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-dist-surfaces/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-dist-surfaces/" class="md-nav__link">
         
   
   
@@ -4390,7 +4177,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-docs-changelog/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-docs-changelog/" class="md-nav__link">
         
   
   
@@ -4418,7 +4205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-git-guard/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-git-guard/" class="md-nav__link">
         
   
   
@@ -4446,7 +4233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-git-issue-check/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-git-issue-check/" class="md-nav__link">
         
   
   
@@ -4474,7 +4261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-site-deploy/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-site-deploy/" class="md-nav__link">
         
   
   
@@ -4502,7 +4289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/TUTORIAL-smart-help/" class="md-nav__link">
+      <a href="../../tutorials/TUTORIAL-smart-help/" class="md-nav__link">
         
   
   
@@ -4595,7 +4382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../teaching/" class="md-nav__link">
+      <a href="../../teaching/" class="md-nav__link">
         
   
   
@@ -4673,7 +4460,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/teaching-mode-setup/" class="md-nav__link">
+      <a href="../../tutorials/teaching-mode-setup/" class="md-nav__link">
         
   
   
@@ -4701,7 +4488,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../teaching-config-schema/" class="md-nav__link">
+      <a href="../../teaching-config-schema/" class="md-nav__link">
         
   
   
@@ -4729,7 +4516,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../teaching-migration/" class="md-nav__link">
+      <a href="../../teaching-migration/" class="md-nav__link">
         
   
   
@@ -4815,7 +4602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/teaching-workflow/" class="md-nav__link">
+      <a href="../../guide/teaching-workflow/" class="md-nav__link">
         
   
   
@@ -4843,7 +4630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../TEACHING-DOCS-INDEX/" class="md-nav__link">
+      <a href="../../TEACHING-DOCS-INDEX/" class="md-nav__link">
         
   
   
@@ -4871,7 +4658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-TEACHING/" class="md-nav__link">
+      <a href="../../reference/REFCARD-TEACHING/" class="md-nav__link">
         
   
   
@@ -4964,7 +4751,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/overview/" class="md-nav__link">
+      <a href="../../commands/overview/" class="md-nav__link">
         
   
   
@@ -5042,7 +4829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/smart/" class="md-nav__link">
+      <a href="../../commands/smart/" class="md-nav__link">
         
   
   
@@ -5070,7 +4857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/docs/" class="md-nav__link">
+      <a href="../../commands/docs/" class="md-nav__link">
         
   
   
@@ -5098,7 +4885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/site/" class="md-nav__link">
+      <a href="../../commands/site/" class="md-nav__link">
         
   
   
@@ -5126,7 +4913,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/" class="md-nav__link">
+      <a href="../../commands/code/" class="md-nav__link">
         
   
   
@@ -5154,7 +4941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/git/" class="md-nav__link">
+      <a href="../../commands/git/" class="md-nav__link">
         
   
   
@@ -5182,7 +4969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/arch/" class="md-nav__link">
+      <a href="../../commands/arch/" class="md-nav__link">
         
   
   
@@ -5210,7 +4997,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/dist/" class="md-nav__link">
+      <a href="../../commands/dist/" class="md-nav__link">
         
   
   
@@ -5238,7 +5025,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/plan/" class="md-nav__link">
+      <a href="../../commands/plan/" class="md-nav__link">
         
   
   
@@ -5274,7 +5061,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/" class="md-nav__link">
+      <a href="../../commands/" class="md-nav__link">
         
   
   
@@ -5352,7 +5139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/check/" class="md-nav__link">
+      <a href="../../commands/check/" class="md-nav__link">
         
   
   
@@ -5380,7 +5167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/do/" class="md-nav__link">
+      <a href="../../commands/do/" class="md-nav__link">
         
   
   
@@ -5408,7 +5195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/grill/" class="md-nav__link">
+      <a href="../../commands/grill/" class="md-nav__link">
         
   
   
@@ -5436,7 +5223,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/hub/" class="md-nav__link">
+      <a href="../../commands/hub/" class="md-nav__link">
         
   
   
@@ -5464,7 +5251,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/orch/" class="md-nav__link">
+      <a href="../../commands/orch/" class="md-nav__link">
         
   
   
@@ -5492,7 +5279,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/orchestrate-reference/" class="md-nav__link">
+      <a href="../../reference/orchestrate-reference/" class="md-nav__link">
         
   
   
@@ -5520,7 +5307,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/orch/drive/" class="md-nav__link">
+      <a href="../../commands/orch/drive/" class="md-nav__link">
         
   
   
@@ -5548,7 +5335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/orch/workflow/" class="md-nav__link">
+      <a href="../../commands/orch/workflow/" class="md-nav__link">
         
   
   
@@ -5576,7 +5363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/ci/generate/" class="md-nav__link">
+      <a href="../../commands/ci/generate/" class="md-nav__link">
         
   
   
@@ -5604,7 +5391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/ci/status/" class="md-nav__link">
+      <a href="../../commands/ci/status/" class="md-nav__link">
         
   
   
@@ -5632,7 +5419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/docs/changelog/" class="md-nav__link">
+      <a href="../../commands/docs/changelog/" class="md-nav__link">
         
   
   
@@ -5660,7 +5447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/docs/update/" class="md-nav__link">
+      <a href="../../commands/docs/update/" class="md-nav__link">
         
   
   
@@ -5688,7 +5475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/brainstorm/" class="md-nav__link">
+      <a href="../../commands/brainstorm/" class="md-nav__link">
         
   
   
@@ -5716,7 +5503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/brief/" class="md-nav__link">
+      <a href="../../commands/brief/" class="md-nav__link">
         
   
   
@@ -5744,7 +5531,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/finish/" class="md-nav__link">
+      <a href="../../commands/finish/" class="md-nav__link">
         
   
   
@@ -5772,7 +5559,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/restore/" class="md-nav__link">
+      <a href="../../commands/restore/" class="md-nav__link">
         
   
   
@@ -5800,7 +5587,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/arch/analyze/" class="md-nav__link">
+      <a href="../../commands/arch/analyze/" class="md-nav__link">
         
   
   
@@ -5828,7 +5615,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/lint/" class="md-nav__link">
+      <a href="../../commands/code/lint/" class="md-nav__link">
         
   
   
@@ -5856,7 +5643,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/deps-audit/" class="md-nav__link">
+      <a href="../../commands/code/deps-audit/" class="md-nav__link">
         
   
   
@@ -5884,7 +5671,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/ci/local/" class="md-nav__link">
+      <a href="../../commands/ci/local/" class="md-nav__link">
         
   
   
@@ -5912,7 +5699,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/command-audit/" class="md-nav__link">
+      <a href="../../commands/code/command-audit/" class="md-nav__link">
         
   
   
@@ -5940,7 +5727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/release-watch/" class="md-nav__link">
+      <a href="../../commands/code/release-watch/" class="md-nav__link">
         
   
   
@@ -5968,7 +5755,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/sync-features/" class="md-nav__link">
+      <a href="../../commands/code/sync-features/" class="md-nav__link">
         
   
   
@@ -5996,7 +5783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/test/" class="md-nav__link">
+      <a href="../../commands/test/" class="md-nav__link">
         
   
   
@@ -6024,7 +5811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/git/issue-check/" class="md-nav__link">
+      <a href="../../commands/git/issue-check/" class="md-nav__link">
         
   
   
@@ -6052,7 +5839,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/arch/diagram/" class="md-nav__link">
+      <a href="../../commands/arch/diagram/" class="md-nav__link">
         
   
   
@@ -6080,7 +5867,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/arch/plan/" class="md-nav__link">
+      <a href="../../commands/arch/plan/" class="md-nav__link">
         
   
   
@@ -6108,7 +5895,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/arch/review/" class="md-nav__link">
+      <a href="../../commands/arch/review/" class="md-nav__link">
         
   
   
@@ -6136,7 +5923,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/ci/detect/" class="md-nav__link">
+      <a href="../../commands/ci/detect/" class="md-nav__link">
         
   
   
@@ -6164,7 +5951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/ci/triage/" class="md-nav__link">
+      <a href="../../commands/ci/triage/" class="md-nav__link">
         
   
   
@@ -6192,7 +5979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/ci/validate/" class="md-nav__link">
+      <a href="../../commands/ci/validate/" class="md-nav__link">
         
   
   
@@ -6220,7 +6007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/ci/watch/" class="md-nav__link">
+      <a href="../../commands/ci/watch/" class="md-nav__link">
         
   
   
@@ -6248,7 +6035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/fewer-prompts/" class="md-nav__link">
+      <a href="../../commands/code/fewer-prompts/" class="md-nav__link">
         
   
   
@@ -6276,7 +6063,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/ci/fix/" class="md-nav__link">
+      <a href="../../commands/ci/fix/" class="md-nav__link">
         
   
   
@@ -6304,7 +6091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/debug/" class="md-nav__link">
+      <a href="../../commands/code/debug/" class="md-nav__link">
         
   
   
@@ -6332,7 +6119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/deps-check/" class="md-nav__link">
+      <a href="../../commands/code/deps-check/" class="md-nav__link">
         
   
   
@@ -6360,7 +6147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/docs-check/" class="md-nav__link">
+      <a href="../../commands/code/docs-check/" class="md-nav__link">
         
   
   
@@ -6388,7 +6175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/refactor/" class="md-nav__link">
+      <a href="../../commands/code/refactor/" class="md-nav__link">
         
   
   
@@ -6416,7 +6203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/release/" class="md-nav__link">
+      <a href="../../commands/code/release/" class="md-nav__link">
         
   
   
@@ -6444,7 +6231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/skill-standards/" class="md-nav__link">
+      <a href="../../commands/code/skill-standards/" class="md-nav__link">
         
   
   
@@ -6472,7 +6259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/test-gen/" class="md-nav__link">
+      <a href="../../commands/code/test-gen/" class="md-nav__link">
         
   
   
@@ -6500,7 +6287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/code/demo/" class="md-nav__link">
+      <a href="../../commands/code/demo/" class="md-nav__link">
         
   
   
@@ -6528,7 +6315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/dist/homebrew/" class="md-nav__link">
+      <a href="../../commands/dist/homebrew/" class="md-nav__link">
         
   
   
@@ -6556,7 +6343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/dist/surfaces/" class="md-nav__link">
+      <a href="../../commands/dist/surfaces/" class="md-nav__link">
         
   
   
@@ -6584,7 +6371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/orch/drive/" class="md-nav__link">
+      <a href="../../commands/orch/drive/" class="md-nav__link">
         
   
   
@@ -6612,7 +6399,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/orch/workflow/" class="md-nav__link">
+      <a href="../../commands/orch/workflow/" class="md-nav__link">
         
   
   
@@ -6640,7 +6427,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/plan/" class="md-nav__link">
+      <a href="../../commands/plan/" class="md-nav__link">
         
   
   
@@ -6668,7 +6455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/plan/feature/" class="md-nav__link">
+      <a href="../../commands/plan/feature/" class="md-nav__link">
         
   
   
@@ -6696,7 +6483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/site/deploy/" class="md-nav__link">
+      <a href="../../commands/site/deploy/" class="md-nav__link">
         
   
   
@@ -6724,7 +6511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../commands/smart-help/" class="md-nav__link">
+      <a href="../../commands/smart-help/" class="md-nav__link">
         
   
   
@@ -6817,7 +6604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/" class="md-nav__link">
+      <a href="../../cookbook/" class="md-nav__link">
         
   
   
@@ -6895,7 +6682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/release-watch-recipes/" class="md-nav__link">
+      <a href="../../cookbook/release-watch-recipes/" class="md-nav__link">
         
   
   
@@ -6923,7 +6710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/recipes/refine-before-running/" class="md-nav__link">
+      <a href="../../cookbook/recipes/refine-before-running/" class="md-nav__link">
         
   
   
@@ -6951,7 +6738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/recipes/drive-a-spec-to-green/" class="md-nav__link">
+      <a href="../../cookbook/recipes/drive-a-spec-to-green/" class="md-nav__link">
         
   
   
@@ -6979,7 +6766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/recipes/run-a-coded-workflow/" class="md-nav__link">
+      <a href="../../cookbook/recipes/run-a-coded-workflow/" class="md-nav__link">
         
   
   
@@ -7007,7 +6794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/recipes/fan-a-workflow-across-files/" class="md-nav__link">
+      <a href="../../cookbook/recipes/fan-a-workflow-across-files/" class="md-nav__link">
         
   
   
@@ -7035,7 +6822,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/recipes/triage-a-red-pr/" class="md-nav__link">
+      <a href="../../cookbook/recipes/triage-a-red-pr/" class="md-nav__link">
         
   
   
@@ -7063,7 +6850,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/setup-new-project/" class="md-nav__link">
+      <a href="../../cookbook/common/setup-new-project/" class="md-nav__link">
         
   
   
@@ -7091,7 +6878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/deploy-course-website/" class="md-nav__link">
+      <a href="../../cookbook/common/deploy-course-website/" class="md-nav__link">
         
   
   
@@ -7119,7 +6906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/automate-release-workflow/" class="md-nav__link">
+      <a href="../../cookbook/common/automate-release-workflow/" class="md-nav__link">
         
   
   
@@ -7147,7 +6934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/distribute-plugin-via-homebrew/" class="md-nav__link">
+      <a href="../../cookbook/common/distribute-plugin-via-homebrew/" class="md-nav__link">
         
   
   
@@ -7175,7 +6962,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
+      <a href="../../cookbook/common/check-code-quality-before-commit/" class="md-nav__link">
         
   
   
@@ -7203,7 +6990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/find-the-right-command/" class="md-nav__link">
+      <a href="../../cookbook/common/find-the-right-command/" class="md-nav__link">
         
   
   
@@ -7231,7 +7018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/update-single-doc/" class="md-nav__link">
+      <a href="../../cookbook/common/update-single-doc/" class="md-nav__link">
         
   
   
@@ -7259,7 +7046,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/quick-code-checks/" class="md-nav__link">
+      <a href="../../cookbook/common/quick-code-checks/" class="md-nav__link">
         
   
   
@@ -7287,7 +7074,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/create-git-branch/" class="md-nav__link">
+      <a href="../../cookbook/common/create-git-branch/" class="md-nav__link">
         
   
   
@@ -7315,7 +7102,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/bulk-branch-protection/" class="md-nav__link">
+      <a href="../../cookbook/common/bulk-branch-protection/" class="md-nav__link">
         
   
   
@@ -7343,7 +7130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/view-project-architecture/" class="md-nav__link">
+      <a href="../../cookbook/common/view-project-architecture/" class="md-nav__link">
         
   
   
@@ -7371,7 +7158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/setup-parallel-worktrees/" class="md-nav__link">
+      <a href="../../cookbook/common/setup-parallel-worktrees/" class="md-nav__link">
         
   
   
@@ -7399,7 +7186,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/use-interactive-orchestration/" class="md-nav__link">
+      <a href="../../cookbook/common/use-interactive-orchestration/" class="md-nav__link">
         
   
   
@@ -7427,7 +7214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/post-merge-documentation/" class="md-nav__link">
+      <a href="../../cookbook/common/post-merge-documentation/" class="md-nav__link">
         
   
   
@@ -7455,7 +7242,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/generate-tests-for-project/" class="md-nav__link">
+      <a href="../../cookbook/common/generate-tests-for-project/" class="md-nav__link">
         
   
   
@@ -7483,7 +7270,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/run-tests-by-category/" class="md-nav__link">
+      <a href="../../cookbook/common/run-tests-by-category/" class="md-nav__link">
         
   
   
@@ -7511,7 +7298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/session-wrap-up/" class="md-nav__link">
+      <a href="../../cookbook/common/session-wrap-up/" class="md-nav__link">
         
   
   
@@ -7539,7 +7326,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/common/memory-aware-routing/" class="md-nav__link">
+      <a href="../../cookbook/common/memory-aware-routing/" class="md-nav__link">
         
   
   
@@ -7567,7 +7354,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/docs-update-interactive-example/" class="md-nav__link">
+      <a href="../../examples/docs-update-interactive-example/" class="md-nav__link">
         
   
   
@@ -7595,7 +7382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/release-workflow-example/" class="md-nav__link">
+      <a href="../../examples/release-workflow-example/" class="md-nav__link">
         
   
   
@@ -7681,7 +7468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/command-not-found/" class="md-nav__link">
         
   
   
@@ -7709,7 +7496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/troubleshooting/command-times-out/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/command-times-out/" class="md-nav__link">
         
   
   
@@ -7737,7 +7524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/troubleshooting/wrong-command-output/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/wrong-command-output/" class="md-nav__link">
         
   
   
@@ -7765,7 +7552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/troubleshooting/ci-workflow-fails/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/ci-workflow-fails/" class="md-nav__link">
         
   
   
@@ -7793,7 +7580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/troubleshooting/pre-commit-blocks-commit/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/pre-commit-blocks-commit/" class="md-nav__link">
         
   
   
@@ -7821,7 +7608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/troubleshooting/worktree-wont-create/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/worktree-wont-create/" class="md-nav__link">
         
   
   
@@ -7849,7 +7636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/troubleshooting/broken-links-after-update/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/broken-links-after-update/" class="md-nav__link">
         
   
   
@@ -7877,7 +7664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/troubleshooting/claude-md-out-of-sync/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/claude-md-out-of-sync/" class="md-nav__link">
         
   
   
@@ -7905,7 +7692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cookbook/troubleshooting/mkdocs-build-fails/" class="md-nav__link">
+      <a href="../../cookbook/troubleshooting/mkdocs-build-fails/" class="md-nav__link">
         
   
   
@@ -7998,7 +7785,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/configuration/" class="md-nav__link">
+      <a href="../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -8026,7 +7813,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/presets/" class="md-nav__link">
+      <a href="../../reference/presets/" class="md-nav__link">
         
   
   
@@ -8054,7 +7841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../orchestrator/" class="md-nav__link">
+      <a href="../../orchestrator/" class="md-nav__link">
         
   
   
@@ -8082,7 +7869,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/" class="md-nav__link">
+      <a href="../../architecture/" class="md-nav__link">
         
   
   
@@ -8110,7 +7897,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../architecture/HUB-V2-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -8138,7 +7925,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/release-watch-v2/" class="md-nav__link">
+      <a href="../../architecture/release-watch-v2/" class="md-nav__link">
         
   
   
@@ -8166,7 +7953,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../architecture/desktop-release-pipeline/" class="md-nav__link">
+      <a href="../../architecture/desktop-release-pipeline/" class="md-nav__link">
         
   
   
@@ -8194,7 +7981,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../api/DISCOVERY-API/" class="md-nav__link">
+      <a href="../../api/DISCOVERY-API/" class="md-nav__link">
         
   
   
@@ -8222,7 +8009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/documentation-quality/" class="md-nav__link">
+      <a href="../../reference/documentation-quality/" class="md-nav__link">
         
   
   
@@ -8250,7 +8037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../API-REFERENCE-CLAUDE-MD/" class="md-nav__link">
+      <a href="../../API-REFERENCE-CLAUDE-MD/" class="md-nav__link">
         
   
   
@@ -8278,7 +8065,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../API-REFERENCE-COMMANDS/" class="md-nav__link">
+      <a href="../../API-REFERENCE-COMMANDS/" class="md-nav__link">
         
   
   
@@ -8306,7 +8093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/claude-code-instruction-enforcement/" class="md-nav__link">
+      <a href="../../reference/claude-code-instruction-enforcement/" class="md-nav__link">
         
   
   
@@ -8334,7 +8121,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../NEWS/" class="md-nav__link">
+      <a href="../../NEWS/" class="md-nav__link">
         
   
   
@@ -8362,7 +8149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CHANGELOG/" class="md-nav__link">
+      <a href="../../CHANGELOG/" class="md-nav__link">
         
   
   
@@ -8390,7 +8177,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../VERSION-HISTORY/" class="md-nav__link">
+      <a href="../../VERSION-HISTORY/" class="md-nav__link">
         
   
   
@@ -8418,7 +8205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../RELEASE-v2.8.0/" class="md-nav__link">
+      <a href="../../RELEASE-v2.8.0/" class="md-nav__link">
         
   
   
@@ -8496,7 +8283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-FORMATTING/" class="md-nav__link">
+      <a href="../../reference/REFCARD-FORMATTING/" class="md-nav__link">
         
   
   
@@ -8524,7 +8311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
+      <a href="../../reference/REFCARD-claude-code-2.1-enhancements/" class="md-nav__link">
         
   
   
@@ -8552,7 +8339,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-DOCS-UPDATE/" class="md-nav__link">
         
   
   
@@ -8580,7 +8367,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
+      <a href="../../reference/REFCARD-INTERACTIVE-COMMANDS/" class="md-nav__link">
         
   
   
@@ -8608,7 +8395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-GIT-WORKTREE/" class="md-nav__link">
         
   
   
@@ -8636,7 +8423,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-CLAUDE-MD/" class="md-nav__link">
+      <a href="../../reference/REFCARD-CLAUDE-MD/" class="md-nav__link">
         
   
   
@@ -8664,7 +8451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-BRAINSTORM/" class="md-nav__link">
+      <a href="../../reference/REFCARD-BRAINSTORM/" class="md-nav__link">
         
   
   
@@ -8692,7 +8479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
+      <a href="../../reference/REFCARD-BRANCH-GUARD/" class="md-nav__link">
         
   
   
@@ -8720,7 +8507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-PROTECT-BASELINE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-PROTECT-BASELINE/" class="md-nav__link">
         
   
   
@@ -8748,7 +8535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-WORKFLOW/" class="md-nav__link">
+      <a href="../../reference/REFCARD-WORKFLOW/" class="md-nav__link">
         
   
   
@@ -8776,7 +8563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-RELEASE/" class="md-nav__link">
+      <a href="../../reference/REFCARD-RELEASE/" class="md-nav__link">
         
   
   
@@ -8804,7 +8591,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-TESTING/" class="md-nav__link">
+      <a href="../../reference/REFCARD-TESTING/" class="md-nav__link">
         
   
   
@@ -8832,7 +8619,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-HOMEBREW/" class="md-nav__link">
+      <a href="../../reference/REFCARD-HOMEBREW/" class="md-nav__link">
         
   
   
@@ -8860,7 +8647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-CHECK/" class="md-nav__link">
+      <a href="../../reference/REFCARD-CHECK/" class="md-nav__link">
         
   
   
@@ -8888,7 +8675,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-INSIGHTS/" class="md-nav__link">
+      <a href="../../reference/REFCARD-INSIGHTS/" class="md-nav__link">
         
   
   
@@ -8916,7 +8703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-BUMP-VERSION/" class="md-nav__link">
+      <a href="../../reference/REFCARD-BUMP-VERSION/" class="md-nav__link">
         
   
   
@@ -8944,7 +8731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-POST-RELEASE-SWEEP/" class="md-nav__link">
+      <a href="../../reference/REFCARD-POST-RELEASE-SWEEP/" class="md-nav__link">
         
   
   
@@ -8972,7 +8759,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-RELEASE-WATCH/" class="md-nav__link">
+      <a href="../../reference/REFCARD-RELEASE-WATCH/" class="md-nav__link">
         
   
   
@@ -9000,7 +8787,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/REFCARD-DOCS-STALENESS/" class="md-nav__link">
+      <a href="../../reference/REFCARD-DOCS-STALENESS/" class="md-nav__link">
         
   
   
@@ -9028,7 +8815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/COMMAND-EXAMPLES/" class="md-nav__link">
+      <a href="../../reference/COMMAND-EXAMPLES/" class="md-nav__link">
         
   
   
@@ -9056,7 +8843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/COMMAND-PARAMETERS/" class="md-nav__link">
+      <a href="../../reference/COMMAND-PARAMETERS/" class="md-nav__link">
         
   
   
@@ -9084,7 +8871,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/ERROR-SCENARIOS/" class="md-nav__link">
+      <a href="../../reference/ERROR-SCENARIOS/" class="md-nav__link">
         
   
   
@@ -9112,7 +8899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/SKILL-STANDARDS/" class="md-nav__link">
+      <a href="../../reference/SKILL-STANDARDS/" class="md-nav__link">
         
   
   
@@ -9198,7 +8985,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
+      <a href="../../GIF-RECORDING-WORKFLOW-2026/" class="md-nav__link">
         
   
   
@@ -9226,7 +9013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../GIF-REGENERATION-GUIDE/" class="md-nav__link">
+      <a href="../../GIF-REGENERATION-GUIDE/" class="md-nav__link">
         
   
   
@@ -9304,7 +9091,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
+      <a href="../../DEPENDENCY-MANAGEMENT/" class="md-nav__link">
         
   
   
@@ -9382,7 +9169,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/" class="md-nav__link">
+      <a href="../../tutorials/" class="md-nav__link">
         
   
   
@@ -9410,7 +9197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tutorials/dependency-management-getting-started/" class="md-nav__link">
+      <a href="../../tutorials/dependency-management-getting-started/" class="md-nav__link">
         
   
   
@@ -9446,7 +9233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../API-REFERENCE/" class="md-nav__link">
+      <a href="../../API-REFERENCE/" class="md-nav__link">
         
   
   
@@ -9474,7 +9261,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
+      <a href="../../DEPENDENCY-ARCHITECTURE/" class="md-nav__link">
         
   
   
@@ -9502,7 +9289,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../DEVELOPER-GUIDE/" class="md-nav__link">
+      <a href="../../DEVELOPER-GUIDE/" class="md-nav__link">
         
   
   
@@ -9596,7 +9383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../runbooks/parity-gate/" class="md-nav__link">
+      <a href="../../runbooks/parity-gate/" class="md-nav__link">
         
   
   
@@ -9624,7 +9411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../runbooks/release-rollback/" class="md-nav__link">
+      <a href="../../runbooks/release-rollback/" class="md-nav__link">
         
   
   
@@ -9717,7 +9504,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide/documentation-quality-development/" class="md-nav__link">
+      <a href="../../guide/documentation-quality-development/" class="md-nav__link">
         
   
   
@@ -9745,7 +9532,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CI-TEMPLATES/" class="md-nav__link">
+      <a href="../../CI-TEMPLATES/" class="md-nav__link">
         
   
   
@@ -9773,7 +9560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CI-DETECTION-ROLLOUT/" class="md-nav__link">
+      <a href="../../CI-DETECTION-ROLLOUT/" class="md-nav__link">
         
   
   
@@ -9801,7 +9588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../VALIDATOR-BEST-PRACTICES/" class="md-nav__link">
+      <a href="../../VALIDATOR-BEST-PRACTICES/" class="md-nav__link">
         
   
   
@@ -9879,7 +9666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../internal/" class="md-nav__link">
+      <a href="../../internal/" class="md-nav__link">
         
   
   
@@ -9907,7 +9694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../internal/CLAUDE-MD-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/CLAUDE-MD-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -9935,7 +9722,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../internal/TEST-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/TEST-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -9963,7 +9750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../internal/PYTHON-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/PYTHON-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -9991,7 +9778,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../internal/COMMAND-SPEC-CONVENTIONS/" class="md-nav__link">
+      <a href="../../internal/COMMAND-SPEC-CONVENTIONS/" class="md-nav__link">
         
   
   
@@ -10019,7 +9806,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../internal/GROUNDING-craft/" class="md-nav__link">
+      <a href="../../internal/GROUNDING-craft/" class="md-nav__link">
         
   
   
@@ -10047,7 +9834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../internal/TOKEN-EFFICIENCY-craft/" class="md-nav__link">
+      <a href="../../internal/TOKEN-EFFICIENCY-craft/" class="md-nav__link">
         
   
   
@@ -10075,7 +9862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../internal/DISCOVERY-ENGINE-USAGE/" class="md-nav__link">
+      <a href="../../internal/DISCOVERY-ENGINE-USAGE/" class="md-nav__link">
         
   
   
@@ -10118,7 +9905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../REFCARD/" class="md-nav__link">
+      <a href="../../REFCARD/" class="md-nav__link">
         
   
   
@@ -10165,10 +9952,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#current-state-as-of-this-writing-verify-again-before-acting-dont-trust-this-doc" class="md-nav__link">
+  <a href="#tldr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Current state (as of this writing — verify again before acting, don't trust this doc)
+        tl;dr
       
     </span>
   </a>
@@ -10176,143 +9963,65 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#path-a-roll-back-crafts-v400" class="md-nav__link">
+  <a href="#what-it-does" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Path A: Roll back craft's v4.0.0
+        What it does
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Path A: Roll back craft&#39;s v4.0.0">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#a1-identify-the-revert-target" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A1. Identify the revert target
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a2-revert-on-main" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A2. Revert on main
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a3-re-point-homebrew" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A3. Re-point Homebrew
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a4-github-release-tag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A4. GitHub release / tag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#a5-secrets-app-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        A5. Secrets / App installation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#path-b-roll-back-folios-v100" class="md-nav__link">
+  <a href="#how-its-built" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Path B: Roll back folio's v1.0.0
+        How it's built
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Path B: Roll back folio&#39;s v1.0.0">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#b1-yank-the-github-release-tag" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B1. Yank the GitHub release + tag
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b2-revert-originmain" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B2. Revert origin/main
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b3-remove-the-homebrew-formula-entry" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B3. Remove the Homebrew formula entry
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b4-unpublish-from-the-marketplace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        B4. Unpublish from the marketplace
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#path-c-partial-rollback-folio-ships-craft-doesnt" class="md-nav__link">
+  <a href="#guardrails" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Path C: Partial rollback — folio ships, craft doesn't
+        Guardrails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success Criteria
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#locked-decisions-from-grill-2026-07-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locked Decisions (from grill, 2026-07-17)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Questions
       
     </span>
   </a>
@@ -10336,7 +10045,7 @@
 
 
   
-    <a href="https://github.com/Data-Wise/craft/edit/main/docs/RUNBOOK-v4-release-rollback.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Data-Wise/craft/edit/main/docs/reports/REPORT-craft-restore-2026-07-17.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -10344,139 +10053,112 @@
   
 
 
-<h1 id="runbook-v400-train-rollback-craft-folio">Runbook: v4.0.0 Train Rollback (craft + folio)<a class="headerlink" href="#runbook-v400-train-rollback-craft-folio" title="Permanent link">&para;</a></h1>
-<p><strong>Written:</strong> 2026-07-16, BEFORE any v4.0.0 or folio v1.0.0 tag exists (per T4.2's own
-dependency-free scheduling — this runs ahead of T4.3, not after).
-<strong>Plan of record:</strong> <code>ORCHESTRATE-folio-split.md</code> · <code>tasks/plan.md</code> (Risks table) ·
-<code>docs/specs/SPEC-v4-rollback-runbook-2026-07-16.md</code></p>
-<p><strong>Sequencing invariant (state this before touching anything):</strong> craft's <code>dev→main</code> PR (T4.4)
-must not be opened until folio's T4.3 is fully released — tag pushed, GitHub release published,
-<code>brew install data-wise/tap/folio</code> verified working. If folio's release fails or stalls partway,
-craft MUST NOT tag v4.0.0. There is no valid state where craft ships v4.0.0 while folio's
-v1.0.0 is broken or absent.</p>
-<h2 id="current-state-as-of-this-writing-verify-again-before-acting-dont-trust-this-doc">Current state (as of this writing — verify again before acting, don't trust this doc)<a class="headerlink" href="#current-state-as-of-this-writing-verify-again-before-acting-dont-trust-this-doc" title="Permanent link">&para;</a></h2>
-<ul>
-<li>craft: latest tag <code>v2.61.2</code>, latest GitHub release <code>v2.61.2</code> (2026-07-09). No <code>v4.0.0</code> tag
-  exists yet. <code>.claude-plugin/plugin.json</code> version bump to <code>v4.0.0</code> is T4.4, not yet started.</li>
-<li>folio: <code>origin/main</code> has no release at all — the extraction landed on <code>origin/dev</code> only
-  (PR #1). <code>homebrew-tap/Formula/</code> has no <code>folio.rb</code> yet — it's created fresh in T4.3, not
-  updated from a prior version.</li>
-<li><code>homebrew-tap</code>'s release automation (<code>.github/workflows/homebrew-release.yml</code>) pushes
-  <strong>directly to <code>homebrew-tap</code>'s <code>main</code> branch</strong> via a GitHub App token (App ID stored in
-  <code>APP_ID</code>/<code>APP_PRIVATE_KEY</code> secrets) — there is no PR review step in that path. A rollback of
-  the tap formula means reverting a direct commit on <code>main</code>, not closing a PR.</li>
-</ul>
-<hr />
-<h2 id="path-a-roll-back-crafts-v400">Path A: Roll back craft's v4.0.0<a class="headerlink" href="#path-a-roll-back-crafts-v400" title="Permanent link">&para;</a></h2>
-<p>Applies once craft has tagged/released v4.0.0 and it turns out to be bad (broken commands,
-CI regression discovered post-release, etc.).</p>
-<h3 id="a1-identify-the-revert-target">A1. Identify the revert target<a class="headerlink" href="#a1-identify-the-revert-target" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/craft<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>-5<span class="w"> </span>main
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># The dev→main merge commit for the v4.0.0 release PR is the revert target.</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># It will be the merge-commit style PR from T4.4 (NOT squash — dev→main releases use</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># merge-commit per this repo&#39;s own convention, so the individual feature commits are visible).</span>
-</span></code></pre></div>
-<h3 id="a2-revert-on-main">A2. Revert on <code>main</code><a class="headerlink" href="#a2-revert-on-main" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># CONFIRM WITH USER FIRST — this is a push to a protected branch.</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/craft<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/craft<span class="w"> </span>revert<span class="w"> </span>-m<span class="w"> </span><span class="m">1</span><span class="w"> </span>&lt;merge-commit-sha&gt;
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/craft<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main<span class="w">   </span><span class="c1"># requires PR per branch protection —</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">                                                       </span><span class="c1"># open a revert PR, do not push directly</span>
-</span></code></pre></div>
-<p>craft's <code>main</code> is PR-only (branch protection, 0 required reviewers, required status checks
-apply) — the revert itself must go through a PR like any other change to <code>main</code>, it does not
-bypass protection just because it's a rollback.</p>
-<h3 id="a3-re-point-homebrew">A3. Re-point Homebrew<a class="headerlink" href="#a3-re-point-homebrew" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># CONFIRM WITH USER FIRST — direct push to homebrew-tap&#39;s main.</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/homebrew-tap
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Edit Formula/craft.rb: url -&gt; the v2.61.2 tag tarball, sha256 -&gt; its real sha256</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">#   (get via: curl -sL https://github.com/Data-Wise/craft/archive/refs/tags/v2.61.2.tar.gz | shasum -a 256)</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>git<span class="w"> </span>add<span class="w"> </span>Formula/craft.rb
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;revert: craft formula back to v2.61.2 (v4.0.0 rollback)&quot;</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>brew<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>brew<span class="w"> </span>upgrade<span class="w"> </span>craft<span class="w">   </span><span class="c1"># verify the rollback actually installs</span>
-</span></code></pre></div>
-<h3 id="a4-github-release-tag">A4. GitHub release / tag<a class="headerlink" href="#a4-github-release-tag" title="Permanent link">&para;</a></h3>
-<p>Do NOT delete the <code>v4.0.0</code> tag or its GitHub release — leave it visible with a note
-("superseded, see rollback") rather than erasing history. Deleting a published release/tag
-that others may have already pulled creates more confusion than it resolves.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>gh<span class="w"> </span>release<span class="w"> </span>edit<span class="w"> </span>v4.0.0<span class="w"> </span>--repo<span class="w"> </span>Data-Wise/craft<span class="w"> </span>--notes<span class="w"> </span><span class="s2">&quot;SUPERSEDED — rolled back due to &lt;reason&gt;. Use v2.61.2.&quot;</span>
-</span></code></pre></div>
-<h3 id="a5-secrets-app-installation">A5. Secrets / App installation<a class="headerlink" href="#a5-secrets-app-installation" title="Permanent link">&para;</a></h3>
-<p>No action needed — <code>APP_ID</code>/<code>APP_PRIVATE_KEY</code> and the GitHub App installation are shared
-infrastructure, not release-specific. Idempotent; nothing to reverse.</p>
-<hr />
-<h2 id="path-b-roll-back-folios-v100">Path B: Roll back folio's v1.0.0<a class="headerlink" href="#path-b-roll-back-folios-v100" title="Permanent link">&para;</a></h2>
-<p>Applies once folio has released v1.0.0 (T4.3) and it turns out to be bad. This is folio's FIRST
-real release — <code>origin/main</code> has never had a release before, so "rollback" here really means
-"undo the very first release," not "revert to a prior version."</p>
-<h3 id="b1-yank-the-github-release-tag">B1. Yank the GitHub release + tag<a class="headerlink" href="#b1-yank-the-github-release-tag" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># CONFIRM WITH USER FIRST.</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>gh<span class="w"> </span>release<span class="w"> </span>delete<span class="w"> </span>v1.0.0<span class="w"> </span>--repo<span class="w"> </span>Data-Wise/folio<span class="w"> </span>--yes
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/folio<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:refs/tags/v1.0.0<span class="w">   </span><span class="c1"># delete the remote tag</span>
-</span></code></pre></div>
-<p>Unlike craft (Path A4), deleting rather than just annotating is appropriate here specifically
-because this is folio's first-ever release — there's no prior version for users to have adopted
-instead, so there's nothing a "superseded" note would be pointing them toward.</p>
-<h3 id="b2-revert-originmain">B2. Revert <code>origin/main</code><a class="headerlink" href="#b2-revert-originmain" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># CONFIRM WITH USER FIRST — push to a protected branch (once main-protection is configured</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># per T4.3&#39;s own sub-step).</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/folio<span class="w"> </span>checkout<span class="w"> </span>main
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/folio<span class="w"> </span>revert<span class="w"> </span>-m<span class="w"> </span><span class="m">1</span><span class="w"> </span>&lt;the-dev-to-main-merge-commit&gt;
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Open a revert PR — same branch-protection discipline as craft Path A2.</span>
-</span></code></pre></div>
-<h3 id="b3-remove-the-homebrew-formula-entry">B3. Remove the Homebrew formula entry<a class="headerlink" href="#b3-remove-the-homebrew-formula-entry" title="Permanent link">&para;</a></h3>
-<p>folio's formula (<code>homebrew-tap/Formula/folio.rb</code>) is CREATED FRESH in T4.3 — there is no prior
-version to revert to. Rollback means removing it entirely, not downgrading it.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># CONFIRM WITH USER FIRST — direct push to homebrew-tap&#39;s main (same automation path as A3).</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/homebrew-tap
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>git<span class="w"> </span>rm<span class="w"> </span>Formula/folio.rb
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;revert: remove folio formula (v1.0.0 rollback)&quot;</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
-</span></code></pre></div>
-<h3 id="b4-unpublish-from-the-marketplace">B4. Unpublish from the marketplace<a class="headerlink" href="#b4-unpublish-from-the-marketplace" title="Permanent link">&para;</a></h3>
-<p>folio's marketplace entry (aggregator <code>marketplace.json</code>, propagated via folio's own
-<code>aggregator-sync.yml</code>) needs its entry removed or reverted. <strong>Verify the exact file path and
-propagation mechanism at execution time</strong> — this runbook was written before that entry existed
-(T4.3 creates it), so don't trust a hardcoded path here; find it via <code>folio-split</code> plan docs'
-references to the aggregator repo, or ask if unclear.</p>
-<hr />
-<h2 id="path-c-partial-rollback-folio-ships-craft-doesnt">Path C: Partial rollback — folio ships, craft doesn't<a class="headerlink" href="#path-c-partial-rollback-folio-ships-craft-doesnt" title="Permanent link">&para;</a></h2>
-<p><strong>This is the one case this runbook does NOT resolve — it needs a human decision, not an
-assumption.</strong></p>
+<h1 id="report-craftrestore-spec">Report: <code>/craft:restore</code> Spec<a class="headerlink" href="#report-craftrestore-spec" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p><strong>Historical note (2026-07-19):</strong> the v4.0.0 train completed without ever triggering this
-scenario — folio v1.0.0 released 2026-07-16 20:44, craft v4.0.0 released the same day at
-15:57, and craft has since progressed to v4.2.0. The question below is dead-letter for the
-v4.0.0 train specifically, but stays here as a template for any future coordinated cross-repo
-release, where it remains open in principle.</p>
+<p>Source: <a href="../../specs/SPEC-craft-restore-2026-07-17/"><code>SPEC-craft-restore-2026-07-17.md</code></a></p>
 </blockquote>
-<p>Scenario: folio's T4.3 completes successfully (tagged, released, installable) — but craft's
-T4.4 (the <code>dev→main</code> PR, tag, release) then fails, stalls, or is deliberately paused for an
-extended period. At that point:</p>
+<p><strong>Status:</strong> SHIPPED — implemented as <code>commands/restore.md</code>, released in v4.1.0 (2026-07-17) <em>(source doc status corrected 2026-07-17; it read "DRAFT" from before the command was actually released)</em></p>
+<h2 id="tldr">tl;dr<a class="headerlink" href="#tldr" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New files this spec produces</td>
+<td>1 (<code>commands/restore.md</code>)</td>
+</tr>
+<tr>
+<td>Output modes</td>
+<td>3 (<code>default</code> / <code>detailed</code> / <code>summary</code>)</td>
+</tr>
+<tr>
+<td>Locked decisions (grill)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Success criteria</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Open questions</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-it-does">What it does<a class="headerlink" href="#what-it-does" title="Permanent link">&para;</a></h2>
+<p>Give craft a single, read-only "restore my context" command combining:</p>
+<ol>
+<li><strong>Git-activity recap</strong> (today/week commits, branch ahead/behind, unpushed
+   work, open PRs) — currently <code>skills/dev/git/SKILL.md</code> Operation 7.</li>
+<li><strong><code>.STATUS</code>-based session recap</strong> — currently the <code>adhd-workflow</code> skill.</li>
+</ol>
+<p>Today these are two separate asks; <code>/craft:restore</code> merges them into one
+output, mirroring <code>savant:restore</code>'s framing.</p>
+<p><strong>Explicitly out of scope:</strong> a cross-plugin <code>/restore</code> dispatcher (routing to
+<code>savant:restore</code> for research projects vs. <code>craft:restore</code> for dev-tools
+projects). Investigated and confirmed structurally blocked — craft's
+<code>/do</code>/<code>/hub</code> routers cannot dispatch into another plugin's namespace.</p>
+<p><strong>Project structure:</strong> no new directories. Only <code>commands/restore.md</code> is new;
+<code>skills/dev/git/SKILL.md</code> and <code>skills/workflow/adhd-workflow/</code> stay unchanged
+(canonical logic sources).</p>
+<h2 id="how-its-built">How it's built<a class="headerlink" href="#how-its-built" title="Permanent link">&para;</a></h2>
 <ul>
-<li>folio v1.0.0 is live and usable on its own (it has no runtime dependency on craft's v4.0.0 —
-  the split was designed as a clean extraction, not a versioned pair).</li>
-<li>craft is still at v2.61.2, with the folio-split code already merged to <code>dev</code> but not yet
-  tagged/released to <code>main</code>.</li>
+<li><strong>Code style:</strong> follows the <code>commands/done.md</code> thin-shim convention (not
+  <code>commands/next.md</code>, which predates the shim pattern). No
+  <code>deprecated</code>/<code>replaced-by</code> frontmatter — net-new command name, not a
+  migration shim.</li>
+<li><strong>Modes:</strong> <code>default</code> | <code>detailed</code> | <code>summary</code> apply to the git-activity
+  portion only (<code>dev/git</code> skill already implements them). <code>adhd-workflow</code>'s
+  recap has no mode support — verified before writing the spec, not assumed.
+  Adding modes there is an open question, not shipped.</li>
+<li><strong>Overlap handling:</strong> both source skills independently surface recent git
+  activity and open PRs — the shim de-dupes into one combined git-activity
+  block at presentation time, not two.</li>
 </ul>
-<p><strong>Open question, unresolved as of this writing:</strong> is that a stable, acceptable end-state on its
-own — folio out ahead, craft catching up later on its own schedule — or does folio need some
-signal (a README note, a version-compat marker, a "craft v4.0.0 pending" flag) that the pairing
-isn't complete yet?</p>
-<p>Arguments for "stable, no signal needed": folio was deliberately designed with no cross-plugin
-dependency on craft (see folio's own <code>CLAUDE.md</code>: "no cross-plugin dispatch in either
-direction") — nothing about folio's functionality actually requires craft's v4.0.0 to exist.
-A user who installs folio v1.0.0 today gets a fully working docs-authoring plugin regardless of
-craft's version.</p>
-<p>Arguments for "needs a signal": the two releases were planned and communicated (in commit
-messages, PR descriptions, <code>.STATUS</code>) as one coordinated "v4.0.0 train" — a user who only reads
-craft's side might reasonably expect folio and craft v4.0.0 to have shipped together, and be
-confused finding folio available weeks before craft's matching release.</p>
-<p><strong>Do not pick one of these and proceed silently if this scenario arises — surface this exact
-question to the user first.</strong></p>
+<h2 id="guardrails">Guardrails<a class="headerlink" href="#guardrails" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Always do:</strong> keep all logic in the two source skills — the command file
+  is routing only. Run doc-staleness/count validators before PR.</li>
+<li><strong>Ask first:</strong> deprecating <code>dev/git</code> Operation 7's direct invocation path
+  in favor of routing everything through <code>/craft:restore</code>; adding a <code>--sync</code>
+  flag later.</li>
+<li><strong>Never do:</strong> implement the cross-plugin <code>/restore</code> dispatcher as part of
+  this work; add write/sync behavior — read-only by design.</li>
+<li><strong>Testing strategy:</strong> docs-only change — minimum bar is lint +
+  count/staleness validators, not the full suite. Also requires manual
+  dogfood of all 3 modes with real output (E2E evidence per
+  <code>e2e-before-pr.md</code>), and a sweep of <code>commands/hub.md</code>/<code>docs/commands/hub.md</code>
+  for stale "git recap" phrasing.</li>
+</ul>
+<h2 id="success-criteria">Success Criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>/craft:restore</code> (default mode) prints a combined git-activity +
+  <code>.STATUS</code> summary.</li>
+<li><code>detailed</code>/<code>summary</code> modes both work and visibly differ in verbosity.</li>
+<li>No <code>--sync</code> or write behavior exists.</li>
+<li><code>hub.md</code>/<code>docs/commands/hub.md</code> no longer reference <code>git-recap</code>/<code>recap</code>.</li>
+<li><code>validate-counts.sh</code> and <code>docs-staleness-check.sh</code> both pass clean.</li>
+</ul>
+<h2 id="locked-decisions-from-grill-2026-07-17">Locked Decisions (from grill, 2026-07-17)<a class="headerlink" href="#locked-decisions-from-grill-2026-07-17" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Scope:</strong> combine BOTH git-activity recap and <code>.STATUS</code>-based session
+   recap into one command, one combined output.</li>
+<li><strong><code>--sync</code> flag:</strong> NOT included — read-only only, unlike <code>savant:restore</code>'s
+   optional write path.</li>
+<li><strong>Output modes:</strong> keep the existing <code>default</code>/<code>detailed</code>/<code>summary</code> shape
+   already in <code>dev/git</code> Operation 7 — no new modes.</li>
+</ol>
+<h2 id="open-questions">Open Questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Should a future <code>--sync</code> mode (mirroring <code>savant:restore --sync</code>) ever be
+   added? Deferred — no current use case identified.</li>
+<li>Should the cross-plugin dispatcher idea get its own spec later? Not this
+   spec's call — flagged for a future, separate proposal if wanted.</li>
+</ol>
 
 
 
@@ -10532,12 +10214,12 @@ question to the user first.</strong></p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
-        <script src="../javascripts/mermaid-init.js"></script>
+        <script src="../../javascripts/mermaid-init.js"></script>
       
     
   </body>
