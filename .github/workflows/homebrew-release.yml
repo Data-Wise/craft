@@ -154,9 +154,13 @@ jobs:
           python3 generator/generate.py craft
           ruby -c Formula/craft.rb
 
-      - name: Commit and push to tap
+      # Tap main is branch-protected (PR-only + required status checks), so a
+      # direct push is rejected with GH006. Push a bot branch, open a PR, and
+      # enable auto-merge so it lands once the tap's required checks pass.
+      - name: Commit, push branch, and open tap PR
         env:
           VERSION: ${{ needs.prepare.outputs.version }}
+          TAP_TOKEN: ${{ steps.app-token.outputs.token }}
         working-directory: homebrew-tap
         run: |
           git config user.name "github-actions[bot]"
@@ -166,5 +170,29 @@ jobs:
             echo "No changes to commit (formula already at v${VERSION})"
             exit 0
           fi
+
+          BRANCH="bot/craft-${VERSION}"
+          git checkout -b "$BRANCH"
           git commit -m "craft: update to v${VERSION}"
-          git push origin main
+
+          # Auth via URL-embedded App token; clear GITHUB_TOKEN so the runner
+          # credential helper doesn't intercept with this repo's token.
+          PUSH_URL="https://x-access-token:${TAP_TOKEN}@github.com/Data-Wise/homebrew-tap.git"
+          git remote set-url origin "$PUSH_URL"
+          unset GITHUB_TOKEN
+          # Force-push is safe: bot/craft-* is a bot-owned, per-version branch;
+          # overwriting it just makes re-runs idempotent.
+          git push --force -u origin "$BRANCH"
+
+          export GH_TOKEN="$TAP_TOKEN"
+          if ! gh pr view "$BRANCH" --repo Data-Wise/homebrew-tap --json state -q .state 2>/dev/null | grep -q OPEN; then
+            gh pr create --repo Data-Wise/homebrew-tap \
+              --base main --head "$BRANCH" \
+              --title "craft: update to v${VERSION}" \
+              --body "Automated formula + manifest bump from craft homebrew-release.yml."
+          fi
+
+          # Auto-merge waits for the tap's required checks; if they already
+          # completed, fall back to an immediate merge.
+          gh pr merge "$BRANCH" --repo Data-Wise/homebrew-tap --squash --auto \
+            || gh pr merge "$BRANCH" --repo Data-Wise/homebrew-tap --squash
