@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `docs/specs/REPORT-craft-restore-2026-07-17.md` — ADHD-friendly report
+- `docs/reports/REPORT-craft-restore-2026-07-17.md` — ADHD-friendly report
   view of the `/craft:restore` spec.
 
 ---
