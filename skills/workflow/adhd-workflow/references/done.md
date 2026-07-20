@@ -304,9 +304,15 @@ Detect drift between global and project-level Claude settings, and flag rules fi
 
 2. **Rules staleness** — find `~/.claude/rules/*.md` files modified more recently than `.STATUS` (proxy for "since last session"). List which rules changed.
 
+3. **Memory/`.remember/` staleness** — compare the auto-memory store
+   (`~/.claude/projects/<slug>/memory/*.md`) and the project's `.remember/`
+   directory (`today-*.md`/`recent.md`/`archive.md`) mtimes against a
+   14-day threshold. Report count of stale files + the single oldest one;
+   never auto-prune.
+
 ```python
 # Example detection logic (Python for portability)
-import json, pathlib, re
+import json, pathlib, re, time
 
 global_settings = pathlib.Path.home() / '.claude/settings.json'
 project_settings = pathlib.Path('.claude/settings.json')
@@ -323,22 +329,44 @@ if global_settings.exists():
 rules_dir = pathlib.Path.home() / '.claude/rules'
 status_mtime = pathlib.Path('.STATUS').stat().st_mtime if pathlib.Path('.STATUS').exists() else 0
 updated_rules = [f.name for f in rules_dir.glob('*.md') if f.stat().st_mtime > status_mtime]
+
+# Memory/.remember/ staleness check (14-day threshold)
+STALE_DAYS = 14
+now = time.time()
+threshold = now - STALE_DAYS * 86400
+
+memory_slug = re.sub(r'[^a-zA-Z0-9]', '-', str(pathlib.Path.cwd()))
+memory_dir = pathlib.Path.home() / '.claude/projects' / memory_slug / 'memory'
+remember_dir = pathlib.Path('.remember')
+
+candidates = []
+if memory_dir.exists():
+    candidates += list(memory_dir.glob('*.md'))
+if remember_dir.exists():
+    candidates += list(remember_dir.glob('today-*.md'))
+    candidates += [p for p in (remember_dir / 'recent.md', remember_dir / 'archive.md') if p.exists()]
+
+stale_files = [f for f in candidates if f.stat().st_mtime < threshold]
+oldest = min(stale_files, key=lambda f: f.stat().st_mtime) if stale_files else None
 ```
 
-**Output (only if drift or updated rules found):**
+**Output (only if drift, updated rules, or stale memory found):**
 
 ```
 ⚙️  SETTINGS CHECK:
   Allowlist: 3 entries in global not in project settings
   Rules updated since last session: response-style.md, no-unrequested-branch-switch.md
   → Ask Claude to sync CLAUDE.md (docs/claude-md skill) to pull in updated rules
+  Memory: 2 files not updated in 12+ days (oldest: recent.md)
 ```
 
 **Key behaviors:**
 
 - Never log full settings.json content — log key counts only (entries may contain tokens)
 - Skips gracefully if no project `.claude/settings.json` (not all projects have one)
-- If no drift and no updated rules: silent (zero output)
+- Memory/`.remember/` check skips gracefully if neither directory exists
+- Report only — never auto-prune or auto-update stale memory/`.remember/` files
+- If no drift, no updated rules, and no stale memory files: silent (zero output)
 - Stores drift count for display in Step 2 summary
 
 ### Step 1.11: Memory Capture

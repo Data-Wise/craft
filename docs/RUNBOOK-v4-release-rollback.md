@@ -141,6 +141,12 @@ references to the aggregator repo, or ask if unclear.
 **This is the one case this runbook does NOT resolve — it needs a human decision, not an
 assumption.**
 
+> **Historical note (2026-07-19):** the v4.0.0 train completed without ever triggering this
+> scenario — folio v1.0.0 released 2026-07-16 20:44, craft v4.0.0 released the same day at
+> 15:57, and craft has since progressed to v4.2.0. The question below is dead-letter for the
+> v4.0.0 train specifically, but stays here as a template for any future coordinated cross-repo
+> release, where it remains open in principle.
+
 Scenario: folio's T4.3 completes successfully (tagged, released, installable) — but craft's
 T4.4 (the `dev→main` PR, tag, release) then fails, stalls, or is deliberately paused for an
 extended period. At that point:
