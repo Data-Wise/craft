@@ -33,6 +33,13 @@ in, and added it to the staleness-check exclusion list (same historical/point-in
 `docs/specs/`) — a nav-completeness YELLOW on the very next check confirmed the exclusion was
 needed, not just following convention blindly.
 
+**v4.0.0 rollback runbook closed out:** generated `docs/reports/REPORT-v4-rollback-runbook-2026-07-16.md`
+for the T4.2 spec, then verified against `docs/RUNBOOK-v4-release-rollback.md` (grepped for the
+spec's own open question rather than assuming) — confirmed the partial-rollback scenario it
+flagged never actually occurred (folio v1.0.0 and craft v4.0.0 both shipped the same day,
+2026-07-16, craft now at v4.2.0). Added a one-line historical note to the runbook itself so a
+future reader doesn't re-investigate a risk that already passed.
+
 ## Session Recap — 2026-07-17 — v4.1.0 SHIPPED: /craft:restore + /craft:refine fix
 
 **Shipped to main:** PR #295 (dev→main merge, tag v4.1.0). Full detail in the `milestone` field
