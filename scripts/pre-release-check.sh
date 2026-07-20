@@ -34,8 +34,14 @@ cd "$PLUGIN_DIR"
 if [ -n "$1" ]; then
     TARGET_VERSION="$1"
 else
-    # Auto-detect from latest git tag
-    TARGET_VERSION=$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//')
+    # Auto-detect the highest v*.*.* tag by semver, not `git describe`.
+    # `git describe --tags --abbrev=0` walks HEAD's ancestry, so on `dev`
+    # (which is never merged back from `main` after a release) it silently
+    # returns the last tag still reachable from dev — which can be many
+    # releases stale once main has moved ahead. A plain semver sort over
+    # all `v*` tags (workflow-v* is excluded by the glob itself) reflects
+    # the actual latest release regardless of which branch HEAD is on.
+    TARGET_VERSION=$(git tag --list 'v*' --sort=-v:refname | head -1 | sed 's/^v//')
     if [ -z "$TARGET_VERSION" ]; then
         echo -e "${RED}Error: No version argument and no git tags found${NC}"
         echo "Usage: $0 <version>"
