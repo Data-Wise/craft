@@ -79,7 +79,7 @@ Complete documentation for Craft's teaching mode feature.
 | `/folio:site:publish` | Publish draft → production with preview | [Documentation](commands/site.md) |
 | `/folio:site:progress` | Semester progress dashboard | [Documentation](commands/site.md) |
 | `/craft:site:validate` | Content validation (syllabus, schedule) | [Documentation](commands/site.md) |
-| `/folio:site:build` | Build site with teaching mode support | [Documentation](commands/site.md#craftsitebuild) |
+| `/folio:site:build` | Build site with teaching mode support | [Documentation](commands/site.md#foliositebuild) |
 
 ## Documentation by Use Case
 
@@ -311,9 +311,9 @@ validation:
 **Site commands:**
 
 - [Site Deploy](commands/site.md#craftsitedeploy) - Direct GitHub Pages deployment
-- [Site Check](commands/site.md#craftsitecheck) - Health validation
+- [Site Check](commands/site.md#foliositecheck) - Health validation
 
 **Git workflows:**
 
-- [Git Worktree](commands/git.md#craftgitworktree) - Parallel development
+- [Git Worktree](guide/worktree-advanced-patterns.md) - Parallel development
 - [Git Branch](commands/git.md) - Branch management
