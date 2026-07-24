@@ -1,0 +1,5 @@
+vault_root: "/Users/dt/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+pairs:
+  # - { vault: "teaching", repo: "teaching" }
+include: ["*.md"]
+exclude: ["_archive"]
