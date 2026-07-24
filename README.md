@@ -495,7 +495,7 @@ protection") or see
 
 ## Version
 
-- **Version:** 2.14.0
+- **Version:** 4.2.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
