@@ -1,7 +1,7 @@
 # SPEC: Guard-Hardening Follow-Ups (Post-#284 Adversarial Review)
 
 **Date:** 2026-07-15 · **Status:** Approved (locked via `/craft:brainstorm` → `/craft:grill`, adversarially re-verified same session)
-**Brainstorm:** [`BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md`](../../BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md)
+**Brainstorm:** [`BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md`](BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md)
 **Grill:** [`GRILL-guard-hardening-adversarial-review-2026-07-15.md`](GRILL-guard-hardening-adversarial-review-2026-07-15.md)
 **Predecessor:** PR #284 (`fix(guard): resolve Bash cross-context targets in branch-guard.sh`)
 

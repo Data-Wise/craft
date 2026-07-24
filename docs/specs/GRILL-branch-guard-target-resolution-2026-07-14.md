@@ -1,6 +1,6 @@
 # GRILL: Branch Guard Target-Resolution Fix
 
-**Date:** 2026-07-14 · **Target:** [`BRAINSTORM-branch-guard-target-resolution-2026-07-14.md`](../../BRAINSTORM-branch-guard-target-resolution-2026-07-14.md) (repo root)
+**Date:** 2026-07-14 · **Target:** [`BRAINSTORM-branch-guard-target-resolution-2026-07-14.md`](BRAINSTORM-branch-guard-target-resolution-2026-07-14.md) (repo root)
 **Related:** [`REPORT-branch-guard-2026-07-14.md`](REPORT-branch-guard-2026-07-14.md)
 
 ## Decision Ledger
@@ -31,7 +31,7 @@
 > **2026-07-15 correction:** item 1's "compound-string-match, worktree-cleanup false
 > positives" claim for `no-switch-guard.sh` did not hold up under a follow-up adversarial
 > re-check — neither scenario reproduces in that file (verified by direct code read; see
-> [`BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md`](../../BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md)
+> [`BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md`](BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md)
 > Context Scan). The real bug found instead — `no-switch-guard.sh`'s `git_dir` resolution
 > only honored `-C`, never a leading `cd` — was fixed in
 > [#287](https://github.com/Data-Wise/craft/pull/287), together with a retrofit of

@@ -1,7 +1,7 @@
 # Report: Branch Guard — Architecture, Rules, and Known Problems
 
 **Date:** 2026-07-14 · **Scope:** craft's two-hook Guard Suite (`branch-guard.sh` + `no-switch-guard.sh`)
-**Companions:** [BRAINSTORM-branch-guard-target-resolution-2026-07-14.md](../../BRAINSTORM-branch-guard-target-resolution-2026-07-14.md) (proposed fix) · [GRILL-branch-guard-target-resolution-2026-07-14.md](GRILL-branch-guard-target-resolution-2026-07-14.md) (interrogation + locked decisions)
+**Companions:** [BRAINSTORM-branch-guard-target-resolution-2026-07-14.md](BRAINSTORM-branch-guard-target-resolution-2026-07-14.md) (proposed fix) · [GRILL-branch-guard-target-resolution-2026-07-14.md](GRILL-branch-guard-target-resolution-2026-07-14.md) (interrogation + locked decisions)
 
 ## 1. What It Is
 

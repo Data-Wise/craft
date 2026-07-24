@@ -160,6 +160,9 @@ cleared the last known local test failure; the `dev` baseline is now genuinely c
 **Open:** Phase 4 (folio `/folio:do` + coordinated release — folio first, craft tag LAST);
 `feature/folio-split` worktree + branch preserved for it. `tasks/todo.md` cites a plan-of-record at
 `docs/plans/ORCHESTRATE-folio-split.md` that does not exist (the real file is at the branch root).
+*(RESOLVED 2026-07-24: `ORCHESTRATE-folio-split.md` moved from repo root to `docs/plans/` as
+originally intended, alongside 6 other leftover root-level BRAINSTORM planning artifacts moved to
+`docs/specs/` — same session as the docs/website audit.)*
 `docs/commands.md:10`'s "17 Categories" needs a definition decision (see milestone). Two
 branch-guard false positives observed (`awk 'NR>=203'`, `cp … .bak` — both misread argument text as
 a shell redirect creating a code file on dev).
