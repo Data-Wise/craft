@@ -4,7 +4,7 @@
 **Date:** 2026-06-23
 **Context source:** `/craft:grill` session on `SPEC-done-memory-settings-2026-06-23.md`
 
-> **Note:** ADR-001 (`ADR-001-workflow-branch-guard.md`, Workflow-vs-worktree conflict, issue #171) is reserved by `SPEC-v249-issues-sprint-2026-06-23.md` and not yet written. This ADR is numbered 002 to avoid colliding with that reservation.
+> **Note:** ADR-001 (`ADR-001-workflow-branch-guard.md`, Workflow-vs-worktree conflict, issue #171) was reserved by `SPEC-v249-issues-sprint-2026-06-23.md` at the time this ADR was drafted and has since been written (Accepted, 2026-06-24). This ADR is numbered 002 to avoid colliding with that reservation. (Corrected 2026-07-23 per ADR-005's Consequences.)
 
 ---
 

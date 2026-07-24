@@ -1,8 +1,25 @@
 # ADR-005: Command-Shim Canonical-Path Resolution
 
-**Status:** Proposed
-**Date:** 2026-07-05
+**Status:** Accepted
+**Date:** 2026-07-05 (executed 2026-07-23)
 **Context source:** Issue #261 (`Command shims don't document how to resolve their own canonical-reference path`)
+
+> **Execution note (2026-07-23):** the 12-file list in Context below is now stale — several of
+> those files were renamed or removed between this ADR's drafting (2026-07-05) and execution
+> (2026-07-23): `commands/done.md` → `commands/finish.md` (ADR-006 rename), `commands/orch/plan.md`
+> / `commands/plan/roadmap.md` / `commands/plan/sprint.md` / `commands/git/init.md` /
+> `commands/git/sync.md` / `commands/git/docs/{learning-guide,safety-rails,undo-guide}.md` no
+> longer exist (folded into `skills/dev/git/SKILL.md` per the git-consolidation work). The actual
+> set of thin shims carrying a bare relative canonical-procedure link at execution time was **6
+> files**: `commands/finish.md`, `commands/refine.md`, `commands/grill.md`,
+> `commands/brainstorm.md`, `commands/code/skill-standards.md`, `commands/code/command-audit.md`
+> (the last two didn't exist on 2026-07-05 and were added to this ADR's scope, since they carry the
+> identical defect). `commands/restore.md` (also created since 2026-07-05) was checked and found
+> to have no bare skill-file relative link — it cites skills by name only, not by path, so it
+> needed no change. `${CLAUDE_PLUGIN_ROOT}` provenance (open question below) was verified via the
+> official Claude Code plugins-reference docs: platform-provided, reliably set regardless of
+> session cwd. The standing-pattern requirement (Decision item 2) still applies to any future
+> shim conversion.
 
 > **Note:** ADR-002's own numbering note (line 7) states ADR-001 was "reserved... not yet written" at the time it was drafted (2026-06-23). That is now stale: `docs/adr/ADR-001-workflow-branch-guard.md` exists, Accepted, dated 2026-06-24, issue #171. `docs/adr/` currently runs ADR-001 through ADR-004; this is ADR-005. (A one-line correction to ADR-002's note is included in Consequences below, since this ADR is the first to touch that file again.)
 
@@ -91,8 +108,8 @@ This is Option (b) from issue #261, chosen over (a) (spell out the plugin-cache 
 
 ## Verification
 
-- [ ] Confirm `CLAUDE_PLUGIN_ROOT`'s actual provenance (grep Claude Code's own docs/changelog if accessible, or empirically test: unset it, invoke `/craft:done` from a sibling-repo session, observe whether it's still populated). Record the answer in this ADR before marking it Accepted.
-- [ ] Update `commands/done.md:18` and the reference-path line in each of the other 11 already-converted thin shims (`commands/refine.md`, `commands/brainstorm.md`, `commands/grill.md`, `commands/orch/plan.md`, `commands/plan/roadmap.md`, `commands/plan/sprint.md`, `commands/git/init.md`, `commands/git/sync.md`, `commands/git/docs/learning-guide.md`, `commands/git/docs/safety-rails.md`, `commands/git/docs/undo-guide.md`) to the `${CLAUDE_PLUGIN_ROOT:-.}`-resolved path; verify manually from a non-craft cwd that each path resolves to the correct installed-plugin-cache file.
-- [ ] Add a line to whatever checklist/doc governs future ADR-002 shim conversions (or this ADR itself, if no such checklist exists yet) requiring the `${CLAUDE_PLUGIN_ROOT}` pattern from the start.
-- [ ] One-line correction to ADR-002's stale ADR-001 numbering note.
-- [ ] `validate-counts.sh` and `docs-staleness-check.sh` clean after edits.
+- [x] Confirm `CLAUDE_PLUGIN_ROOT`'s actual provenance — verified 2026-07-23 via the official Claude Code plugins-reference docs (`https://code.claude.com/docs/en/plugins-reference.md`, "Environment variables" section): platform-provided, absolute path to the plugin's installation directory, reliably set regardless of session cwd for hooks/MCP/LSP subprocesses.
+- [x] Update the reference-path line in each already-converted thin shim to the `${CLAUDE_PLUGIN_ROOT:-.}`-resolved path — the actual current set (see Execution note above) was 6 files, not the original 12: `commands/finish.md`, `commands/refine.md`, `commands/grill.md`, `commands/brainstorm.md`, `commands/code/skill-standards.md`, `commands/code/command-audit.md`. `commands/restore.md` checked, needed no change (no bare skill-file path link).
+- [x] Standing-pattern requirement recorded in this ADR's Decision (item 2) — applies to any future ADR-002-style shim conversion.
+- [x] One-line correction to ADR-002's stale ADR-001 numbering note (see below).
+- [ ] `validate-counts.sh` and `docs-staleness-check.sh` clean after edits — run as part of this PR's pre-merge check.

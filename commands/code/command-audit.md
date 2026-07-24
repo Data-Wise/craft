@@ -38,7 +38,7 @@ Validate all command, skill, and agent frontmatter against the schema (`_schema.
 ## When Invoked
 
 1. **Load the canonical procedure:** read
-   [`skills/code/audit-router/references/command-audit.md`](../../skills/code/audit-router/references/command-audit.md)
+   `${CLAUDE_PLUGIN_ROOT:-.}/skills/code/audit-router/references/command-audit.md`
    and follow it exactly — checks table, CLI invocation (`bash scripts/command-audit.sh`),
    health-score formula, output format, exit codes.
 2. **Do not reimplement here.** Any change to this command's checks or output must be made in

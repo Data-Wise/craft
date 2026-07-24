@@ -38,7 +38,7 @@ Scans every `skills/**/SKILL.md` against the vendored Anthropic authoring standa
 ## When Invoked
 
 1. **Load the canonical procedure:** read
-   [`skills/code/audit-router/references/skill-standards.md`](../../skills/code/audit-router/references/skill-standards.md)
+   `${CLAUDE_PLUGIN_ROOT:-.}/skills/code/audit-router/references/skill-standards.md`
    and follow it exactly — checks table, the 5-step remediation flow (scan → fix → description
    handoff to `skill-creator` → qualitative handoff to `plugin-dev:skill-reviewer` → refresh
    standards), auto-fix detail, exit codes.

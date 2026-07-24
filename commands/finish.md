@@ -15,7 +15,7 @@ description: /finish - Session Completion & Context Capture
 ## When invoked
 
 1. **Load the canonical procedure:** read
-   [`skills/workflow/adhd-workflow/references/done.md`](../skills/workflow/adhd-workflow/references/done.md)
+   `${CLAUDE_PLUGIN_ROOT:-.}/skills/workflow/adhd-workflow/references/done.md`
    and follow it exactly. That reference is the single source of truth for the
    full session-completion flow — CLAUDE.md sync (Step 1.10), **Settings Sync
    (Step 1.10.5)**, Memory Capture (Step 1.11), **Memory Optimize (Step 1.12)**,
