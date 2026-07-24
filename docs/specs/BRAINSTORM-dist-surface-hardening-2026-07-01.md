@@ -1,7 +1,7 @@
 # BRAINSTORM: Distribution-Surface Hardening
 
 - **Date:** 2026-07-01 · **Depth/Focus:** Default · arch · **Via:** `/craft:workflow:brainstorm --refine`
-- **Spec:** [`docs/specs/SPEC-dist-surface-hardening-2026-07-01.md`](docs/specs/SPEC-dist-surface-hardening-2026-07-01.md)
+- **Spec:** [`docs/specs/SPEC-dist-surface-hardening-2026-07-01.md`](SPEC-dist-surface-hardening-2026-07-01.md)
 
 ## Trigger
 

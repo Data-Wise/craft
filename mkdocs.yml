@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. /craft:restore combines git-activity recap (dev/git skill) with .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point. See NEWS.md for release-by-release highlights."
+site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.2.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft

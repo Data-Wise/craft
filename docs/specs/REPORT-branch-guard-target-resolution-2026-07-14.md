@@ -1,6 +1,6 @@
 # Report: Branch Guard Target-Resolution — Grill Ledger
 
-> Restructured from [`GRILL-branch-guard-target-resolution-2026-07-14.md`](GRILL-branch-guard-target-resolution-2026-07-14.md), cross-linked with [`BRAINSTORM-branch-guard-target-resolution-2026-07-14.md`](../../BRAINSTORM-branch-guard-target-resolution-2026-07-14.md) and [`REPORT-branch-guard-2026-07-14.md`](REPORT-branch-guard-2026-07-14.md).
+> Restructured from [`GRILL-branch-guard-target-resolution-2026-07-14.md`](GRILL-branch-guard-target-resolution-2026-07-14.md), cross-linked with [`BRAINSTORM-branch-guard-target-resolution-2026-07-14.md`](BRAINSTORM-branch-guard-target-resolution-2026-07-14.md) and [`REPORT-branch-guard-2026-07-14.md`](REPORT-branch-guard-2026-07-14.md).
 
 ## tl;dr
 
