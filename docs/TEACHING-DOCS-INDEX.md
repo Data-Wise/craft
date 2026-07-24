@@ -72,13 +72,14 @@ Complete documentation for Craft's teaching mode feature.
 
 ### Command Reference
 
-> `publish`, `progress`, and `build` below moved to the `folio` plugin; `validate` remains in craft.
+> All 4 below moved to the `folio` plugin as part of the v4.0.0 docs/publishing split — none
+> remain in craft.
 
 | Command | Description | Link |
 |---------|-------------|------|
 | `/folio:site:publish` | Publish draft → production with preview | [Documentation](commands/site.md) |
 | `/folio:site:progress` | Semester progress dashboard | [Documentation](commands/site.md) |
-| `/craft:site:validate` | Content validation (syllabus, schedule) | [Documentation](commands/site.md) |
+| `/folio:site:check` | Content/config validation (links, deployment readiness) | [Documentation](commands/site.md#foliositecheck) |
 | `/folio:site:build` | Build site with teaching mode support | [Documentation](commands/site.md#foliositebuild) |
 
 ## Documentation by Use Case
@@ -98,7 +99,7 @@ Complete documentation for Craft's teaching mode feature.
 /folio:site:status      # Verify detection
 
 # Validate
-/craft:site:validate    # Check content
+/folio:site:check       # Check content
 
 # Publish
 /folio:site:publish     # Deploy to production
@@ -306,7 +307,7 @@ validation:
 - [Craft README](https://github.com/Data-Wise/craft#readme) - Full feature list
 - [Quick Start](QUICK-START.md) - General Craft usage
 - [ADHD Guide](ADHD-QUICK-START.md) - Neurodivergent-friendly workflows
-- [Command Reference](REFCARD.md) - All 86+ commands
+- [Command Reference](REFCARD.md) - All 48 commands
 
 **Site commands:**
 
