@@ -69,7 +69,7 @@ AFTER the topic is captured.
 ## When invoked
 
 1. **Load the canonical procedure:** read
-   [`skills/workflow/brainstorm/SKILL.md`](../skills/workflow/brainstorm/SKILL.md)
+   `${CLAUDE_PLUGIN_ROOT:-.}/skills/workflow/brainstorm/SKILL.md`
    and follow it exactly — parse args, pick depth+focus, context scan,
    expert questions, one follow-up offer, generate output, optional spec
    capture, optional `--orch` handoff.

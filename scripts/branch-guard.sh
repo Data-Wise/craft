@@ -646,6 +646,15 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
 
   # git branch -D — MEDIUM risk everywhere (deletes unmerged branches)
   if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
+    # User-preconfigured escape hatch (issue #168): auto-mode's hard_deny classifier
+    # refuses to let the agent create the allow-once/allow-dev-edit marker _confirm()
+    # needs, deadlocking even explicit user authorization. This env var lets the user
+    # pre-authorize out-of-band (shell profile / Claude env) so branch-guard exit 0s
+    # without any runtime marker fabrication.
+    if [[ "${CRAFT_GUARD_ALLOW_FORCE_DELETE:-}" == "1" ]]; then
+      printf '\n\033[33m[branch-guard]\033[0m CRAFT_GUARD_ALLOW_FORCE_DELETE=1 — allowing force-delete\n' >&2
+      exit 0
+    fi
     # Squash-merge check: if all commits are already in the integration branch,
     # the branch is safe to force-delete without confirmation.
     _DEL_BRANCH="$(echo "$COMMAND" | sed -n 's/.*git branch -D \([^[:space:];|&]*\).*/\1/p' 2>/dev/null || true)"
