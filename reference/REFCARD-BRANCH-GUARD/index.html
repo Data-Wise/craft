@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.2.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.3.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10736,7 +10736,7 @@
 
 <h1 id="quick-reference-branch-guard">Quick Reference: Branch Guard<a class="headerlink" href="#quick-reference-branch-guard" title="Permanent link">&para;</a></h1>
 <p><strong>Teaching-first branch protection</strong> — 3-tier risk classification with progressive trust, layered with an unconditional hard_deny tier (NEW in v2.33.0) and GitHub-side server protection.</p>
-<p><code>branch-guard.sh</code> is now part of the <strong>two-hook Guard Suite</strong>, alongside <code>no-switch-guard.sh</code>. Both share a registry (<code>~/.claude/guards.json</code>) and support a unified <code>--classify</code>/<code>GUARD_DRY_RUN=1</code> ground-truth mode. See the <a href="../../guide/guard-suite/">Guard Suite Guide</a> and <a href="../../tutorials/TUTORIAL-guard-suite/">Guard Suite Tutorial</a> for the full picture.</p>
+<p><code>branch-guard.sh</code> is part of the git-protection Guard Suite, alongside <code>no-switch-guard.sh</code>. Both share a registry (<code>~/.claude/guards.json</code>) and support a unified <code>--classify</code>/<code>GUARD_DRY_RUN=1</code> ground-truth mode. See the <a href="../../guide/guard-suite/">Guard Suite Guide</a> and <a href="../../tutorials/TUTORIAL-guard-suite/">Guard Suite Tutorial</a> for the full picture. (A third, unrelated hook — <code>reference-scope-guard.sh</code>, advisory-only, issue #286 — shares the same <code>guards.json</code> registry and <code>install-guards.sh</code> installer but does not gate git operations or support <code>--classify</code>.)</p>
 <p><strong>Version:</strong> 2.33.0 | <strong>Hook:</strong> <code>~/.claude/hooks/branch-guard.sh</code> | <strong>Catalog:</strong> <code>scripts/hard-deny-rules.json</code></p>
 <hr />
 <h2 id="quick-decision-tree">Quick Decision Tree<a class="headerlink" href="#quick-decision-tree" title="Permanent link">&para;</a></h2>

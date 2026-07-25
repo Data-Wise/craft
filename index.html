@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.2.0 adds /craft:restore, a read-only command combining git-activity recap (dev/git skill) and .STATUS-based session recap (adhd-workflow skill) into one context-restoration entry point, replacing the deleted git-recap/recap commands.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.3.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10214,7 +10214,7 @@
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
-<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.2.0-brightgreen.svg" /></a></p>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.3.0-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -10398,7 +10398,7 @@
 </li>
 <li>
 <p><img alt="📜" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f4dc.svg" title=":scroll:" /> <strong><a href="API-REFERENCE-COMMANDS/">API Reference</a></strong></p>
-<p>Index into per-command documentation for all 47 commands</p>
+<p>Index into per-command documentation for all 48 commands</p>
 </li>
 </ul>
 </div>
@@ -10413,34 +10413,19 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>Smart</strong></td>
-<td>9</td>
-<td>Universal command, orchestrator, checks, help, hub (root-level commands)</td>
+<td><strong>Root-level</strong></td>
+<td>14</td>
+<td>Universal command (<code>/craft:do</code>), orchestrator, checks, hub, next, finish, refine, brief, brainstorm, grill, plan, restore, smart-help, test</td>
 </tr>
 <tr>
-<td><strong>Documentation</strong></td>
-<td>21</td>
-<td>Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow</td>
-</tr>
-<tr>
-<td><strong>Site</strong></td>
-<td>16</td>
-<td>Full site wizard with 8 ADHD-friendly presets, theme, nav, audit</td>
-</tr>
-<tr>
-<td><strong>Code &amp; Check</strong></td>
-<td>17 + 1</td>
-<td>Code: linting, testing, debugging, refactoring, CI fixes, deps management; Check: pre-flight validation</td>
-</tr>
-<tr>
-<td><strong>Git</strong></td>
-<td>15</td>
-<td>Repository initialization, branch management, worktrees, sync, recap, clean, two-layer branch protection (local hook + GitHub-side baseline), learning guides</td>
+<td><strong>Code</strong></td>
+<td>13</td>
+<td>Linting, testing, debugging, refactoring, CI-fix helpers, deps management</td>
 </tr>
 <tr>
 <td><strong>CI</strong></td>
-<td>6</td>
-<td>Detection, generation, validation</td>
+<td>8</td>
+<td>Detection, generation, validation, triage, watch, local/fix runners</td>
 </tr>
 <tr>
 <td><strong>Architecture</strong></td>
@@ -10449,44 +10434,48 @@
 </tr>
 <tr>
 <td><strong>Distribution</strong></td>
-<td>5</td>
-<td>Marketplace, Homebrew, PyPI, curl installers</td>
+<td>2</td>
+<td>Homebrew, cross-surface distribution status</td>
 </tr>
 <tr>
-<td><strong>Planning</strong></td>
-<td>3</td>
-<td>Feature planning, sprints, roadmaps</td>
+<td><strong>Docs</strong></td>
+<td>2</td>
+<td>Doc-set update, changelog generation (docs authoring itself lives in the <code>folio</code> plugin since v4.0.0)</td>
 </tr>
 <tr>
 <td><strong>Orchestrate</strong></td>
-<td>4</td>
-<td>Multi-agent dispatch, drive loops, swarm levels</td>
-</tr>
-<tr>
-<td><strong>Workflow</strong></td>
-<td>14</td>
-<td>Brainstorming, task management, spec capture, getting unstuck</td>
-</tr>
-<tr>
-<td><strong>Utils</strong></td>
 <td>2</td>
-<td>Misc helpers</td>
+<td>Drive loops, multi-agent dispatch workflow</td>
+</tr>
+<tr>
+<td><strong>Git</strong></td>
+<td>1</td>
+<td>Issue-check triage (branch/worktree/guard ops live in the <code>dev/git</code> skill, not a command, since the guard-suite consolidation)</td>
+</tr>
+<tr>
+<td><strong>Planning</strong></td>
+<td>1</td>
+<td>Feature planning</td>
+</tr>
+<tr>
+<td><strong>Site</strong></td>
+<td>1</td>
+<td>Deploy to GitHub Pages (site build/status/check moved to <code>folio</code> in v4.0.0)</td>
 </tr>
 <tr>
 <td><strong>Total</strong></td>
-<td><strong>115</strong></td>
+<td><strong>48</strong></td>
 <td><strong>Complete development workflow coverage</strong></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v4.2.0 — Guard Suite Consolidation</p>
-<p><a href="https://github.com/Data-Wise/craft/pull/272">PR #272</a> consolidates the branch-guard and
-no-switch-guard into a skill-driven operations layer under <code>skills/dev/git/</code>, adds
-<code>--classify</code>/<code>GUARD_DRY_RUN=1</code> ground-truth mode, a portable <code>sedi()</code> wrapper, and 62 new
-tests. Four stale shims thinned, 3 orphan docs archived. <a href="https://github.com/Data-Wise/craft/pull/270">PR #270</a> removes
-dead agent-dispatch from <code>/craft:do</code> and <code>/release</code>, adds <code>verify-surfaces.sh --report-only</code>/<code>--version</code>,
-and ships a <a href="runbooks/release-rollback/"><code>release-rollback</code></a> manual-undo runbook.
+<p class="admonition-title">Latest: v4.3.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard</p>
+<p><a href="https://github.com/Data-Wise/craft/pull/305"><code>CRAFT_GUARD_ALLOW_DEV_EDIT</code></a> closes a
+self-referential deadlock where creating the branch-guard bypass marker was itself blocked by
+the guard it was meant to bypass. New advisory-only
+<a href="https://github.com/Data-Wise/craft/pull/306"><code>reference-scope-guard.sh</code></a> hook warns (never
+blocks) on non-conforming filenames written under <code>~/.claude/reference/</code>.
 See the <a href="CHANGELOG/">full changelog</a> for all releases, or visit the <a href="NEWS/">News</a> page for release highlights.</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
