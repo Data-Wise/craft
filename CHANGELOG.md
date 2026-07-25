@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Fixed
+
+- **Branch-guard bypass-marker confirms surface the `CRAFT_GUARD_ALLOW_DEV_EDIT` escape hatch**
+  (#309, [PR #310](https://github.com/Data-Wise/craft/pull/310)) — the documented "Claude writes
+  `.claude/allow-once`" one-shot flow is circular when the approved action *is* creating/editing
+  that marker itself (every tool path intercepts it with its own `[CONFIRM]`). Added the
+  `CRAFT_GUARD_ALLOW_DEV_EDIT=1` env-var hint (#281) to the three marker-specific confirms
+  (`edit_guard_bypass`/`write_guard_bypass`/`bash_guard_bypass`) only, and reconciled
+  `docs/reference/REFCARD-BRANCH-GUARD.md` + `docs/guide/branch-guard-smart-mode.md` with a
+  caveat pointing at `skills/dev/git/SKILL.md` Operation 10.
+- **Bare-`vX.Y.Z` version-grep bug class swept across the repo**
+  ([PR #311](https://github.com/Data-Wise/craft/pull/311)) — the same false-positive that broke
+  the Homebrew release gate twice (v4.2.0, v4.3.0; fixed for `docs/index.md` in #308) also
+  affected `.github/workflows/docs.yml`'s live-site poll, `scripts/verify-surfaces.sh`'s
+  `resolve_docs_site`, `scripts/version-sync-precommit.sh`'s `.STATUS` check (a blocking
+  pre-commit hook), and the manual verification steps in `skills/release/SKILL.md` /
+  `downstream-verification.md`. All anchored to the actual version signal (badge slug or
+  `^version:` field) instead of the first bare match; regression tests added for each, each
+  verified against a planted-defect positive control.
+
+---
+
 ## [4.3.0] - 2026-07-25
 
 ### Fixed
