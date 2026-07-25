@@ -134,6 +134,12 @@ Guard blocks → You approve → Claude writes .claude/allow-once
 
 No commands needed — just approve the prompt.
 
+**Exception — the marker file itself:** creating or editing `.claude/allow-once`/`.claude/allow-dev-edit`
+is a `[CONFIRM]` action in its own right (self-approving a bypass is never a silent allow), so the
+flow above can't resolve it — writing the marker to unblock the marker write is circular. In a
+non-interactive session this needs `CRAFT_GUARD_ALLOW_DEV_EDIT=1` pre-set out-of-band (shell
+profile / Claude env) by the user, per issue #281 — see `skills/dev/git/SKILL.md` Operation 10.
+
 ### Session Bypass (Bulk Operations)
 
 ```bash
