@@ -1811,6 +1811,113 @@ run_test \
     "$REPO_QS"
 
 echo ""
+echo -e "${T_BLUE}--- CRAFT_GUARD_ALLOW_DEV_EDIT Escape Hatch (issue #281) ---${T_NC}"
+
+REPO_DEV_EDIT=$(init_repo)
+switch_branch "$REPO_DEV_EDIT" "dev"
+
+# Baseline (no env var): all three call sites (Edit, Write, Bash-touch) must
+# still confirm/block exactly as before — this is a regression guard, not new
+# behavior.
+run_test \
+    "test_edit_guard_bypass_marker_still_confirms_without_env" \
+    2 \
+    "$(json_edit "$REPO_DEV_EDIT/.claude/allow-dev-edit" "$REPO_DEV_EDIT")" \
+    "$REPO_DEV_EDIT"
+
+run_test \
+    "test_write_guard_bypass_marker_still_confirms_without_env" \
+    2 \
+    "$(json_write "$REPO_DEV_EDIT/.claude/allow-dev-edit" "$REPO_DEV_EDIT")" \
+    "$REPO_DEV_EDIT"
+
+run_test \
+    "test_bash_touch_guard_bypass_marker_still_confirms_without_env" \
+    2 \
+    "$(json_bash "touch .claude/allow-dev-edit" "$REPO_DEV_EDIT")" \
+    "$REPO_DEV_EDIT"
+
+# With the env var set: all three call sites exit 0 without a [CONFIRM].
+# run_test has no env-injection param, so these three small wrappers pass
+# CRAFT_GUARD_ALLOW_DEV_EDIT=1 through to the hook invocation directly.
+run_edit_test_with_env() {
+    local name="$1" expected="$2" file_path="$3" cwd="$4"
+    TOTAL=$((TOTAL + 1))
+    local actual_exit=0
+    local stderr_output
+    stderr_output=$(echo "$(json_edit "$file_path" "$cwd")" | (cd "$cwd" && CRAFT_GUARD_ALLOW_DEV_EDIT=1 bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || actual_exit=$?
+    if [[ "$actual_exit" -eq "$expected" ]]; then
+        PASS=$((PASS + 1))
+        echo -e "  ${T_GREEN}PASS${T_NC}  $name  ${T_BOLD}(exit=$actual_exit)${T_NC}"
+    else
+        FAIL=$((FAIL + 1))
+        FAILED_NAMES+=("$name")
+        echo -e "  ${T_RED}FAIL${T_NC}  $name  ${T_BOLD}(expected=$expected, got=$actual_exit)${T_NC}"
+        [[ -n "$stderr_output" ]] && echo -e "        stderr: $(echo "$stderr_output" | head -3)"
+    fi
+}
+
+run_write_test_with_env() {
+    local name="$1" expected="$2" file_path="$3" cwd="$4"
+    TOTAL=$((TOTAL + 1))
+    local actual_exit=0
+    local stderr_output
+    stderr_output=$(echo "$(json_write "$file_path" "$cwd")" | (cd "$cwd" && CRAFT_GUARD_ALLOW_DEV_EDIT=1 bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || actual_exit=$?
+    if [[ "$actual_exit" -eq "$expected" ]]; then
+        PASS=$((PASS + 1))
+        echo -e "  ${T_GREEN}PASS${T_NC}  $name  ${T_BOLD}(exit=$actual_exit)${T_NC}"
+    else
+        FAIL=$((FAIL + 1))
+        FAILED_NAMES+=("$name")
+        echo -e "  ${T_RED}FAIL${T_NC}  $name  ${T_BOLD}(expected=$expected, got=$actual_exit)${T_NC}"
+        [[ -n "$stderr_output" ]] && echo -e "        stderr: $(echo "$stderr_output" | head -3)"
+    fi
+}
+
+run_bash_test_with_env() {
+    local name="$1" expected="$2" command="$3" cwd="$4"
+    TOTAL=$((TOTAL + 1))
+    local actual_exit=0
+    local stderr_output
+    stderr_output=$(echo "$(json_bash "$command" "$cwd")" | (cd "$cwd" && CRAFT_GUARD_ALLOW_DEV_EDIT=1 bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || actual_exit=$?
+    if [[ "$actual_exit" -eq "$expected" ]]; then
+        PASS=$((PASS + 1))
+        echo -e "  ${T_GREEN}PASS${T_NC}  $name  ${T_BOLD}(exit=$actual_exit)${T_NC}"
+    else
+        FAIL=$((FAIL + 1))
+        FAILED_NAMES+=("$name")
+        echo -e "  ${T_RED}FAIL${T_NC}  $name  ${T_BOLD}(expected=$expected, got=$actual_exit)${T_NC}"
+        [[ -n "$stderr_output" ]] && echo -e "        stderr: $(echo "$stderr_output" | head -3)"
+    fi
+}
+
+run_edit_test_with_env \
+    "test_edit_guard_bypass_marker_allowed_with_env" \
+    0 \
+    "$REPO_DEV_EDIT/.claude/allow-dev-edit" \
+    "$REPO_DEV_EDIT"
+
+run_write_test_with_env \
+    "test_write_guard_bypass_marker_allowed_with_env" \
+    0 \
+    "$REPO_DEV_EDIT/.claude/allow-dev-edit" \
+    "$REPO_DEV_EDIT"
+
+run_bash_test_with_env \
+    "test_bash_touch_guard_bypass_marker_allowed_with_env" \
+    0 \
+    "touch .claude/allow-dev-edit" \
+    "$REPO_DEV_EDIT"
+
+# The env var must NOT globalize to unrelated MEDIUM-risk gates (e.g. a
+# regular new code file) — it is scoped to the guard-bypass marker only.
+run_bash_test_with_env \
+    "test_env_var_does_not_globalize_to_unrelated_medium_risk" \
+    2 \
+    "touch src/unrelated_new_file.py" \
+    "$REPO_DEV_EDIT"
+
+echo ""
 
 # ============================================================================
 # Summary

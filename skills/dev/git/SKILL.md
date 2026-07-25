@@ -223,6 +223,15 @@ Session-scoped bypass of the local branch-guard hook. Persists until `protect` (
 
 **Does NOT bypass:** GitHub-side protection, pre-commit hooks, or any other layer. Only the craft local hook.
 
+**Non-interactive/auto-mode deadlock (issue #281):** writing the `.claude/allow-dev-edit` marker
+this operation needs is itself intercepted by branch-guard's own confirm gate — in a genuinely
+non-interactive session, `AskUserQuestion` having already collected human consent doesn't resolve
+that resulting block (hooks are stateless per-invocation). If this operation appears to loop
+without ever completing, tell the user their session needs `CRAFT_GUARD_ALLOW_DEV_EDIT=1` set
+out-of-band (shell profile / Claude env) before the marker write will succeed — same shape as
+`CRAFT_GUARD_ALLOW_FORCE_DELETE`, `scripts/branch-guard.sh`'s pre-existing `git branch -D`
+escape hatch for the identical deadlock (issue #168).
+
 ### 11. Reference Docs (Learning, Refcard, Safety, Undo)
 
 When the user wants to **read** rather than **act**, surface the reference docs instead of running operations:

@@ -548,6 +548,23 @@ _hard_block() {
   block "$(_box "$@")" "BLOCK"
 }
 
+# _dev_edit_preauthorized: env-var escape hatch for creating/editing the
+# allow-once/allow-dev-edit guard-bypass marker itself (issue #281). Same
+# shape as issue #168's CRAFT_GUARD_ALLOW_FORCE_DELETE: /craft:git:unprotect
+# collects human consent via AskUserQuestion, then tries to write the marker
+# _confirm() needs — but writing that marker is itself intercepted by this
+# same _confirm() gate, and in a non-interactive/auto-mode session there is
+# no way for the already-given consent to resolve the resulting exit-2 block
+# (hooks are stateless per-invocation; AskUserQuestion's answer isn't visible
+# here). This lets the user pre-authorize out-of-band (shell profile / Claude
+# env) so the marker write exit 0s without any runtime confirm at all.
+_dev_edit_preauthorized() {
+  if [[ "${CRAFT_GUARD_ALLOW_DEV_EDIT:-}" == "1" ]]; then
+    printf '\n\033[33m[branch-guard]\033[0m CRAFT_GUARD_ALLOW_DEV_EDIT=1 — allowing guard-bypass marker\n' >&2
+    exit 0
+  fi
+}
+
 # ---------------------------------------------------------------------------
 # 8d0. Bash cross-context target resolution (leading cd / -C) — 2026-07-14
 # ---------------------------------------------------------------------------
@@ -804,6 +821,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "ask \"unprotect for a temporary bypass\" (dev/git skill)"
           ;;
         */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
+          _dev_edit_preauthorized
           _confirm "edit_guard_bypass" \
             "Edit guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "This file self-approves a bypass of branch-guard's own protection — never editable silently" \
@@ -842,6 +860,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "ask \"unprotect for a temporary bypass\" (dev/git skill)"
           ;;
         */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
+          _dev_edit_preauthorized
           _confirm "write_guard_bypass" \
             "Write guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "Creating this file self-approves a bypass of branch-guard's own protection — must be a deliberate, confirmed action, never a silent allow" \
@@ -1053,6 +1072,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
           # Guard-bypass marker — never a silent shell-created allow (H1 fix)
           case "$BASH_BASENAME" in
             allow-once|allow-dev-edit)
+              _dev_edit_preauthorized
               _confirm "bash_guard_bypass" \
                 "Bash creates guard-bypass marker on ${BRANCH}: ${BASH_BASENAME}" \
                 "Creating this file via shell self-approves a bypass of branch-guard's own protection" \
