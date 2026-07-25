@@ -217,6 +217,13 @@ When Claude shows a `[CONFIRM]` prompt and the user approves, Claude creates a o
 5. Guard sees marker → consumes it (deletes file) → allows action
 6. Next tool call has no marker → normal protection resumes
 
+**This flow does not apply when the approved action *is* creating/editing the marker file
+itself** (`.claude/allow-once` or `.claude/allow-dev-edit`) — that write is its own `[CONFIRM]`
+gate (`write_guard_bypass`/`edit_guard_bypass`/`bash_guard_bypass`), since self-approving a bypass
+can never be a silent allow. That self-referential case has no "Claude writes the marker" route at
+all; a non-interactive session needs `CRAFT_GUARD_ALLOW_DEV_EDIT=1` pre-set out-of-band by the
+user first (issue #281 — see `skills/dev/git/SKILL.md` Operation 10).
+
 ### One-Shot vs Session Bypass
 
 | Mechanism | Scope | Duration | Use Case |

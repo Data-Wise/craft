@@ -38,8 +38,12 @@ If `conclusion` is not `success`, check with `/craft:ci:status` for diagnosis.
 #### 13c: Live Site Version
 
 ```bash
-# Verify the live docs site shows the new version
-curl -sL https://data-wise.github.io/craft/ | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+'
+# Verify the live docs site shows the new version. Anchor to the version
+# BADGE slug (version-X.Y.Z) — a bare vX.Y.Z grep can match historical
+# "since vX.Y.Z" prose or the site_description meta tag instead of the real
+# badge (the exact bug that false-positived pre-release-check.sh for both
+# v4.2.0 and v4.3.0, fixed in PR #308).
+curl -sL https://data-wise.github.io/craft/ | grep -oE 'version-[0-9]+\.[0-9]+\.[0-9]+' | sed 's/^version-/v/'
 ```
 
 Compare the extracted version string against the release version. If stale, the docs workflow may have failed silently.

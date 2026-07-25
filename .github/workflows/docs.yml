@@ -66,12 +66,21 @@ jobs:
       # seconds of deploy — pure Pages CDN edge-cache lag exceeded the
       # original window. 30 attempts x 30s gives margin above the ~12min
       # observed worst case without leaving the job open-ended.
+      #
+      # Anchor to the version BADGE (version-X.Y.Z, the shields.io badge slug
+      # rendered from docs/index.md's Version badge), not the first bare
+      # vX.Y.Z string on the page. The same bare-grep bug false-positived
+      # scripts/pre-release-check.sh's docs/index.md and README.md checks
+      # twice (v4.2.0 and v4.3.0, fixed in PR #308) because docs/index.md
+      # accumulates historical "since vX.Y.Z" prose and the mkdocs.yml
+      # site_description also embeds a version mention — either can render
+      # before the real badge in page order and get matched instead.
       - name: Verify live site matches deployed version
         run: |
           EXPECTED=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
           echo "Expected version: $EXPECTED"
           for i in $(seq 1 30); do
-            LIVE=$(curl -s --max-time 10 https://data-wise.github.io/craft/ | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 || true)
+            LIVE=$(curl -s --max-time 10 https://data-wise.github.io/craft/ | grep -o 'version-[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 | sed 's/^version-/v/' || true)
             echo "Attempt $i/30: live site shows '$LIVE'"
             if [ "$LIVE" = "v$EXPECTED" ]; then
               echo "Live site confirmed at v$EXPECTED"
