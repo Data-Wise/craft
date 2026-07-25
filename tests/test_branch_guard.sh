@@ -1837,6 +1837,73 @@ run_test \
     "$(json_bash "touch .claude/allow-dev-edit" "$REPO_DEV_EDIT")" \
     "$REPO_DEV_EDIT"
 
+# All three guard-bypass-marker confirms must surface the CRAFT_GUARD_ALLOW_DEV_EDIT
+# escape hatch (issue #309) — the "Claude writes .claude/allow-once" flow is
+# circular for this self-referential action, so the env var is the only
+# non-interactive route and must not be discoverable-nowhere. Each check uses
+# a FRESH repo/session (not REPO_DEV_EDIT, already 1 encounter deep on these
+# action_types above) — suggestions only render at "full" (1st-encounter)
+# verbosity; a repeat encounter renders the brief box, which omits them, and
+# would false-fail this check for the wrong reason.
+REPO_MSG_EDIT=$(init_repo); switch_branch "$REPO_MSG_EDIT" "dev"
+run_test_with_stderr \
+    "test_edit_guard_bypass_message_mentions_env_var" \
+    2 \
+    "$(json_edit "$REPO_MSG_EDIT/.claude/allow-dev-edit" "$REPO_MSG_EDIT")" \
+    "$REPO_MSG_EDIT" \
+    "CRAFT_GUARD_ALLOW_DEV_EDIT"
+
+REPO_MSG_WRITE=$(init_repo); switch_branch "$REPO_MSG_WRITE" "dev"
+run_test_with_stderr \
+    "test_write_guard_bypass_message_mentions_env_var" \
+    2 \
+    "$(json_write "$REPO_MSG_WRITE/.claude/allow-dev-edit" "$REPO_MSG_WRITE")" \
+    "$REPO_MSG_WRITE" \
+    "CRAFT_GUARD_ALLOW_DEV_EDIT"
+
+REPO_MSG_BASH=$(init_repo); switch_branch "$REPO_MSG_BASH" "dev"
+run_test_with_stderr \
+    "test_bash_touch_guard_bypass_message_mentions_env_var" \
+    2 \
+    "$(json_bash "touch .claude/allow-dev-edit" "$REPO_MSG_BASH")" \
+    "$REPO_MSG_BASH" \
+    "CRAFT_GUARD_ALLOW_DEV_EDIT"
+
+# The env-var hint must NOT leak into the unrelated write_new_code confirm —
+# that action isn't self-referential, and allow-once genuinely resolves it as
+# documented; mentioning the marker-bypass env var there would recreate the
+# exact confusion issue #309 reported (a working non-interactive route buried
+# among suggestions that don't apply to it).
+#
+# Both assertions below MUST read the same 1st-encounter capture. Suggest:
+# lines only render at "full" (1st-encounter) verbosity — a 2nd+ encounter
+# renders "brief", which omits ALL suggestions regardless of content, so
+# checking a later call would pass this negative assertion vacuously (it
+# would still pass even if the hint WERE mistakenly added to write_new_code)
+# rather than actually exercising the code path it's meant to guard.
+REPO_MSG_NEWCODE=$(init_repo); switch_branch "$REPO_MSG_NEWCODE" "dev"
+NEW_CODE_STDERR=$(echo "$(json_write "$REPO_MSG_NEWCODE/src/unrelated_new.py" "$REPO_MSG_NEWCODE")" | (cd "$REPO_MSG_NEWCODE" && bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || true
+
+TOTAL=$((TOTAL + 1))
+if echo "$NEW_CODE_STDERR" | grep -qi "New code files"; then
+    PASS=$((PASS + 1))
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_write_new_code_message_does_not_mention_env_var  ${T_BOLD}(exit=2, pattern matched)${T_NC}"
+else
+    FAIL=$((FAIL + 1))
+    FAILED_NAMES+=("test_write_new_code_message_does_not_mention_env_var")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_write_new_code_message_does_not_mention_env_var  ${T_BOLD}(1st-encounter stderr missing 'New code files')${T_NC}"
+fi
+
+TOTAL=$((TOTAL + 1))
+if ! echo "$NEW_CODE_STDERR" | grep -q "CRAFT_GUARD_ALLOW_DEV_EDIT"; then
+    PASS=$((PASS + 1))
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_write_new_code_message_excludes_env_var_hint"
+else
+    FAIL=$((FAIL + 1))
+    FAILED_NAMES+=("test_write_new_code_message_excludes_env_var_hint")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_write_new_code_message_excludes_env_var_hint  ${T_BOLD}(env var hint leaked into unrelated confirm)${T_NC}"
+fi
+
 # With the env var set: all three call sites exit 0 without a [CONFIRM].
 # run_test has no env-injection param, so these three small wrappers pass
 # CRAFT_GUARD_ALLOW_DEV_EDIT=1 through to the hook invocation directly.

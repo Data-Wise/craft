@@ -825,7 +825,8 @@ if [[ "$PROTECTION" == "smart" ]]; then
           _confirm "edit_guard_bypass" \
             "Edit guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "This file self-approves a bypass of branch-guard's own protection — never editable silently" \
-            "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)"
+            "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)" \
+            "Non-interactive: user pre-sets CRAFT_GUARD_ALLOW_DEV_EDIT=1 out-of-band (issue #281)"
           ;;
       esac
       # Editing existing files is always allowed on dev (LOW)
@@ -864,7 +865,8 @@ if [[ "$PROTECTION" == "smart" ]]; then
           _confirm "write_guard_bypass" \
             "Write guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "Creating this file self-approves a bypass of branch-guard's own protection — must be a deliberate, confirmed action, never a silent allow" \
-            "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)"
+            "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)" \
+            "Non-interactive: user pre-sets CRAFT_GUARD_ALLOW_DEV_EDIT=1 out-of-band (issue #281)"
           ;;
       esac
 
@@ -1076,7 +1078,8 @@ if [[ "$PROTECTION" == "smart" ]]; then
               _confirm "bash_guard_bypass" \
                 "Bash creates guard-bypass marker on ${BRANCH}: ${BASH_BASENAME}" \
                 "Creating this file via shell self-approves a bypass of branch-guard's own protection" \
-                "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)"
+                "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)" \
+                "Non-interactive: user pre-sets CRAFT_GUARD_ALLOW_DEV_EDIT=1 out-of-band (issue #281)"
               ;;
           esac
 
