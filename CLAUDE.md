@@ -6,7 +6,7 @@
 
 > `/craft:finish` — renamed from `/craft:done` (ADR-006, v4.2.0, breaking) · `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (7 commands) · `/craft:restore` — combined git+`.STATUS` recap
 
-**Current Version:** v4.3.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
+**Current Version:** v4.3.1 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
