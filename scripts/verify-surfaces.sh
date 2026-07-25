@@ -250,14 +250,20 @@ resolve_github_release() {
 # .github/workflows/docs.yml's "Verify live site matches deployed version"
 # step (single-shot here — this is a report tool, not a deploy gate, so no
 # retry/timeout loop like the workflow's 30x30s poll).
+#
+# Anchor to the version BADGE (version-X.Y.Z), not the first bare vX.Y.Z
+# string on the page — same fix as docs.yml and the same root cause as
+# scripts/pre-release-check.sh's docs/index.md check (PR #308): the page
+# accumulates historical "since vX.Y.Z" prose and a versioned site_description
+# meta tag that can render before the real version badge in page order.
 resolve_docs_site() {
     if [[ -n "${SURFACES_DOCS_SITE_VERSION:-}" ]]; then
         echo "${SURFACES_DOCS_SITE_VERSION#v}"; return 0
     fi
     command -v curl >/dev/null 2>&1 || return 0
     local url="${SURFACES_DOCS_SITE_URL:-https://data-wise.github.io/${PLUGIN_NAME}/}"
-    curl -s --max-time 10 "$url" 2>/dev/null | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 \
-        | sed 's/^v//'
+    curl -s --max-time 10 "$url" 2>/dev/null | grep -o 'version-[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 \
+        | sed 's/^version-//'
 }
 
 # D5: the aggregator marketplace entry is a 5th craft-controlled leg — only

@@ -234,8 +234,16 @@ and (if 10b ran) cask SHA256. Full scripts for 13a–13f are in
 **Live-site version check (run after docs deploy):**
 
 ```bash
-curl -s https://data-wise.github.io/craft/ | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1
+curl -s https://data-wise.github.io/craft/ | grep -o 'version-[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 | sed 's/^version-/v/'
 ```
+
+Anchor to the version BADGE slug (`version-X.Y.Z`), not the first bare `vX.Y.Z` string on the
+page — `docs/index.md` accumulates historical "since vX.Y.Z" prose and `mkdocs.yml`'s
+`site_description` also embeds a version mention, either of which can render before the real
+badge in page order and get matched instead. This exact bare-grep bug false-positived
+`scripts/pre-release-check.sh`'s docs/index.md check for both v4.2.0 and v4.3.0 (fixed in
+PR #308); `.github/workflows/docs.yml` and `scripts/verify-surfaces.sh` use the same anchored
+pattern.
 
 Must match the just-released version. If stale, wait 60s and retry (GitHub Pages CDN lag);
 if still wrong after 3 retries, redeploy with `mkdocs gh-deploy`.

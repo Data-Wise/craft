@@ -612,6 +612,83 @@ test_docs_site_leg_aligned_and_drifted() {
     destroy_sandbox
 }
 
+test_docs_site_leg_ignores_historical_version_prose() {
+    echo -e "${T_BLUE}[TEST]${T_NC} DOCS SITE leg: regression for the bare-vX.Y.Z false-positive (craft PR #308 bug class)"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    # Fixture reproduces docs/index.md's actual failure shape: a historical
+    # "since vX.Y.Z" mention and a versioned site_description meta tag both
+    # render BEFORE the real version badge in page order. A bare `grep -o
+    # 'v[0-9]+\.[0-9]+\.[0-9]+' | head -1` (the pre-fix pattern in docs.yml
+    # and verify-surfaces.sh's resolve_docs_site) matches the historical
+    # v2.0.0 mention instead of the real badge — exactly the bug that
+    # false-positived scripts/pre-release-check.sh's docs/index.md check for
+    # v4.2.0 and v4.3.0. resolve_docs_site must anchor to the version BADGE
+    # (version-X.Y.Z) so it extracts 2.37.0, not 2.0.0.
+    cat > "$SANDBOX/docs_site_fixture.html" <<'HTML'
+<html><head>
+<meta name="description" content="Full-stack toolkit. v2.0.0 adds a feature. See NEWS.md.">
+</head><body>
+<p>Docs authoring moved to folio since v2.0.0.</p>
+<p><a href="..."><img alt="Version" src="https://img.shields.io/badge/version-2.37.0-brightgreen.svg" /></a></p>
+</body></html>
+HTML
+
+    # Use --report-only so the per-leg ALIGNED/DRIFTED/ABSENT word is printed
+    # explicitly (see printf '  %-16s %s\n' above resolve_docs_site's caller).
+    # A bare exit-code-0 assertion alone would pass vacuously if curl (or its
+    # file:// support) were unavailable and resolve_docs_site silently
+    # returned empty — "absent" doesn't block, so exit 0 proves nothing on
+    # its own. Asserting the docs-site row explicitly reads ALIGNED (not
+    # ABSENT) proves the badge was actually resolved and matched 2.37.0, not
+    # that the leg silently degraded.
+    local exit_code=0 output
+    output=$(SURFACES_DOCS_SITE_VERSION="" \
+        SURFACES_DOCS_SITE_URL="file://$SANDBOX/docs_site_fixture.html" \
+        run_verify --report-only) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "--report-only never blocks"
+    assert_contains "$stripped" "docs site        ALIGNED" \
+        "docs-site leg resolves the real badge (2.37.0) — historical v2.0.0 prose is NOT picked up, and the leg did not silently go ABSENT"
+
+    destroy_sandbox
+}
+
+test_docs_site_leg_absent_when_no_badge_present() {
+    echo -e "${T_BLUE}[TEST]${T_NC} DOCS SITE leg: no version badge on the page -> ABSENT (warn-only), not a false match"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    # Companion to the false-positive regression above: if the page has
+    # historical version prose but the badge itself is missing (markup
+    # change, badge removed, render failure), resolve_docs_site's anchored
+    # grep correctly finds nothing rather than falling back to matching the
+    # historical prose. This is a real (if narrow) behavior change from the
+    # pre-fix bare grep, which would have "found" v2.0.0 here and, by luck,
+    # sometimes been wrong and sometimes right. Anchored-but-silent is the
+    # safer failure mode: the leg reports ABSENT (warn, does not block)
+    # instead of asserting a value that might be stale prose.
+    cat > "$SANDBOX/no_badge_fixture.html" <<'HTML'
+<html><head>
+<meta name="description" content="Full-stack toolkit. v2.0.0 adds a feature.">
+</head><body>
+<p>Docs authoring moved to folio since v2.0.0.</p>
+</body></html>
+HTML
+
+    local exit_code=0 output
+    output=$(SURFACES_DOCS_SITE_VERSION="" \
+        SURFACES_DOCS_SITE_URL="file://$SANDBOX/no_badge_fixture.html" \
+        run_verify --report-only) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Absent docs-site leg does not block even without --report-only's blanket no-block"
+    assert_contains "$stripped" "docs site        ABSENT" \
+        "No badge on the page -> leg reports ABSENT, never falls back to matching historical prose"
+
+    destroy_sandbox
+}
+
 test_version_flag_overrides_target() {
     echo -e "${T_BLUE}[TEST]${T_NC} --version: diagnoses a DIFFERENT version than plugin.json's current one"
     make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
@@ -690,6 +767,8 @@ main() {
     test_report_only_all_legs_aligned
     test_github_release_leg_aligned_and_drifted
     test_docs_site_leg_aligned_and_drifted
+    test_docs_site_leg_ignores_historical_version_prose
+    test_docs_site_leg_absent_when_no_badge_present
     test_version_flag_overrides_target
     test_version_flag_with_report_only
     print_summary

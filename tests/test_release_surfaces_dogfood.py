@@ -587,3 +587,55 @@ def test_code_registered_propagate_check_flag_prints_without_executing():
         assert "marketplace" in output.lower() or "plugin update" in output or "[check]" in output, (
             f"--check must describe what would run; got:\n{output}"
         )
+
+
+# ---------------------------------------------------------------------------
+# Bug-class regression: bare vX.Y.Z grep false-positives on historical prose
+# ---------------------------------------------------------------------------
+#
+# scripts/pre-release-check.sh's docs/index.md and README.md checks used to
+# `grep` the FIRST bare `v[0-9]+\.[0-9]+\.[0-9]+` string in the file, which
+# false-positived on historical "since vX.Y.Z" migration prose that appears
+# before the real version badge in file order — this broke the Homebrew
+# release gate twice (v4.2.0 and v4.3.0). PR #308 fixed it by anchoring to
+# the version BADGE pattern (`version-X.Y.Z`, the shields.io badge slug)
+# instead. This same unanchored-grep shape existed in two more places that
+# scrape the *live deployed site* rather than the markdown source:
+#   - .github/workflows/docs.yml's "Verify live site matches deployed
+#     version" step (can't be unit-run — it's a GitHub Actions `run:` block
+#     hit over the network — so this test statically asserts the pattern
+#     itself is anchored, guarding against the bug class reappearing there).
+#   - scripts/verify-surfaces.sh's resolve_docs_site() (behaviorally
+#     regression-tested against a fixture page in
+#     tests/test_verify_surfaces.sh::test_docs_site_leg_ignores_historical_version_prose).
+
+_DOCS_YML = os.path.join(_WORKTREE, ".github", "workflows", "docs.yml")
+
+_BARE_VERSION_GREP = re.compile(r"grep\s+-o\s+'v\[0-9\]")
+
+
+@pytest.mark.e2e
+@pytest.mark.dogfood
+def test_docs_yml_live_site_check_is_badge_anchored_not_bare_grep():
+    """docs.yml's live-site version check must anchor to the badge slug.
+
+    A bare `grep -o 'v[0-9]+\\.[0-9]+\\.[0-9]+'` over the live page can match
+    historical "since vX.Y.Z" prose or the mkdocs.yml site_description meta
+    tag (both of which can render before the real badge) instead of the
+    actual deployed version — the same bug class fixed in PR #308 for
+    scripts/pre-release-check.sh. The fixed pattern must anchor to the
+    version badge slug (`version-X.Y.Z`) instead.
+    """
+    assert os.path.exists(_DOCS_YML), "docs.yml workflow not found"
+    with open(_DOCS_YML) as f:
+        content = f.read()
+
+    assert "grep -o 'version-[0-9]" in content, (
+        "docs.yml's live-site check must grep the 'version-X.Y.Z' badge slug, "
+        "not a bare vX.Y.Z string — see PR #308 for the bug class this guards against"
+    )
+    assert not _BARE_VERSION_GREP.search(content), (
+        "docs.yml contains an unanchored `grep -o 'v[0-9]...'` version check — "
+        "this is the exact bug class that false-positived pre-release-check.sh "
+        "on historical version prose (PR #308); anchor to the version badge instead"
+    )
