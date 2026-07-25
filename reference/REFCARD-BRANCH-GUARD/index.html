@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.3.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.3.1 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10989,6 +10989,11 @@ in the actual hook code.</p>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>→ Guard consumes marker → Action proceeds → Protection resumes
 </span></code></pre></div>
 <p>No commands needed — just approve the prompt.</p>
+<p><strong>Exception — the marker file itself:</strong> creating or editing <code>.claude/allow-once</code>/<code>.claude/allow-dev-edit</code>
+is a <code>[CONFIRM]</code> action in its own right (self-approving a bypass is never a silent allow), so the
+flow above can't resolve it — writing the marker to unblock the marker write is circular. In a
+non-interactive session this needs <code>CRAFT_GUARD_ALLOW_DEV_EDIT=1</code> pre-set out-of-band (shell
+profile / Claude env) by the user, per issue #281 — see <code>skills/dev/git/SKILL.md</code> Operation 10.</p>
 <h3 id="session-bypass-bulk-operations">Session Bypass (Bulk Operations)<a class="headerlink" href="#session-bypass-bulk-operations" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Enable bypass</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ask<span class="w"> </span><span class="s2">&quot;unprotect for maintenance&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
