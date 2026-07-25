@@ -1,6 +1,6 @@
 # GRILL: GitHub-Attention Triage (issue-premise-check)
 
-**Date:** 2026-07-14 · **Target:** [BRAINSTORM-github-attention-triage-2026-07-14.md](../../BRAINSTORM-github-attention-triage-2026-07-14.md)
+**Date:** 2026-07-14 · **Target:** [BRAINSTORM-github-attention-triage-2026-07-14.md](BRAINSTORM-github-attention-triage-2026-07-14.md)
 **Branches interrogated:** 9 (5 from the deep grill loop — weakest recommendation, riskiest assumption, implementation regret, blast radius, benefit honesty — plus 4 raised by an adversarial-review pass and resolved after)
 
 Adversarial review (subagent, post-checkpoint) found decision 5 as originally

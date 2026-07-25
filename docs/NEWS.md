@@ -4,6 +4,88 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.3.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard
+
+**Released:** 2026-07-25 · **Type:** Minor · **PRs:** [#305](https://github.com/Data-Wise/craft/pull/305), [#306](https://github.com/Data-Wise/craft/pull/306)
+
+### Highlights
+
+- **`CRAFT_GUARD_ALLOW_DEV_EDIT`** (#281) — closes a self-referential deadlock: creating the
+  `.claude/allow-once`/`allow-dev-edit` branch-guard bypass marker was itself gated by the guard it
+  was meant to bypass. Reuses the `CRAFT_GUARD_ALLOW_FORCE_DELETE` (#168) env-var
+  pre-authorization pattern.
+- **`reference-scope-guard.sh`** (#286, NEW) — advisory-only PreToolUse hook warning (never
+  blocking) when a Write/Edit targets `~/.claude/reference/` with a non-conforming filename.
+  Shares `install-guards.sh` and the `guards.json` registry with `branch-guard`/`no-switch-guard`.
+
+See the [full changelog](CHANGELOG.md) for details.
+
+---
+
+## v4.2.0 — /craft:finish Rename + Homebrew CI Gate Repair
+
+**Released:** 2026-07-19 · **Type:** Patch (breaking rename, no version-major bump) · **PR:** [#296](https://github.com/Data-Wise/craft/pull/296)
+
+**BREAKING:** `/craft:done` renamed to `/craft:finish` ([ADR-006](adr/ADR-006-done-renamed-to-finish.md))
+— matches the existing zsh `finish` alias, no back-compat shim. Command count unchanged (48; a
+rename, not an addition).
+
+### Highlights
+
+- **`/craft:finish`** replaces `/craft:done` everywhere — the old slash entry point no longer resolves.
+- **`/craft:restore` docs corrected** — its spec/report status fixed from `DRAFT` to `SHIPPED` (it had
+  already shipped in v4.1.0, below — this NEWS page itself was one of the places that correction never
+  reached until now).
+- **Homebrew tap recovery** — `homebrew-tap`'s `main` gained branch protection since
+  `homebrew-release.yml` was last touched, breaking the automated formula push; recovered manually,
+  fixed the workflow to push via a bot-branch PR instead of a direct push, and closed 2 latent
+  CI-gate bugs surfaced in `homebrew-tap` along the way.
+
+See the [full changelog](CHANGELOG.md) for details.
+
+---
+
+## v4.1.0 — /craft:restore + /craft:refine Confirm-Flow Fix
+
+**Released:** 2026-07-17 · **Type:** Minor · **PR:** [#295](https://github.com/Data-Wise/craft/pull/295)
+
+### Highlights
+
+- **`/craft:restore`** (NEW) — combines git-activity recap (`dev/git` skill) with `.STATUS`-based
+  session recap (`adhd-workflow` skill) into one read-only "restore my context" entry point.
+  Replaces the deleted `git-recap`/`recap` commands. See the
+  [architecture doc](architecture/craft-restore-pipeline.md).
+- **`/craft:refine` confirm-flow fix** — the fenced refined-prompt block + 4-way confirm
+  (Execute now / Copy for elsewhere / Edit first / Skip) design was locked but never implemented;
+  now shipped across all 5 `--refine` callers plus the standalone command.
+- **Full post-v4.0.0 doc-staleness cleanup** — 47→48 count-drift sweep across ~35 files, mermaid
+  diagram health score 82.3→100.
+
+See the [full changelog](CHANGELOG.md) for details.
+
+---
+
+## v4.0.0 — Folio Split
+
+**Released:** 2026-07-16 · **Type:** Major (breaking) · **PR:** [#294](https://github.com/Data-Wise/craft/pull/294)
+
+### Highlights
+
+- **BREAKING: docs/publishing surface extracted** to the new standalone [`folio`](https://github.com/Data-Wise/folio)
+  plugin — 24 commands, 6 agents, 6 skills moved out. See
+  [docs/MIGRATION-v4.md](https://github.com/Data-Wise/craft/blob/main/docs/MIGRATION-v4.md) for the
+  full command migration table.
+- **Counts: 94→47 commands / 45→40 skills / 8→2 agents.**
+- **Guard suite hardening bundled** — `cd`-target resolution across compound Bash commands,
+  `guards.json` write-race lock, orchestrate-dispatch self-containment (closes 4 live false
+  positives).
+- **`ci-bash-suites` validator** — closes the gap where `/craft:check` never ran the shell test
+  suites CI invokes directly (pytest doesn't collect them).
+
+See the [full changelog](CHANGELOG.md) for details.
+
+---
+
 ## v2.61.1 — Guard Suite Consolidation
 
 **Released:** 2026-07-08 · **Type:** Patch · **PR:** [#272](https://github.com/Data-Wise/craft/pull/272)

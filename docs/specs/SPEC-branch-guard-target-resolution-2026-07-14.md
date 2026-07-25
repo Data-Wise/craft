@@ -1,7 +1,7 @@
 # SPEC: Branch Guard Target-Resolution Fix
 
 **Date:** 2026-07-14 · **Status:** Approved (locked via `/craft:brainstorm` → `/craft:grill`)
-**Brainstorm:** [`BRAINSTORM-branch-guard-target-resolution-2026-07-14.md`](../../BRAINSTORM-branch-guard-target-resolution-2026-07-14.md)
+**Brainstorm:** [`BRAINSTORM-branch-guard-target-resolution-2026-07-14.md`](BRAINSTORM-branch-guard-target-resolution-2026-07-14.md)
 **Grill:** [`GRILL-branch-guard-target-resolution-2026-07-14.md`](GRILL-branch-guard-target-resolution-2026-07-14.md)
 **Rule reference:** [`REPORT-branch-guard-2026-07-14.md`](REPORT-branch-guard-2026-07-14.md)
 

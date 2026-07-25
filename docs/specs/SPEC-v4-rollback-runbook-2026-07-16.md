@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-16 · **Status:** Approved for the drivable portion; ONE open question
 explicitly blocks full completion — see Problem
-**Plan of record:** `ORCHESTRATE-folio-split.md` (repo root) · `tasks/todo.md` T4.2 ·
+**Plan of record:** `docs/plans/ORCHESTRATE-folio-split.md` (moved from repo root 2026-07-24) · `tasks/todo.md` T4.2 ·
 `tasks/plan.md` Risks table
 **Repo:** `craft` (this runbook lives in craft, the parent-session-owned repo, even though it
 covers both craft and folio)

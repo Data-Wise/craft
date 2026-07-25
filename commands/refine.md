@@ -16,7 +16,7 @@ replaced-by: "skills/workflow/prompt-refiner/"
 ## When invoked
 
 1. **Load the canonical procedure:** read
-   [`skills/workflow/prompt-refiner/SKILL.md`](../skills/workflow/prompt-refiner/SKILL.md)
+   `${CLAUDE_PLUGIN_ROOT:-.}/skills/workflow/prompt-refiner/SKILL.md`
    and follow it exactly — read context, rewrite, show the before/after box
    AND the fenced copy-paste-ready refined-prompt block (both as visible
    response text, before the confirm question), confirm via AskUserQuestion

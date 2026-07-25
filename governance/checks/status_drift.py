@@ -34,7 +34,16 @@ _VER_FIELD = re.compile(r"^version:\s*(\S+)", re.MULTILINE)
 # Plain semver only (vMAJOR.MINOR.PATCH). Deliberately does NOT capture a trailing
 # suffix: craft tags are clean `vX.Y.Z`, and a greedy suffix swallows prose like a
 # sentence-final `v2.37.0.` or a URL `…-v2.37.0.tar.gz` into phantom tag names.
-_SHIPPED_TAG = re.compile(r"v\d+\.\d+\.\d+")
+# Anchored to the two phrasings .STATUS actually uses for a shipped-tag claim:
+# "vX.Y.Z SHIPPED ..." (version immediately before the keyword) and "... tag
+# vX.Y.Z" (version immediately after it). A bare `v\d+\.\d+\.\d+` search over
+# the whole line — .STATUS entries are long single-paragraph lines — used to
+# grab every version mentioned anywhere on it, producing false positives: a
+# cross-repo version named in passing ("folio v1.0.0 released FIRST"), a
+# CHANGELOG section label ("v2.61.1 section"), or a historical artifact
+# description ("frozen v1.16.0 mirror"), none of which are the claim actually
+# being made on that line.
+_SHIPPED_TAG = re.compile(r"v(\d+\.\d+\.\d+)\s+SHIPPED|tag\s+v(\d+\.\d+\.\d+)")
 
 
 def _read(path):
@@ -48,11 +57,12 @@ def status_version(status_text):
 
 
 def shipped_tags(status_text):
-    """vX.Y.Z tokens appearing on a line that also says SHIPPED or tagged."""
+    """vX.Y.Z immediately adjacent to "SHIPPED" or "tag" on a matching line."""
     out = []
     for line in status_text.splitlines():
         if "SHIPPED" in line or "tagged" in line:
-            out.extend(_SHIPPED_TAG.findall(line))
+            for before, after in _SHIPPED_TAG.findall(line):
+                out.append("v" + (before or after))
     # de-dup, preserve order
     seen, uniq = set(), []
     for t in out:

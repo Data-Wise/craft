@@ -548,6 +548,23 @@ _hard_block() {
   block "$(_box "$@")" "BLOCK"
 }
 
+# _dev_edit_preauthorized: env-var escape hatch for creating/editing the
+# allow-once/allow-dev-edit guard-bypass marker itself (issue #281). Same
+# shape as issue #168's CRAFT_GUARD_ALLOW_FORCE_DELETE: /craft:git:unprotect
+# collects human consent via AskUserQuestion, then tries to write the marker
+# _confirm() needs — but writing that marker is itself intercepted by this
+# same _confirm() gate, and in a non-interactive/auto-mode session there is
+# no way for the already-given consent to resolve the resulting exit-2 block
+# (hooks are stateless per-invocation; AskUserQuestion's answer isn't visible
+# here). This lets the user pre-authorize out-of-band (shell profile / Claude
+# env) so the marker write exit 0s without any runtime confirm at all.
+_dev_edit_preauthorized() {
+  if [[ "${CRAFT_GUARD_ALLOW_DEV_EDIT:-}" == "1" ]]; then
+    printf '\n\033[33m[branch-guard]\033[0m CRAFT_GUARD_ALLOW_DEV_EDIT=1 — allowing guard-bypass marker\n' >&2
+    exit 0
+  fi
+}
+
 # ---------------------------------------------------------------------------
 # 8d0. Bash cross-context target resolution (leading cd / -C) — 2026-07-14
 # ---------------------------------------------------------------------------
@@ -646,6 +663,15 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
 
   # git branch -D — MEDIUM risk everywhere (deletes unmerged branches)
   if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
+    # User-preconfigured escape hatch (issue #168): auto-mode's hard_deny classifier
+    # refuses to let the agent create the allow-once/allow-dev-edit marker _confirm()
+    # needs, deadlocking even explicit user authorization. This env var lets the user
+    # pre-authorize out-of-band (shell profile / Claude env) so branch-guard exit 0s
+    # without any runtime marker fabrication.
+    if [[ "${CRAFT_GUARD_ALLOW_FORCE_DELETE:-}" == "1" ]]; then
+      printf '\n\033[33m[branch-guard]\033[0m CRAFT_GUARD_ALLOW_FORCE_DELETE=1 — allowing force-delete\n' >&2
+      exit 0
+    fi
     # Squash-merge check: if all commits are already in the integration branch,
     # the branch is safe to force-delete without confirmation.
     _DEL_BRANCH="$(echo "$COMMAND" | sed -n 's/.*git branch -D \([^[:space:];|&]*\).*/\1/p' 2>/dev/null || true)"
@@ -795,6 +821,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "ask \"unprotect for a temporary bypass\" (dev/git skill)"
           ;;
         */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
+          _dev_edit_preauthorized
           _confirm "edit_guard_bypass" \
             "Edit guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "This file self-approves a bypass of branch-guard's own protection — never editable silently" \
@@ -833,6 +860,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "ask \"unprotect for a temporary bypass\" (dev/git skill)"
           ;;
         */.claude/allow-once|.claude/allow-once|*/.claude/allow-dev-edit|.claude/allow-dev-edit)
+          _dev_edit_preauthorized
           _confirm "write_guard_bypass" \
             "Write guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "Creating this file self-approves a bypass of branch-guard's own protection — must be a deliberate, confirmed action, never a silent allow" \
@@ -1044,6 +1072,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
           # Guard-bypass marker — never a silent shell-created allow (H1 fix)
           case "$BASH_BASENAME" in
             allow-once|allow-dev-edit)
+              _dev_edit_preauthorized
               _confirm "bash_guard_bypass" \
                 "Bash creates guard-bypass marker on ${BRANCH}: ${BASH_BASENAME}" \
                 "Creating this file via shell self-approves a bypass of branch-guard's own protection" \

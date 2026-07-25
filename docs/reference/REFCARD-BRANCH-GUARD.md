@@ -2,7 +2,7 @@
 
 **Teaching-first branch protection** — 3-tier risk classification with progressive trust, layered with an unconditional hard_deny tier (NEW in v2.33.0) and GitHub-side server protection.
 
-`branch-guard.sh` is now part of the **two-hook Guard Suite**, alongside `no-switch-guard.sh`. Both share a registry (`~/.claude/guards.json`) and support a unified `--classify`/`GUARD_DRY_RUN=1` ground-truth mode. See the [Guard Suite Guide](../guide/guard-suite.md) and [Guard Suite Tutorial](../tutorials/TUTORIAL-guard-suite.md) for the full picture.
+`branch-guard.sh` is part of the git-protection Guard Suite, alongside `no-switch-guard.sh`. Both share a registry (`~/.claude/guards.json`) and support a unified `--classify`/`GUARD_DRY_RUN=1` ground-truth mode. See the [Guard Suite Guide](../guide/guard-suite.md) and [Guard Suite Tutorial](../tutorials/TUTORIAL-guard-suite.md) for the full picture. (A third, unrelated hook — `reference-scope-guard.sh`, advisory-only, issue #286 — shares the same `guards.json` registry and `install-guards.sh` installer but does not gate git operations or support `--classify`.)
 
 **Version:** 2.33.0 | **Hook:** `~/.claude/hooks/branch-guard.sh` | **Catalog:** `scripts/hard-deny-rules.json`
 

@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.2.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.3.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -193,35 +193,32 @@ Reference documentation for all 47 Craft commands:
 
 - :scroll:{ .lg .middle } **[API Reference](API-REFERENCE-COMMANDS.md)**
 
-    Index into per-command documentation for all 47 commands
+    Index into per-command documentation for all 48 commands
 
 </div>
 
 ## Key Command Categories
 
-| Category          | Count   | Description                                                                                                                                                     |
-| ------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Smart**          | 9       | Universal command, orchestrator, checks, help, hub (root-level commands)                                                                                          |
-| **Documentation**  | 21      | Smart docs with update, sync, check, website, API, changelog, guides, tutorial, workflow                                                                           |
-| **Site**           | 16      | Full site wizard with 8 ADHD-friendly presets, theme, nav, audit                                                                                                   |
-| **Code & Check**   | 17 + 1  | Code: linting, testing, debugging, refactoring, CI fixes, deps management; Check: pre-flight validation                                                            |
-| **Git**            | 15      | Repository initialization, branch management, worktrees, sync, recap, clean, two-layer branch protection (local hook + GitHub-side baseline), learning guides     |
-| **CI**             | 6       | Detection, generation, validation                                                                                                                                  |
-| **Architecture**   | 4       | Analysis, diagrams, planning, reviews                                                                                                                              |
-| **Distribution**   | 5       | Marketplace, Homebrew, PyPI, curl installers                                                                                                                       |
-| **Planning**       | 3       | Feature planning, sprints, roadmaps                                                                                                                                |
-| **Orchestrate**    | 4       | Multi-agent dispatch, drive loops, swarm levels                                                                                                                    |
-| **Workflow**       | 14      | Brainstorming, task management, spec capture, getting unstuck                                                                                                      |
-| **Utils**          | 2       | Misc helpers                                                                                                                                                       |
-| **Total**          | **115** | **Complete development workflow coverage**                                                                                                                         |
+| Category          | Count  | Description                                                                                                    |
+| ------------------ | ------ | ---------------------------------------------------------------------------------------------------------------- |
+| **Root-level**     | 14     | Universal command (`/craft:do`), orchestrator, checks, hub, next, finish, refine, brief, brainstorm, grill, plan, restore, smart-help, test |
+| **Code**           | 13     | Linting, testing, debugging, refactoring, CI-fix helpers, deps management                                       |
+| **CI**             | 8      | Detection, generation, validation, triage, watch, local/fix runners                                             |
+| **Architecture**   | 4      | Analysis, diagrams, planning, reviews                                                                           |
+| **Distribution**   | 2      | Homebrew, cross-surface distribution status                                                                     |
+| **Docs**           | 2      | Doc-set update, changelog generation (docs authoring itself lives in the `folio` plugin since v4.0.0)           |
+| **Orchestrate**    | 2      | Drive loops, multi-agent dispatch workflow                                                                      |
+| **Git**            | 1      | Issue-check triage (branch/worktree/guard ops live in the `dev/git` skill, not a command, since the guard-suite consolidation) |
+| **Planning**       | 1      | Feature planning                                                                                                |
+| **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
+| **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.2.0 — Guard Suite Consolidation"
-    [PR #272](https://github.com/Data-Wise/craft/pull/272) consolidates the branch-guard and
-    no-switch-guard into a skill-driven operations layer under `skills/dev/git/`, adds
-    `--classify`/`GUARD_DRY_RUN=1` ground-truth mode, a portable `sedi()` wrapper, and 62 new
-    tests. Four stale shims thinned, 3 orphan docs archived. [PR #270](https://github.com/Data-Wise/craft/pull/270) removes
-    dead agent-dispatch from `/craft:do` and `/release`, adds `verify-surfaces.sh --report-only`/`--version`,
-    and ships a [`release-rollback`](runbooks/release-rollback.md) manual-undo runbook.
+!!! info "Latest: v4.3.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard"
+    [`CRAFT_GUARD_ALLOW_DEV_EDIT`](https://github.com/Data-Wise/craft/pull/305) closes a
+    self-referential deadlock where creating the branch-guard bypass marker was itself blocked by
+    the guard it was meant to bypass. New advisory-only
+    [`reference-scope-guard.sh`](https://github.com/Data-Wise/craft/pull/306) hook warns (never
+    blocks) on non-conforming filenames written under `~/.claude/reference/`.
     See the [full changelog](CHANGELOG.md) for all releases, or visit the [News](NEWS.md) page for release highlights.
 
 ## Links

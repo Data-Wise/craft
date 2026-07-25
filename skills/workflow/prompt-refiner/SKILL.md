@@ -44,9 +44,29 @@ turns out to need one.
 ## Procedure (the canonical --refine flow — callers MUST delegate here)
 
 1. **Read context** (read-only): detect project type, branch, `.STATUS`.
-2. **Rewrite** the prompt to add scope, specifics, and intent — without
+   - **Software project** (default): DESCRIPTION / package.json / pyproject.toml,
+     current git branch, `.STATUS` current-task if present.
+   - **Manuscript/research project** (parallel branch — detect by presence of
+     `references.bib` alongside a `.qmd`/`.tex` main file, same pattern
+     `/savant:restore` uses): additionally note whether the main file has a
+     notation/symbol glossary table, whether `docs/reviews/` (or an equivalent
+     existing-reports folder) has prior review docs on the same topic, and
+     whether `.flow/research-config.yml` exists (journal/register context).
+     Still read-only — a wider file set to check, not a different constraint.
+
+2. **Skip-gate (terse action-verb prompts):** before rewriting, check the raw
+   prompt against the `action-verb-execution` pattern — a single clear verb
+   plus an already-scoped target, no compound clauses (e.g. "render the
+   article", "commit and push"). If it matches, skip straight to step 5 and
+   return the prompt unchanged — no rewrite, no before/after box, no confirm.
+   This round-trip has zero information gain on prompts that are already
+   unambiguous; it stays valuable (and still runs in full) for anything
+   compound or ambiguous. When unsure whether a prompt qualifies, do NOT
+   skip — fall through to the full procedure below.
+
+3. **Rewrite** the prompt to add scope, specifics, and intent — without
    inventing requirements the user didn't imply.
-3. **Show before/after** in a boxed display, THEN print the refined prompt
+4. **Show before/after** in a boxed display, THEN print the refined prompt
    in its own fenced, copy-paste-ready code block — two separate visible
    blocks, both emitted as response text:
 
@@ -66,12 +86,12 @@ turns out to need one.
 
    **Ordering constraint (fixes a confirmed bug — do not skip):** both blocks
    above MUST render as visible response text in this turn BEFORE the
-   `AskUserQuestion` tool call in step 4 fires. Never collapse steps 3 and 4
+   `AskUserQuestion` tool call in step 5 fires. Never collapse steps 4 and 5
    into a single tool-call-only turn with no interstitial text — that
    produces a confirm question with nothing shown first, which is exactly
    the failure this ordering constraint exists to prevent.
 
-4. **Confirm** via AskUserQuestion, exactly these four options:
+5. **Confirm** via AskUserQuestion, exactly these four options:
 
    | Option | Meaning |
    |---|---|
@@ -84,8 +104,9 @@ turns out to need one.
    printing `refined (auto-accepted)`. This is the `--yes` cascade: one flag
    both auto-accepts the prompt-refiner AND suppresses the caller's
    interactive loop — fully headless.
-5. **Return** the chosen prompt string to the caller (empty/no-op return on
-   **Copy for elsewhere**, since that branch takes no further action).
+6. **Return** the chosen prompt string to the caller (empty/no-op return on
+   **Copy for elsewhere**, since that branch takes no further action). The
+   skip-gate in step 2 also returns here, with the original prompt unchanged.
 
 ## Constraints
 
@@ -95,7 +116,8 @@ turns out to need one.
 
 ## Standalone use
 
-Invoked with no downstream command, stop after step 3–4 and print the
+Invoked with no downstream command, stop after step 4–5 (or after the step-2
+skip-gate, if it fires) and print the
 refined prompt — this preserves the deprecated `/refine` behavior.
 
 ## Optional: explain mode

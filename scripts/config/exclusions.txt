@@ -58,6 +58,13 @@ docs/architecture/HUB-V2-ARCHITECTURE.md:500 commands
 # command consolidation shrank the total (Phase 3.5, 2026-07-12).
 README.md:26 commands
 
+# docs/NEWS.md v4.0.0 entry: the folio-split delta itself (what moved out /
+# what the count changed from-to), historical fact at time of writing, not a
+# live current-state claim. Added 2026-07-24 when the entry was backfilled.
+docs/NEWS.md:24 commands
+docs/NEWS.md:6 agents
+docs/NEWS.md:47 commands
+
 # ---------------------------------------------------------------------------
 # Orchestrator mode descriptions (agent counts = mode limits, not totals)
 # ---------------------------------------------------------------------------

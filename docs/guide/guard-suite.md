@@ -10,6 +10,12 @@
 > Operation 12 also adds a unified `explain` dry-run across both hooks via
 > each script's new `--classify` / `GUARD_DRY_RUN=1` ground-truth mode (see
 > "The `--classify` / `GUARD_DRY_RUN=1` Mode" below).
+>
+> A third hook, `reference-scope-guard.sh` (issue #286), was added to the
+> same `install-guards.sh` installer and `guards.json` registry, but it
+> is out of scope for this guide: it's an advisory-only naming check for
+> `~/.claude/reference/`, not a git-protection hook, and doesn't support
+> `--classify`/`GUARD_DRY_RUN=1`.
 
 The Guard Suite is a two-hook safety layer that intercepts destructive git operations before Claude executes them. It replaces the single monolithic `branch-guard.sh` with a purpose-built pair of hooks, a shared registry for enable/disable/muting, and the `dev/git` skill (ask naturally) for runtime management.
 

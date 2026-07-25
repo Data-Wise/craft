@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.3.0] - 2026-07-25
+
+### Fixed
+
+- **`CRAFT_GUARD_ALLOW_DEV_EDIT` escape hatch** (#281, [PR #305](https://github.com/Data-Wise/craft/pull/305))
+  — closes a self-referential deadlock where creating or editing the
+  `.claude/allow-once`/`allow-dev-edit` branch-guard bypass marker was itself
+  gated by the guard it was meant to bypass. Reuses the `CRAFT_GUARD_ALLOW_FORCE_DELETE`
+  (#168) env-var pre-authorization pattern: structurally safe because Bash-tool
+  env exports don't propagate into the hook's separate subprocess.
+
+### Added
+
+- **`reference-scope-guard.sh`** (#286, [PR #306](https://github.com/Data-Wise/craft/pull/306))
+  — new advisory-only (never-blocking) PreToolUse hook warning when a
+  Write/Edit targets `~/.claude/reference/` with a filename that doesn't
+  match its naming convention (lowercase kebab-case, no `.html`, no
+  `SPEC-*`/`GRILL-*`/`BRAINSTORM-*` prefix). Wired into `install-guards.sh`
+  alongside `branch-guard`/`no-switch-guard`, sharing the same `guards.json`
+  registry.
+
+---
+
 ## [4.2.0] - 2026-07-19
 
 ### Changed

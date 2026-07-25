@@ -39,7 +39,7 @@ unresolved dependencies before you implement).
 ## When Invoked
 
 1. **Load the canonical procedure:** read
-   [`skills/workflow/grill/SKILL.md`](../skills/workflow/grill/SKILL.md) and follow it exactly —
+   `${CLAUDE_PLUGIN_ROOT:-.}/skills/workflow/grill/SKILL.md` and follow it exactly —
    resolve target, codebase-first pre-answer sweep, select attack angles, the deliberate
    one-question-at-a-time grill loop (Recommended-first + per-option consequence), milestone
    checkpoints, durable `GRILL-*.md` capture via `commands/utils/grill_ledger.py`, and the

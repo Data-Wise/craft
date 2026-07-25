@@ -1,6 +1,6 @@
 # GRILL: Guard-Hardening Follow-Ups — Adversarial Review
 
-**Date:** 2026-07-15 · **Target:** [`BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md`](../../BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md) (repo root)
+**Date:** 2026-07-15 · **Target:** [`BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md`](BRAINSTORM-guard-hardening-adversarial-review-2026-07-15.md) (repo root)
 
 ## Decision Ledger
 
