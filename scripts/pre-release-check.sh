@@ -152,7 +152,14 @@ if [ -f "README.md" ]; then
 fi
 
 if [ -f "docs/index.md" ]; then
-    INDEX_VERSION=$(grep -o 'v[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*' docs/index.md | head -1 | sed 's/^v//' || echo "")
+    # Match the version BADGE specifically (version-X.Y.Z, same pattern as the
+    # README check above) — not the first bare vX.Y.Z string in the file.
+    # docs/index.md accumulates historical "since vX.Y.Z" migration notes
+    # (e.g. the folio-split references to v4.0.0) that predate the badge in
+    # file order, so a bare-string grep false-positives on those instead of
+    # the actual "Latest:" version. Confirmed recurring: this exact false
+    # positive failed the v4.2.0 and v4.3.0 Homebrew Release pre-flight gates.
+    INDEX_VERSION=$(grep -o 'version-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*' docs/index.md | head -1 | sed 's/version-//' || echo "")
     if [ -n "$INDEX_VERSION" ] && [ "$INDEX_VERSION" != "$TARGET_VERSION" ]; then
         echo -e "${RED}  ✗ docs/index.md latest version: v${INDEX_VERSION} (target: v${TARGET_VERSION})${NC}"
         STALE_FILES="$STALE_FILES docs/index.md"
