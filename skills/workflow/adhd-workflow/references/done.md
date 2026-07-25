@@ -202,8 +202,12 @@ Update `.STATUS` with current session data:
 # Read current branch
 current_branch=$(git branch --show-current 2>/dev/null)
 
-# Read current version from source of truth
-current_version=$(grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' .STATUS 2>/dev/null | head -1)
+# Read current version from source of truth. Anchor to the `version:`
+# frontmatter field, not the first bare vX.Y.Z string — .STATUS
+# accumulates historical "vX.Y.Z SHIPPED" session-recap prose below the
+# frontmatter, which an unanchored grep could match instead (same bug
+# class fixed in PR #308 for docs/index.md).
+current_version=$(grep -m1 '^version:' .STATUS 2>/dev/null | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
 
 # Update last_session timestamp
 today=$(date +%Y-%m-%d)

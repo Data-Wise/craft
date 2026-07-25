@@ -62,7 +62,13 @@ while IFS= read -r FILE; do
             FILE_VER=$(git show ":$FILE" 2>/dev/null | grep -m1 '^version' | sed 's/.*"\(.*\)"/\1/')
             ;;
         .STATUS)
-            FILE_VER=$(git show ":$FILE" 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+            # Anchor to the `version:` frontmatter field, not the first bare
+            # X.Y.Z number in the file. .STATUS accumulates historical
+            # "vX.Y.Z SHIPPED" session-recap prose (and PR/issue numbers)
+            # below the frontmatter — an unanchored grep risks matching one
+            # of those instead of the actual current version. Same bug class
+            # as the docs/index.md false positive fixed in PR #308.
+            FILE_VER=$(git show ":$FILE" 2>/dev/null | grep -m1 -E '^version:' | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
             ;;
         *)
             continue
