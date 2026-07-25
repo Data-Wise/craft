@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.2.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.3.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -213,12 +213,12 @@ Reference documentation for all 47 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.2.0 — /craft:finish Rename + Homebrew CI Gate Repair"
-    **BREAKING:** [`/craft:done` renamed to `/craft:finish`](adr/ADR-006-done-renamed-to-finish.md)
-    ([PR #296](https://github.com/Data-Wise/craft/pull/296)) — matches the existing zsh `finish`
-    alias, no back-compat shim. Also recovered the automated Homebrew tap-formula push after
-    `homebrew-tap`'s `main` gained branch protection, fixing `homebrew-release.yml` to push via a
-    bot-branch PR instead of a direct push.
+!!! info "Latest: v4.3.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard"
+    [`CRAFT_GUARD_ALLOW_DEV_EDIT`](https://github.com/Data-Wise/craft/pull/305) closes a
+    self-referential deadlock where creating the branch-guard bypass marker was itself blocked by
+    the guard it was meant to bypass. New advisory-only
+    [`reference-scope-guard.sh`](https://github.com/Data-Wise/craft/pull/306) hook warns (never
+    blocks) on non-conforming filenames written under `~/.claude/reference/`.
     See the [full changelog](CHANGELOG.md) for all releases, or visit the [News](NEWS.md) page for release highlights.
 
 ## Links

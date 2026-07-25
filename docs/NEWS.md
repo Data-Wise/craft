@@ -4,6 +4,24 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.3.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard
+
+**Released:** 2026-07-25 · **Type:** Minor · **PRs:** [#305](https://github.com/Data-Wise/craft/pull/305), [#306](https://github.com/Data-Wise/craft/pull/306)
+
+### Highlights
+
+- **`CRAFT_GUARD_ALLOW_DEV_EDIT`** (#281) — closes a self-referential deadlock: creating the
+  `.claude/allow-once`/`allow-dev-edit` branch-guard bypass marker was itself gated by the guard it
+  was meant to bypass. Reuses the `CRAFT_GUARD_ALLOW_FORCE_DELETE` (#168) env-var
+  pre-authorization pattern.
+- **`reference-scope-guard.sh`** (#286, NEW) — advisory-only PreToolUse hook warning (never
+  blocking) when a Write/Edit targets `~/.claude/reference/` with a non-conforming filename.
+  Shares `install-guards.sh` and the `guards.json` registry with `branch-guard`/`no-switch-guard`.
+
+See the [full changelog](CHANGELOG.md) for details.
+
+---
+
 ## v4.2.0 — /craft:finish Rename + Homebrew CI Gate Repair
 
 **Released:** 2026-07-19 · **Type:** Patch (breaking rename, no version-major bump) · **PR:** [#296](https://github.com/Data-Wise/craft/pull/296)
