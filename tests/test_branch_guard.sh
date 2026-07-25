@@ -1874,14 +1874,26 @@ run_test_with_stderr \
 # documented; mentioning the marker-bypass env var there would recreate the
 # exact confusion issue #309 reported (a working non-interactive route buried
 # among suggestions that don't apply to it).
+#
+# Both assertions below MUST read the same 1st-encounter capture. Suggest:
+# lines only render at "full" (1st-encounter) verbosity — a 2nd+ encounter
+# renders "brief", which omits ALL suggestions regardless of content, so
+# checking a later call would pass this negative assertion vacuously (it
+# would still pass even if the hint WERE mistakenly added to write_new_code)
+# rather than actually exercising the code path it's meant to guard.
 REPO_MSG_NEWCODE=$(init_repo); switch_branch "$REPO_MSG_NEWCODE" "dev"
-run_test_with_stderr \
-    "test_write_new_code_message_does_not_mention_env_var" \
-    2 \
-    "$(json_write "$REPO_MSG_NEWCODE/src/unrelated_new.py" "$REPO_MSG_NEWCODE")" \
-    "$REPO_MSG_NEWCODE" \
-    "New code files"
-NEW_CODE_STDERR=$(echo "$(json_write "$REPO_MSG_NEWCODE/src/unrelated_new2.py" "$REPO_MSG_NEWCODE")" | (cd "$REPO_MSG_NEWCODE" && bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || true
+NEW_CODE_STDERR=$(echo "$(json_write "$REPO_MSG_NEWCODE/src/unrelated_new.py" "$REPO_MSG_NEWCODE")" | (cd "$REPO_MSG_NEWCODE" && bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || true
+
+TOTAL=$((TOTAL + 1))
+if echo "$NEW_CODE_STDERR" | grep -qi "New code files"; then
+    PASS=$((PASS + 1))
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_write_new_code_message_does_not_mention_env_var  ${T_BOLD}(exit=2, pattern matched)${T_NC}"
+else
+    FAIL=$((FAIL + 1))
+    FAILED_NAMES+=("test_write_new_code_message_does_not_mention_env_var")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_write_new_code_message_does_not_mention_env_var  ${T_BOLD}(1st-encounter stderr missing 'New code files')${T_NC}"
+fi
+
 TOTAL=$((TOTAL + 1))
 if ! echo "$NEW_CODE_STDERR" | grep -q "CRAFT_GUARD_ALLOW_DEV_EDIT"; then
     PASS=$((PASS + 1))
