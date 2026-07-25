@@ -72,6 +72,7 @@ install_hook() {
 # ---------------------------------------------------------------------------
 install_hook "branch-guard.sh"
 install_hook "no-switch-guard.sh"
+install_hook "reference-scope-guard.sh"
 
 # ---------------------------------------------------------------------------
 # 1b. Copy lib/git-utils.sh to ~/.claude/lib/ (needed by branch-guard squash-merge detection)
@@ -105,6 +106,7 @@ if ! command -v jq &>/dev/null; then
   echo '    { "matcher": "Edit|Write", "hooks": [{ "type": "command", "command": "/bin/bash ~/.claude/hooks/branch-guard.sh", "timeout": 5000 }] }'
   echo '    { "matcher": "Bash",       "hooks": [{ "type": "command", "command": "/bin/bash ~/.claude/hooks/branch-guard.sh", "timeout": 5000 }] }'
   echo '    { "matcher": "Bash",       "hooks": [{ "type": "command", "command": "/bin/bash ~/.claude/hooks/no-switch-guard.sh", "timeout": 5000 }] }'
+  echo '    { "matcher": "Edit|Write", "hooks": [{ "type": "command", "command": "/bin/bash ~/.claude/hooks/reference-scope-guard.sh", "timeout": 5000 }] }'
   exit 0
 fi
 
@@ -114,6 +116,7 @@ fi
 
 BRANCH_GUARD_CMD="/bin/bash ${HOME}/.claude/hooks/branch-guard.sh"
 NO_SWITCH_GUARD_CMD="/bin/bash ${HOME}/.claude/hooks/no-switch-guard.sh"
+REFERENCE_SCOPE_GUARD_CMD="/bin/bash ${HOME}/.claude/hooks/reference-scope-guard.sh"
 
 # ---------------------------------------------------------------------------
 # 2a. Register branch-guard (Edit|Write + Bash entries)
@@ -157,6 +160,24 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# 2c. Register reference-scope-guard (Edit|Write only — advisory, issue #286)
+# ---------------------------------------------------------------------------
+if jq -e '.hooks.PreToolUse // [] | map(.hooks[]?.command) | any(test("reference-scope-guard"))' "$SETTINGS" &>/dev/null; then
+  ok "settings.json already has reference-scope-guard entry"
+else
+  RSG_ENTRY="$(jq -n --arg cmd "$REFERENCE_SCOPE_GUARD_CMD" '{
+    "matcher": "Edit|Write",
+    "hooks": [{ "type": "command", "command": $cmd, "timeout": 5000 }]
+  }')"
+
+  jq --argjson rsg "$RSG_ENTRY" '
+    .hooks.PreToolUse = (.hooks.PreToolUse // []) + [$rsg]
+  ' "$SETTINGS" > "${SETTINGS}.tmp" && mv "${SETTINGS}.tmp" "$SETTINGS"
+
+  ok "Registered reference-scope-guard in ${SETTINGS}"
+fi
+
+# ---------------------------------------------------------------------------
 # 4. Seed guards.json registry (if not present)
 # ---------------------------------------------------------------------------
 # guards.json has a second mutator (skills/dev/git/SKILL.md Operation 12's
@@ -183,7 +204,8 @@ if [[ ! -f "$GUARDS_JSON" ]]; then
     jq -n '{
       "guards": {
         "branch-guard":   { "enabled": true, "muted_until": null, "mute_window_min": 30 },
-        "no-switch-guard":{ "enabled": true, "muted_until": null, "mute_window_min": 30 }
+        "no-switch-guard":{ "enabled": true, "muted_until": null, "mute_window_min": 30 },
+        "reference-scope-guard": { "enabled": true, "muted_until": null, "mute_window_min": 30 }
       }
     }' > "$GUARDS_JSON"
     ok "Created guards.json registry at ${GUARDS_JSON}"
@@ -195,7 +217,7 @@ else
   # check-then-write is its own acquire/release — NOT one lock held across
   # the whole loop — so a concurrent Operation 12 mutation isn't blocked for
   # the full loop duration.
-  for guard in branch-guard no-switch-guard; do
+  for guard in branch-guard no-switch-guard reference-scope-guard; do
     guards_lock_acquire
     trap guards_lock_release EXIT
     if ! jq -e --arg g "$guard" '.guards[$g]' "$GUARDS_JSON" &>/dev/null; then
@@ -224,6 +246,10 @@ echo "  no-switch-guard.sh — switch/worktree gating:"
 echo "    • GREEN  — read-only ops allowed silently"
 echo "    • YELLOW — clean-tree switch / worktree add announced"
 echo "    • RED    — dirty-tree switch, new-branch, main switch, destructive restore/worktree: ask"
+echo ""
+echo "  reference-scope-guard.sh — advisory naming check (never blocks):"
+echo "    • warns on Write/Edit under ~/.claude/reference/ with a non-conforming filename"
+echo "      (.html, SPEC-*/GRILL-*/BRAINSTORM-* prefix, or non-kebab-case)"
 echo ""
 echo "Ask naturally (dev/git skill):"
 echo "  \"unprotect\"  — session-scoped bypass"
