@@ -4,6 +4,10 @@ arguments:
   - name: topic
     description: Topic or question to get help with
     required: false
+  - name: refine
+    description: Refine the topic via the prompt-refiner skill before acting
+    required: false
+    default: false
 ---
 
 # /craft:help - Context-Aware Help
@@ -17,6 +21,19 @@ Get intelligent help based on your project and question.
 /craft:help <topic>             # Get help on specific topic
 /craft:help "how do I..."       # Answer questions about workflows
 ```
+
+## --refine (prompt pre-processing)
+
+When `--refine` is set, do NOT act on the raw `topic` argument. First invoke the
+`prompt-refiner` skill with the argument and project context. Follow that
+skill's canonical flow (before/after box → fenced refined-prompt block →
+4-way confirm: Execute now / Copy for elsewhere / Edit first / Skip; `--yes`
+or auto mode auto-accepts Execute now). **If the user picks "Copy for
+elsewhere," stop here — do not start help lookup.** Otherwise proceed using
+the prompt the skill returns. Off by default (`--refine` is opt-in): most
+`topic` arguments here are a single keyword or a short question, where the
+rewrite round-trip adds little over the skip-gate already handling terse
+prompts.
 
 ## Context-Aware Suggestions
 
