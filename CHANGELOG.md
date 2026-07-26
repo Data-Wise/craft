@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.0] - 2026-07-26
+
+### Added
+
+- **`smart-help` declares `--refine`** (D7, [PR #313](https://github.com/Data-Wise/craft/pull/313)) —
+  opt-in, default-OFF, closing the last dangling item on #268's prompt-refiner umbrella (originally
+  from `SPEC-interactive-commands-2026-06-25.md` §8).
+
+### Fixed
+
+- **`prompt-refiner`'s Default Policy table is now exhaustive and file-path-keyed**
+  ([PR #313](https://github.com/Data-Wise/craft/pull/313)) — fixed 3 stale display names
+  (`workflow:brainstorm`, `orchestrate`, `orchestrate:workflow`) and added 2 live callers the
+  table was silently missing (`commands/plan.md`, `commands/arch/plan.md`). A new dogfood test
+  (`test_refine_default_policy_table_exhaustive`) keeps it from drifting again.
+
+### Notes
+
+- Issue #268's other two proposed items (named "Copy for elsewhere" destinations, `--scope global`)
+  and #266 (multi-round grill mode) were grilled, then killed on adversarial review before
+  implementation — see `docs/specs/GRILL-prompt-refiner-remaining-2026-07-26.md`'s amendment for
+  the reversal record. #266 closed pointing at savant's `edit-loop` (shipped 2026-07-13), which
+  already solves the observed pattern with tooling craft structurally lacks.
+
+---
+
 ## [4.3.1] - 2026-07-25
 
 ### Fixed

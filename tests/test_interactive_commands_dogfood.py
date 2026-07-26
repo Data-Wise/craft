@@ -1,7 +1,7 @@
 # tests/test_interactive_commands_dogfood.py
 from pathlib import Path
 import pytest
-from test_plugin_e2e import PLUGIN_DIR
+from test_plugin_e2e import PLUGIN_DIR, _find_all_commands
 
 pytestmark = [pytest.mark.e2e, pytest.mark.dogfood]
 
@@ -12,6 +12,27 @@ def test_refine_default_on_documented(rel):
     text = (PLUGIN_DIR / rel).read_text(encoding="utf-8").lower()
     assert "default" in text and "no-refine" in text, \
         f"{rel} must document refine default-on + --no-refine opt-out"
+
+
+def test_refine_default_policy_table_exhaustive():
+    """Every --refine declarer must have a row in SKILL.md's Default Policy table.
+
+    D7 (SPEC-prompt-refiner-remaining-2026-07-26): the table drifted silently
+    once before (smart-help and arch/plan.md were live declarers absent from
+    it). Keys on the command file's relative path string appearing in the
+    table, matching the table's own path-keyed rows.
+    """
+    skill = (PLUGIN_DIR / "skills/workflow/prompt-refiner/SKILL.md").read_text(encoding="utf-8")
+    declarers = {
+        str(cmd.relative_to(PLUGIN_DIR))
+        for cmd in _find_all_commands()
+        if "- name: refine" in cmd.read_text(encoding="utf-8")
+    }
+    missing = {rel for rel in declarers if f"`{rel}`" not in skill}
+    assert not missing, (
+        "prompt-refiner SKILL.md's Default Policy table is missing a row for: "
+        f"{sorted(missing)}"
+    )
 
 
 def test_yes_cascade_documented():

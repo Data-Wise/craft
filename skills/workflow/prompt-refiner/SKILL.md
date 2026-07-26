@@ -20,20 +20,24 @@ arch:plan, or standalone ("refine and print").
 engines** — stated once here; callers reference this section instead of each
 re-explaining the same on/off choice independently.
 
-| Command | Default | Category |
+| Command file | Default | Category |
 |---|---|---|
-| `do` | **ON** | Deliberation-entry (routes a task; refining sharpens what gets routed) |
-| `workflow:brainstorm` | **ON** | Deliberation-entry |
-| `plan:feature` | **ON** | Deliberation-entry |
-| `grill` | **ON** (topic-scoped — skipped when the argument is a path, nothing to refine) | Deliberation-entry |
-| `orchestrate` | **OFF** | Execution engine (task is already decided by the time it reaches here; refining would re-litigate a settled scope) |
-| `orchestrate:workflow` | **OFF** | Execution engine |
+| `commands/do.md` | **ON** | Deliberation-entry (routes a task; refining sharpens what gets routed) |
+| `commands/brainstorm.md` | **ON** | Deliberation-entry |
+| `commands/plan.md` | **ON** | Deliberation-entry (universal planning router) |
+| `commands/plan/feature.md` | **ON** | Deliberation-entry |
+| `commands/grill.md` | **ON** (topic-scoped — skipped when the argument is a path, nothing to refine) | Deliberation-entry |
+| `commands/orch.md` | **OFF** | Execution engine (task is already decided by the time it reaches here; refining would re-litigate a settled scope) |
+| `commands/orch/workflow.md` | **OFF** | Execution engine |
+| `commands/arch/plan.md` | **OFF** | Predates D6 (Conflict 1.1.1 didn't cover it) — kept OFF, not revisited here |
+| `commands/smart-help.md` | **OFF** | Lookup/help, not deliberation — most `topic` args are a single keyword or short question |
 
 **Rule of thumb for any future command:** if the command's job is *deciding what to
-do*, default ON. If its job is *doing the already-decided thing*, default OFF.
-`arch:plan` currently defaults OFF and predates this policy — it wasn't part of the
-D6 conflict finding (Conflict 1.1.1) and isn't renamed here; revisit separately if it
-turns out to need one.
+do*, default ON. If its job is *doing the already-decided thing*, default OFF. This
+table is exhaustive over current `--refine` declarers — a dogfood test
+(`tests/test_interactive_commands_dogfood.py`) asserts every command file that
+declares the flag has a matching row here, so add a row in the same change that
+adds a new caller.
 
 ## Inputs
 
