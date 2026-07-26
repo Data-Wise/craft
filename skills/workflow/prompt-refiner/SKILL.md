@@ -30,7 +30,7 @@ re-explaining the same on/off choice independently.
 | `commands/orch.md` | **OFF** | Execution engine (task is already decided by the time it reaches here; refining would re-litigate a settled scope) |
 | `commands/orch/workflow.md` | **OFF** | Execution engine |
 | `commands/arch/plan.md` | **OFF** | Predates D6 (Conflict 1.1.1 didn't cover it) — kept OFF, not revisited here |
-| `commands/smart-help.md` | **OFF**, opt-in | Lookup/help, not deliberation — most `topic` args are a single keyword or short question |
+| `commands/smart-help.md` | **OFF** | Lookup/help, not deliberation — most `topic` args are a single keyword or short question |
 
 **Rule of thumb for any future command:** if the command's job is *deciding what to
 do*, default ON. If its job is *doing the already-decided thing*, default OFF. This
