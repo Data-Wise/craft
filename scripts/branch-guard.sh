@@ -1029,7 +1029,15 @@ if [[ "$PROTECTION" == "smart" ]]; then
       # "no match" case the `[[ -z "$BASH_TARGET" ]]` checks below already
       # handle correctly. `|| true` makes a real no-match behave like the
       # empty-string fallback it was always meant to be, instead of a crash.
-      if [[ "$HAS_HEREDOC" == false ]] && echo "$COMMAND_SCAN" | grep -qE '>[[:space:]]*[^>]'; then
+      # Excludes '&' after '>' so fd-duplication redirects (2>&1, 1>&2 — near-
+      # ubiquitous, always benign) never satisfy this gate. Without this, a
+      # command like `git commit -m "...(7 -> 9)" 2>&1` gets misdetected: the
+      # coarse gate fires on the harmless `2>&1`, then extraction re-scans the
+      # WHOLE original command and can pick up the unrelated `->` arrow safely
+      # inside the already-quoted commit message as a false file-creation
+      # target (confirmed live 2026-07-26 — `git commit -m "...(7 -> 9)" 2>&1`
+      # blocked citing target `9)"`, a fragment of the quoted prose).
+      if [[ "$HAS_HEREDOC" == false ]] && echo "$COMMAND_SCAN" | grep -qE '>[[:space:]]*[^>&]'; then
         # Extract the target after the last > — against the ORIGINAL
         # command, so a real quoted target (spaces, etc.) is found intact.
         BASH_TARGET="$(echo "$COMMAND" | grep -oE '>[[:space:]]*[^>|&;[:space:]]+' | tail -1 | sed 's/^>[[:space:]]*//' || true)"

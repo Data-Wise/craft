@@ -254,6 +254,43 @@ class TestCraftRepoDogfood(unittest.TestCase):
         ))
         self.assertEqual(result.returncode, 0, "New .py on feature branch should be allowed")
 
+    # --- regression: fd-duplication redirect false-positive (2026-07-26) ---
+    @unittest.skipUnless(_get_current_branch() == "dev", "Not on dev branch")
+    def test_dev_bash_commit_with_2gt1_and_quoted_arrow_not_blocked(self):
+        """A `2>&1` redirect plus a literal ' -> ' inside an already-quoted
+        commit message must NOT be misdetected as file creation.
+
+        Regression for a confirmed live false-positive (2026-07-26): the
+        coarse Pattern-1 redirect gate treated benign fd-duplication
+        (`2>&1`) as "a real redirect present," then the fine extraction step
+        re-scanned the whole original command and picked up the unrelated
+        `->` arrow inside the quoted commit message as a false
+        file-creation target, blocking a harmless `git commit`.
+        """
+        result = _run_hook(self._payload(
+            "Bash",
+            command='git commit -m "chore(release): bump version (7 -> 9)" 2>&1',
+        ))
+        self.assertEqual(
+            result.returncode, 0,
+            f"git commit with 2>&1 + quoted arrow should be allowed, "
+            f"got rc={result.returncode} stderr={result.stderr!r}",
+        )
+        self.assertNotIn("BRANCH GUARD", result.stderr)
+
+    @unittest.skipUnless(_get_current_branch() == "dev", "Not on dev branch")
+    def test_dev_bash_1gt2_redirect_not_blocked(self):
+        """Same fd-duplication false-positive, `1>&2` variant."""
+        result = _run_hook(self._payload(
+            "Bash",
+            command='echo "warning (1 -> 2)" 1>&2',
+        ))
+        self.assertEqual(
+            result.returncode, 0,
+            f"echo with 1>&2 + quoted arrow should be allowed, "
+            f"got rc={result.returncode} stderr={result.stderr!r}",
+        )
+
 
 # ============================================================================
 # Group 3: Real Claude Code Payload Formats
