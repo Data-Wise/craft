@@ -60,7 +60,7 @@ refinement.
 
 ## Which commands support it
 
-`--refine` is declared on **7 commands** in two modes:
+`--refine` is declared on **9 commands** in two modes:
 
 **Default-ON** — refine runs automatically; pass `--no-refine` to skip:
 
@@ -68,6 +68,7 @@ refinement.
 |---|---|
 | `/craft:brainstorm` | Brainstorm on a refined topic |
 | `/craft:do` | Route a refined task |
+| `/craft:plan` | Plan on a refined objective |
 | `/craft:plan:feature` | Plan a refined feature |
 | `/craft:grill` | Refine the topic before interrogating |
 
@@ -78,6 +79,7 @@ refinement.
 | `/craft:orch` | Orchestrate a refined goal |
 | `/craft:orch:workflow` | Workflow-orchestrate a refined goal |
 | `/craft:arch:plan` | Architecture plan from a refined prompt |
+| `/craft:smart-help` | Get help on a refined topic |
 
 ## See also
 

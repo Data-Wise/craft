@@ -35,6 +35,36 @@ def test_refine_default_policy_table_exhaustive():
     )
 
 
+def test_refine_flag_help_doc_exhaustive():
+    """docs/help/refine-flag.md's command tables must list every --refine declarer.
+
+    Same drift class as test_refine_default_policy_table_exhaustive, caught in a
+    sibling doc (docs/help/refine-flag.md said "7 commands", missing
+    commands/plan.md and commands/smart-help.md — fixed alongside this test).
+    Maps each declarer's file path to its slash-command display name
+    (commands/plan/feature.md -> /craft:plan:feature) since the doc keys rows
+    on display name, not file path like SKILL.md's table does.
+    """
+    doc = (PLUGIN_DIR / "docs/help/refine-flag.md").read_text(encoding="utf-8")
+    declarers = {
+        cmd.relative_to(PLUGIN_DIR / "commands")
+        for cmd in _find_all_commands()
+        if "- name: refine" in cmd.read_text(encoding="utf-8")
+    }
+    missing = set()
+    for rel in declarers:
+        display = "/craft:" + str(rel.with_suffix("")).replace("/", ":")
+        if display not in doc:
+            missing.add(display)
+    assert not missing, (
+        "docs/help/refine-flag.md is missing a row for: "
+        f"{sorted(missing)}"
+    )
+    assert f"**{len(declarers)} commands**" in doc, (
+        f"docs/help/refine-flag.md's stated command count must say {len(declarers)}"
+    )
+
+
 def test_yes_cascade_documented():
     # grill's contract moved to the skill (thin-command/fat-skill, ADR-002)
     grill = (PLUGIN_DIR / "skills/workflow/grill/SKILL.md").read_text(encoding="utf-8").lower()

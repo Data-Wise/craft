@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.1] - 2026-07-26
+
+### Fixed
+
+- **`branch-guard.sh`'s `2>&1`/`1>&2` false-positive ported from the live hook into the repo's
+  canonical `scripts/branch-guard.sh`** — a command like `git commit -m "...(7 -> 9)" 2>&1` was
+  being misdetected as file creation (the coarse redirect gate fired on the benign `2>&1`, then
+  extraction picked up the unrelated `->` inside an already-quoted message). The fix had only
+  ever been applied to the installed hook (`~/.claude/hooks/branch-guard.sh`), leaving
+  `test_repo_copy_matches_installed` red and the shipped script vulnerable to reintroducing the
+  bug on reinstall. Regression tests added (`tests/test_branch_guard_dogfood.py`). Implements
+  `GRILL-rtk-hook-safety-close-out-2026-07-26.md` decision #3.
+- **`docs/help/refine-flag.md` and `docs/reference/COMMAND-PARAMETERS.md` drift from PR #313** —
+  the help doc still said `--refine` was declared on 7 commands and was missing the two commands
+  PR #313 added (`/craft:plan`, `/craft:smart-help`); the parameter reference was missing
+  `smart-help`'s `refine` row entirely. A new dogfood test
+  (`test_refine_flag_help_doc_exhaustive`) guards the help doc against the same drift class.
+
 ## [4.4.0] - 2026-07-26
 
 ### Added
