@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.4.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.4.1 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
       
       
       
@@ -8192,6 +8192,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v441-branch-guard-21-fix-docs-drift-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.4.1 — branch-guard 2&gt;&amp;1 fix + docs-drift patches
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.4.1 — branch-guard 2&gt;&amp;1 fix + docs-drift patches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v440-smart-help-refine-exhaustive-default-policy-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.4.0 — smart-help --refine + exhaustive Default Policy table
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.4.0 — smart-help --refine + exhaustive Default Policy table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v430-guard-bypass-escape-hatch-reference-scope-guard" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8204,7 +8271,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights" class="md-nav__link">
+  <a href="#highlights_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8232,7 +8299,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_1" class="md-nav__link">
+  <a href="#highlights_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8260,7 +8327,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_2" class="md-nav__link">
+  <a href="#highlights_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8288,7 +8355,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_3" class="md-nav__link">
+  <a href="#highlights_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8316,7 +8383,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_4" class="md-nav__link">
+  <a href="#highlights_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8355,7 +8422,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_5" class="md-nav__link">
+  <a href="#highlights_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8383,7 +8450,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_6" class="md-nav__link">
+  <a href="#highlights_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10228,6 +10295,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v441-branch-guard-21-fix-docs-drift-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.4.1 — branch-guard 2&gt;&amp;1 fix + docs-drift patches
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.4.1 — branch-guard 2&gt;&amp;1 fix + docs-drift patches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v440-smart-help-refine-exhaustive-default-policy-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.4.0 — smart-help --refine + exhaustive Default Policy table
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.4.0 — smart-help --refine + exhaustive Default Policy table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v430-guard-bypass-escape-hatch-reference-scope-guard" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10240,7 +10374,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights" class="md-nav__link">
+  <a href="#highlights_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10268,7 +10402,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_1" class="md-nav__link">
+  <a href="#highlights_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10296,7 +10430,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_2" class="md-nav__link">
+  <a href="#highlights_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10324,7 +10458,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_3" class="md-nav__link">
+  <a href="#highlights_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10352,7 +10486,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_4" class="md-nav__link">
+  <a href="#highlights_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10391,7 +10525,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_5" class="md-nav__link">
+  <a href="#highlights_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10419,7 +10553,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_6" class="md-nav__link">
+  <a href="#highlights_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10473,9 +10607,44 @@
 <h1 id="news">News<a class="headerlink" href="#news" title="Permanent link">&para;</a></h1>
 <p>Release announcements and notable changes for the Craft plugin.</p>
 <hr />
+<h2 id="v441-branch-guard-21-fix-docs-drift-patches">v4.4.1 — branch-guard 2&gt;&amp;1 fix + docs-drift patches<a class="headerlink" href="#v441-branch-guard-21-fix-docs-drift-patches" title="Permanent link">&para;</a></h2>
+<p><strong>Released:</strong> 2026-07-26 · <strong>Type:</strong> Patch</p>
+<h3 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>branch-guard.sh</code>'s <code>2&gt;&amp;1</code>/<code>1&gt;&amp;2</code> false-positive fixed in the repo's canonical copy</strong> — a
+  command like <code>git commit -m "...(7 -&gt; 9)" 2&gt;&amp;1</code> was being misdetected as file creation. The fix
+  was live on the installed hook but never ported to <code>scripts/branch-guard.sh</code>, leaving
+  <code>test_repo_copy_matches_installed</code> red and the bug reintroducible on reinstall. Now ported,
+  with two regression tests.</li>
+<li><strong><code>--refine</code> command-count drift fixed</strong> — <code>docs/help/refine-flag.md</code> said 7 commands
+  (actually 9) and was missing <code>/craft:plan</code> and <code>/craft:smart-help</code>;
+  <code>docs/reference/COMMAND-PARAMETERS.md</code> was missing <code>smart-help</code>'s <code>refine</code> row. A new dogfood
+  test guards the help doc against the same drift class going forward.</li>
+<li><strong><code>docs/index.md</code> and <code>docs/NEWS.md</code> synced</strong> — the "Latest" info box was still describing
+  v4.3.0's content under a v4.4.0 label, and NEWS.md had no v4.4.0 entry at all.</li>
+</ul>
+<hr />
+<h2 id="v440-smart-help-refine-exhaustive-default-policy-table">v4.4.0 — smart-help --refine + exhaustive Default Policy table<a class="headerlink" href="#v440-smart-help-refine-exhaustive-default-policy-table" title="Permanent link">&para;</a></h2>
+<p><strong>Released:</strong> 2026-07-26 · <strong>Type:</strong> Minor · <strong>PR:</strong> <a href="https://github.com/Data-Wise/craft/pull/313">#313</a></p>
+<h3 id="highlights_1">Highlights<a class="headerlink" href="#highlights_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>smart-help</code> declares <code>--refine</code></strong> (D7) — opt-in, default-OFF, closing the last dangling item
+  on #268's prompt-refiner umbrella (originally from <code>SPEC-interactive-commands-2026-06-25.md</code>
+  §8).</li>
+<li><strong><code>prompt-refiner</code>'s Default Policy table is now exhaustive and file-path-keyed</strong> — fixed 3
+  stale display names (<code>workflow:brainstorm</code>, <code>orchestrate</code>, <code>orchestrate:workflow</code>) and added 2
+  live callers the table was silently missing (<code>commands/plan.md</code>, <code>commands/arch/plan.md</code>). A
+  new dogfood test (<code>test_refine_default_policy_table_exhaustive</code>) keeps it from drifting again.</li>
+</ul>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<p>Issue #268's other two proposed items (named "Copy for elsewhere" destinations, <code>--scope global</code>)
+and #266 (multi-round grill mode) were grilled, then killed on adversarial review before
+implementation — see <code>docs/specs/GRILL-prompt-refiner-remaining-2026-07-26.md</code>'s amendment for
+the reasoning.</p>
+<hr />
 <h2 id="v430-guard-bypass-escape-hatch-reference-scope-guard">v4.3.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard<a class="headerlink" href="#v430-guard-bypass-escape-hatch-reference-scope-guard" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-07-25 · <strong>Type:</strong> Minor · <strong>PRs:</strong> <a href="https://github.com/Data-Wise/craft/pull/305">#305</a>, <a href="https://github.com/Data-Wise/craft/pull/306">#306</a></p>
-<h3 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_2">Highlights<a class="headerlink" href="#highlights_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>CRAFT_GUARD_ALLOW_DEV_EDIT</code></strong> (#281) — closes a self-referential deadlock: creating the
   <code>.claude/allow-once</code>/<code>allow-dev-edit</code> branch-guard bypass marker was itself gated by the guard it
@@ -10492,7 +10661,7 @@
 <p><strong>BREAKING:</strong> <code>/craft:done</code> renamed to <code>/craft:finish</code> (<a href="../adr/ADR-006-done-renamed-to-finish/">ADR-006</a>)
 — matches the existing zsh <code>finish</code> alias, no back-compat shim. Command count unchanged (48; a
 rename, not an addition).</p>
-<h3 id="highlights_1">Highlights<a class="headerlink" href="#highlights_1" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_3">Highlights<a class="headerlink" href="#highlights_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:finish</code></strong> replaces <code>/craft:done</code> everywhere — the old slash entry point no longer resolves.</li>
 <li><strong><code>/craft:restore</code> docs corrected</strong> — its spec/report status fixed from <code>DRAFT</code> to <code>SHIPPED</code> (it had
@@ -10507,7 +10676,7 @@ rename, not an addition).</p>
 <hr />
 <h2 id="v410-craftrestore-craftrefine-confirm-flow-fix">v4.1.0 — /craft:restore + /craft:refine Confirm-Flow Fix<a class="headerlink" href="#v410-craftrestore-craftrefine-confirm-flow-fix" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-07-17 · <strong>Type:</strong> Minor · <strong>PR:</strong> <a href="https://github.com/Data-Wise/craft/pull/295">#295</a></p>
-<h3 id="highlights_2">Highlights<a class="headerlink" href="#highlights_2" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_4">Highlights<a class="headerlink" href="#highlights_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:restore</code></strong> (NEW) — combines git-activity recap (<code>dev/git</code> skill) with <code>.STATUS</code>-based
   session recap (<code>adhd-workflow</code> skill) into one read-only "restore my context" entry point.
@@ -10523,7 +10692,7 @@ rename, not an addition).</p>
 <hr />
 <h2 id="v400-folio-split">v4.0.0 — Folio Split<a class="headerlink" href="#v400-folio-split" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-07-16 · <strong>Type:</strong> Major (breaking) · <strong>PR:</strong> <a href="https://github.com/Data-Wise/craft/pull/294">#294</a></p>
-<h3 id="highlights_3">Highlights<a class="headerlink" href="#highlights_3" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_5">Highlights<a class="headerlink" href="#highlights_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>BREAKING: docs/publishing surface extracted</strong> to the new standalone <a href="https://github.com/Data-Wise/folio"><code>folio</code></a>
   plugin — 24 commands, 6 agents, 6 skills moved out. See
@@ -10543,7 +10712,7 @@ rename, not an addition).</p>
 <p>The branch-guard and no-switch-guard systems are now unified under a single
 skill-driven operations layer. Four stale shims were thinned and 62 new tests
 added.</p>
-<h3 id="highlights_4">Highlights<a class="headerlink" href="#highlights_4" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_6">Highlights<a class="headerlink" href="#highlights_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>--classify</code> / <code>GUARD_DRY_RUN=1</code></strong> — ground-truth output for both guard
   hooks, useful for testing and debugging guard rules without side effects.</li>
@@ -10567,7 +10736,7 @@ added.</p>
 <p>Cuts the always-loaded orchestration path by moving procedure out of
 commands/agents and into skills that load conditionally. Introduces the
 <code>command-skill-token-efficiency</code> skill for future authoring.</p>
-<h3 id="highlights_5">Highlights<a class="headerlink" href="#highlights_5" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_7">Highlights<a class="headerlink" href="#highlights_7" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Orchestration token reduction</strong> — <code>/refine</code> 631→42 lines, <code>/brainstorm</code> split
   with 4→2 decision points, <code>orchestrator-v2.md</code> 1473→1212 lines.</li>
@@ -10584,7 +10753,7 @@ commands/agents and into skills that load conditionally. Introduces the
 <p><strong>Released:</strong> 2026-07-05 · <strong>Type:</strong> Minor</p>
 <p>Major namespace cleanup: root-level promotions, <code>orchestrate</code> → <code>orch</code> rename,
 <code>ci:</code> consolidation, and dead commands removed.</p>
-<h3 id="highlights_6">Highlights<a class="headerlink" href="#highlights_6" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_8">Highlights<a class="headerlink" href="#highlights_8" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Root promotions</strong> — <code>/craft:next</code>, <code>/craft:done</code>, <code>/craft:refine</code>,
   <code>/craft:brief</code>, <code>/craft:brainstorm</code> promoted from <code>workflow:</code>.</li>

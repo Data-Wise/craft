@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.4.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.4.1 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10214,7 +10214,7 @@
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
-<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.4.0-brightgreen.svg" /></a></p>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.4.1-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -10470,12 +10470,12 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v4.4.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard</p>
-<p><a href="https://github.com/Data-Wise/craft/pull/305"><code>CRAFT_GUARD_ALLOW_DEV_EDIT</code></a> closes a
-self-referential deadlock where creating the branch-guard bypass marker was itself blocked by
-the guard it was meant to bypass. New advisory-only
-<a href="https://github.com/Data-Wise/craft/pull/306"><code>reference-scope-guard.sh</code></a> hook warns (never
-blocks) on non-conforming filenames written under <code>~/.claude/reference/</code>.
+<p class="admonition-title">Latest: v4.4.1 — branch-guard 2&gt;&amp;1 fix + docs-drift patches</p>
+<p><code>scripts/branch-guard.sh</code> no longer misdetects <code>2&gt;&amp;1</code>/<code>1&gt;&amp;2</code> fd-duplication redirects as file
+creation (a command like <code>git commit -m "...(7 -&gt; 9)" 2&gt;&amp;1</code> was previously blocked). The fix
+had only been applied to the installed hook, not this repo's canonical copy — now ported,
+with regression tests. Also fixes <code>--refine</code> command-count drift in <code>docs/help/refine-flag.md</code>
+and <code>docs/reference/COMMAND-PARAMETERS.md</code> left over from v4.4.0.
 See the <a href="CHANGELOG/">full changelog</a> for all releases, or visit the <a href="NEWS/">News</a> page for release highlights.</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
