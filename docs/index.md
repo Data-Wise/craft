@@ -213,12 +213,12 @@ Reference documentation for all 47 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.4.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard"
-    [`CRAFT_GUARD_ALLOW_DEV_EDIT`](https://github.com/Data-Wise/craft/pull/305) closes a
-    self-referential deadlock where creating the branch-guard bypass marker was itself blocked by
-    the guard it was meant to bypass. New advisory-only
-    [`reference-scope-guard.sh`](https://github.com/Data-Wise/craft/pull/306) hook warns (never
-    blocks) on non-conforming filenames written under `~/.claude/reference/`.
+!!! info "Latest: v4.4.0 — smart-help --refine + exhaustive Default Policy table"
+    [`smart-help` declares `--refine`](https://github.com/Data-Wise/craft/pull/313) (opt-in,
+    default-OFF), closing the last dangling item on #268's prompt-refiner umbrella. The
+    `prompt-refiner` skill's Default Policy table is now exhaustive and file-path-keyed, fixing
+    3 stale display names and 2 missing live callers — guarded against drift by a new dogfood
+    test.
     See the [full changelog](CHANGELOG.md) for all releases, or visit the [News](NEWS.md) page for release highlights.
 
 ## Links

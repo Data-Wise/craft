@@ -4,6 +4,29 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.4.0 — smart-help --refine + exhaustive Default Policy table
+
+**Released:** 2026-07-26 · **Type:** Minor · **PR:** [#313](https://github.com/Data-Wise/craft/pull/313)
+
+### Highlights
+
+- **`smart-help` declares `--refine`** (D7) — opt-in, default-OFF, closing the last dangling item
+  on #268's prompt-refiner umbrella (originally from `SPEC-interactive-commands-2026-06-25.md`
+  §8).
+- **`prompt-refiner`'s Default Policy table is now exhaustive and file-path-keyed** — fixed 3
+  stale display names (`workflow:brainstorm`, `orchestrate`, `orchestrate:workflow`) and added 2
+  live callers the table was silently missing (`commands/plan.md`, `commands/arch/plan.md`). A
+  new dogfood test (`test_refine_default_policy_table_exhaustive`) keeps it from drifting again.
+
+### Notes
+
+Issue #268's other two proposed items (named "Copy for elsewhere" destinations, `--scope global`)
+and #266 (multi-round grill mode) were grilled, then killed on adversarial review before
+implementation — see `docs/specs/GRILL-prompt-refiner-remaining-2026-07-26.md`'s amendment for
+the reasoning.
+
+---
+
 ## v4.3.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard
 
 **Released:** 2026-07-25 · **Type:** Minor · **PRs:** [#305](https://github.com/Data-Wise/craft/pull/305), [#306](https://github.com/Data-Wise/craft/pull/306)
