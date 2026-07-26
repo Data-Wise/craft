@@ -113,6 +113,7 @@ Comprehensive parameter reference for all 97 Craft commands.
 | command | string | No | - | - | Command to help with |
 | examples | boolean | No | false | `-e` | Show usage examples |
 | related | boolean | No | false | `--show-related` | Show related commands |
+| refine | boolean | No | false | - | Refine the topic via the prompt-refiner skill before acting |
 
 ---
 
