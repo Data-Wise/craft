@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.4.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.4.1-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -213,12 +213,12 @@ Reference documentation for all 47 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.4.0 — smart-help --refine + exhaustive Default Policy table"
-    [`smart-help` declares `--refine`](https://github.com/Data-Wise/craft/pull/313) (opt-in,
-    default-OFF), closing the last dangling item on #268's prompt-refiner umbrella. The
-    `prompt-refiner` skill's Default Policy table is now exhaustive and file-path-keyed, fixing
-    3 stale display names and 2 missing live callers — guarded against drift by a new dogfood
-    test.
+!!! info "Latest: v4.4.1 — branch-guard 2>&1 fix + docs-drift patches"
+    `scripts/branch-guard.sh` no longer misdetects `2>&1`/`1>&2` fd-duplication redirects as file
+    creation (a command like `git commit -m "...(7 -> 9)" 2>&1` was previously blocked). The fix
+    had only been applied to the installed hook, not this repo's canonical copy — now ported,
+    with regression tests. Also fixes `--refine` command-count drift in `docs/help/refine-flag.md`
+    and `docs/reference/COMMAND-PARAMETERS.md` left over from v4.4.0.
     See the [full changelog](CHANGELOG.md) for all releases, or visit the [News](NEWS.md) page for release highlights.
 
 ## Links

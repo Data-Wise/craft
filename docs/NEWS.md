@@ -4,6 +4,26 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.4.1 — branch-guard 2>&1 fix + docs-drift patches
+
+**Released:** 2026-07-26 · **Type:** Patch
+
+### Highlights
+
+- **`branch-guard.sh`'s `2>&1`/`1>&2` false-positive fixed in the repo's canonical copy** — a
+  command like `git commit -m "...(7 -> 9)" 2>&1` was being misdetected as file creation. The fix
+  was live on the installed hook but never ported to `scripts/branch-guard.sh`, leaving
+  `test_repo_copy_matches_installed` red and the bug reintroducible on reinstall. Now ported,
+  with two regression tests.
+- **`--refine` command-count drift fixed** — `docs/help/refine-flag.md` said 7 commands
+  (actually 9) and was missing `/craft:plan` and `/craft:smart-help`;
+  `docs/reference/COMMAND-PARAMETERS.md` was missing `smart-help`'s `refine` row. A new dogfood
+  test guards the help doc against the same drift class going forward.
+- **`docs/index.md` and `docs/NEWS.md` synced** — the "Latest" info box was still describing
+  v4.3.0's content under a v4.4.0 label, and NEWS.md had no v4.4.0 entry at all.
+
+---
+
 ## v4.4.0 — smart-help --refine + exhaustive Default Policy table
 
 **Released:** 2026-07-26 · **Type:** Minor · **PR:** [#313](https://github.com/Data-Wise/craft/pull/313)
