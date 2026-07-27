@@ -15,9 +15,10 @@ directory/frontmatter mismatches and three intentional slash-command shims are e
 through v5.0.0 under #316 ownership. The local suite and all GitHub Actions Python jobs now target
 the stable Python 3.14 series, with a policy test preventing pin drift. Provenance-bound Claude
 Code and Codex staging passed for candidate `906c4f31f`; resolved paths, versions, archive hash,
-and skill hashes are recorded in `tasks/qa-evidence.md`. The final full-suite rerun is pending.
+and skill hashes are recorded in `tasks/qa-evidence.md`. The final Python 3.14.6 suite passed:
+2626 passed, 52 skipped, 1 expected xfail, 1 non-gating xpass, and 162 subtests.
 
-**Next:** run the final full Python 3.14 suite, then prepare the branch for PR handoff.
+**Next:** prepare the branch for PR handoff.
 
 ## Session Recap — 2026-07-26 (cont'd) — v4.4.0 shipped, branch-guard `2>&1` bug found+fixed, #263 spec+grill
 

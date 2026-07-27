@@ -36,7 +36,7 @@ Source:
 ## Slice 4 — Full Validation and Manual QA
 
 - [x] Run focused structural tests.
-- [ ] Run the full test suite.
+- [x] Run the full test suite.
 - [x] Validate the plugin and counts.
 - [x] Stage the committed artifact in disposable Claude Code and Codex environments.
 - [x] Record client versions, resolved paths, commit SHA, and archive hashes.
