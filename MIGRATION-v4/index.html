@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.4.1 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.4.2 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10461,7 +10461,7 @@ into skill references before deletion):</p>
 </tr>
 <tr>
 <td><code>check:gen-validator</code></td>
-<td><code>skills/check/references/gen-validator.md</code></td>
+<td><code>skills/preflight-check/references/gen-validator.md</code></td>
 </tr>
 <tr>
 <td><code>git:worktree</code></td>
@@ -10483,7 +10483,7 @@ into skill references before deletion):</p>
   this file's own prior salvage pass) called for shrinking <code>commands/check.md</code> to a
   ≤5-line shim. Its current header already explains why the Step 0 plan display, confirm
   gate, <code>--orch</code> handling, and <code>CRAFT_MODE</code> binding are invocation-mandatory, not
-  deferrable procedure — <code>skills/check/SKILL.md</code> itself defers back to <code>commands/check.md</code>
+  deferrable procedure — <code>skills/preflight-check/SKILL.md</code> itself defers back to <code>commands/check.md</code>
   as "the full check command spec." <code>skills/code/command-skill-token-efficiency/SKILL.md</code>'s
   own classification test ("does the command always run, even before skill-routing
   fires?") confirms this content belongs in the command. Left as-is.</li>
