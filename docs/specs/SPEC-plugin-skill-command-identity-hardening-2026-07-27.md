@@ -128,9 +128,9 @@ KNOWN_SKILL_NAME_MISMATCHES = {
         "frontmatter_name": "system-architect",
         "owner": "@Data-Wise",
         "owner_issue": "#316",
-        "target_release": "v4.5.0",
-        "decision": "pending",  # must become retain, rename, or promote
-        "removal_criterion": "directory/name equality or documented retain decision",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "remove only in a major identity migration",
     },
     # Seven more entries with the same ownership schema.
 }
@@ -140,9 +140,9 @@ KNOWN_COMMAND_SKILL_COLLISIONS = {
         "identity_surfaces": {"directory", "frontmatter"},
         "owner": "@Data-Wise",
         "owner_issue": "#316",
-        "target_release": "v4.5.0",
-        "decision": "pending",  # must become retain, rename, or promote
-        "removal_criterion": "collision removed or documented retain decision",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "remove only when the slash-command shim is retired",
     },
     # Equivalent full-path entries for grill and nested commands/code/release.md.
 }
@@ -155,10 +155,11 @@ The tests compare actual state to these exact mappings. They fail on:
 - a stale entry after remediation;
 - a command hidden below a category directory, such as `commands/code/release.md`.
 
-These mappings are debt ledgers, not claims of safety. Each entry must gain a dedicated issue
-number and terminal decision before #316 closes. Fixture assertions enforce the exact schema:
-`owner`, `owner_issue`, `target_release`, `decision`, and `removal_criterion`; `decision:
-pending` fails the PR-handoff gate.
+These mappings are debt ledgers, not claims of safety. #316 owns the explicit `retain` decision
+through v5.0.0: mismatched directories preserve established public skill identities, while the
+three collisions preserve intentional slash-command shims. Fixture assertions enforce the exact
+schema: `owner`, `owner_issue`, `target_release`, `decision`, and `removal_criterion`;
+non-terminal decisions fail the PR-handoff gate.
 
 ### D3. Test every command depth and every skill
 
@@ -296,12 +297,11 @@ and leave `skills/code/audit-router/`, `skills/code/command-skill-token-efficien
 
 Before #316 closes:
 
-1. File one or more follow-up issues covering the eight mismatches and the three deferred
-   collisions.
-2. Give every debt-ledger entry an owner issue and target release.
-3. Record a terminal **retain**, **rename**, or **promote** decision for every entry, including
+1. Give every debt-ledger entry an owner issue and target release.
+2. Record a terminal **retain**, **rename**, or **promote** decision for every entry, including
    compatibility/release classification and ledger removal or retention criteria.
-4. Replace `owner_issue: "#316"` with the dedicated issue where one is created.
+3. Keep #316 as owner while the shared v5.0.0 migration boundary is the governing decision;
+   replace it only if a dedicated migration issue supersedes that decision.
 
 No identity migration may be described as mechanical until the client matrix proves it.
 
@@ -315,10 +315,9 @@ No identity migration may be described as mechanical until the client matrix pro
 5. Move `skills/check/` to `skills/preflight-check/` and update tracked references.
 6. Run targeted tests, plugin validation, full suite, and provenance-bound client QA.
 7. Run the four-property probe for `brainstorm`, `grill`, and `release`.
-8. File owner-bound follow-up issues and record terminal decisions for every deferred entry.
-9. Replace placeholder debt-ledger ownership values, then open the implementation PR against
+8. Record terminal decisions for every deferred entry, then open the implementation PR against
    `dev`.
-10. Keep #316 open until the implementation PR merges and every deferred entry has a terminal
+9. Keep #316 open until the implementation PR merges and every deferred entry has a terminal
     retain/rename/promote decision.
 
 ## Testing Strategy
@@ -478,7 +477,7 @@ decided.
 
 - [ ] `brainstorm`, `grill`, and `release` are probed independently in both clients.
 - [ ] Every collision and mismatch has an explicit retain/rename/promote decision matrix.
-- [ ] Every deferred item has an issue, owner, target release, and debt-ledger removal
+- [ ] Every deferred item is owned by #316 through v5.0.0 and has a debt-ledger removal
   criterion.
 - [ ] #316 remains open until the hotfix merges and every deferred item has a terminal
   retain/rename/promote decision.

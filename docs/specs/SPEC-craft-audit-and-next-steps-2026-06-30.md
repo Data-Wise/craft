@@ -35,13 +35,13 @@ Full suite (~2056 tests, chunked due to sandbox limits), `validate-counts.sh`, `
 
 | Rank | Command | Lines | Target skill | Skill lines | Ratio |
 |---|---|---|---|---|---|
-| 1 | `commands/check.md` | 1132 | `skills/check/` | 127 | **8.9** |
+| 1 | `commands/check.md` | 1132 | `skills/preflight-check/` | 127 | **8.9** |
 | 2 | `commands/workflow/task-cancel.md` | 508 | `skills/workflow/task-management/` | 90 | **5.6** |
 | 3 | `commands/workflow/task-output.md` | 467 | `skills/workflow/task-management/` | 90 | **5.2** |
 | 4 | `commands/git/worktree.md` | 1010 | `skills/dev/git/` | 250 | **4.0** |
 | 5 | `commands/docs/claude-md/edit.md` | 635 | `skills/docs/claude-md/` | 161 | **3.9** |
 | 6 | `commands/workflow/task-status.md` | 348 | `skills/workflow/task-management/` | 90 | **3.9** |
-| 7 | `commands/check/gen-validator.md` | 447 | `skills/check/` | 127 | **3.5** |
+| 7 | `commands/check/gen-validator.md` | 447 | `skills/preflight-check/` | 127 | **3.5** |
 | 8 | `commands/git/docs/safety-rails.md` | 723 | `skills/dev/git/` | 250 | **2.9** |
 | 9 | `commands/git/docs/learning-guide.md` | 722 | `skills/dev/git/` | 250 | **2.9** |
 | 10 | `commands/site/create.md` | 741 | `skills/docs/site-management/` | 275 | **2.7** |

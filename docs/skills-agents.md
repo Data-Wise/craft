@@ -18,7 +18,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 
 | Name | Description | Path |
 |------|-------------|------|
-| preflight-check | Context-aware pre-flight validation (commit/PR/release/deploy) — orchestrates lint, tests, types, version sync, stale refs, docs, hook conflicts | `skills/check/SKILL.md` |
+| preflight-check | Context-aware pre-flight validation (commit/PR/release/deploy) — orchestrates lint, tests, types, version sync, stale refs, docs, hook conflicts | `skills/preflight-check/SKILL.md` |
 
 ### CI (1)
 

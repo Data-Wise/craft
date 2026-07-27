@@ -8,9 +8,9 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 DEPRECATIONS: dict[str, str] = {
-    # 2 → skills/check/
-    "commands/check.md": "skills/check/",
-    "commands/check/gen-validator.md": "skills/check/",
+    # 2 → skills/preflight-check/
+    "commands/check.md": "skills/preflight-check/",
+    "commands/check/gen-validator.md": "skills/preflight-check/",
     # 4 → skills/orchestration/plan-orchestrator/
     "commands/orchestrate/plan.md": "skills/orchestration/plan-orchestrator/",
     "commands/plan/feature.md": "skills/orchestration/plan-orchestrator/",

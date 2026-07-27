@@ -22,7 +22,7 @@
 | Proposed `skills/task-dispatcher/` | **REMOVED** — `skills/orchestration/task-analyzer/` already covers `/do` routing. |
 | `refactor` classified as GAP | **Flipped to COVERED** — nested `skills/design/{backend,frontend,devops}-*` cover refactoring guidance. |
 | Generic `skills/docs-*` (3 proposed) | **Replaced** with specific gaps: `skills/docs/claude-md/`, `skills/docs/navigation/`, `skills/docs/site-management/`, possibly more. Docs gaps are bigger than the v1 audit suggested. |
-| Missing: `skills/check/` | **ADDED** — pre-flight validation (commit/PR/release/deploy) is broader than `skills/ci/` (project-detector only). |
+| Missing: `skills/preflight-check/` | **ADDED** — pre-flight validation (commit/PR/release/deploy) is broader than `skills/ci/` (project-detector only). |
 | Missing: planning sub-skill | **ADDED** — `skills/planning/SKILL.md` (project-planner) is high-level; feature/roadmap/sprint commands need a dedicated sub-skill. |
 
 ---
@@ -53,7 +53,7 @@ This spec captures the migration approach: build **~10-12 new consolidated skill
    - `skills/dev/git/SKILL.md` (14 commands consolidated; git is a real gap, no skill exists today)
    - `skills/workflow/task-management/SKILL.md` (3 commands; currently PARTIAL by `task-analyzer`)
 2. ✅ Batch 2 ships ~4 new skills:
-   - `skills/check/SKILL.md` (pre-flight validation across commit/PR/release/deploy)
+   - `skills/preflight-check/SKILL.md` (pre-flight validation across commit/PR/release/deploy)
    - `skills/orchestration/plan-orchestrator/SKILL.md` (`commands/orchestrate/plan` + `commands/plan/{feature,roadmap,sprint}`)
    - `skills/workflow/brainstorm-insights/SKILL.md` (`commands/workflow/{brainstorm,insights}`)
    - `skills/code/coverage-metrics/SKILL.md` (`commands/code/coverage` + `commands/code/demo` instructional concern)
@@ -133,7 +133,7 @@ skills/
 flowchart TD
     Spike["✅ Spike (done):<br/>skills/workflow/adhd-workflow/<br/>7 cmds, c2aaa18d"] --> B1Rest
     B1Rest["Batch 1 wave 2:<br/>skills/dev/git/ (14 cmds)<br/>skills/workflow/task-management/ (3 cmds)<br/>v2.34.0"]
-    B1Rest --> B2["Batch 2:<br/>skills/check/<br/>skills/orchestration/plan-orchestrator/<br/>skills/workflow/brainstorm-insights/<br/>skills/code/coverage-metrics/<br/>v2.35.0"]
+    B1Rest --> B2["Batch 2:<br/>skills/preflight-check/<br/>skills/orchestration/plan-orchestrator/<br/>skills/workflow/brainstorm-insights/<br/>skills/code/coverage-metrics/<br/>v2.35.0"]
     B2 --> B3["Batch 3:<br/>skills/docs/claude-md/<br/>skills/docs/navigation/<br/>skills/docs/site-management/<br/>skills/distribution/dist-extras/<br/>v2.36.0"]
     B3 --> Cleanup["Cleanup PR:<br/>Remove ~30 deprecated commands<br/>Delete discovery-usage.md<br/>v3.0.0"]
 ```
@@ -215,7 +215,7 @@ replaced-by: "skills/<category>/<name>/"
 1. **`skills/dev/` as a new category** — does git warrant its own new category dir, or should it nest under an existing one (e.g., `skills/release/dev-tools/git/`)? **Tentative:** create `skills/dev/` as a new top-level category because git is foundational, not a release sub-concern.
 2. **Trigger-phrase test threshold** — exact-match collision only, or fuzzy similarity? Currently exact-match. Revisit if real collisions emerge.
 3. **Cleanup PR scope** — v3.0.0 is a major bump; should it bundle other breaking changes or stay narrowly scoped to migration cleanup? **Defer decision to v2.36.0 release planning.**
-4. **`skills/check/` vs extending `skills/ci/`** — is pre-flight validation a new skill or a section in `project-detector`? **Tentative:** new skill, because `project-detector` is purely detection (no validation orchestration).
+4. **`skills/preflight-check/` vs extending `skills/ci/`** — is pre-flight validation a new skill or a section in `project-detector`? **Tentative:** new skill, because `project-detector` is purely detection (no validation orchestration).
 
 ---
 
@@ -245,7 +245,7 @@ replaced-by: "skills/<category>/<name>/"
 
 ### Batch 2 (after Batch 1 ships)
 
-Same shape. Most important parallel dispatch: `skills/check/` and `skills/orchestration/plan-orchestrator/` first (foundational), then `skills/workflow/brainstorm-insights/` and `skills/code/coverage-metrics/`.
+Same shape. Most important parallel dispatch: `skills/preflight-check/` and `skills/orchestration/plan-orchestrator/` first (foundational), then `skills/workflow/brainstorm-insights/` and `skills/code/coverage-metrics/`.
 
 ### Batch 3 (after Batch 2 ships)
 

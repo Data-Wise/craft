@@ -86,7 +86,7 @@ whose SHA and archive hash match the clean worktree commit.
 4. Baseline exactly eight remaining mismatches and three remaining collisions.
 5. Snapshot `/craft:check` frontmatter and verify its representative behavior.
 6. Probe the staged artifact in Claude Code and Codex with provenance evidence.
-7. File owner-bound follow-ups for all deferred entries before PR handoff.
+7. Record #316-owned terminal `retain` decisions through v5.0.0 before PR handoff.
 
 ### Out of scope
 
@@ -105,6 +105,12 @@ Issue #316 may close only when:
 3. the debt ledgers match repository state exactly;
 4. every deferred collision and mismatch has an issue, owner, target release, terminal
    retain/rename/promote decision, and removal or retention criterion.
+
+The implementation resolves item 4 with a terminal `retain` decision for every deferred entry.
+The eight directory/frontmatter mismatches preserve established public skill identities through
+v5.0.0; the three command/skill collisions preserve intentional slash-command shims through the
+same major-migration boundary. #316 remains their owner unless a dedicated v5 migration issue
+supersedes it.
 
 ## Handoff
 
