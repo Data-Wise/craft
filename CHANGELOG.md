@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Changed
+
+- **Test automation now targets the stable Python 3.14 series** — added a local
+  `.python-version` pin, aligned every GitHub Actions Python runtime, and added a policy test
+  that prevents workflow pins from drifting apart.
+
+### Fixed
+
+- **`preflight-check` skill was unreachable by its declared identity** ([#316](https://github.com/Data-Wise/craft/issues/316)) —
+  moved the pre-flight validator skill to its canonical `skills/preflight-check/` path while preserving the
+  `/craft:check` command contract. Recursive fixture-backed identity tests now reject new,
+  changed, duplicated, or stale command/skill collisions and directory/frontmatter mismatches;
+  eight established skill identities and three intentional slash-command shims remain explicit
+  owner-bound compatibility debt through v5.0.0.
+
 ## [4.4.1] - 2026-07-26
 
 ### Fixed
@@ -942,7 +959,7 @@ See [docs/CHANGELOG.md](docs/CHANGELOG.md) for the full PR-by-PR detail.
 ### Added — Commands → Skills Migration, Batch 2
 
 - **4 new skills** consolidating 9 source commands + 1 deprecation to existing skill:
-  - `skills/check/SKILL.md` (preflight-check) — consolidates check.md + check/gen-validator.md; new top-level `skills/check/` category for universal pre-flight validation
+  - `skills/preflight-check/SKILL.md` (preflight-check) — consolidates check.md + check/gen-validator.md; new top-level `skills/preflight-check/` category for universal pre-flight validation
   - `skills/orchestration/plan-orchestrator/SKILL.md` — consolidates orchestrate/plan + plan/{feature, roadmap, sprint}; nests in existing `skills/orchestration/`
   - `skills/workflow/brainstorm-insights/SKILL.md` — consolidates workflow/{brainstorm, insights}
   - `skills/code/demonstration-builder/SKILL.md` — consolidates code/demo (renamed from proposed `coverage-metrics` after audit: test-strategist already covers coverage)

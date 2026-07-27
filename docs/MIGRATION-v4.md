@@ -81,7 +81,7 @@ into skill references before deletion):
 | `docs:claude-md:edit` | `skills/docs/claude-md/references/edit.md` |
 | `docs:claude-md:sync` | `skills/docs/claude-md/references/sync.md` |
 | `docs:claude-md:init` | `skills/docs/claude-md/references/init.md` |
-| `check:gen-validator` | `skills/check/references/gen-validator.md` |
+| `check:gen-validator` | `skills/preflight-check/references/gen-validator.md` |
 | `git:worktree` | `skills/dev/git/references/worktree.md` |
 | `git:docs:refcard` | `skills/dev/git/references/refcard.md` |
 | `workflow:insights` | `skills/workflow/brainstorm-insights/references/insights.md` |
@@ -92,7 +92,7 @@ into skill references before deletion):
   this file's own prior salvage pass) called for shrinking `commands/check.md` to a
   ≤5-line shim. Its current header already explains why the Step 0 plan display, confirm
   gate, `--orch` handling, and `CRAFT_MODE` binding are invocation-mandatory, not
-  deferrable procedure — `skills/check/SKILL.md` itself defers back to `commands/check.md`
+  deferrable procedure — `skills/preflight-check/SKILL.md` itself defers back to `commands/check.md`
   as "the full check command spec." `skills/code/command-skill-token-efficiency/SKILL.md`'s
   own classification test ("does the command always run, even before skill-routing
   fires?") confirms this content belongs in the command. Left as-is.
