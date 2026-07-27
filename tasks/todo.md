@@ -18,7 +18,7 @@ Source:
 
 ## Slice 2 — Preflight Skill Move
 
-- [x] Move `skills/check/` to `skills/preflight-check/`.
+- [x] Move the validator to canonical `skills/preflight-check/`.
   - Acceptance: the skill and `references/gen-validator.md` move together.
 - [x] Update runtime, script, test, and live-documentation references.
   - Acceptance: no old runtime/live-doc references remain outside explicit evidence/test

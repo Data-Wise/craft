@@ -8,7 +8,7 @@ last_session: 2026-07-27
 ## Session Recap — 2026-07-27 — #316 skill identity hardening implemented
 
 Issue #316's reachable-name defect is fixed on `codex/issue-316-spec`: the pre-flight validator
-moved from `skills/check/` to `skills/preflight-check/` without changing `/craft:check`'s public
+moved to its canonical `skills/preflight-check/` location without changing `/craft:check`'s public
 argument contract. Recursive fixture-backed tests now inventory command stems plus skill directory
 and frontmatter identities, rejecting new, changed, duplicated, and stale debt. Eight established
 directory/frontmatter mismatches and three intentional slash-command shims are explicitly retained

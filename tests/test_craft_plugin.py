@@ -599,16 +599,36 @@ def test_check_command_contract_only_changes_canonical_skill_path():
     assert frontmatter is not None
     assert frontmatter["arguments"] == EXPECTED_CHECK_ARGUMENTS
     assert frontmatter["replaced-by"] == "skills/preflight-check/"
+    assert "skills/check/" not in content
 
     normalized = content.replace(
         "skills/preflight-check/",
         "skills/__CHECK_SKILL__/",
-    ).replace(
-        "skills/check/",
-        "skills/__CHECK_SKILL__/",
     )
     digest = hashlib.sha256(normalized.encode()).hexdigest()
     assert digest == EXPECTED_NORMALIZED_CHECK_SHA256
+
+
+def test_no_live_legacy_check_skill_references():
+    allowed = {
+        Path("docs/specs/GRILL-plugin-skill-command-identity-hardening-2026-07-27.md"),
+        Path("docs/specs/SPEC-plugin-skill-command-identity-hardening-2026-07-27.md"),
+    }
+    extensions = {".json", ".md", ".py", ".sh", ".yaml", ".yml"}
+    stale_references = []
+
+    for path in PLUGIN_DIR.rglob("*"):
+        if (
+            not path.is_file()
+            or path.suffix not in extensions
+            or path.relative_to(PLUGIN_DIR) in allowed
+            or "tests" in path.relative_to(PLUGIN_DIR).parts
+        ):
+            continue
+        if "skills/check/" in path.read_text(errors="replace"):
+            stale_references.append(str(path.relative_to(PLUGIN_DIR)))
+
+    assert stale_references == []
 
 
 def test_preflight_check_skill_has_unambiguous_identity():
