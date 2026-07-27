@@ -30,7 +30,7 @@ arguments:
     required: false
     default: false
 deprecated: true
-replaced-by: "skills/check/"
+replaced-by: "skills/preflight-check/"
 ---
 
 # /craft:check - Universal Pre-flight
@@ -38,7 +38,7 @@ replaced-by: "skills/check/"
 > **This command is a thin(ner) shim.** The canonical decision logic —
 > which validators run for which `--for` context, mode budgets, follow-up
 > routing on failure — lives in the `preflight-check` skill
-> (`skills/check/SKILL.md`). This file keeps the parts that are
+> (`skills/preflight-check/SKILL.md`). This file keeps the parts that are
 > invocation-specific and can't be deferred to skill-routing: the flag
 > contract above, and the exact LLM-executable output format Claude must
 > produce when this command runs (kept here per
@@ -204,7 +204,7 @@ Run each check and display results as they complete, then a summary:
 Which checks run for which `--for` context and mode, and how each is
 implemented (lint, tests, version sync, stale refs, hook conflicts, skill
 standards, badges, formula desc, CLAUDE.md health, etc.), is decision logic
-owned by [`skills/check/SKILL.md`](../skills/check/SKILL.md) — read it for
+owned by [`skills/preflight-check/SKILL.md`](../skills/preflight-check/SKILL.md) — read it for
 the full `--for`/mode tables and the validator-routing rules. Do not
 reimplement that logic here; if it looks wrong or incomplete, fix the skill.
 
@@ -312,4 +312,4 @@ Works with:
 - `/craft:docs:check-links` - Documentation link validation
 - `/craft:ci:fix` - Auto-fix issues
 - `/craft:ci:local` - Full CI simulation
-- Scaffold a new custom validator: see `skills/check/SKILL.md`'s "Validator Generation" section (folded into the skill in the v4 consolidation)
+- Scaffold a new custom validator: see `skills/preflight-check/SKILL.md`'s "Validator Generation" section (folded into the skill in the v4 consolidation)

@@ -14,11 +14,11 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | system-architect | Software architecture, system design, and technical decision-making | `skills/architecture/SKILL.md` |
 
-### Check (1)
+### Check (0)
 
 | Name | Description | Path |
 |------|-------------|------|
-| preflight-check | Context-aware pre-flight validation (commit/PR/release/deploy) — orchestrates lint, tests, types, version sync, stale refs, docs, hook conflicts | `skills/check/SKILL.md` |
+| preflight-check | Context-aware pre-flight validation (commit/PR/release/deploy) — orchestrates lint, tests, types, version sync, stale refs, docs, hook conflicts | `skills/preflight-check/SKILL.md` |
 
 ### CI (1)
 

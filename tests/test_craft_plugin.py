@@ -7,6 +7,7 @@ Validates the craft plugin structure, commands, skills, and agents.
 Run with: python tests/test_craft_plugin.py
 """
 
+import hashlib
 import json
 import os
 import re
@@ -292,6 +293,353 @@ def _parse_skill_frontmatter(skill_path: Path) -> Optional[dict]:
     if not isinstance(data, dict):
         return None
     return data
+
+
+IDENTITY_DEBT_FIELDS = {
+    "owner",
+    "owner_issue",
+    "target_release",
+    "decision",
+    "removal_criterion",
+}
+TERMINAL_IDENTITY_DECISIONS = {"retain", "rename", "promote"}
+
+KNOWN_SKILL_NAME_MISMATCHES = {
+    "skills/architecture/SKILL.md": {
+        "frontmatter_name": "system-architect",
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Revisit only in a breaking cross-client identity migration.",
+    },
+    "skills/ci/SKILL.md": {
+        "frontmatter_name": "project-detector",
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Revisit only in a breaking cross-client identity migration.",
+    },
+    "skills/code/SKILL.md": {
+        "frontmatter_name": "sync-features",
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Move only this file, never the skills/code category tree.",
+    },
+    "skills/dev/git/SKILL.md": {
+        "frontmatter_name": "git-workflow",
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Revisit only in a breaking cross-client identity migration.",
+    },
+    "skills/docs/claude-md/SKILL.md": {
+        "frontmatter_name": "claude-md-lifecycle",
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Revisit only in a breaking cross-client identity migration.",
+    },
+    "skills/modes/SKILL.md": {
+        "frontmatter_name": "mode-controller",
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Revisit only in a breaking cross-client identity migration.",
+    },
+    "skills/planning/SKILL.md": {
+        "frontmatter_name": "project-planner",
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Revisit only in a breaking cross-client identity migration.",
+    },
+    "skills/workflow/task-management/SKILL.md": {
+        "frontmatter_name": "background-task-manager",
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Revisit only in a breaking cross-client identity migration.",
+    },
+}
+
+KNOWN_COMMAND_SKILL_COLLISIONS = {
+    ("commands/brainstorm.md", "skills/workflow/brainstorm/SKILL.md"): {
+        "identity_surfaces": {"directory", "frontmatter"},
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Command remains the public shim and must delegate to this skill.",
+    },
+    ("commands/code/release.md", "skills/release/SKILL.md"): {
+        "identity_surfaces": {"directory", "frontmatter"},
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Command remains the project-type shim and must delegate to this skill.",
+    },
+    ("commands/grill.md", "skills/workflow/grill/SKILL.md"): {
+        "identity_surfaces": {"directory", "frontmatter"},
+        "owner": "@Data-Wise",
+        "owner_issue": "#316",
+        "target_release": "v5.0.0",
+        "decision": "retain",
+        "removal_criterion": "Command remains the public shim and must delegate to this skill.",
+    },
+}
+
+
+def _discover_identity_debt(
+    plugin_root: Path,
+) -> tuple[dict[str, str], dict[tuple[str, str], set[str]]]:
+    skills = []
+    for skill_path in sorted((plugin_root / "skills").rglob("SKILL.md")):
+        frontmatter = _parse_skill_frontmatter(skill_path)
+        if frontmatter is None:
+            continue
+        frontmatter_name = frontmatter.get("name")
+        if not isinstance(frontmatter_name, str):
+            continue
+        skills.append(
+            (
+                skill_path,
+                skill_path.parent.name,
+                frontmatter_name,
+            )
+        )
+
+    mismatches = {
+        skill_path.relative_to(plugin_root).as_posix(): frontmatter_name
+        for skill_path, directory_name, frontmatter_name in skills
+        if directory_name != frontmatter_name
+    }
+
+    collisions: dict[tuple[str, str], set[str]] = {}
+    for command_path in sorted((plugin_root / "commands").rglob("*.md")):
+        command_frontmatter = _parse_skill_frontmatter(command_path)
+        if command_frontmatter is None or "description" not in command_frontmatter:
+            continue
+        command_name = command_path.stem
+        for skill_path, directory_name, frontmatter_name in skills:
+            surfaces = set()
+            if command_name == directory_name:
+                surfaces.add("directory")
+            if command_name == frontmatter_name:
+                surfaces.add("frontmatter")
+            if surfaces:
+                key = (
+                    command_path.relative_to(plugin_root).as_posix(),
+                    skill_path.relative_to(plugin_root).as_posix(),
+                )
+                collisions[key] = surfaces
+
+    return mismatches, collisions
+
+
+def _assert_identity_debt_matches(
+    plugin_root: Path,
+    expected_mismatches: dict,
+    expected_collisions: dict,
+) -> None:
+    mismatches, collisions = _discover_identity_debt(plugin_root)
+    expected_mismatch_names = {
+        path: metadata["frontmatter_name"]
+        for path, metadata in expected_mismatches.items()
+    }
+    expected_collision_surfaces = {
+        paths: set(metadata["identity_surfaces"])
+        for paths, metadata in expected_collisions.items()
+    }
+
+    assert mismatches == expected_mismatch_names
+    assert collisions == expected_collision_surfaces
+
+    for ledger in (expected_mismatches, expected_collisions):
+        for key, metadata in ledger.items():
+            missing = IDENTITY_DEBT_FIELDS - metadata.keys()
+            assert not missing, f"{key}: missing identity-debt metadata: {sorted(missing)}"
+            for field in IDENTITY_DEBT_FIELDS:
+                assert isinstance(metadata[field], str) and metadata[field].strip(), (
+                    f"{key}: {field} must be a non-empty string"
+                )
+            assert metadata["decision"] in TERMINAL_IDENTITY_DECISIONS, (
+                f"{key}: identity debt must have a terminal decision"
+            )
+
+
+def _write_test_skill(path: Path, name: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        f"---\nname: {name}\ndescription: Fixture skill for identity tests.\n---\n\n"
+        "# Fixture\n\nFixture body with enough content for discovery.\n"
+    )
+
+
+def _write_test_command(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        "---\ndescription: Fixture command for identity tests.\n---\n\n# Fixture\n"
+    )
+
+
+def test_plugin_identity_debt_matches_owned_ledgers():
+    _assert_identity_debt_matches(
+        PLUGIN_DIR,
+        KNOWN_SKILL_NAME_MISMATCHES,
+        KNOWN_COMMAND_SKILL_COLLISIONS,
+    )
+    for command_path, skill_path in KNOWN_COMMAND_SKILL_COLLISIONS:
+        assert skill_path in (PLUGIN_DIR / command_path).read_text()
+
+
+def test_identity_debt_detects_nested_and_frontmatter_only_collisions(tmp_path):
+    _write_test_command(tmp_path / "commands" / "code" / "release.md")
+    _write_test_skill(tmp_path / "skills" / "pipeline" / "SKILL.md", "release")
+
+    mismatches, collisions = _discover_identity_debt(tmp_path)
+
+    assert mismatches == {"skills/pipeline/SKILL.md": "release"}
+    assert collisions == {
+        ("commands/code/release.md", "skills/pipeline/SKILL.md"): {"frontmatter"},
+    }
+
+
+def test_identity_debt_detects_moved_duplicate_and_stale_entries(tmp_path):
+    _write_test_command(tmp_path / "commands" / "check.md")
+    _write_test_skill(tmp_path / "skills" / "check" / "SKILL.md", "preflight-check")
+    expected_mismatches = {
+        "skills/check/SKILL.md": {
+            "frontmatter_name": "preflight-check",
+            "owner": "@Data-Wise",
+            "owner_issue": "#316",
+            "target_release": "v4.4.2",
+            "decision": "rename",
+            "removal_criterion": "Move to skills/preflight-check.",
+        }
+    }
+    expected_collisions = {
+        ("commands/check.md", "skills/check/SKILL.md"): {
+            "identity_surfaces": {"directory"},
+            "owner": "@Data-Wise",
+            "owner_issue": "#316",
+            "target_release": "v4.4.2",
+            "decision": "rename",
+            "removal_criterion": "Move to skills/preflight-check.",
+        }
+    }
+    _assert_identity_debt_matches(tmp_path, expected_mismatches, expected_collisions)
+
+    moved_skill = tmp_path / "skills" / "moved" / "SKILL.md"
+    moved_skill.parent.mkdir(parents=True)
+    (tmp_path / "skills" / "check" / "SKILL.md").rename(moved_skill)
+    with pytest.raises(AssertionError):
+        _assert_identity_debt_matches(tmp_path, expected_mismatches, expected_collisions)
+
+    moved_skill.unlink()
+    with pytest.raises(AssertionError):
+        _assert_identity_debt_matches(tmp_path, expected_mismatches, expected_collisions)
+
+
+EXPECTED_CHECK_ARGUMENTS = [
+    {"name": "mode", "description": "Check depth (default|thorough)", "required": False, "default": "default"},
+    {"name": "for", "description": "What to check for (commit|pr|release|deploy)", "required": False},
+    {
+        "name": "dry-run",
+        "description": "Preview checks that will be performed without executing them",
+        "required": False,
+        "default": False,
+        "alias": "-n",
+    },
+    {
+        "name": "orch",
+        "description": "Enable orchestration mode (NEW in v2.5.0)",
+        "required": False,
+        "default": False,
+    },
+    {
+        "name": "orch-mode",
+        "description": "Orchestration mode: default|debug|optimize|release (NEW in v2.5.0)",
+        "required": False,
+        "default": None,
+    },
+    {
+        "name": "context",
+        "description": "Output session context header only (no checks)",
+        "required": False,
+        "default": False,
+    },
+    {
+        "name": "version",
+        "description": (
+            "Run version sync validator only (Tier 1 files: plugin.json + 12 mechanically-synced refs). "
+            "Use mode=thorough for Tier 2 sweep, mode=release for fatal-on-drift (NEW in v2.33.0)"
+        ),
+        "required": False,
+        "default": False,
+    },
+]
+EXPECTED_NORMALIZED_CHECK_SHA256 = "acee38d9d482bf8a80cf3fbe058efc861bb5467ef90bd48ad4df45b8e4fdc31f"
+
+
+def test_check_command_contract_only_changes_canonical_skill_path():
+    check_path = PLUGIN_DIR / "commands" / "check.md"
+    content = check_path.read_text()
+    frontmatter = _parse_skill_frontmatter(check_path)
+
+    assert frontmatter is not None
+    assert frontmatter["arguments"] == EXPECTED_CHECK_ARGUMENTS
+    assert frontmatter["replaced-by"] == "skills/preflight-check/"
+    assert "skills/check/" not in content
+
+    normalized = content.replace(
+        "skills/preflight-check/",
+        "skills/__CHECK_SKILL__/",
+    )
+    digest = hashlib.sha256(normalized.encode()).hexdigest()
+    assert digest == EXPECTED_NORMALIZED_CHECK_SHA256
+
+
+def test_no_live_legacy_check_skill_references():
+    allowed = {
+        Path("docs/specs/GRILL-plugin-skill-command-identity-hardening-2026-07-27.md"),
+        Path("docs/specs/SPEC-plugin-skill-command-identity-hardening-2026-07-27.md"),
+    }
+    extensions = {".json", ".md", ".py", ".sh", ".yaml", ".yml"}
+    stale_references = []
+
+    for path in PLUGIN_DIR.rglob("*"):
+        if (
+            not path.is_file()
+            or path.suffix not in extensions
+            or path.relative_to(PLUGIN_DIR) in allowed
+            or "tests" in path.relative_to(PLUGIN_DIR).parts
+        ):
+            continue
+        if "skills/check/" in path.read_text(errors="replace"):
+            stale_references.append(str(path.relative_to(PLUGIN_DIR)))
+
+    assert stale_references == []
+
+
+def test_preflight_check_skill_has_unambiguous_identity():
+    canonical = PLUGIN_DIR / "skills" / "preflight-check" / "SKILL.md"
+    legacy = PLUGIN_DIR / "skills" / "check"
+
+    assert canonical.exists()
+    assert not legacy.exists()
+    frontmatter = _parse_skill_frontmatter(canonical)
+    assert frontmatter is not None
+    assert frontmatter.get("name") == "preflight-check"
 
 
 def test_all_skills_have_valid_frontmatter():

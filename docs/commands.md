@@ -88,7 +88,7 @@ Context-aware help and suggestions.
 
 ### Validator generation
 
-`check:gen-validator` was folded into the `skills/check/` skill in the v4 consolidation — no
+`check:gen-validator` was folded into the `skills/preflight-check/` skill in the v4 consolidation — no
 standalone command remains. See the skill's "Validator Generation" section.
 
 ## Architecture Commands (arch/)

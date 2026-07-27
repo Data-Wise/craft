@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.4.2] - 2026-07-27
+
+### Changed
+
+- **Test automation now targets the stable Python 3.14 series** — added a local
+  `.python-version` pin, aligned every GitHub Actions Python runtime, and added a policy test
+  that prevents workflow pins from drifting apart.
+
+### Fixed
+
+- **`preflight-check` skill was unreachable by its declared identity** ([#316](https://github.com/Data-Wise/craft/issues/316)) —
+  moved the pre-flight validator skill to its canonical `skills/preflight-check/` path while preserving the
+  `/craft:check` command contract. Recursive fixture-backed identity tests now reject new,
+  changed, duplicated, or stale command/skill collisions and directory/frontmatter mismatches;
+  eight established skill identities and three intentional slash-command shims remain explicit
+  owner-bound compatibility debt through v5.0.0.
+
 ## [4.4.1] - 2026-07-26
 
 ### Fixed
@@ -981,7 +998,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added — Commands → Skills Migration, Batch 2
 
 - **4 new skills** consolidating 9 commands + 1 deprecation to existing skill:
-  - `skills/check/SKILL.md` (preflight-check) — universal pre-flight validation
+  - `skills/preflight-check/SKILL.md` (preflight-check) — universal pre-flight validation
   - `skills/orchestration/plan-orchestrator/SKILL.md` — spec→ORCHESTRATE + feature/sprint/roadmap planning artifacts
   - `skills/workflow/brainstorm-insights/SKILL.md` — ideation + session insights reports
   - `skills/code/demonstration-builder/SKILL.md` — code demonstrations (refocused from proposed `coverage-metrics` after audit found `test-strategist` already covers coverage analysis)

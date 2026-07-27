@@ -20,7 +20,7 @@ This issue tracks follow-up on `docs/specs/SPEC-craft-audit-and-next-steps-2026-
 **Headline findings:**
 
 - `skills/dev/git/` (250 lines) is the `replaced-by:` target for 6 commands totaling **4185 source lines** (`commands/git/worktree.md` 1010, `commands/git/init.md` 597, `commands/git/sync.md` 539, `commands/git/docs/safety-rails.md` 723, `commands/git/docs/learning-guide.md` 722, `commands/git/docs/undo-guide.md` 594). Highest-leverage place to start a consolidation pass before any v3.0.0 cutover.
-- `commands/check.md` (1132 lines → 127-line `skills/check/`, ratio **8.9**) is the single worst body-size ratio in the repo — not previously flagged by the earlier git/site-focused audit.
+- `commands/check.md` (1132 lines → 127-line `skills/preflight-check/`, ratio **8.9**) is the single worst body-size ratio in the repo — not previously flagged by the earlier git/site-focused audit.
 - A reusable script is committed: `scripts/audit-deprecated-commands.py --threshold 2.0` (exit 0/1, `--json` for scripting).
 
 **Proposed next steps** (full detail in the SPEC, §4):
