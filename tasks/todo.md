@@ -38,7 +38,7 @@ Source:
 - [x] Run focused structural tests.
 - [ ] Run the full test suite.
 - [x] Validate the plugin and counts.
-- [ ] Stage the committed artifact in disposable Claude Code and Codex environments.
-- [ ] Record client versions, resolved paths, commit SHA, and archive hashes.
-- [ ] Probe `preflight-check`, `brainstorm`, `grill`, and `release` identity behavior.
+- [x] Stage the committed artifact in disposable Claude Code and Codex environments.
+- [x] Record client versions, resolved paths, commit SHA, and archive hashes.
+- [x] Probe `preflight-check`, `brainstorm`, `grill`, and `release` identity behavior.
 - [x] Reconcile debt-ledger decisions.
