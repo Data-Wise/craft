@@ -214,9 +214,9 @@ Reference documentation for all 47 Craft commands:
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
 !!! info "Latest: v4.4.2 — preflight-check skill identity fix + Python 3.14 pin"
-    The `preflight-check` skill is now reachable by its declared identity — moved from
-    `skills/check/` to its canonical `skills/preflight-check/` path (`/craft:check`'s public
-    contract is unchanged). New recursive fixture-backed tests reject any new command/skill
+    The `preflight-check` skill is now reachable by its declared identity — its directory now
+    matches its canonical `preflight-check` name (`/craft:check`'s public contract is
+    unchanged). New recursive fixture-backed tests reject any new command/skill
     identity drift plugin-wide. Test automation also now targets the stable Python 3.14 series
     across local dev and CI.
     See the [full changelog](CHANGELOG.md) for all releases, or visit the [News](NEWS.md) page for release highlights.

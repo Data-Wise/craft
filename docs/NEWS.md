@@ -11,7 +11,7 @@ Release announcements and notable changes for the Craft plugin.
 ### Highlights
 
 - **`preflight-check` skill made reachable by its declared identity** ([#316](https://github.com/Data-Wise/craft/issues/316)) —
-  it lived at `skills/check/` while declaring `name: preflight-check`, so directory-based skill
+  its skill directory didn't match its declared `name: preflight-check`, so directory-based skill
   discovery couldn't find it. Moved to its canonical `skills/preflight-check/` path; `/craft:check`'s
   public argument contract is unchanged. New recursive fixture-backed identity tests inventory
   every command/skill directory-vs-frontmatter mismatch and command/skill name collision
