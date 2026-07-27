@@ -14,7 +14,7 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | system-architect | Software architecture, system design, and technical decision-making | `skills/architecture/SKILL.md` |
 
-### Check (1)
+### Check (0)
 
 | Name | Description | Path |
 |------|-------------|------|

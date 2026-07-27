@@ -4,6 +4,26 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.4.2 — preflight-check skill identity fix + Python 3.14 pin
+
+**Released:** 2026-07-27 · **Type:** Patch
+
+### Highlights
+
+- **`preflight-check` skill made reachable by its declared identity** ([#316](https://github.com/Data-Wise/craft/issues/316)) —
+  it lived at `skills/check/` while declaring `name: preflight-check`, so directory-based skill
+  discovery couldn't find it. Moved to its canonical `skills/preflight-check/` path; `/craft:check`'s
+  public argument contract is unchanged. New recursive fixture-backed identity tests inventory
+  every command/skill directory-vs-frontmatter mismatch and command/skill name collision
+  plugin-wide, rejecting new or drifted debt; 8 pre-existing mismatches and 3 intentional shim
+  collisions are explicitly ledgered as owned debt through v5.0.0.
+- **Test automation now targets the stable Python 3.14 series** — added a local `.python-version`
+  pin, aligned every GitHub Actions Python runtime, and added a policy test that prevents
+  workflow pins from drifting apart (skips rather than fails on a contributor's non-3.14 local
+  interpreter).
+
+---
+
 ## v4.4.1 — branch-guard 2>&1 fix + docs-drift patches
 
 **Released:** 2026-07-26 · **Type:** Patch
