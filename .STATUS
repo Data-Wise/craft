@@ -50,9 +50,10 @@ prompting a new memory (`token-usage-as-stall-signal`) to check token spend, not
 just diffs, when judging a background session's health. Nothing was lost by killing
 them — all real work was already written to disk, just uncommitted.
 
-**Leftover cleanup for next session:** 3 orphaned worktrees from the killed sessions
-(`nifty-albattani-9f36f1`, `stoic-hertz-4d1bf5`, `upbeat-wiles-8c519f`, all stuck at
-`f7b047c32`, no unmerged work) — safe to `git worktree remove` once confirmed clean.
+**Leftover cleanup — done same day:** the 3 orphaned worktrees from the killed sessions
+(`nifty-albattani-9f36f1`, `stoic-hertz-4d1bf5`, `upbeat-wiles-8c519f`) were removed
+after confirming 0 commits ahead of `origin/dev` for each; local `claude/*` branch
+refs deleted too (no remote refs existed — local-only session branches).
 
 ## Session Recap — 2026-07-29 — minor housekeeping (from a scholar-focused session)
 
@@ -688,7 +689,7 @@ _Recent (merged 2026-07-08, worktree + local branch removed): `feature/branch-pr
 - **Planning docs archival**: moved shipped/closed docs to `docs/specs/_archive/`: `SPEC-craft-review-followups-2026-07-06.md`, `GRILL-craft-review-followups-2026-07-06.md`, `BRAINSTORM-craft-review-followups-2026-07-06.md`, `GRILL-orchestrate-token-usage-hooks-2026-07-06.md`, and stale `NEXT-SESSION-2026-07-02.md`/`-07-03.md`/`-07-06.md`. Counts still 115/45/8.
 
 > **🎯 Next Action (next session):**
-> A) **Implement the 2 deferred stale-command SPECs** (Recommended) — `docs/specs/SPEC-agents-docs-claim-fix-2026-07-29.md` (8-file docs-authoring-agent duplicate-claim sweep, verdict CONFIRMED) and `docs/specs/SPEC-dist-marketplace-fix-2026-07-29.md` (3 files need edits, verdict CONFIRMED) — both fully specced, adversarially reviewed, ready to implement. Also: commit `hooks/branch-guard.sh` in `cc-config` ([cc-config#8](https://github.com/Data-Wise/cc-config/issues/8)) so the live-installed hook actually gets the confirm-gate fix craft already has; and `git worktree remove` the 3 orphaned worktrees (`nifty-albattani-9f36f1`, `stoic-hertz-4d1bf5`, `upbeat-wiles-8c519f`) once confirmed clean.
+> A) **Implement the 2 deferred stale-command SPECs** (Recommended) — `docs/specs/SPEC-agents-docs-claim-fix-2026-07-29.md` (8-file docs-authoring-agent duplicate-claim sweep, verdict CONFIRMED) and `docs/specs/SPEC-dist-marketplace-fix-2026-07-29.md` (3 files need edits, verdict CONFIRMED) — both fully specced, adversarially reviewed, ready to implement. Also: commit `hooks/branch-guard.sh` in `cc-config` ([cc-config#8](https://github.com/Data-Wise/cc-config/issues/8)) so the live-installed hook actually gets the confirm-gate fix craft already has. (Orphaned-worktree cleanup already done same day.)
 > B) **#263 close-out implementation** — `docs/specs/SPEC-rtk-hook-safety-close-out-2026-07-26.md` / `GRILL-rtk-hook-safety-close-out-2026-07-26.md` are locked (4 decisions). Remaining: rewrite `docs/internal/TUTORIAL-rtk-cli-token-proxy.md` §4.2 from "unverified" to "resolved" framing, add one live confirmatory test (disposable branch, RTK active, one catastrophic pattern), archive `SPEC-rtk-branch-guard-hook-order-probe-2026-07-01.md` with a `Status: SUPERSEDED` pointer, then close #263 on GitHub. The branch-guard regression test (decision #3) already shipped in v4.4.1 — only the TUTORIAL rewrite and live test remain.
 > C) **Split #228 into `docs:reconcile` + `tdd:swarm` sub-issues** — per the 2026-07-26 triage re-scope comment on the issue.
 > D) **Narrow #170 to items 2+4** — per the 2026-07-26 triage re-scope comment.
