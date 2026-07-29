@@ -384,5 +384,5 @@ agent — see "Deep Analysis + Orchestration" above.
 
 - **Smart routing:** `/craft:do` - Uses specs from brainstorming
 - **Spec review:** `/spec:review` - Review and approve specs
-- **Focus work:** `/workflow:focus` - Start focused work session
-- **Next step:** `/workflow:next` - Get next recommended action
+- **Focus work:** ask "let me focus" (`adhd-workflow` skill, Focus Mode) - Start focused work session (renamed from `/workflow:focus`, v4)
+- **Next step:** `/craft:next` - Get next recommended action (renamed from `/workflow:next`, v4)

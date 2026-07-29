@@ -53,7 +53,7 @@ ADHD-friendly session completion command that captures what you accomplished bef
 |                                                         |
 | FRICTION: [if 3+ events]                                |
 |    - wrong_approach (2), buggy_code (1)                 |
-|    -> Run /craft:workflow:insights for full analysis     |
+|    -> ask "generate insights report" for full analysis   |
 |                                                         |
 | WORKTREE: [if in worktree]                              |
 |    - Branch: feature/my-feature (+12 ahead, -0 behind)  |
@@ -121,7 +121,7 @@ Writes session metadata to `~/.claude/usage-data/facets/session-<timestamp>.json
 - Session outcome and duration
 - Goal category and file count
 
-If 3+ friction events: shows summary and suggests `/craft:workflow:insights`.
+If 3+ friction events: shows summary and suggests asking "generate insights report" (`brainstorm-insights` skill).
 
 ---
 
@@ -168,5 +168,5 @@ END:    /workflow:done       # "Save context"
 
 ## See Also
 
-- **Decision support:** `/workflow:next` - What to do next
-- **Insights:** `/craft:workflow:insights` - Friction analysis
+- **Decision support:** `/craft:next` - What to do next (renamed from `/workflow:next`, v4)
+- **Insights:** ask "generate insights report" (`brainstorm-insights` skill) - Friction analysis (renamed from `/craft:workflow:insights`, v4)

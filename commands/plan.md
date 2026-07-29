@@ -62,7 +62,7 @@ orch=$(find . -maxdepth 1 -iname "ORCHESTRATE-*${topic}*.md" 2>/dev/null | head 
 
 | Repo state | Route to | Tier |
 |---|---|---|
-| No SPEC found | `workflow:brainstorm` skill | 1 — divergent ideation → SPEC |
+| No SPEC found | `/craft:brainstorm` (renamed from `workflow:brainstorm`, v4) | 1 — divergent ideation → SPEC |
 | SPEC exists, no GRILL | Offer `/craft:grill` (ask, don't force — a well-scoped, low-ambiguity spec doesn't strictly need one) | 2 — convergent interrogation |
 | GRILL exists (or user declined it), no ORCHESTRATE | `plan-orchestrator` skill | 4 — artifact generation |
 | SPEC + GRILL + ORCHESTRATE all exist | `project-planner` skill (strategy advice — the only case needing interpretation, since there's no further artifact-presence state left to detect against) | 3 — strategy |
@@ -94,7 +94,7 @@ Show which tier would be selected and why, without invoking it:
 
 ## Integration
 
-- `workflow:brainstorm`, `grill`, `plan-orchestrator`, `project-planner` — the four
+- `/craft:brainstorm` (renamed from `workflow:brainstorm`, v4), `grill`, `plan-orchestrator`, `project-planner` — the four
   tiers this router dispatches to. This command owns none of their internal logic.
 - `/craft:do --plan <topic>` — pure sugar forwarding to `/craft:plan <topic>` (an
   alias, not a separate mode) — see `commands/do.md`.

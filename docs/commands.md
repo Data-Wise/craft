@@ -1,13 +1,13 @@
 # Craft Commands Reference
 
-Complete reference for all 116 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
+Complete reference for all 48 Craft commands organized by category. Craft provides intelligent automation across the full development lifecycle.
 
 ## Quick Reference
 
 **Smart Commands:** `/craft:do`, `/craft:check`, `/craft:help`, `/craft:hub`
 **Dry-Run Support:** 27 of 48 commands support `--dry-run` / `-n` preview mode
 **Prompt Refinement (default-on):** `/brainstorm`, `/craft:do`, `/craft:plan:feature`, `/craft:grill` run the `prompt-refiner` skill automatically before acting. Use `--no-refine` to skip; pass `--yes` to auto-accept the refined prompt without a confirm step.
-**17 Categories:** arch, check, ci, code, discovery-usage, dist, do, docs, git, hub, orchestrate, plan, site, smart-help, test, utils, workflow
+**9 Namespaces:** arch, ci, code, dist, docs, git, orch, plan, site — plus 14 top-level commands (brainstorm, brief, check, do, finish, grill, hub, next, orch, plan, refine, restore, smart-help, test). Note: much of `git`'s prior surface (worktree, sync, recap, protect/unprotect, status, clean, branch, guard) moved to the `dev/git` skill (2026-07 v4 consolidation); `discovery-usage`, `orchestrate`, `utils`, and `workflow` are legacy pre-v4 namespace names, not current ones.
 
 Use `/craft:hub` to discover all available commands interactively.
 
@@ -179,13 +179,12 @@ Code style and quality checks with mode support.
 
 ## Distribution Commands (dist/)
 
-### /craft:dist:curl-install
+### curl-based installers (moved to the `dist-extras` skill, v4 consolidation)
 
-Generate curl-based installation scripts for GitHub releases.
-
-```bash
-/craft:dist:curl-install
-```
+> `/craft:dist:curl-install` no longer exists as a slash command. Ask naturally
+> ("generate an install script", "curl install") — the `dist-extras` skill
+> covers curl-based GitHub-release installers. See
+> [`skills/distribution/dist-extras/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/distribution/dist-extras/SKILL.md).
 
 **Generates:** install.sh with release detection, platform support
 
@@ -262,24 +261,19 @@ Unified test runner with category filtering and modes.
 /craft:test --watch               # Watch mode
 ```
 
-### /craft:test:gen
+### /craft:code:test-gen
 
-Generate test suites with project-type detection.
-
-```bash
-/craft:test:gen                   # Auto-detect and generate
-/craft:test:gen plugin            # Force plugin type
-/craft:test:gen --tier unit       # Unit tests only
-```
-
-### /craft:test:template
-
-Manage Jinja2 templates for test generation.
+Generate test suites with project-type detection. (Renamed from `/craft:test:gen` in the v4 consolidation.)
 
 ```bash
-/craft:test:template list         # List all templates
-/craft:test:template validate     # Validate templates
+/craft:code:test-gen              # Auto-detect and generate
+/craft:code:test-gen plugin       # Force plugin type
+/craft:code:test-gen --tier unit  # Unit tests only
 ```
+
+### /craft:test:template — removed (v4 consolidation)
+
+`/craft:test:template` was dropped in the v4 consolidation; there is no replacement command or skill for Jinja2 template management.
 
 ## Workflow Commands (workflow/)
 
@@ -322,7 +316,7 @@ All applicable commands support 4 execution modes:
 - **Architecture (1):** analyze
 - **CI/CD (3):** detect, generate, validate
 - **Code (1):** lint
-- **Distribution (1):** curl-install
+- **Distribution:** curl-install and PyPI publishing moved to the `dist-extras` skill (v4 consolidation)
 - **Documentation (22):** update, sync, check, lint, check-links, changelog, nav-update, guide, tutorial, workflow, demo, mermaid, website, api, help, prompt, quickstart, site, claude-md (+ edit, init, sync)
 - **Git (2):** worktree, clean
 - **Test (3):** run, cli-gen, cli-run
@@ -354,10 +348,10 @@ All applicable commands support 4 execution modes:
 ### Documentation Commands (5/10) — 50%
 
 - `docs:changelog` - Preview changelog generation
-- `docs:check` - Preview health check
+- `/folio:docs:check` - Preview health check (moved to folio)
 - `docs:claude-md` - Preview CLAUDE.md generation
 - `docs:nav-update` - Preview navigation updates
-- `docs:sync` - Preview documentation sync
+- `/folio:docs:sync` - Preview documentation sync (moved to folio)
 
 ### Code Commands (3/12) — 25%
 
@@ -369,9 +363,9 @@ All applicable commands support 4 execution modes:
 
 - `test` - Preview test execution plan (mode-aware)
 
-### Distribution Commands (1/4) — 25%
+### Distribution Commands — moved to the `dist-extras` skill (v4 consolidation)
 
-- `dist:pypi` - Preview PyPI publishing (CRITICAL - IRREVERSIBLE warnings)
+- PyPI publishing (formerly `dist:pypi`) - ask "publish to PyPI" (`dist-extras` skill); preview via the skill's own dry-run guidance (CRITICAL - IRREVERSIBLE warnings)
 
 ### Smart Routing (3/3) — 100% ✅
 
@@ -384,7 +378,7 @@ All applicable commands support 4 execution modes:
 ```bash
 # ask "clean up merged branches --dry-run" (dev/git skill) — preview branch cleanup
 /craft:code:lint release -n          # Preview comprehensive linting
-/craft:dist:pypi publish --dry-run   # Preview PyPI publish (CRITICAL)
+# ask "publish to PyPI --dry-run" (dist-extras skill) — preview PyPI publish (CRITICAL)
 ```
 
 See [DRY-RUN-SUMMARY.md](https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUMMARY.md) for complete details.

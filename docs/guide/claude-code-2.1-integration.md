@@ -498,7 +498,7 @@ Better: "Add OAuth2 authentication with PKCE flow, session management, extensive
 /craft:do "complex task" --verbose
 
 # Check session state
-/craft:orch:status
+/craft:orch status
 ```
 
 ---

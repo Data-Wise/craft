@@ -205,7 +205,7 @@ routing cycles — see `SPEC-planning-refactor-2026-06-22.md` §4 rule 4).
    - **Score 0-3**: Route to craft commands (category-based sequence)
    - **Score 4-7**: Route to craft commands (same category-based sequence, longer chain)
    - **Score 8-10**: Delegate to orchestrator-v2 (NEW)
-   - **Skill match**: Direct skill invocation for guard:audit, insights:apply
+   - **Skill match**: Direct skill invocation for guard-audit, insights-apply
 5. **Execute** - Run commands, or invoke orchestrator-v2 with forked context for Score 8-10
 6. **Synthesize** - Gather results and report to user
 7. **Report** - Summarize what was done
@@ -333,7 +333,7 @@ If orchestrator-v2 delegation fails or is denied:
 /craft:do tune guard
 
 # Routes to:
-# 1. /craft:guard:audit - Analyze guard config, find false positives
+# 1. guard-audit skill - Analyze guard config, find false positives (ask naturally, not a slash command)
 ```
 
 ### Insights
@@ -349,7 +349,7 @@ If orchestrator-v2 delegation fails or is denied:
 /craft:do update rules from insights
 
 # Routes to:
-# 1. /craft:insights:apply - Apply insights suggestions to CLAUDE.md
+# 1. insights-apply skill - Apply insights suggestions to CLAUDE.md (ask naturally, not a slash command)
 ```
 
 ### Autonomous Release
@@ -628,7 +628,7 @@ If no matching spec exists and task is a feature:
 
 ```
 Note: No spec found for "user authentication"
-      Consider: /workflow:brainstorm save "user authentication"
+      Consider: /craft:brainstorm save "user authentication" (renamed from /workflow:brainstorm, v4)
       Proceeding with standard routing...
 ```
 
@@ -1000,6 +1000,6 @@ category-based command sequence Step 3 already uses for Score < 8:
 - Be specific for better routing
 - Use domain keywords (auth, api, ui, db)
 - Add mode hint if needed: "thoroughly test the api"
-- Create specs for complex features: `/workflow:brainstorm save "feature"` (or `s` for short)
+- Create specs for complex features: `/craft:brainstorm save "feature"` (or `s` for short; renamed from `/workflow:brainstorm`, v4)
 - For detailed specs: `/brainstorm d f s "feature"` (deep + feat + save)
 - Review specs before implementation: `/spec:review [topic]`

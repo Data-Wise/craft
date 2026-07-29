@@ -161,7 +161,7 @@ Only if 3+ friction events occurred:
 FRICTION: 4 events detected this session
    wrong_approach (2): pushed to wrong branch, wrong file
    buggy_code (2): lint failures, missing import
-   --> Run /craft:workflow:insights for full analysis
+   --> ask "generate insights report" for full analysis (brainstorm-insights skill, renamed from /craft:workflow:insights, v4)
 ```
 
 Fewer than 3 events: silent. The facet is still written for aggregate analysis.
@@ -228,7 +228,7 @@ Avoid vague learnings:
 
 ### Review Memory Before Sessions
 
-Start each session with `/workflow:recap` or `/craft:hub` — both surface relevant memory and recent friction. This prevents repeating the same mistakes.
+Start each session with `/craft:restore` (renamed from `/workflow:recap`, v4) or `/craft:hub` — both surface relevant memory and recent friction. This prevents repeating the same mistakes.
 
 ### Trust the Defaults
 

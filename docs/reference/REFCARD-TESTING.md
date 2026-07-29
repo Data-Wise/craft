@@ -4,6 +4,11 @@
 
 **Version:** 2.22.0 | **Engine:** `utils/test_generator.py`
 
+> **Note (2026-07 v4 consolidation):** `/craft:test:gen` was renamed to
+> `/craft:code:test-gen`. `/craft:test:template` was removed with no
+> replacement. Only `/craft:test` and `/craft:code:test-gen` are real,
+> runnable commands below.
+
 ---
 
 ## Quick Decision Tree
@@ -16,19 +21,14 @@ What do you need?
 │
 ├─ Generate tests for a project?
 │   ├─ Auto-detect type?
-│   │   └─ /craft:test:gen
+│   │   └─ /craft:code:test-gen
 │   ├─ Know the project type?
-│   │   └─ /craft:test:gen plugin|zsh|cli|mcp
+│   │   └─ /craft:code:test-gen plugin|zsh|cli|mcp
 │   └─ Just preview?
-│       └─ /craft:test:gen --dry-run
+│       └─ /craft:code:test-gen --dry-run
 │
 ├─ Manage templates?
-│   ├─ See what's available?
-│   │   └─ /craft:test:template list
-│   ├─ Validate templates?
-│   │   └─ /craft:test:template validate
-│   └─ Preview rendered output?
-│       └─ /craft:test:template render plugin/test_structure
+│   └─ /craft:test:template was removed (v4), no replacement
 │
 └─ Coming from old commands?
     └─ See migration table below
@@ -41,8 +41,8 @@ What do you need?
 | Command | Purpose | Example |
 |---------|---------|---------|
 | `/craft:test` | Run tests | `/craft:test unit` |
-| `/craft:test:gen` | Generate test suite | `/craft:test:gen plugin` |
-| `/craft:test:template` | Manage templates | `/craft:test:template list` |
+| `/craft:code:test-gen` | Generate test suite (renamed from `/craft:test:gen`, v4) | `/craft:code:test-gen plugin` |
+| `/craft:test:template` | removed (v4), no replacement | — |
 
 ---
 
@@ -86,14 +86,14 @@ formatting  dependency  site  snapshot  property  contract
 
 ---
 
-## /craft:test:gen — Generator
+## /craft:code:test-gen — Generator (renamed from `/craft:test:gen`, v4)
 
 ```bash
-/craft:test:gen                      # Auto-detect, generate all
-/craft:test:gen plugin               # Force project type
-/craft:test:gen --tier unit          # Unit templates only
-/craft:test:gen --dry-run            # Preview plan
-/craft:test:gen --force              # Overwrite existing
+/craft:code:test-gen                      # Auto-detect, generate all
+/craft:code:test-gen plugin               # Force project type
+/craft:code:test-gen --tier unit          # Unit templates only
+/craft:code:test-gen --dry-run            # Preview plan
+/craft:code:test-gen --force              # Overwrite existing
 ```
 
 ### Project Detection
@@ -119,7 +119,7 @@ formatting  dependency  site  snapshot  property  contract
 
 ---
 
-## /craft:test:template — Manager
+## /craft:test:template — Manager (removed, v4 consolidation — no replacement)
 
 | Action | Command | Output |
 |--------|---------|--------|

@@ -80,11 +80,11 @@ Development workflow tools:
 
 [Learn more →](code.md)
 
-### 🧪 Testing Commands (3)
+### 🧪 Testing Commands (2)
 
 - `/craft:test [category]` — Unified test runner
-- `/craft:test:gen` — Auto-detect project and generate tests
-- `/craft:test:template` — Manage Jinja2 test templates
+- `/craft:code:test-gen` — Auto-detect project and generate tests (renamed from `/craft:test:gen` in v4)
+- `/craft:test:template` — removed in v4 consolidation, no replacement
 
 [Learn more →](test.md)
 

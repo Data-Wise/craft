@@ -288,13 +288,13 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:ci:fix`            | Fix CI failures          | ----- |
 | `/craft:code:skill-standards`   | Audit skill quality      | ----- |
 
-### Test Commands (3)
+### Test Commands (2)
 
 | Command                  | Description                | Modes |
 | ------------------------ | -------------------------- | ----- |
 | `/craft:test`            | Unified test runner        | ✓    |
-| `/craft:test:gen`        | Generate test suites       | ----- |
-| `/craft:test:template`   | Manage test templates      | ----- |
+| `/craft:code:test-gen`   | Generate test suites (renamed from `/craft:test:gen` in v4) | ----- |
+| `/craft:test:template`   | removed in v4 consolidation, no replacement | ----- |
 
 ### Architecture Commands (4)
 
@@ -390,12 +390,12 @@ protection") or see
 | `/craft:ci:generate` | Generate GitHub Actions workflow from detection                   |
 | `/craft:ci:validate` | Validate existing CI workflow against project configuration       |
 
-### Distribution Commands (2)
+### Distribution Commands (1)
 
 | Command                    | Description                       |
 | -------------------------- | --------------------------------- |
 | `/craft:dist:homebrew`     | Generate/update Homebrew formula or cask  |
-| `/craft:dist:curl-install` | Create curl-based install scripts |
+| curl-based install scripts | Moved to the `dist-extras` skill (v4 consolidation) — ask "generate an install script" |
 
 ### Discovery
 

@@ -8,20 +8,25 @@
 
 ## Commands
 
-| Command | Purpose |
+> **Note (2026-07 v4 consolidation):** none of `workflow:insights`,
+> `insights-apply`, and `guard-audit` are slash commands — all three are
+> skills invoked by asking naturally. The table below shows the natural-language
+> phrasing that triggers each.
+
+| Ask | Purpose |
 |---------|---------|
-| `/craft:workflow:insights` | Generate usage pattern reports from session facets |
+| "generate insights report" (`brainstorm-insights` skill) | Generate usage pattern reports from session facets |
 | `/craft:check --context` | Show session context without running validators |
-| `/craft:insights-apply` | Apply session learnings to CLAUDE.md rules |
-| `/craft:guard-audit` | Tune branch guard to reduce false positives |
+| "apply insights" (`insights-apply` skill) | Apply session learnings to CLAUDE.md rules |
+| "audit guard" (`guard-audit` skill) | Tune branch guard to reduce false positives |
 
 ## Insights Report
 
 ```bash
-/craft:workflow:insights                    # Terminal report (last 30 days)
-/craft:workflow:insights --format html      # HTML report
-/craft:workflow:insights --format json      # Machine-readable
-/craft:workflow:insights --since 7          # Last 7 days only
+# ask "generate insights report" (brainstorm-insights skill) — terminal report (last 30 days)
+# ask "generate insights report as html" — HTML report
+# ask "generate insights report as json" — machine-readable
+# ask "generate insights report for the last 7 days" — last 7 days only
 ```
 
 **Data source:** `~/.claude/usage-data/facets/`
@@ -62,10 +67,10 @@ Shows: project type, branch, worktree path, base branch, guard status, developme
 ## Lifecycle Flow
 
 ```
-Sessions → Facets → /craft:workflow:insights → Friction Report
+Sessions → Facets → brainstorm-insights skill → Friction Report
                                                     ↓
-                              /craft:insights-apply → CLAUDE.md rules
-                              /craft:guard-audit    → branch-guard.json tuning
+                              insights-apply skill  → CLAUDE.md rules
+                              guard-audit skill     → branch-guard.json tuning
                               /craft:check          → friction detection in pre-flight
 ```
 

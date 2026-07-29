@@ -115,8 +115,8 @@ prompts.
 ╭─ Guard friction detected ─────────────────────╮
 │                                                │
 │ Suggested:                                     │
-│   /craft:guard:audit     Analyze guard config, │
-│                          find false positives   │
+│   ask "audit guard"      Analyze guard config, │
+│   (guard-audit skill)    find false positives   │
 │   ask "unprotect"        Session-scoped bypass │
 │   (dev/git skill)        (temporary)            │
 │                                                │
@@ -154,8 +154,8 @@ prompts.
 ╭─ Insights data available ─────────────────────╮
 │                                                │
 │ Suggested:                                     │
-│   /craft:insights:apply  Apply insights         │
-│                          suggestions to          │
+│   ask "apply insights"   Apply insights         │
+│   (insights-apply skill) suggestions to          │
 │                          CLAUDE.md              │
 │                                                │
 ╰────────────────────────────────────────────────╯
@@ -197,7 +197,7 @@ prompts.
 │   Step through failing tests                       │
 │                                                     │
 │ Related:                                            │
-│   /craft:test:gen          Generate test files     │
+│   /craft:code:test-gen     Generate test files     │
 │   /craft:ci:local     Run full CI checks      │
 │                                                     │
 ╰─────────────────────────────────────────────────────╯

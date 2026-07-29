@@ -10,6 +10,10 @@
 > - **How:** `/craft:test unit` runs unit tests, `pytest -m "e2e"` runs cross-component validation
 > - **Next:** Read the [full reference](../guide/test-commands.md) or [architecture guide](../guide/test-architecture.md)
 
+> **Note (2026-07 v4 consolidation):** `/craft:test:gen` was renamed to
+> `/craft:code:test-gen`. `/craft:test:template` was removed with no
+> replacement.
+
 ---
 
 ## Step 1: Run Your First Test
@@ -86,34 +90,26 @@ Auto-detect project type and generate a full test suite:
 
 ```bash
 # Auto-detect and generate all tiers
-/craft:test:gen
+/craft:code:test-gen
 
 # Generate only unit tests
-/craft:test:gen --tier unit
+/craft:code:test-gen --tier unit
 
 # Preview without writing
-/craft:test:gen --dry-run
+/craft:code:test-gen --dry-run
 
 # Force a specific project type
-/craft:test:gen plugin
+/craft:code:test-gen plugin
 ```
+
+(Renamed from `/craft:test:gen` in the 2026-07 v4 consolidation.)
 
 ---
 
 ## Step 6: Manage Templates
 
-Inspect and customize the Jinja2 templates that power test generation:
-
-```bash
-# List all available templates
-/craft:test:template list
-
-# Show a specific template
-/craft:test:template show plugin/test_structure
-
-# Validate all templates
-/craft:test:template validate
-```
+> **Removed (v4 consolidation):** `/craft:test:template` no longer exists;
+> there is no replacement command or skill for Jinja2 template management.
 
 ---
 
@@ -174,8 +170,8 @@ Available markers are defined in `pyproject.toml` under `[tool.pytest.ini_option
 | `/craft:test:coverage` | `/craft:test --coverage` |
 | `/craft:test:debug` | `/craft:test debug` |
 | `/craft:test:watch` | `/craft:test --watch` |
-| `/craft:test:cli-gen` | `/craft:test:gen cli` |
-| `/craft:test:generate` | `/craft:test:gen` |
+| `/craft:test:cli-gen` | `/craft:code:test-gen cli` (further renamed from `/craft:test:gen` in v4) |
+| `/craft:test:generate` | `/craft:code:test-gen` (further renamed from `/craft:test:gen` in v4) |
 
 See the [full migration guide](../guide/test-migration.md) for details.
 

@@ -2,16 +2,18 @@
 
 > **Generate a 3-line action block (Next step / Watch out for / Connects to) from live session context.**
 
+> Renamed from `/craft:workflow:brief` to `/craft:brief` in the 2026-07 v4 consolidation (promoted to a root command).
+
 ---
 
 ## Synopsis
 
 ```bash
-/craft:workflow:brief
-/craft:workflow:brief --plan
-/craft:workflow:brief --verbose
-/craft:workflow:brief --show-context
-/craft:workflow:brief --board
+/craft:brief
+/craft:brief --plan
+/craft:brief --verbose
+/craft:brief --show-context
+/craft:brief --board
 ```
 
 ---
@@ -64,7 +66,7 @@ The command reads sources in this order, stopping at the first that gives enough
 **Default — get the block:**
 
 ```
-/craft:workflow:brief
+/craft:brief
 ```
 
 ```
@@ -76,7 +78,7 @@ Connects to:   craft feature/my-feature
 **With `--board` — see ownership table first:**
 
 ```
-/craft:workflow:brief --board
+/craft:brief --board
 ```
 
 ```
@@ -95,7 +97,7 @@ Connects to:   #219 feat: hooks skill
 **With `--plan` — expand to a mini-plan:**
 
 ```
-/craft:workflow:brief --plan
+/craft:brief --plan
 ```
 
 Outputs the 3-line block, then proposes an execution path, asks 2–3 targeted questions via AskUserQuestion, and generates a mini-plan with estimated time and key risk.
@@ -109,7 +111,7 @@ Outputs the 3-line block, then proposes an execution path, asks 2–3 targeted q
 **Suggested `do` footer:** After every `do` completion, a reminder appears:
 
 ```
-💡 /craft:workflow:brief --plan to plan next steps.
+💡 /craft:brief --plan to plan next steps.
 ```
 
 ---
@@ -118,4 +120,4 @@ Outputs the 3-line block, then proposes an execution path, asks 2–3 targeted q
 
 - [`/craft:do`](do.md) — smart task routing with optional `--brief` footer
 - [`/craft:finish`](finish.md) — full session completion flow
-- [`/craft:workflow:brainstorm`](brainstorm.md) — full planning session from scratch
+- [`/craft:brainstorm`](brainstorm.md) — full planning session from scratch (renamed from `/craft:workflow:brainstorm`, v4)

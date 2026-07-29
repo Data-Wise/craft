@@ -11,6 +11,13 @@
 
 Craft's distribution commands automate packaging and distribution across Claude Code Marketplace, Homebrew, PyPI, and curl installers.
 
+> **Note (2026-07 v4 consolidation):** `/craft:dist:pypi` and
+> `/craft:dist:curl-install` no longer exist as slash commands — both moved
+> to the `dist-extras` skill. Ask naturally ("publish to PyPI", "generate an
+> install script") instead of running the commands shown below. See
+> [`skills/distribution/dist-extras/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/distribution/dist-extras/SKILL.md).
+> `/craft:dist:homebrew` is still a real command.
+
 ---
 
 ## Commands Overview
@@ -19,8 +26,8 @@ Craft's distribution commands automate packaging and distribution across Claude 
 |---------|---------|-----------|
 | `/craft:dist:marketplace` | Claude Code marketplace distribution | All platforms |
 | `/craft:dist:homebrew` | Homebrew formula automation | macOS, Linux |
-| `/craft:dist:pypi` | PyPI package publishing | Python (all platforms) |
-| `/craft:dist:curl-install` | Curl-based installer script | All platforms |
+| PyPI publishing (moved to `dist-extras` skill, v4) | PyPI package publishing | Python (all platforms) |
+| curl-based installer (moved to `dist-extras` skill, v4) | Curl-based installer script | All platforms |
 
 ---
 
@@ -351,9 +358,9 @@ Running brew audit... ✓ passed
 
 ---
 
-## `/craft:dist:pypi` - PyPI Publishing
+## PyPI Publishing (moved to `dist-extras` skill, v4 consolidation — formerly `/craft:dist:pypi`)
 
-Publish Python packages to PyPI with automated workflows and trusted publishing.
+Publish Python packages to PyPI with automated workflows and trusted publishing. Ask naturally ("publish to PyPI") instead of the `/craft:dist:pypi` subcommands shown below.
 
 ### Quick Start
 
@@ -454,9 +461,9 @@ jobs:
 
 ---
 
-## `/craft:dist:curl-install` - Universal Installer
+## Universal Installer (moved to `dist-extras` skill, v4 consolidation — formerly `/craft:dist:curl-install`)
 
-Create a curl-based installer script for easy one-line installation.
+Create a curl-based installer script for easy one-line installation. Ask naturally ("generate an install script") instead of the `/craft:dist:curl-install` subcommands shown below.
 
 ### Quick Start
 

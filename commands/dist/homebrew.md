@@ -1688,5 +1688,5 @@ echo "  Expected version: $(jq -r .version .claude-plugin/plugin.json)"
 
 ## See Also
 
-- `/craft:dist:curl-install` - Generate curl-based installation scripts for GitHub releases
+- curl-based install scripts - ask "generate an install script" (`dist-extras` skill, moved from `/craft:dist:curl-install` in the v4 consolidation)
 - `/craft:dist:marketplace` - Claude Code marketplace distribution - init, validate, test, and publish

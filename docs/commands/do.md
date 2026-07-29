@@ -196,7 +196,7 @@ Claude: Loading spec context...
 
 ```
 Note: No spec found for "user authentication"
-      Consider: /workflow:brainstorm save "user authentication"
+      Consider: /craft:brainstorm save "user authentication" (renamed from /workflow:brainstorm, v4)
       Proceeding with standard routing...
 ```
 
@@ -227,6 +227,6 @@ Note: No spec found for "user authentication"
 ## See Also
 
 - **Planning:** `/craft:arch:plan` - Architecture planning
-- **Brainstorming:** `/workflow:brainstorm` - Idea generation with spec capture
+- **Brainstorming:** `/craft:brainstorm` - Idea generation with spec capture (renamed from `/workflow:brainstorm`, v4)
 - **Validation:** `/craft:check` - Pre-flight checks
 - **Workflow:** [Feature Development](../workflows/git-feature-workflow.md)

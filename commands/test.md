@@ -231,7 +231,7 @@ if path:
 
 ## Integration
 
-- `/craft:test:gen` - Generate test suites
-- `/craft:test:template` - Manage test templates
+- `/craft:code:test-gen` - Generate test suites (renamed from `/craft:test:gen` in v4 consolidation)
+- `/craft:test:template` - removed in v4 consolidation, no replacement
 - `/craft:check` - Pre-flight validation (includes test run)
 - `/craft:ci:local` - CI checks
