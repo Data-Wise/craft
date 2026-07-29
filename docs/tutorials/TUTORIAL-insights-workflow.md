@@ -15,6 +15,8 @@ related:
 
 > **Time:** 15 minutes | **Level:** Intermediate | **Prerequisites:** Craft plugin loaded, worktree workflow familiar
 
+> **Note (2026-07 v4 consolidation):** `/craft:git:worktree` was folded into the `dev/git` skill — the command itself no longer exists. Replace any `/craft:git:worktree validate` example below with a natural request (e.g. "check my worktree health") and the skill runs the equivalent steps. See [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) for the current reference.
+
 ## What You'll Learn
 
 1. Start sessions with full context using `--context`
@@ -124,7 +126,7 @@ No commands to run here — just understand that each feature feeds into the nex
 
 ## Step 3: Validate Your Worktree
 
-**Run:** `/craft:git:worktree validate`
+**Ask:** "check my worktree health" (`dev/git` skill)
 
 **Expected output (all passing):**
 
@@ -165,7 +167,7 @@ No commands to run here — just understand that each feature feeds into the nex
 
 ```bash
 /craft:check --context
-/craft:git:worktree validate
+# "check my worktree health"
 ```
 
 ---
@@ -409,7 +411,7 @@ Here's how insights-driven features connect:
 ```mermaid
 flowchart TD
     Session["Start Session"] --> Context["/craft:check --context"]
-    Context --> Validate["/craft:git:worktree validate"]
+    Context --> Validate["check my worktree health (dev/git skill)"]
 
     Validate --> Work["Do Work"]
     Work --> Hook["pretooluse.py watches silently"]
@@ -445,7 +447,7 @@ flowchart TD
 | Command | Purpose | When |
 |---------|---------|------|
 | `/craft:check --context` | Session context summary | Start of session |
-| `/craft:git:worktree validate` | Worktree health check | Start of session |
+| "check my worktree health" (`dev/git` skill) | Worktree health check | Start of session |
 | `/guard-audit` | Find and fix guard false positives | After guard friction |
 | `/insights` | Generate usage report | Periodically |
 | "apply insights" | Apply suggestions to CLAUDE.md | After /insights |

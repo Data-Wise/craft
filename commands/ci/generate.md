@@ -607,7 +607,7 @@ Works with:
 - `/craft:ci:detect` - Run detection first
 - `/craft:ci:validate` - Validate generated workflow
 - `/craft:check ci` - Quick CI check
-- `/craft:git:sync` - Commit and push
+- `dev/git` skill (ask "commit and push") - Commit and push
 
 ## Additional Templates
 

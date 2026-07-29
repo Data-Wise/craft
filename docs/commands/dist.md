@@ -584,7 +584,7 @@ git push
 | Command | Use Case |
 |---------|----------|
 | `/craft:check --for release` | Pre-release validation before distribution |
-| `/craft:git:recap` | Create version tags for releases |
+| `/craft:code:release` | Create version tags for releases (tagging is part of the release pipeline, not `dev/git`) |
 | `/craft:docs:changelog` | Generate changelog for release notes |
 | `/craft:ci:generate` | Full CI/CD setup including distribution |
 | `/craft:code:release` | Complete release checklist |

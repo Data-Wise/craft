@@ -220,7 +220,7 @@ Works with other craft commands:
 
 - `/craft:dist:homebrew` - Generate Homebrew formula
 - `/craft:check --for release` - Validate before generating
-- `/craft:git:tag` - Create version tag
+- `/craft:code:release` - Create version tag
 
 ## Tips
 

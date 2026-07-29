@@ -216,4 +216,4 @@ Run with --fix to auto-fix lint issues.
 Works with:
 
 - `/craft:ci:fix` - Fix CI failures
-- `/craft:git:sync` - Pre-push validation
+- `dev/git` skill (ask "sync with remote") - Pre-push validation

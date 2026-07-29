@@ -207,7 +207,7 @@ Works with:
 
 - `/craft:code:release` - Run before release
 - `/craft:docs:sync` - Run after code sync
-- `/craft:git:sync` - Commit changelog updates
+- `dev/git` skill (ask "commit changelog updates") - Commit changelog updates
 
 ## Dry-Run Mode
 

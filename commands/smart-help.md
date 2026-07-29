@@ -90,8 +90,8 @@ prompts.
 │                                                     │
 │ Suggested:                                          │
 │   /craft:check             Quick validation        │
-│   /craft:git:sync          Commit and push         │
-│   /craft:git:recap         What did you change?    │
+│   "commit and push"        dev/git skill           │
+│   "git recap"              dev/git skill           │
 │                                                     │
 ╰─────────────────────────────────────────────────────╯
 ```
@@ -142,7 +142,7 @@ prompts.
 ╭─ Worktree detected ───────────────────────────╮
 │                                                │
 │ Suggested:                                     │
-│   /craft:git:worktree validate  Verify path    │
+│   "check my worktree health"    dev/git skill  │
 │   /craft:check --context        Session context│
 │                                                │
 ╰────────────────────────────────────────────────╯

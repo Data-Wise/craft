@@ -1472,7 +1472,7 @@ See `homebrew-multi-formula` for a full example diagram.
 | Command | Use With |
 |---------|----------|
 | `/craft:check --for release` | Pre-release validation |
-| `/craft:git:tag` | Create version tag |
+| `/craft:code:release` | Create version tag (tagging is part of the release pipeline, not `dev/git`) |
 | `/craft:docs:changelog` | Update changelog |
 | `/craft:ci:generate` | Full CI/CD setup (see also `ci:generate homebrew`) |
 

@@ -63,8 +63,8 @@ git status
 # Review diff
 git diff
 
-# Or with craft
-/craft:git:recap
+# Or ask craft's dev/git skill
+# "git recap" / "git activity"
 ```
 
 **Look for:**
@@ -285,7 +285,7 @@ git commit --amend -m "feat: better description"
 
 | Action | Command |
 |--------|---------|
-| Review changes | `git status` or `/craft:git:recap` |
+| Review changes | `git status` or ask "git recap" (`dev/git` skill) |
 | Quick check | `/craft:check` |
 | Full check | `/craft:check --for commit` |
 | Auto-fix lint | `/craft:code:lint --fix` |
@@ -298,6 +298,6 @@ git commit --amend -m "feat: better description"
 ## See Also
 
 - **Help:** [/craft:check](../commands/check.md)
-- **Help:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)
+- **Help:** [dev/git skill — worktree reference](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)
 - **Workflow:** [Git Feature Workflow](git-feature-workflow.md)
 - **Workflow:** [Release Workflow](release-workflow.md)

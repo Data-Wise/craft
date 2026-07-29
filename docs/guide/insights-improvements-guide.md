@@ -2,6 +2,8 @@
 
 > **TL;DR**: 2 new skills, 4 enhanced commands, 1 safety hook — all designed to close the feedback loop between usage patterns and workflow configuration.
 
+> **Note (2026-07 v4 consolidation):** `/craft:git:worktree` was folded into the `dev/git` skill — the command itself no longer exists. Replace any `/craft:git:worktree validate` example below with a natural request (e.g. "check my worktree health") and the skill runs the equivalent steps. See [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) for the current reference.
+
 ## Overview
 
 v2.18.0 adds features that emerged from analyzing real craft usage patterns:
@@ -194,7 +196,7 @@ flowchart TD
 
 ---
 
-### `/craft:git:worktree validate` — Worktree Health Check
+### Worktree Health Check (`dev/git` skill — ask "check my worktree health")
 
 Verifies your current worktree environment is healthy: you're actually in a worktree, the path matches conventions, the branch name matches the folder name, and no writes are targeting outside the worktree.
 
@@ -202,7 +204,7 @@ Verifies your current worktree environment is healthy: you're actually in a work
 
 ```mermaid
 flowchart TD
-    Start(["/craft:git:worktree validate"]) --> C1{CWD inside git worktree?}
+    Start(["check my worktree health"]) --> C1{CWD inside git worktree?}
     C1 -->|No| Fail1["Not in a worktree\nSuggest: cd to worktree path"]
     C1 -->|Yes| C2[Get branch name + toplevel]
 
@@ -336,7 +338,7 @@ Orient yourself at the start of every session.
 
 ```bash
 /craft:check --context            # See phase + branch + guard status
-/craft:git:worktree validate      # Confirm you're in the right place
+# "check my worktree health"       # Confirm you're in the right place (dev/git skill)
 ```
 
 ### Workflow 2: Guard Tuning
@@ -381,7 +383,7 @@ When you're confident the release is ready.
 Before every commit.
 
 ```bash
-/craft:git:worktree validate      # Right place?
+# "check my worktree health"       # Right place? (dev/git skill)
 /craft:check                      # All green?
 # commit                          # Ship it
 ```

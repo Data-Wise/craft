@@ -129,12 +129,12 @@ flowchart LR
 cd ~/.git-worktrees/<project>/feature-auth
 claude  # Read ORCHESTRATE file, implement phase by phase
 
-# 4. Finish and create PR
-/craft:git:worktree finish
+# 4. Finish and create PR (dev/git skill — ask naturally)
+# "finish this worktree"
 ```
 
 !!! tip "When to Use This Pipeline"
-    Use the full pipeline for multi-phase features with specs. For quick features, just create a worktree directly with `/craft:git:worktree create feature/name`.
+    Use the full pipeline for multi-phase features with specs. For quick features, just ask "create a worktree for feature/name" (`dev/git` skill).
 
 ## Understanding the System
 

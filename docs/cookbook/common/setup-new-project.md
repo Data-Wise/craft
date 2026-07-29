@@ -32,11 +32,17 @@ I want to add Craft to my new project with recommended settings and git workflow
 
 2. **Initialize Craft**
 
-   ```bash
-   /craft:git:init
+   > **Note (2026-07 v4 consolidation):** `/craft:git:init` was folded into the `dev/git` skill — the command itself no longer exists. Ask naturally instead.
+
+   ```text
+   "init repo" / "set up git" / "bootstrap repository"
    ```
 
-   Why: Sets up recommended git workflow patterns, creates `.claude/` directory, and configures project-specific settings
+   Why: Bootstraps the git repo (idempotent if `.git/` already exists), creates the `dev`
+   branch off `main` for the recommended `main-dev` workflow, sets up the remote if given
+   one, applies local branch-guard rules, scaffolds a starter `.gitignore`/`README.md`/
+   `CLAUDE.md` if absent, and offers to run the branch-protection audit wizard immediately
+   after.
 
 3. **Verify setup**
 
@@ -53,47 +59,47 @@ I want to add Craft to my new project with recommended settings and git workflow
 
 ## Explanation
 
-`/craft:git:init` performs the following:
+The `dev/git` skill's Repo Init operation (Operation 1) performs the following when you ask
+"init repo" / "set up git" / "bootstrap repository":
 
-1. **Creates `.claude/` directory** for project-specific configuration
-2. **Detects project type** (Node.js, Python, R package, Quarto, etc.)
-3. **Sets up git patterns** for the detected project type:
-   - Conventional commit templates
-   - Pre-commit hooks (if requested)
-   - Branch naming conventions
-4. **Configures defaults** based on project type (test runners, build commands, lint rules)
-5. **Initializes worktree support** for feature branch isolation
-
-All settings are stored in `.claude/settings.local.json` and can be customized later.
+1. **Runs `git init`** (idempotent — detects an existing `.git/` and skips)
+2. **Scaffolds an initial commit** if the working tree is empty
+3. **Creates a `dev` branch off `main`** for the recommended `main-dev` workflow pattern
+   (pass `simple` or `gitflow` if you want a different pattern)
+4. **Sets up the remote** if you give one (`OWNER/REPO` or a URL) — creates the GitHub repo
+   (private by default), sets origin, pushes both branches
+5. **Applies local branch-guard rules** and offers GitHub-side baseline protection
+6. **Writes a starter `.gitignore`, `README.md` skeleton, and `CLAUDE.md` template** if absent
+7. **Offers to run the branch-protection audit wizard** immediately after setup
 
 ## Variations
 
-- **Skip interactive prompts:** Use defaults without confirmation
+- **Skip interactive prompts:** pass `--yes` for non-interactive defaults
 
-  ```bash
-  /craft:git:init --yes
+  ```text
+  "bootstrap repository --yes"
   ```
 
-- **Custom project type:** Override auto-detection
+- **Preview without applying:** pass `--dry-run`
 
-  ```bash
-  /craft:git:init --type python
+  ```text
+  "set up git --dry-run"
   ```
 
-- **Skip git hooks:** Initialize without pre-commit hooks
+- **Different workflow pattern:** specify `simple` or `gitflow` instead of the `main-dev` default
 
-  ```bash
-  /craft:git:init --no-hooks
+  ```text
+  "init repo with the simple workflow pattern"
   ```
 
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| "Not a git repository" | Run `git init` first, then retry |
+| "Not a git repository" | The skill runs `git init` for you — just ask "init repo" |
 | "Permission denied" | Check write permissions in project directory |
-| Settings not applied | Verify `.claude/settings.local.json` exists and is valid JSON |
-| Wrong project type detected | Use `--type` flag to specify manually |
+| GitHub repo creation fails | Verify `gh` CLI is authenticated (`gh auth status`) |
+| Wrong workflow pattern applied | Re-run with the pattern named explicitly, e.g. "init repo with the simple workflow pattern" |
 
 ## Related
 

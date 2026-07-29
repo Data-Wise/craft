@@ -16,7 +16,7 @@
 
 | Tutorial | Time | What You'll Learn |
 |----------|------|-------------------|
-| [Git Worktree Setup](TUTORIAL-worktree-setup.md) | 15 min | Parallel development with worktrees and `/craft:git:worktree` |
+| [Git Worktree Setup](TUTORIAL-worktree-setup.md) | 15 min | Parallel development with worktrees via the `dev/git` skill |
 | [Branch Guard Setup](TUTORIAL-branch-guard-setup.md) | 5 min | Teaching-first branch protection for safe git operations |
 | [Version Sync Setup](TUTORIAL-version-sync-setup.md) | 10 min | Three-layer version drift protection (hook + pre-commit + check) |
 

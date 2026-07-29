@@ -53,7 +53,7 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 
 - **Documentation:** `/craft:docs:update` - Smart docs generation
 - **Code Quality:** `/craft:code:lint optimize` - Fast parallel linting
-- **Git Workflows:** `/craft:git:worktree add feature-name` - Parallel development
+- **Git Workflows:** ask "create a worktree for feature-name" (`dev/git` skill) - Parallel development
 
 ## 🆘 Stuck?
 

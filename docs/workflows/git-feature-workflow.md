@@ -29,7 +29,7 @@ Before starting, ensure you have:
 
 - [x] Git configured with remote
 - [x] On `dev` branch and up to date
-- [x] Worktree folder created (`/craft:git:worktree setup`)
+- [x] Worktree folder created (ask "create a worktree", `dev/git` skill)
 
 **Quick check:**
 
@@ -72,8 +72,8 @@ git pull origin dev
 Create an isolated workspace for your feature.
 
 ```bash
-# Using Craft command (recommended)
-/craft:git:worktree create feature/my-feature
+# Using the dev/git skill (recommended) — ask naturally
+# "create a worktree for feature/my-feature"
 
 # This does:
 # 1. Creates ~/.git-worktrees/project/my-feature
@@ -223,7 +223,7 @@ For urgent fixes that need to go directly to production:
 ```bash
 # Create hotfix from main
 git checkout main
-/craft:git:worktree create hotfix/critical-fix
+# "create a worktree for hotfix/critical-fix" (dev/git skill)
 
 # Fix, test, PR to main
 cd ~/.git-worktrees/craft/critical-fix
@@ -296,7 +296,7 @@ git push --tags
 
 ## See Also
 
-- **Help:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)
+- **Help:** [dev/git skill — worktree reference](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)
 - **Help:** [/craft:check](../commands/check.md)
 - **Guide:** [Branch Guard Smart Mode](../guide/branch-guard-smart-mode.md)
 - **Reference:** [Branch Guard Quick Reference](../reference/REFCARD-BRANCH-GUARD.md)

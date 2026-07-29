@@ -5,7 +5,9 @@
 > - **What:** Commands now show their plan before executing and ask for confirmation
 > - **Why:** No more skipped steps — you see exactly what will happen
 > - **How:** Step 0 (plan) → Step 0.5 (confirm) → Steps 1-N (execute) → Summary
-> - **Applies to:** `/craft:orch`, `/craft:check`, `/craft:docs:update`, `/craft:git:worktree`
+> - **Applies to:** `/craft:orch`, `/craft:check`, `/craft:docs:update`, worktree creation (`dev/git` skill)
+
+> **Note (2026-07 v4 consolidation):** `/craft:git:worktree` was folded into the `dev/git` skill — the command itself no longer exists, so worktree creation is no longer directly invocable as a slash command. It still follows the same show-plan-then-confirm behavior when triggered via natural language (e.g. "create a worktree for feature/x"). See [`skills/dev/git/references/worktree.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) for the current reference.
 
 ---
 
@@ -101,7 +103,7 @@ Pre-flight Check Plan:
 
 **Key feature:** The `--post-merge` flag runs a specialized 5-phase pipeline after PR merges, auto-fixing safe categories and prompting for manual ones.
 
-### /craft:git:worktree
+### Worktree Creation (`dev/git` skill)
 
 | Step | What happens |
 |------|-------------|
@@ -198,8 +200,8 @@ claude
 #
 # Results: 5/5 passed
 
-# Step 5: Finish and create PR
-/craft:git:worktree finish
+# Step 5: Finish and create PR (dev/git skill — ask naturally)
+# "finish this worktree"
 #
 # Plan:
 #   1. Run full test suite
@@ -227,4 +229,4 @@ claude
 - **Tutorial:** [Interactive Orchestration Tutorial](../tutorials/interactive-orchestration.md)
 - **Check command:** [/craft:check](../commands/check.md)
 - **Docs update:** [/craft:docs:update](../commands/docs/update.md)
-- **Worktree:** [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)
+- **Worktree:** [dev/git skill — worktree reference](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md)

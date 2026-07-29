@@ -245,11 +245,8 @@ naturally ("create a worktree for feature-x", "clean up merged branches",
 "protect this branch", "unprotect for a merge conflict", "manage guards",
 "apply baseline protection to this repo", "show git status") or see
 [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md)
-directly.
-
-### /craft:git:docs:refcard
-
-Git commands quick reference card.
+directly. See also [`docs/reference/REFCARD-GIT-WORKTREE.md`](reference/REFCARD-GIT-WORKTREE.md)
+for a worktree-focused quick reference.
 
 ## Test Commands (test/)
 

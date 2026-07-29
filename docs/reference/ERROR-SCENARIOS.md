@@ -560,7 +560,9 @@ Uncovered:
 
 ## Git Commands Error Scenarios
 
-### /craft:git:worktree
+### Worktree Management (`dev/git` skill)
+
+> **Note (2026-07 v4 consolidation):** `/craft:git:worktree` was folded into the `dev/git` skill — the command itself no longer exists. Replace any `/craft:git:worktree <args>` example below with a natural request. See [`skills/dev/git/references/worktree.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) for the current reference.
 
 #### Error: Worktree Already Exists
 
@@ -570,7 +572,7 @@ Uncovered:
 Error: Worktree already exists for branch 'feature/auth'
 Location: /path/to/.git-worktrees/feature-auth
 
-Use /craft:git:worktree list to see all
+Ask "list worktrees" to see all
 ```
 
 **Recovery**:
@@ -580,10 +582,10 @@ Use /craft:git:worktree list to see all
 cd /path/to/.git-worktrees/feature-auth
 
 # Option 2: Remove old worktree
-/craft:git:worktree clean
+# "clean up merged worktrees"
 
 # Option 3: Create with different name
-/craft:git:worktree create feature/auth-v2
+# "create a worktree for feature/auth-v2"
 ```
 
 ---

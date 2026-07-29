@@ -238,7 +238,7 @@ The orchestrator works with four types of worktrees:
 
 | Type | Created By | Lifetime | Branch Pattern | ORCHESTRATE |
 |------|-----------|----------|---------------|-------------|
-| **Manual** | `/craft:git:worktree create` | Long-lived | `feature/*` | Optional |
+| **Manual** | `dev/git` skill (ask "create a worktree") | Long-lived | `feature/*` | Optional |
 | **Pipeline** | `/craft:plan` or brainstorm | Long-lived | `feature/*` | Always |
 | **Swarm** | `/craft:orch --swarm` | Short-lived | `swarm-*` | Reads existing |
 | **Cross-Repo** | Pipeline (multi-repo spec) | Long-lived | `feature/*` (same name) | Scoped per-repo |
@@ -262,7 +262,7 @@ Need isolated development?
 │
 ├─ Yes, single feature
 │  ├─ Have a spec? → /craft:plan SPEC.md (Pipeline)
-│  └─ No spec? → /craft:git:worktree create feature/name (Manual)
+│  └─ No spec? → ask "create a worktree for feature/name" (dev/git skill, Manual)
 │
 ├─ Yes, parallel agents on separate files
 │  └─ /craft:orch --swarm "task" (Swarm)

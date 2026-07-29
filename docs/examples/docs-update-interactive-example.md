@@ -108,7 +108,7 @@ Claude uses `AskUserQuestion`:
 │   Commands without help:                                    │
 │   • /craft:test:gen                                         │
 │   • /craft:test:template                                    │
-│   • /craft:git:worktree                                     │
+│   • /craft:git:worktree [removed 2026-07, now dev/git skill]│
 │   • /craft:hub                                              │
 │   • /craft:discovery-usage                                  │
 │                                                             │

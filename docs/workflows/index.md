@@ -11,6 +11,8 @@
 
 Visual guides to craft's most common workflows - see how commands, skills, and agents work together.
 
+> **Note (2026-07 v4 consolidation):** `/craft:git:worktree` was folded into the `dev/git` skill — the command itself no longer exists. Replace any `/craft:git:worktree <args>` example below with a natural request (e.g. "create a worktree for feature-name") and the skill runs the equivalent steps. See [`skills/dev/git/references/worktree.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) for the current reference.
+
 ---
 
 ## Workflow Selector
@@ -28,7 +30,7 @@ flowchart TD
 
     Docs --> DocsCmd["🔧 /craft:docs:update"]
     Release --> RelCmd["🔧 /craft:check --for release"]
-    Dev --> DevCmd["🔧 /craft:git:worktree add name"]
+    Dev --> DevCmd["🔧 ask 'create a worktree for name' (dev/git skill)"]
     Route --> RouteCmd["🔧 /craft:do 'task description'"]
 
     DocsCmd --> DocsTime["⏱️ &lt; 30 seconds"]
@@ -170,7 +172,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    START(["✨ New Feature"]) --> WORKTREE["/craft:git:worktree<br/>add feature-name"]
+    START(["✨ New Feature"]) --> WORKTREE["create a worktree<br/>for feature-name<br/>(dev/git skill)"]
 
     WORKTREE --> CLONE["Create isolated<br/>worktree at<br/>~/.git-wt/project/"]
     CLONE --> SWITCH["Switch terminal<br/>context"]
@@ -195,7 +197,7 @@ flowchart TD
     REVIEW -->|Changes requested| LOOP
     REVIEW -->|Approved| MERGE["Merge PR<br/>to dev"]
 
-    MERGE --> CLEANUP["/craft:git:worktree remove"]
+    MERGE --> CLEANUP["clean up merged worktrees<br/>(dev/git skill)"]
     CLEANUP --> DONE(["🎉 Feature Complete"])
 
     style START fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
@@ -213,11 +215,11 @@ flowchart TD
 - Instant context switching
 - No stashing required
 
-**Commands:**
+**Commands (`dev/git` skill — ask naturally):**
 
-- `/craft:git:worktree add` - Create feature worktree
-- `/craft:git:worktree list` - See all worktrees
-- `/craft:git:worktree remove` - Clean up after merge
+- "create a worktree for feature-name" - Create feature worktree
+- "list worktrees" - See all worktrees
+- "clean up merged worktrees" - Clean up after merge
 
 ---
 
@@ -331,7 +333,7 @@ flowchart LR
 |----------|----------|---------------|------|------------|
 | **Documentation** | Auto-sync docs | `/craft:docs:update` | < 30s | Simple |
 | **Release** | Publishing | `/craft:check --for release` | < 2m | Medium |
-| **Development** | New features | `/craft:git:worktree add name` | Varies | Medium |
+| **Development** | New features | ask "create a worktree for name" (`dev/git` skill) | Varies | Medium |
 | **AI Routing** | Complex tasks | `/craft:do "description"` | Varies | Complex |
 
 ---
@@ -342,7 +344,7 @@ flowchart LR
 |----------|--------------|------|------------|
 | Documentation | `/craft:docs:update` | < 30s | ⭐⭐⭐⭐⭐ |
 | Release | `/craft:check --for release` | < 2m | ⭐⭐⭐⭐ |
-| Development | `/craft:git:worktree add name` | varies | ⭐⭐⭐⭐ |
+| Development | ask "create a worktree for name" (`dev/git` skill) | varies | ⭐⭐⭐⭐ |
 | AI Routing | `/craft:do "task"` | varies | ⭐⭐⭐⭐⭐ |
 
 ## Next Steps

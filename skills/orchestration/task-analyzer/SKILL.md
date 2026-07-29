@@ -73,7 +73,7 @@ Bug Fix Workflow:
   2. /craft:test debug    - Isolate in tests
   3. → Fix               - User implements fix
   4. /craft:test          - Verify fix
-  5. /craft:git:sync      - Commit fix
+  5. dev/git skill        - Commit/sync changes (ask naturally; folded from /craft:git:sync)
 
 Release Workflow:
   1. /craft:code:deps-audit  - Security scan

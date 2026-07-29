@@ -141,8 +141,8 @@ The AI routes your task to the best workflow automatically.
 ### Development Workflow
 
 ```bash
-# 1. Create feature branch with worktree
-/craft:git:worktree create feature-name
+# 1. Create feature branch with worktree (dev/git skill — ask naturally)
+# "create a worktree for feature-name"
 
 # 2. Run tests in watch mode
 /craft:test debug

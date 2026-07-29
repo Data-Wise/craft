@@ -102,7 +102,7 @@ The guard shows a teaching box explaining the risk, suggests alternatives, and p
 ║   New code files on dev should go in a feature branch       ║
 ║                                                             ║
 ║ Safe alternatives:                                          ║
-║   → /craft:git:worktree feature/<name>                      ║
+║   → ask "create a worktree for feature/<name>" (dev/git)    ║
 ║   → Edit an existing file instead (fixups allowed)          ║
 ║   → ask "unprotect for bulk maintenance" (dev/git skill)    ║
 ║                                                             ║
@@ -110,7 +110,7 @@ The guard shows a teaching box explaining the risk, suggests alternatives, and p
 [CONFIRM] New code files on dev should go in a feature branch
 Action:    Write new .py file: utils/helper.py
 Risk:      New code files on dev should go in a feature branch
-Suggest:   /craft:git:worktree feature/<name>
+Suggest:   ask "create a worktree for feature/<name>" (dev/git skill)
 Suggest:   Edit an existing file instead (fixups allowed)
 Suggest:   ask "unprotect for bulk maintenance" (dev/git skill)
 Branch:    dev (smart mode)

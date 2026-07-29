@@ -138,7 +138,7 @@ open docs/demos/*.gif docs/gifs/*.gif
 | 04 | `/craft:do add user authentication with JWT` | Task breakdown, agent spawning |
 | 05 | `/craft:test debug` | Test output, pass/fail format |
 | 06 | `/craft:code:lint optimize` | Lint results, file list format |
-| 07 | `/craft:git:worktree add feature-auth` | Worktree creation, path output |
+| 07 | "create a worktree for feature-auth" (`dev/git` skill — `/craft:git:worktree` no longer exists, 2026-07 v4 consolidation) | Worktree creation, path output |
 | 08 | `/craft:dist:homebrew setup` | Setup steps, formula generation |
 | 09 | `/craft:check --for commit` | Pre-commit checks, validation |
 | 10 | `/craft:orch 'prepare v2.0 release' release` | Orchestrator dashboard, agent status |
