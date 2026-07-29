@@ -250,9 +250,11 @@ agent. There is no
 `feature-dev`/`backend-architect`/`bug-detective`/`code-quality-reviewer` agent —
 those names never had a backing agent definition.
 
-The docs-authoring agents that *do* exist (`docs-architect`, `api-documenter`,
-`tutorial-engineer` — under `agents/docs/`) are separate from `/craft:do`'s
-complexity routing; they're invoked directly by the docs commands that need them.
+Docs-authoring agents named `docs-architect`, `api-documenter`, and
+`tutorial-engineer` exist under `agents/docs/` in the **folio** plugin, not
+craft — they moved there along with the docs commands during the folio
+split. Craft's own `agents/` directory holds only `orchestrator.md` and
+`orchestrator-v2.md`; it defines no docs-authoring agents.
 
 ### Category-Based Routing Logic
 
