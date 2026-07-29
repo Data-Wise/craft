@@ -18,7 +18,7 @@ brainstorm → spec → [grill] → ORCHESTRATE → worktree → implement → P
 | `/craft:grill` | Command | **Convergent** — interrogates a spec/plan/topic one question at a time until every branch is resolved; captures a `GRILL-*.md` ledger |
 | `/craft:plan` | Command | Spec (+ optional grill ledger) → ORCHESTRATE → worktree pipeline |
 | `/craft:orch:workflow` | Command | Coded fixed-control-flow program → schema-gated, resumable ([guide](../commands/orch/workflow.md)) |
-| `/craft:insights` | Command | Session friction reports from facets data |
+| `brainstorm-insights` | Skill (ask naturally, not a slash command) | Session friction reports from facets data |
 | Brainstorm Step 6 | Enhancement | Offer ORCHESTRATE creation after spec capture |
 | Brainstorm Step 1.8 | Enhancement | Surface insights before brainstorming |
 | Worktree Types | Documentation | Consistent 4-type taxonomy everywhere |
@@ -151,21 +151,21 @@ interactively rather than dispatching it unattended.
 
 ---
 
-### `/craft:insights` — Session Insights Report
+### `brainstorm-insights` skill — Session Insights Report
 
-Aggregates session data from `~/.claude/usage-data/facets/` to identify friction patterns and suggest improvements.
+Aggregates session data from `~/.claude/usage-data/facets/` to identify friction patterns and suggest improvements. Ask naturally — not a slash command (2026-07 v4 consolidation).
 
 **When to use:** Periodically to review usage patterns, or before creating ORCHESTRATE files.
 
 ```bash
 # Default: terminal report, last 30 days
-/craft:insights
+ask "generate insights report"
 
 # HTML report for sharing
-/craft:insights --format html
+ask "generate insights report as html"
 
 # Last 7 days, specific project
-/craft:insights --since 7 --project craft
+ask "generate insights report for the last 7 days for project craft"
 ```
 
 **Report includes:**
@@ -242,7 +242,7 @@ The full flow from sessions to workflow improvements:
 ```mermaid
 flowchart TD
     S[Sessions] --> F[Facets Data]
-    F --> I["/craft:insights"]
+    F --> I["brainstorm-insights skill"]
     I --> R1[CLAUDE.md Rules]
     I --> R2[ORCHESTRATE Friction Prevention]
     I --> R3[Brainstorm Context]
@@ -294,7 +294,7 @@ claude
 
 ```bash
 # 1. Check friction patterns
-/craft:insights --project craft
+ask "generate insights report for project craft"
 
 # 2. Create ORCHESTRATE — friction prevention auto-populated
 /craft:plan docs/specs/SPEC-feature.md

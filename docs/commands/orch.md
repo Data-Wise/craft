@@ -335,7 +335,7 @@ Works with all craft commands:
 - Routes to `/craft:arch:*` for design tasks
 - Routes to `/craft:code:*` for implementation
 - Routes to `/craft:test:*` for testing
-- Routes to `/craft:docs:*` for documentation
+- Routes to `/craft:docs:changelog` for documentation (docs building/linting/tutorials moved to `/folio:docs:*`)
 - Routes to `/brainstorm` (v2.4.0) for context gathering
 
 ---

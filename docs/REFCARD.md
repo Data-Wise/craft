@@ -117,7 +117,7 @@
 
 **See:** [REFCARD-CHECK.md](reference/REFCARD-CHECK.md) for complete reference
 
-### /craft:help
+### /craft:smart-help
 
 **Purpose:** Context-aware help that suggests relevant commands based on your current situation.
 
@@ -125,20 +125,20 @@
 
 ```bash
 # General help
-/craft:help
+/craft:smart-help
 # Shows: Most common commands, recent commands, contextual suggestions
 
 # Help for specific command
-/craft:help check
+/craft:smart-help check
 # Shows: All check subcommands, flags, examples
 
 # Help in specific context
 # (in a Git repository with uncommitted changes)
-/craft:help
+/craft:smart-help
 # Suggests: /craft:check, ask "git status" (dev/git skill), ask "create a worktree" (dev/git skill)
 
 # (in a documentation directory)
-/craft:help
+/craft:smart-help
 # Suggests: /craft:docs:update, /folio:docs:check, /folio:docs:lint
 ```
 

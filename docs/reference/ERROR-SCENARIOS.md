@@ -1051,7 +1051,7 @@ npm install missing-package
 rm -rf .craft
 
 # Reconfigure
-/craft:docs:claude-md --sync
+# (ask "sync CLAUDE.md" — claude-md-lifecycle skill, folded in v4 consolidation)
 ```
 
 ---

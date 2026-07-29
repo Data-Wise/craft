@@ -780,9 +780,9 @@ Doc types are generated based on classification scores:
 
 **Orchestrates these commands internally:**
 
-- `/craft:docs:sync` - Change detection and classification
+- `/folio:docs:sync` - Change detection and classification (moved to folio)
 - `/craft:docs:changelog` - Changelog updates
-- `/craft:docs:claude-md` - CLAUDE.md updates
+- `claude-md-lifecycle` skill - CLAUDE.md updates (folded into a skill, v4 consolidation)
 - `/folio:docs:guide` / `tutorial` / `demo` / `mermaid` / `check` / `lint` - generation,
   validation, and linting (moved to `folio`)
 

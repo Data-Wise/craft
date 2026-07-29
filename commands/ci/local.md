@@ -86,7 +86,7 @@ Preview CI checks that will be performed:
 │       Estimated: ~8 seconds                                   │
 │                                                               │
 │   [6/6] Documentation                                         │
-│       Command: /craft:docs:validate                           │
+│       Command: /folio:docs:check                           │
 │       Checks: Links, syntax, completeness                     │
 │       Threshold: 0 errors                                     │
 │       Estimated: ~5 seconds                                   │
@@ -154,7 +154,7 @@ Preview CI checks that will be performed:
 | Coverage | `/craft:test --coverage` | 80% minimum |
 | Security | `/craft:code:deps-audit` | No critical |
 | Types | mypy/tsc/etc. | 0 errors |
-| Docs | `/craft:docs:validate` | 0 errors |
+| Docs | `/folio:docs:check` | 0 errors |
 
 ## Options
 

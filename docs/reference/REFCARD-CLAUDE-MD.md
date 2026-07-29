@@ -2,6 +2,8 @@
 
 > **Fast lookup** for claude-md command syntax and common workflows.
 
+> **Note (2026-07 v4 consolidation):** `/craft:docs:claude-md:init`, `:sync`, and `:edit` were folded into the `claude-md-lifecycle` skill — none of the `/craft:docs:claude-md:*` commands below exist anymore. Replace any example on this page with a natural request (e.g. "create CLAUDE.md", "sync CLAUDE.md", "edit the CLAUDE.md testing section") and the skill runs the equivalent steps. The concepts and pipeline stages below are still accurate. See [`skills/docs/claude-md/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/docs/claude-md/SKILL.md) for the current reference.
+
 **3 Commands** · **3 Templates** · **Show Steps First Pattern**
 
 > **Note (v2.12.0):** Commands consolidated. `scaffold` -> `init`, `update`/`audit`/`fix` -> `sync`. Old names work as aliases until v2.13.0.

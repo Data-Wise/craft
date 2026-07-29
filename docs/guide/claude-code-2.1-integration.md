@@ -262,7 +262,7 @@ flowchart TD
 
     B -->|"add", "feature", "implement"| C["/craft:arch:plan<br/>/craft:code:test-gen<br/>dev/git skill: create branch"]
     B -->|"fix", "bug", "issue", "investigate"| D["/craft:code:debug<br/>/craft:test"]
-    B -->|"doc", "guide", "tutorial"| E["/craft:docs:* sequence"]
+    B -->|"doc", "guide", "tutorial"| E["/craft:docs:changelog<br/>(building/linting moved to /folio:docs:*)"]
     B -->|"quality", "lint", "improve"| F["/craft:code:lint<br/>/craft:code:refactor"]
     B -->|No match| G["Default category<br/>command sequence"]
 

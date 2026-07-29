@@ -1,6 +1,6 @@
 # Tutorial: Release Pipeline
 
-Learn how to use `/craft:release` to automate the full release lifecycle.
+Learn how to use `/release` to automate the full release lifecycle.
 
 **Time:** 10 minutes | **Level:** Intermediate | **Skill:** `skills/release/SKILL.md`
 

@@ -60,7 +60,7 @@ You expected a simple summary but got a wall of debug information.
 
 ```bash
 ./scripts/validate-counts.sh       # Refresh cached metrics
-/craft:docs:claude-md:sync         # Sync CLAUDE.md metrics
+# Ask "sync CLAUDE.md" (claude-md-lifecycle skill, folded in v4 consolidation)
 ```
 
 ### 4. Wrong Flags or Arguments
@@ -68,8 +68,8 @@ You expected a simple summary but got a wall of debug information.
 **Issue:** Flags change behavior unexpectedly.
 
 ```bash
-/craft:docs:claude-md:sync --fix    # Applies auto-fixes
-/craft:docs:claude-md:sync          # Audit-only, shows what would change
+# Ask "sync CLAUDE.md and apply fixes" (claude-md-lifecycle skill applies auto-fixes)
+# Ask "audit CLAUDE.md" (skill runs audit-only, shows what would change)
 ```
 
 **Solution:** Use the "Show Steps First" pattern -- commands preview their plan before executing.

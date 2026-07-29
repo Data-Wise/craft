@@ -343,7 +343,7 @@ If orchestrator-v2 delegation fails or is denied:
 /craft:do generate insights report
 
 # Routes to:
-# 1. /craft:insights - Generate insights report from session data
+# 1. brainstorm-insights skill - Generate insights report from session data (ask naturally, not a slash command)
 
 /craft:do apply insights to rules
 /craft:do update rules from insights

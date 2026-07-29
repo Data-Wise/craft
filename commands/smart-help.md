@@ -10,16 +10,16 @@ arguments:
     default: false
 ---
 
-# /craft:help - Context-Aware Help
+# /craft:smart-help - Context-Aware Help
 
 Get intelligent help based on your project and question.
 
 ## Usage
 
 ```bash
-/craft:help                     # Show relevant commands for current project
-/craft:help <topic>             # Get help on specific topic
-/craft:help "how do I..."       # Answer questions about workflows
+/craft:smart-help                     # Show relevant commands for current project
+/craft:smart-help <topic>             # Get help on specific topic
+/craft:smart-help "how do I..."       # Answer questions about workflows
 ```
 
 ## --refine (prompt pre-processing)
@@ -180,7 +180,7 @@ prompts.
 ### Testing
 
 ```bash
-/craft:help testing
+/craft:smart-help testing
 
 ╭─ Testing Commands ──────────────────────────────────╮
 │                                                     │
@@ -206,7 +206,7 @@ prompts.
 ### Architecture
 
 ```bash
-/craft:help architecture
+/craft:smart-help architecture
 
 ╭─ Architecture Commands ─────────────────────────────╮
 │                                                     │
@@ -228,7 +228,7 @@ prompts.
 ### Orchestration
 
 ```bash
-/craft:help orchestration
+/craft:smart-help orchestration
 
 ╭─ Orchestration Modes ───────────────────────────────╮
 │                                                     │
@@ -249,21 +249,21 @@ prompts.
 ## Question Answering
 
 ```bash
-/craft:help "how do I run tests?"
+/craft:smart-help "how do I run tests?"
 → Use /craft:test to run your test suite
 
-/craft:help "how do I run a fixed, repeatable multi-agent shape?"
+/craft:smart-help "how do I run a fixed, repeatable multi-agent shape?"
 → Use /craft:orch:workflow for a coded, schema-gated, resumable workflow
 → Preview it first with /craft:orch:workflow --dry-run
 
-/craft:help "how do I prepare a release?"
+/craft:smart-help "how do I prepare a release?"
 → Use /craft:code:release for the full release workflow
 
-/craft:help "how do I check code quality?"
+/craft:smart-help "how do I check code quality?"
 → Use /craft:check for quick validation
 → Use /craft:ci:local for full CI simulation
 
-/craft:help "what commands are available?"
+/craft:smart-help "what commands are available?"
 → Use /craft:hub to see all 115 commands
 ```
 

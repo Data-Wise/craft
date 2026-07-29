@@ -516,7 +516,7 @@ Issues requiring attention:
 Suggested fixes:
   1. Update stale refs: /craft:docs:update --stale-refs
   2. Update test expectation: tests/test_craft_plugin.py line 847
-  3. Sync CLAUDE.md counts: /craft:docs:claude-md:sync
+  3. Sync CLAUDE.md counts: ask "sync CLAUDE.md" (claude-md-lifecycle skill)
 
 Next steps: Fix 1 failure and 2 warnings, then re-run /craft:check --for pr
 ```

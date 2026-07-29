@@ -1,5 +1,9 @@
 
-# /craft:insights — Session Insights Report
+# brainstorm-insights — Session Insights Report
+
+> **Note (2026-07 v4 consolidation):** this is a skill, not a slash command —
+> invoke by asking naturally. The `/craft:insights` command referenced below
+> in some historical examples no longer exists.
 
 Aggregate and analyze session data from `~/.claude/usage-data/facets/` to identify friction patterns, recurring goals, and CLAUDE.md improvement suggestions.
 
@@ -7,19 +11,19 @@ Aggregate and analyze session data from `~/.claude/usage-data/facets/` to identi
 
 ```bash
 # Default: terminal report, last 30 days
-/craft:insights
+ask "generate insights report"
 
 # HTML report for sharing
-/craft:insights --format html
+ask "generate insights report as html"
 
 # JSON output for scripting
-/craft:insights --format json
+ask "generate insights report as json"
 
 # Last 7 days only
-/craft:insights --since 7
+ask "generate insights report for the last 7 days"
 
 # Filter to specific project
-/craft:insights --project craft
+ask "generate insights report for project craft"
 ```
 
 ## Execution Behavior (MANDATORY)
@@ -115,8 +119,8 @@ Read all facet JSON files within the `--since` window. Extract and aggregate:
 │    Rule: "After adding/removing commands, run validate-counts" │
 │                                                               │
 ├───────────────────────────────────────────────────────────────┤
-│ Apply suggestions: /craft:insights-apply                       │
-│ Full HTML report: /craft:insights --format html                │
+│ Apply suggestions: ask "apply insights" (insights-apply skill) │
+│ Full HTML report: ask "generate insights report as html"       │
 └───────────────────────────────────────────────────────────────┘
 ```
 
@@ -171,6 +175,6 @@ When insights data feeds into ORCHESTRATE generation:
 
 ## See Also
 
-- [/craft:insights-apply](../../../insights-apply/SKILL.md) — Apply suggestions to CLAUDE.md
+- [insights-apply skill](../../../insights-apply/SKILL.md) — Apply suggestions to CLAUDE.md (ask "apply insights")
 - [/craft:check --context](../../../../commands/check.md) — Context-aware phase detection
 - [Insights Guide](../../../../docs/guide/insights-improvements-guide.md) — Full documentation

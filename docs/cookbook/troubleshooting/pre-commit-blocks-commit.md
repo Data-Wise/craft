@@ -68,7 +68,7 @@ bash scripts/docs-lint-emoji.sh --fix    # Auto-fix
 
 **Solution:**
 
-1. Run the optimizer: `/craft:docs:claude-md:sync`
+1. Run the optimizer: ask "sync CLAUDE.md" (`claude-md-lifecycle` skill, folded in v4 consolidation)
 2. Move detail to `docs/VERSION-HISTORY.md` or `docs/ARCHITECTURE.md`
 
 ### 4. Bypassing Hooks (Emergency Only)

@@ -39,7 +39,7 @@ Try these commands yourself and see the magic happen!
 │   /craft:do              - Universal task router            │
 │   /craft:orch     - Multi-agent coordination         │
 │   /craft:check           - Pre-flight validation            │
-│   /craft:help            - Context-aware help               │
+│   /craft:smart-help            - Context-aware help               │
 │                                                             │
 │ 📚 DOCUMENTATION (13 commands)                              │
 │   /craft:docs:update     - Smart doc generation             │
@@ -330,7 +330,7 @@ git commit -m "message"
 ### When Stuck
 
 ```bash
-/craft:help                   # Context-aware suggestions
+/craft:smart-help                   # Context-aware suggestions
 /craft:do "what you want"     # Let AI figure it out
 ```
 

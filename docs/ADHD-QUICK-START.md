@@ -41,7 +41,7 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 ```bash
 /craft:do "add validation to my forms"     # AI routes task automatically
 /craft:check                                # Pre-flight check before committing
-/craft:help testing                         # Get context-aware testing help
+/craft:smart-help testing                         # Get context-aware testing help
 ```
 
 ## ⏱️ Next 5 Minutes
@@ -61,7 +61,7 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 
 ```bash
 /craft:hub          # See all commands
-/craft:help         # Context-specific suggestions
+/craft:smart-help         # Context-specific suggestions
 /craft:check        # Validate your setup
 ```
 

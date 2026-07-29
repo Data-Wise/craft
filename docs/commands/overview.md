@@ -143,7 +143,7 @@ Many commands support execution modes:
 | Run tests | `/craft:test` |
 | Manage git worktrees | ask "create a worktree for feature-name" (`dev/git` skill) |
 | Check before commit | `/craft:check` |
-| Get help | `/craft:help` |
+| Get help | `/craft:smart-help` |
 | Discover commands | `/craft:hub` |
 
 ---
@@ -247,7 +247,7 @@ Three key commands use the **"Show Steps First" pattern** (worktree creation mov
 ### Level 1: Essentials (First 30 minutes)
 
 1. **Discover commands:** `/craft:hub`
-2. **Get help:** `/craft:help`
+2. **Get help:** `/craft:smart-help`
 3. **Quick check:** `/craft:check`
 4. **Smart routing:** `/craft:do "simple task"`
 

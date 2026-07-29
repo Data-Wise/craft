@@ -96,9 +96,10 @@ adhd-workflow (done) ──► facets/*.json ──► brainstorm-insights (this
 
 ## Integration
 
-Replaces during v2.34.0 → v3.0.0 migration: `/craft:insights` (formerly
-`/craft:workflow:insights`). The command path continues to work during the
-deprecation cycle.
+Replaced the `/craft:insights` command (formerly `/craft:workflow:insights`)
+during the v2.34.0 → v3.0.0 migration; folded into this skill in the v4
+consolidation (2026-07). No slash-command path remains — ask naturally
+("generate insights report").
 
 ## Test-plan scaffolding (default-on, shared template reference)
 

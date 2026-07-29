@@ -22,7 +22,7 @@ v2.18.0 adds features that emerged from analyzing real craft usage patterns:
 
 ## New Skills
 
-### Guard Audit (`/guard-audit`)
+### Guard Audit (`guard-audit` skill — ask naturally, not a slash command)
 
 A read-only 5-step pipeline that analyzes your `branch-guard.sh` for false positives — rules that block legitimate work. It discovers all protection rules, tests them against realistic scenarios, generates a friction report, and proposes JSON config changes. It never modifies the guard script itself.
 
@@ -32,7 +32,7 @@ A read-only 5-step pipeline that analyzes your `branch-guard.sh` for false posit
 
 ```mermaid
 flowchart TD
-    Start(["/guard-audit"]) --> D["Step 1: Discovery"]
+    Start(["ask 'audit guard'"]) --> D["Step 1: Discovery"]
     D --> D1[Read branch-guard.sh]
     D1 --> D2[Extract protection rules]
     D2 --> D3[Read .claude/branch-guard.json]
@@ -68,22 +68,22 @@ flowchart TD
 
 ---
 
-### Insights Apply (`/insights-apply`)
+### Insights Apply (`insights-apply` skill — ask naturally, not a slash command)
 
-Bridges the gap between `/insights` (which analyzes your usage patterns) and your global `~/.claude/CLAUDE.md`. Parses the insights report, extracts `claude_md_additions` suggestions, presents each for review (apply/skip/edit), applies via the sync pipeline, and enforces the 200-line budget.
+Bridges the gap between the `brainstorm-insights` skill (which analyzes your usage patterns, ask "generate insights report") and your global `~/.claude/CLAUDE.md`. Parses the insights report, extracts `claude_md_additions` suggestions, presents each for review (apply/skip/edit), applies via the sync pipeline, and enforces the 200-line budget.
 
-**When to use:** After running `/insights` and seeing suggestions you want to persist.
+**When to use:** After asking "generate insights report" and seeing suggestions you want to persist.
 
 **Key principle:** Targets global CLAUDE.md only — insights are cross-project patterns, not project-specific.
 
 ```mermaid
 flowchart TD
-    Start(["/insights-apply"]) --> P["Step 1: Parse Insights"]
+    Start(["ask 'apply insights'"]) --> P["Step 1: Parse Insights"]
     P --> P1{report.html exists?}
     P1 -->|Yes| P3[Extract claude_md_additions]
     P1 -->|No| P2{facets/ exists?}
     P2 -->|Yes| P3
-    P2 -->|No| Err["Error: Run /insights first"]
+    P2 -->|No| Err["Error: ask 'generate insights report' first"]
 
     P3 --> S["Step 2: Present Suggestions"]
     S --> Loop{Next suggestion?}
@@ -346,7 +346,7 @@ Orient yourself at the start of every session.
 After the guard blocks something it shouldn't.
 
 ```bash
-/guard-audit                      # Discover + analyze + propose config
+ask "audit guard"                 # Discover + analyze + propose config (guard-audit skill)
 /craft:check                      # Verify nothing broke
 ```
 
@@ -355,9 +355,9 @@ After the guard blocks something it shouldn't.
 Periodic — incorporate session learnings into your CLAUDE.md.
 
 ```bash
-/insights                         # Generate usage report
-/insights-apply                   # Extract + review + apply to CLAUDE.md
-/craft:docs:claude-md:sync        # Validate CLAUDE.md consistency
+ask "generate insights report"    # brainstorm-insights skill
+ask "apply insights"              # insights-apply skill — extract + review + apply to CLAUDE.md
+Ask "sync CLAUDE.md"              # claude-md-lifecycle skill validates consistency
 ```
 
 ### Workflow 4: Parallel Feature Implementation
@@ -393,11 +393,14 @@ Before every commit.
 Generate a report from session data to identify friction patterns and CLAUDE.md improvements.
 
 ```bash
-/craft:insights                    # Terminal report, last 30 days
-/craft:insights --format html      # HTML report for sharing
-/craft:insights --since 7          # Last 7 days
-/craft:insights --project craft    # Filter to one project
+ask "generate insights report"                       # Terminal report, last 30 days
+ask "generate insights report as html"                # HTML report for sharing
+ask "generate insights report for the last 7 days"    # Last 7 days
+ask "generate insights report for project craft"      # Filter to one project
 ```
+
+> Note (2026-07 v4 consolidation): insights generation is the `brainstorm-insights`
+> skill, invoked by asking naturally — not a slash command.
 
 ### Workflow 8: Insights → ORCHESTRATE (v2.21.0)
 
@@ -405,7 +408,7 @@ When creating an ORCHESTRATE file, insights data automatically feeds into the "F
 
 ```bash
 # 1. Generate insights to see patterns
-/craft:insights
+ask "generate insights report"
 
 # 2. Create ORCHESTRATE — friction prevention is auto-populated
 /craft:plan docs/specs/SPEC-feature.md
@@ -419,7 +422,7 @@ The full insights lifecycle from session data to workflow improvements:
 ```mermaid
 flowchart TD
     S[Sessions] --> F[Facets Data]
-    F --> I["/craft:insights"]
+    F --> I["brainstorm-insights skill"]
     I --> R1[CLAUDE.md Rules]
     I --> R2[ORCHESTRATE Friction Prevention]
     I --> R3[Brainstorm Context]

@@ -229,7 +229,7 @@ Preview linting commands that will be executed:
 
 ## Markdown File Handling
 
-When the target path contains `.md` files, `/craft:code:lint` automatically delegates markdown linting to `/craft:docs:lint`.
+When the target path contains `.md` files, `/craft:code:lint` automatically delegates markdown linting to `/folio:docs:lint`.
 
 ### How It Works
 
@@ -243,10 +243,10 @@ if [ -n "$CODE_FILES" ]; then
   run_code_linter "$CODE_FILES"
 fi
 
-# 3. Delegate markdown files to /craft:docs:lint
+# 3. Delegate markdown files to /folio:docs:lint
 if [ -n "$MD_FILES" ]; then
-  echo "Delegating ${#MD_FILES[@]} markdown files to /craft:docs:lint..."
-  /craft:docs:lint "$mode" "$path"
+  echo "Delegating ${#MD_FILES[@]} markdown files to /folio:docs:lint..."
+  /folio:docs:lint "$mode" "$path"
 fi
 
 # 4. Combine exit codes
@@ -282,7 +282,7 @@ EXIT_CODE=$((CODE_EXIT || MD_EXIT))
 │   - docs/api.md:45 [MD040] Missing language tag             │
 │   - README.md:8 [MD034] Bare URL                            │
 │                                                             │
-│ Run /craft:docs:lint --fix to auto-fix markdown issues      │
+│ Run /folio:docs:lint --fix to auto-fix markdown issues      │
 │                                                             │
 │ STATUS: ISSUES FOUND ✗                                      │
 ╰─────────────────────────────────────────────────────────────╯
@@ -304,7 +304,7 @@ Works with:
 - `/craft:ci:local` - Pre-commit checks
 - `/craft:ci:fix` - Auto-fix lint issues
 - `/craft:code:release` - Release validation
-- `/craft:docs:lint` - Markdown-specific linting (delegated)
+- `/folio:docs:lint` - Markdown-specific linting (delegated)
 
 ## See Also
 

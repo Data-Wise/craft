@@ -262,7 +262,7 @@ Scan spec for paths under `~/projects/dev-tools/<other>/`. If detected:
 | `project-planner` | Strategic advice upstream; this skill writes the file. |
 | `dev/git` skill | Creates the worktree for ORCHESTRATE mode (ask naturally, e.g. "create a worktree for feature-x"). |
 | `/craft:orch` | Launches orchestrator after plan exists. |
-| `/craft:docs:sync` | Refreshes roadmap docs on `--update`. |
+| `/folio:docs:sync` | Refreshes roadmap docs on `--update` (moved to folio). |
 
 ## Test-plan scaffolding (default-on)
 

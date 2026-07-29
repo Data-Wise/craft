@@ -88,8 +88,8 @@ The AI routes your task to the best workflow automatically.
 ### Context-Aware Help
 
 ```bash
-/craft:help                     # Suggestions for your project
-/craft:help testing             # Deep dive into testing
+/craft:smart-help                     # Suggestions for your project
+/craft:smart-help testing             # Deep dive into testing
 ```
 
 ### Smart Documentation

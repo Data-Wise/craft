@@ -138,7 +138,7 @@ SUMMARY: ✓ Ready to commit (2 warnings)
 /craft:hub "add tests"
 
 # Detailed help
-/craft:hub docs:api --verbose
+/craft:hub docs:changelog --verbose
 ```
 
 **Output Example**:
@@ -152,7 +152,8 @@ MAIN MENU
 │  ├─ /craft:code:test-gen - Generate test stubs
 │  └─ ... more
 ├─ Tests (7 commands) ............................... /craft:test:*
-├─ Documentation (48 commands) ....................... /craft:docs:*
+├─ Documentation (2 commands) ........................ /craft:docs:*
+│  (docs building/linting/tutorials moved to /folio:docs:*)
 └─ ... more categories
 
 Press UP/DOWN to browse
