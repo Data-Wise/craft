@@ -1483,6 +1483,11 @@ run_test \
 echo ""
 echo -e "${T_BLUE}--- Group 20: Squash-merge bypass for git branch -D ---${T_NC}"
 
+# 2026-07-29: squash-merged branches no longer get a SILENT exit 0 — the
+# new contract is an explicit [CONFIRM] naming the verified evidence (never
+# an unconditional allow, never an unconditional block). See branch-guard.sh
+# section 8d "Verified-merge confirm gate".
+
 REPO_SQ20=$(init_repo)
 (
     cd "$REPO_SQ20"
@@ -1496,11 +1501,12 @@ REPO_SQ20=$(init_repo)
     git commit -m "squash: feature work" --quiet
 )
 
-run_test \
-    "test_git_branch_delete_squash_merged_ALLOWED" \
-    0 \
+run_test_with_stderr \
+    "test_git_branch_delete_squash_merged_now_CONFIRMS_not_silent" \
+    2 \
     "$(json_bash "git branch -D feature/sq-merged" "$REPO_SQ20")" \
-    "$REPO_SQ20"
+    "$REPO_SQ20" \
+    "VERIFIED merged"
 
 REPO_UNM20=$(init_repo)
 (
@@ -1513,11 +1519,96 @@ REPO_UNM20=$(init_repo)
     git checkout dev --quiet 2>/dev/null
 )
 
-run_test \
-    "test_git_branch_delete_unmerged_BLOCKED" \
+run_test_with_stderr \
+    "test_git_branch_delete_unmerged_BLOCKED_generic_reasoning" \
     2 \
     "$(json_bash "git branch -D feature/not-merged" "$REPO_UNM20")" \
-    "$REPO_UNM20"
+    "$REPO_UNM20" \
+    "commits may be lost"
+
+# Strong check (gh pr view + merge-base --is-ancestor): mock `gh` in PATH so
+# the test never hits the network. Verifies the PR-backed evidence path
+# fires (not just the local is_squash_merged fast path) — the whole reason
+# this gate exists is that repos exist where the local check false-negatives
+# on a real multi-commit squash merge but `gh`/the PR record still proves it.
+REPO_SQ20B=$(init_repo)
+(
+    cd "$REPO_SQ20B"
+    git checkout dev --quiet 2>/dev/null
+    git checkout -b "feature/pr-merged" --quiet 2>/dev/null
+    echo "a" > a.txt; git add a.txt; git commit -m "feat: a" --quiet
+    echo "b" > b.txt; git add b.txt; git commit -m "feat: b" --quiet
+    echo "c" > c.txt; git add c.txt; git commit -m "feat: c" --quiet
+)
+BG_PR_TIP="$(cd "$REPO_SQ20B" && git rev-parse refs/heads/feature/pr-merged)"
+(
+    cd "$REPO_SQ20B"
+    git checkout dev --quiet 2>/dev/null
+    git merge --squash "feature/pr-merged" --quiet
+    git commit -m "squash: multi-commit feature" --quiet
+)
+BG_MERGE_SHA="$(cd "$REPO_SQ20B" && git rev-parse dev)"
+(
+    # Unrelated follow-up commit on dev AFTER the squash-merge — this is
+    # what makes the local tree-diff fallback false-negative (dev's tip
+    # tree no longer matches the branch's tip tree) while the strong
+    # check still correctly sees BG_MERGE_SHA as an ancestor of dev. This
+    # is the exact multi-commit-squash false-negative shape documented in
+    # repo memory git-cherry-misreports-squash-merges.
+    cd "$REPO_SQ20B"
+    echo "unrelated" > unrelated.txt
+    git add unrelated.txt
+    git commit -m "chore: unrelated follow-up" --quiet
+)
+
+BG_FAKE_BIN="$(make_tmpdir)"
+cat > "$BG_FAKE_BIN/gh" <<EOF
+#!/bin/bash
+if [[ "\$1" == "pr" && "\$2" == "view" && "\$3" == "feature/pr-merged" ]]; then
+  echo '{"number":123,"headRefOid":"${BG_PR_TIP}","mergeCommit":{"oid":"${BG_MERGE_SHA}"},"state":"MERGED"}'
+  exit 0
+fi
+exit 1
+EOF
+chmod +x "$BG_FAKE_BIN/gh"
+
+BG_STRONG_EXIT=0
+BG_STRONG_STDERR=$(echo "$(json_bash "git branch -D feature/pr-merged" "$REPO_SQ20B")" | (cd "$REPO_SQ20B" && PATH="$BG_FAKE_BIN:$PATH" bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || BG_STRONG_EXIT=$?
+TOTAL=$((TOTAL + 1))
+if [[ "$BG_STRONG_EXIT" -eq 2 ]] && echo "$BG_STRONG_STDERR" | grep -qi "PR #123"; then
+    PASS=$((PASS + 1))
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_git_branch_delete_strong_check_reports_pr_number  ${T_BOLD}(exit=$BG_STRONG_EXIT, pattern matched)${T_NC}"
+else
+    FAIL=$((FAIL + 1))
+    FAILED_NAMES+=("test_git_branch_delete_strong_check_reports_pr_number")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_git_branch_delete_strong_check_reports_pr_number  ${T_BOLD}(expected exit=2 + 'PR #123', got exit=$BG_STRONG_EXIT)${T_NC}"
+    echo -e "        stderr: $(echo "$BG_STRONG_STDERR" | head -5)"
+fi
+
+# Planted-defect control: one verified branch + one genuinely unmerged
+# branch in the SAME -D command must still BLOCK with the generic
+# (non-VERIFIED) reasoning — partial verification must never downgrade
+# the whole command to a soft confirm.
+REPO_MIX20=$(init_repo)
+(
+    cd "$REPO_MIX20"
+    git checkout dev --quiet 2>/dev/null
+    git checkout -b "feature/sq-merged-2" --quiet 2>/dev/null
+    echo "x" > x.txt; git add x.txt; git commit -m "feat: x" --quiet
+    git checkout dev --quiet 2>/dev/null
+    git merge --squash "feature/sq-merged-2" --quiet
+    git commit -m "squash: x" --quiet
+    git checkout -b "feature/not-merged-2" --quiet 2>/dev/null
+    echo "y" > y.txt; git add y.txt; git commit -m "feat: y" --quiet
+    git checkout dev --quiet 2>/dev/null
+)
+
+run_test_with_stderr \
+    "test_git_branch_delete_mixed_verified_and_unmerged_still_BLOCKED" \
+    2 \
+    "$(json_bash "git branch -D feature/sq-merged-2 feature/not-merged-2" "$REPO_MIX20")" \
+    "$REPO_MIX20" \
+    "commits may be lost"
 
 echo ""
 

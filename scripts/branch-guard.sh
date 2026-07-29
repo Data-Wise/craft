@@ -672,17 +672,111 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
       printf '\n\033[33m[branch-guard]\033[0m CRAFT_GUARD_ALLOW_FORCE_DELETE=1 — allowing force-delete\n' >&2
       exit 0
     fi
-    # Squash-merge check: if all commits are already in the integration branch,
-    # the branch is safe to force-delete without confirmation.
-    _DEL_BRANCH="$(echo "$COMMAND" | sed -n 's/.*git branch -D \([^[:space:];|&]*\).*/\1/p' 2>/dev/null || true)"
-    if [[ -n "$_DEL_BRANCH" ]] && command -v is_squash_merged &>/dev/null; then
-      _SQUASH_STATUS="$(cd "$CWD" 2>/dev/null && is_squash_merged "${INTEGRATION_BRANCH:-dev}" "$_DEL_BRANCH" 2>/dev/null || echo "UNKNOWN")"
-      if [[ "$_SQUASH_STATUS" == "SAFE" ]]; then
-        # All commits already in base — squash-merge confirmed, allow force-delete
-        printf '\n\033[33m[branch-guard]\033[0m Squash-merge confirmed for \033[1m%s\033[0m — allowing force-delete\n' "$_DEL_BRANCH" >&2
-        exit 0
+    # -------------------------------------------------------------------
+    # Verified-merge confirm gate (2026-07-29): a squash-merged branch used
+    # to be force-delete-eligible via a SILENT exit 0 (no confirm at all)
+    # once the local `is_squash_merged` check said SAFE. Two problems with
+    # that: (a) too permissive — a stale/incorrect merge status would nuke
+    # a branch with zero human check, and (b) the local check itself
+    # (git cherry / tree-diff) misreports multi-commit squash merges as
+    # NOT_MERGED (repo memory git-cherry-misreports-squash-merges), which
+    # is too STRICT the other direction — hard-blocking genuinely-merged
+    # branches with no escape except the CRAFT_GUARD_ALLOW_FORCE_DELETE
+    # env var above.
+    #
+    # New contract: a branch verified merged (by either tier below) gets
+    # an explicit [CONFIRM] naming the branch and the evidence — never a
+    # silent allow, never an unconditional hard block. An unverified
+    # branch keeps the original hard confirm unchanged.
+    #
+    # Verification tiers — either is sufficient for a given branch:
+    #   1. Local (is_squash_merged, lib/git-utils.sh): offline, fast, exact
+    #      for single-commit squashes; can false-negative on multi-commit.
+    #   2. Strong (this function): `gh pr view` + the two-part gate from
+    #      repo CLAUDE.md / memory git-cherry-misreports-squash-merges —
+    #      local branch tip must equal the merged PR's headRefOid AND the
+    #      PR's mergeCommit must be an ancestor of the integration branch.
+    #      Fails CLOSED on any missing tool, timeout, or mismatch.
+    #
+    # Defined inline (not lib/git-utils.sh) so this works identically
+    # whether sourced via the canonical craft copy or the live installed
+    # hook — the live hook's `../lib` does not resolve to a real
+    # lib/git-utils.sh, so anything only in that file would silently not
+    # apply live (memory live-hook-fix-must-port-to-repo-source).
+    _bg_strong_merge_check() {
+      # Usage: _bg_strong_merge_check <branch> <integration_branch>
+      # Echoes "SAFE <pr_number>" or "NOT_SAFE" (never anything else).
+      local br="$1" integ="$2"
+      command -v gh &>/dev/null || { echo "NOT_SAFE"; return; }
+      command -v jq &>/dev/null || { echo "NOT_SAFE"; return; }
+      local _bg_timeout_bin=""
+      command -v timeout &>/dev/null && _bg_timeout_bin="timeout 5"
+      local local_tip
+      local_tip="$(git rev-parse "refs/heads/${br}" 2>/dev/null)" || { echo "NOT_SAFE"; return; }
+      local pr_json
+      pr_json="$(${_bg_timeout_bin} gh pr view "$br" --json number,headRefOid,mergeCommit,state 2>/dev/null)" || { echo "NOT_SAFE"; return; }
+      [[ -n "$pr_json" ]] || { echo "NOT_SAFE"; return; }
+      local pr_state pr_num pr_head pr_merge
+      pr_state="$(printf '%s' "$pr_json" | jq -r '.state // empty' 2>/dev/null)" || true
+      [[ "$pr_state" == "MERGED" ]] || { echo "NOT_SAFE"; return; }
+      pr_num="$(printf '%s' "$pr_json" | jq -r '.number // empty' 2>/dev/null)" || true
+      pr_head="$(printf '%s' "$pr_json" | jq -r '.headRefOid // empty' 2>/dev/null)" || true
+      pr_merge="$(printf '%s' "$pr_json" | jq -r '.mergeCommit.oid // empty' 2>/dev/null)" || true
+      [[ -n "$pr_num" && -n "$pr_head" && -n "$pr_merge" ]] || { echo "NOT_SAFE"; return; }
+      [[ "$pr_head" == "$local_tip" ]] || { echo "NOT_SAFE"; return; }
+      git merge-base --is-ancestor "$pr_merge" "$integ" 2>/dev/null || { echo "NOT_SAFE"; return; }
+      echo "SAFE ${pr_num}"
+    }
+
+    # Extract ALL branch args in the -D clause (git allows deleting several
+    # at once). Stop at the first clause terminator so a chained command
+    # (&&, ||, ;, |) doesn't get swept in as a "branch name".
+    _bg_del_clause="$(echo "$COMMAND" | sed -E 's/.*git branch (-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)[[:space:]]*//')"
+    _bg_del_clause="${_bg_del_clause%%;*}"
+    _bg_del_clause="${_bg_del_clause%%&&*}"
+    _bg_del_clause="${_bg_del_clause%%||*}"
+    _bg_del_clause="${_bg_del_clause%%|*}"
+    read -ra _DEL_BRANCHES <<< "$_bg_del_clause"
+
+    _BG_ALL_VERIFIED=true
+    _BG_ANY_BRANCH=false
+    _BG_EVIDENCE=""
+    for _bg_b in "${_DEL_BRANCHES[@]:-}"; do
+      case "$_bg_b" in ""|-*) continue ;; esac
+      _BG_ANY_BRANCH=true
+      _bg_verified=false
+
+      if command -v is_squash_merged &>/dev/null; then
+        _bg_local_status="$(cd "$CWD" 2>/dev/null && is_squash_merged "${INTEGRATION_BRANCH:-dev}" "$_bg_b" 2>/dev/null || echo "UNKNOWN")"
+        if [[ "$_bg_local_status" == "SAFE" ]]; then
+          _BG_EVIDENCE+="  ${_bg_b} — local commit-graph check: fully contained in ${INTEGRATION_BRANCH:-dev}"$'\n'
+          _bg_verified=true
+        fi
       fi
+
+      if [[ "$_bg_verified" == false ]]; then
+        _bg_strong_result="$(cd "$CWD" 2>/dev/null && _bg_strong_merge_check "$_bg_b" "${INTEGRATION_BRANCH:-dev}" 2>/dev/null || echo "NOT_SAFE")"
+        if [[ "$_bg_strong_result" == "SAFE "* ]]; then
+          _bg_pr="${_bg_strong_result#SAFE }"
+          _BG_EVIDENCE+="  ${_bg_b} — merged via PR #${_bg_pr}, ancestor check passed against ${INTEGRATION_BRANCH:-dev}"$'\n'
+          _bg_verified=true
+        fi
+      fi
+
+      if [[ "$_bg_verified" == false ]]; then
+        _BG_ALL_VERIFIED=false
+        break
+      fi
+    done
+
+    if [[ "$_BG_ANY_BRANCH" == true && "$_BG_ALL_VERIFIED" == true ]]; then
+      _confirm "branch_delete_verified" \
+        "git branch -D (force delete) — VERIFIED merged" \
+        "Verified merged — evidence:"$'\n'"${_BG_EVIDENCE}" \
+        "Confirm to force-delete — the evidence above already establishes these are safe" \
+        "git branch -d instead for git's own belt-and-suspenders check"
     fi
+
     _confirm "branch_delete" \
       "git branch -D (force delete)" \
       "Force-deletes branch even if not merged — commits may be lost" \
