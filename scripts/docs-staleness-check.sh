@@ -831,13 +831,20 @@ print_phase_status() {
 }
 
 phase_status_label() {
-    local -n findings_ref=$1
-    if [[ ${#findings_ref[@]} -eq 0 ]]; then
+    # Indirect array access via eval rather than `local -n` (bash 4.3+):
+    # the shebang is `env bash`, which on macOS resolves to bash 3.2, where
+    # a nameref fails and the function silently emits nothing.
+    # Callers always pass a literal internal array name, never user input.
+    local _arr_name=$1
+    local _count _i _f
+    eval "_count=\${#${_arr_name}[@]}"
+    if [[ $_count -eq 0 ]]; then
         echo "GREEN"
     else
         # Check if any are errors
-        for f in "${findings_ref[@]}"; do
-            if [[ "$f" == error\|* ]]; then
+        for (( _i=0; _i<_count; _i++ )); do
+            eval "_f=\${${_arr_name}[$_i]}"
+            if [[ "$_f" == error\|* ]]; then
                 echo "RED"
                 return
             fi
@@ -908,14 +915,19 @@ ENDJSON
 }
 
 findings_to_json() {
-    local -n arr=$1
-    if [[ ${#arr[@]} -eq 0 ]]; then
+    # Indirect array access via eval rather than `local -n` — see the note on
+    # phase_status_label above (bash 3.2 has no namerefs).
+    local _arr_name=$1
+    local _count _i entry
+    eval "_count=\${#${_arr_name}[@]}"
+    if [[ $_count -eq 0 ]]; then
         echo "[]"
         return
     fi
     local first=true
     echo -n "["
-    for entry in "${arr[@]}"; do
+    for (( _i=0; _i<_count; _i++ )); do
+        eval "entry=\${${_arr_name}[$_i]}"
         IFS='|' read -r severity file message fixable fix_detail <<< "$entry"
         # Escape JSON strings
         file=$(echo "$file" | sed 's/\\/\\\\/g;s/"/\\"/g')

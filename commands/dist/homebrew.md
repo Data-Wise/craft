@@ -1597,13 +1597,12 @@ The generator assembles a complete formula with:
 
 ### Existing Plugin Formulas
 
-All 7 plugin formulas are generated from the manifest:
+All 6 plugin formulas are generated from the manifest:
 
 | Formula | Features | Status |
 |---------|----------|--------|
 | `craft.rb` | branch-guard, schema-cleanup (command count: see `plugin.json`) | `brew audit --strict` clean |
 | `himalaya-mcp.rb` | copy_map layout, CLI wrapper, npm build | `brew audit --strict` clean |
-| `scholar.rb` | schema-cleanup (command count: see `plugin.json`) | `brew audit --strict` clean |
 | `rforge.rb` | head-only (no releases) | `brew audit --strict` clean |
 | `rforge-orchestrator.rb` | monorepo URL pattern | `brew audit --strict` clean |
 | `workflow.rb` | ADHD workflow automation | `brew audit --strict` clean |

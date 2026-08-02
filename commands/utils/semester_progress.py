@@ -8,6 +8,8 @@ Author: Craft Plugin Teaching Workflow
 Created: 2026-01-16
 """
 
+from __future__ import annotations
+
 from datetime import datetime, timedelta
 from typing import Any
 

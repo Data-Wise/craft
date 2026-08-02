@@ -1,5 +1,4 @@
 ---
-name: brainstorm
 description: Enhanced brainstorming with smart detection, design modes, time budgets, context-aware questions, and spec capture
 arguments:
   - name: depth

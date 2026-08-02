@@ -56,18 +56,40 @@ finding() {
 }
 
 # Build list of command files to check
+# Read loops instead of `mapfile` (bash 4.0+): the shebang is `env bash`, which
+# on macOS resolves to bash 3.2, where mapfile does not exist and the arrays
+# silently stayed empty — the coverage check then saw zero commands.
+read_lines_into() {
+    # read_lines_into <array-name>; consumes stdin. Literal internal names only.
+    # Use `if`, not `[[ ... ]] && ...`: under `set -e` a false `&&` list as the
+    # loop body's last command makes the function return 1 and aborts the
+    # script. That fires whenever the input ends in a blank line -- a failure
+    # mode `mapfile` did not have. An `if` with a false condition returns 0.
+    local _name=$1 _line
+    eval "$_name=()"
+    while IFS= read -r _line; do
+        if [[ -n "$_line" ]]; then
+            eval "$_name+=(\"\$_line\")"
+        fi
+    done
+}
+
 if [[ -n "$SINCE_REF" ]]; then
-    mapfile -t cmd_files < <(
+    read_lines_into cmd_files < <(
         git -C "$ROOT" diff --name-only "$SINCE_REF"..HEAD -- 'commands/*.md' 'commands/**/*.md' 2>/dev/null \
         | grep -v -E '(index|README)\.md$' || true
     )
     # Also include untracked new files
-    mapfile -t untracked < <(
+    read_lines_into untracked < <(
         git -C "$ROOT" ls-files --others --exclude-standard -- 'commands/*.md' 'commands/**/*.md' 2>/dev/null || true
     )
-    cmd_files+=("${untracked[@]}")
+    # Guard the expansion: under `set -u`, bash 3.2 treats "${empty[@]}" as an
+    # unbound variable and (with `set -e`) aborts the script outright.
+    if [[ ${#untracked[@]} -gt 0 ]]; then
+        cmd_files+=("${untracked[@]}")
+    fi
 else
-    mapfile -t cmd_files < <(
+    read_lines_into cmd_files < <(
         find "$COMMANDS_DIR" -name "*.md" \
             ! -name "index.md" ! -name "README.md" \
             2>/dev/null | sort

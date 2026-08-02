@@ -1,5 +1,4 @@
 ---
-name: docs:update
 description: Smart documentation generator with interactive category-level updates
 category: docs
 tags: [documentation, interactive, automation, validation]

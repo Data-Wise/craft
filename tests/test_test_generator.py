@@ -5,6 +5,7 @@ Covers the 3-phase pipeline (detect → gather → render), helper functions,
 template syntax validation, and full integration via generate_tests().
 """
 
+import importlib.util
 import json
 import sys
 from pathlib import Path
@@ -12,6 +13,15 @@ from pathlib import Path
 import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
+
+# jinja2 is an *optional* dependency (pyproject: optional-dependencies.testing,
+# installed via `pip install "craft[testing]"`). Tests that actually render
+# templates must skip when it is absent rather than fail, so a bare `pytest`
+# run on a correctly-configured environment stays green.
+requires_jinja2 = pytest.mark.skipif(
+    importlib.util.find_spec("jinja2") is None,
+    reason="jinja2 not installed; install with: pip install 'craft[testing]'",
+)
 
 from utils.test_generator import (
     TEMPLATES_DIR,
@@ -155,6 +165,7 @@ class TestGatherVariables:
 # ─── Rendering Tests ────────────────────────────────────────────────────────
 
 
+@requires_jinja2
 class TestRenderTemplates:
     """Phase 3: render_templates() for each project type."""
 
@@ -236,6 +247,7 @@ class TestRenderTemplates:
 # ─── Integration Tests ──────────────────────────────────────────────────────
 
 
+@requires_jinja2
 class TestGenerateTests:
     """Full pipeline: generate_tests() end-to-end."""
 
@@ -360,6 +372,12 @@ class TestTemplateSyntax:
     )
     def test_template_parses(self, template_path: Path):
         """Each .j2 file parses without Jinja2 syntax errors."""
+        # jinja2 is an *optional* dependency (pyproject: optional-dependencies
+        # .testing, installed via `pip install "craft[testing]"`), so a missing
+        # import must skip rather than fail -- otherwise a bare `pytest` run
+        # reports 37 spurious failures on an environment that is set up exactly
+        # as the project documents.
+        pytest.importorskip("jinja2", reason="install with: pip install 'craft[testing]'")
         from jinja2 import Environment, FileSystemLoader
 
         parent_dir = template_path.parent
