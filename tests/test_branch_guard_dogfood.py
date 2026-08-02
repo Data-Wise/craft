@@ -116,6 +116,22 @@ class TestHookInstallation(unittest.TestCase):
         repo_script = os.path.join(CRAFT_ROOT, "scripts", "branch-guard.sh")
         if not os.path.isfile(repo_script):
             self.skipTest("Repo copy not found")
+
+        # The install target is shared. cc-config also ships a branch-guard.sh
+        # and symlinks it to ~/.claude/hooks/, in which case the installed hook
+        # is deliberately NOT craft's copy and the two are expected to differ
+        # (cc-config relaxed the new-code tier from MEDIUM to LOW on
+        # 2026-07-28). Craft's installers already detect and preserve such a
+        # symlink rather than overwriting it, so a mismatch here is correct
+        # behavior, not drift -- skip instead of failing.
+        if os.path.islink(HOOK_PATH):
+            target = os.path.realpath(HOOK_PATH)
+            if not target.startswith(os.path.realpath(CRAFT_ROOT) + os.sep):
+                self.skipTest(
+                    f"Installed hook is owned by another repo (symlink -> {target}); "
+                    "craft's copy is intentionally not the installed artifact"
+                )
+
         with open(repo_script) as f:
             repo_content = f.read()
         with open(HOOK_PATH) as f:
