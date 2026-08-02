@@ -588,7 +588,14 @@ EXPECTED_CHECK_ARGUMENTS = [
         "default": False,
     },
 ]
-EXPECTED_NORMALIZED_CHECK_SHA256 = "acee38d9d482bf8a80cf3fbe058efc861bb5467ef90bd48ad4df45b8e4fdc31f"
+# Re-pinned for a1fe6c62b (2026-07-29), the round-4 stale-reference sweep,
+# which edited check.md but left this constant stale. Reviewed: that commit
+# changed 4 prose lines only -- /craft:docs:lint -> /folio:docs:lint and
+# /craft:docs:check-links -> /folio:docs:check-links (both moved in the folio
+# split), plus rewording the insights pointer to the brainstorm-insights
+# skill. No change to the contract this tripwire guards (arguments,
+# replaced-by, absence of skills/check/), all of which still assert above.
+EXPECTED_NORMALIZED_CHECK_SHA256 = "28466b48d46cc73d40346352d774661bef1478f89e81ab51f578e9ab37c320c1"
 
 
 def test_check_command_contract_only_changes_canonical_skill_path():
