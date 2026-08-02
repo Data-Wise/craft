@@ -61,10 +61,16 @@ finding() {
 # silently stayed empty — the coverage check then saw zero commands.
 read_lines_into() {
     # read_lines_into <array-name>; consumes stdin. Literal internal names only.
+    # Use `if`, not `[[ ... ]] && ...`: under `set -e` a false `&&` list as the
+    # loop body's last command makes the function return 1 and aborts the
+    # script. That fires whenever the input ends in a blank line -- a failure
+    # mode `mapfile` did not have. An `if` with a false condition returns 0.
     local _name=$1 _line
     eval "$_name=()"
     while IFS= read -r _line; do
-        [[ -n "$_line" ]] && eval "$_name+=(\"\$_line\")"
+        if [[ -n "$_line" ]]; then
+            eval "$_name+=(\"\$_line\")"
+        fi
     done
 }
 
