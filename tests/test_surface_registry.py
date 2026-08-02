@@ -9,6 +9,8 @@ Tests:
   4. Name-match validator flags an entry whose name ≠ source-declared name.
 """
 
+from __future__ import annotations
+
 import json
 import os
 import re

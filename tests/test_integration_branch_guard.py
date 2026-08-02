@@ -11,6 +11,8 @@ Protocol: reads JSON from stdin, exits 0 (allow) or 2 (block)
 Run with: python3 tests/test_integration_branch_guard.py
 """
 
+from __future__ import annotations
+
 import json
 import os
 import shutil

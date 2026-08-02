@@ -10,6 +10,8 @@ machine state is required. They validate the exit-code contract:
 Markers: e2e + dogfood (registered in pyproject.toml).
 """
 
+from __future__ import annotations
+
 import json
 import os
 import re
