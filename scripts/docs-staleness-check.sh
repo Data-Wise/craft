@@ -16,10 +16,12 @@
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# Prefer the caller's working directory when it looks like a craft repo (e.g.
-# when invoked by craft-mcp with cwd set to the target repo). Fall back to the
-# repo that contains this script for direct ./scripts/... invocations.
-if [[ -f "$(pwd)/.claude-plugin/plugin.json" || -f "$(pwd)/plugin.json" || -d "$(pwd)/commands" ]]; then
+# Prefer the caller's working directory when it looks like a craft plugin repo
+# (e.g. when invoked by craft-mcp with cwd set to the target repo). Require the
+# actual plugin manifest, not looser markers like a bare commands/ dir — other
+# repos (e.g. cc-config) have a commands/ dir without being a craft plugin.
+# Fall back to the repo that contains this script for direct ./scripts/... invocations.
+if [[ -f "$(pwd)/.claude-plugin/plugin.json" ]]; then
     PLUGIN_DIR="$(pwd)"
 else
     PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
