@@ -137,7 +137,14 @@ function runTool(spec: ToolSpec, repoPath: string): Promise<ToolResult> {
       });
       return;
     }
-    const child = spawn(cmd, args, { cwd: repoPath, env: process.env });
+    // CRAFT_PLUGIN_DIR states the target repo explicitly. cwd alone is
+    // ambiguous: in local dev SCRIPTS_ROOT is the craft checkout, which is
+    // itself a plugin repo, so the scripts cannot tell "run against my own
+    // repo" apart from "run against the repo the caller cd'd into".
+    const child = spawn(cmd, args, {
+      cwd: repoPath,
+      env: { ...process.env, CRAFT_PLUGIN_DIR: repoPath },
+    });
     let out = "";
     let err = "";
     child.stdout.on("data", (d) => (out += d.toString()));

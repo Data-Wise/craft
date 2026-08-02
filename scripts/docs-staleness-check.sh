@@ -16,12 +16,20 @@
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# Prefer the caller's working directory when it looks like a craft plugin repo
-# (e.g. when invoked by craft-mcp with cwd set to the target repo). Require the
-# actual plugin manifest, not looser markers like a bare commands/ dir — other
-# repos (e.g. cc-config) have a commands/ dir without being a craft plugin.
-# Fall back to the repo that contains this script for direct ./scripts/... invocations.
-if [[ -f "$(pwd)/.claude-plugin/plugin.json" ]]; then
+# Resolve which repo to inspect. See the matching block in validate-counts.sh
+# for the full rationale; order is:
+#   1. $CRAFT_PLUGIN_DIR     — explicit override (craft-mcp sets the target repo)
+#   2. the script's own repo — when this script sits inside a plugin repo, that
+#                              repo is the subject. Preferring cwd here made a
+#                              script invoked by absolute path against another
+#                              tree silently inspect the caller's repo instead.
+#   3. the caller's cwd      — packaged .mcpb, where bundled/ has no plugin.json
+#   4. the script's parent   — last-resort fallback
+if [[ -n "${CRAFT_PLUGIN_DIR:-}" && -f "${CRAFT_PLUGIN_DIR}/.claude-plugin/plugin.json" ]]; then
+    PLUGIN_DIR="$CRAFT_PLUGIN_DIR"
+elif [[ -f "$(dirname "$SCRIPT_DIR")/.claude-plugin/plugin.json" ]]; then
+    PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+elif [[ -f "$(pwd)/.claude-plugin/plugin.json" ]]; then
     PLUGIN_DIR="$(pwd)"
 else
     PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
