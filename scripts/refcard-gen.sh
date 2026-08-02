@@ -34,8 +34,13 @@ get_field() {
     }' "$file" 2>/dev/null | head -1 | tr -d "\"'"
 }
 
-# Collect rows per category
-declare -A cat_rows
+# Collect rows as "<category><TAB><row>" lines rather than an associative array
+# (`declare -A`, bash 4.0+): the shebang is `env bash`, which on macOS resolves
+# to bash 3.2, where the declaration aborted the whole script with
+# "declare: -A: invalid option" and no rows were ever emitted. The per-category
+# grouping below is rebuilt by filtering this flat list. Category names come
+# from file frontmatter, so they are never used to build variable names.
+entries=()
 
 while IFS= read -r cmd_file; do
     [[ -f "$cmd_file" ]] || continue
@@ -57,18 +62,26 @@ while IFS= read -r cmd_file; do
     cmd_name="${rel//\//:}"
 
     row="| \`/craft:${cmd_name}\` | ${category} | ${description} |"
-    cat_rows["$category"]+="${row}"$'\n'
+    entries+=("${category}"$'\t'"${row}")
 done < <(find "$COMMANDS_DIR" -name "*.md" \
     ! -name "index.md" ! -name "README.md" | sort)
 
 # Build generated output: one sentinel-wrapped block per category
+# The emptiness guard matters under bash 3.2: with `set -u`, expanding an empty
+# array as "${entries[@]}" is an unbound-variable error, which `set -e` turns
+# into an outright abort.
 generated=""
-for cat in $(printf '%s\n' "${!cat_rows[@]}" | sort); do
-    block="<!-- REFCARD:GENERATED:START:${cat} -->"$'\n'
-    block+="${cat_rows[$cat]}"
-    block+="<!-- REFCARD:GENERATED:END:${cat} -->"
-    generated+="${block}"$'\n'
-done
+if [[ ${#entries[@]} -gt 0 ]]; then
+    for cat in $(printf '%s\n' "${entries[@]}" | cut -f1 | sort -u); do
+        block="<!-- REFCARD:GENERATED:START:${cat} -->"$'\n'
+        while IFS= read -r row; do
+            block+="${row}"$'\n'
+        done < <(printf '%s\n' "${entries[@]}" \
+            | awk -F'\t' -v c="$cat" '$1 == c { sub(/^[^\t]*\t/, ""); print }')
+        block+="<!-- REFCARD:GENERATED:END:${cat} -->"
+        generated+="${block}"$'\n'
+    done
+fi
 
 if [[ "$CHECK_MODE" == "true" ]]; then
     # --check is not supported: docs/REFCARD.md uses heading-based sections (### /craft:cmd),

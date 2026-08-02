@@ -21,26 +21,44 @@ echo "Output directory: $OUTPUT_DIR"
 echo ""
 
 # Commands to capture
-declare -A COMMANDS=(
-    ["teaching-workflow"]="/craft:site:build|/craft:site:progress|/craft:site:publish --dry-run|/craft:site:publish"
-    ["workflow-01"]="/craft:docs:update"
-    ["workflow-02"]="/craft:site:build --preset adhd-focus --quick"
-    ["workflow-03"]="/craft:check --for release"
-    ["workflow-04"]="/craft:do add user authentication with JWT"
-    ["workflow-05"]="/craft:test:run debug"
-    ["workflow-06"]="/craft:code:lint optimize"
-    ["workflow-07"]="ask Claude to create a worktree (dev/git skill): feature-auth"
-    ["workflow-08"]="/craft:dist:homebrew setup"
-    ["workflow-09"]="/craft:check --for commit"
-    ["workflow-10"]="/craft:orchestrate 'prepare v2.0 release' release"
+# Parallel arrays instead of `declare -A` (bash 4.0+): the shebang is
+# /bin/bash, which on macOS is bash 3.2, where the associative-array
+# declaration failed outright ("bad array subscript") and `set -e` aborted the
+# script before a single command was listed. Names are now walked in the order
+# below rather than bash 4's unspecified hash order.
+COMMAND_NAMES=(
+    "teaching-workflow"
+    "workflow-01"
+    "workflow-02"
+    "workflow-03"
+    "workflow-04"
+    "workflow-05"
+    "workflow-06"
+    "workflow-07"
+    "workflow-08"
+    "workflow-09"
+    "workflow-10"
+)
+COMMAND_LISTS=(
+    "/craft:site:build|/craft:site:progress|/craft:site:publish --dry-run|/craft:site:publish"
+    "/craft:docs:update"
+    "/craft:site:build --preset adhd-focus --quick"
+    "/craft:check --for release"
+    "/craft:do add user authentication with JWT"
+    "/craft:test:run debug"
+    "/craft:code:lint optimize"
+    "ask Claude to create a worktree (dev/git skill): feature-auth"
+    "/craft:dist:homebrew setup"
+    "/craft:check --for commit"
+    "/craft:orchestrate 'prepare v2.0 release' release"
 )
 
 echo "Commands to capture:"
 echo "==================="
-for name in "${!COMMANDS[@]}"; do
+for (( i=0; i<${#COMMAND_NAMES[@]}; i++ )); do
     echo ""
-    echo "📌 $name"
-    IFS='|' read -ra CMDS <<< "${COMMANDS[$name]}"
+    echo "📌 ${COMMAND_NAMES[$i]}"
+    IFS='|' read -ra CMDS <<< "${COMMAND_LISTS[$i]}"
     for cmd in "${CMDS[@]}"; do
         echo "   - $cmd"
     done
