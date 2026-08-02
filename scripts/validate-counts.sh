@@ -5,7 +5,14 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+# Prefer the caller's working directory when it looks like a craft repo (e.g.
+# when invoked by craft-mcp with cwd set to the target repo). Fall back to the
+# repo that contains this script for direct ./scripts/... invocations.
+if [[ -f "$(pwd)/.claude-plugin/plugin.json" || -f "$(pwd)/plugin.json" || -d "$(pwd)/commands" ]]; then
+    PLUGIN_DIR="$(pwd)"
+else
+    PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+fi
 
 # Colors (shared library)
 source "$SCRIPT_DIR/formatting.sh"
