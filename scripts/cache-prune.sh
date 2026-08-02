@@ -99,7 +99,13 @@ for plugin_dir in "$CACHE_DIR"/*/; do
     # We include `-type l` (symlinks) so a version-NAMED symlink is also subject
     # to GC instead of leaking forever; `rm -rf` on a symlink removes only the
     # link (never the target), so this stays non-destructive.
-    mapfile -t versions < <(find "$plugin_dir" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -exec basename {} \; 2>/dev/null \
+    # Read loop instead of `mapfile` (bash 4.0+): the shebang is `env bash`,
+    # which on macOS resolves to bash 3.2, where mapfile does not exist and
+    # the array silently stays empty — every plugin then looked unprunable.
+    versions=()
+    while IFS= read -r _v; do
+        [[ -n "$_v" ]] && versions+=("$_v")
+    done < <(find "$plugin_dir" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -exec basename {} \; 2>/dev/null \
         | grep -E '^[0-9]+\.[0-9]+\.[0-9]+' | sort -rV)
     [[ ${#versions[@]} -eq 0 ]] && continue
 
