@@ -16,14 +16,12 @@ running against an arbitrary target repo, not just this one. `mcp/scripts/build-
 those two scripts now require at runtime (confirmed present); a follow-up commit restored the
 executable bit both scripts lost in the first commit.
 
-⚠️ KNOWN BUG, NOT FIXED: the new cwd-detection marker set (`.claude-plugin/plugin.json`,
-`plugin.json`, or a `commands/` directory) is too loose — any non-craft repo that happens to have a
-`commands/` dir (e.g. `cc-config`, whose own scope is "hook scripts, commands, and tests") gets
-misdetected as a craft repo, resolving `PLUGIN_DIR` there and erroring (`plugin.json not found`)
-instead of falling back correctly. Repro: `cd ~/projects/dev-tools/cc-config && bash
-~/projects/dev-tools/craft/scripts/validate-counts.sh`. Needs a tighter marker (e.g. require
-`.claude-plugin/plugin.json` specifically, not `commands/` alone) before this ships inside the
-`.mcpb`. Also present, untracked: `docs/tutorials/TUTORIAL-opencode-plugins.md` (new), and two
+Cwd-marker bug FIXED (`c9f1e8eaf`): the marker set was too loose (`.claude-plugin/plugin.json` OR
+`plugin.json` OR a bare `commands/` dir) — any non-craft repo with a `commands/` dir (e.g.
+`cc-config`) was misdetected as a craft repo, erroring (`plugin.json not found`) instead of falling
+back. Now requires `.claude-plugin/plugin.json` specifically. Verified both directions: `cc-config`
+cwd falls back correctly (craft's own counts reported, no error); craft's own cwd unaffected.
+Also present, untracked: `docs/tutorials/TUTORIAL-opencode-plugins.md` (new), and two
 deferred specs from 2026-07-29 (`SPEC-agents-docs-claim-fix-2026-07-29.md`,
 `SPEC-dist-marketplace-fix-2026-07-29.md`) still awaiting their sweep pass.
 
