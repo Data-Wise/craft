@@ -548,6 +548,135 @@ _hard_block() {
   block "$(_box "$@")" "BLOCK"
 }
 
+# _bg_push_refspec_safe: does this `git push` clause confidently avoid
+# touching the protected branch? Only two forms are recognized as safe —
+# `--delete <ref>` (one or more, git allows a list after one --delete) and
+# an explicit `<src>:<dst>` refspec. Echoes SAFE only when every recognized
+# destination ref is confirmed NOT the protected branch; a bare push, an
+# unparseable clause, or ANY destination matching the protected branch
+# (including deleting it outright) stays UNSAFE — callers must gate exactly
+# as before in that case. Never widen this to bare-ref pushes (`git push
+# origin <branch>`) without also resolving what a bare ref actually targets;
+# that ambiguity is the reason bare pushes stay UNSAFE by design (issue #6).
+_bg_push_refspec_safe() {
+  local clause="$1" protected="$2"
+  case "$clause" in *'$'*|*'`'*|*'"'*|*"'"*) echo "UNSAFE"; return ;; esac
+
+  local -a _tokens
+  read -ra _tokens <<< "$clause"
+  local n=${#_tokens[@]} i=0
+
+  # Skip everything through the literal `push` token — clause extraction can
+  # prepend a compound-command separator (&&, ||, ;), `git`, and an optional
+  # `-C <path>` pair, none of which are push arguments.
+  while [[ $i -lt $n && "${_tokens[$i]}" != "push" ]]; do
+    i=$((i+1))
+  done
+  i=$((i+1))
+
+  # Per `git push [<repository> [<refspec>...]]`, the first non-flag token
+  # after `push` is ALWAYS the repository (name or URL) — a refspec never
+  # appears without it. It must never be read as a --delete target or a
+  # <src>:<dst> refspec even though it can itself contain a colon (SCP-style
+  # `user@host:path` remotes, `https://host:443/...` URLs) — excluding it
+  # unconditionally is what makes those forms safe to parse, rather than
+  # trying to pattern-match "looks like a URL" (which a hostile-shaped but
+  # legitimate remote name could still evade).
+  local seen_remote=false saw_explicit_ref=false in_delete=false
+  while [[ $i -lt $n ]]; do
+    local tok="${_tokens[$i]}"
+    if [[ "$seen_remote" == false && "$tok" != -* ]]; then
+      seen_remote=true
+      i=$((i+1))
+      continue
+    fi
+    if [[ "$tok" == "--delete" ]]; then
+      in_delete=true
+      saw_explicit_ref=true
+      i=$((i+1))
+      continue
+    fi
+    if [[ "$tok" == -* ]]; then
+      # Any OTHER flag is never itself a refspec, even when its value
+      # contains a colon — e.g. `--force-with-lease=main:0000...0`. Without
+      # this, the colon check below would read the flag's value as a
+      # <src>:<dst> refspec and only inspect the substring after ITS colon,
+      # never the actual (implicit, bare) destination the push touches.
+      i=$((i+1))
+      continue
+    fi
+    if [[ "$in_delete" == true ]]; then
+      local ref="${tok#refs/heads/}"
+      [[ "$ref" == "$protected" ]] && { echo "UNSAFE"; return; }
+    fi
+    case "$tok" in
+      *:*)
+        saw_explicit_ref=true
+        local dst="${tok#*:}"
+        dst="${dst#refs/heads/}"
+        [[ -z "$dst" || "$dst" == "$protected" ]] && { echo "UNSAFE"; return; }
+        ;;
+    esac
+    i=$((i+1))
+  done
+
+  [[ "$saw_explicit_ref" == true ]] && echo "SAFE" || echo "UNSAFE"
+}
+
+# _bg_command_push_only_safe: does $1 consist of NOTHING but an optional
+# leading `cd <path>`/`git -C <path>` target-resolution prefix (already
+# handled elsewhere for BRANCH/PROJECT_ROOT resolution) and EXACTLY ONE
+# `git push` clause, with that one clause's refspec confirmed SAFE by
+# _bg_push_refspec_safe? Any other clause — a second push, a `git commit`,
+# an unrelated command riding along in the same compound string (`rm -rf
+# x && git push ...`) — denies the exemption outright, falling back to the
+# original gate exactly as if no refspec parsing existed. This is
+# deliberately stricter than classifying each clause independently: doing
+# that missed that (1) a co-riding `git commit` can itself be disguised
+# (e.g. `git -c commit.gpgsign=false commit`) past a narrower "is there a
+# commit clause" regex, and (2) the ORIGINAL coarse trigger's only real
+# virtue was blocking the ENTIRE Bash invocation — including anything else
+# riding in the same compound command — the instant it saw commit/push
+# anywhere; per-clause safety analysis silently gave that up. Restricting
+# the exemption to "provably nothing else is happening in this command"
+# preserves that side-effect while still fixing issue #6's actual
+# reproduction (a bare push, optionally cd/-C prefixed).
+_bg_command_push_only_safe() {
+  local cmd="$1" protected="$2"
+  local push_count=0 push_clause="" other_seen=false
+
+  # &&, ;, |, and a bare & (background operator) all separate independent
+  # clauses. Listing &&/& as separate alternatives (rather than omitting
+  # bare &) relies on POSIX ERE leftmost-longest matching to prefer && as a
+  # whole over its own first character when both are present — verified
+  # against this awk (macOS/BSD): a lone & without this was previously
+  # unsplit, letting a co-riding command fused via `push ... & rm -rf x`
+  # tokenize straight through as if it were part of the push clause.
+  local _norm
+  _norm="$(printf '%s' "$cmd" | awk '{gsub(/&&|&|[;|]/,"\n"); print}')"
+  while IFS= read -r _clause; do
+    _clause="${_clause#"${_clause%%[![:space:]]*}"}"
+    [[ -z "$_clause" ]] && continue
+    if printf '%s' "$_clause" | grep -qE '^cd[[:space:]]+[^[:space:]]+[[:space:]]*$'; then
+      continue
+    fi
+    if printf '%s' "$_clause" | grep -qE '^git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push([[:space:]]|$)'; then
+      push_count=$((push_count + 1))
+      push_clause="$_clause"
+      continue
+    fi
+    other_seen=true
+  done <<EOF
+$_norm
+EOF
+
+  if [[ "$other_seen" == true || "$push_count" -ne 1 ]]; then
+    echo "UNSAFE"
+    return
+  fi
+  _bg_push_refspec_safe "$push_clause" "$protected"
+}
+
 # _dev_edit_preauthorized: env-var escape hatch for creating/editing the
 # allow-once/allow-dev-edit guard-bypass marker itself (issue #281). Same
 # shape as issue #168's CRAFT_GUARD_ALLOW_FORCE_DELETE: /craft:git:unprotect
@@ -830,7 +959,22 @@ if [[ "$PROTECTION" == "block-all" ]]; then
     Bash|bash)
       # Check for destructive git commands
       if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?(commit|push)'; then
-        if [[ "$IS_CROSS_REPO_TARGET" == true ]]; then
+        # A `git push` whose refspec provably doesn't touch $BRANCH (e.g.
+        # `--delete feature/x`, `feature/x:feature/y`) isn't a protected-branch
+        # write no matter which repo/branch it resolves against — skip the
+        # gate entirely rather than confirm/block a command that cannot
+        # modify the protected branch (issue #6). The exemption only fires
+        # when the ENTIRE command is nothing but an optional leading `cd`/
+        # `-C` target-resolution prefix and exactly one `git push` clause
+        # with a confirmed-safe refspec (see _bg_command_push_only_safe) —
+        # any co-riding clause (a second push, a `git commit`, an unrelated
+        # command) denies the exemption and falls back to gating exactly as
+        # before, on purpose: per-clause classification was tried first and
+        # missed a disguised co-riding commit and an unrelated command
+        # riding past on a safe push's coattails.
+        _bg_push_gate_needed=true
+        [[ "$(_bg_command_push_only_safe "$COMMAND" "$BRANCH")" == "SAFE" ]] && _bg_push_gate_needed=false
+        if [[ "$_bg_push_gate_needed" == true && "$IS_CROSS_REPO_TARGET" == true ]]; then
           # Cross-repo target resolved to a protected branch (e.g. another
           # repo's main) — confirm, never hard-block. The originating
           # session's own branch never authorized this, but a hard block
@@ -842,7 +986,7 @@ if [[ "$PROTECTION" == "block-all" ]]; then
             "This command targets another repository's protected ${BRANCH} branch — the session's own branch is not a valid gate for that repo's state" \
             "Run this from a session/worktree already cd'd into ${PROJECT_ROOT}" \
             "Split into a separate Bash call scoped to that repo"
-        else
+        elif [[ "$_bg_push_gate_needed" == true ]]; then
           block "$(_box \
             "${_R}${_B}BRANCH PROTECTION${_N}" \
             "---" \
