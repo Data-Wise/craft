@@ -593,7 +593,19 @@ _bg_push_refspec_safe() {
     if [[ "$tok" == "--delete" ]]; then
       in_delete=true
       saw_explicit_ref=true
-    elif [[ "$in_delete" == true && "$tok" != -* ]]; then
+      i=$((i+1))
+      continue
+    fi
+    if [[ "$tok" == -* ]]; then
+      # Any OTHER flag is never itself a refspec, even when its value
+      # contains a colon — e.g. `--force-with-lease=main:0000...0`. Without
+      # this, the colon check below would read the flag's value as a
+      # <src>:<dst> refspec and only inspect the substring after ITS colon,
+      # never the actual (implicit, bare) destination the push touches.
+      i=$((i+1))
+      continue
+    fi
+    if [[ "$in_delete" == true ]]; then
       local ref="${tok#refs/heads/}"
       [[ "$ref" == "$protected" ]] && { echo "UNSAFE"; return; }
     fi
@@ -609,6 +621,53 @@ _bg_push_refspec_safe() {
   done
 
   [[ "$saw_explicit_ref" == true ]] && echo "SAFE" || echo "UNSAFE"
+}
+
+# _bg_command_push_only_safe: does $1 consist of NOTHING but an optional
+# leading `cd <path>`/`git -C <path>` target-resolution prefix (already
+# handled elsewhere for BRANCH/PROJECT_ROOT resolution) and EXACTLY ONE
+# `git push` clause, with that one clause's refspec confirmed SAFE by
+# _bg_push_refspec_safe? Any other clause — a second push, a `git commit`,
+# an unrelated command riding along in the same compound string (`rm -rf
+# x && git push ...`) — denies the exemption outright, falling back to the
+# original gate exactly as if no refspec parsing existed. This is
+# deliberately stricter than classifying each clause independently: doing
+# that missed that (1) a co-riding `git commit` can itself be disguised
+# (e.g. `git -c commit.gpgsign=false commit`) past a narrower "is there a
+# commit clause" regex, and (2) the ORIGINAL coarse trigger's only real
+# virtue was blocking the ENTIRE Bash invocation — including anything else
+# riding in the same compound command — the instant it saw commit/push
+# anywhere; per-clause safety analysis silently gave that up. Restricting
+# the exemption to "provably nothing else is happening in this command"
+# preserves that side-effect while still fixing issue #6's actual
+# reproduction (a bare push, optionally cd/-C prefixed).
+_bg_command_push_only_safe() {
+  local cmd="$1" protected="$2"
+  local push_count=0 push_clause="" other_seen=false
+
+  local _norm
+  _norm="$(printf '%s' "$cmd" | awk '{gsub(/&&|[;|]/,"\n"); print}')"
+  while IFS= read -r _clause; do
+    _clause="${_clause#"${_clause%%[![:space:]]*}"}"
+    [[ -z "$_clause" ]] && continue
+    if printf '%s' "$_clause" | grep -qE '^cd[[:space:]]+[^[:space:]]+[[:space:]]*$'; then
+      continue
+    fi
+    if printf '%s' "$_clause" | grep -qE '^git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push([[:space:]]|$)'; then
+      push_count=$((push_count + 1))
+      push_clause="$_clause"
+      continue
+    fi
+    other_seen=true
+  done <<EOF
+$_norm
+EOF
+
+  if [[ "$other_seen" == true || "$push_count" -ne 1 ]]; then
+    echo "UNSAFE"
+    return
+  fi
+  _bg_push_refspec_safe "$push_clause" "$protected"
 }
 
 # _dev_edit_preauthorized: env-var escape hatch for creating/editing the
@@ -897,26 +956,17 @@ if [[ "$PROTECTION" == "block-all" ]]; then
         # `--delete feature/x`, `feature/x:feature/y`) isn't a protected-branch
         # write no matter which repo/branch it resolves against — skip the
         # gate entirely rather than confirm/block a command that cannot
-        # modify the protected branch (issue #6). Two conditions must BOTH
-        # hold, or the gate stays up exactly as before:
-        #   1. No `git commit` clause anywhere in the command — a commit has
-        #      no refspec to prove safety with, so its presence must never be
-        #      waved through by an unrelated push clause being safe (a
-        #      compound `git commit ... && git push --delete x` on a
-        #      protected branch must still gate the commit).
-        #   2. EVERY `git push` clause in the command is independently SAFE —
-        #      checking only the last one (a prior `tail -1`) let an unsafe
-        #      push earlier in a compound command hide behind a safe delete
-        #      later in the same command.
+        # modify the protected branch (issue #6). The exemption only fires
+        # when the ENTIRE command is nothing but an optional leading `cd`/
+        # `-C` target-resolution prefix and exactly one `git push` clause
+        # with a confirmed-safe refspec (see _bg_command_push_only_safe) —
+        # any co-riding clause (a second push, a `git commit`, an unrelated
+        # command) denies the exemption and falls back to gating exactly as
+        # before, on purpose: per-clause classification was tried first and
+        # missed a disguised co-riding commit and an unrelated command
+        # riding past on a safe push's coattails.
         _bg_push_gate_needed=true
-        if ! echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?commit'; then
-          _bg_all_push_safe=true
-          while IFS= read -r _bg_push_clause; do
-            [[ -z "$_bg_push_clause" ]] && continue
-            [[ "$(_bg_push_refspec_safe "$_bg_push_clause" "$BRANCH")" == "SAFE" ]] || { _bg_all_push_safe=false; break; }
-          done < <(echo "$COMMAND" | grep -oE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push[^;&|]*')
-          [[ "$_bg_all_push_safe" == true ]] && _bg_push_gate_needed=false
-        fi
+        [[ "$(_bg_command_push_only_safe "$COMMAND" "$BRANCH")" == "SAFE" ]] && _bg_push_gate_needed=false
         if [[ "$_bg_push_gate_needed" == true && "$IS_CROSS_REPO_TARGET" == true ]]; then
           # Cross-repo target resolved to a protected branch (e.g. another
           # repo's main) — confirm, never hard-block. The originating

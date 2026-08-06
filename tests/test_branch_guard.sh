@@ -2207,6 +2207,47 @@ run_test_with_stderr \
     "$REPO_RS10" \
     "BRANCH PROTECTION"
 
+# Round 2 of adversarial review (against the fixes above) found the
+# per-clause approach itself was still bypassable three more ways -- all
+# closed by restricting the exemption to "the ENTIRE command is nothing but
+# an optional cd/-C prefix and exactly one confirmed-safe push clause"
+# (_bg_command_push_only_safe), rather than classifying each clause alone.
+REPO_RS11=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_force_with_lease_flag_value_colon_not_misread_r2f1_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin --force-with-lease=main:0000000000000000000000000000000000000000" "$REPO_RS11")" \
+    "$REPO_RS11" \
+    "BRANCH PROTECTION"
+
+REPO_RS12=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_commit_disguised_via_c_flag_still_BLOCKED_r2f2" \
+    2 \
+    "$(json_bash "git -c commit.gpgsign=false commit -m x && git push origin --delete feature/already-merged" "$REPO_RS12")" \
+    "$REPO_RS12" \
+    "BRANCH PROTECTION"
+
+REPO_RS13=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_unrelated_command_riding_safe_push_still_BLOCKED_r2f3" \
+    2 \
+    "$(json_bash "rm -rf some-important-file && git push origin --delete feature/already-merged" "$REPO_RS13")" \
+    "$REPO_RS13" \
+    "BRANCH PROTECTION"
+
+REPO_RS14=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_delete_multiple_refs_one_is_main_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin --delete feature/a main" "$REPO_RS14")" \
+    "$REPO_RS14" \
+    "BRANCH PROTECTION"
+
 echo ""
 
 # ============================================================================
