@@ -548,6 +548,47 @@ _hard_block() {
   block "$(_box "$@")" "BLOCK"
 }
 
+# _bg_push_refspec_safe: does this `git push` clause confidently avoid
+# touching the protected branch? Only two forms are recognized as safe —
+# `--delete <ref>` (one or more, git allows a list after one --delete) and
+# an explicit `<src>:<dst>` refspec. Echoes SAFE only when every recognized
+# destination ref is confirmed NOT the protected branch; a bare push, an
+# unparseable clause, or ANY destination matching the protected branch
+# (including deleting it outright) stays UNSAFE — callers must gate exactly
+# as before in that case. Never widen this to bare-ref pushes (`git push
+# origin <branch>`) without also resolving what a bare ref actually targets;
+# that ambiguity is the reason bare pushes stay UNSAFE by design (issue #6).
+_bg_push_refspec_safe() {
+  local clause="$1" protected="$2"
+  case "$clause" in *'$'*|*'`'*|*'"'*|*"'"*) echo "UNSAFE"; return ;; esac
+
+  local -a _tokens
+  read -ra _tokens <<< "$clause"
+  local n=${#_tokens[@]} i=0 saw_explicit_ref=false in_delete=false
+
+  while [[ $i -lt $n ]]; do
+    local tok="${_tokens[$i]}"
+    if [[ "$tok" == "--delete" ]]; then
+      in_delete=true
+      saw_explicit_ref=true
+    elif [[ "$in_delete" == true && "$tok" != -* ]]; then
+      local ref="${tok#refs/heads/}"
+      [[ "$ref" == "$protected" ]] && { echo "UNSAFE"; return; }
+    fi
+    case "$tok" in
+      *:*)
+        saw_explicit_ref=true
+        local dst="${tok#*:}"
+        dst="${dst#refs/heads/}"
+        [[ -z "$dst" || "$dst" == "$protected" ]] && { echo "UNSAFE"; return; }
+        ;;
+    esac
+    i=$((i+1))
+  done
+
+  [[ "$saw_explicit_ref" == true ]] && echo "SAFE" || echo "UNSAFE"
+}
+
 # _dev_edit_preauthorized: env-var escape hatch for creating/editing the
 # allow-once/allow-dev-edit guard-bypass marker itself (issue #281). Same
 # shape as issue #168's CRAFT_GUARD_ALLOW_FORCE_DELETE: /craft:git:unprotect
@@ -830,7 +871,18 @@ if [[ "$PROTECTION" == "block-all" ]]; then
     Bash|bash)
       # Check for destructive git commands
       if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?(commit|push)'; then
-        if [[ "$IS_CROSS_REPO_TARGET" == true ]]; then
+        # A `git push` whose refspec provably doesn't touch $BRANCH (e.g.
+        # `--delete feature/x`, `feature/x:feature/y`) isn't a protected-branch
+        # write no matter which repo/branch it resolves against — skip the
+        # gate entirely rather than confirm/block a command that cannot
+        # modify the protected branch (issue #6). `git commit` has no
+        # refspec to check and always falls through to the gate below.
+        _bg_push_gate_needed=true
+        if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push'; then
+          _bg_push_clause="$(echo "$COMMAND" | grep -oE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push[^;&|]*' | tail -1)"
+          [[ "$(_bg_push_refspec_safe "$_bg_push_clause" "$BRANCH")" == "SAFE" ]] && _bg_push_gate_needed=false
+        fi
+        if [[ "$_bg_push_gate_needed" == true && "$IS_CROSS_REPO_TARGET" == true ]]; then
           # Cross-repo target resolved to a protected branch (e.g. another
           # repo's main) — confirm, never hard-block. The originating
           # session's own branch never authorized this, but a hard block
@@ -842,7 +894,7 @@ if [[ "$PROTECTION" == "block-all" ]]; then
             "This command targets another repository's protected ${BRANCH} branch — the session's own branch is not a valid gate for that repo's state" \
             "Run this from a session/worktree already cd'd into ${PROJECT_ROOT}" \
             "Split into a separate Bash call scoped to that repo"
-        else
+        elif [[ "$_bg_push_gate_needed" == true ]]; then
           block "$(_box \
             "${_R}${_B}BRANCH PROTECTION${_N}" \
             "---" \

@@ -2077,6 +2077,91 @@ run_bash_test_with_env \
 
 echo ""
 
+# --------------------------------------------------------------------------
+# Group 23: git-push refspec parsing (issue #6) — a `git push origin
+# --delete feature/x` cannot modify the protected branch under any
+# interpretation, but the trigger regex matched on `push` alone with no
+# refspec inspection, so a plain feature-branch delete against a cross-repo
+# target on `main` was confirmed/blocked as if it were a real push to main.
+# Positive cases (deleting/pushing INTO the protected branch itself) must
+# stay gated exactly as before — this is a narrowing of the trigger, not a
+# removal of it. Cross-repo targets confirm (_confirm, "[CONFIRM]" in
+# stderr); same-repo targets hard-block ("BRANCH PROTECTION" box, no
+# confirm path) — both paths share the same refspec-safety check, but the
+# two block styles were already different before this fix and stay that way.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- git push Refspec Parsing (issue #6) ---${T_NC}"
+
+# Cross-repo: session on a safe branch, TARGET repo on main, deleting an
+# already-merged feature branch — the exact reproduction from issue #6.
+# Must ALLOW (exit 0), not confirm/block.
+REPO_RS1=$(init_repo)
+switch_branch "$REPO_RS1" "dev"
+OTHER_REPO_RS1=$(make_tmpdir)
+(cd "$OTHER_REPO_RS1" && git init -b main --quiet && git config user.email t@t.com && git config user.name T && git commit -m init --quiet --allow-empty)
+
+run_test \
+    "test_cross_repo_push_delete_feature_branch_is_ALLOW" \
+    0 \
+    "$(json_bash "git -C $OTHER_REPO_RS1 push origin --delete feature/already-merged" "$REPO_RS1")" \
+    "$REPO_RS1"
+
+# Same-repo: session itself on main, deleting a feature branch — identical
+# false positive on the non-cross-repo path. Must also ALLOW.
+REPO_RS2=$(init_repo)  # left on main (protected)
+
+run_test \
+    "test_same_repo_push_delete_feature_branch_is_ALLOW" \
+    0 \
+    "$(json_bash "git push origin --delete feature/already-merged" "$REPO_RS2")" \
+    "$REPO_RS2"
+
+# Explicit non-main refspec (src:dst form) — must also ALLOW.
+REPO_RS3=$(init_repo)  # left on main (protected)
+
+run_test \
+    "test_same_repo_push_explicit_refspec_non_main_is_ALLOW" \
+    0 \
+    "$(json_bash "git push origin feature/a:feature/b" "$REPO_RS3")" \
+    "$REPO_RS3"
+
+# Regression guard: deleting the protected branch itself must stay blocked
+# (this is the case a naive "any --delete is safe" fix would have broken).
+REPO_RS4=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_same_repo_push_delete_main_itself_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin --delete main" "$REPO_RS4")" \
+    "$REPO_RS4" \
+    "BRANCH PROTECTION"
+
+# Regression guard: an explicit refspec pushing INTO main must stay blocked.
+REPO_RS5=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_same_repo_push_explicit_refspec_into_main_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin feature/a:main" "$REPO_RS5")" \
+    "$REPO_RS5" \
+    "BRANCH PROTECTION"
+
+# Regression guard: a bare push naming main with no refspec construct must
+# stay blocked — ambiguous forms are never widened to ALLOW (issue #6 scope
+# is limited to --delete and src:dst; a bare `git push origin main` is
+# unchanged from pre-fix behavior).
+REPO_RS6=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_same_repo_bare_push_to_main_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin main" "$REPO_RS6")" \
+    "$REPO_RS6" \
+    "BRANCH PROTECTION"
+
+echo ""
+
 # ============================================================================
 # Summary
 # ============================================================================
