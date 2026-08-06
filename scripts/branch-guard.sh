@@ -645,8 +645,15 @@ _bg_command_push_only_safe() {
   local cmd="$1" protected="$2"
   local push_count=0 push_clause="" other_seen=false
 
+  # &&, ;, |, and a bare & (background operator) all separate independent
+  # clauses. Listing &&/& as separate alternatives (rather than omitting
+  # bare &) relies on POSIX ERE leftmost-longest matching to prefer && as a
+  # whole over its own first character when both are present — verified
+  # against this awk (macOS/BSD): a lone & without this was previously
+  # unsplit, letting a co-riding command fused via `push ... & rm -rf x`
+  # tokenize straight through as if it were part of the push clause.
   local _norm
-  _norm="$(printf '%s' "$cmd" | awk '{gsub(/&&|[;|]/,"\n"); print}')"
+  _norm="$(printf '%s' "$cmd" | awk '{gsub(/&&|&|[;|]/,"\n"); print}')"
   while IFS= read -r _clause; do
     _clause="${_clause#"${_clause%%[![:space:]]*}"}"
     [[ -z "$_clause" ]] && continue

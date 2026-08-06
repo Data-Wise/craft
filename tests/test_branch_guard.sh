@@ -2239,6 +2239,18 @@ run_test_with_stderr \
     "$REPO_RS13" \
     "BRANCH PROTECTION"
 
+# Round 3: the clause splitter only split on &&/;/| -- a bare `&`
+# (background operator) fused a co-riding command straight through as if
+# it were part of the push clause, tokenizing past it undetected.
+REPO_RS13B=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_bare_ampersand_not_fused_into_push_clause_r3f1_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin --delete feature/already-merged & touch /tmp/PWNED-test-marker" "$REPO_RS13B")" \
+    "$REPO_RS13B" \
+    "BRANCH PROTECTION"
+
 REPO_RS14=$(init_repo)  # left on main (protected)
 
 run_test_with_stderr \
