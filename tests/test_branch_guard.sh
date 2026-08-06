@@ -2160,6 +2160,53 @@ run_test_with_stderr \
     "$REPO_RS6" \
     "BRANCH PROTECTION"
 
+# Regression guards for adversarial-review findings against the refspec
+# exemption above (three real bypasses caught before merge):
+# 1. A `git commit` clause riding alongside a safe push must still be
+#    gated — a commit has no refspec to prove safety with.
+REPO_RS7=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_commit_alongside_safe_push_still_BLOCKED" \
+    2 \
+    "$(json_bash "git commit -m x && git push origin --delete feature/already-merged" "$REPO_RS7")" \
+    "$REPO_RS7" \
+    "BRANCH PROTECTION"
+
+# 2. Every push clause in a compound command must be independently safe —
+#    checking only the last one let an earlier unsafe push hide behind a
+#    later safe delete.
+REPO_RS8=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_unsafe_push_before_safe_delete_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin main && git push origin --delete feature/x" "$REPO_RS8")" \
+    "$REPO_RS8" \
+    "BRANCH PROTECTION"
+
+# 3. The remote/URL argument can itself contain a colon (SCP-style
+#    user@host:path, or an https URL with a port) — it must never be read
+#    as a <src>:<dst> refspec, or a genuine bare push to main slips through
+#    disguised as an "explicit refspec".
+REPO_RS9=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_scp_style_remote_url_colon_not_misread_as_refspec_BLOCKED" \
+    2 \
+    "$(json_bash "git push git@github.com:org/repo.git main" "$REPO_RS9")" \
+    "$REPO_RS9" \
+    "BRANCH PROTECTION"
+
+REPO_RS10=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_https_remote_url_with_port_not_misread_as_refspec_BLOCKED" \
+    2 \
+    "$(json_bash "git push https://github.com:443/foo/bar.git main" "$REPO_RS10")" \
+    "$REPO_RS10" \
+    "BRANCH PROTECTION"
+
 echo ""
 
 # ============================================================================

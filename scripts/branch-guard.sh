@@ -564,10 +564,32 @@ _bg_push_refspec_safe() {
 
   local -a _tokens
   read -ra _tokens <<< "$clause"
-  local n=${#_tokens[@]} i=0 saw_explicit_ref=false in_delete=false
+  local n=${#_tokens[@]} i=0
 
+  # Skip everything through the literal `push` token — clause extraction can
+  # prepend a compound-command separator (&&, ||, ;), `git`, and an optional
+  # `-C <path>` pair, none of which are push arguments.
+  while [[ $i -lt $n && "${_tokens[$i]}" != "push" ]]; do
+    i=$((i+1))
+  done
+  i=$((i+1))
+
+  # Per `git push [<repository> [<refspec>...]]`, the first non-flag token
+  # after `push` is ALWAYS the repository (name or URL) — a refspec never
+  # appears without it. It must never be read as a --delete target or a
+  # <src>:<dst> refspec even though it can itself contain a colon (SCP-style
+  # `user@host:path` remotes, `https://host:443/...` URLs) — excluding it
+  # unconditionally is what makes those forms safe to parse, rather than
+  # trying to pattern-match "looks like a URL" (which a hostile-shaped but
+  # legitimate remote name could still evade).
+  local seen_remote=false saw_explicit_ref=false in_delete=false
   while [[ $i -lt $n ]]; do
     local tok="${_tokens[$i]}"
+    if [[ "$seen_remote" == false && "$tok" != -* ]]; then
+      seen_remote=true
+      i=$((i+1))
+      continue
+    fi
     if [[ "$tok" == "--delete" ]]; then
       in_delete=true
       saw_explicit_ref=true
@@ -875,12 +897,25 @@ if [[ "$PROTECTION" == "block-all" ]]; then
         # `--delete feature/x`, `feature/x:feature/y`) isn't a protected-branch
         # write no matter which repo/branch it resolves against — skip the
         # gate entirely rather than confirm/block a command that cannot
-        # modify the protected branch (issue #6). `git commit` has no
-        # refspec to check and always falls through to the gate below.
+        # modify the protected branch (issue #6). Two conditions must BOTH
+        # hold, or the gate stays up exactly as before:
+        #   1. No `git commit` clause anywhere in the command — a commit has
+        #      no refspec to prove safety with, so its presence must never be
+        #      waved through by an unrelated push clause being safe (a
+        #      compound `git commit ... && git push --delete x` on a
+        #      protected branch must still gate the commit).
+        #   2. EVERY `git push` clause in the command is independently SAFE —
+        #      checking only the last one (a prior `tail -1`) let an unsafe
+        #      push earlier in a compound command hide behind a safe delete
+        #      later in the same command.
         _bg_push_gate_needed=true
-        if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push'; then
-          _bg_push_clause="$(echo "$COMMAND" | grep -oE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push[^;&|]*' | tail -1)"
-          [[ "$(_bg_push_refspec_safe "$_bg_push_clause" "$BRANCH")" == "SAFE" ]] && _bg_push_gate_needed=false
+        if ! echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?commit'; then
+          _bg_all_push_safe=true
+          while IFS= read -r _bg_push_clause; do
+            [[ -z "$_bg_push_clause" ]] && continue
+            [[ "$(_bg_push_refspec_safe "$_bg_push_clause" "$BRANCH")" == "SAFE" ]] || { _bg_all_push_safe=false; break; }
+          done < <(echo "$COMMAND" | grep -oE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push[^;&|]*')
+          [[ "$_bg_all_push_safe" == true ]] && _bg_push_gate_needed=false
         fi
         if [[ "$_bg_push_gate_needed" == true && "$IS_CROSS_REPO_TARGET" == true ]]; then
           # Cross-repo target resolved to a protected branch (e.g. another
