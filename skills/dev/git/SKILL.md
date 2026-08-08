@@ -154,7 +154,7 @@ Parallel development via `git worktree` — each branch in its own folder, no st
 **`clean --dry-run` / structured collection mode:** `worktree_clean_dry_run [base]` (in `lib/git-utils.sh`, same file as `is_squash_merged`) performs the collection step only — no `git worktree remove`, no `git worktree prune`. Emits one JSON object per line (JSONL), skipping the main worktree and any detached-HEAD worktree:
 
 ```jsonc
-{"path": "/Users/dt/.git-worktrees/craft/feature-foo", "branch": "feature/foo", "is_merged_evidence": "squash-merged", "lock_status": "unlocked"}
+{"path": "~/.git-worktrees/craft/feature-foo", "branch": "feature/foo", "is_merged_evidence": "squash-merged", "lock_status": "unlocked"}
 ```
 
 `branch` is the join key — a consumer (e.g. `repo-triage`) pairs this record with `branch_cleanup_dry_run`'s Operation 4 output on that field to render one merged candidate per branch+worktree pair, rather than two independent opt-outs.
