@@ -132,6 +132,12 @@ fi
 
 Skip if no local tap exists — the GitHub Actions workflow (`homebrew-release.yml`) handles tap updates automatically on release trigger.
 
+> **Editing tap formula content outside a version release?** (e.g. fixing caveat text in
+> `generator/manifest.json` directly, not via a `/release` version bump) — that change needs a
+> `revision` bump in the formula's manifest entry, or `homebrew-tap`'s Formula Drift Guard CI
+> check will block the PR (and `brew upgrade` would silently never detect the change on
+> already-installed machines). See `/craft:dist:homebrew formula`'s docs for the full rule.
+
 #### Verify Homebrew Release Workflow
 
 After the GitHub release is created, verify the `homebrew-release` workflow succeeded:
