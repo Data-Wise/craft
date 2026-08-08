@@ -891,6 +891,13 @@ protect-baseline, unprotect, and guard management were all folded into the
 worktree for feature X", "clean up merged branches") or see
 [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
+A batch pass over open issues plus stale worktrees/branches together —
+grounded against current repo state, confirmed (never automatic)
+deletion/closure, remainder sorted into grill-ready/plan-ready/defer — is
+the `repo-triage` skill: ask naturally (e.g. "triage the repo", "what needs
+attention here") or see
+[`skills/orchestration/repo-triage/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/orchestration/repo-triage/SKILL.md).
+
 **Quick examples:**
 
 ```bash
@@ -898,6 +905,7 @@ worktree for feature X", "clean up merged branches") or see
 # ask "move my current work to a worktree" (dev/git skill)
 # ask "clean up merged branches" (dev/git skill)
 /craft:git:issue-check 123   # Verify GitHub issue #123's premise before fixing
+# ask "triage the repo" (repo-triage skill)
 ```
 
 ## Architecture Commands (4 commands)
