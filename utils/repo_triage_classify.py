@@ -18,7 +18,6 @@ recorded, never aborts the run (GRILL Decision 14).
 """
 
 import json
-import re
 import subprocess
 import sys
 from pathlib import Path
@@ -26,15 +25,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ISSUE_CHECK_MD = REPO_ROOT / "commands" / "git" / "issue-check.md"
 
+sys.path.insert(0, str(REPO_ROOT))
+from utils.classifier_loader import extract_classifier_source  # noqa: E402
+
 
 def load_classifier_source():
     """Return the exact fenced ```python block defining classify_issue()."""
-    text = ISSUE_CHECK_MD.read_text(encoding="utf-8")
-    blocks = re.findall(r"```python\n(.*?)```", text, re.DOTALL)
-    src = next((b for b in blocks if "def classify_issue" in b), None)
-    if src is None:
-        raise RuntimeError(f"classify_issue block not found in {ISSUE_CHECK_MD}")
-    return src
+    return extract_classifier_source(ISSUE_CHECK_MD)
 
 
 def load_classifier():
@@ -44,10 +41,41 @@ def load_classifier():
     return ns["classify_issue"]
 
 
-def fetch_repo_files():
+def local_repo_slug():
+    """Return this checkout's own "owner/name" (origin remote), or None."""
     try:
         out = subprocess.run(
-            ["git", "ls-files"], cwd=REPO_ROOT, capture_output=True, text=True, check=True
+            ["gh", "repo", "view", "--json", "nameWithOwner", "-q", ".nameWithOwner"],
+            cwd=REPO_ROOT, capture_output=True, text=True, check=True,
+        )
+        return out.stdout.strip() or None
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+
+
+def fetch_repo_files(repo):
+    """Return the set of repo-relative file paths for `repo`.
+
+    `git ls-files` in REPO_ROOT only reflects THIS checkout (always
+    Data-Wise/craft) -- using it for a different `repo` argument silently
+    checks issue criteria against the wrong repo's files. Only take the
+    local-checkout fast path when `repo` actually IS this checkout's own
+    remote; otherwise fetch the target repo's own file list over the API.
+    """
+    if repo == local_repo_slug():
+        try:
+            out = subprocess.run(
+                ["git", "ls-files"], cwd=REPO_ROOT, capture_output=True, text=True, check=True
+            )
+            return set(out.stdout.splitlines())
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            return set()
+
+    try:
+        out = subprocess.run(
+            ["gh", "api", f"repos/{repo}/git/trees/HEAD", "-f", "recursive=true",
+             "-q", ".tree[] | select(.type == \"blob\") | .path"],
+            capture_output=True, text=True, check=True,
         )
         return set(out.stdout.splitlines())
     except (subprocess.CalledProcessError, FileNotFoundError):
@@ -82,7 +110,7 @@ def triage_issues(issues, repo_files, classify_issue):
 def main(argv):
     repo = argv[1] if len(argv) > 1 else "Data-Wise/craft"
     classify_issue = load_classifier()
-    repo_files = fetch_repo_files()
+    repo_files = fetch_repo_files(repo)
 
     try:
         issues = fetch_open_issues(repo)

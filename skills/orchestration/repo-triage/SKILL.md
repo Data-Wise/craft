@@ -73,9 +73,19 @@ Joins Step 2's two streams on `branch` (the required join key both
 `lib/git-utils.sh` functions emit) so a branch that is also checked out in a
 worktree renders as **one** candidate — never two independent opt-outs.
 Unmatched branches (`type: "branch"`) and unmatched worktrees
-(`type: "worktree"`) pass through unchanged.
+(`type: "worktree"`) pass through unchanged. `merge_candidates()` itself does
+**not** filter by evidence strength — it is a pure join, and its own test
+suite asserts a `not-merged`/`unknown`-evidence branch passes through
+unchanged (so a caller can still surface it, e.g. in Step 4's defer bucket).
 
-**Confirm UX** — group merged candidates by source (issues / branches /
+**Before building the deletion candidate list**, restate `dev/git` Operation
+4's own rule here: never offer a branch/worktree item for deletion whose
+`merge_evidence` is `not-merged` or `unknown` — exclude those from the
+Step 3 confirm entirely (route them to Step 4's bucketing instead, same as
+an unresolved issue). Only `merge_evidence: "merged"` or `"squash-merged"`
+items are eligible for the batch-confirm below.
+
+**Confirm UX** — group the *eligible* merged candidates by source (issues / branches /
 worktrees), sort each group by evidence strength (a squash-merge with both
 `ancestor_result: "ancestor"` AND `scoped_diff_result: "clean"` ranks above
 one with only `ancestor_result`), and present via `AskUserQuestion`:

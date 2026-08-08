@@ -13,6 +13,18 @@
 #      multi-commit squash is performed, both tips have identical content even though
 #      cherry can't see it. Conservative: if base has advanced past the squash,
 #      the trees diverge and this correctly returns NOT_MERGED (safe false-negative).
+# normalize_merge_evidence <is_squash_merged-result>
+# Maps is_squash_merged()'s SAFE/NOT_MERGED/UNKNOWN vocabulary to the
+# squash-merged/not-merged/unknown strings both dry-run previews emit.
+# Single source of truth so the two previews can't drift on this mapping.
+normalize_merge_evidence() {
+  case "$1" in
+    SAFE) echo "squash-merged" ;;
+    NOT_MERGED) echo "not-merged" ;;
+    *) echo "unknown" ;;
+  esac
+}
+
 is_squash_merged() {
   local base="${1:-dev}"
   local branch="${2:-}"
@@ -68,12 +80,7 @@ worktree_clean_dry_run() {
     if echo "$merged_list" | grep -qx "$wbranch"; then
       evidence="merged"
     else
-      evidence=$(is_squash_merged "$base" "$wbranch")
-      case "$evidence" in
-        SAFE) evidence="squash-merged" ;;
-        NOT_MERGED) evidence="not-merged" ;;
-        *) evidence="unknown" ;;
-      esac
+      evidence=$(normalize_merge_evidence "$(is_squash_merged "$base" "$wbranch")")
     fi
 
     jq -cn --arg path "$wpath" --arg branch "$wbranch" \
@@ -91,7 +98,9 @@ worktree_clean_dry_run() {
 #   {"branch": <name>, "merge_evidence": "merged"|"squash-merged"|"not-merged"|"unknown",
 #    "ancestor_result": "ancestor"|"not-ancestor",
 #    "pr_state": "merged"|"unknown" (best-effort; "unknown" when `gh` is unavailable
-#    or no merged PR is found), "scoped_diff_result": "clean"|"has-diff"}
+#    or no merged PR is found), "scoped_diff_result": "clean"|"has-diff"|"unknown"
+#    ("unknown" when `git diff` itself fails — e.g. a broken ref — never
+#    treated as equivalent to a clean diff)}
 #
 # Skips the base branch, `main`, and the current branch.
 branch_cleanup_dry_run() {
@@ -108,12 +117,7 @@ branch_cleanup_dry_run() {
     if echo "$merged_list" | grep -qx "$branch"; then
       merge_evidence="merged"
     else
-      merge_evidence=$(is_squash_merged "$base" "$branch")
-      case "$merge_evidence" in
-        SAFE) merge_evidence="squash-merged" ;;
-        NOT_MERGED) merge_evidence="not-merged" ;;
-        *) merge_evidence="unknown" ;;
-      esac
+      merge_evidence=$(normalize_merge_evidence "$(is_squash_merged "$base" "$branch")")
     fi
 
     local ancestor_result
@@ -127,15 +131,18 @@ branch_cleanup_dry_run() {
     if command -v gh >/dev/null 2>&1; then
       local pr_num
       pr_num=$(gh pr list --head "$branch" --state merged --json number -q '.[0].number' 2>/dev/null)
-      [[ -n "$pr_num" ]] && pr_state="merged"
+      [[ -n "$pr_num" && "$pr_num" != "null" ]] && pr_state="merged"
     fi
 
     local diff_out scoped_diff_result
-    diff_out=$(git diff "${base}..${branch}" 2>/dev/null)
-    if [[ -z "$diff_out" ]]; then
-      scoped_diff_result="clean"
+    if diff_out=$(git diff "${base}..${branch}" 2>/dev/null); then
+      if [[ -z "$diff_out" ]]; then
+        scoped_diff_result="clean"
+      else
+        scoped_diff_result="has-diff"
+      fi
     else
-      scoped_diff_result="has-diff"
+      scoped_diff_result="unknown"
     fi
 
     jq -cn --arg branch "$branch" --arg me "$merge_evidence" --arg ar "$ancestor_result" \
