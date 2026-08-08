@@ -335,6 +335,7 @@ nav:
       - Run a Coded Workflow: cookbook/recipes/run-a-coded-workflow.md
       - Fan a Workflow Across Files: cookbook/recipes/fan-a-workflow-across-files.md
       - Triage a Red PR: cookbook/recipes/triage-a-red-pr.md
+      - Triage Your Repo: cookbook/recipes/triage-your-repo.md
       - Set Up New Project: cookbook/common/setup-new-project.md
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md
