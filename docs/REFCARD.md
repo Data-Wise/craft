@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 4.5.0 (released 2026-07-17)                       │
-│  Commands: 48 | Agents: 2 | Skills: 40                      │
-│  Tests: 2647+ passing                                        │
+│  Version: 4.5.0 (released 2026-08-07)                       │
+│  Commands: 48 | Agents: 2 | Skills: 41                      │
+│  Tests: 2632+ passing                                        │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v4.5.0: /craft:restore + post-v4 doc-staleness cleanup      │
+│  v4.5.0: repo-triage skill + ecosystem-tool tutorials        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
