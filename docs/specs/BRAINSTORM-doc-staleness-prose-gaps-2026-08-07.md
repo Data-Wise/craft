@@ -99,6 +99,13 @@ semantic-diff engine.
 
 ## New Prose-Pattern Checks (Phase 7 extension)
 
+> **Superseded by adversarial review** (2026-08-07) — the SPEC's "Review Outcome" section
+> has the corrected version: check 3 (version-highlight proxy) was dropped as falsified by
+> `bump-version.sh`'s own touch pattern, and check 2 was rescoped from free-text search to
+> structured line shapes after a false-positive sweep found 90+ non-bug matches. This section
+> is left as-is for the historical record of what was first proposed; see the SPEC for what's
+> actually being built.
+
 Concrete patterns to add to `docs-staleness-check.sh`'s count-consistency phase, each
 regex-anchored the same way existing checks are (compare against the single source of truth —
 `plugin.json`'s command/skill/agent counts and the current version):
