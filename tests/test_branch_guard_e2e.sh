@@ -24,20 +24,11 @@ set -uo pipefail
 HOOK_SCRIPT="${HOOK_SCRIPT:-$HOME/.claude/hooks/branch-guard.sh}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# See the matching block in test_branch_guard.sh: ~/.claude/hooks/ is a shared
-# install target and cc-config may own the installed branch-guard.sh. Fall back
-# to this repo's copy so a local run tests craft's logic rather than another
-# repo's policy. CI installs this repo's hook first, so it is unaffected.
-if [[ -z "${HOOK_SCRIPT_EXPLICIT:-}" && -L "$HOOK_SCRIPT" ]]; then
-    _installed_target="$(cd "$(dirname "$(readlink "$HOOK_SCRIPT")")" 2>/dev/null && pwd)/$(basename "$(readlink "$HOOK_SCRIPT")")"
-    _repo_root="$(cd "$SCRIPT_DIR/.." && pwd)"
-    if [[ "$_installed_target" != "$_repo_root"/* ]]; then
-        echo "NOTE: installed hook is owned by another repo ($_installed_target)"
-        echo "      falling back to this repo's scripts/branch-guard.sh"
-        echo ""
-        HOOK_SCRIPT="$_repo_root/scripts/branch-guard.sh"
-    fi
-fi
+# See lib/hook-fallback.sh for why this fallback exists and how it resolves
+# symlinked installed hooks owned by another repo (e.g. cc-config).
+# shellcheck source=../lib/hook-fallback.sh
+source "$SCRIPT_DIR/../lib/hook-fallback.sh"
+resolve_hook_fallback HOOK_SCRIPT "$SCRIPT_DIR"
 
 # Color output
 T_RED='\033[0;31m'

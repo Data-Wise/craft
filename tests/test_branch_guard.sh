@@ -34,24 +34,11 @@ set -uo pipefail
 HOOK_SCRIPT="${HOOK_SCRIPT:-$HOME/.claude/hooks/branch-guard.sh}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# ~/.claude/hooks/branch-guard.sh is a shared install target: cc-config also
-# ships a branch-guard.sh and symlinks it there, and deliberately relaxed the
-# new-code-on-protected-branch tier from MEDIUM to LOW on 2026-07-28. When that
-# is what is installed, this suite would assert craft's expectations against
-# another repo's artifact and report a craft failure for a cc-config policy
-# decision. Fall back to craft's own copy so a local run still exercises craft's
-# logic. CI is unaffected: it runs install-guards.sh first, so the installed
-# hook there IS this repo's copy and the integration path is still covered.
-if [[ -z "${HOOK_SCRIPT_EXPLICIT:-}" && -L "$HOOK_SCRIPT" ]]; then
-    _installed_target="$(cd "$(dirname "$(readlink "$HOOK_SCRIPT")")" 2>/dev/null && pwd)/$(basename "$(readlink "$HOOK_SCRIPT")")"
-    _repo_root="$(cd "$SCRIPT_DIR/.." && pwd)"
-    if [[ "$_installed_target" != "$_repo_root"/* ]]; then
-        echo "NOTE: installed hook is owned by another repo ($_installed_target)"
-        echo "      falling back to this repo's scripts/branch-guard.sh"
-        echo ""
-        HOOK_SCRIPT="$_repo_root/scripts/branch-guard.sh"
-    fi
-fi
+# See lib/hook-fallback.sh for why this fallback exists and how it resolves
+# symlinked installed hooks owned by another repo (e.g. cc-config).
+# shellcheck source=../lib/hook-fallback.sh
+source "$SCRIPT_DIR/../lib/hook-fallback.sh"
+resolve_hook_fallback HOOK_SCRIPT "$SCRIPT_DIR"
 
 # Color output
 T_RED='\033[0;31m'
