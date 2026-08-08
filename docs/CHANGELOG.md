@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [4.5.0] - 2026-08-08
 
 ### Added
 
@@ -46,6 +46,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`task-analyzer`'s Complexity Assessment table had no per-tier session cap, and the cap it
   gained is advisory-only** — documented explicitly (Simple/Medium = 5, Complex/Critical =
   uncapped); confirmed neither `orchestrator-v2` nor `/craft:orch:workflow` enforces it.
+- **`test_no_live_legacy_check_skill_references` scanned the raw filesystem instead of
+  git-tracked files** — a gitignored local artifact could false-positive the check on a
+  contributor's machine without ever affecting CI. Scoped to `git ls-files`.
 
 ### Changed
 
