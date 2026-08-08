@@ -11,6 +11,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Optional
@@ -624,16 +625,27 @@ def test_no_live_legacy_check_skill_references():
     extensions = {".json", ".md", ".py", ".sh", ".yaml", ".yml"}
     stale_references = []
 
-    for path in PLUGIN_DIR.rglob("*"):
+    # git-tracked files only -- a raw filesystem rglob() also picks up gitignored
+    # local artifacts (e.g. .remember/ session logs) that happen to quote the
+    # legacy path as historical context, producing false positives no CI checkout
+    # would ever see.
+    tracked = subprocess.run(
+        ["git", "-C", str(PLUGIN_DIR), "ls-files"],
+        capture_output=True, text=True, check=True,
+    ).stdout.splitlines()
+
+    for rel_path_str in tracked:
+        path = PLUGIN_DIR / rel_path_str
+        rel_path = Path(rel_path_str)
         if (
             not path.is_file()
             or path.suffix not in extensions
-            or path.relative_to(PLUGIN_DIR) in allowed
-            or "tests" in path.relative_to(PLUGIN_DIR).parts
+            or rel_path in allowed
+            or "tests" in rel_path.parts
         ):
             continue
         if "skills/check/" in path.read_text(errors="replace"):
-            stale_references.append(str(path.relative_to(PLUGIN_DIR)))
+            stale_references.append(rel_path_str)
 
     assert stale_references == []
 
