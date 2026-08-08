@@ -162,6 +162,7 @@ nav:
       - Insights-Driven Workflow: tutorials/TUTORIAL-insights-workflow.md
       - Insights Hook Setup: tutorials/TUTORIAL-insights-setup.md
       - Insights Improvements Guide: guide/insights-improvements-guide.md
+      - OpenCode Plugins Tutorial: tutorials/TUTORIAL-opencode-plugins.md
       - Learning Loop & Session Completion: guide/learning-loop-session-completion.md
       - Hub Live Dashboard: guide/hub-live-dashboard.md
       - Version Sync Setup: tutorials/TUTORIAL-version-sync-setup.md
