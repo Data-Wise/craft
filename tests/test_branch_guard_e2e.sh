@@ -21,8 +21,14 @@ set -uo pipefail
 # Configuration
 # ============================================================================
 
-HOOK_SCRIPT="$HOME/.claude/hooks/branch-guard.sh"
+HOOK_SCRIPT="${HOOK_SCRIPT:-$HOME/.claude/hooks/branch-guard.sh}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# See lib/hook-fallback.sh for why this fallback exists and how it resolves
+# symlinked installed hooks owned by another repo (e.g. cc-config).
+# shellcheck source=../lib/hook-fallback.sh
+source "$SCRIPT_DIR/../lib/hook-fallback.sh"
+resolve_hook_fallback HOOK_SCRIPT "$SCRIPT_DIR"
 
 # Color output
 T_RED='\033[0;31m'
