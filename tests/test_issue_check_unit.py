@@ -8,22 +8,23 @@ classify_issue() directly -- no network, no live gh CLI -- so the
 documented logic is provably correct and stays correct.
 """
 
-import re
+import sys
 from pathlib import Path
 
 import pytest
 
 pytestmark = [pytest.mark.unit, pytest.mark.commands]
 
-ISSUE_CHECK_MD = Path(__file__).parent.parent / "commands" / "git" / "issue-check.md"
+REPO_ROOT = Path(__file__).parent.parent
+ISSUE_CHECK_MD = REPO_ROOT / "commands" / "git" / "issue-check.md"
+
+sys.path.insert(0, str(REPO_ROOT))
+from utils.classifier_loader import extract_classifier_source  # noqa: E402
 
 
 def _load_classifier():
     """Extract and exec the python block defining classify_issue()."""
-    text = ISSUE_CHECK_MD.read_text(encoding="utf-8")
-    blocks = re.findall(r"```python\n(.*?)```", text, re.DOTALL)
-    src = next((b for b in blocks if "def classify_issue" in b), None)
-    assert src is not None, "classify_issue block not found in commands/git/issue-check.md"
+    src = extract_classifier_source(ISSUE_CHECK_MD)
     ns: dict = {}
     exec(compile(src, str(ISSUE_CHECK_MD), "exec"), ns)
     return ns

@@ -123,5 +123,5 @@ for tool names (asciinema, vhs, ffmpeg). Left as a flagged backlog item
 
 ## Counts
 
-craft: 48 commands · 40 skills · 2 agents (was 94 / 45 / 8 before the split; also was 70 as of
+craft: 48 commands · 41 skills · 2 agents (was 94 / 45 / 8 before the split; also was 70 as of
 CP-3, before the v4 command-consolidation slices began).

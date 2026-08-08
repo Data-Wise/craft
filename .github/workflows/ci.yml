@@ -194,6 +194,16 @@ jobs:
           bash tests/test_bump_version.sh
           bash tests/test_post_release_sweep.sh
 
+      - name: Run repo-triage bash suites
+        # lib/git-utils.sh's worktree_clean_dry_run()/branch_cleanup_dry_run()
+        # and lib/repo-triage-utils.sh's merge_candidates()/bucket_candidates()
+        # back the repo-triage skill's collection/merge/bucket logic. Their
+        # test suites are self-contained bash suites (not collected by
+        # pytest) and must run in CI, same as the sibling suites above.
+        run: |
+          bash tests/test_git_dryrun.sh
+          bash tests/test_repo_triage_utils.sh
+
       - name: Summary
         run: |
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

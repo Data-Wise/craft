@@ -2,7 +2,7 @@
 
 ## Active Work
 
-**48 commands** · **40 skills** · **2 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
+**48 commands** · **41 skills** · **2 agents** · [Docs](https://data-wise.github.io/craft/) · [GitHub](https://github.com/Data-Wise/craft)
 
 > `/craft:finish` — renamed from `/craft:done` (ADR-006, v4.2.0, breaking) · `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (9 commands) · `/craft:restore` — combined git+`.STATUS` recap
 
@@ -84,7 +84,7 @@ performance) · `release` (<300s, thorough). Example: `/craft:code:lint debug`.
 | Directory | Purpose |
 |-----------|---------|
 | `commands/` | 48 commands (auto-discovered, one `.md` per command) |
-| `skills/` | 40 skills (`SKILL.md` pattern) |
+| `skills/` | 41 skills (`SKILL.md` pattern) |
 | `agents/` | 8 agent definitions |
 | `tests/` | Unit, e2e, dogfood, and integration test suites |
 | `scripts/` | Release, validation, and maintenance scripts |

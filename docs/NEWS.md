@@ -138,7 +138,7 @@ See the [full changelog](CHANGELOG.md) for details.
   plugin — 24 commands, 6 agents, 6 skills moved out. See
   [docs/MIGRATION-v4.md](https://github.com/Data-Wise/craft/blob/main/docs/MIGRATION-v4.md) for the
   full command migration table.
-- **Counts: 94→47 commands / 45→40 skills / 8→2 agents.**
+- **Counts: 94→47 commands / 45→41 skills / 8→2 agents.**
 - **Guard suite hardening bundled** — `cd`-target resolution across compound Bash commands,
   `guards.json` write-race lock, orchestrate-dispatch self-containment (closes 4 live false
   positives).
