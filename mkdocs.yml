@@ -214,6 +214,15 @@ nav:
       - Markdown List Spacing: guide/markdown-list-spacing.md
       - Dependency Management Advanced: guide/dependency-management-advanced.md
       - Accessibility: ACCESSIBILITY.md
+    - Ecosystem Tool Cheat Sheets:
+      - Codex Plugin: tutorials/TUTORIAL-codex-plugin.md
+      - Remember Plugin: tutorials/TUTORIAL-remember-plugin.md
+      - ADHD Mode Plugin: tutorials/TUTORIAL-adhd-mode-plugin.md
+      - Token Optimizer Plugin: tutorials/TUTORIAL-token-optimizer-plugin.md
+      - Security Guidance Plugin: tutorials/TUTORIAL-security-guidance-plugin.md
+      - Claude HUD Plugin: tutorials/TUTORIAL-claude-hud-plugin.md
+      - Dropbox Plugin: tutorials/TUTORIAL-dropbox-plugin.md
+      - Agent Skills Plugin: tutorials/TUTORIAL-agent-skills-plugin.md
     - Command Tutorials:
       - arch:analyze Tutorial: tutorials/TUTORIAL-arch-analyze.md
       - arch:plan Tutorial: tutorials/TUTORIAL-arch-plan.md
