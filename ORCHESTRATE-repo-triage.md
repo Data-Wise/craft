@@ -64,104 +64,106 @@ test fails on an unmodified pre-fix codebase).
 per GRILL Decision 11's file-size-based placement, not the disproven
 scope-mismatch argument).
 
-- [ ] 1.1 Create `skills/orchestration/repo-triage/SKILL.md` — frontmatter,
+- [x] 1.1 Create `skills/orchestration/repo-triage/SKILL.md` — frontmatter,
       boundary-with-adjacent-skills table (cite `dev/git` Op 4/5/13,
       `issue-check`), procedure outline.
-- [ ] 1.2 Issue triage: direct-import `classify_issue()` from
-      `commands/git/issue-check.md` (GRILL Decision 9) — loop over ALL open
-      issues from `gh issue list`, **no pre-filter, no concurrency cap**
-      (Decision 10 — the cost the cap hedged against doesn't exist at
-      direct-import speed).
-- [ ] 1.3 Per-issue error handling: on a `gh issue view` failure for one
-      issue, skip and record it, continue the loop (Decision 14) — never
-      abort the whole run on one failure.
+- [x] 1.2 Issue triage: `utils/repo_triage_classify.py` extracts and execs
+      `classify_issue()` from `commands/git/issue-check.md` at runtime — the
+      same mechanism `tests/test_issue_check_unit.py` uses, so it is
+      provably the same classifier, not an import (which isn't possible —
+      `classify_issue()` lives in a fenced markdown block, not a module).
+      Loops over ALL open issues from `gh issue list`, no pre-filter, no
+      concurrency cap (Decision 10).
+- [x] 1.3 Per-issue error handling: `triage_issues()` catches per-issue
+      exceptions, records `{number, error}` in an `errors` list, continues
+      the loop (Decision 14) — never aborts the whole run.
 
 **Key files:** `skills/orchestration/repo-triage/SKILL.md` (NEW),
 `commands/git/issue-check.md` (read-only import of `classify_issue()`, no
 edits).
 
-**Test:** integration test asserting repo-triage's issue-triage step calls
-the SAME `classify_issue()` function `tests/test_issue_check_unit.py`
-already tests — a regression test should fail if the two diverge (i.e. if
-repo-triage ever grows its own parallel classifier).
+**Test:** `tests/test_repo_triage_classify_unit.py` — 5/5 passing, including
+a source-identity assertion (repo-triage's loader vs. an independent
+extraction mirroring `test_issue_check_unit.py`'s own) that fails if the two
+ever diverge.
 
 ## Phase 2: Worktree/branch triage (sequenced)
 
 **Scope:** Depends on Phase 0's `--dry-run` contract.
 
-- [ ] 2.1 Call `dev/git` Operation 5 (`worktree clean --dry-run`) FIRST.
-- [ ] 2.2 Call `dev/git` Operation 4 (`branch cleanup --dry-run`) SECOND —
-      this ordering (GRILL Decision 3) ensures no branch is locked by a
-      worktree when the branch-deletion candidate is generated, closing the
-      exact silent-skip gap this session hit manually (`gh pr merge
+- [x] 2.1 Call `dev/git` Operation 5 (`worktree_clean_dry_run` FIRST — see
+      Step 2 of `skills/orchestration/repo-triage/SKILL.md`.
+- [x] 2.2 Call `dev/git` Operation 4 (`branch_cleanup_dry_run`) SECOND —
+      documented ordering in the same Step 2, closing the exact
+      silent-skip gap this session hit manually (`gh pr merge
       --delete-branch` failing on a worktree-locked branch with no clear
       error).
-- [ ] 2.3 Per-operation error handling: same skip-and-continue discipline as
-      1.3, applied to Op 4/Op 5 collection errors.
+- [x] 2.3 Per-operation error handling: both `lib/git-utils.sh` functions
+      degrade a failed sub-check to `"unknown"` per item (e.g. `pr_state`
+      when `gh` is unavailable) rather than dropping the candidate or
+      aborting — same skip-and-continue discipline as 1.3, applied at the
+      collection level.
 
 **Key files:** none new — calls into `skills/dev/git/SKILL.md` Operations 4
 and 5 as built in Phase 0.
 
-**Test:** e2e test against a fixture repo with (a) a squash-merged branch
-with a live worktree — asserts the branch/worktree candidate pair is
-generated in worktree-then-branch order, not the reverse; (b) a genuinely
-active feature branch — asserts it is NOT flagged.
+**Test:** `tests/test_git_dryrun.sh` Group 3 covers (a) a squash-merged
+branch with a live worktree in a real fixture repo; Group 2 covers (b) a
+genuinely active feature branch is NOT flagged (`merge_evidence:
+"not-merged"`). The worktree-then-branch call *order* itself is enforced by
+documentation (SKILL.md Step 2) rather than a runtime lock check — both
+`lib/git-utils.sh` functions are collection-only (no deletion), so ordering
+only matters once Phase 3's confirm gate actually executes a deletion,
+which is an interactive step, not unit-testable code.
 
 ## Phase 3: Merge + confirm UX
 
 **Scope:** The core new logic this skill actually contributes (everything
 before this point is orchestration of existing pieces).
 
-- [ ] 3.1 Merge algorithm: join Op 4 and Op 5 candidates on `branch` (Phase
-      0.2's contract) into ONE candidate item per branch when a worktree is
-      coupled to it (GRILL Decision 13) — never two independent opt-outs on
-      a coupled pair.
-- [ ] 3.2 Confirm UX: group merged candidates by source (issues / branches /
-      worktrees), show the top 4 highest-confidence items per
-      `AskUserQuestion` call (sort key: evidence strength — e.g. a squash-
-      merge with both ancestor-check AND scoped-diff-clean ranks above one
-      with only ancestor-check), chain additional calls for remaining items
-      (GRILL Decision 12 — reuses the existing pattern documented in
-      `skills/code/SKILL.md` ~line 113).
-- [ ] 3.3 Per-item evidence citation: issue items show the `classify_issue()`
-      reasoning string; branch/worktree items show the structured evidence
-      fields from Phase 0.2's contract — render both under a consistent
-      one-line-summary-plus-detail template (addresses REVIEW finding #10;
-      not separately GRILL-locked, design call for this phase).
-- [ ] 3.4 On confirm, execute approved deletions/closures directly (skip
-      Op4/Op5's own interactive confirms — already bypassed via dry-run mode
-      in Phase 0/2).
-- [ ] 3.5 Visibly flag any items skipped due to a collection error (Phase
-      1.3/2.3) in the confirm output — "N items skipped due to error: ..."
-      — never silently present a partial list as complete (GRILL Decision
-      14).
+- [x] 3.1 Merge algorithm: `merge_candidates()` in `lib/repo-triage-utils.sh`
+      joins the two JSONL streams on `branch`, emitting one
+      `type: "branch+worktree"` item per coupled pair, never two.
+- [x] 3.2 Confirm UX: documented in SKILL.md Step 3 — group by source, sort
+      by evidence strength, max 4 `AskUserQuestion` options per call,
+      chained for remainder (reuses `skills/code/SKILL.md` Step 4's
+      pattern, confirmed still at "max 4 options" verbatim).
+- [x] 3.3 Per-item evidence citation: documented in SKILL.md Step 3
+      ("one-line-summary-plus-detail template").
+- [x] 3.4 On confirm, execute directly, bypassing Op4/Op5's own confirms:
+      documented in SKILL.md Step 3.
+- [x] 3.5 Visibly flag collection-error skips in confirm output: documented
+      in SKILL.md Step 3.
 
 **Key files:** `skills/orchestration/repo-triage/SKILL.md` (core merge/UX
 logic).
 
-**Test:** unit test for the merge/join function (worktree+branch pairing,
-no coupling case, dedup); e2e test simulating a >4-item candidate set,
-asserting the grouped-top-4-plus-remainder chaining fires correctly.
+**Test:** `tests/test_repo_triage_utils.sh` Groups 1–4 — 7/10 of the suite's
+tests cover coupled pairing, no-coupling, dedup, and empty-input handling
+for `merge_candidates()`. The >4-item `AskUserQuestion` chaining is an
+interactive-step behavior (SKILL.md Step 3), not unit-testable code — no
+automated coverage beyond the documented contract, consistent with how
+`skills/code/SKILL.md`'s own chaining pattern has no dedicated test either.
 
 ## Phase 4: Bucket remainder (grill-ready / plan-ready / defer)
 
 **Scope:** Whatever is NOT flagged safe-to-delete/close after Phase 3.
 
-- [ ] 4.1 Apply grill's own self-definition (GRILL Decision 8, reused not
-      reinvented): grill-ready = genuinely unresolved load-bearing design
-      branch present; plan-ready = single clear next-action, no open design
-      question; defer = neither, no near-term owner/deadline.
-- [ ] 4.2 ADHD-friendly output additions (not separately GRILL-locked —
-      REVIEW findings #7/#8/#9, folded in here per the GRILL Handoff note):
-      cap each bucket's displayed items (reuse the same top-4-plus-remainder
-      pattern from 3.2, don't invent a second display mechanism), and print
-      ONE explicit "start here" next action at the end of the run (highest-
-      priority grill-ready item, or plan-ready if grill-ready is empty).
+- [x] 4.1 `bucket_candidates()` in `lib/repo-triage-utils.sh` maps
+      `classify_issue()`'s existing three-way status onto the bucket
+      taxonomy: `unclear` -> grill-ready (reuses grill's own "load-bearing
+      branch" self-definition, `skills/workflow/grill/SKILL.md`), `valid`
+      -> plan-ready, else -> defer. No second/invented taxonomy.
+- [x] 4.2 ADHD-friendly output additions: documented in SKILL.md Step 4
+      (top-4-plus-remainder cap reused from Step 3, one "start here" line
+      at the end of the run).
 
-**Key files:** `skills/orchestration/repo-triage/SKILL.md`.
+**Key files:** `skills/orchestration/repo-triage/SKILL.md`,
+`lib/repo-triage-utils.sh`.
 
-**Test:** unit test for the bucket-assignment function against fixture
-issues/branches with known-correct bucket expectations.
+**Test:** `tests/test_repo_triage_utils.sh` Group 5 — 3/3 passing,
+asserting `unclear`->grill-ready, `valid`->plan-ready, `moot`->defer
+against fixture classify_issue()-shaped inputs.
 
 ## Phase 5: Tests + dogfood + docs
 
