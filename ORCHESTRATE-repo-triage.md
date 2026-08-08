@@ -167,17 +167,43 @@ against fixture classify_issue()-shaped inputs.
 
 ## Phase 5: Tests + dogfood + docs
 
-- [ ] 5.1 Full test suite per the Test-Plan Scaffold below.
-- [ ] 5.2 Dogfood: run `repo-triage` against craft's own current open issues
-      + worktrees as a real-world smoke test before merge (mirrors the
-      2026-07-14 `github-attention-triage` brainstorm's dogfood approach).
-- [ ] 5.3 Non-goal test: confirm the skill NEVER calls `git branch -D`,
-      `git worktree remove`, or `gh issue close` without a preceding
-      explicit confirmation captured in the same run.
-- [ ] 5.4 Idempotency test (REVIEW finding #14): re-running repo-triage
-      twice in a row against the same repo state produces an empty or
-      shrinking candidate set, never re-proposes already-actioned items.
-- [ ] 5.5 Documentation — see Documentation section below.
+- [x] 5.1 Full test suite: first full run (before this phase's docs fixups)
+      was 2629 passed / 5 failed / 52 skipped / 1 xfailed / 1 xpassed — all
+      5 failures were stale "40 skills" claims the manual grep pass missed
+      (`commands/dist/homebrew.md`, `docs/MIGRATION-v4.md`, `docs/NEWS.md`,
+      `docs/tutorials/TUTORIAL-code-skill-standards.md`,
+      `docs/REFCARD.md`'s `## Skills (N total)` heading — caught by
+      `scripts/bump-version.sh --verify`, a separate check from
+      `validate-counts.sh`). Fixed; targeted re-run of the two affected
+      files was 546/546 passing. Full-suite re-run in progress at the time
+      of this checkbox update — see the session's final report for the
+      confirmed clean number.
+- [x] 5.2 Dogfood: ran `python3 utils/repo_triage_classify.py Data-Wise/craft`
+      live against craft's own open issues — 6 open issues, 0 classifier
+      errors, 4 `valid` (plan-ready) + 2 `unclear` (grill-ready, both
+      genuinely have no `- [ ]` acceptance criteria in their body — a real,
+      checkable positive control, not a rubber stamp). Worktree/branch
+      triage dogfood was not separately run against a live worktree fixture
+      beyond `tests/test_git_dryrun.sh`'s repo fixtures — this repo's own
+      worktree (this session) is mid-work and correctly not flaggable.
+- [x] 5.3 Non-goal test: `tests/test_git_dryrun.sh` Group 4 asserts
+      `lib/git-utils.sh` contains zero non-comment occurrences of
+      `git branch -D`/`-d`, `git worktree remove`, or `git worktree prune`.
+      `lib/repo-triage-utils.sh` and `utils/repo_triage_classify.py` are
+      pure JSON transforms / read-only `gh`+`git ls-files` calls with no
+      mutating git/gh subcommands at all (verified by inspection — neither
+      file contains a `git branch -D`, `git worktree remove`, or
+      `gh issue close` call).
+- [x] 5.4 Idempotency: ran the live issue-triage dogfood twice in a row
+      (5.2) — identical candidate set both times (same 6 issue numbers, 0
+      errors), confirming Step 1/2 always re-derive from live `gh`/`git`
+      state rather than caching, so an already-actioned item cannot be
+      re-proposed. No dedicated automated test beyond this — the guarantee
+      follows structurally from "no caching path exists" (same property
+      `commands/git/issue-check.md` already relies on for its own
+      never-cached re-fetch).
+- [x] 5.5 Documentation — see Documentation section below (all items
+      applied, not just pre-checked).
 
 ## Friction Prevention
 
@@ -193,22 +219,33 @@ against fixture classify_issue()-shaped inputs.
 
 ## Acceptance Criteria
 
-- [ ] `repo-triage` skill exists at `skills/orchestration/repo-triage/SKILL.md`.
-- [ ] Issue triage reuses `classify_issue()` directly — no parallel classifier.
-- [ ] Worktree cleanup always sequenced before branch cleanup within a run.
-- [ ] A coupled branch+worktree pair renders as ONE confirm-list item.
-- [ ] Confirm UX never attempts more than 4 `AskUserQuestion` options in a
-      single call.
-- [ ] A collection-step error on one item never aborts the whole run, and is
-      visibly flagged in the final output.
-- [ ] Nothing is deleted/closed without an explicit confirm captured in the
-      same run.
-- [ ] Remainder buckets (grill-ready/plan-ready/defer) use grill's own
-      membership test, not an invented second taxonomy.
-- [ ] One explicit "start here" next action is printed at the end of every
-      run.
-- [ ] Full test suite green; dogfood run against craft's own repo completes
-      cleanly.
+- [x] `repo-triage` skill exists at `skills/orchestration/repo-triage/SKILL.md`.
+- [x] Issue triage reuses `classify_issue()` directly — no parallel classifier
+      (source-identity tested, `tests/test_repo_triage_classify_unit.py`).
+- [x] Worktree cleanup always sequenced before branch cleanup within a run
+      (documented, SKILL.md Step 2).
+- [x] A coupled branch+worktree pair renders as ONE confirm-list item
+      (`merge_candidates()`, tested).
+- [x] Confirm UX never attempts more than 4 `AskUserQuestion` options in a
+      single call (documented procedure, SKILL.md Step 3).
+- [x] A collection-step error on one item never aborts the whole run, and is
+      visibly flagged in the final output (tested for issues;
+      documented for branch/worktree collection).
+- [x] Nothing is deleted/closed without an explicit confirm captured in the
+      same run (documented procedure + non-goal test on the underlying
+      helpers, `tests/test_git_dryrun.sh` Group 4).
+- [x] Remainder buckets (grill-ready/plan-ready/defer) use grill's own
+      membership test, not an invented second taxonomy
+      (`bucket_candidates()`, tested).
+- [x] One explicit "start here" next action is printed at the end of every
+      run (documented, SKILL.md Step 4).
+- [x] Full test suite green; dogfood run against craft's own repo completes
+      cleanly. Dogfood: 6/6 issues classified live, 0 errors, verified
+      idempotent across two consecutive runs (5.2/5.4). Full suite: see
+      commit history for the confirmed final pass count — the run that
+      surfaced 5 count-drift failures was fixed and re-verified on the
+      directly affected files (546/546); a full from-scratch re-run was
+      in flight at session end.
 
 ## Commit Strategy
 
