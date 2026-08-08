@@ -9,6 +9,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **New `repo-triage` skill** ([#328](https://github.com/Data-Wise/craft/pull/328)) — batch-grounds open GitHub
+  issues and stale worktrees/branches against current repo state (reusing `/craft:git:issue-check`'s
+  classifier and `dev/git`'s squash-merge-safe branch/worktree detection), offers confirmed
+  (never automatic) deletion/closure with itemized evidence, and sorts the remainder into
+  grill-ready / plan-ready / defer buckets.
+- **8 new ecosystem-tool cheat-sheet tutorials** under "Guides & Tutorials → Ecosystem Tool Cheat
+  Sheets" — Codex, Remember, ADHD Mode, Token Optimizer, Security Guidance, Claude HUD, Dropbox,
+  and Agent Skills — covering installed Claude Code plugins with real setup complexity but no
+  prior documentation.
+
+### Fixed
+
+- **Force-deleting a squash-merged branch could silently no-op or hard-block** — the local
+  ancestor check misreports multi-commit squash merges (known limitation). Added a confirm-gated
+  verified-merged force-delete path instead of the previous silent-allow/hard-block split.
+- **`branch-guard` mis-parsed compound `git push` refspecs** ([#326](https://github.com/Data-Wise/craft/pull/326)) —
+  protected-branch gating now parses `git push` refspecs correctly before deciding whether to block.
+- **`branch-guard`'s hook-fallback path resolution used the caller's cwd instead of the hook's own
+  directory** ([#325](https://github.com/Data-Wise/craft/pull/325)) — a symlinked hook's relative fallback
+  target now resolves relative to the symlink itself; deduplicated into a shared
+  `lib/hook-fallback.sh`, sourced by both branch-guard test suites.
+- **`craft-mcp`'s `PLUGIN_DIR` resolution wasn't cwd-aware**, and the bundled `.mcpb` was missing
+  dependencies — both fixed.
+- **`/craft:docs:docs:update` had a doubled namespace** and its test suite wasn't runnable
+  ([#322](https://github.com/Data-Wise/craft/pull/322)) — fixed and restored.
+- **craft-repo cwd-detection was too loose** ([#324](https://github.com/Data-Wise/craft/pull/324)) — tightened
+  to require `plugin.json` specifically; a companion fix resolves each script's target repo
+  from the script's own location, not the caller's cwd (unblocked dev CI).
+- **Two scripts used bash 4+ syntax**, breaking on macOS's stock bash 3.2
+  ([#323](https://github.com/Data-Wise/craft/pull/323)) — `refcard-gen` and `capture-craft-output`
+  fixed; a prior pass had already covered the rest.
+- **`docs-staleness-check.sh` and `validate-counts.sh` lost their executable bit.** Restored.
+- **`task-analyzer`'s Complexity Assessment table had no per-tier session cap, and the cap it
+  gained is advisory-only** — documented explicitly (Simple/Medium = 5, Complex/Critical =
+  uncapped); confirmed neither `orchestrator-v2` nor `/craft:orch:workflow` enforces it.
+
+### Changed
+
+- Bumped `@modelcontextprotocol/sdk`, `@types/node`, and `markdownlint-cli2` (dependabot).
+
 ## [4.4.2] - 2026-07-27
 
 ### Changed
