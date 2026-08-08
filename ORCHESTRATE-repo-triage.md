@@ -32,18 +32,22 @@ Operation 5) — no duplicated grounding logic.
 landing first. Op 4 already has `--dry-run` (line 101 of the skill file) as
 the template to match.
 
-- [ ] 0.1 Add `--dry-run` / non-interactive collection mode to the `worktree
+- [x] 0.1 Add `--dry-run` / non-interactive collection mode to the `worktree
       clean` sub-action — no deletions, only candidate output.
-- [ ] 0.2 Define the structured output contract for dry-run mode: each
+      Implemented as `worktree_clean_dry_run()` in `lib/git-utils.sh`
+      (mirrors the `is_squash_merged()` pattern already there — real git
+      calls, no fenced-python-block indirection, since Op 4/5 had no
+      backing script before this and their logic is git-native).
+- [x] 0.2 Define the structured output contract for dry-run mode: each
       candidate worktree entry carries `{path, branch, is_merged_evidence,
       lock_status}`. **`branch` is the required join key** — GRILL Decision
       13 needs it to merge a worktree candidate with its corresponding Op 4
-      branch candidate into one item.
-- [ ] 0.3 Verify Op 4's existing `--dry-run` output is *also* structured
-      (not just human-readable prose preview) — if it's prose-only today
-      (per REVIEW finding #3, "Op4 emits branch names as prose"), extend it
-      to emit the same shape: `{branch, merge_evidence, ancestor_result,
-      pr_state, scoped_diff_result}`.
+      branch candidate into one item. Emitted as JSONL (one JSON object per
+      line) via `jq -cn`.
+- [x] 0.3 Op 4 was prose-only (per REVIEW finding #3) — added
+      `branch_cleanup_dry_run()` in `lib/git-utils.sh` emitting
+      `{branch, merge_evidence, ancestor_result, pr_state,
+      scoped_diff_result}` as JSONL, same shape contract as 0.2.
 
 **Key files:** `skills/dev/git/SKILL.md` (Operations 4, 5), any backing
 script under `scripts/` or `lib/` that implements the actual cleanup logic.
