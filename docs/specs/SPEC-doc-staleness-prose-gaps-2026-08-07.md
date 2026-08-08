@@ -100,6 +100,19 @@ release doesn't ship with correct version *numbers* sitting next to incorrect su
 - Porting the pattern to sibling dev-tools repos (D2) — revisit only if this proves out here.
 - Any new CI workflow, cron job, or external service.
 
+### Follow-up (found 2026-08-07, not in this SPEC's scope)
+
+`homebrew-tap`'s `generator/manifest.json` has the same prose-staleness blind spot, in a
+different repo: `command_count` is auto-synced by `homebrew-release.yml` on every version
+release, but each formula's `caveats_extra` fixed prose (command names, feature bullets) is
+hand-authored and never re-verified — confirmed live when craft's own caveats text still
+referenced the removed `/craft:git:unprotect` command (fixed in `homebrew-tap#211`). Neither
+`check-drift.sh` (formula-matches-manifest) nor `check-revision-bump.sh` (content-changed-needs-
+revision) checks prose *accuracy*, only structural consistency. This SPEC's checks 1–2 don't
+reach `homebrew-tap` (out of scope per D2 — craft only). If this pattern proves out here,
+consider a parallel prose-accuracy check in `homebrew-tap` itself (different repo, different
+owner of that decision) — not assumed, not scheduled.
+
 ## Acceptance Criteria
 
 - [ ] Checks 1 and 2 are implemented as blocking (RED) findings in Phase 7.
