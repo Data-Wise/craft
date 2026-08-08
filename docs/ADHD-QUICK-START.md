@@ -41,7 +41,7 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 ```bash
 /craft:do "add validation to my forms"     # AI routes task automatically
 /craft:check                                # Pre-flight check before committing
-/craft:help testing                         # Get context-aware testing help
+/craft:smart-help testing                         # Get context-aware testing help
 ```
 
 ## ⏱️ Next 5 Minutes
@@ -53,7 +53,7 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 
 - **Documentation:** `/craft:docs:update` - Smart docs generation
 - **Code Quality:** `/craft:code:lint optimize` - Fast parallel linting
-- **Git Workflows:** `/craft:git:worktree add feature-name` - Parallel development
+- **Git Workflows:** ask "create a worktree for feature-name" (`dev/git` skill) - Parallel development
 
 ## 🆘 Stuck?
 
@@ -61,7 +61,7 @@ claude plugin add github:Data-Wise/craft      # GitHub marketplace
 
 ```bash
 /craft:hub          # See all commands
-/craft:help         # Context-specific suggestions
+/craft:smart-help         # Context-specific suggestions
 /craft:check        # Validate your setup
 ```
 

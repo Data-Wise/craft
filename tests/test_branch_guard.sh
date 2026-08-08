@@ -34,6 +34,12 @@ set -uo pipefail
 HOOK_SCRIPT="${HOOK_SCRIPT:-$HOME/.claude/hooks/branch-guard.sh}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# See lib/hook-fallback.sh for why this fallback exists and how it resolves
+# symlinked installed hooks owned by another repo (e.g. cc-config).
+# shellcheck source=../lib/hook-fallback.sh
+source "$SCRIPT_DIR/../lib/hook-fallback.sh"
+resolve_hook_fallback HOOK_SCRIPT "$SCRIPT_DIR"
+
 # Color output
 T_RED='\033[0;31m'
 T_GREEN='\033[0;32m'
@@ -1483,6 +1489,11 @@ run_test \
 echo ""
 echo -e "${T_BLUE}--- Group 20: Squash-merge bypass for git branch -D ---${T_NC}"
 
+# 2026-07-29: squash-merged branches no longer get a SILENT exit 0 — the
+# new contract is an explicit [CONFIRM] naming the verified evidence (never
+# an unconditional allow, never an unconditional block). See branch-guard.sh
+# section 8d "Verified-merge confirm gate".
+
 REPO_SQ20=$(init_repo)
 (
     cd "$REPO_SQ20"
@@ -1496,11 +1507,12 @@ REPO_SQ20=$(init_repo)
     git commit -m "squash: feature work" --quiet
 )
 
-run_test \
-    "test_git_branch_delete_squash_merged_ALLOWED" \
-    0 \
+run_test_with_stderr \
+    "test_git_branch_delete_squash_merged_now_CONFIRMS_not_silent" \
+    2 \
     "$(json_bash "git branch -D feature/sq-merged" "$REPO_SQ20")" \
-    "$REPO_SQ20"
+    "$REPO_SQ20" \
+    "VERIFIED merged"
 
 REPO_UNM20=$(init_repo)
 (
@@ -1513,11 +1525,96 @@ REPO_UNM20=$(init_repo)
     git checkout dev --quiet 2>/dev/null
 )
 
-run_test \
-    "test_git_branch_delete_unmerged_BLOCKED" \
+run_test_with_stderr \
+    "test_git_branch_delete_unmerged_BLOCKED_generic_reasoning" \
     2 \
     "$(json_bash "git branch -D feature/not-merged" "$REPO_UNM20")" \
-    "$REPO_UNM20"
+    "$REPO_UNM20" \
+    "commits may be lost"
+
+# Strong check (gh pr view + merge-base --is-ancestor): mock `gh` in PATH so
+# the test never hits the network. Verifies the PR-backed evidence path
+# fires (not just the local is_squash_merged fast path) — the whole reason
+# this gate exists is that repos exist where the local check false-negatives
+# on a real multi-commit squash merge but `gh`/the PR record still proves it.
+REPO_SQ20B=$(init_repo)
+(
+    cd "$REPO_SQ20B"
+    git checkout dev --quiet 2>/dev/null
+    git checkout -b "feature/pr-merged" --quiet 2>/dev/null
+    echo "a" > a.txt; git add a.txt; git commit -m "feat: a" --quiet
+    echo "b" > b.txt; git add b.txt; git commit -m "feat: b" --quiet
+    echo "c" > c.txt; git add c.txt; git commit -m "feat: c" --quiet
+)
+BG_PR_TIP="$(cd "$REPO_SQ20B" && git rev-parse refs/heads/feature/pr-merged)"
+(
+    cd "$REPO_SQ20B"
+    git checkout dev --quiet 2>/dev/null
+    git merge --squash "feature/pr-merged" --quiet
+    git commit -m "squash: multi-commit feature" --quiet
+)
+BG_MERGE_SHA="$(cd "$REPO_SQ20B" && git rev-parse dev)"
+(
+    # Unrelated follow-up commit on dev AFTER the squash-merge — this is
+    # what makes the local tree-diff fallback false-negative (dev's tip
+    # tree no longer matches the branch's tip tree) while the strong
+    # check still correctly sees BG_MERGE_SHA as an ancestor of dev. This
+    # is the exact multi-commit-squash false-negative shape documented in
+    # repo memory git-cherry-misreports-squash-merges.
+    cd "$REPO_SQ20B"
+    echo "unrelated" > unrelated.txt
+    git add unrelated.txt
+    git commit -m "chore: unrelated follow-up" --quiet
+)
+
+BG_FAKE_BIN="$(make_tmpdir)"
+cat > "$BG_FAKE_BIN/gh" <<EOF
+#!/bin/bash
+if [[ "\$1" == "pr" && "\$2" == "view" && "\$3" == "feature/pr-merged" ]]; then
+  echo '{"number":123,"headRefOid":"${BG_PR_TIP}","mergeCommit":{"oid":"${BG_MERGE_SHA}"},"state":"MERGED"}'
+  exit 0
+fi
+exit 1
+EOF
+chmod +x "$BG_FAKE_BIN/gh"
+
+BG_STRONG_EXIT=0
+BG_STRONG_STDERR=$(echo "$(json_bash "git branch -D feature/pr-merged" "$REPO_SQ20B")" | (cd "$REPO_SQ20B" && PATH="$BG_FAKE_BIN:$PATH" bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || BG_STRONG_EXIT=$?
+TOTAL=$((TOTAL + 1))
+if [[ "$BG_STRONG_EXIT" -eq 2 ]] && echo "$BG_STRONG_STDERR" | grep -qi "PR #123"; then
+    PASS=$((PASS + 1))
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_git_branch_delete_strong_check_reports_pr_number  ${T_BOLD}(exit=$BG_STRONG_EXIT, pattern matched)${T_NC}"
+else
+    FAIL=$((FAIL + 1))
+    FAILED_NAMES+=("test_git_branch_delete_strong_check_reports_pr_number")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_git_branch_delete_strong_check_reports_pr_number  ${T_BOLD}(expected exit=2 + 'PR #123', got exit=$BG_STRONG_EXIT)${T_NC}"
+    echo -e "        stderr: $(echo "$BG_STRONG_STDERR" | head -5)"
+fi
+
+# Planted-defect control: one verified branch + one genuinely unmerged
+# branch in the SAME -D command must still BLOCK with the generic
+# (non-VERIFIED) reasoning — partial verification must never downgrade
+# the whole command to a soft confirm.
+REPO_MIX20=$(init_repo)
+(
+    cd "$REPO_MIX20"
+    git checkout dev --quiet 2>/dev/null
+    git checkout -b "feature/sq-merged-2" --quiet 2>/dev/null
+    echo "x" > x.txt; git add x.txt; git commit -m "feat: x" --quiet
+    git checkout dev --quiet 2>/dev/null
+    git merge --squash "feature/sq-merged-2" --quiet
+    git commit -m "squash: x" --quiet
+    git checkout -b "feature/not-merged-2" --quiet 2>/dev/null
+    echo "y" > y.txt; git add y.txt; git commit -m "feat: y" --quiet
+    git checkout dev --quiet 2>/dev/null
+)
+
+run_test_with_stderr \
+    "test_git_branch_delete_mixed_verified_and_unmerged_still_BLOCKED" \
+    2 \
+    "$(json_bash "git branch -D feature/sq-merged-2 feature/not-merged-2" "$REPO_MIX20")" \
+    "$REPO_MIX20" \
+    "commits may be lost"
 
 echo ""
 
@@ -1983,6 +2080,191 @@ run_bash_test_with_env \
     2 \
     "touch src/unrelated_new_file.py" \
     "$REPO_DEV_EDIT"
+
+echo ""
+
+# --------------------------------------------------------------------------
+# Group 23: git-push refspec parsing (issue #6) — a `git push origin
+# --delete feature/x` cannot modify the protected branch under any
+# interpretation, but the trigger regex matched on `push` alone with no
+# refspec inspection, so a plain feature-branch delete against a cross-repo
+# target on `main` was confirmed/blocked as if it were a real push to main.
+# Positive cases (deleting/pushing INTO the protected branch itself) must
+# stay gated exactly as before — this is a narrowing of the trigger, not a
+# removal of it. Cross-repo targets confirm (_confirm, "[CONFIRM]" in
+# stderr); same-repo targets hard-block ("BRANCH PROTECTION" box, no
+# confirm path) — both paths share the same refspec-safety check, but the
+# two block styles were already different before this fix and stay that way.
+# --------------------------------------------------------------------------
+
+echo -e "${T_BLUE}--- git push Refspec Parsing (issue #6) ---${T_NC}"
+
+# Cross-repo: session on a safe branch, TARGET repo on main, deleting an
+# already-merged feature branch — the exact reproduction from issue #6.
+# Must ALLOW (exit 0), not confirm/block.
+REPO_RS1=$(init_repo)
+switch_branch "$REPO_RS1" "dev"
+OTHER_REPO_RS1=$(make_tmpdir)
+(cd "$OTHER_REPO_RS1" && git init -b main --quiet && git config user.email t@t.com && git config user.name T && git commit -m init --quiet --allow-empty)
+
+run_test \
+    "test_cross_repo_push_delete_feature_branch_is_ALLOW" \
+    0 \
+    "$(json_bash "git -C $OTHER_REPO_RS1 push origin --delete feature/already-merged" "$REPO_RS1")" \
+    "$REPO_RS1"
+
+# Same-repo: session itself on main, deleting a feature branch — identical
+# false positive on the non-cross-repo path. Must also ALLOW.
+REPO_RS2=$(init_repo)  # left on main (protected)
+
+run_test \
+    "test_same_repo_push_delete_feature_branch_is_ALLOW" \
+    0 \
+    "$(json_bash "git push origin --delete feature/already-merged" "$REPO_RS2")" \
+    "$REPO_RS2"
+
+# Explicit non-main refspec (src:dst form) — must also ALLOW.
+REPO_RS3=$(init_repo)  # left on main (protected)
+
+run_test \
+    "test_same_repo_push_explicit_refspec_non_main_is_ALLOW" \
+    0 \
+    "$(json_bash "git push origin feature/a:feature/b" "$REPO_RS3")" \
+    "$REPO_RS3"
+
+# Regression guard: deleting the protected branch itself must stay blocked
+# (this is the case a naive "any --delete is safe" fix would have broken).
+REPO_RS4=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_same_repo_push_delete_main_itself_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin --delete main" "$REPO_RS4")" \
+    "$REPO_RS4" \
+    "BRANCH PROTECTION"
+
+# Regression guard: an explicit refspec pushing INTO main must stay blocked.
+REPO_RS5=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_same_repo_push_explicit_refspec_into_main_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin feature/a:main" "$REPO_RS5")" \
+    "$REPO_RS5" \
+    "BRANCH PROTECTION"
+
+# Regression guard: a bare push naming main with no refspec construct must
+# stay blocked — ambiguous forms are never widened to ALLOW (issue #6 scope
+# is limited to --delete and src:dst; a bare `git push origin main` is
+# unchanged from pre-fix behavior).
+REPO_RS6=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_same_repo_bare_push_to_main_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin main" "$REPO_RS6")" \
+    "$REPO_RS6" \
+    "BRANCH PROTECTION"
+
+# Regression guards for adversarial-review findings against the refspec
+# exemption above (three real bypasses caught before merge):
+# 1. A `git commit` clause riding alongside a safe push must still be
+#    gated — a commit has no refspec to prove safety with.
+REPO_RS7=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_commit_alongside_safe_push_still_BLOCKED" \
+    2 \
+    "$(json_bash "git commit -m x && git push origin --delete feature/already-merged" "$REPO_RS7")" \
+    "$REPO_RS7" \
+    "BRANCH PROTECTION"
+
+# 2. Every push clause in a compound command must be independently safe —
+#    checking only the last one let an earlier unsafe push hide behind a
+#    later safe delete.
+REPO_RS8=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_unsafe_push_before_safe_delete_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin main && git push origin --delete feature/x" "$REPO_RS8")" \
+    "$REPO_RS8" \
+    "BRANCH PROTECTION"
+
+# 3. The remote/URL argument can itself contain a colon (SCP-style
+#    user@host:path, or an https URL with a port) — it must never be read
+#    as a <src>:<dst> refspec, or a genuine bare push to main slips through
+#    disguised as an "explicit refspec".
+REPO_RS9=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_scp_style_remote_url_colon_not_misread_as_refspec_BLOCKED" \
+    2 \
+    "$(json_bash "git push git@github.com:org/repo.git main" "$REPO_RS9")" \
+    "$REPO_RS9" \
+    "BRANCH PROTECTION"
+
+REPO_RS10=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_https_remote_url_with_port_not_misread_as_refspec_BLOCKED" \
+    2 \
+    "$(json_bash "git push https://github.com:443/foo/bar.git main" "$REPO_RS10")" \
+    "$REPO_RS10" \
+    "BRANCH PROTECTION"
+
+# Round 2 of adversarial review (against the fixes above) found the
+# per-clause approach itself was still bypassable three more ways -- all
+# closed by restricting the exemption to "the ENTIRE command is nothing but
+# an optional cd/-C prefix and exactly one confirmed-safe push clause"
+# (_bg_command_push_only_safe), rather than classifying each clause alone.
+REPO_RS11=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_force_with_lease_flag_value_colon_not_misread_r2f1_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin --force-with-lease=main:0000000000000000000000000000000000000000" "$REPO_RS11")" \
+    "$REPO_RS11" \
+    "BRANCH PROTECTION"
+
+REPO_RS12=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_commit_disguised_via_c_flag_still_BLOCKED_r2f2" \
+    2 \
+    "$(json_bash "git -c commit.gpgsign=false commit -m x && git push origin --delete feature/already-merged" "$REPO_RS12")" \
+    "$REPO_RS12" \
+    "BRANCH PROTECTION"
+
+REPO_RS13=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_unrelated_command_riding_safe_push_still_BLOCKED_r2f3" \
+    2 \
+    "$(json_bash "rm -rf some-important-file && git push origin --delete feature/already-merged" "$REPO_RS13")" \
+    "$REPO_RS13" \
+    "BRANCH PROTECTION"
+
+# Round 3: the clause splitter only split on &&/;/| -- a bare `&`
+# (background operator) fused a co-riding command straight through as if
+# it were part of the push clause, tokenizing past it undetected.
+REPO_RS13B=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_bare_ampersand_not_fused_into_push_clause_r3f1_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin --delete feature/already-merged & touch /tmp/PWNED-test-marker" "$REPO_RS13B")" \
+    "$REPO_RS13B" \
+    "BRANCH PROTECTION"
+
+REPO_RS14=$(init_repo)  # left on main (protected)
+
+run_test_with_stderr \
+    "test_delete_multiple_refs_one_is_main_still_BLOCKED" \
+    2 \
+    "$(json_bash "git push origin --delete feature/a main" "$REPO_RS14")" \
+    "$REPO_RS14" \
+    "BRANCH PROTECTION"
 
 echo ""
 

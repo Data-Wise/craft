@@ -9,6 +9,7 @@
 🔴 **Verdict: Keep craft. Don't migrate to bare native skills/dynamic workflows.** The mechanism that's burning your tokens is well-documented, narrowly located, and fixable in under an hour — not a reason to rebuild your toolchain.
 
 **Root cause, confirmed against official docs + community data:**
+
 1. Subagent calls open a **fresh, isolated context window** every time — no inheritance from your main session, full re-bill. Community `/usage` reports: **85% of heavy-session spend is subagent fan-out**.
 2. craft's `agents/orchestrator-v2.md` is **1,473 lines** — that *entire* file re-enters context on every spawn, with no lazy-loading (unlike commands/skills, which only cost ~100–200 tokens until invoked).
 3. "Ultra code" (dynamic workflows) is the **opposite** of a fix — Anthropic's own docs warn it can use *substantially more* tokens than normal sessions.
@@ -65,27 +66,34 @@ Inspected `/Users/dt/projects/dev-tools/craft` directly:
 ## Part 3 — The Plan
 
 ### Phase 0 — Measure before touching anything [5 min]
+
 1. Run `/usage` (press `d`/`w` to toggle 24h/7d) — get the actual % breakdown by skill/subagent/plugin/MCP server. **Do this first.** Don't assume orchestrator-v2 is the culprit until this confirms it.
 2. Run `/context` to see current session's live breakdown.
 3. Note today's baseline numbers somewhere (Apple Notes or `.STATUS`) so Phase 4 has something to compare against.
 
 ### Phase 1 — Close the silent-override gap [2 min]
+
 ```bash
 echo "CLAUDE_CODE_SUBAGENT_MODEL: ${CLAUDE_CODE_SUBAGENT_MODEL:-(unset)}"
 ```
+
 If set, it overrides every subagent's frontmatter `model:` field with **no warning in the transcript**. Unset it (or in `~/.zshrc`/`~/.bashrc` if it's set there) before doing any routing work below — otherwise Phase 2 will appear to do nothing.
 
 ### Phase 2 — Model-route craft's agents [15 min]
+
 Edit `agents/orchestrator.md` and `agents/orchestrator-v2.md` frontmatter:
+
 ```yaml
 ---
 name: orchestrator-v2
 model: sonnet   # down from inherited Opus/main-session tier, unless it does real architectural judgment
 ---
 ```
+
 Reserve `model: opus` only for sub-steps that need deep reasoning (e.g., CRAN-blocker triage); route mechanical sub-tasks (status aggregation, doc-staleness checks, count validation) to `model: haiku`. This is the single highest-leverage, lowest-effort change — community-reported 30–50% drop on the subagent line from routing alone.
 
 Also lock a sane session default in `~/.claude/settings.json`:
+
 ```json
 {
   "model": "sonnet",
@@ -94,6 +102,7 @@ Also lock a sane session default in `~/.claude/settings.json`:
 ```
 
 ### Phase 3 — Shrink orchestrator-v2's always-loaded footprint [30 min]
+
 1,473 lines is the real structural problem since it has no lazy-load path. Two options, pick one:
 
 - **Option A (recommended, lower risk):** Extract the bulkiest reference sections (e.g., the "BEHAVIOR 0: Forked Context Execution" block and similar large procedural sections) out of the agent file and into a companion **skill** (`skills/orchestrator-behaviors/SKILL.md`). Leave a thin pointer in the agent's system prompt ("see skill X for forked-context execution rules") so it loads on-demand instead of every spawn. Skills cost ~100–200 tokens until invoked vs. the full body cost every time for an agent file.
@@ -102,18 +111,23 @@ Also lock a sane session default in `~/.claude/settings.json`:
 Start with A — it's reversible and matches the documented skills lazy-load mechanism exactly.
 
 ### Phase 4 — Tighten how subagents get invoked [ongoing habit]
+
 - Replace open-ended prompts ("audit the ecosystem," "do a deep review, use multiple subagents") with scoped briefs ("check only `medfit/DESCRIPTION` and `NAMESPACE` for CRAN compliance").
 - For genuinely small tasks (single file check, quick git status), **don't delegate** — KDnuggets' point holds: subagent startup overhead (prompt + tool defs + round trip) can exceed the cost of doing it inline.
 - Use **plan mode** (`Shift+Tab`) before any multi-step craft command that might fan out, so you see the plan before tokens are spent on execution.
 
 ### Phase 5 — Independent CLAUDE.md lever [10 min, separate from the agent issue]
+
 Your global CLAUDE.md (this file) and `craft/CLAUDE.md` both load in full every session, uncompressed, every turn. Check line counts:
+
 ```bash
 wc -l ~/.claude/CLAUDE.md /Users/dt/projects/dev-tools/craft/CLAUDE.md
 ```
+
 Target <200 lines each per official guidance. If either is bloated with procedural detail (multi-step workflows, not just facts/rules), move that detail into a skill — same lazy-load benefit as Phase 3, applied to your memory files instead of agents.
 
 ### Phase 6 — Re-measure [5 min]
+
 Re-run `/usage` after a week of normal use under the new routing. Compare against the Phase 0 baseline. Target: 30–50% drop on the subagent percentage, per community-reported ranges — treat this as a hypothesis to confirm, not a guarantee.
 
 ---

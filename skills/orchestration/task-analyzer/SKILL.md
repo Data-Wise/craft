@@ -73,7 +73,7 @@ Bug Fix Workflow:
   2. /craft:test debug    - Isolate in tests
   3. → Fix               - User implements fix
   4. /craft:test          - Verify fix
-  5. /craft:git:sync      - Commit fix
+  5. dev/git skill        - Commit/sync changes (ask naturally; folded from /craft:git:sync)
 
 Release Workflow:
   1. /craft:code:deps-audit  - Security scan
@@ -123,12 +123,16 @@ Or keep going with improvised orchestration. Which do you want?
 
 Determines task complexity for mode selection:
 
-| Complexity | Indicators | Default Mode |
-|------------|------------|--------------|
-| **Simple** | Single file, quick fix | default |
-| **Medium** | Few files, feature | default |
-| **Complex** | Many files, architecture | debug |
-| **Critical** | Release, security | release |
+| Complexity | Indicators | Default Mode | Max Parallel Sessions |
+|------------|------------|--------------|------------------------|
+| **Simple** | Single file, quick fix | default | 5 |
+| **Medium** | Few files, feature | default | 5 |
+| **Complex** | Many files, architecture | debug | no cap |
+| **Critical** | Release, security | release | no cap |
+
+> Advisory only — `task-analyzer` is used for command routing, not dispatch-time
+> enforcement. Nothing in `orchestrator-v2`/`craft:orch:workflow` reads this table
+> or blocks a dispatch that exceeds it (see #327).
 
 ## Output Format
 

@@ -102,6 +102,14 @@ Remove merged feature branches that no longer have work in progress.
 
 **Never** run `git branch -D` without explicit confirmation on branches that `is_squash_merged` returns `NOT_MERGED` or `UNKNOWN`.
 
+**`--dry-run` / structured collection mode:** `branch_cleanup_dry_run [base]` (in `lib/git-utils.sh`) performs the same two-pass detection above but only *collects* — it never runs `git branch -D`. It emits one JSON object per line (JSONL), one per candidate branch:
+
+```jsonc
+{"branch": "feature/foo", "merge_evidence": "squash-merged", "ancestor_result": "ancestor", "pr_state": "merged", "scoped_diff_result": "clean"}
+```
+
+`branch` is the join key consumers use to pair a branch candidate with its Operation 5 worktree candidate (see below). `pr_state` is best-effort — `"unknown"` when `gh` is unavailable or no merged PR is found; absence of PR evidence never blocks a candidate that already has `merge_evidence`/`ancestor_result` support.
+
 ### 5. Worktree Management
 
 Parallel development via `git worktree` — each branch in its own folder, no stash juggling.
@@ -142,6 +150,14 @@ Parallel development via `git worktree` — each branch in its own folder, no st
 **`validate` — read-only environment check:** confirm CWD is inside the expected `~/.git-worktrees/<project>/<branch>` path and the branch name matches the folder name; no confirmation needed, no changes made.
 
 **`clean` — remove merged worktrees:** find worktrees for branches merged into `main`, confirm removal per-branch, then `git worktree prune` for stale references.
+
+**`clean --dry-run` / structured collection mode:** `worktree_clean_dry_run [base]` (in `lib/git-utils.sh`, same file as `is_squash_merged`) performs the collection step only — no `git worktree remove`, no `git worktree prune`. Emits one JSON object per line (JSONL), skipping the main worktree and any detached-HEAD worktree:
+
+```jsonc
+{"path": "~/.git-worktrees/craft/feature-foo", "branch": "feature/foo", "is_merged_evidence": "squash-merged", "lock_status": "unlocked"}
+```
+
+`branch` is the join key — a consumer (e.g. `repo-triage`) pairs this record with `branch_cleanup_dry_run`'s Operation 4 output on that field to render one merged candidate per branch+worktree pair, rather than two independent opt-outs.
 
 ### 6. Remote Sync
 

@@ -173,19 +173,21 @@ Phase 5: Summary        → What was fixed/created/skipped
 
 ---
 
-## /craft:git:worktree
+## Worktree Management (`dev/git` skill)
+
+> **Note (2026-07 v4 consolidation):** `/craft:git:worktree` was folded into the `dev/git` skill — the command itself no longer exists as a slash command, so it's no longer directly interactive-invokable the way the other three commands on this page are. It still follows the same show-plan-then-confirm flow when triggered via natural language. Full detail: [`skills/dev/git/references/worktree.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md).
 
 ### Quick Start
 
-```bash
+```text
 # Create with auto-setup
-/craft:git:worktree create feature/my-feature
+"create a worktree for feature/my-feature"
 
 # Move current branch
-/craft:git:worktree move
+"move this worktree"
 
 # Complete feature
-/craft:git:worktree finish
+"finish this worktree"
 ```
 
 ### Interactive Flow (create)
@@ -247,7 +249,7 @@ During orchestration, design decisions use structured prompts:
 | Quick check | `/craft:check` (default is fastest) |
 | Preview before applying | `--dry-run` flag |
 | Post-merge docs | `/craft:docs:update --post-merge` |
-| Auto-create workflow files | `/craft:git:worktree create feature/name` |
+| Auto-create workflow files | ask "create a worktree for feature/name" (`dev/git` skill) |
 
 ---
 
@@ -258,4 +260,4 @@ During orchestration, design decisions use structured prompts:
 - [/craft:orch](../commands/orch.md) — Full command reference
 - [/craft:check](../commands/check.md) — Full command reference
 - [/craft:docs:update](../commands/docs/update.md) — Full command reference
-- [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Full command reference
+- [dev/git skill — worktree reference](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Full command reference

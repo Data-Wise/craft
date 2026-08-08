@@ -104,7 +104,7 @@ Quick Actions:
    /craft:do "fix bug"          /craft:check --for pr
    /brainstorm d f s "auth"     ask "create a worktree for feat/x"
    /craft:test debug            /release --dry-run
-   ask "git status"             /craft:insights --since 7
+   ask "git status"             ask "generate insights report for the last 7 days"
 ```
 
 These are static suggestions — curated examples of common workflows.
@@ -116,7 +116,7 @@ These are static suggestions — curated examples of common workflows.
 ### Typical Healthy State
 
 ```
-48 commands | 40 skills | 2 agents | 112 tests passing
+48 commands | 41 skills | 2 agents | 112 tests passing
 
 NEXT ACTION:
    A) Start Phase 3 implementation
@@ -133,7 +133,7 @@ Everything populated, no staleness warnings.
 ### Degraded State (Missing Data)
 
 ```
-48 commands | 40 skills | 2 agents | ? tests passing
+48 commands | 41 skills | 2 agents | ? tests passing
 ```
 
 Only the banner line shows — no Next Action (no .STATUS), no Worktrees (none exist), no Recently Used (no facets). The hub still works; sections appear as data becomes available.

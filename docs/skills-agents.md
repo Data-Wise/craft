@@ -1,10 +1,10 @@
 # Craft Skills & Agents
 
-> **TL;DR**: 40 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
+> **TL;DR**: 41 skills auto-activate from conversation context (no command to memorize) and 8 specialized agents handle deep work. Browse by category below; use [`/craft:hub`](commands/hub.md) to discover commands.
 
-Craft includes 40 auto-activating skills and 2 specialized agents for comprehensive development support.
+Craft includes 41 auto-activating skills and 2 specialized agents for comprehensive development support.
 
-## Skills (40 total)
+## Skills (41 total)
 
 Skills automatically activate based on conversation context, providing just-in-time expertise.
 
@@ -93,19 +93,20 @@ Skills automatically activate based on conversation context, providing just-in-t
 |------|-------------|------|
 | mode-controller | Manages craft plugin execution modes (default, debug, optimize, release) | `skills/modes/SKILL.md` |
 
-### Orchestration (5)
+### Orchestration (6)
 
 | Name | Description | Path |
 |------|-------------|------|
 | drive-engine | Reusable execution body behind `/craft:orch:drive` — parse-or-derive ORCHESTRATE phases, dispatch file-scoped subagents, and run the authoritative real verify gate | `skills/orchestration/drive-engine/SKILL.md` |
 | plan-orchestrator | Produce concrete planning artifacts (ORCHESTRATE files, feature breakdowns, sprint backlogs, roadmaps) from specs; Mode 1 supports `--output orchestrate-dispatch` for in-session background-agent dispatch | `skills/orchestration/plan-orchestrator/SKILL.md` |
+| repo-triage | Batch-grounds open GitHub issues and stale worktrees/branches against current repo state; confirmed (never automatic) deletion/closure, remainder sorted into grill-ready/plan-ready/defer buckets | `skills/orchestration/repo-triage/SKILL.md` |
 | session-state | Manages orchestrator session state persistence — save, load, resume, and history | `skills/orchestration/session-state/SKILL.md` |
 | task-analyzer | Analyzes natural language task descriptions and routes to appropriate craft commands | `skills/orchestration/task-analyzer/SKILL.md` |
 | workflow-engine | Reusable execution body behind `/craft:orch:workflow` — compile a WORKFLOW definition to a deterministic wave plan, dispatch file-scoped agents under a run-wide semaphore, structurally gate every output, and run a first-class verify gate | `skills/orchestration/workflow-engine/SKILL.md` |
 
 *`orchestrator-resilience` is orchestration-related but lives at the top-level
 `skills/orchestrator-resilience/SKILL.md`, not under `skills/orchestration/` — it is not counted in
-the `(5)` subtotal above (which `bump-version.sh` derives from the `skills/orchestration/`
+the `(6)` subtotal above (which `bump-version.sh` derives from the `skills/orchestration/`
 directory), but is cataloged here for discoverability:*
 
 | Name | Description | Path |

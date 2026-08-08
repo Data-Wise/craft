@@ -51,3 +51,6 @@ node_modules/
 # Governance soak ledger — LOCAL per-machine soak evidence, never committed
 governance/STATE.json
 .CLAUDE.md.backup
+
+# Codex CLI local config (per-repo MCP server pointer, machine-local)
+.codex/

@@ -304,7 +304,7 @@ python3 tests/test_docs_utilities.py
 
 - `/folio:docs:guide` - Guide generation (moved to folio)
 - `/craft:docs:changelog` - Changelog updates
-- `/craft:docs:claude-md` - CLAUDE.md updates
+- `claude-md-lifecycle` skill - CLAUDE.md updates (folded into a skill, v4 consolidation)
 - `/folio:docs:nav-update` - Navigation updates (moved to folio)
 
 ## See Also

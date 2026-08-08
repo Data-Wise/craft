@@ -414,10 +414,10 @@ cd ~/projects/dev-tools/craft-formats
 git push origin --delete feature/csv-export
 ```
 
-Or use craft's worktree cleanup command from each repo:
+Or ask craft's `dev/git` skill to clean up worktrees from each repo:
 
 ```bash
-/craft:git:worktree clean
+# "clean up merged worktrees"
 ```
 
 ---
@@ -481,4 +481,4 @@ This is the hardest case. Options:
 - [Git Worktree Setup Tutorial](../tutorials/TUTORIAL-worktree-setup.md) — Getting started with worktrees
 - [Orchestrate Pipeline Guide](pipeline-orchestrate-guide.md) — Full orchestration reference
 - [/craft:ci:status](../commands/ci/status.md) — CI status command reference
-- [/craft:git:worktree](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Worktree command reference
+- [dev/git skill — worktree reference](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) — Worktree command reference

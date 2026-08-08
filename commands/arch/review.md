@@ -101,7 +101,7 @@ Works with:
 
 - `/craft:arch:analyze` - Full analysis
 - `/craft:ci:local` - CI checks
-- `/craft:git:sync` - Pre-push validation
+- `dev/git` skill (ask "sync with remote") - Pre-push validation
 
 ## See Also
 

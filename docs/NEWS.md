@@ -4,6 +4,26 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.5.0 — repo-triage skill + ecosystem-tool tutorials
+
+**Released:** 2026-08-08 · **Type:** Minor
+
+### Highlights
+
+- **New `repo-triage` skill** ([#328](https://github.com/Data-Wise/craft/pull/328)) — batch-grounds
+  open GitHub issues and stale worktrees/branches against current repo state, offers confirmed
+  (never automatic) deletion/closure with itemized evidence, and sorts the remainder into
+  grill-ready / plan-ready / defer buckets.
+- **8 new ecosystem-tool cheat-sheet tutorials** — Codex, Remember, ADHD Mode, Token Optimizer,
+  Security Guidance, Claude HUD, Dropbox, and Agent Skills.
+- **9 fixes**, notably: `branch-guard` no longer mis-parses compound `git push` refspecs
+  ([#326](https://github.com/Data-Wise/craft/pull/326)), squash-merged branches now force-delete
+  through a confirm gate instead of silently no-op-ing or hard-blocking, and
+  `craft-repo` cwd-detection is tightened to require `plugin.json` specifically
+  ([#324](https://github.com/Data-Wise/craft/pull/324)).
+
+---
+
 ## v4.4.2 — preflight-check skill identity fix + Python 3.14 pin
 
 **Released:** 2026-07-27 · **Type:** Patch
@@ -138,7 +158,7 @@ See the [full changelog](CHANGELOG.md) for details.
   plugin — 24 commands, 6 agents, 6 skills moved out. See
   [docs/MIGRATION-v4.md](https://github.com/Data-Wise/craft/blob/main/docs/MIGRATION-v4.md) for the
   full command migration table.
-- **Counts: 94→47 commands / 45→40 skills / 8→2 agents.**
+- **Counts: 94→47 commands / 45→41 skills / 8→2 agents.**
 - **Guard suite hardening bundled** — `cd`-target resolution across compound Bash commands,
   `guards.json` write-race lock, orchestrate-dispatch self-containment (closes 4 live false
   positives).

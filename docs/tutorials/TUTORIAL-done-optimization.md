@@ -34,7 +34,7 @@ If drift is found between your global and project settings, you'll see:
 ⚙️  SETTINGS CHECK:
   Allowlist: 3 entries in global not in project settings
   Rules updated since last session: response-style.md
-  → Run /craft:docs:claude-md:sync to pull in updated rules
+  → Ask "sync CLAUDE.md" (claude-md-lifecycle skill) to pull in updated rules
 ```
 
 **No output = no drift.** The step is silent when everything is in sync.

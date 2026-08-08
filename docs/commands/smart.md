@@ -432,17 +432,17 @@ gh pr create --base dev
 # --skip=deps        Skip dependency audit
 ```
 
-## /craft:help
+## /craft:smart-help
 
 **Purpose:** Context-aware help and suggestions for your project.
 
 **Usage:**
 
 ```bash
-/craft:help                     # General suggestions
-/craft:help testing             # Deep dive into testing
-/craft:help documentation       # Docs-specific help
-/craft:help check               # Command-specific help
+/craft:smart-help                     # General suggestions
+/craft:smart-help testing             # Deep dive into testing
+/craft:smart-help documentation       # Docs-specific help
+/craft:smart-help check               # Command-specific help
 ```
 
 **Features:**
@@ -456,7 +456,7 @@ gh pr create --base dev
 **Example Output:**
 
 ```bash
-/craft:help
+/craft:smart-help
 
 # Context detected: Python project with pytest
 
@@ -490,14 +490,14 @@ Learn More:
 | `/craft:do` | Universal router | Unsure which command to use | All (0-10) |
 | `/craft:orch` | Multi-agent coordination | Complex multi-step tasks | High (8-10) |
 | `/craft:check` | Validation | Before commit/PR/release | N/A (validation) |
-| `/craft:help` | Guidance | Need suggestions | N/A (informational) |
+| `/craft:smart-help` | Guidance | Need suggestions | N/A (informational) |
 
 ### Decision Flow
 
 ```mermaid
 flowchart TD
     A[I need to...] --> B{Know which command?}
-    B -->|No| C["/craft:help"]
+    B -->|No| C["/craft:smart-help"]
     B -->|Yes| D{Single action?}
     D -->|Yes| E[Use specific command]
     D -->|No| F{Complexity?}
@@ -526,14 +526,14 @@ flowchart TD
 - ✅ Use `/craft:do` for multi-faceted tasks
 - ✅ Use `/craft:check` before every commit
 - ✅ Use `/craft:orch` for complex workflows
-- ✅ Use `/craft:help` when learning the system
+- ✅ Use `/craft:smart-help` when learning the system
 
 **DON'T:**
 
 - ❌ Use `/craft:do` for simple, known commands
 - ❌ Skip `/craft:check` before committing
 - ❌ Use `/craft:orch` for single-step tasks
-- ❌ Guess - use `/craft:help` instead
+- ❌ Guess - use `/craft:smart-help` instead
 
 ---
 

@@ -481,4 +481,4 @@ If missing, you're on the wrong branch.
 
 ---
 
-**Need help?** Check the [full documentation](../commands/docs/update.md) or run `/craft:help docs:update`.
+**Need help?** Check the [full documentation](../commands/docs/update.md) or run `/craft:smart-help docs:update`.

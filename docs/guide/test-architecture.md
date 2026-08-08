@@ -3,6 +3,11 @@
 
 > **How the unified test system works: template engine, project detection, tier system, and CI integration**
 
+> **Note (2026-07 v4 consolidation):** `/craft:test:gen` was renamed to
+> `/craft:code:test-gen`. `/craft:test:template` was removed with no
+> replacement. The architecture described below (templates, registry,
+> tiers) still applies to the generator; only the command name changed.
+
 ---
 
 ## Overview
@@ -12,8 +17,8 @@ The test system has three layers:
 ```text
 ┌─────────────────────────────────────────────────┐
 │  /craft:test           Unified runner            │
-│  /craft:test:gen       Test generator            │
-│  /craft:test:template  Template manager          │
+│  /craft:code:test-gen  Test generator            │
+│  (test:template removed, no replacement)         │
 ├─────────────────────────────────────────────────┤
 │  templates/            Jinja2 templates          │
 │  registry.json         Detection + metadata      │
@@ -121,7 +126,7 @@ templates/
 
 ```mermaid
 flowchart TD
-    A["/craft:test:gen"] --> B{Detect Project Type}
+    A["/craft:code:test-gen"] --> B{Detect Project Type}
     B -->|plugin.json| C[Plugin]
     B -->|*.plugin.zsh| D[ZSH]
     B -->|pyproject.toml scripts| E[CLI]

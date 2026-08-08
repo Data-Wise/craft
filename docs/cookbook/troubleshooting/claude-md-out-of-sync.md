@@ -10,6 +10,8 @@ related:
 
 # Troubleshooting: CLAUDE.md Out of Sync
 
+> **Note (v4 consolidation):** `/craft:docs:claude-md:sync` was folded into the `claude-md-lifecycle` skill — the command itself no longer exists. Replace any `/craft:docs:claude-md:sync` example below with a natural request (e.g. "sync CLAUDE.md") and the skill runs the same detect → audit → fix → optimize pipeline. See [`skills/docs/claude-md/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/docs/claude-md/SKILL.md) for the current reference.
+
 **Level:** Beginner
 
 ## Problem
@@ -32,8 +34,8 @@ When the project is actually at v2.61.0 with 115 commands, 45 skills, and 8 agen
 
 **Solution:**
 
-```bash
-/craft:docs:claude-md:sync
+```text
+Ask: "sync CLAUDE.md"
 ```
 
 This runs the 4-phase pipeline: **detect** (scan project metrics) -> **audit** (compare against CLAUDE.md) -> **fix** (update stale values) -> **optimize** (enforce line budget and section priorities).
@@ -47,7 +49,7 @@ This runs the 4-phase pipeline: **detect** (scan project metrics) -> **audit** (
 **Solution:**
 
 ```bash
-/craft:docs:claude-md:sync
+# Ask "sync CLAUDE.md", then:
 grep "Current Version" CLAUDE.md   # verify fix
 ```
 
@@ -59,8 +61,8 @@ grep "Current Version" CLAUDE.md   # verify fix
 
 **Solution:**
 
-```bash
-/craft:docs:claude-md:sync
+```text
+Ask: "sync CLAUDE.md"
 # Watch for optimizer warnings about bloated or duplicate sections
 ```
 
@@ -74,7 +76,7 @@ grep "Current Version" CLAUDE.md   # verify fix
 
 ```bash
 wc -l CLAUDE.md                          # check current size
-/craft:docs:claude-md:sync               # optimizer trims low-priority content
+# Ask "sync CLAUDE.md" — optimizer trims low-priority content
 bash scripts/claude-md-budget-check.sh   # pre-commit budget check
 ```
 
@@ -84,7 +86,7 @@ bash scripts/claude-md-budget-check.sh   # pre-commit budget check
 
 ```bash
 ./scripts/validate-counts.sh             # verify command count matches reality
-/craft:docs:claude-md:sync               # should report "0 issues found"
+# Ask "sync CLAUDE.md" — should report "0 issues found"
 bash scripts/claude-md-budget-check.sh   # should pass without warnings
 ```
 

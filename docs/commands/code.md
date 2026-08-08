@@ -18,7 +18,7 @@ Development workflow tools with mode support - 48 commands.
 **Common confusion:**
 
 - **lint vs check** — `lint` checks code style only; `check` validates docs, links, and counts too
-- **test vs test:gen** — `test` runs tests; `test:gen` generates test suites from templates
+- **test vs code:test-gen** — `test` runs tests; `code:test-gen` generates test suites (renamed from `test:gen` in v4)
 - **lint vs ci-local** — `lint` checks one thing fast; `ci-local` runs the full CI pipeline locally
 
 ---
@@ -77,9 +77,9 @@ Complete release checklist (tests, docs, changelog, version bump).
 
 ## Advanced Testing
 
-### /craft:test:gen cli
+### /craft:code:test-gen cli
 
-Generate CLI test suites with comprehensive coverage.
+Generate CLI test suites with comprehensive coverage. (renamed from `/craft:test:gen` in v4)
 
 ### /craft:test
 
@@ -109,5 +109,5 @@ Interactive wizard that chains command-audit and release-watch (both products) i
 - `/craft:code:demo` - Create demonstrations
 - `/craft:code:refactor` - Refactoring guidance
 - `/craft:code:review` - Code review assistance
-- `/craft:test:gen` - Test generation
+- `/craft:code:test-gen` - Test generation (renamed from `/craft:test:gen` in v4)
 - `/craft:test:strategy` - Testing strategy

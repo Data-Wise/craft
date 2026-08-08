@@ -80,11 +80,11 @@ Development workflow tools:
 
 [Learn more →](code.md)
 
-### 🧪 Testing Commands (3)
+### 🧪 Testing Commands (2)
 
 - `/craft:test [category]` — Unified test runner
-- `/craft:test:gen` — Auto-detect project and generate tests
-- `/craft:test:template` — Manage Jinja2 test templates
+- `/craft:code:test-gen` — Auto-detect project and generate tests (renamed from `/craft:test:gen` in v4)
+- `/craft:test:template` — removed in v4 consolidation, no replacement
 
 [Learn more →](test.md)
 
@@ -141,16 +141,16 @@ Many commands support execution modes:
 | Generate docs | `/craft:docs:update` |
 | Build a site | `/folio:site:build` |
 | Run tests | `/craft:test` |
-| Manage git worktrees | `/craft:git:worktree` |
+| Manage git worktrees | ask "create a worktree for feature-name" (`dev/git` skill) |
 | Check before commit | `/craft:check` |
-| Get help | `/craft:help` |
+| Get help | `/craft:smart-help` |
 | Discover commands | `/craft:hub` |
 
 ---
 
 ## Interactive Command Behavior
 
-Four key commands use the **"Show Steps First" pattern**:
+Three key commands use the **"Show Steps First" pattern** (worktree creation moved to the `dev/git` skill, see below):
 
 ### /craft:check - Pre-Flight Validation
 
@@ -174,10 +174,12 @@ Four key commands use the **"Show Steps First" pattern**:
 
 [Learn more →](orch.md) | [Tutorial](../tutorials/interactive-orchestration.md) | [Modes compared](../tutorials/orchestrator-modes-compared.md)
 
-### /craft:git:worktree - Parallel Development
+### Worktree Creation - Parallel Development
 
-```bash
-/craft:git:worktree feature/new-feature
+> **Note (2026-07 v4 consolidation):** `/craft:git:worktree` was folded into the `dev/git` skill — the command itself no longer exists, so this is no longer a "Show Steps First" slash command. Ask naturally instead.
+
+```text
+"create a worktree for feature/new-feature"
 
 # Creates worktree → Auto-generates ORCHESTRATE.md + SPEC.md
 # Scope detection and auto-setup
@@ -233,7 +235,7 @@ Four key commands use the **"Show Steps First" pattern**:
 **⚡ 8-10 minutes:**
 
 ```bash
-/craft:git:worktree feature/name   # Setup parallel development
+"create a worktree for feature/name"   # Setup parallel development (dev/git skill)
 ```
 
 [Cookbook recipe →](../cookbook/common/setup-parallel-worktrees.md)
@@ -245,7 +247,7 @@ Four key commands use the **"Show Steps First" pattern**:
 ### Level 1: Essentials (First 30 minutes)
 
 1. **Discover commands:** `/craft:hub`
-2. **Get help:** `/craft:help`
+2. **Get help:** `/craft:smart-help`
 3. **Quick check:** `/craft:check`
 4. **Smart routing:** `/craft:do "simple task"`
 
@@ -253,7 +255,7 @@ Four key commands use the **"Show Steps First" pattern**:
 
 1. **Documentation:** `/craft:docs:update`
 2. **Testing:** `/craft:test`
-3. **Git worktrees:** `/craft:git:worktree setup`
+3. **Git worktrees:** ask "create a worktree" (`dev/git` skill)
 4. **Orchestration:** `/craft:orch "multi-step task"`
 
 ### Level 3: Advanced (Ongoing)

@@ -109,7 +109,7 @@ SKIP_DOC_CHECK=1 SKIP_CLAUDE_MD_SYNC=1 SKIP_INSIGHTS=1 SKIP_WORKTREE_STATUS=1
 Start your next session with:
 
 ```bash
-/workflow:recap    # Restores context from .STATUS
+/craft:restore     # Restores context from .STATUS (renamed from /workflow:recap, v4)
 /craft:hub         # See next action + worktree status
 ```
 

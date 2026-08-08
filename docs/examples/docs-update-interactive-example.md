@@ -106,11 +106,11 @@ Claude uses `AskUserQuestion`:
 │                                                             │
 │ Should I add help documentation?                            │
 │   Commands without help:                                    │
-│   • /craft:test:gen                                         │
-│   • /craft:test:template                                    │
-│   • /craft:git:worktree                                     │
+│   • /craft:code:test-gen [renamed from test:gen, v4]        │
+│   • /craft:test:template [removed 2026-07 v4, no replacement]│
+│   • /craft:git:worktree [removed 2026-07, now dev/git skill]│
 │   • /craft:hub                                              │
-│   • /craft:discovery-usage                                  │
+│   • /craft:discovery-usage [demoted to internal doc, v4]    │
 │                                                             │
 │   Option A: Yes, add all (5 commands)                       │
 │   Option B: Select specific commands                        │

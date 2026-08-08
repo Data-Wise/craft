@@ -5,7 +5,30 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+# Resolve which repo to validate, in this order:
+#
+#   1. $CRAFT_PLUGIN_DIR          — explicit override; craft-mcp sets this to the
+#                                   target repo, which is unambiguous even when
+#                                   the script itself lives in a craft checkout.
+#   2. the script's own repo      — when this script sits inside a plugin repo,
+#                                   that repo is the subject. Covers direct
+#                                   ./scripts/... runs AND tests that copy the
+#                                   tree to a tmpdir and invoke it by absolute
+#                                   path (cwd stays on the real repo there, so
+#                                   preferring cwd silently validated the wrong
+#                                   tree and the drift tripwires never fired).
+#   3. the caller's cwd           — for the packaged .mcpb, where the script
+#                                   lives under bundled/ with no plugin.json.
+#   4. the script's parent dir    — last-resort fallback.
+if [[ -n "${CRAFT_PLUGIN_DIR:-}" && -f "${CRAFT_PLUGIN_DIR}/.claude-plugin/plugin.json" ]]; then
+    PLUGIN_DIR="$CRAFT_PLUGIN_DIR"
+elif [[ -f "$(dirname "$SCRIPT_DIR")/.claude-plugin/plugin.json" ]]; then
+    PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+elif [[ -f "$(pwd)/.claude-plugin/plugin.json" ]]; then
+    PLUGIN_DIR="$(pwd)"
+else
+    PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+fi
 
 # Colors (shared library)
 source "$SCRIPT_DIR/formatting.sh"

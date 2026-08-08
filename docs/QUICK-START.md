@@ -10,7 +10,7 @@
 > - **How:** Install via Homebrew or `claude plugin add github:Data-Wise/craft`, then run `/craft:hub`
 > - **Next:** Try `/craft:do "your first task"` to see AI routing in action
 
-**48 commands** · **40 skills** · **2 agents** · [Documentation](https://data-wise.github.io/craft/)
+**48 commands** · **41 skills** · **2 agents** · [Documentation](https://data-wise.github.io/craft/)
 
 Get craft running in 30 seconds.
 
@@ -88,8 +88,8 @@ The AI routes your task to the best workflow automatically.
 ### Context-Aware Help
 
 ```bash
-/craft:help                     # Suggestions for your project
-/craft:help testing             # Deep dive into testing
+/craft:smart-help                     # Suggestions for your project
+/craft:smart-help testing             # Deep dive into testing
 ```
 
 ### Smart Documentation
@@ -141,8 +141,8 @@ The AI routes your task to the best workflow automatically.
 ### Development Workflow
 
 ```bash
-# 1. Create feature branch with worktree
-/craft:git:worktree create feature-name
+# 1. Create feature branch with worktree (dev/git skill — ask naturally)
+# "create a worktree for feature-name"
 
 # 2. Run tests in watch mode
 /craft:test debug

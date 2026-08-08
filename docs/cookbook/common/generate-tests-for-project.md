@@ -1,6 +1,6 @@
 ---
 title: "Generate Tests for a Project"
-description: "Auto-detect project type and generate a full test suite with /craft:test:gen"
+description: "Auto-detect project type and generate a full test suite with /craft:code:test-gen (renamed from /craft:test:gen in v4)"
 category: "cookbook"
 level: "beginner"
 time_estimate: "5 minutes"
@@ -12,6 +12,10 @@ related:
 
 # Generate Tests for a Project
 
+> **Note (2026-07 v4 consolidation):** renamed from `/craft:test:gen` to
+> `/craft:code:test-gen`. `/craft:test:template` (mentioned in
+> Troubleshooting below) was removed with no replacement.
+
 ## Problem
 
 You have a project (plugin, CLI tool, ZSH plugin, or MCP server) and want a comprehensive test suite generated automatically.
@@ -21,7 +25,7 @@ You have a project (plugin, CLI tool, ZSH plugin, or MCP server) and want a comp
 ### 1. Auto-detect and generate
 
 ```bash
-/craft:test:gen
+/craft:code:test-gen
 ```
 
 The generator detects your project type from indicator files and renders Jinja2 templates into test files.
@@ -29,7 +33,7 @@ The generator detects your project type from indicator files and renders Jinja2 
 ### 2. Preview first (recommended)
 
 ```bash
-/craft:test:gen --dry-run
+/craft:code:test-gen --dry-run
 ```
 
 Output:
@@ -67,27 +71,27 @@ The generator works in 4 steps:
 ### Force a project type
 
 ```bash
-/craft:test:gen plugin
-/craft:test:gen cli
-/craft:test:gen mcp
+/craft:code:test-gen plugin
+/craft:code:test-gen cli
+/craft:code:test-gen mcp
 ```
 
 ### Generate only unit tests
 
 ```bash
-/craft:test:gen --tier unit
+/craft:code:test-gen --tier unit
 ```
 
 ### Overwrite existing tests
 
 ```bash
-/craft:test:gen --force
+/craft:code:test-gen --force
 ```
 
 ### Generate to a different directory
 
 ```bash
-/craft:test:gen --output my-tests/
+/craft:code:test-gen --output my-tests/
 ```
 
 ## Troubleshooting
@@ -95,7 +99,7 @@ The generator works in 4 steps:
 | Issue | Fix |
 |-------|-----|
 | "Could not detect project type" | Use `--type` to force detection |
-| "Template render error" | Run `/craft:test:template validate` |
+| "Template render error" | `/craft:test:template` was removed (v4); no replacement command to validate templates |
 | Tests fail after generation | Generated tests check real structure — fix the issues they find |
 | `jinja2` not installed | `pip install jinja2` |
 

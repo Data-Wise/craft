@@ -430,7 +430,9 @@ Comprehensive parameter reference for all 97 Craft commands.
 
 ---
 
-### /craft:docs:claude-md
+### CLAUDE.md sync (`claude-md-lifecycle` skill)
+
+> Folded into a skill in the v4 consolidation — no longer a `/craft:docs:claude-md` command. Ask "sync CLAUDE.md" and the skill runs the equivalent steps.
 
 | Parameter | Type | Required | Default | Aliases | Description |
 |-----------|------|----------|---------|---------|-------------|

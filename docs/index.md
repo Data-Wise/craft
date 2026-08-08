@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.4.2-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.5.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -14,12 +14,12 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Full-stack developer toolkit with 48 commands, 2 AI agents, and 40 auto-triggered skills
+> - **What:** Full-stack developer toolkit with 48 commands, 2 AI agents, and 41 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
 > - **How:** Install via `claude plugin install craft@local-plugins`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
-> Full-stack developer toolkit for Claude Code — 48 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 48 commands, 2 agents, 41 skills with smart orchestration and ADHD-friendly workflows
 
 ## Features
 
@@ -33,7 +33,7 @@
 
     `orchestrator` and `orchestrator-v2` (mode-aware, subagent-monitoring multi-step orchestration). The docs-focused agents (mermaid expert, API documenter, tutorial engineer, demo engineer, reference builder) moved to `folio`.
 
-- :sparkles:{ .lg .middle } **40 Skills**
+- :sparkles:{ .lg .middle } **41 Skills**
 
     Auto-triggered expertise for backend/frontend design, DevOps, testing, architecture, planning, distribution, insights, and documentation automation
 
@@ -213,12 +213,12 @@ Reference documentation for all 47 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.4.2 — preflight-check skill identity fix + Python 3.14 pin"
-    The `preflight-check` skill is now reachable by its declared identity — its directory now
-    matches its canonical `preflight-check` name (`/craft:check`'s public contract is
-    unchanged). New recursive fixture-backed tests reject any new command/skill
-    identity drift plugin-wide. Test automation also now targets the stable Python 3.14 series
-    across local dev and CI.
+!!! info "Latest: v4.5.0 — repo-triage skill + ecosystem-tool tutorials"
+    New `repo-triage` skill batch-grounds open GitHub issues and stale worktrees/branches against
+    current repo state, offering confirmed (never automatic) deletion/closure. 8 new cheat-sheet
+    tutorials cover installed ecosystem tools (Codex, Remember, ADHD Mode, Token Optimizer,
+    Security Guidance, Claude HUD, Dropbox, Agent Skills). Plus 9 fixes, notably `branch-guard`
+    refspec parsing and squash-merge force-delete confirm-gating.
     See the [full changelog](CHANGELOG.md) for all releases, or visit the [News](NEWS.md) page for release highlights.
 
 ## Links

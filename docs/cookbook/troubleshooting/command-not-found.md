@@ -114,7 +114,7 @@ craft check          # Missing prefix
 
 ```bash
 # In Claude Code conversation
-/craft:help
+/craft:smart-help
 ```
 
 If this works, the plugin is installed correctly.

@@ -206,8 +206,8 @@ See [Migration Guide](docs/migration/v2.md) for upgrade instructions.
 Works with:
 
 - `/craft:code:release` - Run before release
-- `/craft:docs:sync` - Run after code sync
-- `/craft:git:sync` - Commit changelog updates
+- `/folio:docs:sync` - Run after code sync (moved to folio)
+- `dev/git` skill (ask "commit changelog updates") - Commit changelog updates
 
 ## Dry-Run Mode
 
@@ -244,7 +244,7 @@ Preview changelog updates without writing:
 
 ## See Also
 
-- `/craft:docs:sync` - Detect documentation needs
+- `/folio:docs:sync` - Detect documentation needs (moved to folio)
 - `/folio:docs:*` - Site building, linting, tutorials, diagrams, and other docs-authoring
   commands (moved to `folio`)
 - Template: `templates/dry-run-pattern.md`

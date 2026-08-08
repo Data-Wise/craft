@@ -260,9 +260,9 @@ Scan spec for paths under `~/projects/dev-tools/<other>/`. If detected:
 | `task-analyzer` | Receives a routed task that needs a plan artifact. |
 | `session-state` | Plans persist into orchestrator session state. |
 | `project-planner` | Strategic advice upstream; this skill writes the file. |
-| `/craft:git:worktree` | Creates the worktree for ORCHESTRATE mode. |
+| `dev/git` skill | Creates the worktree for ORCHESTRATE mode (ask naturally, e.g. "create a worktree for feature-x"). |
 | `/craft:orch` | Launches orchestrator after plan exists. |
-| `/craft:docs:sync` | Refreshes roadmap docs on `--update`. |
+| `/folio:docs:sync` | Refreshes roadmap docs on `--update` (moved to folio). |
 
 ## Test-plan scaffolding (default-on)
 

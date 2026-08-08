@@ -1058,7 +1058,7 @@ When issues are found, the audit command automatically applies known fixes:
 ```ruby
 # Fix 1: Description too long (> 80 chars)
 # Before:
-desc "Full-stack developer toolkit - 46 commands, 2 agents, 40 skills - Claude Code plugin"
+desc "Full-stack developer toolkit - 46 commands, 2 agents, 41 skills - Claude Code plugin"
 # After:
 desc "Full-stack developer toolkit for Claude Code with 46 commands"
 
@@ -1472,7 +1472,7 @@ See `homebrew-multi-formula` for a full example diagram.
 | Command | Use With |
 |---------|----------|
 | `/craft:check --for release` | Pre-release validation |
-| `/craft:git:tag` | Create version tag |
+| `/craft:code:release` | Create version tag (tagging is part of the release pipeline, not `dev/git`) |
 | `/craft:docs:changelog` | Update changelog |
 | `/craft:ci:generate` | Full CI/CD setup (see also `ci:generate homebrew`) |
 
@@ -1597,13 +1597,12 @@ The generator assembles a complete formula with:
 
 ### Existing Plugin Formulas
 
-All 7 plugin formulas are generated from the manifest:
+All 6 plugin formulas are generated from the manifest:
 
 | Formula | Features | Status |
 |---------|----------|--------|
 | `craft.rb` | branch-guard, schema-cleanup (command count: see `plugin.json`) | `brew audit --strict` clean |
 | `himalaya-mcp.rb` | copy_map layout, CLI wrapper, npm build | `brew audit --strict` clean |
-| `scholar.rb` | schema-cleanup (command count: see `plugin.json`) | `brew audit --strict` clean |
 | `rforge.rb` | head-only (no releases) | `brew audit --strict` clean |
 | `rforge-orchestrator.rb` | monorepo URL pattern | `brew audit --strict` clean |
 | `workflow.rb` | ADHD workflow automation | `brew audit --strict` clean |
@@ -1688,5 +1687,5 @@ echo "  Expected version: $(jq -r .version .claude-plugin/plugin.json)"
 
 ## See Also
 
-- `/craft:dist:curl-install` - Generate curl-based installation scripts for GitHub releases
+- curl-based install scripts - ask "generate an install script" (`dist-extras` skill, moved from `/craft:dist:curl-install` in the v4 consolidation)
 - `/craft:dist:marketplace` - Claude Code marketplace distribution - init, validate, test, and publish

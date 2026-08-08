@@ -548,6 +548,135 @@ _hard_block() {
   block "$(_box "$@")" "BLOCK"
 }
 
+# _bg_push_refspec_safe: does this `git push` clause confidently avoid
+# touching the protected branch? Only two forms are recognized as safe —
+# `--delete <ref>` (one or more, git allows a list after one --delete) and
+# an explicit `<src>:<dst>` refspec. Echoes SAFE only when every recognized
+# destination ref is confirmed NOT the protected branch; a bare push, an
+# unparseable clause, or ANY destination matching the protected branch
+# (including deleting it outright) stays UNSAFE — callers must gate exactly
+# as before in that case. Never widen this to bare-ref pushes (`git push
+# origin <branch>`) without also resolving what a bare ref actually targets;
+# that ambiguity is the reason bare pushes stay UNSAFE by design (issue #6).
+_bg_push_refspec_safe() {
+  local clause="$1" protected="$2"
+  case "$clause" in *'$'*|*'`'*|*'"'*|*"'"*) echo "UNSAFE"; return ;; esac
+
+  local -a _tokens
+  read -ra _tokens <<< "$clause"
+  local n=${#_tokens[@]} i=0
+
+  # Skip everything through the literal `push` token — clause extraction can
+  # prepend a compound-command separator (&&, ||, ;), `git`, and an optional
+  # `-C <path>` pair, none of which are push arguments.
+  while [[ $i -lt $n && "${_tokens[$i]}" != "push" ]]; do
+    i=$((i+1))
+  done
+  i=$((i+1))
+
+  # Per `git push [<repository> [<refspec>...]]`, the first non-flag token
+  # after `push` is ALWAYS the repository (name or URL) — a refspec never
+  # appears without it. It must never be read as a --delete target or a
+  # <src>:<dst> refspec even though it can itself contain a colon (SCP-style
+  # `user@host:path` remotes, `https://host:443/...` URLs) — excluding it
+  # unconditionally is what makes those forms safe to parse, rather than
+  # trying to pattern-match "looks like a URL" (which a hostile-shaped but
+  # legitimate remote name could still evade).
+  local seen_remote=false saw_explicit_ref=false in_delete=false
+  while [[ $i -lt $n ]]; do
+    local tok="${_tokens[$i]}"
+    if [[ "$seen_remote" == false && "$tok" != -* ]]; then
+      seen_remote=true
+      i=$((i+1))
+      continue
+    fi
+    if [[ "$tok" == "--delete" ]]; then
+      in_delete=true
+      saw_explicit_ref=true
+      i=$((i+1))
+      continue
+    fi
+    if [[ "$tok" == -* ]]; then
+      # Any OTHER flag is never itself a refspec, even when its value
+      # contains a colon — e.g. `--force-with-lease=main:0000...0`. Without
+      # this, the colon check below would read the flag's value as a
+      # <src>:<dst> refspec and only inspect the substring after ITS colon,
+      # never the actual (implicit, bare) destination the push touches.
+      i=$((i+1))
+      continue
+    fi
+    if [[ "$in_delete" == true ]]; then
+      local ref="${tok#refs/heads/}"
+      [[ "$ref" == "$protected" ]] && { echo "UNSAFE"; return; }
+    fi
+    case "$tok" in
+      *:*)
+        saw_explicit_ref=true
+        local dst="${tok#*:}"
+        dst="${dst#refs/heads/}"
+        [[ -z "$dst" || "$dst" == "$protected" ]] && { echo "UNSAFE"; return; }
+        ;;
+    esac
+    i=$((i+1))
+  done
+
+  [[ "$saw_explicit_ref" == true ]] && echo "SAFE" || echo "UNSAFE"
+}
+
+# _bg_command_push_only_safe: does $1 consist of NOTHING but an optional
+# leading `cd <path>`/`git -C <path>` target-resolution prefix (already
+# handled elsewhere for BRANCH/PROJECT_ROOT resolution) and EXACTLY ONE
+# `git push` clause, with that one clause's refspec confirmed SAFE by
+# _bg_push_refspec_safe? Any other clause — a second push, a `git commit`,
+# an unrelated command riding along in the same compound string (`rm -rf
+# x && git push ...`) — denies the exemption outright, falling back to the
+# original gate exactly as if no refspec parsing existed. This is
+# deliberately stricter than classifying each clause independently: doing
+# that missed that (1) a co-riding `git commit` can itself be disguised
+# (e.g. `git -c commit.gpgsign=false commit`) past a narrower "is there a
+# commit clause" regex, and (2) the ORIGINAL coarse trigger's only real
+# virtue was blocking the ENTIRE Bash invocation — including anything else
+# riding in the same compound command — the instant it saw commit/push
+# anywhere; per-clause safety analysis silently gave that up. Restricting
+# the exemption to "provably nothing else is happening in this command"
+# preserves that side-effect while still fixing issue #6's actual
+# reproduction (a bare push, optionally cd/-C prefixed).
+_bg_command_push_only_safe() {
+  local cmd="$1" protected="$2"
+  local push_count=0 push_clause="" other_seen=false
+
+  # &&, ;, |, and a bare & (background operator) all separate independent
+  # clauses. Listing &&/& as separate alternatives (rather than omitting
+  # bare &) relies on POSIX ERE leftmost-longest matching to prefer && as a
+  # whole over its own first character when both are present — verified
+  # against this awk (macOS/BSD): a lone & without this was previously
+  # unsplit, letting a co-riding command fused via `push ... & rm -rf x`
+  # tokenize straight through as if it were part of the push clause.
+  local _norm
+  _norm="$(printf '%s' "$cmd" | awk '{gsub(/&&|&|[;|]/,"\n"); print}')"
+  while IFS= read -r _clause; do
+    _clause="${_clause#"${_clause%%[![:space:]]*}"}"
+    [[ -z "$_clause" ]] && continue
+    if printf '%s' "$_clause" | grep -qE '^cd[[:space:]]+[^[:space:]]+[[:space:]]*$'; then
+      continue
+    fi
+    if printf '%s' "$_clause" | grep -qE '^git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push([[:space:]]|$)'; then
+      push_count=$((push_count + 1))
+      push_clause="$_clause"
+      continue
+    fi
+    other_seen=true
+  done <<EOF
+$_norm
+EOF
+
+  if [[ "$other_seen" == true || "$push_count" -ne 1 ]]; then
+    echo "UNSAFE"
+    return
+  fi
+  _bg_push_refspec_safe "$push_clause" "$protected"
+}
+
 # _dev_edit_preauthorized: env-var escape hatch for creating/editing the
 # allow-once/allow-dev-edit guard-bypass marker itself (issue #281). Same
 # shape as issue #168's CRAFT_GUARD_ALLOW_FORCE_DELETE: /craft:git:unprotect
@@ -672,17 +801,111 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
       printf '\n\033[33m[branch-guard]\033[0m CRAFT_GUARD_ALLOW_FORCE_DELETE=1 — allowing force-delete\n' >&2
       exit 0
     fi
-    # Squash-merge check: if all commits are already in the integration branch,
-    # the branch is safe to force-delete without confirmation.
-    _DEL_BRANCH="$(echo "$COMMAND" | sed -n 's/.*git branch -D \([^[:space:];|&]*\).*/\1/p' 2>/dev/null || true)"
-    if [[ -n "$_DEL_BRANCH" ]] && command -v is_squash_merged &>/dev/null; then
-      _SQUASH_STATUS="$(cd "$CWD" 2>/dev/null && is_squash_merged "${INTEGRATION_BRANCH:-dev}" "$_DEL_BRANCH" 2>/dev/null || echo "UNKNOWN")"
-      if [[ "$_SQUASH_STATUS" == "SAFE" ]]; then
-        # All commits already in base — squash-merge confirmed, allow force-delete
-        printf '\n\033[33m[branch-guard]\033[0m Squash-merge confirmed for \033[1m%s\033[0m — allowing force-delete\n' "$_DEL_BRANCH" >&2
-        exit 0
+    # -------------------------------------------------------------------
+    # Verified-merge confirm gate (2026-07-29): a squash-merged branch used
+    # to be force-delete-eligible via a SILENT exit 0 (no confirm at all)
+    # once the local `is_squash_merged` check said SAFE. Two problems with
+    # that: (a) too permissive — a stale/incorrect merge status would nuke
+    # a branch with zero human check, and (b) the local check itself
+    # (git cherry / tree-diff) misreports multi-commit squash merges as
+    # NOT_MERGED (repo memory git-cherry-misreports-squash-merges), which
+    # is too STRICT the other direction — hard-blocking genuinely-merged
+    # branches with no escape except the CRAFT_GUARD_ALLOW_FORCE_DELETE
+    # env var above.
+    #
+    # New contract: a branch verified merged (by either tier below) gets
+    # an explicit [CONFIRM] naming the branch and the evidence — never a
+    # silent allow, never an unconditional hard block. An unverified
+    # branch keeps the original hard confirm unchanged.
+    #
+    # Verification tiers — either is sufficient for a given branch:
+    #   1. Local (is_squash_merged, lib/git-utils.sh): offline, fast, exact
+    #      for single-commit squashes; can false-negative on multi-commit.
+    #   2. Strong (this function): `gh pr view` + the two-part gate from
+    #      repo CLAUDE.md / memory git-cherry-misreports-squash-merges —
+    #      local branch tip must equal the merged PR's headRefOid AND the
+    #      PR's mergeCommit must be an ancestor of the integration branch.
+    #      Fails CLOSED on any missing tool, timeout, or mismatch.
+    #
+    # Defined inline (not lib/git-utils.sh) so this works identically
+    # whether sourced via the canonical craft copy or the live installed
+    # hook — the live hook's `../lib` does not resolve to a real
+    # lib/git-utils.sh, so anything only in that file would silently not
+    # apply live (memory live-hook-fix-must-port-to-repo-source).
+    _bg_strong_merge_check() {
+      # Usage: _bg_strong_merge_check <branch> <integration_branch>
+      # Echoes "SAFE <pr_number>" or "NOT_SAFE" (never anything else).
+      local br="$1" integ="$2"
+      command -v gh &>/dev/null || { echo "NOT_SAFE"; return; }
+      command -v jq &>/dev/null || { echo "NOT_SAFE"; return; }
+      local _bg_timeout_bin=""
+      command -v timeout &>/dev/null && _bg_timeout_bin="timeout 5"
+      local local_tip
+      local_tip="$(git rev-parse "refs/heads/${br}" 2>/dev/null)" || { echo "NOT_SAFE"; return; }
+      local pr_json
+      pr_json="$(${_bg_timeout_bin} gh pr view "$br" --json number,headRefOid,mergeCommit,state 2>/dev/null)" || { echo "NOT_SAFE"; return; }
+      [[ -n "$pr_json" ]] || { echo "NOT_SAFE"; return; }
+      local pr_state pr_num pr_head pr_merge
+      pr_state="$(printf '%s' "$pr_json" | jq -r '.state // empty' 2>/dev/null)" || true
+      [[ "$pr_state" == "MERGED" ]] || { echo "NOT_SAFE"; return; }
+      pr_num="$(printf '%s' "$pr_json" | jq -r '.number // empty' 2>/dev/null)" || true
+      pr_head="$(printf '%s' "$pr_json" | jq -r '.headRefOid // empty' 2>/dev/null)" || true
+      pr_merge="$(printf '%s' "$pr_json" | jq -r '.mergeCommit.oid // empty' 2>/dev/null)" || true
+      [[ -n "$pr_num" && -n "$pr_head" && -n "$pr_merge" ]] || { echo "NOT_SAFE"; return; }
+      [[ "$pr_head" == "$local_tip" ]] || { echo "NOT_SAFE"; return; }
+      git merge-base --is-ancestor "$pr_merge" "$integ" 2>/dev/null || { echo "NOT_SAFE"; return; }
+      echo "SAFE ${pr_num}"
+    }
+
+    # Extract ALL branch args in the -D clause (git allows deleting several
+    # at once). Stop at the first clause terminator so a chained command
+    # (&&, ||, ;, |) doesn't get swept in as a "branch name".
+    _bg_del_clause="$(echo "$COMMAND" | sed -E 's/.*git branch (-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)[[:space:]]*//')"
+    _bg_del_clause="${_bg_del_clause%%;*}"
+    _bg_del_clause="${_bg_del_clause%%&&*}"
+    _bg_del_clause="${_bg_del_clause%%||*}"
+    _bg_del_clause="${_bg_del_clause%%|*}"
+    read -ra _DEL_BRANCHES <<< "$_bg_del_clause"
+
+    _BG_ALL_VERIFIED=true
+    _BG_ANY_BRANCH=false
+    _BG_EVIDENCE=""
+    for _bg_b in "${_DEL_BRANCHES[@]:-}"; do
+      case "$_bg_b" in ""|-*) continue ;; esac
+      _BG_ANY_BRANCH=true
+      _bg_verified=false
+
+      if command -v is_squash_merged &>/dev/null; then
+        _bg_local_status="$(cd "$CWD" 2>/dev/null && is_squash_merged "${INTEGRATION_BRANCH:-dev}" "$_bg_b" 2>/dev/null || echo "UNKNOWN")"
+        if [[ "$_bg_local_status" == "SAFE" ]]; then
+          _BG_EVIDENCE+="  ${_bg_b} — local commit-graph check: fully contained in ${INTEGRATION_BRANCH:-dev}"$'\n'
+          _bg_verified=true
+        fi
       fi
+
+      if [[ "$_bg_verified" == false ]]; then
+        _bg_strong_result="$(cd "$CWD" 2>/dev/null && _bg_strong_merge_check "$_bg_b" "${INTEGRATION_BRANCH:-dev}" 2>/dev/null || echo "NOT_SAFE")"
+        if [[ "$_bg_strong_result" == "SAFE "* ]]; then
+          _bg_pr="${_bg_strong_result#SAFE }"
+          _BG_EVIDENCE+="  ${_bg_b} — merged via PR #${_bg_pr}, ancestor check passed against ${INTEGRATION_BRANCH:-dev}"$'\n'
+          _bg_verified=true
+        fi
+      fi
+
+      if [[ "$_bg_verified" == false ]]; then
+        _BG_ALL_VERIFIED=false
+        break
+      fi
+    done
+
+    if [[ "$_BG_ANY_BRANCH" == true && "$_BG_ALL_VERIFIED" == true ]]; then
+      _confirm "branch_delete_verified" \
+        "git branch -D (force delete) — VERIFIED merged" \
+        "Verified merged — evidence:"$'\n'"${_BG_EVIDENCE}" \
+        "Confirm to force-delete — the evidence above already establishes these are safe" \
+        "git branch -d instead for git's own belt-and-suspenders check"
     fi
+
     _confirm "branch_delete" \
       "git branch -D (force delete)" \
       "Force-deletes branch even if not merged — commits may be lost" \
@@ -736,7 +959,22 @@ if [[ "$PROTECTION" == "block-all" ]]; then
     Bash|bash)
       # Check for destructive git commands
       if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?(commit|push)'; then
-        if [[ "$IS_CROSS_REPO_TARGET" == true ]]; then
+        # A `git push` whose refspec provably doesn't touch $BRANCH (e.g.
+        # `--delete feature/x`, `feature/x:feature/y`) isn't a protected-branch
+        # write no matter which repo/branch it resolves against — skip the
+        # gate entirely rather than confirm/block a command that cannot
+        # modify the protected branch (issue #6). The exemption only fires
+        # when the ENTIRE command is nothing but an optional leading `cd`/
+        # `-C` target-resolution prefix and exactly one `git push` clause
+        # with a confirmed-safe refspec (see _bg_command_push_only_safe) —
+        # any co-riding clause (a second push, a `git commit`, an unrelated
+        # command) denies the exemption and falls back to gating exactly as
+        # before, on purpose: per-clause classification was tried first and
+        # missed a disguised co-riding commit and an unrelated command
+        # riding past on a safe push's coattails.
+        _bg_push_gate_needed=true
+        [[ "$(_bg_command_push_only_safe "$COMMAND" "$BRANCH")" == "SAFE" ]] && _bg_push_gate_needed=false
+        if [[ "$_bg_push_gate_needed" == true && "$IS_CROSS_REPO_TARGET" == true ]]; then
           # Cross-repo target resolved to a protected branch (e.g. another
           # repo's main) — confirm, never hard-block. The originating
           # session's own branch never authorized this, but a hard block
@@ -748,7 +986,7 @@ if [[ "$PROTECTION" == "block-all" ]]; then
             "This command targets another repository's protected ${BRANCH} branch — the session's own branch is not a valid gate for that repo's state" \
             "Run this from a session/worktree already cd'd into ${PROJECT_ROOT}" \
             "Split into a separate Bash call scoped to that repo"
-        else
+        elif [[ "$_bg_push_gate_needed" == true ]]; then
           block "$(_box \
             "${_R}${_B}BRANCH PROTECTION${_N}" \
             "---" \

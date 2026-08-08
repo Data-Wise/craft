@@ -13,9 +13,13 @@ npm run build
 
 echo "==> bundling craft scripts (structure-preserving)"
 rm -rf bundled
-mkdir -p bundled/scripts
+mkdir -p bundled/scripts/config
 cp ../scripts/validate-counts.sh      bundled/scripts/
 cp ../scripts/docs-staleness-check.sh bundled/scripts/
+cp ../scripts/formatting.sh           bundled/scripts/
+cp ../scripts/doc-coverage-check.sh   bundled/scripts/
+chmod +x bundled/scripts/doc-coverage-check.sh
+cp ../scripts/config/exclusions.txt   bundled/scripts/config/
 mkdir -p bundled/governance
 ( cd ../governance && tar cf - --exclude=fixtures . ) | ( cd bundled/governance && tar xf - )
 

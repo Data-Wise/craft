@@ -3,6 +3,12 @@
 
 > **Complete reference for `/craft:test`, `/craft:test:gen`, and `/craft:test:template`**
 
+> **Note (2026-07 v4 consolidation):** `/craft:test:gen` was renamed to
+> `/craft:code:test-gen` — same behavior, new location. `/craft:test:template`
+> was removed with no replacement. Only `/craft:test` and `/craft:code:test-gen`
+> are real, runnable commands below; treat `/craft:test:gen` and
+> `/craft:test:template` mentions in this page as historical.
+
 ---
 
 ## /craft:test — Unified Test Runner
@@ -81,23 +87,23 @@ Filter by tier (mutually exclusive) or domain (combinable with tiers):
 
 ---
 
-## /craft:test:gen — Unified Test Generator
+## /craft:code:test-gen — Unified Test Generator (renamed from `/craft:test:gen`, v4)
 
 ### Synopsis
 
 ```bash
-/craft:test:gen [project-type] [--tier TIER] [--output DIR]
-               [--force] [--diff] [--dry-run]
+/craft:code:test-gen [project-type] [--tier TIER] [--output DIR]
+                    [--force] [--diff] [--dry-run]
 ```
 
 ### Quick Examples
 
 ```bash
-/craft:test:gen                     # Auto-detect project type, generate all
-/craft:test:gen plugin              # Force plugin type detection
-/craft:test:gen --tier unit         # Generate only unit test templates
-/craft:test:gen --diff              # Show diff of what would change
-/craft:test:gen --dry-run           # Preview generation plan
+/craft:code:test-gen                     # Auto-detect project type, generate all
+/craft:code:test-gen plugin              # Force plugin type detection
+/craft:code:test-gen --tier unit         # Generate only unit test templates
+/craft:code:test-gen --diff              # Show diff of what would change
+/craft:code:test-gen --dry-run           # Preview generation plan
 ```
 
 ### Options
@@ -127,7 +133,7 @@ Filter by tier (mutually exclusive) or domain (combinable with tiers):
 
 ---
 
-## /craft:test:template — Template Lifecycle Manager
+## /craft:test:template — Template Lifecycle Manager (removed, v4 consolidation — no replacement)
 
 ### Synopsis
 

@@ -218,7 +218,7 @@ Prints the harm taxonomy for a guard: which operations are GREEN/YELLOW/RED, and
 ask "guard test"
 ```
 
-Runs a dry-run sweep against known GREEN/YELLOW/RED operations and reports which are correctly handled. Equivalent to `/craft:guard-audit` but scoped to the guard-suite hooks only.
+Runs a dry-run sweep against known GREEN/YELLOW/RED operations and reports which are correctly handled. Equivalent to asking "audit guard" (guard-audit skill) but scoped to the guard-suite hooks only.
 
 ```
 Guard coverage test:
@@ -404,6 +404,6 @@ After installation, ask "guard status" to confirm both guards are active.
 
 - [dev/git skill](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md) — ask "unprotect" for a session-scoped bypass for branch-guard
 - [Branch Guard Smart Mode](branch-guard-smart-mode.md) — smart-mode protection for `dev`/`draft` branches
-- `/craft:guard-audit` — audit that guard coverage matches the taxonomy
+- ask "audit guard" (`guard-audit` skill) — audit that guard coverage matches the taxonomy
 - [Guard Suite Tutorial](../tutorials/TUTORIAL-guard-suite.md) — hands-on walkthrough
 - [Guard Suite Design](guard-design.md) — architecture decisions and hook internals

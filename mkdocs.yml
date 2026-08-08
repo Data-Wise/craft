@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 40 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.4.2 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights."
+site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.5.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -162,6 +162,7 @@ nav:
       - Insights-Driven Workflow: tutorials/TUTORIAL-insights-workflow.md
       - Insights Hook Setup: tutorials/TUTORIAL-insights-setup.md
       - Insights Improvements Guide: guide/insights-improvements-guide.md
+      - OpenCode Plugins Tutorial: tutorials/TUTORIAL-opencode-plugins.md
       - Learning Loop & Session Completion: guide/learning-loop-session-completion.md
       - Hub Live Dashboard: guide/hub-live-dashboard.md
       - Version Sync Setup: tutorials/TUTORIAL-version-sync-setup.md
@@ -213,6 +214,15 @@ nav:
       - Markdown List Spacing: guide/markdown-list-spacing.md
       - Dependency Management Advanced: guide/dependency-management-advanced.md
       - Accessibility: ACCESSIBILITY.md
+    - Ecosystem Tool Cheat Sheets:
+      - Codex Plugin: tutorials/TUTORIAL-codex-plugin.md
+      - Remember Plugin: tutorials/TUTORIAL-remember-plugin.md
+      - ADHD Mode Plugin: tutorials/TUTORIAL-adhd-mode-plugin.md
+      - Token Optimizer Plugin: tutorials/TUTORIAL-token-optimizer-plugin.md
+      - Security Guidance Plugin: tutorials/TUTORIAL-security-guidance-plugin.md
+      - Claude HUD Plugin: tutorials/TUTORIAL-claude-hud-plugin.md
+      - Dropbox Plugin: tutorials/TUTORIAL-dropbox-plugin.md
+      - Agent Skills Plugin: tutorials/TUTORIAL-agent-skills-plugin.md
     - Command Tutorials:
       - arch:analyze Tutorial: tutorials/TUTORIAL-arch-analyze.md
       - arch:plan Tutorial: tutorials/TUTORIAL-arch-plan.md

@@ -175,7 +175,7 @@ backing agent definition).
 **Examples:**
 
 - Add JWT authentication → `/craft:arch:plan`, `/craft:code:test-gen`, the dev/git skill
-- Create tutorial → `/craft:docs:*` sequence
+- Create tutorial → `/folio:docs:tutorial` (docs building/tutorials moved to `/folio:docs:*`)
 - Generate test suite → `/craft:code:test-gen`, `/craft:test`
 
 **Why this zone:**

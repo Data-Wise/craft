@@ -11,6 +11,8 @@ Protocol: reads JSON from stdin, exits 0 (allow) or 2 (block)
 Run with: python3 tests/test_integration_branch_guard.py
 """
 
+from __future__ import annotations
+
 import json
 import os
 import shutil
@@ -24,8 +26,18 @@ import pytest
 pytestmark = [pytest.mark.integration, pytest.mark.branch_guard]
 
 
-# Hook path
-HOOK_PATH = os.path.expanduser("~/.claude/hooks/branch-guard.sh")
+# Hook path.
+#
+# Test craft's OWN copy, not whatever happens to be installed at
+# ~/.claude/hooks/branch-guard.sh. That install target is shared: cc-config
+# also ships a branch-guard.sh and symlinks it there, and it deliberately
+# relaxed the new-code-on-protected-branch tier from MEDIUM to LOW on
+# 2026-07-28. Asserting craft's expectations against another repo's artifact
+# made these tests report a craft failure for a cc-config policy decision.
+# Pointing at scripts/branch-guard.sh tests what craft actually ships and
+# makes the result independent of local machine state.
+_REPO_COPY = Path(__file__).resolve().parent.parent / "scripts" / "branch-guard.sh"
+HOOK_PATH = str(_REPO_COPY)
 
 
 def _run_hook(json_payload: dict, timeout: int = 10) -> subprocess.CompletedProcess:

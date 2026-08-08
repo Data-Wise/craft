@@ -29,7 +29,7 @@ Practical examples and real-world usage patterns for all Craft commands.
 | **Quick sanity check** | `/craft:check` | Validates everything |
 | **Get help** | `/craft:hub` | Interactive discovery |
 | **Find next action** | `/craft:next` | Smart suggestions |
-| **Add a feature** | `/craft:plan:feature "name"` then `/craft:git:worktree create` | Planned approach |
+| **Add a feature** | `/craft:plan:feature "name"` then ask "create a worktree" (`dev/git` skill) | Planned approach |
 | **Quick linting** | `/craft:code:lint` | Default mode |
 | **Run tests** | `/craft:test` | Quick smoke tests |
 | **Detailed testing** | `/craft:test release` | Full suite with coverage |
@@ -138,7 +138,7 @@ SUMMARY: ✓ Ready to commit (2 warnings)
 /craft:hub "add tests"
 
 # Detailed help
-/craft:hub docs:api --verbose
+/craft:hub docs:changelog --verbose
 ```
 
 **Output Example**:
@@ -152,7 +152,8 @@ MAIN MENU
 │  ├─ /craft:code:test-gen - Generate test stubs
 │  └─ ... more
 ├─ Tests (7 commands) ............................... /craft:test:*
-├─ Documentation (48 commands) ....................... /craft:docs:*
+├─ Documentation (2 commands) ........................ /craft:docs:*
+│  (docs building/linting/tutorials moved to /folio:docs:*)
 └─ ... more categories
 
 Press UP/DOWN to browse
@@ -595,30 +596,32 @@ Proceed? (yes/no)
 
 ## Git Workflow Examples
 
-### /craft:git:worktree - Parallel Development
+### Worktree Management (`dev/git` skill) - Parallel Development
 
-```bash
+> **Note (2026-07 v4 consolidation):** `/craft:git:worktree` was folded into the `dev/git` skill — the command itself no longer exists. Replace any `/craft:git:worktree <args>` example with a natural request and the skill runs the equivalent steps. See [`skills/dev/git/references/worktree.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/references/worktree.md) for the current reference.
+
+```text
 # First-time setup
-/craft:git:worktree setup
+"set up git" / "bootstrap repository"
 
 # Create worktree for feature branch
-/craft:git:worktree create feature/auth
+"create a worktree for feature/auth"
 
 # List all worktrees
-/craft:git:worktree list
+"list worktrees"
 
 # Clean up merged worktrees
-/craft:git:worktree clean
+"clean up merged worktrees"
 
 # Complete and create PR
-/craft:git:worktree finish
+"finish this worktree"
 ```
 
 **Workflow Example**:
 
 ```bash
 # Start new feature in separate checkout
-/craft:git:worktree create feature/auth
+# "create a worktree for feature/auth"
 cd ~/.git-worktrees/craft/feature-auth
 
 # Work on feature
@@ -626,12 +629,12 @@ npm start
 npm test
 
 # When done
-/craft:git:worktree finish
+# "finish this worktree"
 # Creates PR automatically
 
 # Meanwhile, work on something else in main repo
 cd /original/craft
-/craft:git:worktree create feature/docs
+# "create a worktree for feature/docs"
 ```
 
 ---
@@ -913,8 +916,8 @@ SUMMARY: 156/156 passing (2.4s)
 # 1. Plan feature
 /craft:plan:feature "Add two-factor authentication" --timeline normal
 
-# 2. Create isolated worktree
-/craft:git:worktree create feature/2fa
+# 2. Create isolated worktree (dev/git skill)
+# "create a worktree for feature/2fa"
 
 # 3. Generate tests first (TDD)
 /craft:code:test-gen unit src/auth/totp.ts
@@ -934,8 +937,8 @@ SUMMARY: 156/156 passing (2.4s)
 # 8. Generate docs
 /folio:docs:api --output api-spec.yaml
 
-# 9. Complete and create PR
-/craft:git:worktree finish
+# 9. Complete and create PR (dev/git skill)
+# "finish this worktree"
 ```
 
 ---

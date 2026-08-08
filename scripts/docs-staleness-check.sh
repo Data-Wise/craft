@@ -16,7 +16,24 @@
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+# Resolve which repo to inspect. See the matching block in validate-counts.sh
+# for the full rationale; order is:
+#   1. $CRAFT_PLUGIN_DIR     — explicit override (craft-mcp sets the target repo)
+#   2. the script's own repo — when this script sits inside a plugin repo, that
+#                              repo is the subject. Preferring cwd here made a
+#                              script invoked by absolute path against another
+#                              tree silently inspect the caller's repo instead.
+#   3. the caller's cwd      — packaged .mcpb, where bundled/ has no plugin.json
+#   4. the script's parent   — last-resort fallback
+if [[ -n "${CRAFT_PLUGIN_DIR:-}" && -f "${CRAFT_PLUGIN_DIR}/.claude-plugin/plugin.json" ]]; then
+    PLUGIN_DIR="$CRAFT_PLUGIN_DIR"
+elif [[ -f "$(dirname "$SCRIPT_DIR")/.claude-plugin/plugin.json" ]]; then
+    PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+elif [[ -f "$(pwd)/.claude-plugin/plugin.json" ]]; then
+    PLUGIN_DIR="$(pwd)"
+else
+    PLUGIN_DIR="$(dirname "$SCRIPT_DIR")"
+fi
 
 source "$SCRIPT_DIR/formatting.sh"
 RED="$FMT_RED"
@@ -824,13 +841,20 @@ print_phase_status() {
 }
 
 phase_status_label() {
-    local -n findings_ref=$1
-    if [[ ${#findings_ref[@]} -eq 0 ]]; then
+    # Indirect array access via eval rather than `local -n` (bash 4.3+):
+    # the shebang is `env bash`, which on macOS resolves to bash 3.2, where
+    # a nameref fails and the function silently emits nothing.
+    # Callers always pass a literal internal array name, never user input.
+    local _arr_name=$1
+    local _count _i _f
+    eval "_count=\${#${_arr_name}[@]}"
+    if [[ $_count -eq 0 ]]; then
         echo "GREEN"
     else
         # Check if any are errors
-        for f in "${findings_ref[@]}"; do
-            if [[ "$f" == error\|* ]]; then
+        for (( _i=0; _i<_count; _i++ )); do
+            eval "_f=\${${_arr_name}[$_i]}"
+            if [[ "$_f" == error\|* ]]; then
                 echo "RED"
                 return
             fi
@@ -901,14 +925,19 @@ ENDJSON
 }
 
 findings_to_json() {
-    local -n arr=$1
-    if [[ ${#arr[@]} -eq 0 ]]; then
+    # Indirect array access via eval rather than `local -n` — see the note on
+    # phase_status_label above (bash 3.2 has no namerefs).
+    local _arr_name=$1
+    local _count _i entry
+    eval "_count=\${#${_arr_name}[@]}"
+    if [[ $_count -eq 0 ]]; then
         echo "[]"
         return
     fi
     local first=true
     echo -n "["
-    for entry in "${arr[@]}"; do
+    for (( _i=0; _i<_count; _i++ )); do
+        eval "entry=\${${_arr_name}[$_i]}"
         IFS='|' read -r severity file message fixable fix_detail <<< "$entry"
         # Escape JSON strings
         file=$(echo "$file" | sed 's/\\/\\\\/g;s/"/\\"/g')

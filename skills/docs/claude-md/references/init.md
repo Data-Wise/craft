@@ -247,10 +247,9 @@ git add CLAUDE.md && git commit -m "docs: init CLAUDE.md from template"
 
 ### With Git Worktree
 
-When creating new worktree, init auto-runs if no CLAUDE.md:
+When creating a new worktree (ask naturally, e.g. "create a worktree for feature/new-feature" — folded into the `dev/git` skill), init auto-runs if no CLAUDE.md:
 
-```bash
-/craft:git:worktree feature/new-feature
+```text
 # Detects no CLAUDE.md in worktree
 # Offers: "Init CLAUDE.md? [y/n]"
 ```

@@ -18,7 +18,7 @@ Smart documentation generation, validation, and enhancement - 48 commands.
 | "Are my docs valid?" | `/folio:docs:check` | Validates links + nav + staleness + mermaid, auto-fixes |
 | "Fix markdown formatting" | `/folio:docs:lint` | Markdownlint with auto-fix |
 | "Check only broken links" | `/folio:docs:check-links` | Internal link validation with .linkcheck-ignore |
-| "Update CLAUDE.md" | `/craft:docs:claude-md` | Sync CLAUDE.md with project state |
+| "Update CLAUDE.md" | `claude-md-lifecycle` skill | Sync CLAUDE.md with project state (folded into a skill, v4 consolidation) |
 | "Update changelog" | `/craft:docs:changelog` | Generate entries from git commits |
 | "Add page to nav" | `/folio:docs:nav-update` | Update mkdocs.yml navigation |
 

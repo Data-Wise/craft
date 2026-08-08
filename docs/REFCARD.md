@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 4.4.2 (released 2026-07-17)                       │
+│  Version: 4.5.0 (released 2026-07-17)                       │
 │  Commands: 48 | Agents: 2 | Skills: 40                      │
 │  Tests: 2647+ passing                                        │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v4.4.2: /craft:restore + post-v4 doc-staleness cleanup      │
+│  v4.5.0: /craft:restore + post-v4 doc-staleness cleanup      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -117,7 +117,7 @@
 
 **See:** [REFCARD-CHECK.md](reference/REFCARD-CHECK.md) for complete reference
 
-### /craft:help
+### /craft:smart-help
 
 **Purpose:** Context-aware help that suggests relevant commands based on your current situation.
 
@@ -125,20 +125,20 @@
 
 ```bash
 # General help
-/craft:help
+/craft:smart-help
 # Shows: Most common commands, recent commands, contextual suggestions
 
 # Help for specific command
-/craft:help check
+/craft:smart-help check
 # Shows: All check subcommands, flags, examples
 
 # Help in specific context
 # (in a Git repository with uncommitted changes)
-/craft:help
+/craft:smart-help
 # Suggests: /craft:check, ask "git status" (dev/git skill), ask "create a worktree" (dev/git skill)
 
 # (in a documentation directory)
-/craft:help
+/craft:smart-help
 # Suggests: /craft:docs:update, /folio:docs:check, /folio:docs:lint
 ```
 
@@ -891,6 +891,13 @@ protect-baseline, unprotect, and guard management were all folded into the
 worktree for feature X", "clean up merged branches") or see
 [`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
 
+A batch pass over open issues plus stale worktrees/branches together —
+grounded against current repo state, confirmed (never automatic)
+deletion/closure, remainder sorted into grill-ready/plan-ready/defer — is
+the `repo-triage` skill: ask naturally (e.g. "triage the repo", "what needs
+attention here") or see
+[`skills/orchestration/repo-triage/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/orchestration/repo-triage/SKILL.md).
+
 **Quick examples:**
 
 ```bash
@@ -898,6 +905,7 @@ worktree for feature X", "clean up merged branches") or see
 # ask "move my current work to a worktree" (dev/git skill)
 # ask "clean up merged branches" (dev/git skill)
 /craft:git:issue-check 123   # Verify GitHub issue #123's premise before fixing
+# ask "triage the repo" (repo-triage skill)
 ```
 
 ## Architecture Commands (4 commands)
@@ -1379,7 +1387,7 @@ Use `--no-tests` or `--no-docs` to suppress either.
 
 **See:** [Brainstorm Documentation](commands/brainstorm.md) for complete guide
 
-## Skills (40 total)
+## Skills (41 total)
 
 Auto-triggered expertise:
 

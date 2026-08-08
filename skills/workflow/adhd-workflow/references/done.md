@@ -807,7 +807,7 @@ Present findings and ask user to confirm/edit:
    │    git add . && git commit -m "[message]"                  │
    │                                                             │
    │ 📋 NEXT SESSION:                                            │
-   │    Start with: /workflow:recap                             │
+   │    Start with: /craft:restore                             │
    │    To restore this context                                 │
    └─────────────────────────────────────────────────────────────┘
    ```
@@ -1000,7 +1000,7 @@ Sound right? (Y/n)
 **Typical Session:**
 
 ```
-START:  /workflow:recap      # "Where was I?"
+START:  /craft:restore      # "Where was I?"
         [work happens]
 END:    /workflow:done       # "Save context"
         git commit           # Save code
@@ -1170,7 +1170,7 @@ git add . && git commit -m "feat: implement user authentication
 Session: 2 hours
 Next: Complete test coverage"
 
-📋 NEXT SESSION: Start with /workflow:recap
+📋 NEXT SESSION: Start with /craft:restore
 ```
 
 ### Example 2: Quick Exit (Forgot to Save)
@@ -1223,14 +1223,14 @@ Session: [detected from git]"
 Update .STATUS? (Y/n)
 > y
 
-✅ All set! Run /workflow:recap next time to restore context.
+✅ All set! Run /craft:restore next time to restore context.
 ```
 
 ---
 
 ## Related Commands
 
-- **`/workflow:recap`** - Start session (restore context)
+- **`/craft:restore`** - Start session (restore context)
 - **`/workflow:next`** - Decide what to do next
 - **`/git:commit`** - Actually run the suggested commit
 - **`/git:sync`** - Push changes to remote
@@ -1243,7 +1243,7 @@ Works with your shell aliases:
 
 ```bash
 # DT's shell workflow
-work <project>     # Start session → auto-runs /workflow:recap
+work <project>     # Start session → auto-runs /craft:restore
 finish [message]   # End session → runs /workflow:done + commits
 ```
 

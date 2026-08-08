@@ -440,4 +440,4 @@ Use with:
 
 - `/craft:dist:homebrew` - Generate formula automatically
 - `/craft:check --for release` - Validate before formula update
-- `/craft:git:tag` - Create version for formula
+- `/craft:code:release` - Create version tag for formula

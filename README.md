@@ -8,13 +8,13 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-4.4.2-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.5.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 > **Docs/publishing commands moved to [`folio`](https://github.com/Data-Wise/folio)** — see
 > [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
 >
 > **v2.36.0 — Deterministic Workflow Engine** 🚀
-> **48 commands** | **40 skills** | **2 agents** | **1994 tests passing**
+> **48 commands** | **41 skills** | **2 agents** | **1994 tests passing**
 > New `/craft:orch:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orch`), drive (`:drive`), and workflow (`:workflow`).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
@@ -153,7 +153,7 @@ Craft is a pure plugin that uses built-in Claude Code capabilities. No external 
 - [ADHD Guide](https://data-wise.github.io/craft/ADHD-QUICK-START/) (neurodivergent-friendly)
 - [Visual Workflows](https://data-wise.github.io/craft/workflows/) (10 GIF demonstrations)
 
-> Full-stack developer toolkit for Claude Code — 48 commands, 2 agents, 40 skills with smart orchestration and ADHD-friendly workflows
+> Full-stack developer toolkit for Claude Code — 48 commands, 2 agents, 41 skills with smart orchestration and ADHD-friendly workflows
 
 - [Claude Code 2.1 Integration](https://data-wise.github.io/craft/guide/claude-code-2.1-integration/) (comprehensive guide with 9 diagrams)
 - [Complexity Scoring Algorithm](https://data-wise.github.io/craft/guide/complexity-scoring-algorithm/) (complete technical documentation with 8 diagrams)
@@ -288,13 +288,13 @@ Specialized workflows for teaching projects with automated validation, semester 
 | `/craft:ci:fix`            | Fix CI failures          | ----- |
 | `/craft:code:skill-standards`   | Audit skill quality      | ----- |
 
-### Test Commands (3)
+### Test Commands (2)
 
 | Command                  | Description                | Modes |
 | ------------------------ | -------------------------- | ----- |
 | `/craft:test`            | Unified test runner        | ✓    |
-| `/craft:test:gen`        | Generate test suites       | ----- |
-| `/craft:test:template`   | Manage test templates      | ----- |
+| `/craft:code:test-gen`   | Generate test suites (renamed from `/craft:test:gen` in v4) | ----- |
+| `/craft:test:template`   | removed in v4 consolidation, no replacement | ----- |
 
 ### Architecture Commands (4)
 
@@ -390,12 +390,12 @@ protection") or see
 | `/craft:ci:generate` | Generate GitHub Actions workflow from detection                   |
 | `/craft:ci:validate` | Validate existing CI workflow against project configuration       |
 
-### Distribution Commands (2)
+### Distribution Commands (1)
 
 | Command                    | Description                       |
 | -------------------------- | --------------------------------- |
 | `/craft:dist:homebrew`     | Generate/update Homebrew formula or cask  |
-| `/craft:dist:curl-install` | Create curl-based install scripts |
+| curl-based install scripts | Moved to the `dist-extras` skill (v4 consolidation) — ask "generate an install script" |
 
 ### Discovery
 
@@ -505,7 +505,7 @@ protection") or see
 
 - 📖 **[Architecture Guide](docs/architecture.md)** - How Craft works internally
 - 📖 **[Commands Reference](docs/commands.md)** - All 48 commands documented
-- 📖 **[Skills & Agents](docs/skills-agents.md)** - 40 skills, 2 agents
+- 📖 **[Skills & Agents](docs/skills-agents.md)** - 41 skills, 2 agents
 - Development commands (testing, validation, documentation)
 - Architecture patterns and plugin structure
 - CI/CD workflows and quality standards

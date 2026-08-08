@@ -213,10 +213,11 @@ All guards: 26/26 operations correctly handled.
 
 If any operation fails the expected classification, the output shows which command produced an unexpected tier and what the guard emitted. This is useful after upgrading craft or modifying hook scripts.
 
-For a deeper audit that includes guard-suite consistency across the full hook registry, run:
+For a deeper audit that includes guard-suite consistency across the full hook registry, ask
+naturally (`guard-audit` skill):
 
 ```
-/craft:guard-audit
+ask "audit guard"
 ```
 
 ---

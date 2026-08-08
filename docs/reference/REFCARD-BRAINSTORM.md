@@ -1,6 +1,6 @@
 # Brainstorm Quick Reference Card
 
-> At-a-glance reference for `/workflow:brainstorm`
+> At-a-glance reference for `/craft:brainstorm` (renamed from `/workflow:brainstorm` in the 2026-07 v4 consolidation)
 
 ---
 

@@ -149,8 +149,8 @@ docs_status=$(./scripts/docs-staleness-check.sh --json 2>/dev/null \
 ```
 
 **Insights integration:** if `~/.claude/usage-data/facets/` exists, append a
-friction summary (top patterns + `/craft:insights` pointer) to the context
-output.
+friction summary (top patterns + a "generate insights report" pointer, via
+the `brainstorm-insights` skill) to the context output.
 
 When `--context` is passed, the command exits after displaying this header. No checks are executed.
 
@@ -308,8 +308,8 @@ Works with:
 
 - `/craft:code:lint` - Detailed code lint results
 - `/craft:test` - Detailed test results
-- `/craft:docs:lint` - Markdown quality validation
-- `/craft:docs:check-links` - Documentation link validation
+- `/folio:docs:lint` - Markdown quality validation (moved to folio)
+- `/folio:docs:check-links` - Documentation link validation (moved to folio)
 - `/craft:ci:fix` - Auto-fix issues
 - `/craft:ci:local` - Full CI simulation
 - Scaffold a new custom validator: see `skills/preflight-check/SKILL.md`'s "Validator Generation" section (folded into the skill in the v4 consolidation)

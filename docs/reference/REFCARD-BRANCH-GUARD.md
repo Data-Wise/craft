@@ -237,7 +237,7 @@ ask 'protect-baseline --check "test" --strict' (dev/git skill) # With status che
 → Guard: MEDIUM [CONFIRM]
 → Options:
   a) Approve the confirm prompt (one-shot)
-  b) /craft:git:worktree feature/<name> (recommended)
+  b) ask "create a worktree for feature/<name>" (dev/git skill, recommended)
   c) ask "unprotect for maintenance" (dev/git skill) (bulk bypass)
 ```
 

@@ -13,6 +13,18 @@
 #      multi-commit squash is performed, both tips have identical content even though
 #      cherry can't see it. Conservative: if base has advanced past the squash,
 #      the trees diverge and this correctly returns NOT_MERGED (safe false-negative).
+# normalize_merge_evidence <is_squash_merged-result>
+# Maps is_squash_merged()'s SAFE/NOT_MERGED/UNKNOWN vocabulary to the
+# squash-merged/not-merged/unknown strings both dry-run previews emit.
+# Single source of truth so the two previews can't drift on this mapping.
+normalize_merge_evidence() {
+  case "$1" in
+    SAFE) echo "squash-merged" ;;
+    NOT_MERGED) echo "not-merged" ;;
+    *) echo "unknown" ;;
+  esac
+}
+
 is_squash_merged() {
   local base="${1:-dev}"
   local branch="${2:-}"
@@ -34,4 +46,107 @@ is_squash_merged() {
   else
     echo "NOT_MERGED"
   fi
+}
+
+# worktree_clean_dry_run [base]
+# Collection-only preview for `dev/git` Operation 5's `clean` sub-action.
+# Emits one JSON object per line (JSONL) — never mutates, never removes a
+# worktree, never runs `git worktree remove`/`prune`.
+#
+# Output contract (repo-triage GRILL Decision 13's join key is `branch`):
+#   {"path": <worktree path>, "branch": <branch name>,
+#    "is_merged_evidence": "merged"|"squash-merged"|"not-merged"|"unknown",
+#    "lock_status": "locked"|"unlocked"}
+#
+# Skips the main worktree (the one `git worktree list` reports first) and
+# any detached-HEAD worktree (no branch to join on).
+worktree_clean_dry_run() {
+  local base="${1:-dev}"
+  local main_worktree
+  main_worktree=$(git worktree list --porcelain 2>/dev/null | awk '/^worktree /{print $2; exit}')
+  local merged_list
+  merged_list=$(git branch --merged "$base" 2>/dev/null | sed 's/^[* ]*//')
+
+  git worktree list --porcelain 2>/dev/null | awk '
+    /^worktree / { if (path != "") print path"\t"branch"\t"locked; path=$2; branch=""; locked="unlocked" }
+    /^branch /   { b=$2; sub("refs/heads/","",b); branch=b }
+    /^locked/    { locked="locked" }
+    END          { if (path != "") print path"\t"branch"\t"locked }
+  ' | while IFS=$'\t' read -r wpath wbranch wlocked; do
+    [[ "$wpath" == "$main_worktree" ]] && continue
+    [[ -z "$wbranch" ]] && continue
+
+    local evidence
+    if echo "$merged_list" | grep -qx "$wbranch"; then
+      evidence="merged"
+    else
+      evidence=$(normalize_merge_evidence "$(is_squash_merged "$base" "$wbranch")")
+    fi
+
+    jq -cn --arg path "$wpath" --arg branch "$wbranch" \
+      --arg ev "$evidence" --arg lock "$wlocked" \
+      '{path: $path, branch: $branch, is_merged_evidence: $ev, lock_status: $lock}'
+  done
+}
+
+# branch_cleanup_dry_run [base]
+# Collection-only preview for `dev/git` Operation 4's branch-cleanup step.
+# Emits one JSON object per line (JSONL) — never mutates, never runs
+# `git branch -D`/`-d`.
+#
+# Output contract:
+#   {"branch": <name>, "merge_evidence": "merged"|"squash-merged"|"not-merged"|"unknown",
+#    "ancestor_result": "ancestor"|"not-ancestor",
+#    "pr_state": "merged"|"unknown" (best-effort; "unknown" when `gh` is unavailable
+#    or no merged PR is found), "scoped_diff_result": "clean"|"has-diff"|"unknown"
+#    ("unknown" when `git diff` itself fails — e.g. a broken ref — never
+#    treated as equivalent to a clean diff)}
+#
+# Skips the base branch, `main`, and the current branch.
+branch_cleanup_dry_run() {
+  local base="${1:-dev}"
+  local current
+  current=$(git branch --show-current 2>/dev/null)
+  local merged_list
+  merged_list=$(git branch --merged "$base" 2>/dev/null | sed 's/^[* ]*//')
+
+  git for-each-ref --format='%(refname:short)' refs/heads/ 2>/dev/null | while read -r branch; do
+    [[ "$branch" == "$base" || "$branch" == "main" || "$branch" == "$current" ]] && continue
+
+    local merge_evidence
+    if echo "$merged_list" | grep -qx "$branch"; then
+      merge_evidence="merged"
+    else
+      merge_evidence=$(normalize_merge_evidence "$(is_squash_merged "$base" "$branch")")
+    fi
+
+    local ancestor_result
+    if git merge-base --is-ancestor "$branch" "$base" 2>/dev/null; then
+      ancestor_result="ancestor"
+    else
+      ancestor_result="not-ancestor"
+    fi
+
+    local pr_state="unknown"
+    if command -v gh >/dev/null 2>&1; then
+      local pr_num
+      pr_num=$(gh pr list --head "$branch" --state merged --json number -q '.[0].number' 2>/dev/null)
+      [[ -n "$pr_num" && "$pr_num" != "null" ]] && pr_state="merged"
+    fi
+
+    local diff_out scoped_diff_result
+    if diff_out=$(git diff "${base}..${branch}" 2>/dev/null); then
+      if [[ -z "$diff_out" ]]; then
+        scoped_diff_result="clean"
+      else
+        scoped_diff_result="has-diff"
+      fi
+    else
+      scoped_diff_result="unknown"
+    fi
+
+    jq -cn --arg branch "$branch" --arg me "$merge_evidence" --arg ar "$ancestor_result" \
+      --arg ps "$pr_state" --arg sd "$scoped_diff_result" \
+      '{branch: $branch, merge_evidence: $me, ancestor_result: $ar, pr_state: $ps, scoped_diff_result: $sd}'
+  done
 }

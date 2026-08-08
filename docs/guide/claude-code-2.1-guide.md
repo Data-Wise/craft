@@ -587,7 +587,13 @@ Sessions capture the state of work for resumption:
 
 ### Session Teleportation
 
-Resume sessions on different devices:
+> **Note:** This section describes a speculative cross-device session-resume design that was
+> never implemented — `/craft:continue` and `/craft:sessions` do not exist. The closest shipped
+> equivalent for restoring context is `/craft:restore` (combines git-activity recap with
+> `.STATUS`-based session context), which works within a single machine/checkout, not
+> cross-device.
+
+Resume sessions on different devices (illustrative design, not shipped):
 
 ```bash
 # Device 1: Start work
@@ -597,6 +603,7 @@ Resume sessions on different devices:
 # → ~/.claude/sessions/2026-01-18-abc123.json
 
 # Device 2: Resume same session
+# (illustrative — no such command exists; see note above)
 /craft:continue 2026-01-18-abc123
 
 # System loads session
@@ -605,7 +612,7 @@ Resume sessions on different devices:
 # → Continues execution
 ```
 
-### Session Commands
+### Session Commands (illustrative design, not shipped)
 
 ```bash
 # Continue interrupted session
@@ -754,12 +761,15 @@ Orchestrator: 2s baseline
 
 ### 5. Use Session Resumption for Long Tasks
 
+> **Note:** `/craft:continue` was never implemented (see "Session Teleportation" above). Use
+> `/craft:restore` to rebuild session context after an interruption.
+
 ```bash
 # Start long task
 /craft:do "redesign authentication system" optimize
 
-# If interrupted - resume exactly where you left off
-/craft:continue SESSION_ID
+# If interrupted - resume context
+/craft:restore
 
 # System reloads context and continues
 ```

@@ -4,7 +4,7 @@
 
 > **TL;DR** (30 seconds)
 >
-> - **What:** Complete guide to installing and using craft's 48 commands, 40 skills, and 2 agents
+> - **What:** Complete guide to installing and using craft's 48 commands, 41 skills, and 2 agents
 > - **Why:** Master the full-stack toolkit to automate your entire development workflow
 > - **How:** Install plugin → verify with `/craft:hub` → start with `/craft:do "task"`
 > - **Next:** Read about [Skills & Agents](../skills-agents.md) to understand AI automation
@@ -129,12 +129,30 @@ flowchart LR
 cd ~/.git-worktrees/<project>/feature-auth
 claude  # Read ORCHESTRATE file, implement phase by phase
 
-# 4. Finish and create PR
-/craft:git:worktree finish
+# 4. Finish and create PR (dev/git skill — ask naturally)
+# "finish this worktree"
 ```
 
 !!! tip "When to Use This Pipeline"
-    Use the full pipeline for multi-phase features with specs. For quick features, just create a worktree directly with `/craft:git:worktree create feature/name`.
+    Use the full pipeline for multi-phase features with specs. For quick features, just ask "create a worktree for feature/name" (`dev/git` skill).
+
+## Periodic Repo Triage
+
+Once a repo has accumulated open issues and finished/stale feature
+branches, ask naturally to batch-groom them: **"triage the repo"** or
+**"what needs attention here"** (`repo-triage` skill). It:
+
+1. Checks every open GitHub issue's premise against current code
+   (reuses `/craft:git:issue-check`'s classifier — never a duplicate).
+2. Finds stale worktrees, then merged/squash-merged branches (in that
+   order, so no branch is ever locked by a worktree it's about to flag).
+3. Groups related items (a branch and its worktree count as one), asks
+   for confirmation before closing/deleting anything, and sorts whatever's
+   left into grill-ready (open design question), plan-ready (clear next
+   action), or defer.
+
+Nothing is ever deleted or closed without an explicit confirm in the same
+run. See [`skills/orchestration/repo-triage/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/orchestration/repo-triage/SKILL.md).
 
 ## Understanding the System
 

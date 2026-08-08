@@ -1,8 +1,8 @@
 # Brainstorm Power User Tutorial
 
-> Advanced patterns and detailed examples for `/workflow:brainstorm`
+> Advanced patterns and detailed examples for `/craft:brainstorm` (renamed from `/workflow:brainstorm` in the 2026-07 v4 consolidation)
 
-**Prerequisites:** Basic familiarity with `/brainstorm` (see `/craft:hub workflow:brainstorm`)
+**Prerequisites:** Basic familiarity with `/brainstorm` (see `/craft:hub brainstorm`)
 
 ---
 
@@ -70,7 +70,7 @@ more — don't look for a count-override flag; there isn't one.
 ### Scenario 1: Interactive Mode Selection
 
 ```
-User: /workflow:brainstorm "user authentication"
+User: /craft:brainstorm "user authentication"
 
 Claude: Single AskUserQuestion combining depth + focus...
 User: Selects "default" depth, "feat" focus
@@ -83,7 +83,7 @@ User: Selects "default" depth, "feat" focus
 ### Scenario 2: Direct Invocation (Skip the Menu)
 
 ```
-User: /workflow:brainstorm quick feat "auth"
+User: /craft:brainstorm quick feat "auth"
 
 -> Skips the depth+focus menu (both supplied as arguments)
 -> Quick depth = 0 expert questions, straight to generation
@@ -93,7 +93,7 @@ User: /workflow:brainstorm quick feat "auth"
 ### Scenario 3: Deep Architecture + Spec Capture
 
 ```
-User: /workflow:brainstorm deep arch save "multi-tenant SaaS"
+User: /craft:brainstorm deep arch save "multi-tenant SaaS"
 
 -> Deep depth: 6 expert questions (tech, risks, existing, scope defaults for arch focus)
 -> One follow-up offer
@@ -105,7 +105,7 @@ User: /workflow:brainstorm deep arch save "multi-tenant SaaS"
 ### Scenario 4: Category Override
 
 ```
-User: /workflow:brainstorm deep "caching" -C tech,risks
+User: /craft:brainstorm deep "caching" -C tech,risks
 
 -> Deep depth, but expert questions limited to technical + risk categories
    (instead of the focus-driven default set)
@@ -116,7 +116,7 @@ User: /workflow:brainstorm deep "caching" -C tech,risks
 ### Scenario 5: Orchestrated Hand-off
 
 ```
-User: /workflow:brainstorm deep arch save "payment api" --orch=optimize
+User: /craft:brainstorm deep arch save "payment api" --orch=optimize
 
 -> Runs the normal 2-decision-point brainstorm flow, generates + saves the spec
 -> Post-spec: offers hand-off to orchestrator-v2 via --orch=optimize
@@ -128,7 +128,7 @@ User: /workflow:brainstorm deep arch save "payment api" --orch=optimize
 ### Scenario 6: Context-Aware Smart Questions
 
 ```
-User: /workflow:brainstorm deep "dependency management"
+User: /craft:brainstorm deep "dependency management"
 
 -> Context scan finds an existing SPEC-dependency-management.md
 -> Pre-fills requirements + technical from the existing spec

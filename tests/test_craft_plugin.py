@@ -11,6 +11,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Optional
@@ -588,7 +589,14 @@ EXPECTED_CHECK_ARGUMENTS = [
         "default": False,
     },
 ]
-EXPECTED_NORMALIZED_CHECK_SHA256 = "acee38d9d482bf8a80cf3fbe058efc861bb5467ef90bd48ad4df45b8e4fdc31f"
+# Re-pinned for a1fe6c62b (2026-07-29), the round-4 stale-reference sweep,
+# which edited check.md but left this constant stale. Reviewed: that commit
+# changed 4 prose lines only -- /craft:docs:lint -> /folio:docs:lint and
+# /craft:docs:check-links -> /folio:docs:check-links (both moved in the folio
+# split), plus rewording the insights pointer to the brainstorm-insights
+# skill. No change to the contract this tripwire guards (arguments,
+# replaced-by, absence of skills/check/), all of which still assert above.
+EXPECTED_NORMALIZED_CHECK_SHA256 = "28466b48d46cc73d40346352d774661bef1478f89e81ab51f578e9ab37c320c1"
 
 
 def test_check_command_contract_only_changes_canonical_skill_path():
@@ -617,16 +625,27 @@ def test_no_live_legacy_check_skill_references():
     extensions = {".json", ".md", ".py", ".sh", ".yaml", ".yml"}
     stale_references = []
 
-    for path in PLUGIN_DIR.rglob("*"):
+    # git-tracked files only -- a raw filesystem rglob() also picks up gitignored
+    # local artifacts (e.g. .remember/ session logs) that happen to quote the
+    # legacy path as historical context, producing false positives no CI checkout
+    # would ever see.
+    tracked = subprocess.run(
+        ["git", "-C", str(PLUGIN_DIR), "ls-files"],
+        capture_output=True, text=True, check=True,
+    ).stdout.splitlines()
+
+    for rel_path_str in tracked:
+        path = PLUGIN_DIR / rel_path_str
+        rel_path = Path(rel_path_str)
         if (
             not path.is_file()
             or path.suffix not in extensions
-            or path.relative_to(PLUGIN_DIR) in allowed
-            or "tests" in path.relative_to(PLUGIN_DIR).parts
+            or rel_path in allowed
+            or "tests" in rel_path.parts
         ):
             continue
         if "skills/check/" in path.read_text(errors="replace"):
-            stale_references.append(str(path.relative_to(PLUGIN_DIR)))
+            stale_references.append(rel_path_str)
 
     assert stale_references == []
 

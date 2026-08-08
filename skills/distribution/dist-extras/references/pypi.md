@@ -430,7 +430,7 @@ Setting up a new project for PyPI publishing for the first time.
 - `/craft:dist:homebrew` - Homebrew formula automation
 - `/craft:dist:curl-install` - curl installer generation
 - `/craft:check --for release` - Release readiness check
-- `/craft:git:tag` - Create release tags
+- `/craft:code:release` - Create release tags
 
 ## Implementation Notes
 

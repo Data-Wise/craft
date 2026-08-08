@@ -2,6 +2,8 @@
 
 > **Complete guide** to creating, maintaining, and optimizing CLAUDE.md files with craft's claude-md command suite.
 
+> **Note (2026-07 v4 consolidation):** `/craft:docs:claude-md:init`, `:sync`, and `:edit` were folded into the `claude-md-lifecycle` skill — none of the `/craft:docs:claude-md:*` commands used throughout this tutorial exist anymore. Replace any example below with a natural request (e.g. "create CLAUDE.md", "sync CLAUDE.md", "edit the CLAUDE.md testing section") and the skill runs the equivalent steps. The workflows and concepts below are still accurate. See [`skills/docs/claude-md/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/docs/claude-md/SKILL.md) for the current reference.
+
 **Table of Contents:**
 
 1. [Getting Started](#getting-started)

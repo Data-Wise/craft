@@ -55,8 +55,8 @@ git checkout dev
 # Create feature branch
 git checkout -b feature/hub-enhancement
 
-# Or use Craft's worktree command
-/craft:git:worktree feature/hub-enhancement
+# Or ask craft's dev/git skill
+# "create a worktree for feature/hub-enhancement"
 ```
 
 ### 2. Install Dependencies
