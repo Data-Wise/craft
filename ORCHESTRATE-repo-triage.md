@@ -174,18 +174,26 @@ against fixture classify_issue()-shaped inputs.
       `docs/tutorials/TUTORIAL-code-skill-standards.md`,
       `docs/REFCARD.md`'s `## Skills (N total)` heading — caught by
       `scripts/bump-version.sh --verify`, a separate check from
-      `validate-counts.sh`). Fixed; targeted re-run of the two affected
-      files was 546/546 passing. Full-suite re-run in progress at the time
-      of this checkbox update — see the session's final report for the
-      confirmed clean number.
+      `validate-counts.sh`). Fixed, plus 2 stragglers found by a final grep
+      sweep (`package.json`, `.claude-plugin/marketplace.json`, not covered
+      by any test but still stale). **Confirmed clean full re-run: 2634
+      passed, 0 failed, 52 skipped, 1 xfailed, 1 xpassed, 162 subtests
+      passed (382.71s).** `tests/test_git_dryrun.sh` (13) and
+      `tests/test_repo_triage_utils.sh` (10) are bash suites pytest doesn't
+      collect — wired into `.github/workflows/ci.yml`'s bash-suite step so
+      they actually run in CI, not just locally (advisor review caught
+      this — they had zero automated coverage until this fix).
 - [x] 5.2 Dogfood: ran `python3 utils/repo_triage_classify.py Data-Wise/craft`
       live against craft's own open issues — 6 open issues, 0 classifier
       errors, 4 `valid` (plan-ready) + 2 `unclear` (grill-ready, both
       genuinely have no `- [ ]` acceptance criteria in their body — a real,
-      checkable positive control, not a rubber stamp). Worktree/branch
-      triage dogfood was not separately run against a live worktree fixture
-      beyond `tests/test_git_dryrun.sh`'s repo fixtures — this repo's own
-      worktree (this session) is mid-work and correctly not flaggable.
+      checkable positive control, not a rubber stamp). Also ran
+      `worktree_clean_dry_run dev` / `branch_cleanup_dry_run dev` live
+      against this repo: correctly emitted `not-merged`/unflagged for this
+      session's own active worktree/branch, and correctly flagged
+      `gh-pages` as `not-merged`/`not-ancestor` (diverged history, not a
+      parsing bug) — the `awk` porcelain parser holds up against real
+      multi-worktree state, not just the 2-worktree test fixture.
 - [x] 5.3 Non-goal test: `tests/test_git_dryrun.sh` Group 4 asserts
       `lib/git-utils.sh` contains zero non-comment occurrences of
       `git branch -D`/`-d`, `git worktree remove`, or `git worktree prune`.
@@ -240,12 +248,11 @@ against fixture classify_issue()-shaped inputs.
 - [x] One explicit "start here" next action is printed at the end of every
       run (documented, SKILL.md Step 4).
 - [x] Full test suite green; dogfood run against craft's own repo completes
-      cleanly. Dogfood: 6/6 issues classified live, 0 errors, verified
-      idempotent across two consecutive runs (5.2/5.4). Full suite: see
-      commit history for the confirmed final pass count — the run that
-      surfaced 5 count-drift failures was fixed and re-verified on the
-      directly affected files (546/546); a full from-scratch re-run was
-      in flight at session end.
+      cleanly. Confirmed: 2634 passed / 0 failed / 52 skipped / 1 xfailed /
+      1 xpassed. Dogfood: 6/6 issues classified live (0 errors, idempotent
+      across two runs), plus a live worktree/branch dogfood against this
+      repo's actual state (5.2). The run that surfaced 5 count-drift
+      failures was fixed and re-verified — see 5.1 for the full trail.
 
 ## Commit Strategy
 
