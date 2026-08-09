@@ -223,6 +223,7 @@ nav:
       - Claude HUD Plugin: tutorials/TUTORIAL-claude-hud-plugin.md
       - Dropbox Plugin: tutorials/TUTORIAL-dropbox-plugin.md
       - Agent Skills Plugin: tutorials/TUTORIAL-agent-skills-plugin.md
+      - OpenCode MCP Bridge: tutorials/TUTORIAL-opencode-mcp-plugin.md
     - Command Tutorials:
       - arch:analyze Tutorial: tutorials/TUTORIAL-arch-analyze.md
       - arch:plan Tutorial: tutorials/TUTORIAL-arch-plan.md
