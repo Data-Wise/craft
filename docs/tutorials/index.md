@@ -62,7 +62,6 @@
 |----------|------|-------------------|
 | [Dependency Management](dependency-management-getting-started.md) | 10 min | Check, install, and manage tool dependencies |
 | [Formatting Migration](TUTORIAL-formatting-migration.md) | 15 min | Migrate scripts to the shared formatting library |
-| [Teaching Mode Setup](teaching-mode-setup.md) | 15 min | Configure teaching-specific features and workflows |
 
 ## What's New
 

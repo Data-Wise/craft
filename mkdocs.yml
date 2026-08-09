@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.5.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights."
+site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.5.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -248,18 +248,6 @@ nav:
       - git:issue-check Tutorial: tutorials/TUTORIAL-git-issue-check.md
       - site:deploy Tutorial: tutorials/TUTORIAL-site-deploy.md
       - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
-
-  # 3. TEACHING - Dedicated teaching workflow section
-  - 📚 Teaching:
-    - Teaching Home: teaching/index.md
-    - Getting Started:
-      - Setup Tutorial: tutorials/teaching-mode-setup.md
-      - Config Schema: teaching-config-schema.md
-      - Migration Guide: teaching-migration.md
-    - Ecosystem & Guides:
-      - Ecosystem Overview: guide/teaching-workflow.md
-      - Documentation Index: TEACHING-DOCS-INDEX.md
-      - Quick Reference: reference/REFCARD-TEACHING.md
 
   # 4. COMMANDS & REFERENCE - Command documentation
   - ⚙️ Commands & Reference:

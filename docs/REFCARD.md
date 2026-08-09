@@ -779,8 +779,6 @@ main (production branch)
 3. Branch: `gh-pages` / `/ (root)`
 4. Save
 
-**See:** [Teaching Workflow Guide](guide/teaching-workflow.md) | [REFCARD-TEACHING.md](reference/REFCARD-TEACHING.md)
-
 ## Check Commands (Pre-Flight Validation)
 
 **Main Command:**
@@ -1499,7 +1497,6 @@ Comprehensive guides and references:
 | **[Claude Code 2.1](reference/REFCARD-claude-code-2.1-enhancements.md)** | Smart routing, orchestration hooks (341 lines) |
 | **[Docs Update](reference/REFCARD-DOCS-UPDATE.md)** | Documentation update workflows (330 lines) |
 | **[Interactive Commands](reference/REFCARD-INTERACTIVE-COMMANDS.md)** | "Show Steps First" pattern (261 lines) |
-| **[Teaching](reference/REFCARD-TEACHING.md)** | Teaching mode workflows (247 lines) |
 | **[Branch Guard](reference/REFCARD-BRANCH-GUARD.md)** | Branch protection rules and bypass (231 lines) |
 | **[Release](reference/REFCARD-RELEASE.md)** | Release pipeline reference (211 lines) |
 | **[Testing](reference/REFCARD-TESTING.md)** | Unified test system, markers, templates (183 lines) |

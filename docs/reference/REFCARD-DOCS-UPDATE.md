@@ -312,7 +312,6 @@ python3 tests/test_docs_utilities.py
 - [Full Documentation](../commands/docs/update.md) - Complete command reference
 - [Example Walkthrough](../examples/docs-update-interactive-example.md) - Step-by-step example
 - [Implementation Summary](https://github.com/Data-Wise/craft/blob/main/docs/specs/_archive/SPEC-docs-update-interactive-2026-01-22.md) - Technical details
-- [Teaching Workflow Guide](../guide/teaching-workflow.md) - Teaching mode integration
 
 ## Quick Tips
 
