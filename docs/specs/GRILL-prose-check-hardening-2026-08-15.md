@@ -1,7 +1,7 @@
 # GRILL: Prose-Check Hardening
 
 **Date:** 2026-08-15 · **Spec:** [`SPEC-prose-check-hardening-2026-08-15.md`](SPEC-prose-check-hardening-2026-08-15.md)
-**Branches resolved:** 5 · **Status:** locked, ready for implementation
+**Branches resolved:** 6 · **Status:** locked, ready for implementation
 
 Interrogates the 9 defects a high-effort review found in PR #334. Two branches were reframed by
 evidence gathered during the grill rather than by argument — see D1 and the correction under D4.
@@ -100,6 +100,28 @@ only review surface.
 
 **Accepted cost:** #334 becomes a large single review, and the D4 record change touches all four
 phases.
+
+## D6 — Window discipline: **the version token must be in a heading**
+
+**Added 2026-08-15, after the initial 5 branches.** Surfaced while authoring
+`ORCHESTRATE-prose-check-hardening.md`: the spec listed 9 decisions and the grill locked 5, leaving
+the release-date **window discipline** (spec D4 / finding F3) unresolved. D1 settled where the
+authority comes from, not how claims are collected — so the false positive survived the redesign
+in a new place.
+
+**Locked:** the window opens only when the version token appears in a markdown heading or a
+version-box line. Prose mentioning the version — "Upgrading to v4.5.0 is a drop-in change" — does
+not open it, so a nearby unrelated date is never collected as a claim for that version.
+
+**Why structural over numeric.** Shrinking the window (spec D4c) narrows the class without closing
+it: a date two lines under a prose mention still false-positives. Requiring version and date on the
+same line (D4b) closes it completely but misses the real `docs/NEWS.md` layout, where the heading
+carries the version and the date sits two lines below — i.e. it would not catch the bug the check
+exists for. A heading requirement excludes running prose by construction, and every site carrying
+a real release entry today is a heading or a box.
+
+**Raised stakes:** D2 makes check 1 RED, so each surviving false positive blocks a release. That
+rules out spec D4d (accept and exclude case-by-case).
 
 ---
 
