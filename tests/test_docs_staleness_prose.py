@@ -72,6 +72,11 @@ CASES = [
         id="defect-stale-date",
     ),
     pytest.param(
+        "defect/release-date-far-edge.md", "docs/news.md", True,
+        "check 1 reaches the last line its window documents (off-by-one guard)",
+        id="defect-release-date-far-edge",
+    ),
+    pytest.param(
         "defect/tldr-eight-agents.md", "docs/skills-agents.md", True,
         "check 2 catches the original review bug",
         id="defect-tldr-eight-agents",

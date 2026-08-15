@@ -230,7 +230,11 @@ emit_release_date_claims() {
     [[ $# -eq 0 ]] && return 0
     awk -v ver="v${CURRENT_VERSION}" '
         FNR == 1 { win = 0 }
-        index($0, ver) { win = 4 }
+        # 5, not 4: the win-- below runs on the version line itself, so win=4
+        # scanned that line plus only 3 more -- one short of the 4 following
+        # lines this check documents, silently missing a layout as ordinary as
+        # heading / blank / Type / blank / Released.
+        index($0, ver) { win = 5 }
         win > 0 {
             if (match($0, /[Rr]eleased[^0-9]{0,12}[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
                 s = substr($0, RSTART, RLENGTH)
