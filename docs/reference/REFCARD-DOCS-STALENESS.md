@@ -58,8 +58,13 @@ Added 2026-08-15 — [ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gat
 
 | Check | What It Catches |
 |-------|-----------------|
-| Release-date claims | A `Released: YYYY-MM-DD` within 4 lines of the current version token that is more than one day off the version's **git tag date**. The one-day window absorbs releases published across the UTC boundary. Vacuous when the current version has no tag yet (normal on a feature branch). |
+| Release-date claims | A `Released: YYYY-MM-DD` on the current version's line **or the 4 lines below it**, more than one day off the version's **git tag date**. The one-day window absorbs releases published across the UTC boundary. |
 | Count prose in structured lines | A stale count — **singular or plural** — inside one of four line shapes. Free prose is never checked. |
+
+**The release-date check is vacuous when its authority is unusable** — no tag for the current
+version (normal on a feature branch), or a tag date that will not parse. It reports nothing rather
+than everything: an empty accept-window would match no claim at all, turning one bad input into a
+repo-wide false-positive storm. See [ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gating.md).
 
 The four line shapes:
 
@@ -75,6 +80,11 @@ all legitimate (orchestration mode-limit prose, a fictional-plugin tutorial, a
 troubleshooting page printing a wrong count on purpose). Shaped lines are additionally
 held to the same 40%-of-expected floor as the broad scan, because boxes and badges
 still carry category subtotals and subset counts.
+
+Both prose findings are `uncertain`, so they surface in **Pass 2** (interactive), not Pass 1's
+auto-apply — the surrounding prose is hand-authored, so a human sees the line before the number
+changes under it. Choosing `[f]ix` there really does edit the file; it swaps the digits only,
+leaving wording like `agent definitions` intact.
 
 Fixtures and the table-driven runner: `tests/fixtures/prose-staleness/` +
 `tests/test_docs_staleness_prose.py`. Every check has a `defect/` fixture as its
@@ -124,7 +134,13 @@ When `--fix` is specified:
 | `s` | Skip -- leave unchanged |
 | `e` | Exclude -- add to `exclusions.txt` permanently |
 
-Pass 2 is skipped when `--non-interactive` is set.
+`f` reports `Cannot auto-fix (manual edit needed)` when the finding carries no substitution to
+run -- Phase 8's doc-coverage findings, for instance. Both passes apply fixes through the same
+`apply_line_fix`, which reports success only when the file actually changed; see
+[ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gating.md) on why that is one shared
+function and not two.
+
+Pass 2 is skipped when `--non-interactive` is set, and when stdin is not a TTY (CI).
 
 ---
 

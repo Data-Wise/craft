@@ -26,6 +26,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **`docs-staleness-check.sh` pass 2 `[f]ix` applied nothing while reporting success** — it
+  printed `-> Fixed` and incremented the counter without touching the file. Pass 1 had the same
+  bug fixed earlier (BSD `sed -i` exits 0 on no match); the sibling pass was left behind. Both now
+  share one `apply_line_fix`, which reports success only when the file actually changed and
+  refuses to execute a non-substitution `fix_detail`.
+- **Release-date window was one line short of its documented contract** — the decrement ran on the
+  version-mention line itself, so it scanned that line plus only 3 more instead of 4.
+- **An unparseable release-date authority flagged every claim in the repo** instead of skipping.
+  The check is now vacuous unless its authority parsed, matching the no-tag case.
+- `docs/specs/REVIEW-repo-triage-2026-08-07.md` pointed at a GRILL doc that `b1c4426e4` had
+  archived, failing `test_no_broken_links` on every branch since.
 - `CLAUDE.md`'s Project Structure table claimed 8 agent definitions (actual: 2 since v4.0.0);
   `README.md`'s highlight block still headlined v2.36.0 at v4.5.0, and its tagline carried a
   stale hard test count.

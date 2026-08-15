@@ -68,6 +68,43 @@ false positives before the floor was added, shipping at `warning` follows
 ADR-003's gentle-ramp precedent: earn `error` after the checks run clean across a
 few real releases.
 
+## A failed authority makes a check vacuous, never universal
+
+Every check here compares documentation against an authority — the git tag date, `plugin.json`'s
+counts. When an authority is **missing**, the check skips: no tag yet is the normal state on a
+feature branch. The rule this ADR adds is that when an authority is **present but unusable**, the
+check skips too.
+
+The first build did not do this. An unparseable tag date left an empty accept-window, and an empty
+window matches nothing, so every release-date claim in the repo failed at once. One bad input
+became a repo-wide false-positive storm — the loudest possible output from the least reliable
+possible input.
+
+Stated generally, for any check added to this script later: **a check may only report a finding it
+can positively establish.** Absence of a usable comparison is not evidence of drift. The failure
+modes are not symmetric — a skipped check costs one missed bug, a check that fires on every
+document costs the gate its credibility, and a gate nobody trusts gets bypassed.
+
+## Fixes must be applied, not announced
+
+A finding carries a `fix_detail`. Both prose checks emit `uncertain`, routing to pass 2's
+interactive review rather than pass 1's auto-apply: the surrounding prose is hand-authored, so a
+human should see the line before the number changes under it. The `fix_detail` is nonetheless a
+real `s/…/…/` substitution rather than a human-readable note, so confirming one actually edits the
+file — it swaps the digits only, leaving `agent definitions` intact.
+
+This is a recurrence guard, not a preference. Pass 1 shipped a version of this bug once already
+(BSD `sed -i` exits 0 when nothing matched, so the script reported "Fixed: N items" having
+modified nothing on every macOS run) and was fixed for it. Pass 2 kept the same bug in simpler
+form — it printed `-> Fixed` and incremented the counter without calling anything at all. Patching
+the second site would have left a third to find later, so the applier is now a single shared
+function, `apply_line_fix`, which returns true only when the file actually changed and refuses to
+execute a `fix_detail` that is not a substitution (Phase 8's `doc-coverage:surface:cmd` markers).
+
+Same family as the rule above: **do not report a result you have not established.** The vacuous
+rule keeps the script from claiming drift it cannot demonstrate; this one keeps it from claiming a
+repair it did not perform.
+
 ## Consequences
 
 **Accepted:**

@@ -57,6 +57,33 @@ prose rather than structured tokens, and the first build of check 2 produced fiv
 positives before the 40% floor was added; ADR-003's gentle-ramp precedent applies. `error` is
 earned after the checks run clean across a few real releases.
 
+### Post-build findings (2026-08-15) — four bugs, four different catchers
+
+Every one of these was in the first build and none was caught by the gate that "should" have.
+Recorded because the pattern is the point: no single review mechanism found more than one.
+
+| # | Bug | Caught by | Fix |
+|---|---|---|---|
+| B1 | Script ran at 36s against a dev baseline of 8.0s — ~1300 per-file `awk` spawns plus ~21000 `grep` calls over every line of every box block | the **existing suite** — a 30s timeout in `test_pre_release_check_runs` | one `awk` pass over the file list, an in-awk `hascount()` pre-filter, date window computed once. 8.7s |
+| B2 | An unparseable authority date left an empty accept-window, and an empty window matches nothing — so **every** release-date claim in the repo was flagged at once | **self-review** of the PR | the check is vacuous unless the authority parsed, same posture as the no-tag case |
+| B3 | `win = 4` scanned the version line plus only **3** more, because `win--` runs on the version line itself — one short of the 4 following lines this SPEC and the REFCARD both advertise | **`/code-review`** | `win = 5`; defect fixture placed at exactly the far edge |
+| B4 | `pass2_interactive_review`'s `[f]ix` printed `-> Fixed` and incremented `TOTAL_FIXED` without touching the file | **reading adjacent code** while tracing where findings are routed | pass 1's applier extracted to `apply_line_fix`, shared by both passes |
+
+Two of these are the same failure mode wearing different clothes — **a check that reports a
+result it did not actually establish**. B2 flags without evidence; B4 claims a fix it never made.
+B4 is also a *recurrence*: pass 1 had this exact bug (BSD `sed -i` exiting 0 on no match) and was
+fixed for it; the sibling pass was left behind. Sharing one applier is what closes the class, not
+patching the second site.
+
+### Fix routing, decided here
+
+Both prose checks emit `uncertain`, so they land in pass 2's interactive review rather than pass
+1's auto-apply. The surrounding prose is hand-authored — a human should see the line before the
+number changes under it. But the `fix_detail` is a real `s/…/…/` substitution, not a
+human-readable note, so confirming one actually edits the file; it swaps the digits only, leaving
+`agent definitions` intact. Phase 8's doc-coverage findings carry a `doc-coverage:surface:cmd`
+marker instead, and `apply_line_fix` refuses to execute anything that is not a substitution.
+
 ### Build-time finding: the floor applies to shaped lines too
 
 The first build of check 2 ran without the broad scan's 40%-of-expected floor, on the assumption
@@ -216,6 +243,7 @@ tests/fixtures/prose-staleness/
     release-date-utc-boundary.md    # date 1 day off the tag — the UTC case (E2)
   defect/
     version-box-stale-date.md       # check 1 — date well off the tag
+    release-date-far-edge.md        # check 1 — stale date at the window's last line (B3)
     tldr-eight-agents.md            # check 2 — "8 specialized agents" in a TL;DR line
     structure-table-singular.md     # check 2 — "8 agent definitions", singular form (E1)
   falsepos/
@@ -248,6 +276,7 @@ The runner (`tests/test_docs_staleness_prose.py`, alongside the existing
 | `clean/version-box-correct.md` | 1 | GREEN | no false positive on correct content |
 | `clean/release-date-utc-boundary.md` | 1 | GREEN | E2: a one-day gap is the UTC boundary |
 | `defect/version-box-stale-date.md` | 1 | RED | planted-defect positive control |
+| `defect/release-date-far-edge.md` | 1 | RED | B3: the window reaches its documented last line |
 | `clean/tldr-correct.md` | 2 | GREEN | correct counts in a TL;DR line |
 | `clean/structure-table-correct.md` | 2 | GREEN | E1 stays fixed |
 | `defect/tldr-eight-agents.md` | 2 | RED | the original review bug |
@@ -294,8 +323,16 @@ missing 40% floor.
       pins it.
 - [x] `docs/adr/ADR-007-pattern-scoped-prose-staleness-gating.md` exists and records every row
       of the ADR table above, including the rejected alternatives and the revisit trigger.
-- [x] The test harness exists at `tests/fixtures/prose-staleness/` (10 fixtures — see the
+- [x] The test harness exists at `tests/fixtures/prose-staleness/` (11 fixtures — see the
       revision note in Test Harness) with a table-driven runner asserting against `--json`.
+- [x] A broken release-date authority makes the check **vacuous, never universal** (B2), pinned by
+      `test_unparseable_authority_date_is_vacuous_not_universal`.
+- [x] The release-date window reaches the last line it documents (B3), pinned by
+      `defect/release-date-far-edge.md` at exactly that boundary.
+- [x] A reported fix actually edits the file (B4) — `apply_line_fix` is shared by both passes and
+      pinned by two tests, including that a `false` result leaves the file byte-identical.
+- [x] Runtime stays within the existing `test_pre_release_check_runs` budget (B1): 8.7s against a
+      dev baseline of 8.0s, versus 36s before the fix.
 - [x] Check 2's line-shape scoping is tested against real false-positive sources — revised from
       the review's 3 named files to the 3 the first build actually flagged, since two of the
       originals are covered by path-keyed exclusions rather than by this SPEC's code.
