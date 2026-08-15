@@ -1,0 +1,128 @@
+# GRILL: Prose-Check Hardening
+
+**Date:** 2026-08-15 · **Spec:** [`SPEC-prose-check-hardening-2026-08-15.md`](SPEC-prose-check-hardening-2026-08-15.md)
+**Branches resolved:** 5 · **Status:** locked, ready for implementation
+
+Interrogates the 9 defects a high-effort review found in PR #334. Two branches were reframed by
+evidence gathered during the grill rather than by argument — see D1 and the correction under D4.
+
+---
+
+## D1 — Check 1's authority: **cross-file consistency**, not the git tag
+
+**Locked:** drop the external authority. Compare every release-date claim for the current version
+against each other and flag disagreement. The one-day window survives as the agreement tolerance
+between claims, absorbing the UTC-boundary case that motivated it.
+
+**Why the tag was rejected — evidence, not preference.** The tag is absent in both environments
+the check exists to protect:
+
+| Environment | Why no tag |
+|---|---|
+| Release gate | `skills/release/SKILL.md` runs Step 3b (write doc dates) → **Step 3b.5 (staleness gate)** → Step 8 (create tag). The tag for the version being released does not exist when the gate runs. |
+| CI | `docs-quality.yml` uses `actions/checkout@v5` with no `fetch-tags`, so `git for-each-ref refs/tags/vX.Y.Z` returns empty. |
+
+Net: as built, check 1 fires only on a developer machine that has already pulled the tag — which
+is not a gate. Cross-file consistency needs no external authority, so it works in both.
+
+**Accepted cost:** cannot catch a date that is uniformly wrong in every file, and says nothing
+when only one claim exists. Both are strictly better than never firing.
+
+## D2 — Severity: **split — check 1 RED, check 2 YELLOW**
+
+**Locked:** severity follows demonstrated precision, per-check rather than per-phase.
+
+**Corrects a factually wrong claim in ADR-007.** The ADR justified `warning` by asserting that
+warnings and errors both fail the release gate, so only the label differs. Verified false:
+
+- `scripts/pre-release-check.sh:280` — "Check 9: Docs staleness (warn-only, does not block
+  release)", and the call is `… || true`, discarding the exit code.
+- `.github/workflows/docs-quality.yml` — `continue-on-error: true`.
+- `skills/release/SKILL.md:143` — "RED findings block; YELLOW findings warn but allow proceed."
+
+No consumer reads the exit status. The **label is the only gate**, so the severity choice *is* the
+block decision the ADR claimed it was not. ADR-007's Severity section must be rewritten with the
+verified behavior — removed, not softened.
+
+Check 1 after D1 is near-binary (two claims agree or they do not), so it can afford to block.
+Check 2 matches prose patterns and produced three false-positive defects in this PR alone
+(F1, F6, and the five sub-threshold counts caught pre-merge), so it has not earned a blocker.
+
+## D3 — F1/F2/F6: **boundary + span-anchored substitution + real floor**, all three
+
+**Locked:**
+
+| Change | From | To |
+|---|---|---|
+| Noun trailer | `([^a-z]\|$)` | whitespace / closing punctuation / end-of-line |
+| Fix payload | substitution built from the bare `N noun` prefix | anchored on the full matched span |
+| Floor | `expected * 40 / 100` | `max(2, expected * 40 / 100)` |
+
+**Why all three, not just the trailer.** F1's agent half is *caused* by F6 — the floor is
+`$((2 * 40 / 100))` == 0, so the guard ADR-007 and two code comments cite as what makes shaped
+lines safe does not exist for the smallest count type. Fixing the trailer alone leaves that root
+cause live. And F2 corrupts the author's prose, a worse outcome than any false warning, so the
+substitution is anchored independently of the matcher: a future boundary regression then produces
+a wrong warning rather than a wrong edit.
+
+**Must stay pinned:** the E1 case (`8 agent definitions`) survives both changes — the noun is
+followed by a space, and `8 ≥ max(2, 0)`. Existing `clean/structure-table-correct.md` and
+`defect/structure-table-singular.md` already cover it; they must keep passing unchanged.
+
+## D4 — F4 `[e]xclude` no-op: **fix at the record level, both phases**
+
+**Correction made during the grill.** This was initially reported, and relayed, as a regression
+introduced by PR #334's change of the finding's `file` field to `path:lineno`. It is not.
+`git show dev:scripts/docs-staleness-check.sh` has `add_finding 7 "warning" "${file}:${lineno}"`
+at line 341 and the same shape in Phase 9 at 497 and 548. `[e]xclude` has been a no-op for **all**
+Phase 7 and Phase 9 findings, predating this PR.
+
+**Locked:** carry the line number as its own field instead of glued into `file`, so `[e]` writes
+`docs/x.md:30 command` and `is_pattern_excluded` can match it.
+
+**Why the larger blast radius is accepted.** The bug prints "Excluded (added to exclusions.txt)"
+and the finding returns on the next run — a live instance of the exact
+reports-success-changes-nothing class ADR-007 states as a rule. Shipping that rule while the same
+file violates it twice is worse than either fixing it or not writing the rule. Fixing it in the
+`[e]` branch alone would leave the underlying ambiguity (is `file` a path or a location?) for the
+next person.
+
+## D5 — Delivery: **amend PR #334 before merging**
+
+**Locked:** all fixes land on `feature/doc-staleness-prose-gaps`; nothing merges until the checks
+are correct.
+
+**Why not merge-then-harden.** As it stands the check false-positives on any hyphenated compound,
+and pass 2's `[f]` would rewrite the author's prose around it. craft's own docs are hyphen-heavy,
+so "merge now, harden in #335" means `dev` carries a `--fix` that can mangle documents for as long
+as the follow-up takes. The PR has not shipped and nothing depends on it, so the cost of holding is
+only review surface.
+
+**Accepted cost:** #334 becomes a large single review, and the D4 record change touches all four
+phases.
+
+---
+
+## Not branched (no genuine alternative)
+
+- **F8** — unclosed `┌` leaks `version-box` mode into the rest of the file, losing the
+  `structure-table` type restriction. Fix: close the box on the first line carrying no box
+  character.
+- **F9** — REFCARD says `tldr` matches "a line containing `TL;DR`"; the regex requires the line to
+  *open* with it. The regex is deliberate (`falsepos/tldr-mentioned-not-claimed.md` depends on
+  it). Fix the doc.
+
+## Open questions
+
+- **D1 leaves single-claim files unguarded.** If only `docs/NEWS.md` carries a release date for the
+  current version, cross-file consistency says nothing. Worth revisiting once a second claim site
+  is guaranteed — not blocking, since the status quo catches nothing anywhere.
+- **Phase 9's severity is untouched.** D2 sets per-check severity in Phase 7 only; whether Phase 9
+  should follow is unexamined.
+- **The floor's 40% constant is still unjustified.** D3 puts a minimum under it but does not ask
+  whether 40% was ever the right shape. Inherited from the pre-existing broad scan.
+
+## Next step
+
+`/craft:plan docs/specs/SPEC-prose-check-hardening-2026-08-15.md` → `plan-orchestrator` →
+`ORCHESTRATE-*.md`, then implement on `feature/doc-staleness-prose-gaps` per D5.

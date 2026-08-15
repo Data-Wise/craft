@@ -5,7 +5,9 @@
 **Sources:** high-effort `/code-review` of PR #334 (9 findings), plus
 [`SPEC-doc-staleness-prose-gaps-2026-08-07.md`](SPEC-doc-staleness-prose-gaps-2026-08-07.md)
 and [ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gating.md)
-**Status:** draft — **not yet grilled**
+**Status:** grilled 2026-08-15 — 5 branches locked, ready to implement. Decisions live in
+[`GRILL-prose-check-hardening-2026-08-15.md`](GRILL-prose-check-hardening-2026-08-15.md); where
+this spec's option tables and the ledger differ, **the ledger wins**.
 
 ---
 
@@ -46,8 +48,11 @@ Grouping matters more than the count — patching nine sites individually would 
   makes shaped lines safe. Nobody evaluated it for the smallest count. F1's agent half is a
   *consequence* of F6, not an independent bug.
 - **C3 — reporting a result never established.** F2 and F4, both the same family PR #334 already
-  fixed once in `[f]`. `[e]` was the third instance, introduced *by* this PR's change of `file`
-  to `path:lineno`.
+  fixed once in `[f]`. **Corrected during the grill:** F4 was first written up here as introduced
+  by this PR's change of `file` to `path:lineno`. It is not —
+  `git show dev:scripts/docs-staleness-check.sh` already has `add_finding 7 "warning"
+  "${file}:${lineno}"` at line 341, and the same shape in Phase 9 at 497 and 548. `[e]xclude` has
+  been a no-op for **all** Phase 7 and Phase 9 findings, predating this PR.
 - **C4 — the check was never exercised where it runs.** F3, F5, F7: proximity heuristic never
   tested against adversarial prose; severity chosen from an unverified claim about consumers;
   authority never checked for availability in CI or at release time.
@@ -80,9 +85,14 @@ chosen from verified consumer behavior rather than an assumption about exit code
 `[e]` branch; `docs-quality.yml` checkout config if D6(a); ADR-007's severity section; the REFCARD
 shape table; fixtures + harness rows for every fix.
 
+**In (added by the grill):** Phase 9's `[e]` findings, which carry the same `path:lineno` shape —
+the ledger's D4 fixes this at the record level rather than per-phase, so both are covered by one
+change. The git-tag authority and `docs-quality.yml`'s checkout config drop out of scope entirely:
+D1 replaces the authority with cross-file consistency, so there is no tag to fetch.
+
 **Out:** the version-highlight proxy (dropped in the parent SPEC, still dropped); porting to
 sibling repos; any new script or dependency (D1/D4 of the parent SPEC still hold); Phase 9's
-pre-existing `[e]` bug of the same shape as F4 — same class, different phase, separate change.
+*severity*, which D2 leaves as-is.
 
 ## Acceptance criteria
 
@@ -123,3 +133,5 @@ pre-existing `[e]` bug of the same shape as F4 — same class, different phase, 
 Grill this spec before implementing. The decisions most worth attacking: **D5** (severity, given
 the corrected facts), **D6/D7** (whether check 1 can fire anywhere that matters), and **D4**
 (whether proximity is salvageable at all).
+
+> Interrogated by grill — see [GRILL-prose-check-hardening-2026-08-15.md](GRILL-prose-check-hardening-2026-08-15.md)
