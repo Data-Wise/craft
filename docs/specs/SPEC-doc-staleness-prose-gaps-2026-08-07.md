@@ -3,7 +3,46 @@
 **Generated:** 2026-08-07
 **Context:** Craft Plugin v4.5.0 — extends `scripts/docs-staleness-check.sh` Phase 7
 **Sources:** [`BRAINSTORM-doc-staleness-prose-gaps-2026-08-07.md`](BRAINSTORM-doc-staleness-prose-gaps-2026-08-07.md) (6 locked decisions, external research)
-**Status:** draft — revised post adversarial review (see "Review Outcome" below)
+**Status:** draft — revised post adversarial review (see "Review Outcome" below); amended
+2026-08-15 with an ADR requirement, a test-harness design, and two new pieces of live evidence
+(see "Amendment" below)
+
+---
+
+## Amendment (2026-08-15)
+
+Two real staleness bugs surfaced during a `/savant:restore` currency read on `dev` at
+`7db7b565c`. Both sharpen this SPEC's design rather than changing its scope.
+
+### E1 — Phase 7's existing regex misses the singular noun form
+
+`CLAUDE.md`'s Project Structure table row for the `agents/` directory read
+**8 agent definitions** while the real count had been 2 since v4.0.0. Phase 7 reported **GREEN** over it for five minors. Cause:
+the scan pattern is `\b[0-9]+ ${ctype}\b` where `ctype ∈ {commands, skills, agents}` — strictly
+plural (`scripts/docs-staleness-check.sh:345`). `8 agent definitions` never matched. The 40%
+minimum threshold (line 302) was not the cause; 8 clears it.
+
+This is not a check-2 line-shape case — it is a **pre-existing gap in the check-2 predecessor**.
+Fold the singular alternation into the shared matcher rather than shipping check 2 on top of a
+pattern that still can't see half the noun forms.
+
+### E2 — "release date" has two defensible authorities
+
+`docs/NEWS.md` claims `**Released:** 2026-08-08` for v4.5.0; `.STATUS` has
+`release_date: 2026-08-07`. Neither is wrong — the GitHub release published at
+`2026-08-08T03:44:25Z`, which is 2026-08-07 21:44 local. Check 1 as written ("must match
+`.STATUS`'s `release_date:`") would flag this as RED on its first run against a correct repo.
+
+Check 1 must therefore pick **one** authority and normalize: compare against the annotated git
+tag's local date (`git for-each-ref --format='%(creatordate:short)' refs/tags/vX.Y.Z`), and
+accept a ±1-day window against `.STATUS`'s `release_date:` to absorb the UTC boundary. A
+same-day-either-side match is not staleness.
+
+### Severity divergence to resolve at build time
+
+Existing Phase 7 findings are emitted at severity `warning` (`add_finding 7 "warning" ...`,
+line 341) while this SPEC specifies checks 1–2 as blocking RED. Whichever way this lands, it is
+an intentional choice and belongs in the ADR below, not in a silent code default.
 
 ---
 
@@ -113,9 +152,99 @@ reach `homebrew-tap` (out of scope per D2 — craft only). If this pattern prove
 consider a parallel prose-accuracy check in `homebrew-tap` itself (different repo, different
 owner of that decision) — not assumed, not scheduled.
 
+## ADR — ADR-007: pattern-scoped prose gating in the existing staleness script
+
+This SPEC commits craft to a position it has not written down anywhere: that documentation
+*prose* is gated by narrow, hand-authored line-shape patterns inside
+`scripts/docs-staleness-check.sh`, and explicitly **not** by a prose linter (Vale), a semantic
+differ, or an LLM-in-CI pass. That choice constrains every future staleness check, so it gets a
+record rather than living implicitly across D1/D3/D4 in a BRAINSTORM.
+
+**File:** `docs/adr/ADR-007-pattern-scoped-prose-staleness-gating.md`, following the existing
+ADR-001…ADR-006 format in that directory.
+
+Content it must record:
+
+| Element | Substance |
+|---|---|
+| **Context** | Phase 7 anchors on structured patterns and reported GREEN over four real bugs: REFCARD.md's stale release date, skills-agents.md's "8 specialized agents", CLAUDE.md's "8 agent definitions" (E1), README.md's v2.36.0 highlight block five minors after v4.5.0. |
+| **Decision** | Extend Phase 7 in place with line-shape-scoped regexes. No new script (D1), no external prose tool (D4), no semantic layer (D3). Craft-only (D2). |
+| **Consequences — accepted** | Coverage is exactly as good as the enumerated line shapes; every genuinely new prose shape needs a code change, not a config change. `scripts/config/exclusions.txt` grows over time (accepted tradeoff, review finding 4). |
+| **Consequences — rejected alternatives** | Vale/`drift`/LLM-in-CI (D4) — rejected for dependency weight and non-determinism in a release gate. Whole-file git-log-touch proxy — rejected as *falsified*, not merely unattractive: `bump-version.sh` touches REFCARD.md every release, so the proxy reads "fresh" on the file that motivated this work. |
+| **Severity posture** | Records whether checks 1–2 emit `error` (blocking) or `warning`, and why — the divergence flagged in the Amendment above. |
+| **Revisit trigger** | A prose staleness bug that lands despite checks 1–2, whose shape cannot be expressed as a line-shape regex. That, and only that, reopens the D3/D4 rejection. |
+
+## Test Harness
+
+The Test Plan below names tiers; this section specifies the rig they run on. Both checks need
+the same three-way verdict pattern (clean → GREEN, planted defect → RED, known false-positive
+source → GREEN), and the adversarial review's three false-positive sources are currently prose
+in an acceptance criterion rather than executable rows. A table-driven harness makes them
+first-class.
+
+### Layout
+
+```text
+tests/fixtures/prose-staleness/
+  clean/
+    refcard-version-box.md          # correct date + counts inside a ┌─┐ box
+    skills-agents-tldr.md           # correct "2 specialized agents" TL;DR line
+    claude-md-structure-table.md    # correct "2 agent definitions" (E1 regression)
+  defect/
+    refcard-stale-date.md           # check 1 — date ≠ tag date
+    tldr-eight-agents.md            # check 2 — "8 specialized agents" in a TL;DR line
+    structure-table-singular.md     # check 2 — "8 agent definitions", singular form (E1)
+  falsepos/
+    orch-flag-usage.md              # "2 agents max" / "4 agents" mode-limit prose
+    fictional-plugin-tutorial.md    # intentionally fictional example counts
+    troubleshooting-wrong-count.md  # deliberately-wrong count teaching the bug
+```
+
+### Contract
+
+Each fixture is a **complete minimal markdown file**, not a snippet — the checks operate on
+line context (fenced-box membership, TL;DR prefix), so a snippet would not exercise the same
+code path. Every fixture carries a one-line HTML comment header stating what it proves, so a
+later reader does not have to infer intent from filename alone.
+
+The runner (`tests/test_docs_staleness_prose.py`, alongside the existing
+`tests/test_docs_staleness.py`) is a single parametrized case over a declared table:
+
+| Fixture | Check | Expected | Proves |
+|---|---|---|---|
+| `clean/refcard-version-box.md` | 1 | GREEN | no false positive on correct content |
+| `defect/refcard-stale-date.md` | 1 | RED | planted-defect positive control |
+| `clean/claude-md-structure-table.md` | 2 | GREEN | E1 stays fixed |
+| `defect/structure-table-singular.md` | 2 | RED | E1 would be caught, not missed |
+| `defect/tldr-eight-agents.md` | 2 | RED | the original review bug |
+| `falsepos/*.md` (×3) | 2 | GREEN | review finding 3's sources stay unflagged |
+
+Invoked via `--json` against a fixture directory so the assertion reads the structured
+`findings[]` array rather than parsing colored terminal output — the same reason
+`docs-staleness-check.sh` already ships `--json`.
+
+### Harness requirements
+
+- **The harness must be able to fail.** Adding a check without its `defect/` row is a rejected
+  change; the positive control is the point (see `e2e-before-pr.md`).
+- **No network, no git-history walk, no TTY.** Fixtures are self-contained files; the one git
+  read check 1 needs (tag date) is injected as a parameter, not shelled out to, so the suite is
+  hermetic and runs identically in CI.
+- **Reuse, don't fork.** `scripts/config/exclusions.txt` handling, `is_file_excluded`, and
+  `is_pattern_excluded` are called as-is — the harness tests the real code path, not a copy.
+
 ## Acceptance Criteria
 
-- [ ] Checks 1 and 2 are implemented as blocking (RED) findings in Phase 7.
+- [ ] Checks 1 and 2 are implemented as blocking (RED) findings in Phase 7, or the divergence
+      from Phase 7's existing `warning` severity is recorded as a deliberate choice in ADR-007.
+- [ ] The shared count matcher handles the **singular** noun form (`N agent definitions`), not
+      only the plural (E1) — with `clean/` + `defect/` fixtures proving both directions.
+- [ ] Check 1 resolves the release-date authority per E2 (git tag local date, ±1-day window
+      against `.STATUS`) and does **not** flag the current `docs/NEWS.md` v4.5.0 entry.
+- [ ] `docs/adr/ADR-007-pattern-scoped-prose-staleness-gating.md` exists and records every row
+      of the ADR table above, including the rejected alternatives and the revisit trigger.
+- [ ] The test harness exists at `tests/fixtures/prose-staleness/` with all 9 fixtures and a
+      table-driven runner asserting against `--json` output.
 - [ ] Check 2's line-shape scoping is itself tested against the 3 false-positive sources the
       review found (`docs/guide/orch-flag-usage.md`, the fictional-plugin tutorial, the
       intentional-bug troubleshooting page) — must NOT flag any of them.
