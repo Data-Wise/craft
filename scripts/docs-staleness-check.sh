@@ -568,8 +568,13 @@ phase7_count_consistency() {
     # -----------------------------------------------------------------------
     local tag_date claim cfile crest clineno cdate
     tag_date="$(resolve_release_date)"
-    if [[ -n "$tag_date" ]]; then
-        compute_release_date_window "$tag_date"
+    compute_release_date_window "$tag_date"
+    # Skip when the authority is missing OR unparseable. A broken authority must
+    # make this check vacuous, never universal: with an empty accept-window every
+    # release-date claim in the repo fails at once, turning one bad input into a
+    # repo-wide false-positive storm. Same posture as the no-tag case (normal on
+    # a feature branch before release).
+    if [[ -n "$ACCEPTED_RELEASE_DATES" ]]; then
         while IFS= read -r claim; do
             [[ -z "$claim" ]] && continue
             cfile="${claim%%:*}"; crest="${claim#*:}"

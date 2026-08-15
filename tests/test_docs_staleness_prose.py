@@ -155,6 +155,39 @@ def test_prose_staleness_fixture(tmp_path, fixture, dest, expect_finding, proves
         )
 
 
+def test_unparseable_authority_date_is_vacuous_not_universal(tmp_path):
+    """A broken release-date authority must skip the check, not flag everything.
+
+    Found in review of PR #334. `compute_release_date_window` exits silently on
+    an unparseable date, leaving an empty accept-window — and an empty window
+    matches nothing, so every release-date claim in the repo failed at once. One
+    bad input became a repo-wide false-positive storm. The guard is that the
+    check is vacuous unless the authority actually parsed.
+
+    Uses the `clean/` fixture on purpose: it is correct against a real tag date,
+    so any finding here is caused by the broken authority alone.
+    """
+    repo = build_repo(tmp_path, "clean/release-date-utc-boundary.md", "docs/news.md")
+    env = {
+        "PATH": "/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin",
+        "HOME": str(repo),
+        "CRAFT_PLUGIN_DIR": str(repo),
+        "CRAFT_RELEASE_DATE": "not-a-date",
+        "CRAFT_EXPECTED_CMDS": FIXTURE_COUNTS["CMDS"],
+        "CRAFT_EXPECTED_SKILLS": FIXTURE_COUNTS["SKILLS"],
+        "CRAFT_EXPECTED_AGENTS": FIXTURE_COUNTS["AGENTS"],
+    }
+    proc = subprocess.run(
+        ["bash", str(SCRIPT), "--json"],
+        env=env, capture_output=True, text=True, timeout=120,
+    )
+    findings = json.loads(proc.stdout)["phases"]["count_consistency"]["findings"]
+    rendered = "\n".join(f"  {f['file']}: {f['message']}" for f in findings)
+    assert not findings, (
+        f"unparseable authority date produced findings instead of skipping:\n{rendered}"
+    )
+
+
 def test_every_check_has_a_planted_defect():
     """A check without a defect fixture is a rejected change (SPEC harness rule).
 
