@@ -177,6 +177,7 @@ nav:
       - "ADR-004: Release Surface Registry": adr/ADR-004-release-surface-registry.md
       - "ADR-005: Shim Canonical-Path Resolution": adr/ADR-005-shim-canonical-path-resolution.md
       - "ADR-006: Done Renamed to Finish": adr/ADR-006-done-renamed-to-finish.md
+      - "ADR-007: Pattern-Scoped Prose Staleness Gating": adr/ADR-007-pattern-scoped-prose-staleness-gating.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md

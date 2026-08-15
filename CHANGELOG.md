@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **Two prose-staleness checks in `docs-staleness-check.sh` Phase 7**
+  ([SPEC](docs/specs/SPEC-doc-staleness-prose-gaps-2026-08-07.md),
+  [ADR-007](docs/adr/ADR-007-pattern-scoped-prose-staleness-gating.md)) — a release-date check
+  (claims near the current version token must be within a day of that version's git tag) and a
+  count-prose check scoped to four structured line shapes (version box, TL;DR line, bolded
+  count-summary badge, structure-table row). The count check reads the **singular** noun form
+  too, closing the gap that let `CLAUDE.md`'s "8 agent definitions" read GREEN for five minors.
+  Both emit `warning`, per ADR-007's gentle-ramp rationale.
+- **Prose-staleness test harness** — `tests/fixtures/prose-staleness/` (10 fixtures across
+  clean / planted-defect / known-false-positive) and `tests/test_docs_staleness_prose.py`, a
+  table-driven runner asserting on `--json` findings. Includes a guard that every check keeps a
+  planted-defect fixture, and a live-repo assertion that `count_consistency` stays clean.
+
+### Fixed
+
+- `CLAUDE.md`'s Project Structure table claimed 8 agent definitions (actual: 2 since v4.0.0);
+  `README.md`'s highlight block still headlined v2.36.0 at v4.5.0, and its tagline carried a
+  stale hard test count.
+
+---
+
 ## [4.5.0] - 2026-08-08
 
 ### Added

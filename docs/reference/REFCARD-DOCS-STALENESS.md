@@ -45,9 +45,49 @@
 | Phase | Name | What It Checks |
 |-------|------|---------------|
 | 6 | Nav Completeness | Files in `docs/` missing from `mkdocs.yml` nav; nav entries pointing to missing files |
-| 7 | Count Consistency | Stale `N commands`, `N skills`, `N agents` strings across all docs |
+| 7 | Count Consistency | Stale `N commands`, `N skills`, `N agents` strings across all docs, plus the two prose checks below |
 | 8 | Skill/Agent Coverage | Skills and agents not listed in `docs/skills-agents.md` |
 | 9 | Cross-Doc Freshness | Stale version strings in REFCARDs, stale counts in "See Also" sections, `site_description` drift |
+
+---
+
+## Phase 7 prose checks
+
+Added 2026-08-15 — [ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gating.md),
+[SPEC](../specs/SPEC-doc-staleness-prose-gaps-2026-08-07.md). Both emit `warning`.
+
+| Check | What It Catches |
+|-------|-----------------|
+| Release-date claims | A `Released: YYYY-MM-DD` within 4 lines of the current version token that is more than one day off the version's **git tag date**. The one-day window absorbs releases published across the UTC boundary. Vacuous when the current version has no tag yet (normal on a feature branch). |
+| Count prose in structured lines | A stale count — **singular or plural** — inside one of four line shapes. Free prose is never checked. |
+
+The four line shapes:
+
+| Shape | Matches |
+|-------|---------|
+| `version-box` | lines inside a `┌` … `└` box-drawing block |
+| `tldr` | a line containing `TL;DR` |
+| `count-summary` | the bolded badge line, e.g. `**48 commands** \| **41 skills**` |
+| `structure-table` | a table row whose first cell is a counted directory, e.g. `` \| `agents/` \| `` — compared only against the type that cell names |
+
+Why shape-scoped: a blanket `N agents?` search over `docs/` returns 90+ hits, nearly
+all legitimate (orchestration mode-limit prose, a fictional-plugin tutorial, a
+troubleshooting page printing a wrong count on purpose). Shaped lines are additionally
+held to the same 40%-of-expected floor as the broad scan, because boxes and badges
+still carry category subtotals and subset counts.
+
+Fixtures and the table-driven runner: `tests/fixtures/prose-staleness/` +
+`tests/test_docs_staleness_prose.py`. Every check has a `defect/` fixture as its
+positive control; a check without one is a rejected change.
+
+### Test-only environment overrides
+
+| Variable | Effect |
+|----------|--------|
+| `CRAFT_EXPECTED_CMDS` / `_SKILLS` / `_AGENTS` | Declare expected counts instead of deriving them from `commands/`, `skills/`, `agents/`. Lets a fixture skip materializing 48 command files. |
+| `CRAFT_RELEASE_DATE` | Supply the tag date instead of reading git, keeping the fixture suite hermetic. |
+
+Unset on every production path — the derived values are what actually run.
 
 ---
 
