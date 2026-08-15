@@ -85,7 +85,7 @@ performance) · `release` (<300s, thorough). Example: `/craft:code:lint debug`.
 |-----------|---------|
 | `commands/` | 48 commands (auto-discovered, one `.md` per command) |
 | `skills/` | 41 skills (`SKILL.md` pattern) |
-| `agents/` | 8 agent definitions |
+| `agents/` | 2 agent definitions |
 | `tests/` | Unit, e2e, dogfood, and integration test suites |
 | `scripts/` | Release, validation, and maintenance scripts |
 | `utils/` | Python utilities (`claude_md_sync`, `validate-counts`, etc.) |
