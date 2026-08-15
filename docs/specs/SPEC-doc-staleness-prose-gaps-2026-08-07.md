@@ -22,9 +22,16 @@ the scan pattern is `\b[0-9]+ ${ctype}\b` where `ctype ∈ {commands, skills, ag
 plural (`scripts/docs-staleness-check.sh:345`). `8 agent definitions` never matched. The 40%
 minimum threshold (line 302) was not the cause; 8 clears it.
 
-This is not a check-2 line-shape case — it is a **pre-existing gap in the check-2 predecessor**.
-Fold the singular alternation into the shared matcher rather than shipping check 2 on top of a
-pattern that still can't see half the noun forms.
+**Resolution (revised during build).** The first reading of this finding was "fold the singular
+alternation into the shared matcher" — i.e. widen the broad scan at line 345. That reopens
+exactly the false-positive surface review finding 3 closed, and adds singular forms of it
+("the 4 agent limit") on top.
+
+The singular form is therefore checked **only inside check 2's line shapes**, and the broad scan
+is left plural-only. `CLAUDE.md`'s Project Structure row is itself a structured shape — a table
+row whose first cell names a counted directory — so E1 is caught by adding a **fourth line
+shape** (`structure-table`), not by widening anything. That row's count is compared only against
+the type its own first cell names, so a `commands/` row is never measured against the agent count.
 
 ### E2 — "release date" has two defensible authorities
 
@@ -38,11 +45,54 @@ tag's local date (`git for-each-ref --format='%(creatordate:short)' refs/tags/vX
 accept a ±1-day window against `.STATUS`'s `release_date:` to absorb the UTC boundary. A
 same-day-either-side match is not staleness.
 
-### Severity divergence to resolve at build time
+### Severity — resolved: `warning`
 
 Existing Phase 7 findings are emitted at severity `warning` (`add_finding 7 "warning" ...`,
-line 341) while this SPEC specifies checks 1–2 as blocking RED. Whichever way this lands, it is
-an intentional choice and belongs in the ADR below, not in a silent code default.
+line 341) while this SPEC's first draft specified checks 1–2 as blocking RED.
+
+**Resolved to `warning`**, per ADR-007. `main()` exits 1 for warnings and errors alike, so both
+already fail `/craft:check --for release` and `pre-release-check.sh` — the divergence is the
+RED/YELLOW label, not whether the gate blocks. These are the first checks in this repo to judge
+prose rather than structured tokens, and the first build of check 2 produced five false
+positives before the 40% floor was added; ADR-003's gentle-ramp precedent applies. `error` is
+earned after the checks run clean across a few real releases.
+
+### Post-build findings (2026-08-15) — four bugs, four different catchers
+
+Every one of these was in the first build and none was caught by the gate that "should" have.
+Recorded because the pattern is the point: no single review mechanism found more than one.
+
+| # | Bug | Caught by | Fix |
+|---|---|---|---|
+| B1 | Script ran at 36s against a dev baseline of 8.0s — ~1300 per-file `awk` spawns plus ~21000 `grep` calls over every line of every box block | the **existing suite** — a 30s timeout in `test_pre_release_check_runs` | one `awk` pass over the file list, an in-awk `hascount()` pre-filter, date window computed once. 8.7s |
+| B2 | An unparseable authority date left an empty accept-window, and an empty window matches nothing — so **every** release-date claim in the repo was flagged at once | **self-review** of the PR | the check is vacuous unless the authority parsed, same posture as the no-tag case |
+| B3 | `win = 4` scanned the version line plus only **3** more, because `win--` runs on the version line itself — one short of the 4 following lines this SPEC and the REFCARD both advertise | **`/code-review`** | `win = 5`; defect fixture placed at exactly the far edge |
+| B4 | `pass2_interactive_review`'s `[f]ix` printed `-> Fixed` and incremented `TOTAL_FIXED` without touching the file | **reading adjacent code** while tracing where findings are routed | pass 1's applier extracted to `apply_line_fix`, shared by both passes |
+
+Two of these are the same failure mode wearing different clothes — **a check that reports a
+result it did not actually establish**. B2 flags without evidence; B4 claims a fix it never made.
+B4 is also a *recurrence*: pass 1 had this exact bug (BSD `sed -i` exiting 0 on no match) and was
+fixed for it; the sibling pass was left behind. Sharing one applier is what closes the class, not
+patching the second site.
+
+### Fix routing, decided here
+
+Both prose checks emit `uncertain`, so they land in pass 2's interactive review rather than pass
+1's auto-apply. The surrounding prose is hand-authored — a human should see the line before the
+number changes under it. But the `fix_detail` is a real `s/…/…/` substitution, not a
+human-readable note, so confirming one actually edits the file; it swaps the digits only, leaving
+`agent definitions` intact. Phase 8's doc-coverage findings carry a `doc-coverage:surface:cmd`
+marker instead, and `apply_line_fix` refuses to execute anything that is not a substitution.
+
+### Build-time finding: the floor applies to shaped lines too
+
+The first build of check 2 ran without the broad scan's 40%-of-expected floor, on the assumption
+that structured shapes are self-limiting. They are not. Five legitimate counts were flagged on
+`dev` immediately: category subtotals inside reference boxes (`SMART (4 commands)`,
+`Code (12 commands)`), a bolded subset count (`` `--refine` is declared on **9 commands** ``), and
+a narrative count about a different plugin (`kept shipping **0 skills**`). Shape membership
+narrows *where* to look; the floor is still what separates a total from a subtotal. All five are
+now `falsepos/` fixtures.
 
 ---
 
@@ -187,18 +237,29 @@ first-class.
 ```text
 tests/fixtures/prose-staleness/
   clean/
-    refcard-version-box.md          # correct date + counts inside a ┌─┐ box
-    skills-agents-tldr.md           # correct "2 specialized agents" TL;DR line
-    claude-md-structure-table.md    # correct "2 agent definitions" (E1 regression)
+    version-box-correct.md          # correct date + counts inside a ┌─┐ box
+    tldr-correct.md                 # correct "2 specialized agents" TL;DR line
+    structure-table-correct.md      # correct "2 agent definitions" (E1 regression)
+    release-date-utc-boundary.md    # date 1 day off the tag — the UTC case (E2)
   defect/
-    refcard-stale-date.md           # check 1 — date ≠ tag date
+    version-box-stale-date.md       # check 1 — date well off the tag
+    release-date-far-edge.md        # check 1 — stale date at the window's last line (B3)
     tldr-eight-agents.md            # check 2 — "8 specialized agents" in a TL;DR line
     structure-table-singular.md     # check 2 — "8 agent definitions", singular form (E1)
   falsepos/
-    orch-flag-usage.md              # "2 agents max" / "4 agents" mode-limit prose
-    fictional-plugin-tutorial.md    # intentionally fictional example counts
-    troubleshooting-wrong-count.md  # deliberately-wrong count teaching the bug
+    category-subtotal-box.md        # "(4 commands)" subtotals inside a reference box
+    subset-bold-count.md            # "**9 commands**" subset + "**0 skills**" narrative
+    mode-limit-prose.md             # "2 agents max" / "4 agents" mode-limit prose
 ```
+
+> **Revised during build.** The review's other two named false-positive sources (the
+> fictional-plugin tutorial and the intentional-wrong-count troubleshooting page) are covered by
+> path-keyed entries in `exclusions.txt`, so a fixture of them would re-prove the exclusion
+> loader rather than this SPEC's new code. They were replaced by the three sources the first
+> build of check 2 actually flagged, each isolating a distinct guard: the 40% floor
+> (`category-subtotal-box`, `subset-bold-count`) and shape scoping plus exclusion inheritance
+> (`mode-limit-prose`, written to its real path so the path-keyed exclusion applies). Ten
+> fixtures, not nine.
 
 ### Contract
 
@@ -212,51 +273,80 @@ The runner (`tests/test_docs_staleness_prose.py`, alongside the existing
 
 | Fixture | Check | Expected | Proves |
 |---|---|---|---|
-| `clean/refcard-version-box.md` | 1 | GREEN | no false positive on correct content |
-| `defect/refcard-stale-date.md` | 1 | RED | planted-defect positive control |
-| `clean/claude-md-structure-table.md` | 2 | GREEN | E1 stays fixed |
-| `defect/structure-table-singular.md` | 2 | RED | E1 would be caught, not missed |
+| `clean/version-box-correct.md` | 1 | GREEN | no false positive on correct content |
+| `clean/release-date-utc-boundary.md` | 1 | GREEN | E2: a one-day gap is the UTC boundary |
+| `defect/version-box-stale-date.md` | 1 | RED | planted-defect positive control |
+| `defect/release-date-far-edge.md` | 1 | RED | B3: the window reaches its documented last line |
+| `clean/tldr-correct.md` | 2 | GREEN | correct counts in a TL;DR line |
+| `clean/structure-table-correct.md` | 2 | GREEN | E1 stays fixed |
 | `defect/tldr-eight-agents.md` | 2 | RED | the original review bug |
-| `falsepos/*.md` (×3) | 2 | GREEN | review finding 3's sources stay unflagged |
+| `defect/structure-table-singular.md` | 2 | RED | E1 would be caught, not missed |
+| `falsepos/category-subtotal-box.md` | 2 | GREEN | subtotals in a box are not the total |
+| `falsepos/subset-bold-count.md` | 2 | GREEN | a bolded count can be a subset |
+| `falsepos/mode-limit-prose.md` | 2 | GREEN | free prose is out of shape scope |
 
-Invoked via `--json` against a fixture directory so the assertion reads the structured
-`findings[]` array rather than parsing colored terminal output — the same reason
-`docs-staleness-check.sh` already ships `--json`.
+Each case is run against a throwaway repo holding exactly one fixture document, invoked with
+`--json` so the assertion reads the structured `findings[]` array rather than parsing colored
+terminal output — the same reason `docs-staleness-check.sh` already ships `--json`. The
+destination path inside that repo is declared per case, because the exclusion that protects
+`mode-limit-prose` is path-keyed.
+
+Two harness-level tests sit alongside the table: one asserting every check still owns a
+`defect/` fixture (so a future check cannot ship happy-path-only), and one running the real
+`dev` tree and asserting `count_consistency` has zero findings — the assertion that caught the
+missing 40% floor.
 
 ### Harness requirements
 
 - **The harness must be able to fail.** Adding a check without its `defect/` row is a rejected
   change; the positive control is the point (see `e2e-before-pr.md`).
 - **No network, no git-history walk, no TTY.** Fixtures are self-contained files; the one git
-  read check 1 needs (tag date) is injected as a parameter, not shelled out to, so the suite is
-  hermetic and runs identically in CI.
+  read check 1 needs (tag date) is injected via `CRAFT_RELEASE_DATE`, and the expected counts
+  via `CRAFT_EXPECTED_{CMDS,SKILLS,AGENTS}`, so the suite is hermetic and no fixture has to
+  materialize 48 command files. Both overrides are unset on every production path.
+- **Fixture authority values are pinned, not derived.** The harness hardcodes 48/41/2 and the
+  v4.5.0 tag date rather than reading the live repo, so a future count change cannot silently
+  turn a planted defect into a non-defect (an "8 agents" defect stops proving anything the day
+  craft ships 8 agents).
 - **Reuse, don't fork.** `scripts/config/exclusions.txt` handling, `is_file_excluded`, and
   `is_pattern_excluded` are called as-is — the harness tests the real code path, not a copy.
 
 ## Acceptance Criteria
 
-- [ ] Checks 1 and 2 are implemented as blocking (RED) findings in Phase 7, or the divergence
-      from Phase 7's existing `warning` severity is recorded as a deliberate choice in ADR-007.
-- [ ] The shared count matcher handles the **singular** noun form (`N agent definitions`), not
-      only the plural (E1) — with `clean/` + `defect/` fixtures proving both directions.
-- [ ] Check 1 resolves the release-date authority per E2 (git tag local date, ±1-day window
-      against `.STATUS`) and does **not** flag the current `docs/NEWS.md` v4.5.0 entry.
-- [ ] `docs/adr/ADR-007-pattern-scoped-prose-staleness-gating.md` exists and records every row
+- [x] Checks 1 and 2 are implemented in Phase 7 at severity `warning`, with the divergence from
+      the draft's "blocking RED" recorded as a deliberate choice in ADR-007's Severity section.
+- [x] The **singular** noun form (`N agent definitions`) is checked (E1) — inside check 2's line
+      shapes only, not by widening the broad scan; `clean/structure-table-correct.md` +
+      `defect/structure-table-singular.md` prove both directions.
+- [x] Check 1 resolves the release-date authority per E2 (git tag local date, one-day window)
+      and does **not** flag the current `docs/NEWS.md` v4.5.0 entry — `clean/release-date-utc-boundary.md`
+      pins it.
+- [x] `docs/adr/ADR-007-pattern-scoped-prose-staleness-gating.md` exists and records every row
       of the ADR table above, including the rejected alternatives and the revisit trigger.
-- [ ] The test harness exists at `tests/fixtures/prose-staleness/` with all 9 fixtures and a
-      table-driven runner asserting against `--json` output.
-- [ ] Check 2's line-shape scoping is itself tested against the 3 false-positive sources the
-      review found (`docs/guide/orch-flag-usage.md`, the fictional-plugin tutorial, the
-      intentional-bug troubleshooting page) — must NOT flag any of them.
-- [ ] Regression fixtures restore today's exact bugs (REFCARD.md's stale date,
-      skills-agents.md's "8 specialized agents") and prove the new checks catch them
-      (planted-defect positive control, same pattern used for `test_no_live_legacy_check_skill_references`).
-- [ ] Running the check against current (already-fixed) `dev` HEAD stays GREEN — no
-      false positive on the corrected content.
-- [ ] `docs/reference/REFCARD-DOCS-STALENESS.md` documents the 3 new checks in its
-      existing check inventory.
-- [ ] `CHANGELOG.md` / `docs/CHANGELOG.md` `[Unreleased]` gets a one-line entry.
-- [ ] No new script, no new external dependency (D1/D4).
+- [x] The test harness exists at `tests/fixtures/prose-staleness/` (11 fixtures — see the
+      revision note in Test Harness) with a table-driven runner asserting against `--json`.
+- [x] A broken release-date authority makes the check **vacuous, never universal** (B2), pinned by
+      `test_unparseable_authority_date_is_vacuous_not_universal`.
+- [x] The release-date window reaches the last line it documents (B3), pinned by
+      `defect/release-date-far-edge.md` at exactly that boundary.
+- [x] A reported fix actually edits the file (B4) — `apply_line_fix` is shared by both passes and
+      pinned by two tests, including that a `false` result leaves the file byte-identical.
+- [x] Runtime stays within the existing `test_pre_release_check_runs` budget (B1): 8.7s against a
+      dev baseline of 8.0s, versus 36s before the fix.
+- [x] Check 2's line-shape scoping is tested against real false-positive sources — revised from
+      the review's 3 named files to the 3 the first build actually flagged, since two of the
+      originals are covered by path-keyed exclusions rather than by this SPEC's code.
+- [x] Regression fixtures restore the exact bugs (stale release date, "8 specialized agents",
+      "8 agent definitions") and prove the new checks catch them. Positive controls verified by
+      two planted mutations: removing the 40% floor fails 3 tests, dropping the singular
+      alternation fails exactly the E1 defect test.
+- [x] Running the check against current `dev` HEAD stays GREEN — asserted continuously by
+      `test_live_repo_stays_green_on_count_consistency`, not just checked once by hand.
+- [x] `docs/reference/REFCARD-DOCS-STALENESS.md` documents the new checks, the four line shapes,
+      and the two test-only env overrides in its existing inventory.
+- [x] `CHANGELOG.md` / `docs/CHANGELOG.md` `[Unreleased]` gets an entry.
+- [x] No new script, no new external dependency (D1/D4) — the checks live inside
+      `docs-staleness-check.sh`, using awk and the python3 it already requires.
 
 ## Test Plan
 

@@ -1,6 +1,6 @@
 # ADVERSARIAL REVIEW: Repo Triage
 
-**Date:** 2026-08-07 · **Reviewed:** [`BRAINSTORM-repo-triage-2026-08-07.md`](BRAINSTORM-repo-triage-2026-08-07.md), [`GRILL-repo-triage-2026-08-07.md`](GRILL-repo-triage-2026-08-07.md)
+**Date:** 2026-08-07 · **Reviewed:** [`BRAINSTORM-repo-triage-2026-08-07.md`](BRAINSTORM-repo-triage-2026-08-07.md), [`GRILL-repo-triage-2026-08-07.md`](_archive/GRILL-repo-triage-2026-08-07.md)
 **Method:** 4 independent parallel lenses (backend/systems, frontend/interaction, architecture, ADHD-friendly cognitive-load), each grounded against the real codebase, not just the planning docs.
 
 ## Verdict: 2 of the GRILL's 8 locked decisions rest on factually wrong premises

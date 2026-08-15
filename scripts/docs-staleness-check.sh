@@ -147,11 +147,205 @@ EXPECTED_SKILLS=""
 EXPECTED_AGENTS=""
 CURRENT_VERSION=""
 
+# The CRAFT_EXPECTED_* overrides exist so the prose-staleness fixtures can declare
+# their expected counts directly instead of materializing 48 command files and 41
+# skill dirs per fixture case. Unset in every production path, so the derived
+# values are what actually runs.
 load_counts() {
-    EXPECTED_CMDS=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
-    EXPECTED_SKILLS=$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')
-    EXPECTED_AGENTS=$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
+    EXPECTED_CMDS="${CRAFT_EXPECTED_CMDS:-$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')}"
+    EXPECTED_SKILLS="${CRAFT_EXPECTED_SKILLS:-$(find skills -name "SKILL.md" 2>/dev/null | wc -l | tr -d ' ')}"
+    EXPECTED_AGENTS="${CRAFT_EXPECTED_AGENTS:-$(find agents -name "*.md" 2>/dev/null | wc -l | tr -d ' ')}"
     CURRENT_VERSION=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+}
+
+# ---------------------------------------------------------------------------
+# Prose staleness helpers (SPEC-doc-staleness-prose-gaps-2026-08-07)
+# ---------------------------------------------------------------------------
+# emit_shaped_lines prints "file:lineno:shape:content" for lines sitting in one
+# of four structured shapes. Free prose is deliberately NOT emitted: an
+# adversarial review of a blanket "N agents" search found 90+ false positives
+# across docs/ — orchestration mode-limit prose ("2 agents max"), a tutorial
+# using an intentionally fictional plugin, and a troubleshooting page that
+# prints a wrong count on purpose to teach the bug. Scoping to line shapes is
+# what makes checking the singular noun form safe here.
+#
+# Takes the whole file list at once and makes ONE awk pass over it. The first
+# build called awk per file: ~640 markdown files x 2 scans is ~1300 process
+# spawns, which took this script from 8s to 36s and blew the 30s timeout in
+# test_pre_release_check_runs. FILENAME/FNR give the same per-file output from a
+# single invocation.
+emit_shaped_lines() {
+    [[ $# -eq 0 ]] && return 0
+    awk '
+        # Only lines that actually carry a count are worth emitting. Without this
+        # filter every line of every box block is emitted (~3500 across docs/),
+        # and the bash loop downstream spends ~6 grep subprocesses on each — the
+        # other half of the 4x slowdown, alongside per-file awk spawns.
+        function hascount(s) {
+            return s ~ /[0-9]+ (specialized )?(commands?|skills?|agents?)([^a-z]|$)/
+        }
+
+        FNR == 1 { inbox = 0 }
+
+        # "version-box": a quick-reference/version box drawn with box characters.
+        /┌/ { inbox = 1 }
+        inbox {
+            if (hascount($0)) print FILENAME ":" FNR ":version-box:" $0
+            if ($0 ~ /└/) inbox = 0
+            next
+        }
+
+        # "tldr": a line that OPENS with TL;DR (after optional blockquote or
+        # emphasis markers), not merely one that mentions it. A doc describing a
+        # TL;DR bug is not itself making a TL;DR claim: the context table in
+        # ADR-007 quotes the "8 specialized agents" line the ADR exists to
+        # explain, and a contains-match flagged it the moment it was written.
+        # (No apostrophes in this awk program -- it is single-quoted in bash.)
+        /^[[:space:]]*[>*_[:space:]]*TL;DR/ {
+            if (hascount($0)) print FILENAME ":" FNR ":tldr:" $0
+            next
+        }
+
+        # "count-summary": the bolded badge line, e.g. **48 commands** | **41 skills**.
+        /\*\*[0-9]+ (commands|skills|agents)\*\*/ { print FILENAME ":" FNR ":count-summary:" $0; next }
+
+        # "structure-table": a table row whose first cell names a counted
+        # directory. Added 2026-08-15 after CLAUDE.md claimed "8 agent
+        # definitions" (singular) for five minors while the plural-only scan
+        # below read GREEN over it.
+        /^\|[[:space:]]*`(commands|skills|agents)\/`[[:space:]]*\|/ {
+            if (hascount($0)) print FILENAME ":" FNR ":structure-table:" $0
+            next
+        }
+    ' "$@" 2>/dev/null || true
+}
+
+# emit_release_date_claims prints "file:lineno:YYYY-MM-DD" for release-date
+# claims within 4 lines of a mention of the current version token — e.g.
+# NEWS.md's "## v4.5.0 ..." heading followed by "**Released:** 2026-08-08".
+# Windowed so historical entries further down the same file are not compared
+# against the current version's date.
+# Single awk pass over the whole file list, for the same reason as above.
+emit_release_date_claims() {
+    [[ $# -eq 0 ]] && return 0
+    awk -v ver="v${CURRENT_VERSION}" '
+        FNR == 1 { win = 0 }
+        # 5, not 4: the win-- below runs on the version line itself, so win=4
+        # scanned that line plus only 3 more -- one short of the 4 following
+        # lines this check documents, silently missing a layout as ordinary as
+        # heading / blank / Type / blank / Released.
+        index($0, ver) { win = 5 }
+        win > 0 {
+            if (match($0, /[Rr]eleased[^0-9]{0,12}[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
+                s = substr($0, RSTART, RLENGTH)
+                if (match(s, /[0-9]{4}-[0-9]{2}-[0-9]{2}/))
+                    print FILENAME ":" FNR ":" substr(s, RSTART, RLENGTH)
+            }
+            win--
+        }
+    ' "$@" 2>/dev/null || true
+}
+
+# Authority for the release-date check is the current version's git tag date,
+# NOT .STATUS's release_date:. The two legitimately disagree by a day whenever a
+# release publishes across the UTC boundary (v4.5.0: tag 2026-08-07, GitHub
+# release 2026-08-08T03:44Z), so a claim within one day of the tag is not
+# staleness. CRAFT_RELEASE_DATE overrides for hermetic fixtures.
+resolve_release_date() {
+    if [[ -n "${CRAFT_RELEASE_DATE:-}" ]]; then
+        echo "$CRAFT_RELEASE_DATE"
+        return
+    fi
+    git for-each-ref --format='%(creatordate:short)' "refs/tags/v${CURRENT_VERSION}" 2>/dev/null | head -1
+}
+
+# Applies one `s/PATTERN/REPLACEMENT/flags` substitution to one line of one file.
+# Echoes "true" only when the file actually changed, "false" otherwise —
+# including when fix_detail is not a substitution at all (Phase 8's doc-coverage
+# findings carry a `doc-coverage:surface:cmd` marker instead).
+#
+# Uses python3 rather than `sed -i`: the patterns built in count_consistency use
+# `\b` word boundaries, which GNU sed honors but BSD sed (macOS default) treats
+# as a literal `b`. sed also exits 0 when nothing matched, so the script once
+# reported "Fixed: N items" while no file was modified — a silent no-op on every
+# macOS run. Shared by pass 1 and pass 2 so the two cannot drift apart again.
+apply_line_fix() {
+    python3 - "$1" "$2" "$3" <<'PYEOF' 2>/dev/null || echo "false"
+import re, sys
+
+file_path, lineno_str, sed_cmd = sys.argv[1], sys.argv[2], sys.argv[3]
+# sed_cmd looks like: s/PATTERN/REPLACEMENT/g
+# The delimiter is `/` — we never construct anything else.
+if not sed_cmd.startswith("s/"):
+    print("false")
+    sys.exit(0)
+parts = sed_cmd[2:].rsplit("/", 2)
+if len(parts) != 3:
+    print("false")
+    sys.exit(0)
+pattern, replacement, flags = parts
+try:
+    with open(file_path, encoding="utf-8") as f:
+        lines = f.readlines()
+except OSError:
+    print("false")
+    sys.exit(0)
+
+idx = int(lineno_str) - 1
+if idx < 0 or idx >= len(lines):
+    print("false")
+    sys.exit(0)
+old = lines[idx]
+try:
+    new = re.sub(pattern, replacement, old)
+except re.error:
+    print("false")
+    sys.exit(0)
+if new == old:
+    print("false")
+    sys.exit(0)
+lines[idx] = new
+with open(file_path, "w", encoding="utf-8") as f:
+    f.writelines(lines)
+print("true")
+PYEOF
+}
+
+# The acceptable window is three literal dates (tag-1, tag, tag+1), computed
+# ONCE with a single python3 call rather than a python3 spawn per claim. Callers
+# then do a plain string comparison. python3 is already a hard dependency here
+# (load_counts reads plugin.json with it) — no new dependency.
+ACCEPTED_RELEASE_DATES=""
+compute_release_date_window() {
+    local tag_date="$1"
+    ACCEPTED_RELEASE_DATES=$(python3 -c "
+import sys, datetime
+try:
+    d = datetime.date.fromisoformat(sys.argv[1])
+except ValueError:
+    sys.exit(0)
+print(' '.join(str(d + datetime.timedelta(days=n)) for n in (-1, 0, 1)))
+" "$tag_date" 2>/dev/null)
+}
+release_date_accepted() {
+    case " ${ACCEPTED_RELEASE_DATES} " in
+        *" $1 "*) return 0 ;;
+    esac
+    return 1
+}
+
+# Dedup ledger shared by the broad count scan and the line-shape scan, so a
+# stale count sitting inside a structured shape is reported once, not twice.
+# A plain string, not an associative array — this script supports bash 3.2.
+REPORTED_COUNT_KEYS=""
+count_key_reported() {
+    case "$REPORTED_COUNT_KEYS" in
+        *"|$1|"*) return 0 ;;
+    esac
+    return 1
+}
+mark_count_key() {
+    REPORTED_COUNT_KEYS="${REPORTED_COUNT_KEYS}|$1|"
 }
 
 # ---------------------------------------------------------------------------
@@ -334,6 +528,9 @@ phase7_count_consistency() {
                 continue
             fi
 
+            # Already reported by the line-shape scan below? Report once.
+            count_key_reported "${file}:${lineno}:${ctype}" && continue
+
             # Determine if auto-fixable (simple count swap)
             local fixable="true"
             local fix_detail="${file}:${lineno}:s/\b${found_count} ${ctype}\b/${expected} ${ctype}/g"
@@ -341,9 +538,118 @@ phase7_count_consistency() {
             add_finding 7 "warning" "${file}:${lineno}" \
                 "'${found_count} ${ctype}' (expected ${expected})" \
                 "$fixable" "$fix_detail"
+            mark_count_key "${file}:${lineno}:${ctype}"
             issues=$((issues + 1))
         done < <(grep -rnE "\b[0-9]+ ${ctype}\b" docs/ CLAUDE.md README.md --include="*.md" 2>/dev/null || true)
     done
+
+    # -----------------------------------------------------------------------
+    # Check 2 — count prose inside structured line shapes, singular included.
+    # The scan above is plural-only and unscoped; this one is shape-scoped and
+    # therefore safe to run against the singular form too. Ordering matters:
+    # the broad scan marks its keys first, so a line both scans can see is
+    # reported by whichever reaches it first and skipped by the other.
+    # -----------------------------------------------------------------------
+    # Build the scannable file list once, then hand it to each scan in a single
+    # awk invocation (see emit_shaped_lines' header note on why per-file awk
+    # calls were a 4x slowdown).
+    local prose_file shaped sfile srest slineno shape scontent singular found j
+    local -a prose_files=()
+    while IFS= read -r prose_file; do
+        [[ -z "$prose_file" ]] && continue
+        [[ -f "$prose_file" ]] || continue
+        is_file_excluded "$prose_file" && continue
+        prose_files+=("$prose_file")
+    done < <(printf '%s\n' CLAUDE.md README.md; find docs -name '*.md' 2>/dev/null || true)
+
+    while IFS= read -r shaped; do
+            [[ -z "$shaped" ]] && continue
+            sfile="${shaped%%:*}"; srest="${shaped#*:}"
+            slineno="${srest%%:*}"; srest="${srest#*:}"
+            shape="${srest%%:*}"; scontent="${srest#*:}"
+
+            for j in "${!count_types[@]}"; do
+                local ctype2="${count_types[$j]}"
+                local expected2="${expected_values[$j]}"
+                local min2="${min_thresholds[$j]}"
+                singular="${ctype2%s}"
+
+                # A structure-table row names its own type in the first cell, so
+                # only compare against that type — a `commands/` row must not be
+                # measured against the agent count.
+                if [[ "$shape" == "structure-table" ]]; then
+                    echo "$scontent" | grep -qE "^\|[[:space:]]*\`${ctype2}/\`" || continue
+                fi
+
+                found=$(echo "$scontent" \
+                    | grep -oE "[0-9]+ (specialized )?(${ctype2}|${singular})([^a-z]|$)" \
+                    | grep -oE '^[0-9]+' | head -1)
+                [[ -z "$found" ]] && continue
+                [[ "$found" == "$expected2" ]] && continue
+
+                # Same 40%-of-expected floor the broad scan applies. Structured
+                # shapes still carry non-total counts: category subtotals inside
+                # a reference box ("SMART (4 commands)"), a bolded subset count
+                # ("`--refine` is declared on **9 commands**"), and narrative
+                # counts about other plugins ("kept shipping **0 skills**").
+                # Without this floor all three read as stale totals.
+                [[ "$found" -lt "$min2" ]] && continue
+
+                count_key_reported "${sfile}:${slineno}:${ctype2}" && continue
+                is_pattern_excluded "$sfile" "${found} ${ctype2}" && continue
+                is_pattern_excluded "$sfile" "${found} ${singular}" && continue
+
+                # Not auto-fixable: the surrounding prose ("8 agent definitions")
+                # is hand-authored, so a blind count swap can produce grammatical
+                # nonsense. Routed to the interactive pass instead.
+                # Report the noun as it actually appears on the line, not a
+                # normalized form — the reader has to find this string.
+                local noun
+                noun=$(echo "$scontent" \
+                    | grep -oE "${found} (specialized )?(${ctype2}|${singular})" | head -1)
+                noun="${noun:-${found} ${ctype2}}"
+
+                # Routed to pass 2 (uncertain), not pass 1: the surrounding
+                # prose is hand-authored, so a human should see the line before
+                # the number changes under it. The fix_detail is still a real
+                # substitution so that confirming it actually edits the file —
+                # it swaps only the digits, leaving "agent definitions" intact.
+                add_finding 7 "warning" "${sfile}:${slineno}" \
+                    "prose[${shape}]: '${noun}' (expected ${expected2})" \
+                    "uncertain" "${sfile}:${slineno}:s/${noun}/${expected2}${noun#"$found"}/"
+                mark_count_key "${sfile}:${slineno}:${ctype2}"
+                issues=$((issues + 1))
+            done
+    done < <(emit_shaped_lines "${prose_files[@]+"${prose_files[@]}"}")
+
+    # -----------------------------------------------------------------------
+    # Check 1 — release-date claims tied to the current version.
+    # Vacuous (skipped, not failed) when the current version has no tag yet,
+    # which is the normal state on a feature branch before release.
+    # -----------------------------------------------------------------------
+    local tag_date claim cfile crest clineno cdate
+    tag_date="$(resolve_release_date)"
+    compute_release_date_window "$tag_date"
+    # Skip when the authority is missing OR unparseable. A broken authority must
+    # make this check vacuous, never universal: with an empty accept-window every
+    # release-date claim in the repo fails at once, turning one bad input into a
+    # repo-wide false-positive storm. Same posture as the no-tag case (normal on
+    # a feature branch before release).
+    if [[ -n "$ACCEPTED_RELEASE_DATES" ]]; then
+        while IFS= read -r claim; do
+            [[ -z "$claim" ]] && continue
+            cfile="${claim%%:*}"; crest="${claim#*:}"
+            clineno="${crest%%:*}"; cdate="${crest#*:}"
+
+            release_date_accepted "$cdate" && continue
+            is_pattern_excluded "$cfile" "$cdate" && continue
+
+            add_finding 7 "warning" "${cfile}:${clineno}" \
+                "release date '${cdate}' for v${CURRENT_VERSION} (tag: ${tag_date})" \
+                "uncertain" "${cfile}:${clineno}:s/${cdate}/${tag_date}/"
+            issues=$((issues + 1))
+        done < <(emit_release_date_claims "${prose_files[@]+"${prose_files[@]}"}")
+    fi
 
     print_phase_status "$issues"
 }
@@ -601,54 +907,8 @@ pass1_auto_fix() {
         local sed_cmd="${rest#*:}"
 
         if [[ -f "$file" ]]; then
-            # Apply the fix via python3 instead of `sed -i`.
-            # Why: the sed patterns built in count_consistency use `\b` word
-            # boundaries, which GNU sed honors but BSD sed (macOS default)
-            # treats as literal `b`. The sed call previously returned exit 0
-            # even when nothing matched, so the script reported "Fixed: N
-            # items" while no file was actually modified — silent no-op on
-            # every macOS run. Python's re.sub gets the contract right on
-            # every platform and lets us also detect "nothing actually
-            # changed" via a proper before/after comparison.
             local fixed_one=false
-            fixed_one="$(python3 - "$file" "$lineno" "$sed_cmd" <<'PYEOF' 2>/dev/null || echo "false"
-import re, sys
-
-file_path, lineno_str, sed_cmd = sys.argv[1], sys.argv[2], sys.argv[3]
-# sed_cmd looks like: s/PATTERN/REPLACEMENT/g
-# Parse it. The delimiter is `/` (we never use anything else when constructing).
-if not sed_cmd.startswith("s/"):
-    print("false")
-    sys.exit(0)
-parts = sed_cmd[2:].rsplit("/", 2)
-if len(parts) != 3:
-    print("false")
-    sys.exit(0)
-pattern, replacement, flags = parts
-# Translate `\b` (GNU sed word boundary) into Python regex's equivalent.
-# Python's re already supports \b, so the pattern is mostly portable as-is.
-try:
-    with open(file_path, encoding="utf-8") as f:
-        lines = f.readlines()
-except OSError:
-    print("false")
-    sys.exit(0)
-
-idx = int(lineno_str) - 1
-if idx < 0 or idx >= len(lines):
-    print("false")
-    sys.exit(0)
-old = lines[idx]
-new = re.sub(pattern, replacement, old)
-if new == old:
-    print("false")
-    sys.exit(0)
-lines[idx] = new
-with open(file_path, "w", encoding="utf-8") as f:
-    f.writelines(lines)
-print("true")
-PYEOF
-)"
+            fixed_one="$(apply_line_fix "$file" "$lineno" "$sed_cmd")"
             if [[ "$fixed_one" == "true" ]]; then
                 TOTAL_FIXED=$((TOTAL_FIXED + 1))
                 if [[ "$JSON_MODE" != "true" ]]; then
@@ -709,8 +969,20 @@ pass2_interactive_review() {
 
         case "$response" in
             f)
-                if [[ -n "$fix_detail" ]]; then
-                    echo -e "  -> ${GREEN}Fixed${NC}"
+                # Actually apply it. This branch used to print "Fixed" and bump
+                # TOTAL_FIXED without touching the file — the same
+                # reports-success-changes-nothing bug pass 1 was fixed for
+                # earlier, left behind in pass 2. Both now share apply_line_fix.
+                local target_file="${fix_detail%%:*}"
+                local fix_rest="${fix_detail#*:}"
+                local target_line="${fix_rest%%:*}"
+                local fix_cmd="${fix_rest#*:}"
+                local applied="false"
+                if [[ -n "$fix_detail" && -f "$target_file" ]]; then
+                    applied="$(apply_line_fix "$target_file" "$target_line" "$fix_cmd")"
+                fi
+                if [[ "$applied" == "true" ]]; then
+                    echo -e "  -> ${GREEN}Fixed${NC} ${target_file}:${target_line}"
                     TOTAL_FIXED=$((TOTAL_FIXED + 1))
                 else
                     echo "  -> Cannot auto-fix (manual edit needed)"
