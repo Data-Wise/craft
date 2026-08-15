@@ -1,7 +1,7 @@
 # GRILL: Prose-Check Hardening
 
 **Date:** 2026-08-15 · **Spec:** [`SPEC-prose-check-hardening-2026-08-15.md`](SPEC-prose-check-hardening-2026-08-15.md)
-**Branches resolved:** 6 · **Status:** locked, ready for implementation
+**Branches resolved:** 11 (D1–D6 design · D7–D11 plan) · **Status:** locked, ready for implementation
 
 Interrogates the 9 defects a high-effort review found in PR #334. Two branches were reframed by
 evidence gathered during the grill rather than by argument — see D1 and the correction under D4.
@@ -122,6 +122,88 @@ a real release entry today is a heading or a box.
 
 **Raised stakes:** D2 makes check 1 RED, so each surviving false positive blocks a release. That
 rules out spec D4d (accept and exclude case-by-case).
+
+---
+
+## Plan-level branches — grilling `ORCHESTRATE-prose-check-hardening.md`
+
+D1–D6 interrogated the *design*. These interrogate the *plan to build it*, and four of the five
+found defects in the plan rather than confirming it.
+
+### D7 — Phase order: **the record change goes first**
+
+**Locked:** reorder to record-change → matcher → check 1 → severity → low findings → verify.
+
+As written, Phases 1–3 authored `add_finding` calls and tests against the old signature and Phase 4
+then rewrote all **12 call sites** (Phase 6 ×2, Phase 7 ×3, Phase 8 ×3, Phase 9 ×4). Every prose
+finding would be written twice and its tests touched twice, with the mechanical 12-site sweep
+landing last — where a missed site is likeliest and hardest to spot against three phases of other
+changes. Going first also lands the widest change against an unmodified baseline, so the full suite
+is a clean control.
+
+**Accepted cost:** the largest-blast-radius change precedes the bug fixes, so stopping halfway
+leaves the HIGH findings open.
+
+### D8 — Fixtures: **rewrite, never delete**
+
+**Locked:** the plan's "delete … or rewrite them" is narrowed to rewrite-only.
+
+`defect/release-date-far-edge.md` is the positive control for the off-by-one `/code-review` caught.
+D6 keeps a window (a heading opens it, claims are collected below), so **the off-by-one class is
+still live** — deleting the fixture would re-open a bug a reviewer already found once, and the plan
+permitted exactly that with an "or". Rewritten as: heading at line N, disagreeing claim at the
+window's last line → still RED. `defect/version-box-stale-date.md` becomes an in-box disagreement,
+since boxes are where the original REFCARD bug lived.
+
+**Generalized into Friction Prevention:** never delete a positive control to make a redesign
+easier; if its model is obsolete, rewrite it so the boundary it pinned stays pinned.
+
+### D9 — Normalize the two claim sites
+
+**Locked:** make `docs/NEWS.md` and `docs/REFCARD.md` agree exactly, and record the convention.
+
+Evidence gathered while grilling the plan — craft has exactly two release-date claim sites for the
+current version, and they already disagree:
+
+| Site | Claim |
+|---|---|
+| `docs/NEWS.md:9` | `**Released:** 2026-08-08` (UTC date) |
+| `docs/REFCARD.md:7` | `│  Version: 4.5.0 (released 2026-08-07)` (tag-local date) |
+
+Both are reachable under D6, so check 1 fires on craft today and **only the one-day tolerance keeps
+it GREEN**. With D2 making check 1 RED, the repo would sit permanently one day from a blocked
+release, with no warning beforehand because one day always reads GREEN. Normalizing returns the
+tolerance to headroom; it still exists for the real UTC-boundary cause D1 preserved.
+
+**Rejected:** widening the tolerance to 2 days buys headroom by blunting the check; dropping it
+entirely throws away the UTC handling D1 deliberately kept.
+
+### D10 — Phase 6 must carry the workflow steps
+
+**Locked:** Phase 6 refreshes the `.STATUS` worktree row, and the ORCHESTRATE file is deleted at
+merge.
+
+Both are required by craft's own `CLAUDE.md` and **neither is enforced** — `ORCHESTRATE-*.md` is
+not gitignored, not in `exclusions.txt`, and no test guards it. The `.STATUS` row still describes
+this branch as only the parent SPEC and its harness. Shipping a doc-staleness feature while leaving
+a stale status row and a working artifact on `dev` would be its own small joke.
+
+### D11 — RED promotion is **evidence-gated**
+
+**Locked:** check 1 ships as `warning` in the severity phase; promotion to `error` happens in
+Phase 6 only after it runs clean across every tracked `.md` and both known claim sites, transcript
+quoted. If not clean, it stays `warning` and promotion becomes a follow-up.
+
+Check 1 is being *redesigned* (D1, D6) and *promoted to release-blocking* (D2) in the same PR. The
+only evidence it is sound would otherwise be tests written alongside it by the same author in the
+same sitting. A false-positive class in a freshly-redesigned blocking check is discovered at the
+worst possible moment — mid-release.
+
+This does not reverse D2; it makes RED earned rather than assumed.
+
+**Also recorded:** the plan's original 2-hour estimate was optimistic. Phase 1 alone is 12 call
+sites plus JSON rendering plus both fix passes plus an end-to-end exclusion test. Revised to ~3
+hours.
 
 ---
 
