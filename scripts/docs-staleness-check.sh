@@ -259,6 +259,58 @@ resolve_release_date() {
     git for-each-ref --format='%(creatordate:short)' "refs/tags/v${CURRENT_VERSION}" 2>/dev/null | head -1
 }
 
+# Applies one `s/PATTERN/REPLACEMENT/flags` substitution to one line of one file.
+# Echoes "true" only when the file actually changed, "false" otherwise —
+# including when fix_detail is not a substitution at all (Phase 8's doc-coverage
+# findings carry a `doc-coverage:surface:cmd` marker instead).
+#
+# Uses python3 rather than `sed -i`: the patterns built in count_consistency use
+# `\b` word boundaries, which GNU sed honors but BSD sed (macOS default) treats
+# as a literal `b`. sed also exits 0 when nothing matched, so the script once
+# reported "Fixed: N items" while no file was modified — a silent no-op on every
+# macOS run. Shared by pass 1 and pass 2 so the two cannot drift apart again.
+apply_line_fix() {
+    python3 - "$1" "$2" "$3" <<'PYEOF' 2>/dev/null || echo "false"
+import re, sys
+
+file_path, lineno_str, sed_cmd = sys.argv[1], sys.argv[2], sys.argv[3]
+# sed_cmd looks like: s/PATTERN/REPLACEMENT/g
+# The delimiter is `/` — we never construct anything else.
+if not sed_cmd.startswith("s/"):
+    print("false")
+    sys.exit(0)
+parts = sed_cmd[2:].rsplit("/", 2)
+if len(parts) != 3:
+    print("false")
+    sys.exit(0)
+pattern, replacement, flags = parts
+try:
+    with open(file_path, encoding="utf-8") as f:
+        lines = f.readlines()
+except OSError:
+    print("false")
+    sys.exit(0)
+
+idx = int(lineno_str) - 1
+if idx < 0 or idx >= len(lines):
+    print("false")
+    sys.exit(0)
+old = lines[idx]
+try:
+    new = re.sub(pattern, replacement, old)
+except re.error:
+    print("false")
+    sys.exit(0)
+if new == old:
+    print("false")
+    sys.exit(0)
+lines[idx] = new
+with open(file_path, "w", encoding="utf-8") as f:
+    f.writelines(lines)
+print("true")
+PYEOF
+}
+
 # The acceptable window is three literal dates (tag-1, tag, tag+1), computed
 # ONCE with a single python3 call rather than a python3 spawn per claim. Callers
 # then do a plain string comparison. python3 is already a hard dependency here
@@ -557,9 +609,14 @@ phase7_count_consistency() {
                     | grep -oE "${found} (specialized )?(${ctype2}|${singular})" | head -1)
                 noun="${noun:-${found} ${ctype2}}"
 
+                # Routed to pass 2 (uncertain), not pass 1: the surrounding
+                # prose is hand-authored, so a human should see the line before
+                # the number changes under it. The fix_detail is still a real
+                # substitution so that confirming it actually edits the file —
+                # it swaps only the digits, leaving "agent definitions" intact.
                 add_finding 7 "warning" "${sfile}:${slineno}" \
                     "prose[${shape}]: '${noun}' (expected ${expected2})" \
-                    "uncertain" "${sfile}:${slineno}: ${found} -> ${expected2}"
+                    "uncertain" "${sfile}:${slineno}:s/${noun}/${expected2}${noun#"$found"}/"
                 mark_count_key "${sfile}:${slineno}:${ctype2}"
                 issues=$((issues + 1))
             done
@@ -589,7 +646,7 @@ phase7_count_consistency() {
 
             add_finding 7 "warning" "${cfile}:${clineno}" \
                 "release date '${cdate}' for v${CURRENT_VERSION} (tag: ${tag_date})" \
-                "uncertain" "${cfile}:${clineno}: ${cdate} -> ${tag_date}"
+                "uncertain" "${cfile}:${clineno}:s/${cdate}/${tag_date}/"
             issues=$((issues + 1))
         done < <(emit_release_date_claims "${prose_files[@]+"${prose_files[@]}"}")
     fi
@@ -850,54 +907,8 @@ pass1_auto_fix() {
         local sed_cmd="${rest#*:}"
 
         if [[ -f "$file" ]]; then
-            # Apply the fix via python3 instead of `sed -i`.
-            # Why: the sed patterns built in count_consistency use `\b` word
-            # boundaries, which GNU sed honors but BSD sed (macOS default)
-            # treats as literal `b`. The sed call previously returned exit 0
-            # even when nothing matched, so the script reported "Fixed: N
-            # items" while no file was actually modified — silent no-op on
-            # every macOS run. Python's re.sub gets the contract right on
-            # every platform and lets us also detect "nothing actually
-            # changed" via a proper before/after comparison.
             local fixed_one=false
-            fixed_one="$(python3 - "$file" "$lineno" "$sed_cmd" <<'PYEOF' 2>/dev/null || echo "false"
-import re, sys
-
-file_path, lineno_str, sed_cmd = sys.argv[1], sys.argv[2], sys.argv[3]
-# sed_cmd looks like: s/PATTERN/REPLACEMENT/g
-# Parse it. The delimiter is `/` (we never use anything else when constructing).
-if not sed_cmd.startswith("s/"):
-    print("false")
-    sys.exit(0)
-parts = sed_cmd[2:].rsplit("/", 2)
-if len(parts) != 3:
-    print("false")
-    sys.exit(0)
-pattern, replacement, flags = parts
-# Translate `\b` (GNU sed word boundary) into Python regex's equivalent.
-# Python's re already supports \b, so the pattern is mostly portable as-is.
-try:
-    with open(file_path, encoding="utf-8") as f:
-        lines = f.readlines()
-except OSError:
-    print("false")
-    sys.exit(0)
-
-idx = int(lineno_str) - 1
-if idx < 0 or idx >= len(lines):
-    print("false")
-    sys.exit(0)
-old = lines[idx]
-new = re.sub(pattern, replacement, old)
-if new == old:
-    print("false")
-    sys.exit(0)
-lines[idx] = new
-with open(file_path, "w", encoding="utf-8") as f:
-    f.writelines(lines)
-print("true")
-PYEOF
-)"
+            fixed_one="$(apply_line_fix "$file" "$lineno" "$sed_cmd")"
             if [[ "$fixed_one" == "true" ]]; then
                 TOTAL_FIXED=$((TOTAL_FIXED + 1))
                 if [[ "$JSON_MODE" != "true" ]]; then
@@ -958,8 +969,20 @@ pass2_interactive_review() {
 
         case "$response" in
             f)
-                if [[ -n "$fix_detail" ]]; then
-                    echo -e "  -> ${GREEN}Fixed${NC}"
+                # Actually apply it. This branch used to print "Fixed" and bump
+                # TOTAL_FIXED without touching the file — the same
+                # reports-success-changes-nothing bug pass 1 was fixed for
+                # earlier, left behind in pass 2. Both now share apply_line_fix.
+                local target_file="${fix_detail%%:*}"
+                local fix_rest="${fix_detail#*:}"
+                local target_line="${fix_rest%%:*}"
+                local fix_cmd="${fix_rest#*:}"
+                local applied="false"
+                if [[ -n "$fix_detail" && -f "$target_file" ]]; then
+                    applied="$(apply_line_fix "$target_file" "$target_line" "$fix_cmd")"
+                fi
+                if [[ "$applied" == "true" ]]; then
+                    echo -e "  -> ${GREEN}Fixed${NC} ${target_file}:${target_line}"
                     TOTAL_FIXED=$((TOTAL_FIXED + 1))
                 else
                     echo "  -> Cannot auto-fix (manual edit needed)"

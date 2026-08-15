@@ -193,6 +193,47 @@ def test_unparseable_authority_date_is_vacuous_not_universal(tmp_path):
     )
 
 
+def _call_apply_line_fix(path: Path, lineno: int, fix_detail: str) -> str:
+    """Source apply_line_fix out of the real script and call it directly."""
+    script = (
+        f"eval \"$(sed -n '/^apply_line_fix()/,/^}}/p' {SCRIPT})\"\n"
+        f"apply_line_fix {path} {lineno} {json.dumps(fix_detail)}\n"
+    )
+    proc = subprocess.run(["bash", "-c", script], capture_output=True, text=True, timeout=60)
+    return proc.stdout.strip()
+
+
+def test_apply_line_fix_edits_the_file_and_reports_truthfully(tmp_path):
+    """The shared applier must change the file when it says it did.
+
+    pass 2's [f]ix branch printed "Fixed" and incremented TOTAL_FIXED without
+    touching anything — the same reports-success-changes-nothing bug pass 1 had
+    already been fixed for. Both now route through apply_line_fix, so this is
+    the one place that contract is pinned.
+    """
+    doc = tmp_path / "structure.md"
+    doc.write_text("intro\n| `agents/` | 8 agent definitions |\noutro\n")
+
+    assert _call_apply_line_fix(doc, 2, "s/8 agent/2 agent/") == "true"
+    assert doc.read_text().splitlines()[1] == "| `agents/` | 2 agent definitions |"
+
+
+def test_apply_line_fix_returns_false_without_changing_anything(tmp_path):
+    """False must mean untouched, for every way a fix can fail to apply."""
+    doc = tmp_path / "structure.md"
+    original = "intro\n| `agents/` | 2 agent definitions |\noutro\n"
+    doc.write_text(original)
+
+    # Phase 8 emits this marker rather than a substitution — must not be run.
+    assert _call_apply_line_fix(doc, 2, "doc-coverage:refcard:craft:do") == "false"
+    # Pattern that matches nothing on that line.
+    assert _call_apply_line_fix(doc, 2, "s/9 agent/2 agent/") == "false"
+    # Line number past the end of the file.
+    assert _call_apply_line_fix(doc, 99, "s/2 agent/3 agent/") == "false"
+
+    assert doc.read_text() == original, "a false result still modified the file"
+
+
 def test_every_check_has_a_planted_defect():
     """A check without a defect fixture is a rejected change (SPEC harness rule).
 
