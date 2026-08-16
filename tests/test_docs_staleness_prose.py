@@ -490,6 +490,32 @@ def test_release_date_prose_mention_does_not_open_window(tmp_path):
     )
 
 
+def test_severity_split_check1_error_check2_warning(tmp_path):
+    """D2: check 1 (release-date consistency) blocks; check 2 (count prose)
+    warns. Not a cosmetic label -- pre-release-check.sh discards this script's
+    exit code entirely, and docs-quality.yml sets continue-on-error, so the
+    severity string is the only thing that actually gates a release (verified
+    while rewriting ADR-007's Severity section, which had claimed otherwise).
+    """
+    repo = build_repo_multi(tmp_path, [
+        ("clean/release-date-companion.md", "docs/news.md"),
+        ("defect/version-box-stale-date.md", "docs/refcard.md"),
+    ])
+    findings = run_check(repo)["phases"]["count_consistency"]["findings"]
+    date_findings = [f for f in findings if "release date" in f["message"]]
+    assert date_findings, f"expected a release-date finding:\n{findings}"
+    assert all(f["severity"] == "error" for f in date_findings), (
+        f"check 1 finding is not severity error:\n{date_findings}"
+    )
+
+    repo2 = build_repo(tmp_path / "case2", "defect/tldr-eight-agents.md", "docs/skills-agents.md")
+    findings2 = run_check(repo2)["phases"]["count_consistency"]["findings"]
+    assert findings2, f"expected a count-prose finding:\n{findings2}"
+    assert all(f["severity"] == "warning" for f in findings2), (
+        f"check 2 finding is not severity warning:\n{findings2}"
+    )
+
+
 def test_live_repo_stays_green_on_count_consistency():
     """The checks must not fire on craft's own already-corrected docs.
 

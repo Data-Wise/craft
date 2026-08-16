@@ -742,7 +742,14 @@ phase7_count_consistency() {
                 cfile="${claim_files[$i]}"; clineno="${claim_lines[$i]}"
                 is_pattern_excluded "$cfile" "$cdate" && continue
 
-                add_finding 7 "warning" "$cfile" "$clineno" \
+                # error, not warning (D2): check 1 is near-binary after D1 --
+                # two claims either agree or they do not -- so it can afford
+                # to block. Check 2 (count prose, above) stays warning: it
+                # matches free-form prose patterns and produced three
+                # false-positive defects in PR #334 alone (F1, F6, and five
+                # sub-threshold counts caught pre-merge), so it has not
+                # earned that.
+                add_finding 7 "error" "$cfile" "$clineno" \
                     "release date '${cdate}' for v${CURRENT_VERSION} disagrees with other claims (majority: ${authority})" \
                     "uncertain" "${cfile}:${clineno}:s/${cdate}/${authority}/"
                 issues=$((issues + 1))
