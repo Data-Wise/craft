@@ -161,6 +161,16 @@ load_counts() {
 # ---------------------------------------------------------------------------
 # Prose staleness helpers (SPEC-doc-staleness-prose-gaps-2026-08-07)
 # ---------------------------------------------------------------------------
+# The boundary after a matched noun ("command", "agents", ...): whitespace,
+# closing punctuation, or end of line. NOT `[^a-z]`, which also accepts `-` —
+# that let "command-line" and "agent-facing" read as counts (F1), and let
+# `[f]ix` then rewrite "30 command-line entry points" into
+# "48 command-line entry points" (F2). One constant, shared by the awk
+# pre-filter and the bash matcher below (and the strip in phase7 that trims it
+# back off a matched span) — tuning them independently caused a 4x perf
+# regression once already (see emit_shaped_lines' header note).
+PROSE_COUNT_TRAILER='([])} .,;:!?]|$)'
+
 # emit_shaped_lines prints "file:lineno:shape:content" for lines sitting in one
 # of four structured shapes. Free prose is deliberately NOT emitted: an
 # adversarial review of a blanket "N agents" search found 90+ false positives
@@ -176,13 +186,13 @@ load_counts() {
 # single invocation.
 emit_shaped_lines() {
     [[ $# -eq 0 ]] && return 0
-    awk '
+    awk -v trailer="$PROSE_COUNT_TRAILER" '
         # Only lines that actually carry a count are worth emitting. Without this
         # filter every line of every box block is emitted (~3500 across docs/),
         # and the bash loop downstream spends ~6 grep subprocesses on each — the
         # other half of the 4x slowdown, alongside per-file awk spawns.
         function hascount(s) {
-            return s ~ /[0-9]+ (specialized )?(commands?|skills?|agents?)([^a-z]|$)/
+            return s ~ ("[0-9]+ (specialized )?(commands?|skills?|agents?)" trailer)
         }
 
         FNR == 1 { inbox = 0 }
@@ -514,10 +524,16 @@ phase7_count_consistency() {
     # (small numbers like "7 commands" in prose are not total counts)
     local count_types=("commands" "skills" "agents")
     local expected_values=("$EXPECTED_CMDS" "$EXPECTED_SKILLS" "$EXPECTED_AGENTS")
-    # Minimum count to consider: ~40% of expected value (catches old totals, skips prose)
+    # Minimum count to consider: ~40% of expected value (catches old totals,
+    # skips prose), floored at 2. Agents' 40% is `2 * 40 / 100 == 0`, so
+    # without the floor the guard this comment and ADR-007 describe does not
+    # exist for the smallest count type — every "N agent(s)" mention, however
+    # small, read as a stale-total candidate (F6).
     local min_thresholds=()
     for exp in "${expected_values[@]}"; do
-        min_thresholds+=("$((exp * 40 / 100))")
+        local floor=$((exp * 40 / 100))
+        (( floor < 2 )) && floor=2
+        min_thresholds+=("$floor")
     done
 
     for i in "${!count_types[@]}"; do
@@ -605,10 +621,20 @@ phase7_count_consistency() {
                     echo "$scontent" | grep -qE "^\|[[:space:]]*\`${ctype2}/\`" || continue
                 fi
 
-                found=$(echo "$scontent" \
-                    | grep -oE "[0-9]+ (specialized )?(${ctype2}|${singular})([^a-z]|$)" \
-                    | grep -oE '^[0-9]+' | head -1)
-                [[ -z "$found" ]] && continue
+                # One regex for detection AND the fix anchor. F2 was a second,
+                # looser regex used only to build `noun` (no trailer at all) —
+                # it re-matched "command" inside "command-line" even after the
+                # detection regex's own trailer would have rejected the line,
+                # so [f]ix rewrote "30 command-line entry points" into
+                # "48 command-line entry points". Capturing one span and
+                # deriving both the report and the substitution from it makes
+                # that drift impossible.
+                local full
+                full=$(echo "$scontent" \
+                    | grep -oE "[0-9]+ (specialized )?(${ctype2}|${singular})${PROSE_COUNT_TRAILER}" \
+                    | head -1)
+                [[ -z "$full" ]] && continue
+                found=$(echo "$full" | grep -oE '^[0-9]+')
                 [[ "$found" == "$expected2" ]] && continue
 
                 # Same 40%-of-expected floor the broad scan applies. Structured
@@ -623,16 +649,18 @@ phase7_count_consistency() {
                 is_pattern_excluded "$sfile" "${found} ${ctype2}" && continue
                 is_pattern_excluded "$sfile" "${found} ${singular}" && continue
 
+                # Trim the single trailing boundary char the trailer group
+                # consumed (space/closing punctuation) back off, so the
+                # reported/substituted noun is "8 agent", not "8 agent ". `$`
+                # in the trailer consumes nothing, so an end-of-line match is
+                # already bare and this is a no-op for it.
+                local noun
+                noun=$(echo "$full" | sed -E 's/[])} .,;:!?]$//')
+
                 # Not auto-fixable: the surrounding prose ("8 agent definitions")
                 # is hand-authored, so a blind count swap can produce grammatical
                 # nonsense. Routed to the interactive pass instead.
-                # Report the noun as it actually appears on the line, not a
-                # normalized form — the reader has to find this string.
-                local noun
-                noun=$(echo "$scontent" \
-                    | grep -oE "${found} (specialized )?(${ctype2}|${singular})" | head -1)
-                noun="${noun:-${found} ${ctype2}}"
-
+                #
                 # Routed to pass 2 (uncertain), not pass 1: the surrounding
                 # prose is hand-authored, so a human should see the line before
                 # the number changes under it. The fix_detail is still a real

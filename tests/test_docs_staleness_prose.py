@@ -106,6 +106,16 @@ CASES = [
         "a doc describing a TL;DR bug is not itself making a TL;DR claim",
         id="falsepos-tldr-mentioned",
     ),
+    pytest.param(
+        "falsepos/hyphenated-compound-tldr.md", "docs/architecture.md", False,
+        "F1/F2: a hyphenated compound (command-line, agent-facing) must never read as a count",
+        id="falsepos-hyphenated-compound",
+    ),
+    pytest.param(
+        "falsepos/tldr-agent-subset-count.md", "docs/migration.md", False,
+        "F6: a legitimate small subset count for the smallest count type must clear the floor",
+        id="falsepos-agent-subset-count",
+    ),
 ]
 
 
@@ -333,6 +343,47 @@ def test_exclude_round_trips_end_to_end(tmp_path):
     assert not after_findings, (
         f"[e]xclude did not suppress the finding on the next run — "
         f"round-trip broken. exclusions.txt:\n{written}\nfindings:\n{after_findings}"
+    )
+
+
+def test_fix_preserves_surrounding_prose(tmp_path):
+    """[f]ix on a real shape-scoped finding must swap only the digits (F2/D3).
+
+    Before D3, the fix payload was built from a second, un-anchored regex
+    ("N noun" with no trailer) rather than the exact span the detection regex
+    matched -- on a hyphenated compound that would have rewritten "30
+    command-line" into "48 command-line" (the two regexes disagreed on where
+    the match ended). Drives the real interactive `[f]` keystroke through a
+    pty and asserts the rest of the line is untouched.
+    """
+    pexpect = pytest.importorskip("pexpect")
+
+    repo, script = _build_repo_with_own_scripts(
+        tmp_path, "defect/structure-table-singular.md", "docs/structure.md"
+    )
+    target = repo / "docs" / "structure.md"
+
+    env = {
+        "PATH": "/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin",
+        "HOME": str(repo),
+        "CRAFT_PLUGIN_DIR": str(repo),
+        "CRAFT_RELEASE_DATE": FIXTURE_TAG_DATE,
+        "CRAFT_EXPECTED_CMDS": FIXTURE_COUNTS["CMDS"],
+        "CRAFT_EXPECTED_SKILLS": FIXTURE_COUNTS["SKILLS"],
+        "CRAFT_EXPECTED_AGENTS": FIXTURE_COUNTS["AGENTS"],
+    }
+    child = pexpect.spawn("bash", [str(script), "--fix"], env=env, cwd=str(repo), timeout=30)
+    try:
+        child.expect_exact("[f]ix  [s]kip  [e]xclude permanently:")
+        child.sendline("f")
+        child.expect_exact("Fixed")
+        child.expect(pexpect.EOF)
+    finally:
+        child.close()
+
+    lines = target.read_text().splitlines()
+    assert "| `agents/` | 2 agent definitions |" in lines, (
+        f"fix did not land cleanly -- surrounding prose corrupted:\n{target.read_text()}"
     )
 
 
