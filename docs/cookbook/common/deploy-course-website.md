@@ -6,15 +6,13 @@ level: "beginner"
 time_estimate: "3 minutes"
 related:
   - ../../commands/site.md
-  - ../../guide/teaching-workflow.md
-  - ../../TEACHING-DOCS-INDEX.md
 ---
 
 # Recipe: Deploy Course Website
 
 **Time:** 3 minutes
 **Level:** Beginner
-**Prerequisites:** Teaching mode detected (course site with Quarto/MkDocs/pkgdown)
+**Prerequisites:** Course/docs site (Quarto, MkDocs, or pkgdown)
 
 ## Problem
 
@@ -50,9 +48,6 @@ I want to safely publish course website updates to GitHub Pages without breaking
    - Check the deployment URL (shown in output)
    - Verify all pages load correctly
    - Test navigation and links
-
-!!! tip "Flow-CLI Config Compatibility"
-    If your project uses flow-cli's `teach-config.yml` (with `semester_info`, `course.name`, `branches`), Craft reads it natively — no separate config needed. See [Config Schema](../../teaching-config-schema.md#flow-cli-config-compatibility) for details.
 
 ## Explanation
 
@@ -129,5 +124,3 @@ I want to safely publish course website updates to GitHub Pages without breaking
 ## Related
 
 - [Site Commands](../../commands/site.md) — Deploy, build, check, and more
-- [Teaching Workflow Guide](../../guide/teaching-workflow.md) — Complete teaching mode features
-- [Teaching Docs Index](../../TEACHING-DOCS-INDEX.md) — All teaching documentation

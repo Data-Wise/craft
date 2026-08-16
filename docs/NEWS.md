@@ -4,9 +4,30 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.6.0 — prose-staleness checks, hardened same day
+
+**Released:** 2026-08-15 · **Type:** Minor
+
+### Highlights
+
+- **Two new prose-staleness checks in `docs-staleness-check.sh` Phase 7**
+  ([#334](https://github.com/Data-Wise/craft/pull/334)) — a release-date consistency check and a
+  count-prose check scoped to four structured line shapes, closing a blind spot where
+  `CLAUDE.md`'s stale "8 agent definitions" read GREEN for five minor releases.
+- **Hardened the same day** ([#335](https://github.com/Data-Wise/craft/pull/335)) after a
+  high-effort review found 9 defects (2 HIGH) in #334's initial ship. The release-date check was
+  redesigned from a single git-tag authority — unreachable in CI and nonexistent at release time
+  — to cross-file consistency, then promoted to `error` once a clean live-repo run confirmed it.
+  The count-prose matcher's boundary handling was fixed so hyphenated compounds and markdown-bold
+  badges both classify correctly.
+- **Teaching Mode feature removed** — dead since the v4 command-prune split craft's teaching
+  surface out to the `scholar` plugin.
+
+---
+
 ## v4.5.0 — repo-triage skill + ecosystem-tool tutorials
 
-**Released:** 2026-08-08 · **Type:** Minor
+**Released:** 2026-08-07 · **Type:** Minor
 
 ### Highlights
 

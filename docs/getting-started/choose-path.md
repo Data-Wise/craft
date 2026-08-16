@@ -57,9 +57,6 @@ Welcome to Craft! Find the path that matches your experience level and goals.
 - **[Core Workflows](../guide/getting-started.md)**
   Best practices for documentation, site creation, releases, and development
 
-- **[Teaching Mode](../TEACHING-DOCS-INDEX.md)**
-  Specialized workflow for managing course websites (80% time reduction!)
-
 ### Common Tasks
 
 - **Check code quality:** `/craft:code:lint` or `/craft:ci:local`

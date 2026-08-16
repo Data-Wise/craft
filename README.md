@@ -8,14 +8,14 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-4.5.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.6.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 > **Docs/publishing commands moved to [`folio`](https://github.com/Data-Wise/folio)** — see
 > [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
 >
-> **v2.36.0 — Deterministic Workflow Engine** 🚀
-> **48 commands** | **41 skills** | **2 agents** | **1994 tests passing**
-> New `/craft:orch:workflow` mode runs coded, fixed-control-flow programs (`parallel`/`pipeline`/`verify`) with schema-gated agents, data-driven fan-out, a run-wide concurrency semaphore, and cached/resumable replay. Three orchestration modes now: improvise (`/craft:orch`), drive (`:drive`), and workflow (`:workflow`).
+> **v4.5.0 — repo-triage skill + ecosystem-tool tutorials** 🚀
+> **48 commands** | **41 skills** | **2 agents**
+> New `repo-triage` skill batch-grounds open GitHub issues and stale worktrees/branches against current repo state, offering confirmed (never automatic) deletion/closure with itemized evidence and sorting the remainder into grill-ready / plan-ready / defer buckets. Plus 8 ecosystem-tool cheat-sheet tutorials (Codex, Remember, ADHD Mode, Token Optimizer, Security Guidance, Claude HUD, Dropbox, Agent Skills). See [NEWS.md](docs/NEWS.md).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -195,41 +195,6 @@ Commands support execution modes for different use cases:
 /craft:test release             # Full suite with coverage
 /craft:arch:analyze optimize    # Performance analysis
 ```
-
-## Teaching Mode
-
-Specialized workflows for teaching projects with automated validation, semester tracking, and safe publishing.
-
-**Key Features:**
-
-- Auto-detection via `.flow/teach-config.yml` configuration
-- Content validation (syllabus sections, schedule completeness, assignment files)
-- Preview-before-publish workflow (draft → production branches)
-- Semester progress tracking with automatic week calculation
-- ADHD-friendly dashboards and output
-
-![Teaching Workflow Demo](docs/demos/teaching-workflow.gif)
-
-**Quick Start:**
-
-1. Create `.flow/teach-config.yml` with course info and semester dates
-2. Run `/craft:site:validate` to check content completeness
-3. Publish with confidence using `/craft:site:publish`
-
-**Example workflow:**
-
-```bash
-# Check semester progress
-/craft:site:progress
-
-# Validate content before publishing
-/craft:site:validate
-
-# Publish draft → production (with preview)
-/craft:site:publish
-```
-
-**[Full Tutorial](https://data-wise.github.io/craft/tutorials/teaching-mode-setup/)** • **[Config Schema](https://data-wise.github.io/craft/teaching-config-schema/)**
 
 ## Commands (110 total)
 

@@ -45,9 +45,56 @@
 | Phase | Name | What It Checks |
 |-------|------|---------------|
 | 6 | Nav Completeness | Files in `docs/` missing from `mkdocs.yml` nav; nav entries pointing to missing files |
-| 7 | Count Consistency | Stale `N commands`, `N skills`, `N agents` strings across all docs |
+| 7 | Count Consistency | Stale `N commands`, `N skills`, `N agents` strings across all docs, plus the two prose checks below |
 | 8 | Skill/Agent Coverage | Skills and agents not listed in `docs/skills-agents.md` |
 | 9 | Cross-Doc Freshness | Stale version strings in REFCARDs, stale counts in "See Also" sections, `site_description` drift |
+
+---
+
+## Phase 7 prose checks
+
+Added 2026-08-15, hardened the same day (`SPEC-prose-check-hardening-2026-08-15.md`) —
+[ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gating.md),
+[SPEC](../specs/SPEC-doc-staleness-prose-gaps-2026-08-07.md). Check 1 emits `error`
+(promoted 2026-08-15 — see ADR-007's Severity section for the evidence gate);
+check 2 emits `warning`.
+
+| Check | What It Catches |
+|-------|-----------------|
+| Release-date claims | A `Released: YYYY-MM-DD` claim on a markdown heading line or a version-box (`┌`…`└`) line — never a bare prose mention — compared against every **other** release-date claim in the repo, not a single external authority. A claim more than one day off the **majority** date (ties break to the later date) is flagged, and the finding names both disagreeing sites. Vacuous with fewer than 2 claims — nothing to compare. |
+| Count prose in structured lines | A stale count — **singular or plural** — inside one of four line shapes. Free prose is never checked. |
+
+The four line shapes:
+
+| Shape | Matches |
+|-------|---------|
+| `version-box` | lines inside a `┌` … `└` box-drawing block — closes at the first line with no box-drawing character at all, even without a matching `└`, so a truncated box can't leak into later shapes |
+| `tldr` | a line that opens with `TL;DR` (after optional blockquote/emphasis markers) — not merely one that mentions it, so a doc describing this bug isn't itself flagged for the example it quotes |
+| `count-summary` | the bolded badge line, e.g. `**48 commands** \| **41 skills**` |
+| `structure-table` | a table row whose first cell is a counted directory, e.g. `` \| `agents/` \| `` — compared only against the type that cell names |
+
+Why shape-scoped: a blanket `N agents?` search over `docs/` returns 90+ hits, nearly
+all legitimate (orchestration mode-limit prose, a fictional-plugin tutorial, a
+troubleshooting page printing a wrong count on purpose). Shaped lines are additionally
+held to the same 40%-of-expected floor as the broad scan, because boxes and badges
+still carry category subtotals and subset counts.
+
+Both prose findings are `uncertain`, so they surface in **Pass 2** (interactive), not Pass 1's
+auto-apply — the surrounding prose is hand-authored, so a human sees the line before the number
+changes under it. Choosing `[f]ix` there really does edit the file; it swaps the digits only,
+leaving wording like `agent definitions` intact.
+
+Fixtures and the table-driven runner: `tests/fixtures/prose-staleness/` +
+`tests/test_docs_staleness_prose.py`. Every check has a `defect/` fixture as its
+positive control; a check without one is a rejected change.
+
+### Test-only environment overrides
+
+| Variable | Effect |
+|----------|--------|
+| `CRAFT_EXPECTED_CMDS` / `_SKILLS` / `_AGENTS` | Declare expected counts instead of deriving them from `commands/`, `skills/`, `agents/`. Lets a fixture skip materializing 48 command files. |
+
+Unset on every production path — the derived values are what actually run.
 
 ---
 
@@ -84,7 +131,13 @@ When `--fix` is specified:
 | `s` | Skip -- leave unchanged |
 | `e` | Exclude -- add to `exclusions.txt` permanently |
 
-Pass 2 is skipped when `--non-interactive` is set.
+`f` reports `Cannot auto-fix (manual edit needed)` when the finding carries no substitution to
+run -- Phase 8's doc-coverage findings, for instance. Both passes apply fixes through the same
+`apply_line_fix`, which reports success only when the file actually changed; see
+[ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gating.md) on why that is one shared
+function and not two.
+
+Pass 2 is skipped when `--non-interactive` is set, and when stdin is not a TTY (CI).
 
 ---
 

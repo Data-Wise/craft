@@ -69,7 +69,6 @@ Filter tests by tier or domain using pytest markers defined in `pyproject.toml`:
 | `claude_md` | CLAUDE.md sync, audit, fix |
 | `branch_guard` | Branch protection hooks |
 | `orchestrator` | Orchestrator workflows |
-| `teaching` | Teaching mode and config |
 | `commands` | Command parsing, discovery |
 | `structure` | Plugin structure validation |
 | `docs` | Documentation link checking |

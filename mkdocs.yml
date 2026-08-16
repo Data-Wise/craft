@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, teaching workflows, and planning with ADHD-friendly interfaces. v4.5.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights."
+site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -177,6 +177,7 @@ nav:
       - "ADR-004: Release Surface Registry": adr/ADR-004-release-surface-registry.md
       - "ADR-005: Shim Canonical-Path Resolution": adr/ADR-005-shim-canonical-path-resolution.md
       - "ADR-006: Done Renamed to Finish": adr/ADR-006-done-renamed-to-finish.md
+      - "ADR-007: Pattern-Scoped Prose Staleness Gating": adr/ADR-007-pattern-scoped-prose-staleness-gating.md
       - Brainstorm Power User Guide: tutorials/TUTORIAL-brainstorm-power-user.md
       - CRAFT-001 Emoji Spacing Tutorial: tutorials/TUTORIAL-craft-001-emoji-spacing.md
       - Your First 10 Minutes: tutorials/TUTORIAL-first-10-minutes.md
@@ -223,6 +224,7 @@ nav:
       - Claude HUD Plugin: tutorials/TUTORIAL-claude-hud-plugin.md
       - Dropbox Plugin: tutorials/TUTORIAL-dropbox-plugin.md
       - Agent Skills Plugin: tutorials/TUTORIAL-agent-skills-plugin.md
+      - OpenCode MCP Bridge: tutorials/TUTORIAL-opencode-mcp-plugin.md
     - Command Tutorials:
       - arch:analyze Tutorial: tutorials/TUTORIAL-arch-analyze.md
       - arch:plan Tutorial: tutorials/TUTORIAL-arch-plan.md
@@ -247,18 +249,6 @@ nav:
       - git:issue-check Tutorial: tutorials/TUTORIAL-git-issue-check.md
       - site:deploy Tutorial: tutorials/TUTORIAL-site-deploy.md
       - smart-help Tutorial: tutorials/TUTORIAL-smart-help.md
-
-  # 3. TEACHING - Dedicated teaching workflow section
-  - 📚 Teaching:
-    - Teaching Home: teaching/index.md
-    - Getting Started:
-      - Setup Tutorial: tutorials/teaching-mode-setup.md
-      - Config Schema: teaching-config-schema.md
-      - Migration Guide: teaching-migration.md
-    - Ecosystem & Guides:
-      - Ecosystem Overview: guide/teaching-workflow.md
-      - Documentation Index: TEACHING-DOCS-INDEX.md
-      - Quick Reference: reference/REFCARD-TEACHING.md
 
   # 4. COMMANDS & REFERENCE - Command documentation
   - ⚙️ Commands & Reference:
@@ -335,6 +325,7 @@ nav:
       - Run a Coded Workflow: cookbook/recipes/run-a-coded-workflow.md
       - Fan a Workflow Across Files: cookbook/recipes/fan-a-workflow-across-files.md
       - Triage a Red PR: cookbook/recipes/triage-a-red-pr.md
+      - Triage Your Repo: cookbook/recipes/triage-your-repo.md
       - Set Up New Project: cookbook/common/setup-new-project.md
       - Deploy Course Website: cookbook/common/deploy-course-website.md
       - Automate Release Workflow: cookbook/common/automate-release-workflow.md

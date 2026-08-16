@@ -40,7 +40,6 @@ markers = [
     "skills: Skill file validation and behavior",
     "agents: Agent configuration and hooks",
     "docs: Documentation link checking, content validation",
-    "teaching: Teaching workflow and config validation",
     "claude_md: CLAUDE.md sync, audit, fix, edit operations",
     "branch_guard: Branch protection hook behavior",
     "orchestrator: Orchestrator v2.1 features and workflows",

@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.5.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.6.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -16,7 +16,7 @@
 >
 > - **What:** Full-stack developer toolkit with 48 commands, 2 AI agents, and 41 auto-triggered skills
 > - **Why:** Automate documentation, testing, git workflows, CLAUDE.md management, and site creation with one command
-> - **How:** Install via `claude plugin install craft@local-plugins`
+> - **How:** Install via `brew install data-wise/tap/craft`
 > - **Next:** Run `/craft:do "your task"` and let AI route to the best workflow
 
 > Full-stack developer toolkit for Claude Code — 48 commands, 2 agents, 41 skills with smart orchestration and ADHD-friendly workflows
@@ -25,7 +25,7 @@
 
 <div class="grid cards" markdown>
 
-- :rocket:{ .lg .middle } **47 Commands**
+- :rocket:{ .lg .middle } **48 Commands**
 
     Smart commands, docs, code, testing, git, CI, architecture, distribution (Homebrew), planning, and workflow automation — all in one toolkit. Docs-authoring/site-publishing commands live in the sibling [`folio`](https://github.com/Data-Wise/folio) plugin.
 
@@ -54,11 +54,19 @@
 ## Quick Start
 
 ```bash
-# Install via Claude Code
-claude plugin install craft@local-plugins
+# Install via Homebrew (recommended)
+brew install data-wise/tap/craft
 
-# Or create symlink
-ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
+# Or via the Data-Wise marketplace, inside Claude Code
+claude plugin marketplace add Data-Wise/claude-plugins
+claude plugin install craft@data-wise
+```
+
+**Developing craft itself?** Clone the repo and symlink it in instead:
+
+```bash
+git clone https://github.com/Data-Wise/craft.git ~/projects/dev-tools/craft
+ln -s ~/projects/dev-tools/craft ~/.claude/plugins/craft
 ```
 
 **First command:**
@@ -70,7 +78,7 @@ ln -s ~/projects/dev-tools/claude-plugins/craft ~/.claude/plugins/craft
 The universal `/craft:do` command routes your task to the best workflow automatically.
 
 !!! success "Quick Win: Try It Now"
-    Run `/craft:hub` to see all 47 commands organized by category - takes 5 seconds and shows everything craft can do.
+    Run `/craft:hub` to see all 48 commands organized by category - takes 5 seconds and shows everything craft can do.
 
 ## Feature Highlights
 
@@ -110,7 +118,7 @@ The universal `/craft:do` command routes your task to the best workflow automati
 
 ## API Reference
 
-Reference documentation for all 47 Craft commands:
+Reference documentation for all 48 Craft commands:
 
 <div class="grid cards" markdown>
 
@@ -134,7 +142,7 @@ Reference documentation for all 47 Craft commands:
 
 **Quick Links:**
 
-- [All 47 Commands, Indexed by Category](API-REFERENCE-COMMANDS.md)
+- [All 48 Commands, Indexed by Category](API-REFERENCE-COMMANDS.md)
 - [Parameters Quick Reference](reference/COMMAND-PARAMETERS.md)
 - [Error Recovery Guide](reference/ERROR-SCENARIOS.md)
 - [Real-World Examples](reference/COMMAND-EXAMPLES.md)
@@ -181,7 +189,7 @@ Reference documentation for all 47 Craft commands:
 
 - :books:{ .lg .middle } **[Commands Overview](commands/overview.md)**
 
-    All 47 commands organized
+    All 48 commands organized
 
 - :sparkles:{ .lg .middle } **[Skills & Agents](skills-agents.md)**
 
@@ -213,7 +221,7 @@ Reference documentation for all 47 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.5.0 — repo-triage skill + ecosystem-tool tutorials"
+!!! info "Latest: v4.6.0 — repo-triage skill + ecosystem-tool tutorials"
     New `repo-triage` skill batch-grounds open GitHub issues and stale worktrees/branches against
     current repo state, offering confirmed (never automatic) deletion/closure. 8 new cheat-sheet
     tutorials cover installed ecosystem tools (Codex, Remember, ADHD Mode, Token Optimizer,

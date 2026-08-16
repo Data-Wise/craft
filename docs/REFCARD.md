@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 4.5.0 (released 2026-07-17)                       │
-│  Commands: 48 | Agents: 2 | Skills: 40                      │
-│  Tests: 2647+ passing                                        │
+│  Version: 4.6.0 (v4.6.0, released 2026-08-15)               │
+│  Commands: 48 | Agents: 2 | Skills: 41                      │
+│  Tests: python3 -m pytest tests/                            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v4.5.0: /craft:restore + post-v4 doc-staleness cleanup      │
+│  v4.6.0: prose-staleness checks, hardened same day          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -573,7 +573,6 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 - Auto-fix: `/folio:docs:lint --fix` (apply safe fixes)
 - Path targeting: `/folio:docs:lint docs/guide/` (check specific directories)
 - Pre-commit integration: Auto-fix on staged markdown
-- All 1432 tests passing (100%)
 - [Release Notes](RELEASE-v2.8.0.md) | [Docs Command Reference](commands/docs.md)
 
 **Interactive Documentation Update**
@@ -778,8 +777,6 @@ main (production branch)
 2. Source: Deploy from branch
 3. Branch: `gh-pages` / `/ (root)`
 4. Save
-
-**See:** [Teaching Workflow Guide](guide/teaching-workflow.md) | [REFCARD-TEACHING.md](reference/REFCARD-TEACHING.md)
 
 ## Check Commands (Pre-Flight Validation)
 
@@ -1499,7 +1496,6 @@ Comprehensive guides and references:
 | **[Claude Code 2.1](reference/REFCARD-claude-code-2.1-enhancements.md)** | Smart routing, orchestration hooks (341 lines) |
 | **[Docs Update](reference/REFCARD-DOCS-UPDATE.md)** | Documentation update workflows (330 lines) |
 | **[Interactive Commands](reference/REFCARD-INTERACTIVE-COMMANDS.md)** | "Show Steps First" pattern (261 lines) |
-| **[Teaching](reference/REFCARD-TEACHING.md)** | Teaching mode workflows (247 lines) |
 | **[Branch Guard](reference/REFCARD-BRANCH-GUARD.md)** | Branch protection rules and bypass (231 lines) |
 | **[Release](reference/REFCARD-RELEASE.md)** | Release pipeline reference (211 lines) |
 | **[Testing](reference/REFCARD-TESTING.md)** | Unified test system, markers, templates (183 lines) |
