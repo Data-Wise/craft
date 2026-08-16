@@ -154,6 +154,23 @@ test_mismatch_blocks() {
     destroy_sandbox
 }
 
+test_brew_leg_strips_cellar_revision_suffix() {
+    echo -e "${T_BLUE}[TEST]${T_NC} BREW: a Cellar revision suffix (_N) is not a real mismatch"
+    make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
+
+    # `brew list --versions` reports the Cellar dir name, which carries a
+    # trailing _N revision suffix on a rebuild-without-bump. "2.37.0_1" is
+    # still v2.37.0 -- must align, not block.
+    local exit_code=0 output
+    output=$(SURFACES_BREW_VERSION="2.37.0_1" run_verify) || exit_code=$?
+    local stripped; stripped=$(strip_ansi "$output")
+
+    assert_equals "0" "$exit_code" "Cellar-revision-suffixed brew version does not block"
+    assert_contains "$stripped" "ALIGNED" "Report summarizes as ALIGNED"
+
+    destroy_sandbox
+}
+
 test_absent_leg_warns_not_block() {
     echo -e "${T_BLUE}[TEST]${T_NC} WARN: an absent craft leg warns but does NOT block"
     make_sandbox "2.37.0"; SBX_VERSION="2.37.0"
@@ -740,6 +757,7 @@ main() {
     echo -e "${T_BLUE}verify-surfaces.sh Test Suite${T_NC}"
     test_all_aligned_passes
     test_mismatch_blocks
+    test_brew_leg_strips_cellar_revision_suffix
     test_absent_leg_warns_not_block
     test_desktop_is_warn_only
     test_aggregator_leg_aligned

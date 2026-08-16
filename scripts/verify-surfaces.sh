@@ -220,11 +220,17 @@ resolve_tap_formula() {
 }
 
 resolve_brew() {
+    # `brew list --versions` reports the Cellar directory name, which carries
+    # a trailing `_N` revision suffix whenever the formula was rebuilt without
+    # a version bump (e.g. a dependency-only change) -- "4.6.0_1" is still
+    # v4.6.0, not a drifted surface. Strip it so the SOT_VERSION comparison in
+    # add_leg() compares plugin.json's bare X.Y.Z against the same shape,
+    # regardless of how many times this exact version was rebuilt locally.
     if [[ -n "${SURFACES_BREW_VERSION:-}" ]]; then
-        echo "$SURFACES_BREW_VERSION"; return 0
+        echo "${SURFACES_BREW_VERSION%_*}"; return 0
     fi
     command -v brew >/dev/null 2>&1 || return 0
-    brew list --versions "$PLUGIN_NAME" 2>/dev/null | awk '{print $2}' | head -1
+    brew list --versions "$PLUGIN_NAME" 2>/dev/null | awk '{print $2}' | head -1 | sed -E 's/_[0-9]+$//'
 }
 
 resolve_code_registered() {
