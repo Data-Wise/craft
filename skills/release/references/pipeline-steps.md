@@ -122,10 +122,19 @@ After `bump-version.sh` handles mechanical version substitution, update these fi
 | `VERSION-HISTORY.md` | Insert new version section with highlights |
 | `README.md` | Update release title line (if present) |
 | `docs/index.md` | Update `!!! info` box title and description text |
-| `docs/REFCARD.md` | Update summary line ~11 title text (after the version) |
+| `docs/REFCARD.md` | Update summary line ~11 title text (after the version); update the version box's release date (line ~7) |
+| `docs/NEWS.md` | Insert new `## vX.Y.Z` entry with a `**Released:** YYYY-MM-DD` date — not template-generated, added by hand |
 | `mkdocs.yml` | Update `site_description` tagline after "adds" to describe new release |
 | `commands/hub.md` | Update version in banner template, test count, skill count |
 | `docs/commands/hub.md` | Same updates as `commands/hub.md` (published copy) |
+
+**Release-date convention (D9, `GRILL-prose-check-hardening-2026-08-15.md`):** `docs/NEWS.md`'s
+`**Released:**` date and `docs/REFCARD.md`'s box date must be the **same date** — the git tag's
+local date, not the GitHub API's UTC release timestamp (the two differ whenever a release
+publishes across the UTC boundary, e.g. v4.5.0: tag `2026-08-07` local, GitHub release
+`2026-08-08T03:44Z`). `docs-staleness-check.sh`'s check 1 (`ADR-007`) compares these two claims
+against each other and tolerates a one-day gap for the UTC-boundary case — using the same date at
+both sites keeps that tolerance as headroom instead of load-bearing.
 
 **Key distinction:** Step 3 handles mechanical `X.Y.Z` substitution. Step 3b handles semantic content that requires the release title and human judgment.
 

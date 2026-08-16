@@ -96,18 +96,31 @@ sibling repos; any new script or dependency (D1/D4 of the parent SPEC still hold
 
 ## Acceptance criteria
 
-- [ ] Every finding F1–F9 has a fixture or test that **fails before the fix and passes after**,
-      verified by planted mutation — not merely a passing test after the change.
-- [ ] A hyphenated-compound corpus (`command-line`, `agent-facing`, `skill-authoring`,
-      `agents-only`) produces zero findings, and the corresponding real counts still do.
-- [ ] `[e]xclude` round-trips: writing the entry actually suppresses the finding on the next run,
-      asserted end-to-end rather than by inspecting the written line.
-- [ ] The severity decision (D5) is recorded in ADR-007 with the **verified** consumer behavior,
+- [x] Every finding F1–F9 has a fixture or test that **fails before the fix and passes after**,
+      verified by planted mutation — not merely a passing test after the change. Every phase's
+      fix was reverted and re-tested before restoring (F1/F2/F4/F6/F8 confirmed via source
+      revert; F3/F7 confirmed by reverting D1/D6 together, since they share one redesign;
+      D2/D11's severity confirmed by reverting the severity string itself). This pass also
+      caught the broad, unscoped plural-only count scan sharing F1's hyphen-boundary bug
+      (`"7 agents-only"` matched as `"7 agents"`) — not separately enumerated as an F-number,
+      surfaced by this criterion's own hyphenated-compound corpus, fixed alongside F1/F2.
+- [x] A hyphenated-compound corpus (`command-line`, `agent-facing`, `skill-authoring`,
+      `agents-only`) produces zero findings, and the corresponding real counts still do —
+      `falsepos/hyphenated-compound-tldr.md`.
+- [x] `[e]xclude` round-trips: writing the entry actually suppresses the finding on the next run,
+      asserted end-to-end rather than by inspecting the written line —
+      `test_exclude_round_trips_end_to_end` drives the real `[e]` keystroke through a pty.
+- [x] The severity decision (D2, GRILL numbering — the SPEC's own D5 above referred to the
+      pre-grill options table) is recorded in ADR-007 with the **verified** consumer behavior,
       and the incorrect claim is removed, not softened.
-- [ ] Check 1 demonstrably fires in the environment D6/D7 select — proven by running it there,
-      not by reasoning that it should.
-- [ ] `docs-staleness-check.sh` stays under the `test_pre_release_check_runs` 30s budget.
-- [ ] Live repo stays GREEN.
+- [x] Check 1 demonstrably fires — proven by running it, not by reasoning that it should. D1
+      dropped the environment dependency this criterion originally asked about (no tag, no CI
+      availability concern left to prove); demonstrated instead by injecting a real mismatch
+      into `docs/REFCARD.md`'s live date and confirming check 1 caught it
+      (`release date '2020-01-01' ... disagrees with other claims (majority: 2026-08-07)`)
+      before reverting the injection.
+- [x] `docs-staleness-check.sh` stays under the `test_pre_release_check_runs` 30s budget — ~11s.
+- [x] Live repo stays GREEN.
 
 ## Test plan
 

@@ -45,40 +45,88 @@ names. The existing 40%-of-expected floor applies to shaped lines too — struct
 shapes still carry legitimate non-totals (category subtotals in a reference box,
 a bolded subset count, a narrative count about another plugin).
 
-Release dates are checked against the **git tag's local date** for the current
-version, with a one-day window. Not `.STATUS`'s `release_date:` — the two
-legitimately disagree whenever a release publishes across the UTC boundary
-(v4.5.0: tag 2026-08-07, GitHub release 2026-08-08T03:44Z), and a check that
-flags a correct repo on its first run does not survive its first release.
+Release dates for the current version are checked **against each other**, with a
+one-day agreement window — not against the git tag's local date, as originally
+built. The tag doesn't exist at either point this check actually runs (the
+release pipeline writes NEWS/REFCARD dates *before* the tag is created; CI's
+checkout has no `fetch-tags`), so a tag-based check only ever fired on a
+developer machine that had already pulled the tag for a *previous* release —
+never a real gate. Not `.STATUS`'s `release_date:` either — claims legitimately
+disagree by a day whenever a release publishes across the UTC boundary (v4.5.0:
+NEWS.md 2026-08-08, REFCARD.md 2026-08-07), and a check that flags a correct repo
+on its first run does not survive its first release. See the prose-check
+hardening's `GRILL-prose-check-hardening-2026-08-15.md` D1 for the full account.
 
 Constraints held from the BRAINSTORM: no new script (D1), craft only (D2), no
 semantic/NLP layer (D3), no external prose tool (D4).
 
 ## Severity
 
-Findings are emitted at **`warning`**, matching every existing Phase 7 finding —
-not `error`, which the SPEC's first draft specified.
+Split per check, not uniform across the phase — but check 1's `error` is **earned**,
+not shipped by default. Both checks emitted `warning` initially. Check 1's
+redesign (dropping the git-tag authority for cross-file comparison) and its
+promotion to release-blocking could not land in the same change — the only
+evidence it was sound would otherwise be tests written alongside it by the
+same author in the same sitting, which is not independent evidence.
 
-This is a smaller difference than it reads. `main()` exits 1 for warnings and
-errors alike, so both already fail `/craft:check --for release` and
-`pre-release-check.sh`; the divergence is the RED/YELLOW label, not whether the
-gate blocks. Given that these are the first checks in this repo to judge *prose*
-rather than structured tokens, and that the first build of check 2 produced five
-false positives before the floor was added, shipping at `warning` follows
-ADR-003's gentle-ramp precedent: earn `error` after the checks run clean across a
-few real releases.
+**Promoted 2026-08-15.** The gate cleared: `docs-staleness-check.sh --json`
+returned zero `count_consistency` findings across every tracked doc, reaching
+both real claim sites (`docs/NEWS.md`, `docs/REFCARD.md`), and the check was
+proven live by injecting a mismatch and watching it fire —
+
+```
+release date '2020-01-01' for v4.5.0 disagrees with other claims (majority: 2026-08-07)
+```
+
+— at `docs/REFCARD.md:7`, then reverted. Check 1 now emits `error`. Check 2
+stays `warning` (see below).
+
+An earlier version of this section claimed the choice barely mattered — that
+`main()` exits 1 for warnings and errors alike, so both already fail
+`/craft:check --for release` and `pre-release-check.sh`, and the only difference
+was the RED/YELLOW label. **That claim was checked during the prose-check
+hardening review (2026-08-15) and found false**, not softened:
+
+- `pre-release-check.sh:280` runs the whole script as `… || true`, discarding the
+  exit code — "Check 9: Docs staleness (warn-only, does not block release)".
+- `.github/workflows/docs-quality.yml` sets `continue-on-error: true`.
+- `skills/release/SKILL.md:143` is explicit: "RED findings block; YELLOW findings
+  warn but allow proceed."
+
+No consumer reads the process exit status. **The label is the only gate.** The
+severity choice a finding gets *is* the block decision — not a cosmetic split of
+an already-blocking outcome.
+
+Given that, severity now follows demonstrated precision per check rather than a
+single phase-wide default:
+
+- **Check 1 is near-binary after the cross-file redesign** (release-date claims
+  either agree with each other or they do not), so it blocks — the evidence
+  gate above cleared 2026-08-15.
+- **Check 2 matches prose patterns**, and produced three false-positive defects
+  in the PR that introduced it alone (a hyphenated-compound false match, a
+  zero-floor for the smallest count type, and five sub-threshold counts caught
+  pre-merge) — it has not earned `error` at all. `warning` here follows
+  ADR-003's gentle-ramp precedent: earn `error` after the check runs clean
+  across a few real releases, same as check 1's gate but without a fixed
+  promotion point yet.
 
 ## A failed authority makes a check vacuous, never universal
 
-Every check here compares documentation against an authority — the git tag date, `plugin.json`'s
-counts. When an authority is **missing**, the check skips: no tag yet is the normal state on a
-feature branch. The rule this ADR adds is that when an authority is **present but unusable**, the
+Every check here compares documentation against an authority — `plugin.json`'s counts for check 2,
+and (after the check-1 redesign below) the other release-date claims in the repo for check 1, no
+longer a git tag. When an authority is **missing**, the check skips: fewer than two release-date
+claims to compare is the normal state on a feature branch, or in a repo where only one doc names a
+date at all. The rule this ADR adds is that when an authority is **present but unusable**, the
 check skips too.
 
-The first build did not do this. An unparseable tag date left an empty accept-window, and an empty
-window matches nothing, so every release-date claim in the repo failed at once. One bad input
-became a repo-wide false-positive storm — the loudest possible output from the least reliable
-possible input.
+The first build did not do this, back when the authority was a git tag. An unparseable tag date
+left an empty accept-window, and an empty window matches nothing, so every release-date claim in
+the repo failed at once. One bad input became a repo-wide false-positive storm — the loudest
+possible output from the least reliable possible input. The guard survives the redesign: an
+unparseable authority (now impossible in practice, since it can only come from a claim string
+already validated by the collection regex) still produces an empty window, and an empty window
+still rejects a claim rather than accepting it.
 
 Stated generally, for any check added to this script later: **a check may only report a finding it
 can positively establish.** Absence of a usable comparison is not evidence of drift. The failure

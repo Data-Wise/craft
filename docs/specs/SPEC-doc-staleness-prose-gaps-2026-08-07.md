@@ -94,6 +94,21 @@ a narrative count about a different plugin (`kept shipping **0 skills**`). Shape
 narrows *where* to look; the floor is still what separates a total from a subtotal. All five are
 now `falsepos/` fixtures.
 
+### Superseded by the prose-check hardening (2026-08-15)
+
+This SPEC's check-1 description above (E2, and the "git tag local date" line in the Acceptance
+Criteria) describes the **as-shipped-then** design, not the current one. A follow-up review found
+9 more defects in the shipped checks (2 HIGH); see
+[`SPEC-prose-check-hardening-2026-08-15.md`](SPEC-prose-check-hardening-2026-08-15.md) and its
+[`GRILL`](GRILL-prose-check-hardening-2026-08-15.md). The load-bearing change: check 1 no longer
+resolves an authority from the git tag at all (D1) — the tag doesn't exist at either point the
+check actually runs, so a tag-based check never fired as a real gate. It now compares every
+release-date claim for the current version against every other one, with the one-day window
+surviving as the agreement tolerance between claims rather than a tolerance against a tag. Left
+here rather than rewritten in place, per this repo's own "positive controls are rewritten, not
+deleted, when their model goes obsolete" convention (that hardening's D8) — the checkboxes above
+are a historical record of what E2 decided at the time, not a live spec.
+
 ---
 
 ## Review Outcome (adversarial review, 2026-08-07)

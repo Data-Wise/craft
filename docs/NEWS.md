@@ -6,7 +6,7 @@ Release announcements and notable changes for the Craft plugin.
 
 ## v4.5.0 — repo-triage skill + ecosystem-tool tutorials
 
-**Released:** 2026-08-08 · **Type:** Minor
+**Released:** 2026-08-07 · **Type:** Minor
 
 ### Highlights
 
