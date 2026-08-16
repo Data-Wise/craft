@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10480,12 +10480,13 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v4.6.0 — repo-triage skill + ecosystem-tool tutorials</p>
-<p>New <code>repo-triage</code> skill batch-grounds open GitHub issues and stale worktrees/branches against
-current repo state, offering confirmed (never automatic) deletion/closure. 8 new cheat-sheet
-tutorials cover installed ecosystem tools (Codex, Remember, ADHD Mode, Token Optimizer,
-Security Guidance, Claude HUD, Dropbox, Agent Skills). Plus 9 fixes, notably <code>branch-guard</code>
-refspec parsing and squash-merge force-delete confirm-gating.
+<p class="admonition-title">Latest: v4.6.0 — prose-staleness checks, hardened same day</p>
+<p>New release-date consistency and count-prose checks in <code>docs-staleness-check.sh</code> Phase 7,
+closing a blind spot where stale counts read GREEN for multiple releases — then hardened the
+same day after a high-effort review found 9 defects (2 HIGH) in the initial ship. The
+release-date check was redesigned from a single git-tag authority to cross-file consistency
+and promoted to <code>error</code> once a clean live-repo run confirmed it. Also: Teaching Mode feature
+removed (dead since the v4 command-prune split craft's teaching surface to <code>scholar</code>).
 See the <a href="CHANGELOG/">full changelog</a> for all releases, or visit the <a href="NEWS/">News</a> page for release highlights.</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
