@@ -109,6 +109,11 @@ CASES = [
         "F6: a legitimate small subset count for the smallest count type must clear the floor",
         id="falsepos-agent-subset-count",
     ),
+    pytest.param(
+        "falsepos/unclosed-box-leaks-into-table.md", "docs/notes.md", False,
+        "F8: an unclosed version-box must not leak into a later structure-table row's own-type restriction",
+        id="falsepos-unclosed-box",
+    ),
 ]
 
 

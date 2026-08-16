@@ -105,17 +105,24 @@ control.
 
 ## Phase 5 — Low findings, date normalization, doc sync (D9)
 
-- [ ] F8: close `version-box` mode at the first line carrying no box character
-- [ ] F8 fixture: unclosed `┌` followed by a `commands/` structure-table row → the row is still
-      measured against commands, not agents
-- [ ] F9: REFCARD `tldr` row → "a line that **opens** with `TL;DR`"
-- [ ] **Normalize the two claim sites (D9).** `NEWS.md` and `REFCARD.md` currently sit exactly one
-      day apart (2026-08-08 vs 2026-08-07), so the tolerance is the only thing keeping the repo
-      GREEN. Make them agree on the tag-local date and record the convention where the release
-      skill writes these, so the tolerance is headroom rather than load-bearing.
-- [ ] Sync REFCARD, both CHANGELOGs, and the parent
+- [x] F8: close `version-box` mode at the first line carrying no box character
+- [x] F8 fixture: unclosed `┌` followed by a `commands/` structure-table row → the row is still
+      measured against commands, not agents (`falsepos/unclosed-box-leaks-into-table.md`; uses
+      the singular noun form so the fixture isolates the shape-classification bug from the
+      broad, unscoped plural scan, which would otherwise independently catch the same text)
+- [x] F9: REFCARD `tldr` row → "a line that **opens** with `TL;DR`"
+      (`docs/reference/REFCARD-DOCS-STALENESS.md`)
+- [x] **Normalize the two claim sites (D9).** `docs/NEWS.md`'s v4.5.0 entry moved from
+      2026-08-08 to 2026-08-07 (tag-local); `docs/REFCARD.md`'s box line gained the `v4.5.0`
+      prefix it was missing, which is what makes it reachable under D6's heading-or-box-line
+      window in the first place (it sat 4 lines *before* the box's other `v4.5.0` mention, so
+      the forward-only window never reached it). Recorded the convention in
+      `skills/release/references/pipeline-steps.md`. Verified live by injecting a temporary
+      mismatch into REFCARD.md and confirming check 1 caught it before reverting.
+- [x] Sync REFCARD, both CHANGELOGs, and the parent
       `SPEC-doc-staleness-prose-gaps-2026-08-07.md` — its check-1 description is now wrong
-- [ ] Mark the hardening SPEC's acceptance criteria
+      (added a "Superseded" pointer section rather than rewriting the historical record)
+- [x] Mark the hardening SPEC's acceptance criteria
 
 ## Phase 6 — Verify, promote, update PR #334 (D5, D10, D11)
 

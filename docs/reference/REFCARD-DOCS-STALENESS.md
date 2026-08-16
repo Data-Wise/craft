@@ -70,8 +70,8 @@ The four line shapes:
 
 | Shape | Matches |
 |-------|---------|
-| `version-box` | lines inside a `┌` … `└` box-drawing block |
-| `tldr` | a line containing `TL;DR` |
+| `version-box` | lines inside a `┌` … `└` box-drawing block — closes at the first line with no box-drawing character at all, even without a matching `└`, so a truncated box can't leak into later shapes |
+| `tldr` | a line that opens with `TL;DR` (after optional blockquote/emphasis markers) — not merely one that mentions it, so a doc describing this bug isn't itself flagged for the example it quotes |
 | `count-summary` | the bolded badge line, e.g. `**48 commands** \| **41 skills**` |
 | `structure-table` | a table row whose first cell is a counted directory, e.g. `` \| `agents/` \| `` — compared only against the type that cell names |
 

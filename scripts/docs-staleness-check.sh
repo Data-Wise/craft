@@ -198,11 +198,22 @@ emit_shaped_lines() {
         FNR == 1 { inbox = 0 }
 
         # "version-box": a quick-reference/version box drawn with box characters.
+        # An unclosed box (no matching bottom border, e.g. truncated by a
+        # missing fence) used to leak `inbox` mode into the rest of the file,
+        # so a later structure-table row got measured as a version-box line
+        # instead and lost its own type restriction (F8). Closed on the FIRST
+        # line carrying no box-drawing character at all, not only on an
+        # explicit `└` -- that line falls through to the shape checks below
+        # instead of being consumed as part of the box.
         /┌/ { inbox = 1 }
         inbox {
-            if (hascount($0)) print FILENAME ":" FNR ":version-box:" $0
-            if ($0 ~ /└/) inbox = 0
-            next
+            if ($0 !~ /[┌┐└┘│├┤─]/) {
+                inbox = 0
+            } else {
+                if (hascount($0)) print FILENAME ":" FNR ":version-box:" $0
+                if ($0 ~ /└/) inbox = 0
+                next
+            }
         }
 
         # "tldr": a line that OPENS with TL;DR (after optional blockquote or
@@ -570,7 +581,15 @@ phase7_count_consistency() {
         local expected="${expected_values[$i]}"
         local min_count="${min_thresholds[$i]}"
 
-        # grep for "N commands/skills/agents" patterns in docs
+        # grep for "N commands/skills/agents" patterns in docs. One regex for
+        # detection AND the fix anchor -- same reasoning as check 2's span-
+        # anchored fix (D3): the trailing `\b` this scan used before accepted
+        # `-` as a boundary the same way check 2's did, so "7 agents-only"
+        # read as "7 agents" (expected 2). This scan's findings are
+        # auto-fixable, unlike check 2's, so a boundary-unsafe substitution
+        # here is worse than F2 -- it can silently corrupt a doc under
+        # `--fix --non-interactive` with no human in the loop. PROSE_COUNT_TRAILER
+        # is the same boundary class the shape-scoped check uses.
         while IFS= read -r match; do
             [[ -z "$match" ]] && continue
             local file="${match%%:*}"
@@ -581,10 +600,12 @@ phase7_count_consistency() {
             # Skip excluded files
             is_file_excluded "$file" && continue
 
-            # Extract the number
+            local full noun
+            full=$(echo "$content" \
+                | grep -oE "[0-9]+ ${ctype}${PROSE_COUNT_TRAILER}" | head -1)
+            [[ -z "$full" ]] && continue
             local found_count
-            found_count=$(echo "$content" | grep -oE "[0-9]+ ${ctype}" | head -1 | grep -oE '[0-9]+')
-            [[ -z "$found_count" ]] && continue
+            found_count=$(echo "$full" | grep -oE '^[0-9]+')
 
             # Skip if count matches
             [[ "$found_count" == "$expected" ]] && continue
@@ -600,16 +621,21 @@ phase7_count_consistency() {
             # Already reported by the line-shape scan below? Report once.
             count_key_reported "${file}:${lineno}:${ctype}" && continue
 
+            # Trim the trailing boundary char the trailer group consumed, so
+            # the fix substitutes the exact matched text ("48 commands"), not
+            # a re-derived \b-bounded pattern that could match elsewhere.
+            noun=$(echo "$full" | sed -E 's/[])} .,;:!?]$//')
+
             # Determine if auto-fixable (simple count swap)
             local fixable="true"
-            local fix_detail="${file}:${lineno}:s/\b${found_count} ${ctype}\b/${expected} ${ctype}/g"
+            local fix_detail="${file}:${lineno}:s/${noun}/${expected} ${ctype}/"
 
             add_finding 7 "warning" "$file" "$lineno" \
                 "'${found_count} ${ctype}' (expected ${expected})" \
                 "$fixable" "$fix_detail"
             mark_count_key "${file}:${lineno}:${ctype}"
             issues=$((issues + 1))
-        done < <(grep -rnE "\b[0-9]+ ${ctype}\b" docs/ CLAUDE.md README.md --include="*.md" 2>/dev/null || true)
+        done < <(grep -rnE "\b[0-9]+ ${ctype}${PROSE_COUNT_TRAILER}" docs/ CLAUDE.md README.md --include="*.md" 2>/dev/null || true)
     done
 
     # -----------------------------------------------------------------------
