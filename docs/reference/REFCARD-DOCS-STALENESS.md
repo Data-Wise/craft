@@ -53,18 +53,16 @@
 
 ## Phase 7 prose checks
 
-Added 2026-08-15 — [ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gating.md),
-[SPEC](../specs/SPEC-doc-staleness-prose-gaps-2026-08-07.md). Both emit `warning`.
+Added 2026-08-15, hardened the same day (`SPEC-prose-check-hardening-2026-08-15.md`) —
+[ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gating.md),
+[SPEC](../specs/SPEC-doc-staleness-prose-gaps-2026-08-07.md). Check 1 emits `error`
+(promoted 2026-08-15 — see ADR-007's Severity section for the evidence gate);
+check 2 emits `warning`.
 
 | Check | What It Catches |
 |-------|-----------------|
-| Release-date claims | A `Released: YYYY-MM-DD` on the current version's line **or the 4 lines below it**, more than one day off the version's **git tag date**. The one-day window absorbs releases published across the UTC boundary. |
+| Release-date claims | A `Released: YYYY-MM-DD` claim on a markdown heading line or a version-box (`┌`…`└`) line — never a bare prose mention — compared against every **other** release-date claim in the repo, not a single external authority. A claim more than one day off the **majority** date (ties break to the later date) is flagged, and the finding names both disagreeing sites. Vacuous with fewer than 2 claims — nothing to compare. |
 | Count prose in structured lines | A stale count — **singular or plural** — inside one of four line shapes. Free prose is never checked. |
-
-**The release-date check is vacuous when its authority is unusable** — no tag for the current
-version (normal on a feature branch), or a tag date that will not parse. It reports nothing rather
-than everything: an empty accept-window would match no claim at all, turning one bad input into a
-repo-wide false-positive storm. See [ADR-007](../adr/ADR-007-pattern-scoped-prose-staleness-gating.md).
 
 The four line shapes:
 
@@ -95,7 +93,6 @@ positive control; a check without one is a rejected change.
 | Variable | Effect |
 |----------|--------|
 | `CRAFT_EXPECTED_CMDS` / `_SKILLS` / `_AGENTS` | Declare expected counts instead of deriving them from `commands/`, `skills/`, `agents/`. Lets a fixture skip materializing 48 command files. |
-| `CRAFT_RELEASE_DATE` | Supply the tag date instead of reading git, keeping the fixture suite hermetic. |
 
 Unset on every production path — the derived values are what actually run.
 

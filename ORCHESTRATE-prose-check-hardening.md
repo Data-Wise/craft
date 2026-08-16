@@ -126,15 +126,24 @@ control.
 
 ## Phase 6 — Verify, promote, update PR #334 (D5, D10, D11)
 
-- [ ] Full suite in-tree; compare against the dev baseline (20 failed / 2462 passed)
-- [ ] `docs-staleness-check.sh` GREEN; runtime under the 30s `test_pre_release_check_runs` budget
-- [ ] `validate-counts.sh`, markdownlint, `mkdocs build --strict`
-- [ ] **D11 promotion gate:** check 1 ran clean across every tracked `.md` and both known claim
-      sites, transcript quoted → promote to `error`. If not clean, it **stays `warning`** and the
-      promotion becomes a follow-up. Do not promote on a passing unit suite alone.
-- [ ] **D10:** refresh the `.STATUS` worktree row — it still describes this branch as only the
-      parent SPEC and its harness, with no mention of the hardening work
-- [ ] Update the PR #334 body with the hardening summary and quoted E2E transcripts
+- [x] Full suite in-tree; compare against the dev baseline (20 failed / 2462 passed) — **2476
+      passed / 0 failed**, better than baseline. Also fixed 2 regressions surfaced by this run
+      (not in F1-F9): `PROSE_COUNT_TRAILER` missing `*` broke the broad scan against markdown-bold
+      README badges (`**777 commands**`); `bump-version.sh --verify`'s literal `Version: X.Y.Z`
+      grep broke against the Phase 5 REFCARD wording, reconciled with a wording that satisfies
+      both it and D6's window.
+- [x] `docs-staleness-check.sh` GREEN; runtime under the 30s `test_pre_release_check_runs` budget
+      — 8.9s
+- [x] `validate-counts.sh` (4/4 ✓), markdownlint (0 errors, 10 changed files), `mkdocs build
+      --strict` (clean)
+- [x] **D11 promotion gate:** check 1 ran clean (0 findings) across every tracked `.md` and both
+      known claim sites, transcript quoted → **promoted to `error`**. Transcript: injecting
+      `2020-01-01` into `docs/REFCARD.md:7` produced `"release date '2020-01-01' for v4.5.0
+      disagrees with other claims (majority: 2026-08-07)"`, reverted after confirming. Check 2
+      stays `warning`.
+- [x] **D10:** refreshed the `.STATUS` worktree row with the hardening summary
+- [ ] Update the PR #334 body with the hardening summary and quoted E2E transcripts — N/A: #334
+      already merged: this is a new PR from `feature/prose-check-hardening` → `dev`
 - [ ] Watch CI to green — **then stop.** Merging is a separate, explicit instruction.
 - [ ] **At merge (D10):** delete `ORCHESTRATE-prose-check-hardening.md`. It is a feature-branch
       working artifact, not `dev` content (craft CLAUDE.md). Nothing enforces this — not
@@ -156,15 +165,15 @@ control.
 
 ## Acceptance Criteria
 
-- [ ] Every finding F1–F9 has a test that **fails before its fix and passes after**, each verified
+- [x] Every finding F1–F9 has a test that **fails before its fix and passes after**, each verified
       by planted mutation
-- [ ] Hyphenated-compound corpus produces zero findings; real counts still caught
-- [ ] `[e]xclude` round-trips end-to-end
-- [ ] ADR-007's incorrect severity claim is removed, not softened
-- [ ] Check 1 reaches both real claim sites (`docs/NEWS.md`, `docs/REFCARD.md`) — transcript quoted
-- [ ] The two claim sites agree exactly, so the one-day tolerance is headroom (D9)
-- [ ] RED promotion is evidence-gated, not assumed (D11)
-- [ ] Live repo GREEN; runtime under budget; dev-baseline parity
+- [x] Hyphenated-compound corpus produces zero findings; real counts still caught
+- [x] `[e]xclude` round-trips end-to-end
+- [x] ADR-007's incorrect severity claim is removed, not softened
+- [x] Check 1 reaches both real claim sites (`docs/NEWS.md`, `docs/REFCARD.md`) — transcript quoted
+- [x] The two claim sites agree exactly, so the one-day tolerance is headroom (D9)
+- [x] RED promotion is evidence-gated, not assumed (D11) — promoted 2026-08-15, see Phase 6
+- [x] Live repo GREEN; runtime under budget (8.9s); dev-baseline parity (2476/0 vs. 2462/20)
 
 ## Commit Strategy
 

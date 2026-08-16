@@ -169,7 +169,7 @@ load_counts() {
 # pre-filter and the bash matcher below (and the strip in phase7 that trims it
 # back off a matched span) — tuning them independently caused a 4x perf
 # regression once already (see emit_shaped_lines' header note).
-PROSE_COUNT_TRAILER='([])} .,;:!?]|$)'
+PROSE_COUNT_TRAILER='([])} .,;:!?*]|$)'
 
 # emit_shaped_lines prints "file:lineno:shape:content" for lines sitting in one
 # of four structured shapes. Free prose is deliberately NOT emitted: an
@@ -624,7 +624,7 @@ phase7_count_consistency() {
             # Trim the trailing boundary char the trailer group consumed, so
             # the fix substitutes the exact matched text ("48 commands"), not
             # a re-derived \b-bounded pattern that could match elsewhere.
-            noun=$(echo "$full" | sed -E 's/[])} .,;:!?]$//')
+            noun=$(echo "$full" | sed -E 's/[])} .,;:!?*]$//')
 
             # Determine if auto-fixable (simple count swap)
             local fixable="true"
@@ -710,7 +710,7 @@ phase7_count_consistency() {
                 # in the trailer consumes nothing, so an end-of-line match is
                 # already bare and this is a no-op for it.
                 local noun
-                noun=$(echo "$full" | sed -E 's/[])} .,;:!?]$//')
+                noun=$(echo "$full" | sed -E 's/[])} .,;:!?*]$//')
 
                 # Not auto-fixable: the surrounding prose ("8 agent definitions")
                 # is hand-authored, so a blind count swap can produce grammatical
@@ -768,16 +768,17 @@ phase7_count_consistency() {
                 cfile="${claim_files[$i]}"; clineno="${claim_lines[$i]}"
                 is_pattern_excluded "$cfile" "$cdate" && continue
 
-                # warning, not error yet (D11): D2 designs check 1 to block
-                # once it has earned that, but this check is being redesigned
-                # (D1, D6) and promoted to release-blocking in the same PR --
-                # the only evidence it's sound would otherwise be tests
-                # written alongside it by the same author in the same
-                # sitting. Ships warning here; promotion to error happens
-                # later, gated on a clean run across every tracked doc and
-                # both real claim sites (docs/NEWS.md, docs/REFCARD.md),
-                # transcript quoted -- not on a passing unit suite alone.
-                add_finding 7 "warning" "$cfile" "$clineno" \
+                # error (D2, promoted per D11): shipped as "warning" while
+                # the redesign (D1, D6) itself was unproven -- a passing
+                # unit suite written by the same author in the same sitting
+                # isn't evidence. Promoted once a live-repo run came back
+                # clean (0 findings) across every tracked doc AND both real
+                # claim sites (docs/NEWS.md, docs/REFCARD.md), plus a
+                # transcript of the check actually firing: injecting
+                # 2020-01-01 into docs/REFCARD.md:7 produced "release date
+                # '2020-01-01' for v4.5.0 disagrees with other claims
+                # (majority: 2026-08-07)", reverted after confirming.
+                add_finding 7 "error" "$cfile" "$clineno" \
                     "release date '${cdate}' for v${CURRENT_VERSION} disagrees with other claims (majority: ${authority})" \
                     "uncertain" "${cfile}:${clineno}:s/${cdate}/${authority}/"
                 issues=$((issues + 1))
