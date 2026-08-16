@@ -9,37 +9,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [4.6.0] - 2026-08-15
+
 ### Added
 
 - **Two prose-staleness checks in `docs-staleness-check.sh` Phase 7**
   ([SPEC](specs/SPEC-doc-staleness-prose-gaps-2026-08-07.md),
-  [ADR-007](adr/ADR-007-pattern-scoped-prose-staleness-gating.md)) — a release-date check
-  (claims near the current version token must be within a day of that version's git tag) and a
-  count-prose check scoped to four structured line shapes (version box, TL;DR line, bolded
-  count-summary badge, structure-table row). The count check reads the **singular** noun form
-  too, closing the gap that let `CLAUDE.md`'s "8 agent definitions" read GREEN for five minors.
-  Both emit `warning`, per ADR-007's gentle-ramp rationale.
-- **Prose-staleness test harness** — `tests/fixtures/prose-staleness/` (10 fixtures across
-  clean / planted-defect / known-false-positive) and `tests/test_docs_staleness_prose.py`, a
-  table-driven runner asserting on `--json` findings. Includes a guard that every check keeps a
-  planted-defect fixture, and a live-repo assertion that `count_consistency` stays clean.
+  [ADR-007](adr/ADR-007-pattern-scoped-prose-staleness-gating.md),
+  [#334](https://github.com/Data-Wise/craft/pull/334),
+  [#335](https://github.com/Data-Wise/craft/pull/335)) — a release-date check and a count-prose
+  check scoped to four structured line shapes (version box, TL;DR line, bolded count-summary
+  badge, structure-table row). The count check reads the **singular** noun form too, closing the
+  gap that let `CLAUDE.md`'s "8 agent definitions" read GREEN for five minors.
+  **Hardened same day (#335)** after a high-effort review found 9 defects, 2 HIGH, in #334's
+  initial ship: the release-date check was redesigned from a single git-tag authority (unreachable
+  in CI, doesn't exist at release time) to **cross-file consistency** — every release-date claim
+  in the repo compared against every other claim, majority wins, window only opens on a heading or
+  version-box line, never a bare prose mention. Promoted to `error` once a clean live-repo run
+  (0 findings, both real claim sites reached) confirmed it. The count-prose matcher's boundary
+  class was fixed so hyphenated compounds (`command-line`, `agent-facing`) and markdown-bold
+  badges (`**48 commands**`) both classify correctly instead of misreading as counts or evading
+  the broad drift-tripwire scan; the offered auto-fix now anchors to the full matched span so it
+  can no longer corrupt surrounding prose. Check 2 (count-prose) stays `warning`.
+- **Prose-staleness test harness** — `tests/fixtures/prose-staleness/` (18 fixtures across
+  clean / planted-defect / known-false-positive) and `tests/test_docs_staleness_prose.py`
+  (33 tests), a table-driven runner asserting on `--json` findings. Includes a guard that every
+  check keeps a planted-defect fixture, and a live-repo assertion that `count_consistency` stays
+  clean.
 
 ### Fixed
 
+- **`docs-staleness-check.sh` pass 2 `[e]xclude` was a silent no-op for every Phase 7/9 finding**
+  — a finding's `file` field was glued `path:lineno`, breaking `is_pattern_excluded`'s
+  first-colon split. Split into separate `file`/`locator` fields on the finding record (predates
+  #334; closed alongside it).
 - **`docs-staleness-check.sh` pass 2 `[f]ix` applied nothing while reporting success** — it
   printed `-> Fixed` and incremented the counter without touching the file. Pass 1 had the same
   bug fixed earlier (BSD `sed -i` exits 0 on no match); the sibling pass was left behind. Both now
   share one `apply_line_fix`, which reports success only when the file actually changed and
   refuses to execute a non-substitution `fix_detail`.
-- **Release-date window was one line short of its documented contract** — the decrement ran on the
-  version-mention line itself, so it scanned that line plus only 3 more instead of 4.
 - **An unparseable release-date authority flagged every claim in the repo** instead of skipping.
-  The check is now vacuous unless its authority parsed, matching the no-tag case.
+  The check is now vacuous unless it can establish a comparison, matching the no-tag case.
+- **A broad, unscoped count scan shared the same hyphen-boundary bug** as the shaped-line check
+  (`"7 agents-only"` misread as `"7 agents"`) and, separately, never matched markdown-bold badges
+  (`**777 commands**`) — both share one boundary-character constant now.
 - `docs/specs/REVIEW-repo-triage-2026-08-07.md` pointed at a GRILL doc that `b1c4426e4` had
   archived, failing `test_no_broken_links` on every branch since.
 - `CLAUDE.md`'s Project Structure table claimed 8 agent definitions (actual: 2 since v4.0.0);
   `README.md`'s highlight block still headlined v2.36.0 at v4.5.0, and its tagline carried a
   stale hard test count.
+
+### Removed
+
+- **Teaching Mode feature** — dead since the v4 command-prune split craft's teaching surface out
+  to the `scholar` plugin; residual references removed.
 
 ---
 

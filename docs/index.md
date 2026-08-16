@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.5.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.6.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -221,7 +221,7 @@ Reference documentation for all 48 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.5.0 — repo-triage skill + ecosystem-tool tutorials"
+!!! info "Latest: v4.6.0 — repo-triage skill + ecosystem-tool tutorials"
     New `repo-triage` skill batch-grounds open GitHub issues and stale worktrees/branches against
     current repo state, offering confirmed (never automatic) deletion/closure. 8 new cheat-sheet
     tutorials cover installed ecosystem tools (Codex, Remember, ADHD Mode, Token Optimizer,

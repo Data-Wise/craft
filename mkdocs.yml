@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.5.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights."
+site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 adds /craft:finish (renamed from /craft:done, ADR-006). See NEWS.md for release-by-release highlights."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
