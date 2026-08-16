@@ -6,9 +6,9 @@
 ├─────────────────────────────────────────────────────────────┤
 │  Version: 4.5.0 (released 2026-08-07)                       │
 │  Commands: 48 | Agents: 2 | Skills: 41                      │
-│  Tests: 2632+ passing                                        │
+│  Tests: python3 -m pytest tests/                            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v4.5.0: repo-triage skill + ecosystem-tool tutorials        │
+│  v4.5.0: repo-triage skill + ecosystem-tool tutorials       │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -573,7 +573,6 @@ python3 scripts/mermaid-autofix.py docs/ --fix             # Auto-fix safe patte
 - Auto-fix: `/folio:docs:lint --fix` (apply safe fixes)
 - Path targeting: `/folio:docs:lint docs/guide/` (check specific directories)
 - Pre-commit integration: Auto-fix on staged markdown
-- All 1432 tests passing (100%)
 - [Release Notes](RELEASE-v2.8.0.md) | [Docs Command Reference](commands/docs.md)
 
 **Interactive Documentation Update**

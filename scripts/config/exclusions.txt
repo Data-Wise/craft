@@ -42,7 +42,6 @@ docs/architecture/HUB-V2-ARCHITECTURE.md:97 commands
 docs/tutorials/TUTORIAL-post-merge-pipeline.md:97 commands
 docs/demos/hub-v2.tape:97 commands
 docs/api/DISCOVERY-API.md:97 commands
-docs/API-REFERENCE-COMMANDS.md:97 commands
 docs/reference/ERROR-SCENARIOS.md:97 commands
 docs/dev/CONTRIBUTING-HUB-V2.md:97 commands
 docs/REFCARD.md:99 commands
@@ -73,7 +72,6 @@ docs/guide/orch-flag-usage.md:4 agents
 docs/orchestrator.md:4 agents
 docs/orchestrator.md:6 agents
 docs/commands.md:4 agents
-docs/commands/orchestrate.md:4 agents
 docs/commands/hub.md:4 agents
 docs/commands/smart.md:4 agents
 docs/workflows/index.md:4 agents
@@ -89,9 +87,6 @@ docs/tutorials/TUTORIAL-claude-code-2.1-enhancements.md:4 agents
 # Tutorial/example counts (historical snapshots, not current totals)
 # ---------------------------------------------------------------------------
 # "Stale CLAUDE.md" troubleshooting example (intentionally stale)
-docs/cookbook/troubleshooting/claude-md-out-of-sync.md:94 commands
-docs/cookbook/troubleshooting/claude-md-out-of-sync.md:18 skills
-docs/cookbook/troubleshooting/claude-md-out-of-sync.md:6 agents
 
 # Tutorial showing a hypothetical plugin (different plugin, not craft)
 docs/tutorials/claude-md-workflows.md:51 commands
@@ -107,7 +102,6 @@ docs/tutorials/interactive-docs-update-tutorial.md:99 commands
 
 # Docs-update interactive example (shows option preview 99→101)
 docs/examples/docs-update-interactive-example.md:101 commands
-docs/examples/docs-update-interactive-example.md:99 commands
 
 # REFCARD-DOCS-UPDATE (describes a check type, not actual count)
 docs/reference/REFCARD-DOCS-UPDATE.md:60 commands
