@@ -490,12 +490,13 @@ def test_release_date_prose_mention_does_not_open_window(tmp_path):
     )
 
 
-def test_severity_split_check1_error_check2_warning(tmp_path):
-    """D2: check 1 (release-date consistency) blocks; check 2 (count prose)
-    warns. Not a cosmetic label -- pre-release-check.sh discards this script's
-    exit code entirely, and docs-quality.yml sets continue-on-error, so the
-    severity string is the only thing that actually gates a release (verified
-    while rewriting ADR-007's Severity section, which had claimed otherwise).
+def test_both_checks_ship_warning_pending_promotion(tmp_path):
+    """D11: check 1 is *designed* to block (D2) but ships `warning` until it
+    earns `error` via the evidence gate in Phase 6 -- a clean run across every
+    tracked doc and both real claim sites, transcript quoted. Promoting in the
+    same change that redesigns the check would mean the only evidence of
+    soundness is tests written alongside it by the same author in the same
+    sitting, which is not independent evidence. This phase must NOT promote.
     """
     repo = build_repo_multi(tmp_path, [
         ("clean/release-date-companion.md", "docs/news.md"),
@@ -504,8 +505,8 @@ def test_severity_split_check1_error_check2_warning(tmp_path):
     findings = run_check(repo)["phases"]["count_consistency"]["findings"]
     date_findings = [f for f in findings if "release date" in f["message"]]
     assert date_findings, f"expected a release-date finding:\n{findings}"
-    assert all(f["severity"] == "error" for f in date_findings), (
-        f"check 1 finding is not severity error:\n{date_findings}"
+    assert all(f["severity"] == "warning" for f in date_findings), (
+        f"check 1 promoted to error before its Phase 6 evidence gate (D11):\n{date_findings}"
     )
 
     repo2 = build_repo(tmp_path / "case2", "defect/tldr-eight-agents.md", "docs/skills-agents.md")
@@ -514,6 +515,32 @@ def test_severity_split_check1_error_check2_warning(tmp_path):
     assert all(f["severity"] == "warning" for f in findings2), (
         f"check 2 finding is not severity warning:\n{findings2}"
     )
+
+
+def test_phase_status_goes_red_on_any_error_finding():
+    """print_phase_status / phase_status_label must coexist with mixed
+    severities inside one phase (Phase 4's own acceptance bullet) -- a phase
+    with one `error` finding among any number of `warning` findings is RED,
+    and an all-`warning` phase is YELLOW. Tested directly against
+    phase_status_label rather than through a live check, since neither check
+    in Phase 7 emits `error` yet under D11 (see the test above) -- this pins
+    the *mechanism* check 1's eventual promotion will rely on.
+    """
+    preamble = f"eval \"$(sed -n '/^phase_status_label()/,/^}}/p' {SCRIPT})\""
+
+    mixed = 'ARR=("error|a.md||msg|false|" "warning|b.md||msg2|false|")'
+    proc = subprocess.run(
+        ["bash", "-c", f"{preamble}\n{mixed}\nphase_status_label ARR\n"],
+        capture_output=True, text=True, timeout=30,
+    )
+    assert proc.stdout.strip() == "RED", f"mixed severity did not go RED: {proc.stdout!r}"
+
+    warnings_only = 'ARR=("warning|a.md||msg|false|" "warning|b.md||msg2|false|")'
+    proc = subprocess.run(
+        ["bash", "-c", f"{preamble}\n{warnings_only}\nphase_status_label ARR\n"],
+        capture_output=True, text=True, timeout=30,
+    )
+    assert proc.stdout.strip() == "YELLOW", f"warning-only phase was not YELLOW: {proc.stdout!r}"
 
 
 def test_live_repo_stays_green_on_count_consistency():

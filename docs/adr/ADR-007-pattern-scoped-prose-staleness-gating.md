@@ -62,8 +62,16 @@ semantic/NLP layer (D3), no external prose tool (D4).
 
 ## Severity
 
-Split per check, not uniform across the phase: check 1 (release-date consistency)
-emits `error`; check 2 (count prose) emits `warning`.
+Split per check, not uniform across the phase — but check 1's `error` is **earned**,
+not shipped by default. Both checks emit `warning` initially. Check 1 promotes to
+`error` only after a clean run across every tracked doc and both real claim sites
+(`docs/NEWS.md`, `docs/REFCARD.md`), with the transcript quoted in the promoting
+PR — never on a passing unit suite alone. Check 1 is being redesigned (dropping
+the git-tag authority for cross-file comparison) and promoted to release-blocking
+in the same change; the only evidence it is sound would otherwise be tests written
+alongside it by the same author in the same sitting, which is not independent
+evidence. If the live-repo run isn't clean, check 1 stays `warning` and promotion
+becomes a follow-up. Check 2 stays `warning` regardless (see below).
 
 An earlier version of this section claimed the choice barely mattered — that
 `main()` exits 1 for warnings and errors alike, so both already fail
@@ -85,13 +93,15 @@ Given that, severity now follows demonstrated precision per check rather than a
 single phase-wide default:
 
 - **Check 1 is near-binary after the cross-file redesign** (release-date claims
-  either agree with each other or they do not) — it can afford to block.
+  either agree with each other or they do not), so it is *designed* to block —
+  but only once the evidence gate above clears.
 - **Check 2 matches prose patterns**, and produced three false-positive defects
   in the PR that introduced it alone (a hyphenated-compound false match, a
   zero-floor for the smallest count type, and five sub-threshold counts caught
-  pre-merge) — it has not earned that yet. `warning` here still follows
+  pre-merge) — it has not earned `error` at all. `warning` here follows
   ADR-003's gentle-ramp precedent: earn `error` after the check runs clean
-  across a few real releases.
+  across a few real releases, same as check 1's gate but without a fixed
+  promotion point yet.
 
 ## A failed authority makes a check vacuous, never universal
 

@@ -742,14 +742,16 @@ phase7_count_consistency() {
                 cfile="${claim_files[$i]}"; clineno="${claim_lines[$i]}"
                 is_pattern_excluded "$cfile" "$cdate" && continue
 
-                # error, not warning (D2): check 1 is near-binary after D1 --
-                # two claims either agree or they do not -- so it can afford
-                # to block. Check 2 (count prose, above) stays warning: it
-                # matches free-form prose patterns and produced three
-                # false-positive defects in PR #334 alone (F1, F6, and five
-                # sub-threshold counts caught pre-merge), so it has not
-                # earned that.
-                add_finding 7 "error" "$cfile" "$clineno" \
+                # warning, not error yet (D11): D2 designs check 1 to block
+                # once it has earned that, but this check is being redesigned
+                # (D1, D6) and promoted to release-blocking in the same PR --
+                # the only evidence it's sound would otherwise be tests
+                # written alongside it by the same author in the same
+                # sitting. Ships warning here; promotion to error happens
+                # later, gated on a clean run across every tracked doc and
+                # both real claim sites (docs/NEWS.md, docs/REFCARD.md),
+                # transcript quoted -- not on a passing unit suite alone.
+                add_finding 7 "warning" "$cfile" "$clineno" \
                     "release date '${cdate}' for v${CURRENT_VERSION} disagrees with other claims (majority: ${authority})" \
                     "uncertain" "${cfile}:${clineno}:s/${cdate}/${authority}/"
                 issues=$((issues + 1))
