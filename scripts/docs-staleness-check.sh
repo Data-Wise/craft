@@ -365,15 +365,39 @@ TOTAL_WARNINGS=0
 TOTAL_ERRORS=0
 TOTAL_FIXED=0
 
+# Renders a finding's location the way every consumer has always seen it —
+# `path:lineno`, or the bare path when there is no locator. The split above is
+# internal; this keeps the JSON contract unchanged.
+finding_location() {
+    local file="$1" locator="$2"
+    if [[ -n "$locator" ]]; then
+        echo "${file}:${locator}"
+    else
+        echo "$file"
+    fi
+}
+
+# The finding record carries the file path and the location *within* it as two
+# fields, never one glued string. They were glued (`path:lineno`) until
+# 2026-08-15, which made pass 2's `[e]xclude` a silent no-op for every Phase 7
+# and Phase 9 finding: `is_pattern_excluded` splits the exclusion entry on its
+# first colon, so an entry of `docs/x.md:3:30 command` could never match. It
+# printed "Excluded" and the finding returned on the next run.
+#
+# `locator` is a location, not necessarily a line number: Phase 9's
+# site_description finding carries `site_description`, and coverage findings
+# carry none at all. Nothing may assume it is numeric — pass 1 gets its line
+# number from fix_detail, which is a separate payload.
 add_finding() {
     local phase="$1"
     local severity="$2"  # error | warning
     local file="$3"
-    local message="$4"
-    local fixable="${5:-false}"  # true if auto-fixable
-    local fix_detail="${6:-}"    # sed command or description
+    local locator="$4"   # line number, named locator, or "" — never glued into file
+    local message="$5"
+    local fixable="${6:-false}"  # true if auto-fixable
+    local fix_detail="${7:-}"    # sed command or description
 
-    local entry="${severity}|${file}|${message}|${fixable}|${fix_detail}"
+    local entry="${severity}|${file}|${locator}|${message}|${fixable}|${fix_detail}"
 
     case "$phase" in
         6) PHASE6_FINDINGS+=("$entry") ;;
@@ -459,7 +483,7 @@ phase6_nav_completeness() {
 
         # Check if this file appears in nav
         if ! echo "$nav_files" | grep -qF "$rel_path"; then
-            add_finding 6 "warning" "$file" "Not in mkdocs.yml nav"
+            add_finding 6 "warning" "$file" "" "Not in mkdocs.yml nav"
             issues=$((issues + 1))
         fi
     done < <(find docs -name "*.md" -not -path "*/\.*" 2>/dev/null | sort)
@@ -467,7 +491,7 @@ phase6_nav_completeness() {
     # Check for nav entries pointing to missing files
     while IFS= read -r nav_entry; do
         if [[ ! -f "docs/$nav_entry" ]]; then
-            add_finding 6 "error" "mkdocs.yml" "Nav entry 'docs/$nav_entry' — file missing"
+            add_finding 6 "error" "mkdocs.yml" "" "Nav entry 'docs/$nav_entry' — file missing"
             issues=$((issues + 1))
         fi
     done < <(echo "$nav_files")
@@ -535,7 +559,7 @@ phase7_count_consistency() {
             local fixable="true"
             local fix_detail="${file}:${lineno}:s/\b${found_count} ${ctype}\b/${expected} ${ctype}/g"
 
-            add_finding 7 "warning" "${file}:${lineno}" \
+            add_finding 7 "warning" "$file" "$lineno" \
                 "'${found_count} ${ctype}' (expected ${expected})" \
                 "$fixable" "$fix_detail"
             mark_count_key "${file}:${lineno}:${ctype}"
@@ -614,7 +638,7 @@ phase7_count_consistency() {
                 # the number changes under it. The fix_detail is still a real
                 # substitution so that confirming it actually edits the file —
                 # it swaps only the digits, leaving "agent definitions" intact.
-                add_finding 7 "warning" "${sfile}:${slineno}" \
+                add_finding 7 "warning" "$sfile" "$slineno" \
                     "prose[${shape}]: '${noun}' (expected ${expected2})" \
                     "uncertain" "${sfile}:${slineno}:s/${noun}/${expected2}${noun#"$found"}/"
                 mark_count_key "${sfile}:${slineno}:${ctype2}"
@@ -644,7 +668,7 @@ phase7_count_consistency() {
             release_date_accepted "$cdate" && continue
             is_pattern_excluded "$cfile" "$cdate" && continue
 
-            add_finding 7 "warning" "${cfile}:${clineno}" \
+            add_finding 7 "warning" "$cfile" "$clineno" \
                 "release date '${cdate}' for v${CURRENT_VERSION} (tag: ${tag_date})" \
                 "uncertain" "${cfile}:${clineno}:s/${cdate}/${tag_date}/"
             issues=$((issues + 1))
@@ -699,7 +723,7 @@ phase8_skill_agent_coverage() {
         fi
 
         if ! $documented; then
-            add_finding 8 "warning" "$cmd_file" \
+            add_finding 8 "warning" "$cmd_file" "" \
                 "Command '${cmd_name}' not in docs (commands.md, docs/commands/)" \
                 "uncertain" "command:${cmd_file}"
             issues=$((issues + 1))
@@ -721,7 +745,7 @@ phase8_skill_agent_coverage() {
                 if [[ -f "$skill_file" ]]; then
                     desc=$(sed -n '/^---$/,/^---$/{ /^description:/s/^description:[[:space:]]*//p; }' "$skill_file" 2>/dev/null | head -1)
                 fi
-                add_finding 8 "warning" "$skill_file" \
+                add_finding 8 "warning" "$skill_file" "" \
                     "Not documented in $skills_doc" \
                     "uncertain" "skill:${skill_file}:${desc}"
                 issues=$((issues + 1))
@@ -736,7 +760,7 @@ phase8_skill_agent_coverage() {
             local agent_name
             agent_name=$(basename "$(dirname "$agent_file")")/$(basename "$agent_file" .md)
             if ! grep -q "$agent_file\|$agent_name" "$skills_doc" 2>/dev/null; then
-                add_finding 8 "warning" "$agent_file" \
+                add_finding 8 "warning" "$agent_file" "" \
                     "Not documented in $skills_doc" \
                     "uncertain" "agent:${agent_file}"
                 issues=$((issues + 1))
@@ -761,7 +785,7 @@ phase8_skill_agent_coverage() {
             # Map block→error, warn→warning for staleness check convention
             local sev="warning"
             [[ "$severity_raw" == "block" ]] && sev="error"
-            add_finding 8 "$sev" "commands/${cmd//:///}.md" \
+            add_finding 8 "$sev" "commands/${cmd//:///}.md" "" \
                 "$message" "uncertain" "doc-coverage:${surface}:${cmd}"
             issues=$((issues + 1))
         done < <(echo "$cov_json" | grep '"cmd"' || true)
@@ -800,7 +824,7 @@ phase9_cross_doc_freshness() {
             if [[ "$found_ver" != "$CURRENT_VERSION" ]]; then
                 local fixable="true"
                 local fix_detail="${file}:${lineno}:s/${found_ver}/${CURRENT_VERSION}/g"
-                add_finding 9 "warning" "${file}:${lineno}" \
+                add_finding 9 "warning" "$file" "$lineno" \
                     "Version '${found_ver}' (current: ${CURRENT_VERSION})" \
                     "$fixable" "$fix_detail"
                 issues=$((issues + 1))
@@ -818,7 +842,7 @@ phase9_cross_doc_freshness() {
         if [[ -n "$site_ver" ]]; then
             site_ver="${site_ver#v}"
             if [[ "$site_ver" != "$CURRENT_VERSION" ]]; then
-                add_finding 9 "warning" "mkdocs.yml:site_description" \
+                add_finding 9 "warning" "mkdocs.yml" "site_description" \
                     "References v${site_ver} (current: v${CURRENT_VERSION})" \
                     "uncertain" ""
                 issues=$((issues + 1))
@@ -851,7 +875,7 @@ phase9_cross_doc_freshness() {
 
         if $stale; then
             is_pattern_excluded "$file" "$content" && continue
-            add_finding 9 "warning" "${file}:${lineno}" \
+            add_finding 9 "warning" "$file" "$lineno" \
                 "Stale counts in summary (skills: ${see_skills:-?}/${EXPECTED_SKILLS}, agents: ${see_agents:-?}/${EXPECTED_AGENTS})" \
                 "uncertain" ""
             issues=$((issues + 1))
@@ -871,7 +895,7 @@ phase9_cross_doc_freshness() {
             [[ -z "$found_count" ]] && continue
             [[ "$found_count" == "$EXPECTED_CMDS" ]] && continue
             is_pattern_excluded "$file" "${found_count} commands" && continue
-            add_finding 9 "warning" "${file}:${lineno}" \
+            add_finding 9 "warning" "$file" "$lineno" \
                 "Architecture doc: '${found_count} commands' (current: ${EXPECTED_CMDS})" \
                 "uncertain" ""
             issues=$((issues + 1))
@@ -899,7 +923,9 @@ pass1_auto_fix() {
     fi
 
     for item in "${FIXABLE_ITEMS[@]}"; do
-        # Parse: phase|severity|file|message|fixable|fix_detail
+        # Parse: phase|severity|file|locator|message|fixable|fix_detail
+        # fix_detail is a separate payload (path:lineno:sed_cmd), not derived
+        # from the record's own file/locator fields.
         local fix_detail="${item##*|}"
         local file="${fix_detail%%:*}"
         local rest="${fix_detail#*:}"
@@ -955,10 +981,12 @@ pass2_interactive_review() {
     local idx=0
     for item in "${UNCERTAIN_ITEMS[@]}"; do
         idx=$((idx + 1))
-        # Parse: phase|severity|file|message|fixable|fix_detail
-        IFS='|' read -r phase severity file message fixable fix_detail <<< "$item"
+        # Parse: phase|severity|file|locator|message|fixable|fix_detail
+        IFS='|' read -r phase severity file locator message fixable fix_detail <<< "$item"
+        local location
+        location="$(finding_location "$file" "$locator")"
 
-        echo -e "[${idx}/${#UNCERTAIN_ITEMS[@]}] ${YELLOW}${file}${NC}"
+        echo -e "[${idx}/${#UNCERTAIN_ITEMS[@]}] ${YELLOW}${location}${NC}"
         echo "  ${message}"
 
         local response=""
@@ -992,7 +1020,10 @@ pass2_interactive_review() {
                 echo "  -> Skipped"
                 ;;
             e)
-                # Add to exclusions file
+                # Add to exclusions file. $file is the bare path now that the
+                # locator is a separate field (D4) — the written entry is
+                # path:pattern, matching what is_pattern_excluded parses, not
+                # path:lineno:pattern which could never match.
                 local excl_entry="$file"
                 # For pattern items, extract the pattern portion
                 if [[ "$message" == *"'"*"'"* ]]; then
@@ -1210,13 +1241,18 @@ findings_to_json() {
     echo -n "["
     for (( _i=0; _i<_count; _i++ )); do
         eval "entry=\${${_arr_name}[$_i]}"
-        IFS='|' read -r severity file message fixable fix_detail <<< "$entry"
+        IFS='|' read -r severity file locator message fixable fix_detail <<< "$entry"
+        # Render the location the way every consumer has always seen it —
+        # path:locator, or the bare path — so the JSON contract is unchanged
+        # even though the record now carries the two as separate fields.
+        local location
+        location="$(finding_location "$file" "$locator")"
         # Escape JSON strings
-        file=$(echo "$file" | sed 's/\\/\\\\/g;s/"/\\"/g')
+        location=$(echo "$location" | sed 's/\\/\\\\/g;s/"/\\"/g')
         message=$(echo "$message" | sed 's/\\/\\\\/g;s/"/\\"/g')
         if ! $first; then echo -n ","; fi
         first=false
-        echo -n "{\"severity\":\"${severity}\",\"file\":\"${file}\",\"message\":\"${message}\"}"
+        echo -n "{\"severity\":\"${severity}\",\"file\":\"${location}\",\"message\":\"${message}\"}"
     done
     echo -n "]"
 }

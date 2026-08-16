@@ -247,6 +247,95 @@ def test_every_check_has_a_planted_defect():
     )
 
 
+def _build_repo_with_own_scripts(tmp_path: Path, fixture: str, dest: str) -> tuple[Path, Path]:
+    """Like build_repo, but copies scripts/ alongside so EXCLUSIONS_FILE (which
+    is resolved relative to the running script's own directory) lands inside
+    the throwaway tree instead of this repo's real
+    scripts/config/exclusions.txt. Returns (repo, script_copy).
+    """
+    repo = build_repo(tmp_path, fixture, dest)
+    scripts_copy = repo / "scripts"
+    shutil.copytree(REPO_ROOT / "scripts", scripts_copy)
+    return repo, scripts_copy / "docs-staleness-check.sh"
+
+
+def _run_check(script: Path, repo: Path) -> dict:
+    env = {
+        "PATH": "/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin",
+        "HOME": str(repo),
+        "CRAFT_PLUGIN_DIR": str(repo),
+        "CRAFT_RELEASE_DATE": FIXTURE_TAG_DATE,
+        "CRAFT_EXPECTED_CMDS": FIXTURE_COUNTS["CMDS"],
+        "CRAFT_EXPECTED_SKILLS": FIXTURE_COUNTS["SKILLS"],
+        "CRAFT_EXPECTED_AGENTS": FIXTURE_COUNTS["AGENTS"],
+    }
+    proc = subprocess.run(
+        ["bash", str(script), "--json"], env=env, capture_output=True, text=True, timeout=120,
+    )
+    assert proc.stdout.strip(), f"no JSON emitted; stderr:\n{proc.stderr}"
+    return json.loads(proc.stdout)
+
+
+def test_exclude_round_trips_end_to_end(tmp_path):
+    """[e]xclude must actually suppress the finding on the next run (F4/D4).
+
+    Before D4, `file` was `path:lineno` glued into one field, so the entry
+    pass 2 wrote (`path:lineno:pattern`) could never match
+    `is_pattern_excluded`'s `path:pattern` parse — it printed "Excluded" and
+    the finding came back on the next run.
+
+    Drives the REAL interactive `[e]` keystroke through a pty (pexpect),
+    not a reimplementation of pass 2's write logic in Python — a hand-copy
+    of the same bug pass 2 had would pass either way and prove nothing.
+    """
+    pexpect = pytest.importorskip("pexpect")
+
+    # structure-table-singular, not tldr-eight-agents: its noun ("8 agent")
+    # matches exactly what the check-time exclusion lookup passes
+    # (`${found} ${singular}`). tldr's noun ("8 specialized agents") does not
+    # — a separate, pre-existing exclusion-matching gap unrelated to D4 — and
+    # would make this test fail for a reason this phase does not fix.
+    repo, script = _build_repo_with_own_scripts(
+        tmp_path, "defect/structure-table-singular.md", "docs/structure.md"
+    )
+
+    before = _run_check(script, repo)
+    findings = before["phases"]["count_consistency"]["findings"]
+    assert findings, "fixture did not produce the finding this test excludes"
+
+    env = {
+        "PATH": "/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin",
+        "HOME": str(repo),
+        "CRAFT_PLUGIN_DIR": str(repo),
+        "CRAFT_RELEASE_DATE": FIXTURE_TAG_DATE,
+        "CRAFT_EXPECTED_CMDS": FIXTURE_COUNTS["CMDS"],
+        "CRAFT_EXPECTED_SKILLS": FIXTURE_COUNTS["SKILLS"],
+        "CRAFT_EXPECTED_AGENTS": FIXTURE_COUNTS["AGENTS"],
+    }
+    child = pexpect.spawn("bash", [str(script), "--fix"], env=env, cwd=str(repo), timeout=30)
+    try:
+        child.expect_exact("[f]ix  [s]kip  [e]xclude permanently:")
+        child.sendline("e")
+        child.expect_exact("Excluded")
+        child.expect(pexpect.EOF)
+    finally:
+        child.close()
+
+    exclusions_file = script.parent / "config" / "exclusions.txt"
+    assert exclusions_file.exists(), "no exclusions.txt was written"
+    written = exclusions_file.read_text()
+    assert "docs/structure.md:8 agent" in written, (
+        f"exclusions.txt does not carry the expected pattern:\n{written}"
+    )
+
+    after = _run_check(script, repo)
+    after_findings = after["phases"]["count_consistency"]["findings"]
+    assert not after_findings, (
+        f"[e]xclude did not suppress the finding on the next run — "
+        f"round-trip broken. exclusions.txt:\n{written}\nfindings:\n{after_findings}"
+    )
+
+
 def test_live_repo_stays_green_on_count_consistency():
     """The checks must not fire on craft's own already-corrected docs.
 
