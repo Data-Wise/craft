@@ -221,12 +221,13 @@ Reference documentation for all 48 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.6.0 — repo-triage skill + ecosystem-tool tutorials"
-    New `repo-triage` skill batch-grounds open GitHub issues and stale worktrees/branches against
-    current repo state, offering confirmed (never automatic) deletion/closure. 8 new cheat-sheet
-    tutorials cover installed ecosystem tools (Codex, Remember, ADHD Mode, Token Optimizer,
-    Security Guidance, Claude HUD, Dropbox, Agent Skills). Plus 9 fixes, notably `branch-guard`
-    refspec parsing and squash-merge force-delete confirm-gating.
+!!! info "Latest: v4.6.0 — prose-staleness checks, hardened same day"
+    New release-date consistency and count-prose checks in `docs-staleness-check.sh` Phase 7,
+    closing a blind spot where stale counts read GREEN for multiple releases — then hardened the
+    same day after a high-effort review found 9 defects (2 HIGH) in the initial ship. The
+    release-date check was redesigned from a single git-tag authority to cross-file consistency
+    and promoted to `error` once a clean live-repo run confirmed it. Also: Teaching Mode feature
+    removed (dead since the v4 command-prune split craft's teaching surface to `scholar`).
     See the [full changelog](CHANGELOG.md) for all releases, or visit the [News](NEWS.md) page for release highlights.
 
 ## Links

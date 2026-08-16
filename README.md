@@ -13,9 +13,9 @@
 > **Docs/publishing commands moved to [`folio`](https://github.com/Data-Wise/folio)** — see
 > [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
 >
-> **v4.5.0 — repo-triage skill + ecosystem-tool tutorials** 🚀
+> **v4.6.0 — prose-staleness checks, hardened same day** 🚀
 > **48 commands** | **41 skills** | **2 agents**
-> New `repo-triage` skill batch-grounds open GitHub issues and stale worktrees/branches against current repo state, offering confirmed (never automatic) deletion/closure with itemized evidence and sorting the remainder into grill-ready / plan-ready / defer buckets. Plus 8 ecosystem-tool cheat-sheet tutorials (Codex, Remember, ADHD Mode, Token Optimizer, Security Guidance, Claude HUD, Dropbox, Agent Skills). See [NEWS.md](docs/NEWS.md).
+> New release-date consistency and count-prose checks in `docs-staleness-check.sh` Phase 7, closing a blind spot where stale counts read GREEN for multiple releases — then hardened the same day after a high-effort review found 9 defects (2 HIGH) in the initial ship. Also: Teaching Mode feature removed. See [NEWS.md](docs/NEWS.md).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
