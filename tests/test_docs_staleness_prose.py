@@ -14,10 +14,12 @@ Three fixture classes, and the harness is only meaningful with all three:
 * ``falsepos/``— content that LOOKS like a stale count but is not, drawn from
                  real pages an earlier build of these checks wrongly flagged
 
-Hermetic by construction: no network, no git-history walk, no TTY. The one git
-read check 1 needs (the version's tag date) is injected via ``CRAFT_RELEASE_DATE``,
-and the expected counts via ``CRAFT_EXPECTED_*``, so the fixtures do not have to
-materialize 48 command files apiece.
+Hermetic by construction: no network, no git-history walk, no TTY. Expected
+counts are injected via ``CRAFT_EXPECTED_*``, so the fixtures do not have to
+materialize 48 command files apiece. Check 1 (release-date consistency) has no
+external authority (D1) -- it compares every release-date claim in the repo
+against every other one -- so its fixtures need a peer claim to agree or
+disagree with; see ``build_repo_multi`` and the ``release date`` tests below.
 """
 
 from __future__ import annotations
@@ -62,19 +64,10 @@ CASES = [
         id="clean-structure-table",
     ),
     pytest.param(
-        "clean/release-date-utc-boundary.md", "docs/news.md", False,
-        "E2: a one-day gap is the UTC boundary, not staleness",
-        id="clean-utc-boundary",
-    ),
-    pytest.param(
-        "defect/version-box-stale-date.md", "docs/refcard.md", True,
-        "check 1 catches a release date well off the tag",
-        id="defect-stale-date",
-    ),
-    pytest.param(
-        "defect/release-date-far-edge.md", "docs/news.md", True,
-        "check 1 reaches the last line its window documents (off-by-one guard)",
-        id="defect-release-date-far-edge",
+        "clean/release-date-companion.md", "docs/news.md", False,
+        "D1 accepted cost: a lone release-date claim has no peer to compare "
+        "against, so it is vacuous, not verified",
+        id="clean-release-date-single-claim",
     ),
     pytest.param(
         "defect/tldr-eight-agents.md", "docs/skills-agents.md", True,
@@ -132,20 +125,42 @@ def build_repo(tmp_path: Path, fixture: str, dest: str) -> Path:
     return repo
 
 
-def run_check(repo: Path) -> dict:
-    """Run the real script against `repo` and return its parsed JSON report."""
-    env = {
+def build_repo_multi(tmp_path: Path, files: list[tuple[str, str]]) -> Path:
+    """Materialize a throwaway repo holding several fixture documents at once.
+
+    Check 1 (release-date consistency, D1) needs at least two real claims to
+    exercise at all -- a lone claim is vacuous by design -- so its tests pair
+    a fixture against `clean/release-date-companion.md` in one repo, unlike
+    every other check here, which is fully exercised by a single document.
+    """
+    repo = tmp_path / "repo"
+    (repo / ".claude-plugin").mkdir(parents=True)
+    (repo / ".claude-plugin" / "plugin.json").write_text(
+        json.dumps({"name": "craft", "version": FIXTURE_VERSION}) + "\n"
+    )
+    for fixture, dest in files:
+        target = repo / dest
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(FIXTURES / fixture, target)
+    return repo
+
+
+def env_for(repo: Path) -> dict:
+    return {
         "PATH": "/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin",
         "HOME": str(repo),
         "CRAFT_PLUGIN_DIR": str(repo),
-        "CRAFT_RELEASE_DATE": FIXTURE_TAG_DATE,
         "CRAFT_EXPECTED_CMDS": FIXTURE_COUNTS["CMDS"],
         "CRAFT_EXPECTED_SKILLS": FIXTURE_COUNTS["SKILLS"],
         "CRAFT_EXPECTED_AGENTS": FIXTURE_COUNTS["AGENTS"],
     }
+
+
+def run_check(repo: Path) -> dict:
+    """Run the real script against `repo` and return its parsed JSON report."""
     proc = subprocess.run(
         ["bash", str(SCRIPT), "--json"],
-        env=env, capture_output=True, text=True, timeout=120,
+        env=env_for(repo), capture_output=True, text=True, timeout=120,
     )
     assert proc.stdout.strip(), f"no JSON emitted; stderr:\n{proc.stderr}"
     return json.loads(proc.stdout)
@@ -170,37 +185,63 @@ def test_prose_staleness_fixture(tmp_path, fixture, dest, expect_finding, proves
         )
 
 
-def test_unparseable_authority_date_is_vacuous_not_universal(tmp_path):
-    """A broken release-date authority must skip the check, not flag everything.
-
-    Found in review of PR #334. `compute_release_date_window` exits silently on
-    an unparseable date, leaving an empty accept-window — and an empty window
-    matches nothing, so every release-date claim in the repo failed at once. One
-    bad input became a repo-wide false-positive storm. The guard is that the
-    check is vacuous unless the authority actually parsed.
-
-    Uses the `clean/` fixture on purpose: it is correct against a real tag date,
-    so any finding here is caused by the broken authority alone.
-    """
-    repo = build_repo(tmp_path, "clean/release-date-utc-boundary.md", "docs/news.md")
-    env = {
-        "PATH": "/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin",
-        "HOME": str(repo),
-        "CRAFT_PLUGIN_DIR": str(repo),
-        "CRAFT_RELEASE_DATE": "not-a-date",
-        "CRAFT_EXPECTED_CMDS": FIXTURE_COUNTS["CMDS"],
-        "CRAFT_EXPECTED_SKILLS": FIXTURE_COUNTS["SKILLS"],
-        "CRAFT_EXPECTED_AGENTS": FIXTURE_COUNTS["AGENTS"],
-    }
+def _call_release_date_helpers(script_body: str) -> str:
+    """Source majority_date/compute_release_date_window/release_date_accepted
+    out of the real script and run `script_body` against them."""
+    preamble = "\n".join(
+        f"eval \"$(sed -n '/^{fn}()/,/^}}/p' {SCRIPT})\""
+        for fn in ("majority_date", "compute_release_date_window", "release_date_accepted")
+    )
     proc = subprocess.run(
-        ["bash", str(SCRIPT), "--json"],
-        env=env, capture_output=True, text=True, timeout=120,
+        ["bash", "-c", f"{preamble}\n{script_body}"],
+        capture_output=True, text=True, timeout=60,
     )
-    findings = json.loads(proc.stdout)["phases"]["count_consistency"]["findings"]
-    rendered = "\n".join(f"  {f['file']}: {f['message']}" for f in findings)
-    assert not findings, (
-        f"unparseable authority date produced findings instead of skipping:\n{rendered}"
+    assert proc.returncode == 0, f"helper script failed:\n{proc.stderr}"
+    return proc.stdout
+
+
+def test_broken_authority_window_is_vacuous_not_universal():
+    """A release-date window that failed to compute must reject every claim,
+    not accept everything (F7-era regression, re-verified after D1).
+
+    `compute_release_date_window` exits silently on an unparseable date,
+    leaving `ACCEPTED_RELEASE_DATES` empty. Nothing in the current design can
+    feed it anything but a real `YYYY-MM-DD` (`majority_date` only ever
+    returns one of the claim strings, all already validated by the regex that
+    collected them) -- this is defense in depth, not a live path -- but the
+    guard must still hold: an empty window matches nothing, so a single bad
+    input must not silently become "everything is accepted" instead.
+    """
+    out = _call_release_date_helpers(
+        'compute_release_date_window "not-a-date"\n'
+        'release_date_accepted "2026-08-07" && echo ACCEPTED || echo REJECTED\n'
     )
+    assert out.strip() == "REJECTED", (
+        f"a broken window accepted a claim instead of rejecting it: {out!r}"
+    )
+
+
+def test_majority_date_ties_break_to_the_later_date():
+    """With claims tied 1-1 (the common case: one NEWS.md entry, one REFCARD.md
+    box), the later date must win -- a stale-release-date bug is a forgotten
+    update, so the wrong claim is normally older than the correct one, never
+    newer. Getting this backwards would make the check flag the correct claim
+    and accept the stale one.
+    """
+    out = _call_release_date_helpers('majority_date "2026-07-19" "2026-08-07"\n')
+    assert out.strip() == "2026-08-07"
+
+    out = _call_release_date_helpers('majority_date "2026-08-07" "2026-07-19"\n')
+    assert out.strip() == "2026-08-07", "order of arguments must not change the outcome"
+
+
+def test_majority_date_prefers_the_larger_cluster_over_recency():
+    """Two files agreeing beats one newer outlier -- majority by count comes
+    first; the later-date tie-break only applies when counts are equal."""
+    out = _call_release_date_helpers(
+        'majority_date "2026-08-07" "2026-08-07" "2026-09-01"\n'
+    )
+    assert out.strip() == "2026-08-07"
 
 
 def _call_apply_line_fix(path: Path, lineno: int, fix_detail: str) -> str:
@@ -384,6 +425,68 @@ def test_fix_preserves_surrounding_prose(tmp_path):
     lines = target.read_text().splitlines()
     assert "| `agents/` | 2 agent definitions |" in lines, (
         f"fix did not land cleanly -- surrounding prose corrupted:\n{target.read_text()}"
+    )
+
+
+def test_release_date_agrees_across_files(tmp_path):
+    """Two independently-correct claims one day apart (the real v4.5.0 case:
+    NEWS.md says 2026-08-08, REFCARD-style boxes say 2026-08-07) must not
+    disagree with each other (E2, re-verified after D1's redesign)."""
+    repo = build_repo_multi(tmp_path, [
+        ("clean/release-date-companion.md", "docs/news.md"),
+        ("clean/release-date-utc-boundary.md", "docs/other-news.md"),
+    ])
+    report = run_check(repo)
+    findings = report["phases"]["count_consistency"]["findings"]
+    assert not findings, f"agreeing claims wrongly flagged:\n{findings}"
+
+
+def test_release_date_disagreement_flags_the_stale_claim(tmp_path):
+    """A release date three weeks off must be caught once it has a peer to
+    disagree with -- this is the original REFCARD.md bug the parent SPEC
+    exists for, re-verified under D1's cross-file design."""
+    repo = build_repo_multi(tmp_path, [
+        ("clean/release-date-companion.md", "docs/news.md"),
+        ("defect/version-box-stale-date.md", "docs/refcard.md"),
+    ])
+    report = run_check(repo)
+    findings = report["phases"]["count_consistency"]["findings"]
+    assert findings, "planted defect went undetected once it had a peer to disagree with"
+    assert any(f["file"].startswith("docs/refcard.md") for f in findings), (
+        f"finding landed on the wrong file:\n{findings}"
+    )
+    assert not any(f["file"].startswith("docs/news.md") for f in findings), (
+        f"the correct companion claim was flagged instead of the stale one:\n{findings}"
+    )
+
+
+def test_release_date_far_edge_still_caught_cross_file(tmp_path):
+    """The window's off-by-one guard (win=5, not 4) must still hold once check
+    1 compares claims to each other instead of to a tag."""
+    repo = build_repo_multi(tmp_path, [
+        ("clean/release-date-companion.md", "docs/news.md"),
+        ("defect/release-date-far-edge.md", "docs/news-old.md"),
+    ])
+    report = run_check(repo)
+    findings = report["phases"]["count_consistency"]["findings"]
+    assert findings, "the far-edge claim was not collected -- window off-by-one regressed"
+    assert any(f["file"].startswith("docs/news-old.md") for f in findings), (
+        f"finding landed on the wrong file:\n{findings}"
+    )
+
+
+def test_release_date_prose_mention_does_not_open_window(tmp_path):
+    """A version mention in running prose must not open the claim window
+    (D6/F3) -- paired against the companion so a wrongly-collected claim would
+    have a peer to disagree with and surface as a finding."""
+    repo = build_repo_multi(tmp_path, [
+        ("clean/release-date-companion.md", "docs/news.md"),
+        ("falsepos/release-date-prose-mention.md", "docs/upgrade-guide.md"),
+    ])
+    report = run_check(repo)
+    findings = report["phases"]["count_consistency"]["findings"]
+    assert not findings, (
+        f"prose mention of the version opened the claim window (D6 regressed):\n{findings}"
     )
 
 

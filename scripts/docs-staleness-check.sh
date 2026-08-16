@@ -235,16 +235,25 @@ emit_shaped_lines() {
 # NEWS.md's "## v4.5.0 ..." heading followed by "**Released:** 2026-08-08".
 # Windowed so historical entries further down the same file are not compared
 # against the current version's date.
+#
+# The window opens ONLY when the version token sits in a markdown heading or a
+# version-box content line (D6/F3). Proximity alone is not enough: an upgrade
+# guide saying "Upgrading to v4.5.0 is a drop-in change" is prose, not a claim
+# site, and used to open the window anyway, collecting whatever date happened
+# to sit within 4 lines of it as though it were this version's release date.
+#
 # Single awk pass over the whole file list, for the same reason as above.
 emit_release_date_claims() {
     [[ $# -eq 0 ]] && return 0
     awk -v ver="v${CURRENT_VERSION}" '
         FNR == 1 { win = 0 }
+        function is_heading(s)  { return s ~ /^#+[[:space:]]/ }
+        function is_box_line(s) { return s ~ /^[[:space:]]*│/ }
         # 5, not 4: the win-- below runs on the version line itself, so win=4
         # scanned that line plus only 3 more -- one short of the 4 following
         # lines this check documents, silently missing a layout as ordinary as
         # heading / blank / Type / blank / Released.
-        index($0, ver) { win = 5 }
+        (is_heading($0) || is_box_line($0)) && index($0, ver) { win = 5 }
         win > 0 {
             if (match($0, /[Rr]eleased[^0-9]{0,12}[0-9]{4}-[0-9]{2}-[0-9]{2}/)) {
                 s = substr($0, RSTART, RLENGTH)
@@ -256,17 +265,36 @@ emit_release_date_claims() {
     ' "$@" 2>/dev/null || true
 }
 
-# Authority for the release-date check is the current version's git tag date,
-# NOT .STATUS's release_date:. The two legitimately disagree by a day whenever a
-# release publishes across the UTC boundary (v4.5.0: tag 2026-08-07, GitHub
-# release 2026-08-08T03:44Z), so a claim within one day of the tag is not
-# staleness. CRAFT_RELEASE_DATE overrides for hermetic fixtures.
-resolve_release_date() {
-    if [[ -n "${CRAFT_RELEASE_DATE:-}" ]]; then
-        echo "$CRAFT_RELEASE_DATE"
-        return
-    fi
-    git for-each-ref --format='%(creatordate:short)' "refs/tags/v${CURRENT_VERSION}" 2>/dev/null | head -1
+# D1: check 1 has no external authority. The git tag doesn't exist at either
+# point this check actually runs -- the release pipeline writes NEWS/REFCARD
+# dates in Step 3b, *before* Step 8 creates the tag, and CI's checkout has no
+# fetch-tags -- so a tag-based check only ever fired on a developer machine
+# that had already pulled it, which is not a gate (F7). Instead, every
+# release-date claim for the current version is compared against every other
+# one; the one-day tolerance survives as the agreement window between claims,
+# absorbing the UTC-boundary case that motivated it (v4.5.0: NEWS.md says
+# 2026-08-08, REFCARD.md says 2026-08-07 -- both are correct).
+#
+# Given N date strings, returns the one with the most occurrences. Ties break
+# to the LATER date, not the earlier one: a stale-release-date bug is a
+# forgotten update, so the wrong claim is normally older than the correct one,
+# never newer. (With exactly two claims -- the common case, one NEWS.md entry
+# and one REFCARD.md box -- every tie is 1-1, so this tie-break is what
+# decides which claim is "authority" and which is "stale".) Plain nested
+# loop, not an associative array -- this script supports bash 3.2.
+majority_date() {
+    local best="" best_count=0 d1 d2 count
+    for d1 in "$@"; do
+        count=0
+        for d2 in "$@"; do
+            [[ "$d2" == "$d1" ]] && count=$((count + 1))
+        done
+        if (( count > best_count )) || { (( count == best_count )) && [[ -n "$best" ]] && [[ "$d1" > "$best" ]]; }; then
+            best="$d1"
+            best_count="$count"
+        fi
+    done
+    echo "$best"
 }
 
 # Applies one `s/PATTERN/REPLACEMENT/flags` substitution to one line of one file.
@@ -321,13 +349,14 @@ print("true")
 PYEOF
 }
 
-# The acceptable window is three literal dates (tag-1, tag, tag+1), computed
-# ONCE with a single python3 call rather than a python3 spawn per claim. Callers
-# then do a plain string comparison. python3 is already a hard dependency here
-# (load_counts reads plugin.json with it) — no new dependency.
+# The acceptable window is three literal dates (authority-1, authority,
+# authority+1), computed ONCE with a single python3 call rather than a python3
+# spawn per claim. Callers then do a plain string comparison. python3 is
+# already a hard dependency here (load_counts reads plugin.json with it) — no
+# new dependency.
 ACCEPTED_RELEASE_DATES=""
 compute_release_date_window() {
-    local tag_date="$1"
+    local authority_date="$1"
     ACCEPTED_RELEASE_DATES=$(python3 -c "
 import sys, datetime
 try:
@@ -335,7 +364,7 @@ try:
 except ValueError:
     sys.exit(0)
 print(' '.join(str(d + datetime.timedelta(days=n)) for n in (-1, 0, 1)))
-" "$tag_date" 2>/dev/null)
+" "$authority_date" 2>/dev/null)
 }
 release_date_accepted() {
     case " ${ACCEPTED_RELEASE_DATES} " in
@@ -675,32 +704,50 @@ phase7_count_consistency() {
     done < <(emit_shaped_lines "${prose_files[@]+"${prose_files[@]}"}")
 
     # -----------------------------------------------------------------------
-    # Check 1 — release-date claims tied to the current version.
-    # Vacuous (skipped, not failed) when the current version has no tag yet,
-    # which is the normal state on a feature branch before release.
+    # Check 1 — release-date claims agree with each other for the current
+    # version. No external authority (D1): the tag doesn't exist at either
+    # point this check runs (see the comment on majority_date). Vacuous
+    # (skipped, not failed) with 0 or 1 claims -- there is nothing to compare
+    # a lone claim against, which is the normal state on a feature branch
+    # before release, or when only one doc in the repo names a release date at
+    # all. Accepted cost: a date that is uniformly wrong in every file agrees
+    # with itself and is never caught.
     # -----------------------------------------------------------------------
-    local tag_date claim cfile crest clineno cdate
-    tag_date="$(resolve_release_date)"
-    compute_release_date_window "$tag_date"
-    # Skip when the authority is missing OR unparseable. A broken authority must
-    # make this check vacuous, never universal: with an empty accept-window every
-    # release-date claim in the repo fails at once, turning one bad input into a
-    # repo-wide false-positive storm. Same posture as the no-tag case (normal on
-    # a feature branch before release).
-    if [[ -n "$ACCEPTED_RELEASE_DATES" ]]; then
-        while IFS= read -r claim; do
-            [[ -z "$claim" ]] && continue
-            cfile="${claim%%:*}"; crest="${claim#*:}"
-            clineno="${crest%%:*}"; cdate="${crest#*:}"
+    local claim cfile crest clineno cdate
+    local -a claim_files=() claim_lines=() claim_dates=()
+    while IFS= read -r claim; do
+        [[ -z "$claim" ]] && continue
+        cfile="${claim%%:*}"; crest="${claim#*:}"
+        clineno="${crest%%:*}"; cdate="${crest#*:}"
+        is_file_excluded "$cfile" && continue
+        claim_files+=("$cfile")
+        claim_lines+=("$clineno")
+        claim_dates+=("$cdate")
+    done < <(emit_release_date_claims "${prose_files[@]+"${prose_files[@]}"}")
 
-            release_date_accepted "$cdate" && continue
-            is_pattern_excluded "$cfile" "$cdate" && continue
+    if [[ "${#claim_dates[@]}" -ge 2 ]]; then
+        local authority
+        authority="$(majority_date "${claim_dates[@]}")"
+        compute_release_date_window "$authority"
+        # Empty window means the majority date itself failed to parse --
+        # cannot happen in practice (it came from the [0-9]{4}-[0-9]{2}-[0-9]{2}
+        # regex that fed emit_release_date_claims), but a broken authority must
+        # make this vacuous, never universal, same posture as the old
+        # missing-tag case: an empty accept-window would otherwise fail every
+        # claim in the repo at once.
+        if [[ -n "$ACCEPTED_RELEASE_DATES" ]]; then
+            for i in "${!claim_dates[@]}"; do
+                cdate="${claim_dates[$i]}"
+                release_date_accepted "$cdate" && continue
+                cfile="${claim_files[$i]}"; clineno="${claim_lines[$i]}"
+                is_pattern_excluded "$cfile" "$cdate" && continue
 
-            add_finding 7 "warning" "$cfile" "$clineno" \
-                "release date '${cdate}' for v${CURRENT_VERSION} (tag: ${tag_date})" \
-                "uncertain" "${cfile}:${clineno}:s/${cdate}/${tag_date}/"
-            issues=$((issues + 1))
-        done < <(emit_release_date_claims "${prose_files[@]+"${prose_files[@]}"}")
+                add_finding 7 "warning" "$cfile" "$clineno" \
+                    "release date '${cdate}' for v${CURRENT_VERSION} disagrees with other claims (majority: ${authority})" \
+                    "uncertain" "${cfile}:${clineno}:s/${cdate}/${authority}/"
+                issues=$((issues + 1))
+            done
+        fi
     fi
 
     print_phase_status "$issues"
