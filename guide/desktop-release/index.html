@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10661,7 +10661,7 @@ persistent account/org-scoped store.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Recommended: add the Data-Wise AGGREGATOR once → every current + future plugin.</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>claude<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>Data-Wise/claude-plugins
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Or a single plugin&#39;s own repo:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Or a single plugin's own repo:</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>claude<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>github:Data-Wise/craft
 </span></code></pre></div>
 <h3 id="two-ways-to-register-cli-bridge-or-gui">Two ways to register (CLI bridge or GUI)<a class="headerlink" href="#two-ways-to-register-cli-bridge-or-gui" title="Permanent link">&para;</a></h3>
@@ -10740,13 +10740,13 @@ auto-verify), while it hard-blocks on the surfaces craft <em>does</em> control.<
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>Create <code>.craft/homebrew.json</code> in your project root (optional — auto-detection works without it):</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;formula_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scribe&quot;</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&quot;tap&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;data-wise/tap&quot;</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cask&quot;</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;cask&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">&quot;app_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Scribe.app&quot;</span><span class="p">,</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.scribe.app&quot;</span><span class="p">,</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;min_macos&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;catalina&quot;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"formula_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scribe"</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"tap"</span><span class="p">:</span><span class="w"> </span><span class="s2">"data-wise/tap"</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cask"</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">"cask"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">"app_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Scribe.app"</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.scribe.app"</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">"min_macos"</span><span class="p">:</span><span class="w"> </span><span class="s2">"catalina"</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
 </span></code></pre></div>
@@ -10768,12 +10768,12 @@ auto-verify), while it hard-blocks on the surfaces craft <em>does</em> control.<
 <p>DMGs are uploaded to the GitHub release. SHA256 is computed from <strong>local files</strong> (not downloaded from GitHub), eliminating CDN race conditions.</p>
 <h3 id="step-4-content-preview">Step 4: Content Preview<a class="headerlink" href="#step-4-content-preview" title="Permanent link">&para;</a></h3>
 <p>The pipeline shows what will be written to the cask file:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>postflight &quot;What&#39;s New in v1.21.0:&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>postflight "What's New in v1.21.0:"
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  - Dark mode with 3 new themes
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  - PDF export with custom headers
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  - 2,500 tests passing
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>caveats &quot;New in v1.21.0:&quot;
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>caveats "New in v1.21.0:"
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>  - Dark mode with 3 new themes
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>  - PDF export with custom headers and footers
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  - 2,500 tests passing
@@ -10819,7 +10819,7 @@ auto-verify), while it hard-blocks on the surfaces craft <em>does</em> control.<
 <h3 id="dmg-not-found-after-build">DMG Not Found After Build<a class="headerlink" href="#dmg-not-found-after-build" title="Permanent link">&para;</a></h3>
 <p><strong>Symptom:</strong> Build succeeds but DMG path doesn't exist.</p>
 <p><strong>Fix:</strong> Tauri's DMG path varies by version. The pipeline uses fallback search:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>find<span class="w"> </span>src-tauri/target<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.dmg&quot;</span><span class="w"> </span>-type<span class="w"> </span>f
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>find<span class="w"> </span>src-tauri/target<span class="w"> </span>-name<span class="w"> </span><span class="s2">"*.dmg"</span><span class="w"> </span>-type<span class="w"> </span>f
 </span></code></pre></div>
 <p>Check if the DMG naming pattern in <code>.craft/homebrew.json</code> matches.</p>
 <h3 id="tap-push-conflict">Tap Push Conflict<a class="headerlink" href="#tap-push-conflict" title="Permanent link">&para;</a></h3>

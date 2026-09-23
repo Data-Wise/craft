@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10530,14 +10530,14 @@
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">OWNER</span><span class="o">=</span>your-username
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nv">NAME</span><span class="o">=</span>protection-tutorial
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>gh<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$OWNER</span><span class="s2">/</span><span class="nv">$NAME</span><span class="s2">&quot;</span><span class="w"> </span>--public<span class="w"> </span>--add-readme
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>gh<span class="w"> </span>repo<span class="w"> </span>clone<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$OWNER</span><span class="s2">/</span><span class="nv">$NAME</span><span class="s2">&quot;</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NAME</span><span class="s2">&quot;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>gh<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span><span class="s2">"</span><span class="nv">$OWNER</span><span class="s2">/</span><span class="nv">$NAME</span><span class="s2">"</span><span class="w"> </span>--public<span class="w"> </span>--add-readme
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>gh<span class="w"> </span>repo<span class="w"> </span>clone<span class="w"> </span><span class="s2">"</span><span class="nv">$OWNER</span><span class="s2">/</span><span class="nv">$NAME</span><span class="s2">"</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="nv">$NAME</span><span class="s2">"</span>
 </span></code></pre></div>
 <p>What you should see:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>✓ Created repository OWNER/protection-tutorial on GitHub
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>✓ Added README.md
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Cloning into &#39;protection-tutorial&#39;...
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Cloning into 'protection-tutorial'...
 </span></code></pre></div>
 <blockquote>
 <p><strong>Tip:</strong> If you'd rather use an existing repo, just <code>cd</code> into it and skip ahead to Step 2. The command works the same.</p>
@@ -10545,7 +10545,7 @@
 <hr />
 <h2 id="step-2-inspect-current-state">Step 2: Inspect current state<a class="headerlink" href="#step-2-inspect-current-state" title="Permanent link">&para;</a></h2>
 <p>Before applying anything, see what's there:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ask<span class="w"> </span><span class="s2">&quot;show baseline protection status&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ask<span class="w"> </span><span class="s2">"show baseline protection status"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span></code></pre></div>
 <p>You should see:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Repo:   OWNER/protection-tutorial
@@ -10555,7 +10555,7 @@
 <p>A brand-new repo has no protection — anyone with write access can push directly to <code>main</code>. That's what we'll fix.</p>
 <hr />
 <h2 id="step-3-apply-the-github-side-baseline">Step 3: Apply the GitHub-side baseline<a class="headerlink" href="#step-3-apply-the-github-side-baseline" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ask<span class="w"> </span><span class="s2">&quot;apply baseline protection to this repo&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>ask<span class="w"> </span><span class="s2">"apply baseline protection to this repo"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span></code></pre></div>
 <p>What you should see:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Repo:   OWNER/protection-tutorial
@@ -10569,28 +10569,28 @@
 </span></code></pre></div>
 <p><strong>What just happened?</strong> The script called <code>gh api -X PUT repos/OWNER/NAME/branches/main/protection</code> with the craft baseline JSON. The baseline is solo-dev friendly: PR required with <strong>zero</strong> required review approvals — enough to catch accidental direct pushes without forcing you to wait for a phantom reviewer.</p>
 <h3 id="verify">Verify<a class="headerlink" href="#verify" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ask<span class="w"> </span><span class="s2">&quot;show baseline protection status&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ask<span class="w"> </span><span class="s2">"show baseline protection status"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span></code></pre></div>
 <p>You should now see the full protection JSON:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Repo:   OWNER/protection-tutorial
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Branch: main
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>{
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    &quot;url&quot;: &quot;https://api.github.com/repos/...&quot;,
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    &quot;required_pull_request_reviews&quot;: {
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        &quot;required_approving_review_count&quot;: 0,
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    "url": "https://api.github.com/repos/...",
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    "required_pull_request_reviews": {
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        "required_approving_review_count": 0,
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        ...
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    },
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    &quot;allow_force_pushes&quot;: { &quot;enabled&quot;: false },
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    &quot;allow_deletions&quot;: { &quot;enabled&quot;: false },
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    "allow_force_pushes": { "enabled": false },
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    "allow_deletions": { "enabled": false },
 </span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    ...
 </span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>}
 </span></code></pre></div>
 <hr />
 <h2 id="step-4-test-that-direct-pushes-are-blocked">Step 4: Test that direct pushes are blocked<a class="headerlink" href="#step-4-test-that-direct-pushes-are-blocked" title="Permanent link">&para;</a></h2>
 <p>Try the push that branch protection should now block:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;edit&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>README.md
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"edit"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>README.md
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>git<span class="w"> </span>add<span class="w"> </span>README.md
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>git<span class="w"> </span>-c<span class="w"> </span>commit.gpgsign<span class="o">=</span><span class="nb">false</span><span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;test: direct push attempt&quot;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>git<span class="w"> </span>-c<span class="w"> </span>commit.gpgsign<span class="o">=</span><span class="nb">false</span><span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"test: direct push attempt"</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
 </span></code></pre></div>
 <blockquote>
@@ -10612,8 +10612,8 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/test-protection
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>feature/test-protection
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--base<span class="w"> </span>main<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;test: validate protection workflow&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span>--body<span class="w"> </span><span class="s2">&quot;Demonstrates the PR-required workflow.&quot;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>gh<span class="w"> </span>pr<span class="w"> </span>create<span class="w"> </span>--base<span class="w"> </span>main<span class="w"> </span>--title<span class="w"> </span><span class="s2">"test: validate protection workflow"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span>--body<span class="w"> </span><span class="s2">"Demonstrates the PR-required workflow."</span>
 </span></code></pre></div>
 <p>You should see:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>https://github.com/OWNER/NAME/pull/1
@@ -10622,7 +10622,7 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>gh<span class="w"> </span>pr<span class="w"> </span>view<span class="w"> </span><span class="m">1</span><span class="w"> </span>--json<span class="w"> </span>mergeable,mergeStateStatus
 </span></code></pre></div>
 <p>Output:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span><span class="nt">&quot;mergeStateStatus&quot;</span><span class="p">:</span><span class="s2">&quot;CLEAN&quot;</span><span class="p">,</span><span class="nt">&quot;mergeable&quot;</span><span class="p">:</span><span class="s2">&quot;MERGEABLE&quot;</span><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span><span class="nt">"mergeStateStatus"</span><span class="p">:</span><span class="s2">"CLEAN"</span><span class="p">,</span><span class="nt">"mergeable"</span><span class="p">:</span><span class="s2">"MERGEABLE"</span><span class="p">}</span>
 </span></code></pre></div>
 <p>Merge it:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>gh<span class="w"> </span>pr<span class="w"> </span>merge<span class="w"> </span><span class="m">1</span><span class="w"> </span>--squash
@@ -10631,7 +10631,7 @@
 <hr />
 <h2 id="step-6-install-the-local-hook-layer">Step 6: Install the local hook layer<a class="headerlink" href="#step-6-install-the-local-hook-layer" title="Permanent link">&para;</a></h2>
 <p>GitHub-side protection catches anything that reaches the remote. The <strong>local hook</strong> catches accidents earlier — before they leave your machine.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ask<span class="w"> </span><span class="s2">&quot;show protection status&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ask<span class="w"> </span><span class="s2">"show protection status"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span></code></pre></div>
 <p>If you see "Branch protection is already active," you're good. Otherwise, the hook is installed via the craft installer and runs as a <code>PreToolUse</code> hook in Claude Code.</p>
 <p>The local hook treats branches by name:</p>
@@ -10683,10 +10683,10 @@
 <h2 id="step-7-add-status-checks-optional">Step 7: Add status checks (optional)<a class="headerlink" href="#step-7-add-status-checks-optional" title="Permanent link">&para;</a></h2>
 <p>If your repo has CI workflows, gate merges on them:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Find what your workflows actually emit</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--limit<span class="w"> </span><span class="m">5</span><span class="w"> </span>--json<span class="w"> </span>name<span class="w"> </span>-q<span class="w"> </span><span class="s1">&#39;.[] | .name&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>--limit<span class="w"> </span><span class="m">5</span><span class="w"> </span>--json<span class="w"> </span>name<span class="w"> </span>-q<span class="w"> </span><span class="s1">'.[] | .name'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># Then apply with --check</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>ask<span class="w"> </span><span class="s1">&#39;apply baseline protection with status checks &quot;test&quot;, &quot;lint&quot;, strict mode&#39;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>ask<span class="w"> </span><span class="s1">'apply baseline protection with status checks "test", "lint", strict mode'</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span></code></pre></div>
 <blockquote>
 <p><strong>Warning:</strong> Don't add a <code>--check</code> for a workflow that doesn't exist or hasn't run yet — GitHub will block all merges since the check never reports success.</p>
@@ -10694,10 +10694,10 @@
 <hr />
 <h2 id="step-8-cleanup">Step 8: Cleanup<a class="headerlink" href="#step-8-cleanup" title="Permanent link">&para;</a></h2>
 <p>If this was a tutorial repo you don't want to keep:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>gh<span class="w"> </span>repo<span class="w"> </span>delete<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$OWNER</span><span class="s2">/</span><span class="nv">$NAME</span><span class="s2">&quot;</span><span class="w"> </span>--yes
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>gh<span class="w"> </span>repo<span class="w"> </span>delete<span class="w"> </span><span class="s2">"</span><span class="nv">$OWNER</span><span class="s2">/</span><span class="nv">$NAME</span><span class="s2">"</span><span class="w"> </span>--yes
 </span></code></pre></div>
 <p>If you want to remove protection (e.g., before reverting to a different workflow):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ask<span class="w"> </span><span class="s2">&quot;remove baseline protection from this repo&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ask<span class="w"> </span><span class="s2">"remove baseline protection from this repo"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span></code></pre></div>
 <hr />
 <h2 id="what-youve-learned">What you've learned<a class="headerlink" href="#what-youve-learned" title="Permanent link">&para;</a></h2>
@@ -10746,10 +10746,10 @@
 <h3 id="status-check-name-has-spaces-special-chars-commas">Status check name has spaces / special chars / commas<a class="headerlink" href="#status-check-name-has-spaces-special-chars-commas" title="Permanent link">&para;</a></h3>
 <p>Use the <strong>repeatable</strong> <code>--check</code> flag, not comma-separated:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Good</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>--check<span class="w"> </span><span class="s2">&quot;test (ubuntu-latest, 3.12)&quot;</span><span class="w"> </span>--check<span class="w"> </span><span class="s2">&quot;lint&quot;</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>--check<span class="w"> </span><span class="s2">"test (ubuntu-latest, 3.12)"</span><span class="w"> </span>--check<span class="w"> </span><span class="s2">"lint"</span>
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
 </span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="c1"># Bad — would split on the comma inside parens</span>
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>--with-checks<span class="w"> </span><span class="s2">&quot;test (ubuntu-latest, 3.12),lint&quot;</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>--with-checks<span class="w"> </span><span class="s2">"test (ubuntu-latest, 3.12),lint"</span>
 </span></code></pre></div>
 <hr />
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>

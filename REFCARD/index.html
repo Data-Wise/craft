@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -11212,11 +11212,11 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────┐
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  CRAFT PLUGIN QUICK REFERENCE                               │
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────────────────────────┤
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 4.6.0 (v4.6.0, released 2026-08-15)               │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  Version: 4.6.1 (released 2026-09-23)                       │
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│  Commands: 48 | Agents: 2 | Skills: 41                      │
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│  Tests: python3 -m pytest tests/                            │
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│  Docs: https://data-wise.github.io/craft/                   │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v4.6.0: prose-staleness checks, hardened same day          │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  v4.6.1: docs accuracy pass + pinned MCP server             │
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>└─────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="essential-commands">Essential Commands<a class="headerlink" href="#essential-commands" title="Permanent link">&para;</a></h2>
@@ -11238,23 +11238,23 @@
 </ol>
 <p><strong>Examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Simple task (score: 2) → Direct command</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;lint markdown files&quot;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:do<span class="w"> </span><span class="s2">"lint markdown files"</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Routes to: /folio:docs:lint</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Medium task (score: 6) → Command sequence</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add user authentication with JWT&quot;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/craft:do<span class="w"> </span><span class="s2">"add user authentication with JWT"</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Routes to: /craft:arch:plan, /craft:code:test-gen, dev/git skill (create branch) (no agent dispatch)</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Complex task (score: 9) → Orchestrator</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>/craft:do<span class="w"> </span><span class="s2">&quot;prepare v2.0 release with tests, docs, and changelog&quot;</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>/craft:do<span class="w"> </span><span class="s2">"prepare v2.0 release with tests, docs, and changelog"</span>
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># Routes to: orchestrator-v2 with release mode</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Preview routing decision (NEW v2.9.0)</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add payment processing&quot;</span><span class="w"> </span>--dry-run
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>/craft:do<span class="w"> </span><span class="s2">"add payment processing"</span><span class="w"> </span>--dry-run
 </span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="c1"># Shows: Complexity score, selected route, execution plan</span>
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
 </span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="c1"># With orchestration mode</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>/craft:do<span class="w"> </span><span class="s2">&quot;refactor database layer&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>/craft:do<span class="w"> </span><span class="s2">"refactor database layer"</span><span class="w"> </span>--orch<span class="o">=</span>optimize
 </span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="c1"># Forces orchestrator with optimize mode</span>
 </span></code></pre></div>
 <p><strong>When to use:</strong></p>
@@ -11326,7 +11326,7 @@
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># Help in specific context</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># (in a Git repository with uncommitted changes)</span>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>/craft:smart-help
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1"># Suggests: /craft:check, ask &quot;git status&quot; (dev/git skill), ask &quot;create a worktree&quot; (dev/git skill)</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1"># Suggests: /craft:check, ask "git status" (dev/git skill), ask "create a worktree" (dev/git skill)</span>
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
 </span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="c1"># (in a documentation directory)</span>
 </span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>/craft:smart-help
@@ -11363,7 +11363,7 @@
 </span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># Shows: All 13 code &amp; testing commands</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Search for commands</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>/craft:hub<span class="w"> </span><span class="s2">&quot;ci&quot;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>/craft:hub<span class="w"> </span><span class="s2">"ci"</span>
 </span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># Shows: All CI-related commands</span>
 </span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
 </span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># Show command details</span>
@@ -11400,8 +11400,8 @@
 <h2 id="interactive-command-behavior">Interactive Command Behavior<a class="headerlink" href="#interactive-command-behavior" title="Permanent link">&para;</a></h2>
 <p><strong>"Show Steps First" Pattern</strong> - key commands show plan before executing:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:check<span class="w">               </span><span class="c1"># Shows: steps to run, asks confirmation</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w">           </span><span class="c1"># Shows: routing plan, asks confirmation</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w">  </span><span class="c1"># Shows: mode selection, wave plan, checkpoints</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:do<span class="w"> </span><span class="s2">"task"</span><span class="w">           </span><span class="c1"># Shows: routing plan, asks confirmation</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:orch<span class="w"> </span><span class="s2">"task"</span><span class="w">  </span><span class="c1"># Shows: mode selection, wave plan, checkpoints</span>
 </span></code></pre></div>
 <p><strong>Interactive Orchestration:</strong></p>
 <ul>
@@ -11436,7 +11436,7 @@
 <p><strong>Purpose:</strong> Convergent counterpart to brainstorm — interrogate a plan/spec/topic one question at
 a time to surface gaps before building.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:grill<span class="w"> </span>docs/specs/SPEC-auth-2026-06-22.md<span class="w">   </span><span class="c1"># stress-test a spec</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/craft:grill<span class="w"> </span><span class="s2">&quot;add OAuth login&quot;</span><span class="w">                     </span><span class="c1"># skeleton, then grill</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/craft:grill<span class="w"> </span><span class="s2">"add OAuth login"</span><span class="w">                     </span><span class="c1"># skeleton, then grill</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>/craft:grill<span class="w"> </span>--bound<span class="w"> </span><span class="m">2</span><span class="w"> </span>--no-capture<span class="w">                </span><span class="c1"># bounded, inline (embedded use)</span>
 </span></code></pre></div>
 <p><strong>How it works:</strong> codebase-first sweep → one-at-a-time loop with a Recommended answer per question
@@ -11450,9 +11450,9 @@ artifact). Routes to exactly one tier via <strong>deterministic repo-state detec
 brainstorm; SPEC, no GRILL → offer <code>/craft:grill</code>; GRILL (or skipped), no ORCHESTRATE →
 plan-orchestrator; all three exist → project-planner. Never phrase-based classification — see
 <code>GRILL-planning-refactor-a2-2026-07-04.md</code> G-2 for why.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:plan<span class="w"> </span><span class="s2">&quot;orchestrator-consolidation&quot;</span><span class="w">   </span><span class="c1"># infers tier from repo state</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:plan<span class="w"> </span><span class="s2">"orchestrator-consolidation"</span><span class="w">   </span><span class="c1"># infers tier from repo state</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:plan<span class="w"> </span>--dry-run<span class="w">                      </span><span class="c1"># preview routing without invoking</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>/craft:do<span class="w"> </span>--plan<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w">                </span><span class="c1"># sugar, forwards to /craft:plan</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>/craft:do<span class="w"> </span>--plan<span class="w"> </span><span class="s2">"add auth"</span><span class="w">                </span><span class="c1"># sugar, forwards to /craft:plan</span>
 </span></code></pre></div>
 <p><strong>Scope:</strong> router only — never re-implements the four tiers' logic, never invokes <code>/craft:do</code> or
 <code>/craft:orch</code> directly (one-directional seam: <code>plan</code> produces, <code>do</code>/<code>orchestrate</code> consume
@@ -11461,8 +11461,8 @@ later).</p>
 <p><strong>Purpose:</strong> Scope a new feature into user stories, task breakdown, dependencies, and acceptance
 criteria — the artifact-generating tier <code>/craft:plan</code> routes to when no committed plan exists yet
 for the topic.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;avatar upload&quot;</span><span class="w">                </span><span class="c1"># MVP-scope by default</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;avatar upload&quot;</span><span class="w"> </span>--scope<span class="w"> </span>full<span class="w">    </span><span class="c1"># full-build scope</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"avatar upload"</span><span class="w">                </span><span class="c1"># MVP-scope by default</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"avatar upload"</span><span class="w"> </span>--scope<span class="w"> </span>full<span class="w">    </span><span class="c1"># full-build scope</span>
 </span></code></pre></div>
 <h2 id="smart-documentation-2-commands">Smart Documentation (2 commands)<a class="headerlink" href="#smart-documentation-2-commands" title="Permanent link">&para;</a></h2>
 <h3 id="core-documentation-commands">Core Documentation Commands<a class="headerlink" href="#core-documentation-commands" title="Permanent link">&para;</a></h3>
@@ -11608,13 +11608,13 @@ for the topic.</p>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># ✓ Missing help: 3 new commands</span>
 </span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1">#</span>
 </span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="c1"># Prompts:</span>
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="c1"># &quot;Update version references? (19 files)&quot;</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="c1"># "Update version references? (19 files)"</span>
 </span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="c1"># → Yes</span>
 </span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="c1">#</span>
-</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="c1"># &quot;Update command counts? (4 files)&quot;</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="c1"># "Update command counts? (4 files)"</span>
 </span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="c1"># → Yes</span>
 </span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="c1">#</span>
-</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="c1"># &quot;Generate help for 3 new commands?&quot;</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="c1"># "Generate help for 3 new commands?"</span>
 </span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="c1"># → Yes (uses AI to generate descriptions)</span>
 </span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="c1">#</span>
 </span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="c1"># Result: 22 files updated in ~35 seconds</span>
@@ -11683,7 +11683,7 @@ for the topic.</p>
 <p><strong>Doc-impact rubric (8 types, tiered thresholds):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Cheap, in-context (threshold &gt;=3):     Guide, Refcard, Demo, Mermaid
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>Heavy, agent-authored (threshold &gt;=5   Tutorial, API, Cookbook,
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  OR &quot;new user-facing surface&quot;):       Architecture-doc
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  OR "new user-facing surface"):       Architecture-doc
 </span></code></pre></div>
 <p>Architecture-doc subtracts the Mermaid factor's "architecture change" contribution before applying
 its own threshold, so one arch change can't double-fire both a Mermaid diagram and an
@@ -11731,8 +11731,8 @@ read it rather than duplicating the type list).</p>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>/folio:docs:mermaid<span class="w"> </span>sequence
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1"># NL creation (NEW)</span>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>/folio:docs:mermaid<span class="w"> </span><span class="s2">&quot;show release pipeline from dev to main&quot;</span>
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>/folio:docs:mermaid<span class="w"> </span><span class="s2">&quot;auth flow with OAuth2&quot;</span><span class="w"> </span>--validate<span class="w"> </span>--preview
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>/folio:docs:mermaid<span class="w"> </span><span class="s2">"show release pipeline from dev to main"</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>/folio:docs:mermaid<span class="w"> </span><span class="s2">"auth flow with OAuth2"</span><span class="w"> </span>--validate<span class="w"> </span>--preview
 </span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
 </span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c1"># Validation scripts</span>
 </span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>python3<span class="w"> </span>scripts/mermaid-validate.py<span class="w"> </span>docs/<span class="w"> </span>--health-score
@@ -11816,23 +11816,23 @@ read it rather than duplicating the type list).</p>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>/folio:site:publish
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
 </span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Step-by-step what happens:</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="c1"># 1. Check current branch (must be on &#39;dev&#39; for preview)</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="c1"># 1. Check current branch (must be on 'dev' for preview)</span>
 </span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="c1"># 2. Build preview version</span>
 </span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="c1"># 3. Validate content:</span>
 </span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="c1">#    - Syllabus exists and complete</span>
 </span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="c1">#    - Schedule has all weeks</span>
 </span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="c1">#    - Assignments defined</span>
 </span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="c1">#    - Links not broken</span>
-</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="c1"># 4. Prompt: &quot;Ready to publish to main?&quot;</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="c1"># 4. Prompt: "Ready to publish to main?"</span>
 </span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="c1"># 5. If yes:</span>
 </span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="c1">#    - Switch to main branch</span>
 </span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="c1">#    - Merge changes from dev</span>
 </span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a><span class="c1">#    - Build production version</span>
 </span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="c1">#    - Deploy to GitHub Pages</span>
 </span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="c1">#    - Switch back to dev</span>
-</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a><span class="c1"># 6. Confirm: &quot;Published to https://...&quot;</span>
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a><span class="c1"># 6. Confirm: "Published to https://..."</span>
 </span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>
-</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a><span class="c1"># Validate only (don&#39;t deploy)</span>
+</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a><span class="c1"># Validate only (don't deploy)</span>
 </span><span id="__span-21-22"><a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a>/folio:site:publish<span class="w"> </span>--validate-only
 </span><span id="__span-21-23"><a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a><span class="c1"># Runs: All validation checks</span>
 </span><span id="__span-21-24"><a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a><span class="c1"># Skips: Actual deployment</span>
@@ -11898,7 +11898,7 @@ read it rather than duplicating the type list).</p>
 </span><span id="__span-23-25"><a id="__codelineno-23-25" name="__codelineno-23-25" href="#__codelineno-23-25"></a><span class="c1"># Compact format (for quick check)</span>
 </span><span id="__span-23-26"><a id="__codelineno-23-26" name="__codelineno-23-26" href="#__codelineno-23-26"></a>/folio:site:progress<span class="w"> </span>--compact
 </span><span id="__span-23-27"><a id="__codelineno-23-27" name="__codelineno-23-27" href="#__codelineno-23-27"></a><span class="c1"># Shows: One-line summary</span>
-</span><span id="__span-23-28"><a id="__codelineno-23-28" name="__codelineno-23-28" href="#__codelineno-23-28"></a><span class="c1"># Example: &quot;Week 8/16 (50%) • 3 assignments due soon&quot;</span>
+</span><span id="__span-23-28"><a id="__codelineno-23-28" name="__codelineno-23-28" href="#__codelineno-23-28"></a><span class="c1"># Example: "Week 8/16 (50%) • 3 assignments due soon"</span>
 </span><span id="__span-23-29"><a id="__codelineno-23-29" name="__codelineno-23-29" href="#__codelineno-23-29"></a>
 </span><span id="__span-23-30"><a id="__codelineno-23-30" name="__codelineno-23-30" href="#__codelineno-23-30"></a><span class="c1"># JSON output (for scripts)</span>
 </span><span id="__span-23-31"><a id="__codelineno-23-31" name="__codelineno-23-31" href="#__codelineno-23-31"></a>/folio:site:progress<span class="w"> </span>--json
@@ -11919,7 +11919,7 @@ read it rather than duplicating the type list).</p>
 </span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="c1"># Then: Deploys result</span>
 </span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
 </span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="c1"># Deploy with custom message</span>
-</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>/craft:site:deploy<span class="w"> </span>--message<span class="w"> </span><span class="s2">&quot;Week 8 updates&quot;</span>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>/craft:site:deploy<span class="w"> </span>--message<span class="w"> </span><span class="s2">"Week 8 updates"</span>
 </span><span id="__span-24-13"><a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="c1"># Git commit message: Custom message</span>
 </span><span id="__span-24-14"><a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a>
 </span><span id="__span-24-15"><a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="c1"># Force push (overwrite remote)</span>
@@ -12175,11 +12175,11 @@ the <code>repo-triage</code> skill: ask naturally (e.g. "triage the repo", "what
 attention here") or see
 <a href="https://github.com/Data-Wise/craft/blob/dev/skills/orchestration/repo-triage/SKILL.md"><code>skills/orchestration/repo-triage/SKILL.md</code></a>.</p>
 <p><strong>Quick examples:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># ask &quot;create a worktree for feature/auth&quot; (dev/git skill)</span>
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="c1"># ask &quot;move my current work to a worktree&quot; (dev/git skill)</span>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="c1"># ask &quot;clean up merged branches&quot; (dev/git skill)</span>
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>/craft:git:issue-check<span class="w"> </span><span class="m">123</span><span class="w">   </span><span class="c1"># Verify GitHub issue #123&#39;s premise before fixing</span>
-</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="c1"># ask &quot;triage the repo&quot; (repo-triage skill)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1"># ask "create a worktree for feature/auth" (dev/git skill)</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="c1"># ask "move my current work to a worktree" (dev/git skill)</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="c1"># ask "clean up merged branches" (dev/git skill)</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>/craft:git:issue-check<span class="w"> </span><span class="m">123</span><span class="w">   </span><span class="c1"># Verify GitHub issue #123's premise before fixing</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="c1"># ask "triage the repo" (repo-triage skill)</span>
 </span></code></pre></div>
 <h2 id="architecture-commands-4-commands">Architecture Commands (4 commands)<a class="headerlink" href="#architecture-commands-4-commands" title="Permanent link">&para;</a></h2>
 <table>
@@ -12320,8 +12320,8 @@ config") or read the reference doc directly.</p>
 </tbody>
 </table>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c1"># Run all gates (Steps 10b/10c/10d)</span>
-</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>python3<span class="w"> </span>scripts/verify_caveats.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FORMULA</span><span class="s2">&quot;</span><span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span>
-</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>python3<span class="w"> </span>scripts/post_install_check.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FORMULA</span><span class="s2">&quot;</span><span class="w"> </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>python3<span class="w"> </span>scripts/verify_caveats.py<span class="w"> </span><span class="s2">"</span><span class="nv">$FORMULA</span><span class="s2">"</span><span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="s2">"</span><span class="nv">$VERSION</span><span class="s2">"</span><span class="w"> </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>python3<span class="w"> </span>scripts/post_install_check.py<span class="w"> </span><span class="s2">"</span><span class="nv">$FORMULA</span><span class="s2">"</span><span class="w"> </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span>
 </span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a>bash<span class="w"> </span>scripts/aggregator-sync.sh<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
 </span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>
 </span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="c1"># After publish: Cowork/Desktop update (marketplace cache FIRST)</span>
@@ -12331,12 +12331,12 @@ config") or read the reference doc directly.</p>
 <h2 id="orchestrator-enhanced-v21-v250-v290">Orchestrator (Enhanced v2.1, v2.5.0, v2.9.0)<a class="headerlink" href="#orchestrator-enhanced-v21-v250-v290" title="Permanent link">&para;</a></h2>
 <p><strong>Main Commands:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c1"># Interactive mode (v2.9.0) - Shows mode selection, wave plan, checkpoints</span>
-</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w">           </span><span class="c1"># Interactive: pick mode + confirm plan</span>
-</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>optimize<span class="w">  </span><span class="c1"># Direct mode selection</span>
-</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;large task&quot;</span><span class="w"> </span>--swarm<span class="w"> </span><span class="c1"># Unlimited parallel agents (v2.18.0)</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>/craft:orch<span class="w"> </span><span class="s2">"add auth"</span><span class="w">           </span><span class="c1"># Interactive: pick mode + confirm plan</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>/craft:orch<span class="w"> </span><span class="s2">"add auth"</span><span class="w"> </span>optimize<span class="w">  </span><span class="c1"># Direct mode selection</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>/craft:orch<span class="w"> </span><span class="s2">"large task"</span><span class="w"> </span>--swarm<span class="w"> </span><span class="c1"># Unlimited parallel agents (v2.18.0)</span>
 </span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>
 </span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="c1"># Orchestrate specific commands with --orch flag (v2.5.0)</span>
-</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">      </span><span class="c1"># Quick orchestration</span>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>/craft:do<span class="w"> </span><span class="s2">"add auth"</span><span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">      </span><span class="c1"># Quick orchestration</span>
 </span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>/craft:check<span class="w"> </span>--orch<span class="o">=</span>release<span class="w">               </span><span class="c1"># Orchestrated validation</span>
 </span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>/folio:docs:sync<span class="w"> </span>--orch<span class="o">=</span>default<span class="w">           </span><span class="c1"># Orchestrated docs sync</span>
 </span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>/craft:ci:generate<span class="w"> </span>--orch<span class="o">=</span>optimize<span class="w">        </span><span class="c1"># Orchestrated CI generation</span>
@@ -12560,53 +12560,53 @@ config") or read the reference doc directly.</p>
 </ul>
 <p><strong>Examples:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1"># Quick start (0-2 questions)</span>
-</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">"add user authentication"</span>
 </span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="c1"># Questions: None, straight to brainstorming</span>
 </span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="c1"># Time: ~2 minutes</span>
 </span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="c1"># Use: When you know exactly what you want</span>
 </span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>
-</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>/brainstorm<span class="w"> </span>q:2<span class="w"> </span><span class="s2">&quot;refactor database&quot;</span>
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>/brainstorm<span class="w"> </span>q:2<span class="w"> </span><span class="s2">"refactor database"</span>
 </span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="c1"># Questions: 2 quick clarifying questions</span>
 </span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="c1"># Time: ~3 minutes</span>
 </span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a><span class="c1"># Use: Small tweaks to direction</span>
 </span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a>
 </span><span id="__span-35-12"><a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a><span class="c1"># Balanced (5-8 questions)</span>
-</span><span id="__span-35-13"><a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;design payment system&quot;</span>
+</span><span id="__span-35-13"><a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">"design payment system"</span>
 </span><span id="__span-35-14"><a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a><span class="c1"># Questions: 5 carefully selected questions</span>
 </span><span id="__span-35-15"><a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a><span class="c1"># Time: ~10 minutes</span>
 </span><span id="__span-35-16"><a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a><span class="c1"># Use: Standard features, moderate complexity</span>
 </span><span id="__span-35-17"><a id="__codelineno-35-17" name="__codelineno-35-17" href="#__codelineno-35-17"></a>
-</span><span id="__span-35-18"><a id="__codelineno-35-18" name="__codelineno-35-18" href="#__codelineno-35-18"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span><span class="s2">&quot;oauth integration&quot;</span>
+</span><span id="__span-35-18"><a id="__codelineno-35-18" name="__codelineno-35-18" href="#__codelineno-35-18"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span><span class="s2">"oauth integration"</span>
 </span><span id="__span-35-19"><a id="__codelineno-35-19" name="__codelineno-35-19" href="#__codelineno-35-19"></a><span class="c1"># Questions: 8 questions covering all aspects</span>
 </span><span id="__span-35-20"><a id="__codelineno-35-20" name="__codelineno-35-20" href="#__codelineno-35-20"></a><span class="c1"># Time: ~15 minutes</span>
 </span><span id="__span-35-21"><a id="__codelineno-35-21" name="__codelineno-35-21" href="#__codelineno-35-21"></a><span class="c1"># Use: Complex features needing thorough planning</span>
 </span><span id="__span-35-22"><a id="__codelineno-35-22" name="__codelineno-35-22" href="#__codelineno-35-22"></a>
 </span><span id="__span-35-23"><a id="__codelineno-35-23" name="__codelineno-35-23" href="#__codelineno-35-23"></a><span class="c1"># Maximum context (12-20 questions)</span>
-</span><span id="__span-35-24"><a id="__codelineno-35-24" name="__codelineno-35-24" href="#__codelineno-35-24"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span><span class="s2">&quot;rewrite authentication&quot;</span>
+</span><span id="__span-35-24"><a id="__codelineno-35-24" name="__codelineno-35-24" href="#__codelineno-35-24"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span><span class="s2">"rewrite authentication"</span>
 </span><span id="__span-35-25"><a id="__codelineno-35-25" name="__codelineno-35-25" href="#__codelineno-35-25"></a><span class="c1"># Questions: 12 comprehensive questions</span>
 </span><span id="__span-35-26"><a id="__codelineno-35-26" name="__codelineno-35-26" href="#__codelineno-35-26"></a><span class="c1"># Time: ~20 minutes</span>
 </span><span id="__span-35-27"><a id="__codelineno-35-27" name="__codelineno-35-27" href="#__codelineno-35-27"></a><span class="c1"># Use: Major architectural changes</span>
 </span><span id="__span-35-28"><a id="__codelineno-35-28" name="__codelineno-35-28" href="#__codelineno-35-28"></a>
-</span><span id="__span-35-29"><a id="__codelineno-35-29" name="__codelineno-35-29" href="#__codelineno-35-29"></a>/brainstorm<span class="w"> </span>d:20<span class="w"> </span><span class="s2">&quot;microservices migration&quot;</span>
+</span><span id="__span-35-29"><a id="__codelineno-35-29" name="__codelineno-35-29" href="#__codelineno-35-29"></a>/brainstorm<span class="w"> </span>d:20<span class="w"> </span><span class="s2">"microservices migration"</span>
 </span><span id="__span-35-30"><a id="__codelineno-35-30" name="__codelineno-35-30" href="#__codelineno-35-30"></a><span class="c1"># Questions: Unlimited mode (prompts every 4 questions)</span>
 </span><span id="__span-35-31"><a id="__codelineno-35-31" name="__codelineno-35-31" href="#__codelineno-35-31"></a><span class="c1"># Time: ~30+ minutes</span>
 </span><span id="__span-35-32"><a id="__codelineno-35-32" name="__codelineno-35-32" href="#__codelineno-35-32"></a><span class="c1"># Use: Project-level planning</span>
 </span><span id="__span-35-33"><a id="__codelineno-35-33" name="__codelineno-35-33" href="#__codelineno-35-33"></a>
 </span><span id="__span-35-34"><a id="__codelineno-35-34" name="__codelineno-35-34" href="#__codelineno-35-34"></a><span class="c1"># Category filtering (-C flag)</span>
-</span><span id="__span-35-35"><a id="__codelineno-35-35" name="__codelineno-35-35" href="#__codelineno-35-35"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;caching layer&quot;</span><span class="w"> </span>-C<span class="w"> </span>tech,risk
+</span><span id="__span-35-35"><a id="__codelineno-35-35" name="__codelineno-35-35" href="#__codelineno-35-35"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">"caching layer"</span><span class="w"> </span>-C<span class="w"> </span>tech,risk
 </span><span id="__span-35-36"><a id="__codelineno-35-36" name="__codelineno-35-36" href="#__codelineno-35-36"></a><span class="c1"># Questions: Only technical + risk questions</span>
 </span><span id="__span-35-37"><a id="__codelineno-35-37" name="__codelineno-35-37" href="#__codelineno-35-37"></a><span class="c1"># Categories available:</span>
 </span><span id="__span-35-38"><a id="__codelineno-35-38" name="__codelineno-35-38" href="#__codelineno-35-38"></a><span class="c1">#   req (requirements), usr (users), scope,</span>
 </span><span id="__span-35-39"><a id="__codelineno-35-39" name="__codelineno-35-39" href="#__codelineno-35-39"></a><span class="c1">#   tech (technical), timeline, risk (risks),</span>
 </span><span id="__span-35-40"><a id="__codelineno-35-40" name="__codelineno-35-40" href="#__codelineno-35-40"></a><span class="c1">#   exist (existing), success (success criteria)</span>
 </span><span id="__span-35-41"><a id="__codelineno-35-41" name="__codelineno-35-41" href="#__codelineno-35-41"></a>
-</span><span id="__span-35-42"><a id="__codelineno-35-42" name="__codelineno-35-42" href="#__codelineno-35-42"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;payment api&quot;</span><span class="w"> </span>--categories<span class="w"> </span>req,tech,exist
+</span><span id="__span-35-42"><a id="__codelineno-35-42" name="__codelineno-35-42" href="#__codelineno-35-42"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">"payment api"</span><span class="w"> </span>--categories<span class="w"> </span>req,tech,exist
 </span><span id="__span-35-43"><a id="__codelineno-35-43" name="__codelineno-35-43" href="#__codelineno-35-43"></a><span class="c1"># Flags:</span>
 </span><span id="__span-35-44"><a id="__codelineno-35-44" name="__codelineno-35-44" href="#__codelineno-35-44"></a><span class="c1">#   f = feature (generates feature spec)</span>
 </span><span id="__span-35-45"><a id="__codelineno-35-45" name="__codelineno-35-45" href="#__codelineno-35-45"></a><span class="c1">#   Categories: requirements, technical, existing systems</span>
 </span><span id="__span-35-46"><a id="__codelineno-35-46" name="__codelineno-35-46" href="#__codelineno-35-46"></a>
 </span><span id="__span-35-47"><a id="__codelineno-35-47" name="__codelineno-35-47" href="#__codelineno-35-47"></a><span class="c1"># Combined flags for full control</span>
-</span><span id="__span-35-48"><a id="__codelineno-35-48" name="__codelineno-35-48" href="#__codelineno-35-48"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">&quot;user analytics&quot;</span>
+</span><span id="__span-35-48"><a id="__codelineno-35-48" name="__codelineno-35-48" href="#__codelineno-35-48"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">"user analytics"</span>
 </span><span id="__span-35-49"><a id="__codelineno-35-49" name="__codelineno-35-49" href="#__codelineno-35-49"></a><span class="c1"># Flags:</span>
 </span><span id="__span-35-50"><a id="__codelineno-35-50" name="__codelineno-35-50" href="#__codelineno-35-50"></a><span class="c1">#   d:15 = deep mode, 15 questions</span>
 </span><span id="__span-35-51"><a id="__codelineno-35-51" name="__codelineno-35-51" href="#__codelineno-35-51"></a><span class="c1">#   f = feature spec output</span>
@@ -12681,38 +12681,38 @@ config") or read the reference doc directly.</p>
 </span></code></pre></div>
 <p><strong>Output Formats:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c1"># Default: Saved markdown file</span>
-</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;feature&quot;</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">"feature"</span>
 </span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="c1"># Creates: BRAINSTORM-feature-2026-01-29.md</span>
 </span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a><span class="c1"># Location: Current directory or ~/</span>
 </span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a><span class="c1"># Opens: iA Writer (macOS) for review</span>
 </span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>
 </span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="c1"># Feature spec format</span>
-</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;oauth&quot;</span>
+</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span>f<span class="w"> </span><span class="s2">"oauth"</span>
 </span><span id="__span-37-9"><a id="__codelineno-37-9" name="__codelineno-37-9" href="#__codelineno-37-9"></a><span class="c1"># Output: Feature specification structure</span>
 </span><span id="__span-37-10"><a id="__codelineno-37-10" name="__codelineno-37-10" href="#__codelineno-37-10"></a><span class="c1"># Includes: Requirements, user stories, acceptance criteria</span>
 </span><span id="__span-37-11"><a id="__codelineno-37-11" name="__codelineno-37-11" href="#__codelineno-37-11"></a>
 </span><span id="__span-37-12"><a id="__codelineno-37-12" name="__codelineno-37-12" href="#__codelineno-37-12"></a><span class="c1"># Technical spec format</span>
-</span><span id="__span-37-13"><a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;caching&quot;</span>
+</span><span id="__span-37-13"><a id="__codelineno-37-13" name="__codelineno-37-13" href="#__codelineno-37-13"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>s<span class="w"> </span><span class="s2">"caching"</span>
 </span><span id="__span-37-14"><a id="__codelineno-37-14" name="__codelineno-37-14" href="#__codelineno-37-14"></a><span class="c1"># Output: Technical specification structure</span>
 </span><span id="__span-37-15"><a id="__codelineno-37-15" name="__codelineno-37-15" href="#__codelineno-37-15"></a><span class="c1"># Includes: Architecture, data flow, API design</span>
 </span></code></pre></div>
 <p><strong>Real-World Examples:</strong></p>
 <p><strong>Example 1: Quick Bug Fix Planning</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">&quot;fix login timeout issue&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">"fix login timeout issue"</span>
 </span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="c1"># No questions, goes straight to brainstorming</span>
 </span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="c1"># Generates: Problem analysis, potential causes, solutions</span>
 </span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="c1"># Time: 2 minutes</span>
 </span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="c1"># File: BRAINSTORM-fix-login-timeout-2026-01-29.md</span>
 </span></code></pre></div>
 <p><strong>Example 2: New Feature Planning</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;two-factor authentication&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>/brainstorm<span class="w"> </span>d:8<span class="w"> </span>f<span class="w"> </span><span class="s2">"two-factor authentication"</span>
 </span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>
 </span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="c1"># Asks 8 questions:</span>
 </span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="c1"># 1. [requirements] What are the core requirements?</span>
 </span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="c1">#    → SMS and app-based TOTP</span>
 </span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="c1"># 2. [users] Who will use this?</span>
 </span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="c1">#    → All users, optional for regular accounts, mandatory for admin</span>
-</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="c1"># 3. [scope] What&#39;s in scope?</span>
+</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="c1"># 3. [scope] What's in scope?</span>
 </span><span id="__span-39-9"><a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="c1">#    → Setup flow, verification, backup codes</span>
 </span><span id="__span-39-10"><a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a><span class="c1"># 4. [technical] Technical constraints?</span>
 </span><span id="__span-39-11"><a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a><span class="c1">#    → Must support existing session system</span>
@@ -12736,7 +12736,7 @@ config") or read the reference doc directly.</p>
 </span><span id="__span-39-29"><a id="__codelineno-39-29" name="__codelineno-39-29" href="#__codelineno-39-29"></a><span class="c1"># Opens in: iA Writer for review</span>
 </span></code></pre></div>
 <p><strong>Example 3: Architecture Planning</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;microservices migration&quot;</span><span class="w"> </span>-C<span class="w"> </span>tech,exist,risk
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span>s<span class="w"> </span><span class="s2">"microservices migration"</span><span class="w"> </span>-C<span class="w"> </span>tech,exist,risk
 </span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
 </span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="c1"># Filters to 3 categories, asks 12 questions:</span>
 </span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="c1"># Technical (4 questions):</span>
@@ -12768,28 +12768,28 @@ config") or read the reference doc directly.</p>
 </span></code></pre></div>
 <p><strong>Auto-Open Behavior (macOS):</strong></p>
 <p>After generating, brainstorm uses AppleScript to open files:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Default: iA Writer (DT&#39;s preference)</span>
-</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>osascript<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;tell application &quot;iA Writer&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="c1"># Default: iA Writer (DT's preference)</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>osascript<span class="w"> </span>-e<span class="w"> </span><span class="s1">'tell application "iA Writer"</span>
 </span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="s1">    activate</span>
-</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="s1">    open POSIX file &quot;/path/to/BRAINSTORM-feature.md&quot;</span>
-</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="s1">end tell&#39;</span>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="s1">    open POSIX file "/path/to/BRAINSTORM-feature.md"</span>
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="s1">end tell'</span>
 </span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>
 </span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="c1"># Alternative editors can be configured</span>
 </span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a><span class="c1"># Set in ~/.claude/settings.json:</span>
 </span><span id="__span-41-9"><a id="__codelineno-41-9" name="__codelineno-41-9" href="#__codelineno-41-9"></a><span class="o">{</span>
-</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a><span class="w">  </span><span class="s2">&quot;brainstorm&quot;</span>:<span class="w"> </span><span class="o">{</span>
-</span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a><span class="w">    </span><span class="s2">&quot;editor&quot;</span>:<span class="w"> </span><span class="s2">&quot;code&quot;</span><span class="w">  </span><span class="c1"># VS Code, Cursor, Sublime, etc.</span>
+</span><span id="__span-41-10"><a id="__codelineno-41-10" name="__codelineno-41-10" href="#__codelineno-41-10"></a><span class="w">  </span><span class="s2">"brainstorm"</span>:<span class="w"> </span><span class="o">{</span>
+</span><span id="__span-41-11"><a id="__codelineno-41-11" name="__codelineno-41-11" href="#__codelineno-41-11"></a><span class="w">    </span><span class="s2">"editor"</span>:<span class="w"> </span><span class="s2">"code"</span><span class="w">  </span><span class="c1"># VS Code, Cursor, Sublime, etc.</span>
 </span><span id="__span-41-12"><a id="__codelineno-41-12" name="__codelineno-41-12" href="#__codelineno-41-12"></a><span class="w">  </span><span class="o">}</span>
 </span><span id="__span-41-13"><a id="__codelineno-41-13" name="__codelineno-41-13" href="#__codelineno-41-13"></a><span class="o">}</span>
 </span></code></pre></div>
 <p><strong>Insights (skill-routed, not a slash command):</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># Generate session insights report</span>
-</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="c1"># ask &quot;generate an insights report&quot; (workflow/brainstorm-insights skill)</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="c1"># ask "generate an insights report" (workflow/brainstorm-insights skill)</span>
 </span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="c1"># Aggregates: Friction patterns, goal categories, outcomes</span>
 </span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="c1"># Suggests: CLAUDE.md rules to prevent recurring issues</span>
 </span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>
 </span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="c1"># Apply suggestions to CLAUDE.md</span>
-</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="c1"># ask &quot;apply the insights suggestions&quot; (insights-apply skill)</span>
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="c1"># ask "apply the insights suggestions" (insights-apply skill)</span>
 </span></code></pre></div>
 <p><strong>Insights Lifecycle:</strong></p>
 <pre class="mermaid"><code>flowchart LR
@@ -12801,11 +12801,11 @@ config") or read the reference doc directly.</p>
 <p><strong>Other Workflow Commands:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="c1"># Restore context (git + session state)</span>
 </span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>/craft:restore
-</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="c1"># Combines: dev/git skill&#39;s git-activity recap (commits, branch</span>
-</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1">#   ahead/behind, unpushed work, open PRs) + adhd-workflow&#39;s</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="c1"># Combines: dev/git skill's git-activity recap (commits, branch</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="c1">#   ahead/behind, unpushed work, open PRs) + adhd-workflow's</span>
 </span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="c1">#   .STATUS-based session recap in one read-only summary</span>
 </span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a><span class="c1"># Modes: default | detailed | summary (apply to the git-activity</span>
-</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="c1">#   portion; adhd-workflow&#39;s recap has no mode support)</span>
+</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="c1">#   portion; adhd-workflow's recap has no mode support)</span>
 </span><span id="__span-43-8"><a id="__codelineno-43-8" name="__codelineno-43-8" href="#__codelineno-43-8"></a><span class="c1"># Read-only — no --sync, never writes .STATUS or commits</span>
 </span><span id="__span-43-9"><a id="__codelineno-43-9" name="__codelineno-43-9" href="#__codelineno-43-9"></a>
 </span><span id="__span-43-10"><a id="__codelineno-43-10" name="__codelineno-43-10" href="#__codelineno-43-10"></a><span class="c1"># Get next step</span>

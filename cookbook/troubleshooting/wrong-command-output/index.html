@@ -10272,27 +10272,27 @@
 <h3 id="2-wrong-command-for-the-task">2. Wrong Command for the Task<a class="headerlink" href="#2-wrong-command-for-the-task" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> You used a specific command when a different one was appropriate.</p>
 <p><strong>Solution:</strong> Use <code>/craft:do</code> for smart routing:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;check code quality&quot;</span><span class="w">        </span><span class="c1"># Routes to code:lint</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;analyze project structure&quot;</span><span class="w">  </span><span class="c1"># Routes to arch:analyze</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;validate before commit&quot;</span><span class="w">     </span><span class="c1"># Routes to check</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:do<span class="w"> </span><span class="s2">"check code quality"</span><span class="w">        </span><span class="c1"># Routes to code:lint</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">"analyze project structure"</span><span class="w">  </span><span class="c1"># Routes to arch:analyze</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:do<span class="w"> </span><span class="s2">"validate before commit"</span><span class="w">     </span><span class="c1"># Routes to check</span>
 </span></code></pre></div>
 <h3 id="3-outdated-cached-data">3. Outdated Cached Data<a class="headerlink" href="#3-outdated-cached-data" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Output references stale counts or old metrics.</p>
 <p><strong>Solution:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./scripts/validate-counts.sh<span class="w">       </span><span class="c1"># Refresh cached metrics</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># Ask &quot;sync CLAUDE.md&quot; (claude-md-lifecycle skill, folded in v4 consolidation)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># Ask "sync CLAUDE.md" (claude-md-lifecycle skill, folded in v4 consolidation)</span>
 </span></code></pre></div>
 <h3 id="4-wrong-flags-or-arguments">4. Wrong Flags or Arguments<a class="headerlink" href="#4-wrong-flags-or-arguments" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Flags change behavior unexpectedly.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Ask &quot;sync CLAUDE.md and apply fixes&quot; (claude-md-lifecycle skill applies auto-fixes)</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># Ask &quot;audit CLAUDE.md&quot; (skill runs audit-only, shows what would change)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Ask "sync CLAUDE.md and apply fixes" (claude-md-lifecycle skill applies auto-fixes)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># Ask "audit CLAUDE.md" (skill runs audit-only, shows what would change)</span>
 </span></code></pre></div>
 <p><strong>Solution:</strong> Use the "Show Steps First" pattern -- commands preview their plan before executing.</p>
 <h3 id="5-project-context-not-detected">5. Project Context Not Detected<a class="headerlink" href="#5-project-context-not-detected" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Output seems generic because project type was not auto-detected.</p>
 <p><strong>Solution:</strong> Ensure your project has a recognized marker: <code>DESCRIPTION</code> (R), <code>pyproject.toml</code> (Python), <code>package.json</code> (Node), <code>_quarto.yml</code> (Quarto), or <code>.claude-plugin/</code> (Craft plugin).</p>
 <h2 id="verification-steps">Verification Steps<a class="headerlink" href="#verification-steps" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;lint my code&quot;</span><span class="w">         </span><span class="c1"># Verify smart routing</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:do<span class="w"> </span><span class="s2">"lint my code"</span><span class="w">         </span><span class="c1"># Verify smart routing</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>./scripts/validate-counts.sh<span class="w">     </span><span class="c1"># Validate metrics</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>/craft:check<span class="w">                     </span><span class="c1"># Quick sanity check</span>
 </span></code></pre></div>

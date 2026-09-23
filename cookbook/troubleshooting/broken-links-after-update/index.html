@@ -10255,22 +10255,22 @@
 <p><strong>Level:</strong> Beginner</p>
 <h2 id="problem">Problem<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
 <p>After updating documentation, <code>mkdocs build</code> or <code>/folio:docs:check-links</code> (moved to folio) reports broken links:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>WARNING - Doc file &#39;guide/my-guide.md&#39; contains a link
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  &#39;tutorials/deleted-page.md&#39;, but the target is not found.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>WARNING - Doc file 'guide/my-guide.md' contains a link
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  'tutorials/deleted-page.md', but the target is not found.
 </span></code></pre></div>
 <h2 id="common-causes-solutions">Common Causes &amp; Solutions<a class="headerlink" href="#common-causes-solutions" title="Permanent link">&para;</a></h2>
 <h3 id="1-file-renamed-without-updating-references">1. File Renamed Without Updating References<a class="headerlink" href="#1-file-renamed-without-updating-references" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> A file was renamed or moved, but other files still link to the old path.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>grep<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;old-name.md&quot;</span><span class="w"> </span>docs/<span class="w">    </span><span class="c1"># find all references</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>grep<span class="w"> </span>-r<span class="w"> </span><span class="s2">"old-name.md"</span><span class="w"> </span>docs/<span class="w">    </span><span class="c1"># find all references</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># Update each one to the new filename</span>
 </span></code></pre></div>
 <p><strong>Why:</strong> Markdown links use relative paths. When a file moves, every link to its old location breaks.</p>
 <h3 id="2-deleted-page-still-referenced">2. Deleted Page Still Referenced<a class="headerlink" href="#2-deleted-page-still-referenced" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> A page was deleted but remains in <code>mkdocs.yml</code> nav or is linked from other pages.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>grep<span class="w"> </span><span class="s2">&quot;deleted-page&quot;</span><span class="w"> </span>mkdocs.yml<span class="w">   </span><span class="c1"># check nav</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>grep<span class="w"> </span>-r<span class="w"> </span><span class="s2">&quot;deleted-page.md&quot;</span><span class="w"> </span>docs/<span class="w">  </span><span class="c1"># check cross-references</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>grep<span class="w"> </span><span class="s2">"deleted-page"</span><span class="w"> </span>mkdocs.yml<span class="w">   </span><span class="c1"># check nav</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>grep<span class="w"> </span>-r<span class="w"> </span><span class="s2">"deleted-page.md"</span><span class="w"> </span>docs/<span class="w">  </span><span class="c1"># check cross-references</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Remove or update each stale reference</span>
 </span></code></pre></div>
 <p><strong>Why:</strong> MkDocs validates that every nav entry and cross-reference resolves to an existing file.</p>
@@ -10286,15 +10286,15 @@
 <h3 id="4-expected-broken-links-not-in-ignore-list">4. Expected Broken Links Not in Ignore List<a class="headerlink" href="#4-expected-broken-links-not-in-ignore-list" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Some links are intentionally broken (test fixtures, brainstorm drafts) but not in <code>.linkcheck-ignore</code>.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;docs/brainstorm/draft-*.md&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.linkcheck-ignore
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"docs/brainstorm/draft-*.md"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.linkcheck-ignore
 </span></code></pre></div>
 <h3 id="5-missing-nav-entry">5. Missing Nav Entry<a class="headerlink" href="#5-missing-nav-entry" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> A new page exists but is not in the <code>nav</code> section of <code>mkdocs.yml</code>.</p>
 <p><strong>Solution:</strong> Run <code>mkdocs build 2&gt;&amp;1 | grep "not in the nav"</code> and add the page to the correct nav section.</p>
 <h2 id="verification-steps">Verification Steps<a class="headerlink" href="#verification-steps" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mkdocs<span class="w"> </span>build<span class="w"> </span>--strict<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;warning&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mkdocs<span class="w"> </span>build<span class="w"> </span>--strict<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">"warning"</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/folio:docs:check-links
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>python3<span class="w"> </span>tests/test_craft_plugin.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">&quot;broken_links&quot;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>python3<span class="w"> </span>tests/test_craft_plugin.py<span class="w"> </span>-k<span class="w"> </span><span class="s2">"broken_links"</span>
 </span></code></pre></div>
 <p>A clean <code>--strict</code> build with zero warnings confirms all links are valid.</p>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>

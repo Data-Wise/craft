@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -11005,7 +11005,7 @@ reference material split out to keep the command lean.</p>
 </ol>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="start-orchestrated-workflow">Start Orchestrated Workflow<a class="headerlink" href="#start-orchestrated-workflow" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add user authentication with OAuth&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orch<span class="w"> </span><span class="s2">"add user authentication with OAuth"</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">## 📋 TASK ANALYSIS</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
@@ -11026,7 +11026,7 @@ reference material split out to keep the command lean.</p>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>Spawning<span class="w"> </span>agents...
 </span></code></pre></div>
 <h3 id="fast-parallel-mode">Fast Parallel Mode<a class="headerlink" href="#fast-parallel-mode" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add tests for all endpoints&quot;</span><span class="w"> </span>optimize
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:orch<span class="w"> </span><span class="s2">"add tests for all endpoints"</span><span class="w"> </span>optimize
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1">## 🚀 ORCHESTRATOR v2.1 — OPTIMIZE MODE</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
@@ -11315,14 +11315,14 @@ reference material split out to keep the command lean.</p>
 <h3 id="decision-tree">Decision Tree<a class="headerlink" href="#decision-tree" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Need isolated development?
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>│
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>├─ No → /craft:orch &quot;task&quot; (agents in forked context)
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>├─ No → /craft:orch "task" (agents in forked context)
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>│
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>├─ Yes, single feature
 </span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>│  ├─ Have a spec? → /craft:plan SPEC.md (Pipeline)
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>│  └─ No spec? → ask &quot;create a worktree for feature/name&quot; (dev/git skill, Manual)
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>│  └─ No spec? → ask "create a worktree for feature/name" (dev/git skill, Manual)
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>│
 </span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>├─ Yes, parallel agents on separate files
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>│  └─ /craft:orch --swarm &quot;task&quot; (Swarm)
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>│  └─ /craft:orch --swarm "task" (Swarm)
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>│
 </span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>└─ Yes, spans multiple repos
 </span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>   └─ /craft:plan (auto-detects, Cross-Repo)
@@ -11367,7 +11367,7 @@ reference material split out to keep the command lean.</p>
 </tbody>
 </table>
 <h3 id="swarm-execution-flow">Swarm Execution Flow<a class="headerlink" href="#swarm-execution-flow" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:orch --swarm &quot;implement auth&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:orch --swarm "implement auth"
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Step 1: Parse ORCHESTRATE file for agent assignments
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Step 2: Create base branch: feature/swarm-auth (from dev)
@@ -11382,9 +11382,9 @@ reference material split out to keep the command lean.</p>
 </span></code></pre></div>
 <h3 id="swarm-branch-naming">Swarm Branch Naming<a class="headerlink" href="#swarm-branch-naming" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>feature/swarm-auth          ← convergence branch
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  ├── swarm-auth-agent1     ← agent 1&#39;s working branch
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  ├── swarm-auth-agent2     ← agent 2&#39;s working branch
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  └── swarm-auth-agent3     ← agent 3&#39;s working branch
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  ├── swarm-auth-agent1     ← agent 1's working branch
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  ├── swarm-auth-agent2     ← agent 2's working branch
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  └── swarm-auth-agent3     ← agent 3's working branch
 </span></code></pre></div>
 <h3 id="orchestrate-file-for-swarm">ORCHESTRATE File for Swarm<a class="headerlink" href="#orchestrate-file-for-swarm" title="Permanent link">&para;</a></h3>
 <p>When <code>--swarm</code> is used, the orchestrator reads the ORCHESTRATE file to map agents to phases and file scopes. If no ORCHESTRATE file exists, swarm mode requires one — it cannot auto-generate the agent-to-file mapping.</p>
@@ -11464,7 +11464,7 @@ reference material split out to keep the command lean.</p>
 <li><code>--swarm</code> requires an ORCHESTRATE file (cannot auto-generate swarm config)</li>
 </ul>
 <h3 id="practical-example-swarm-dry-run">Practical Example: Swarm Dry-Run<a class="headerlink" href="#practical-example-swarm-dry-run" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/craft:orch<span class="w"> </span>--swarm<span class="w"> </span>--dry-run<span class="w"> </span><span class="s2">&quot;implement auth from ORCHESTRATE&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/craft:orch<span class="w"> </span>--swarm<span class="w"> </span>--dry-run<span class="w"> </span><span class="s2">"implement auth from ORCHESTRATE"</span>
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># Output:</span>
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># ┌───────────────────────────────────────────────────────────────┐</span>
@@ -11538,7 +11538,7 @@ reference material split out to keep the command lean.</p>
 <h2 id="orchestrating-brainstorm-sessions-v240">Orchestrating Brainstorm Sessions (v2.4.0)<a class="headerlink" href="#orchestrating-brainstorm-sessions-v240" title="Permanent link">&para;</a></h2>
 <p>The orchestrator can coordinate complex brainstorming workflows using <code>/brainstorm</code> with question control:</p>
 <h3 id="example-orchestrate-feature-planning">Example: Orchestrate Feature Planning<a class="headerlink" href="#example-orchestrate-feature-planning" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;plan new authentication feature with full context gathering&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>/craft:orch<span class="w"> </span><span class="s2">"plan new authentication feature with full context gathering"</span>
 </span></code></pre></div>
 <p>The orchestrator will:</p>
 <ol>
@@ -11550,15 +11550,15 @@ reference material split out to keep the command lean.</p>
 </ol>
 <h3 id="brainstorm-orchestration-patterns">Brainstorm + Orchestration Patterns<a class="headerlink" href="#brainstorm-orchestration-patterns" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Pattern 1: Quick context then implement</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add payment integration&quot;</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>/craft:orch<span class="w"> </span><span class="s2">"add payment integration"</span>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="c1"># → Brainstorm q:2 → subagent (general-purpose) → code implementation</span>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
 </span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1"># Pattern 2: Deep context with multiple agents</span>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;design microservices architecture&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>/craft:orch<span class="w"> </span><span class="s2">"design microservices architecture"</span><span class="w"> </span>optimize
 </span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="c1"># → Brainstorm d:8 -C tech,risk,existing → arch-1, arch-2 in parallel</span>
 </span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
 </span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="c1"># Pattern 3: Feature with full lifecycle</span>
-</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;implement user management&quot;</span><span class="w"> </span>release
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>/craft:orch<span class="w"> </span><span class="s2">"implement user management"</span><span class="w"> </span>release
 </span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="c1"># → Brainstorm d:10 -C req,tech,success → arch + code + test + docs agents</span>
 </span></code></pre></div>
 <h3 id="benefits-of-brainstorm-integration">Benefits of Brainstorm Integration<a class="headerlink" href="#benefits-of-brainstorm-integration" title="Permanent link">&para;</a></h3>
@@ -11649,15 +11649,15 @@ reference material split out to keep the command lean.</p>
 <code>2026-06-19T14:03:00Z-default</code>). Create <code>.craft/orchestrate-runs/</code> if absent.
 Write <code>.craft/orchestrate-runs/&lt;run-id&gt;.json</code> with:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">{</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nt">&quot;run_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;ISO8601-start&gt;-&lt;mode&gt;&quot;</span><span class="p">,</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;orchestrate&quot;</span><span class="p">,</span>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;selected-mode&gt;&quot;</span><span class="p">,</span>
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span><span class="nt">&quot;engine&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fanout&quot;</span><span class="p">,</span>
-</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="nt">&quot;agents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
-</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="nt">&quot;max_turns&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;max</span><span class="mi">-</span><span class="kc">turns</span><span class="mi">-</span><span class="kc">f</span><span class="err">or</span><span class="mi">-</span><span class="err">mode&gt;</span><span class="p">,</span>
-</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">  </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;absolute-cwd&gt;&quot;</span><span class="p">,</span>
-</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">  </span><span class="nt">&quot;start_ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;ISO8601&gt;&quot;</span><span class="p">,</span>
-</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">  </span><span class="nt">&quot;end_ts&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nt">"run_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;ISO8601-start&gt;-&lt;mode&gt;"</span><span class="p">,</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"orchestrate"</span><span class="p">,</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;selected-mode&gt;"</span><span class="p">,</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span><span class="nt">"engine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fanout"</span><span class="p">,</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="nt">"agents"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="nt">"max_turns"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;max</span><span class="mi">-</span><span class="kc">turns</span><span class="mi">-</span><span class="kc">f</span><span class="err">or</span><span class="mi">-</span><span class="err">mode&gt;</span><span class="p">,</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">  </span><span class="nt">"cwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;absolute-cwd&gt;"</span><span class="p">,</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">  </span><span class="nt">"start_ts"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;ISO8601&gt;"</span><span class="p">,</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">  </span><span class="nt">"end_ts"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
 </span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Update <code>agents</code> as each agent is spawned (append its label). At run <strong>END</strong>

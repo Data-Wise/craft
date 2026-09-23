@@ -10440,7 +10440,7 @@
 <ol>
 <li><strong>Start orchestration with task description</strong></li>
 </ol>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add user authentication with JWT, update docs, and add tests&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orch<span class="w"> </span><span class="s2">"add user authentication with JWT, update docs, and add tests"</span>
 </span></code></pre></div>
 <p><strong>What happens (v2.9.0 "Show Steps First" pattern):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>╭─ Task Analysis ──────────────────────────────╮
@@ -10591,19 +10591,19 @@
 <ul>
 <li><strong>Quick orchestration without mode selection:</strong></li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;simple task&quot;</span><span class="w"> </span>--mode<span class="o">=</span>default
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orch<span class="w"> </span><span class="s2">"simple task"</span><span class="w"> </span>--mode<span class="o">=</span>default
 </span></code></pre></div>
 <p>Skips mode selection, goes directly to execution</p>
 <ul>
 <li><strong>Preview plan without executing:</strong></li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>--dry-run
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orch<span class="w"> </span><span class="s2">"task"</span><span class="w"> </span>--dry-run
 </span></code></pre></div>
 <p>Shows the execution plan but doesn't run it</p>
 <ul>
 <li><strong>Use with /craft:do for automatic mode selection:</strong></li>
 </ul>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;complex multi-step task&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/craft:do<span class="w"> </span><span class="s2">"complex multi-step task"</span>
 </span></code></pre></div>
 <p>If complexity score is 8-10, automatically routes to orchestrator</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
@@ -10665,7 +10665,7 @@
 </ul>
 <h2 id="example-workflows">Example Workflows<a class="headerlink" href="#example-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="example-1-documentation-update-wave-mode">Example 1: Documentation Update (wave mode)<a class="headerlink" href="#example-1-documentation-update-wave-mode" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;update all tutorials for v2.9.0 features&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/craft:orch<span class="w"> </span><span class="s2">"update all tutorials for v2.9.0 features"</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># Choose mode: 2 (wave)</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
@@ -10677,7 +10677,7 @@
 </span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="c1"># Result: 7 files updated in parallel, then validated</span>
 </span></code></pre></div>
 <h3 id="example-2-feature-implementation-phase-mode">Example 2: Feature Implementation (phase mode)<a class="headerlink" href="#example-2-feature-implementation-phase-mode" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add OAuth2 authentication to API&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>/craft:orch<span class="w"> </span><span class="s2">"add OAuth2 authentication to API"</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># Choose mode: 3 (phase)</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
@@ -10690,7 +10690,7 @@
 </span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="c1"># Each phase validated before next begins</span>
 </span></code></pre></div>
 <h3 id="example-3-quick-multi-step-default-mode">Example 3: Quick Multi-Step (default mode)<a class="headerlink" href="#example-3-quick-multi-step-default-mode" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;fix markdown lint errors and commit&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:orch<span class="w"> </span><span class="s2">"fix markdown lint errors and commit"</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># Choose mode: 1 (default)</span>
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>

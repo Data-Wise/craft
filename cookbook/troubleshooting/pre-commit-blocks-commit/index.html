@@ -10233,7 +10233,7 @@
 <p><strong>Level:</strong> Beginner</p>
 <h2 id="problem">Problem<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
 <p>Running <code>git commit</code> triggers pre-commit hooks and the commit is rejected:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$ git commit -m &quot;feat: add new command&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$ git commit -m "feat: add new command"
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>markdownlint-cli2..................................................Failed
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>- hook id: markdownlint-cli2
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>docs/guide/new-feature.md:15 MD032/blanks-around-lists
@@ -10252,8 +10252,8 @@
 <li><code>MD009</code> — Trailing whitespace</li>
 </ul>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npx<span class="w"> </span>markdownlint-cli2<span class="w"> </span><span class="s2">&quot;**/*.md&quot;</span><span class="w">          </span><span class="c1"># See all issues</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>npx<span class="w"> </span>markdownlint-cli2<span class="w"> </span>--fix<span class="w"> </span><span class="s2">&quot;**/*.md&quot;</span><span class="w">    </span><span class="c1"># Auto-fix</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npx<span class="w"> </span>markdownlint-cli2<span class="w"> </span><span class="s2">"**/*.md"</span><span class="w">          </span><span class="c1"># See all issues</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>npx<span class="w"> </span>markdownlint-cli2<span class="w"> </span>--fix<span class="w"> </span><span class="s2">"**/*.md"</span><span class="w">    </span><span class="c1"># Auto-fix</span>
 </span></code></pre></div>
 <h3 id="2-emoji-attribute-spacing-craft-001">2. Emoji-Attribute Spacing (CRAFT-001)<a class="headerlink" href="#2-emoji-attribute-spacing-craft-001" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Space between emoji shortcode and <code>attr_list</code> breaks MkDocs rendering.</p>
@@ -10272,14 +10272,14 @@
 <li>Move detail to <code>docs/VERSION-HISTORY.md</code> or <code>docs/ARCHITECTURE.md</code></li>
 </ol>
 <h3 id="4-bypassing-hooks-emergency-only">4. Bypassing Hooks (Emergency Only)<a class="headerlink" href="#4-bypassing-hooks-emergency-only" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>commit<span class="w"> </span>--no-verify<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;wip: urgent fix, lint cleanup follows&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>commit<span class="w"> </span>--no-verify<span class="w"> </span>-m<span class="w"> </span><span class="s2">"wip: urgent fix, lint cleanup follows"</span>
 </span></code></pre></div>
 <p>Use sparingly. CI will still catch issues on push.</p>
 <h2 id="verification-steps">Verification Steps<a class="headerlink" href="#verification-steps" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>npx<span class="w"> </span>markdownlint-cli2<span class="w"> </span><span class="s2">&quot;**/*.md&quot;</span><span class="w">           </span><span class="c1"># Check markdown</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>npx<span class="w"> </span>markdownlint-cli2<span class="w"> </span><span class="s2">"**/*.md"</span><span class="w">           </span><span class="c1"># Check markdown</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>bash<span class="w"> </span>scripts/docs-lint-emoji.sh<span class="w">            </span><span class="c1"># Check CRAFT-001</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>bash<span class="w"> </span>scripts/claude-md-budget-check.sh<span class="w">     </span><span class="c1"># Check budget</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add new command&quot;</span><span class="w">  </span><span class="c1"># Retry</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"feat: add new command"</span><span class="w">  </span><span class="c1"># Retry</span>
 </span></code></pre></div>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">&para;</a></h2>
 <ul>

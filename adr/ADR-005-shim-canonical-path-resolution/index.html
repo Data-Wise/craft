@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10201,9 +10201,9 @@ shim conversion.</p>
 </span></code></pre></div>
 <p><code>recap.md</code>, <code>next.md</code>, <code>focus.md</code>, and <code>stuck.md</code> are still full inline bodies with <code>deprecated: true</code> frontmatter — they are not yet thin shims and carry no canonical-path reference at all (<code>spec-review.md</code> likewise remains a full inline body, not yet converted). The "revisit if one accrues detail" deferral from ADR-002 covers those four remaining commands; this ADR's decision must be treated as the standing rule for every future shim conversion, not a one-off fix to two files — and must be applied now to all 12 already-converted shims above, not just <code>done.md</code> and <code>refine.md</code>.</p>
 <p><strong>Precedent already exists in the repo for the alternative.</strong> <code>${CLAUDE_PLUGIN_ROOT}</code> is already used, with a safe default, in two places:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>commands/git/status.md:116            os.environ.get(&#39;CLAUDE_PLUGIN_ROOT&#39;, &#39;.&#39;)
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>commands/git/status.md:288            PLUGIN_ROOT=&quot;${CLAUDE_PLUGIN_ROOT:-.}&quot;
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>commands/git/protect-baseline.md:75   SCRIPT=&quot;${CLAUDE_PLUGIN_ROOT}/scripts/protect-baseline.sh&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>commands/git/status.md:116            os.environ.get('CLAUDE_PLUGIN_ROOT', '.')
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>commands/git/status.md:288            PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-.}"
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>commands/git/protect-baseline.md:75   SCRIPT="${CLAUDE_PLUGIN_ROOT}/scripts/protect-baseline.sh"
 </span></code></pre></div>
 <p><strong>Provenance gap found while researching this ADR:</strong> no file in the repo documents whether <code>CLAUDE_PLUGIN_ROOT</code> is a Claude Code platform-provided env var or something craft provisions itself. The only in-repo trace is a comment in <code>scripts/docs-lint.sh:12</code> — <code># CLAUDE_PLUGIN_ROOT: Root of craft plugin (auto-detected)</code> — which asserts auto-detection without saying by what. <code>.claude-plugin/plugin.json</code> says nothing about it. This ADR does not resolve that gap; it flags it explicitly (see Consequences) so the next person doesn't rediscover it from scratch.</p>
 <h2 id="decision">Decision<a class="headerlink" href="#decision" title="Permanent link">&para;</a></h2>

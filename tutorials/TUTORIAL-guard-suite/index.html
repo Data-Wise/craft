@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10316,7 +10316,7 @@
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[install-guards] Registering no-switch-guard.sh as PreToolUse hook... done
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[install-guards] Writing ~/.claude/guards.json... done
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[install-guards] jq found at /usr/local/bin/jq
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>[install-guards] Guard Suite installed. Ask &quot;guard status&quot; to verify.
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>[install-guards] Guard Suite installed. Ask "guard status" to verify.
 </span></code></pre></div>
 <p>Verify the install:</p>
 <p>Ask "guard status" (dev/git skill)</p>
@@ -10333,12 +10333,12 @@
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>switch to dev
 </span></code></pre></div>
 <p>Claude will run <code>git switch dev</code>. Before the switch executes, no-switch-guard fires and emits a YELLOW announcement:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[no-switch-guard] Switching to branch &#39;dev&#39; (clean tree — proceeding)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[no-switch-guard] Switching to branch 'dev' (clean tree — proceeding)
 </span></code></pre></div>
 <p>The switch proceeds without confirmation. YELLOW operations are just noted, not blocked. You see the announcement in the model's response and the branch changes normally.</p>
 <h3 id="trigger-a-red-confirmation">Trigger a RED confirmation<a class="headerlink" href="#trigger-a-red-confirmation" title="Permanent link">&para;</a></h3>
 <p>Now make a small change to any file (so the tree is dirty):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;# temp&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/tmp/scratch.txt
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"# temp"</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/tmp/scratch.txt
 </span></code></pre></div>
 <p>Then ask Claude to switch to <code>main</code>:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>switch to main
@@ -10355,13 +10355,13 @@
 <hr />
 <h2 id="step-3-mute-a-guard">Step 3: Mute a Guard<a class="headerlink" href="#step-3-mute-a-guard" title="Permanent link">&para;</a></h2>
 <p>Sometimes you know you'll be switching branches repeatedly and don't want to approve each one. Mute <code>no-switch-guard</code> for 30 minutes:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ask &quot;guard disable no-switch-guard&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ask "guard disable no-switch-guard"
 </span></code></pre></div>
 <p>Wait — "disable" is permanent. For a temporary bypass, use muting via a profile:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ask &quot;guard profile yolo&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ask "guard profile yolo"
 </span></code></pre></div>
 <p>This mutes both guards for 30 minutes:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>[guard] Profile &#39;yolo&#39; applied: all guards muted for 30m.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>[guard] Profile 'yolo' applied: all guards muted for 30m.
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  ⚠️  branch-guard     muted 30m
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  ⚠️  no-switch-guard  muted 30m
 </span></code></pre></div>
@@ -10373,7 +10373,7 @@
 <hr />
 <h2 id="step-4-check-guard-state">Step 4: Check Guard State<a class="headerlink" href="#step-4-check-guard-state" title="Permanent link">&para;</a></h2>
 <p>At any point, check what is active:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ask &quot;guard status&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ask "guard status"
 </span></code></pre></div>
 <p>Mid-mute output:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Guard Suite status:
@@ -10386,27 +10386,27 @@
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>  🛡️  no-switch-guard  enabled
 </span></code></pre></div>
 <p>To re-enable guards immediately without waiting for expiry:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ask &quot;guard profile focus&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ask "guard profile focus"
 </span></code></pre></div>
 <hr />
 <h2 id="step-5-use-profiles-for-spec-only-work">Step 5: Use Profiles for Spec-Only Work<a class="headerlink" href="#step-5-use-profiles-for-spec-only-work" title="Permanent link">&para;</a></h2>
 <p>The <code>spec</code> profile is designed for the common pattern of doing spec or doc work on <code>dev</code> while needing to freely read branches for context.</p>
 <p>Set the spec profile:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ask &quot;guard profile spec&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ask "guard profile spec"
 </span></code></pre></div>
 <p>Output:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>[guard] Profile &#39;spec&#39; applied.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>[guard] Profile 'spec' applied.
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  🛡️  branch-guard     enabled
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  ⚠️  no-switch-guard  muted 30m
 </span></code></pre></div>
 <p><code>branch-guard</code> stays active — you are still protected from accidentally committing new code to <code>dev</code>. But <code>no-switch-guard</code> is muted, so reading <code>feature/*</code> branches, checking out old commits, and running <code>git restore --staged</code> all proceed without confirmation prompts.</p>
 <p>When you are done with spec work, return to full protection:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ask &quot;guard profile focus&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ask "guard profile focus"
 </span></code></pre></div>
 <hr />
 <h2 id="step-6-audit-guard-coverage">Step 6: Audit Guard Coverage<a class="headerlink" href="#step-6-audit-guard-coverage" title="Permanent link">&para;</a></h2>
 <p>The <code>test</code> action runs a dry-run coverage sweep — it checks that the installed guards correctly handle all known GREEN/YELLOW/RED operations without actually executing them.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ask &quot;guard test&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ask "guard test"
 </span></code></pre></div>
 <p>Expected output:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Guard coverage test:
@@ -10423,7 +10423,7 @@
 <p>If any operation fails the expected classification, the output shows which command produced an unexpected tier and what the guard emitted. This is useful after upgrading craft or modifying hook scripts.</p>
 <p>For a deeper audit that includes guard-suite consistency across the full hook registry, ask
 naturally (<code>guard-audit</code> skill):</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ask &quot;audit guard&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ask "audit guard"
 </span></code></pre></div>
 <hr />
 <h2 id="step-7-classify-operations-with-dry-run-mode">Step 7: Classify Operations with Dry-Run Mode<a class="headerlink" href="#step-7-classify-operations-with-dry-run-mode" title="Permanent link">&para;</a></h2>
@@ -10450,7 +10450,7 @@ classification sweep — labeling every operation GREEN/YELLOW/RED without execu
 </span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>  anything on main                  → HIGH   (would block)
 </span></code></pre></div>
 <p>Or via the guard command:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>ask &quot;guard explain branch-guard&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>ask "guard explain branch-guard"
 </span></code></pre></div>
 <p>This shows the full classification table for the selected guard — what tier each operation on the current branch would trigger, without actually running the operation.</p>
 <hr />
@@ -10512,7 +10512,7 @@ classification sweep — labeling every operation GREEN/YELLOW/RED without execu
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p><strong>Guards not firing after install</strong></p>
 <p>Check that the hooks are registered:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>grep<span class="w"> </span>-A3<span class="w"> </span><span class="s2">&quot;PreToolUse&quot;</span><span class="w"> </span>~/.claude/settings.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>guard
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>grep<span class="w"> </span>-A3<span class="w"> </span><span class="s2">"PreToolUse"</span><span class="w"> </span>~/.claude/settings.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>guard
 </span></code></pre></div>
 <p>If missing, re-run <code>bash scripts/install-guards.sh</code>.</p>
 <p><strong><code>jq: command not found</code> warning</strong></p>

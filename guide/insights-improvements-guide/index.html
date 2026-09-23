@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10885,22 +10885,22 @@
 <h3 id="workflow-1-new-session-kickoff">Workflow 1: New Session Kickoff<a class="headerlink" href="#workflow-1-new-session-kickoff" title="Permanent link">&para;</a></h3>
 <p>Orient yourself at the start of every session.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:check<span class="w"> </span>--context<span class="w">            </span><span class="c1"># See phase + branch + guard status</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># &quot;check my worktree health&quot;       # Confirm you&#39;re in the right place (dev/git skill)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># "check my worktree health"       # Confirm you're in the right place (dev/git skill)</span>
 </span></code></pre></div>
 <h3 id="workflow-2-guard-tuning">Workflow 2: Guard Tuning<a class="headerlink" href="#workflow-2-guard-tuning" title="Permanent link">&para;</a></h3>
 <p>After the guard blocks something it shouldn't.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ask<span class="w"> </span><span class="s2">&quot;audit guard&quot;</span><span class="w">                 </span><span class="c1"># Discover + analyze + propose config (guard-audit skill)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ask<span class="w"> </span><span class="s2">"audit guard"</span><span class="w">                 </span><span class="c1"># Discover + analyze + propose config (guard-audit skill)</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:check<span class="w">                      </span><span class="c1"># Verify nothing broke</span>
 </span></code></pre></div>
 <h3 id="workflow-3-learning-loop">Workflow 3: Learning Loop<a class="headerlink" href="#workflow-3-learning-loop" title="Permanent link">&para;</a></h3>
 <p>Periodic — incorporate session learnings into your CLAUDE.md.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ask<span class="w"> </span><span class="s2">&quot;generate insights report&quot;</span><span class="w">    </span><span class="c1"># brainstorm-insights skill</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ask<span class="w"> </span><span class="s2">&quot;apply insights&quot;</span><span class="w">              </span><span class="c1"># insights-apply skill — extract + review + apply to CLAUDE.md</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Ask<span class="w"> </span><span class="s2">&quot;sync CLAUDE.md&quot;</span><span class="w">              </span><span class="c1"># claude-md-lifecycle skill validates consistency</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ask<span class="w"> </span><span class="s2">"generate insights report"</span><span class="w">    </span><span class="c1"># brainstorm-insights skill</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ask<span class="w"> </span><span class="s2">"apply insights"</span><span class="w">              </span><span class="c1"># insights-apply skill — extract + review + apply to CLAUDE.md</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Ask<span class="w"> </span><span class="s2">"sync CLAUDE.md"</span><span class="w">              </span><span class="c1"># claude-md-lifecycle skill validates consistency</span>
 </span></code></pre></div>
 <h3 id="workflow-4-parallel-feature-implementation">Workflow 4: Parallel Feature Implementation<a class="headerlink" href="#workflow-4-parallel-feature-implementation" title="Permanent link">&para;</a></h3>
 <p>For large features that can be split across isolated agents.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:orch<span class="w"> </span>--swarm<span class="w"> </span><span class="s2">&quot;implement feature&quot;</span><span class="w">  </span><span class="c1"># Isolated agents in worktrees</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:orch<span class="w"> </span>--swarm<span class="w"> </span><span class="s2">"implement feature"</span><span class="w">  </span><span class="c1"># Isolated agents in worktrees</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:orch<span class="w"> </span>status<span class="w">                       </span><span class="c1"># Monitor progress</span>
 </span></code></pre></div>
 <h3 id="workflow-5-unattended-release">Workflow 5: Unattended Release<a class="headerlink" href="#workflow-5-unattended-release" title="Permanent link">&para;</a></h3>
@@ -10910,16 +10910,16 @@
 </span></code></pre></div>
 <h3 id="workflow-6-full-pre-commit-pipeline">Workflow 6: Full Pre-Commit Pipeline<a class="headerlink" href="#workflow-6-full-pre-commit-pipeline" title="Permanent link">&para;</a></h3>
 <p>Before every commit.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># &quot;check my worktree health&quot;       # Right place? (dev/git skill)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># "check my worktree health"       # Right place? (dev/git skill)</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:check<span class="w">                      </span><span class="c1"># All green?</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># commit                          # Ship it</span>
 </span></code></pre></div>
 <h3 id="workflow-7-insights-report-v2210">Workflow 7: Insights Report (v2.21.0)<a class="headerlink" href="#workflow-7-insights-report-v2210" title="Permanent link">&para;</a></h3>
 <p>Generate a report from session data to identify friction patterns and CLAUDE.md improvements.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ask<span class="w"> </span><span class="s2">&quot;generate insights report&quot;</span><span class="w">                       </span><span class="c1"># Terminal report, last 30 days</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ask<span class="w"> </span><span class="s2">&quot;generate insights report as html&quot;</span><span class="w">                </span><span class="c1"># HTML report for sharing</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>ask<span class="w"> </span><span class="s2">&quot;generate insights report for the last 7 days&quot;</span><span class="w">    </span><span class="c1"># Last 7 days</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>ask<span class="w"> </span><span class="s2">&quot;generate insights report for project craft&quot;</span><span class="w">      </span><span class="c1"># Filter to one project</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ask<span class="w"> </span><span class="s2">"generate insights report"</span><span class="w">                       </span><span class="c1"># Terminal report, last 30 days</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ask<span class="w"> </span><span class="s2">"generate insights report as html"</span><span class="w">                </span><span class="c1"># HTML report for sharing</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>ask<span class="w"> </span><span class="s2">"generate insights report for the last 7 days"</span><span class="w">    </span><span class="c1"># Last 7 days</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>ask<span class="w"> </span><span class="s2">"generate insights report for project craft"</span><span class="w">      </span><span class="c1"># Filter to one project</span>
 </span></code></pre></div>
 <blockquote>
 <p>Note (2026-07 v4 consolidation): insights generation is the <code>brainstorm-insights</code>
@@ -10928,7 +10928,7 @@ skill, invoked by asking naturally — not a slash command.</p>
 <h3 id="workflow-8-insights-orchestrate-v2210">Workflow 8: Insights → ORCHESTRATE (v2.21.0)<a class="headerlink" href="#workflow-8-insights-orchestrate-v2210" title="Permanent link">&para;</a></h3>
 <p>When creating an ORCHESTRATE file, insights data automatically feeds into the "Friction Prevention" section.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 1. Generate insights to see patterns</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ask<span class="w"> </span><span class="s2">&quot;generate insights report&quot;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ask<span class="w"> </span><span class="s2">"generate insights report"</span>
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># 2. Create ORCHESTRATE — friction prevention is auto-populated</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>/craft:plan<span class="w"> </span>docs/specs/SPEC-feature.md

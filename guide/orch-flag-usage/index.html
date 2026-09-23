@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10890,7 +10890,7 @@
 <h2 id="usage-patterns">Usage Patterns<a class="headerlink" href="#usage-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Enable orchestration with interactive mode selection</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span><span class="w"> </span>--orch
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:do<span class="w"> </span><span class="s2">"implement user authentication"</span><span class="w"> </span>--orch
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w"> </span>Orchestration<span class="w"> </span>Mode<span class="w"> </span><span class="nv">Selection</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="o">==================================================</span>
@@ -10905,16 +10905,16 @@
 </span></code></pre></div>
 <h3 id="explicit-mode-selection">Explicit Mode Selection<a class="headerlink" href="#explicit-mode-selection" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Specify mode directly</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add payment integration&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:do<span class="w"> </span><span class="s2">"add payment integration"</span><span class="w"> </span>--orch<span class="o">=</span>optimize
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Different modes for different scenarios</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/craft:do<span class="w"> </span><span class="s2">&quot;debug authentication flow&quot;</span><span class="w"> </span>--orch<span class="o">=</span>debug
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/craft:do<span class="w"> </span><span class="s2">&quot;prepare release v2.0&quot;</span><span class="w"> </span>--orch<span class="o">=</span>release
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>/craft:do<span class="w"> </span><span class="s2">&quot;quick refactor&quot;</span><span class="w"> </span>--orch<span class="o">=</span>default
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/craft:do<span class="w"> </span><span class="s2">"debug authentication flow"</span><span class="w"> </span>--orch<span class="o">=</span>debug
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/craft:do<span class="w"> </span><span class="s2">"prepare release v2.0"</span><span class="w"> </span>--orch<span class="o">=</span>release
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>/craft:do<span class="w"> </span><span class="s2">"quick refactor"</span><span class="w"> </span>--orch<span class="o">=</span>default
 </span></code></pre></div>
 <h3 id="preview-mode-dry-run">Preview Mode (Dry-Run)<a class="headerlink" href="#preview-mode-dry-run" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Preview orchestration without executing</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;refactor auth module&quot;</span><span class="w"> </span>--orch<span class="o">=</span>release<span class="w"> </span>--dry-run
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">"refactor auth module"</span><span class="w"> </span>--orch<span class="o">=</span>release<span class="w"> </span>--dry-run
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>+---------------------------------------------------------------------+
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">|</span><span class="w"> </span>DRY<span class="w"> </span>RUN:<span class="w"> </span>Orchestration<span class="w"> </span>Preview<span class="w">                                      </span><span class="p">|</span>
@@ -10930,7 +10930,7 @@
 </span></code></pre></div>
 <h3 id="combining-with-other-flags">Combining with Other Flags<a class="headerlink" href="#combining-with-other-flags" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Brainstorm with categories</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:brainstorm<span class="w"> </span><span class="s2">&quot;authentication&quot;</span><span class="w"> </span>-C<span class="w"> </span>req,tech<span class="w"> </span>--orch<span class="o">=</span>optimize
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:brainstorm<span class="w"> </span><span class="s2">"authentication"</span><span class="w"> </span>-C<span class="w"> </span>req,tech<span class="w"> </span>--orch<span class="o">=</span>optimize
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Pre-release checks</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>release<span class="w"> </span>--orch<span class="o">=</span>release
@@ -11037,7 +11037,7 @@ If prompt fails, automatically defaults to "default" mode with notification.</p>
 <p><strong>Automatic Fallback (v2.5.1+):</strong>
 The system automatically falls back to command routing when orchestrator spawn fails, ensuring task completion even when orchestration is unavailable.</p>
 <p><strong>Example fallback flow:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>User runs: /craft:do &quot;add auth&quot; --orch=optimize
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>User runs: /craft:do "add auth" --orch=optimize
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>System tries: Spawn orchestrator
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Fails: Orchestrator unavailable
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Fallback: Routes to /craft:arch:plan + /craft:code:test-gen
@@ -11081,11 +11081,11 @@ The system automatically falls back to command routing when orchestrator spawn f
 <li>✅ Set default mode in calling script</li>
 </ul>
 <p><strong>Best Practice for Scripts:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># ❌ Don&#39;t: Interactive prompt in script</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;build project&quot;</span><span class="w"> </span>--orch
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># ❌ Don't: Interactive prompt in script</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:do<span class="w"> </span><span class="s2">"build project"</span><span class="w"> </span>--orch
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># ✅ Do: Explicit mode in script</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:do<span class="w"> </span><span class="s2">&quot;build project&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>/craft:do<span class="w"> </span><span class="s2">"build project"</span><span class="w"> </span>--orch<span class="o">=</span>optimize
 </span></code></pre></div>
 <hr />
 <h3 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h3>
@@ -11116,18 +11116,18 @@ The system automatically falls back to command routing when orchestrator spawn f
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="feature-development">Feature Development<a class="headerlink" href="#feature-development" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Quick orchestration for feature work</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add OAuth2 authentication with PKCE flow&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/craft:do<span class="w"> </span><span class="s2">"add OAuth2 authentication with PKCE flow"</span><span class="w"> </span>--orch<span class="o">=</span>optimize
 </span></code></pre></div>
 <h3 id="debugging-complex-issues">Debugging Complex Issues<a class="headerlink" href="#debugging-complex-issues" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Detailed debugging with sequential agents</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;investigate performance bottleneck in database queries&quot;</span><span class="w"> </span>--orch<span class="o">=</span>debug
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:do<span class="w"> </span><span class="s2">"investigate performance bottleneck in database queries"</span><span class="w"> </span>--orch<span class="o">=</span>debug
 </span></code></pre></div>
 <h3 id="release-preparation">Release Preparation<a class="headerlink" href="#release-preparation" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Comprehensive release validation</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/craft:check<span class="w"> </span>--for<span class="w"> </span>release<span class="w"> </span>--orch<span class="o">=</span>release
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Or directly</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>/craft:do<span class="w"> </span><span class="s2">&quot;prepare v2.0 release&quot;</span><span class="w"> </span>--orch<span class="o">=</span>release
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>/craft:do<span class="w"> </span><span class="s2">"prepare v2.0 release"</span><span class="w"> </span>--orch<span class="o">=</span>release
 </span></code></pre></div>
 <h3 id="documentation-updates">Documentation Updates<a class="headerlink" href="#documentation-updates" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Orchestrated documentation sync</span>
@@ -11141,7 +11141,7 @@ The system automatically falls back to command routing when orchestrator spawn f
 <h2 id="troubleshooting_1">Troubleshooting<a class="headerlink" href="#troubleshooting_1" title="Permanent link">&para;</a></h2>
 <h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
 <p><strong>"Invalid mode" error</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Error: Invalid mode: &#39;fast&#39;. Valid modes: default, debug, optimize, release
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Error: Invalid mode: 'fast'. Valid modes: default, debug, optimize, release
 </span></code></pre></div>
 <p>Make sure to use one of the valid mode names.</p>
 <p><strong>Orchestrator not spawning</strong>

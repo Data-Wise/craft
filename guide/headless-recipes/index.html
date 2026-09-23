@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10178,20 +10178,20 @@
 Combine with <code>--allowedTools</code> to control which tools fire. Useful for CI, cron jobs, and release pipelines.</p>
 <h2 id="recipe-1-version-reconcile">Recipe 1 — Version reconcile<a class="headerlink" href="#recipe-1-version-reconcile" title="Permanent link">&para;</a></h2>
 <p>Finds and fixes stale version strings across docs and config after a release:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Grep for version 2.53.0 across all docs and config files, update to 2.54.0&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--allowedTools<span class="w"> </span><span class="s2">&quot;Edit,Read,Bash&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">"Grep for version 2.53.0 across all docs and config files, update to 2.54.0"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--allowedTools<span class="w"> </span><span class="s2">"Edit,Read,Bash"</span>
 </span></code></pre></div>
 <p>Run this after <code>bump-version.sh</code> to catch the long tail of version references the script misses.</p>
 <h2 id="recipe-2-count-audit">Recipe 2 — Count audit<a class="headerlink" href="#recipe-2-count-audit" title="Permanent link">&para;</a></h2>
 <p>Detects skill/command count drift between docs and the live plugin manifest:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Run ./scripts/validate-counts.sh and fix any count mismatches in docs/&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--allowedTools<span class="w"> </span><span class="s2">&quot;Read,Bash,Edit&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">"Run ./scripts/validate-counts.sh and fix any count mismatches in docs/"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--allowedTools<span class="w"> </span><span class="s2">"Read,Bash,Edit"</span>
 </span></code></pre></div>
 <p>Safe to run anytime — <code>validate-counts.sh</code> is read-only; the Edit tool only fires if drift is found.</p>
 <h2 id="recipe-3-post-release-doc-sweep">Recipe 3 — Post-release doc sweep<a class="headerlink" href="#recipe-3-post-release-doc-sweep" title="Permanent link">&para;</a></h2>
 <p>Verifies all doc version references match <code>package.json</code> after a release:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Verify all doc version references match the version in package.json; fix any that don&#39;t&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--allowedTools<span class="w"> </span><span class="s2">&quot;Read,Edit,Bash&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>claude<span class="w"> </span>-p<span class="w"> </span><span class="s2">"Verify all doc version references match the version in package.json; fix any that don't"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--allowedTools<span class="w"> </span><span class="s2">"Read,Edit,Bash"</span>
 </span></code></pre></div>
 <p>Equivalent to running <code>./scripts/post-release-sweep.sh --fix</code> but with judgment — handles edge cases the script's regex misses.</p>
 <h2 id="github-actions-example">GitHub Actions example<a class="headerlink" href="#github-actions-example" title="Permanent link">&para;</a></h2>
@@ -10200,8 +10200,8 @@ Combine with <code>--allowedTools</code> to control which tools fire. Useful for
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">env</span><span class="p">:</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">ANTHROPIC_API_KEY</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.ANTHROPIC_API_KEY }}</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="no">claude -p &quot;Verify all doc version references match ${{ env.VERSION }}; fix any that don&#39;t&quot; \</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="no">--allowedTools &quot;Read,Edit,Bash&quot; \</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="no">claude -p "Verify all doc version references match ${{ env.VERSION }}; fix any that don't" \</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="no">--allowedTools "Read,Edit,Bash" \</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">      </span><span class="no">--output-format text</span>
 </span></code></pre></div>
 <p>Add this step after the GitHub Release creation step. Set <code>env.VERSION</code> from your version bump output.</p>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10636,18 +10636,18 @@
 <h2 id="11-configuration-schema-summary">11. Configuration Schema Summary<a class="headerlink" href="#11-configuration-schema-summary" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>.craft/homebrew.json
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── formula_name    (string, required)   — name in tap
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── tap             (string, required)   — &quot;org/name&quot; format
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── type            (string, optional)   — &quot;formula&quot; | &quot;cask&quot;, default &quot;formula&quot;
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└── cask            (object, optional)   — only when type = &quot;cask&quot;
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ├── app_name         — &quot;Scribe.app&quot; (default: productName + .app)
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    ├── identifier       — &quot;com.scribe.app&quot; (default: from tauri.conf.json)
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    ├── min_macos        — &quot;catalina&quot; (default: from minimumSystemVersion)
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    ├── architectures    — [&quot;aarch64&quot;, &quot;x64&quot;] (default)
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    ├── artifact_pattern — &quot;{name}_{version}_{arch}.dmg&quot; (default)
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    ├── build_command    — &quot;npx tauri build --target {target}&quot; (default)
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    ├── targets          — {&quot;aarch64&quot;: &quot;aarch64-apple-darwin&quot;, &quot;x64&quot;: &quot;x86_64-apple-darwin&quot;}
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    ├── postflight_template — &quot;changelog&quot; | &quot;none&quot;
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    └── caveats_template    — &quot;full&quot; | &quot;minimal&quot; | &quot;none&quot;
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── tap             (string, required)   — "org/name" format
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── type            (string, optional)   — "formula" | "cask", default "formula"
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└── cask            (object, optional)   — only when type = "cask"
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ├── app_name         — "Scribe.app" (default: productName + .app)
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    ├── identifier       — "com.scribe.app" (default: from tauri.conf.json)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    ├── min_macos        — "catalina" (default: from minimumSystemVersion)
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    ├── architectures    — ["aarch64", "x64"] (default)
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    ├── artifact_pattern — "{name}_{version}_{arch}.dmg" (default)
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    ├── build_command    — "npx tauri build --target {target}" (default)
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    ├── targets          — {"aarch64": "aarch64-apple-darwin", "x64": "x86_64-apple-darwin"}
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    ├── postflight_template — "changelog" | "none"
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    └── caveats_template    — "full" | "minimal" | "none"
 </span></code></pre></div>
 <p>Fields not present in <code>.craft/homebrew.json</code> fall back to auto-detection from <code>src-tauri/tauri.conf.json</code>. The <code>cask</code> object is optional even when <code>type = "cask"</code> — all fields within it have defaults derived from Tauri's config.</p>
 <hr />

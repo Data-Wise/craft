@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10662,10 +10662,10 @@ Invoke via <code>/craft:plan</code> and describe the sprint/roadmap need, or ask
 <p><strong>Prompt refinement is on by default</strong> — the <code>prompt-refiner</code> skill sharpens your prompt before acting. Use <code>--no-refine</code> to opt out. See <a href="../../help/refine-flag/">the --refine flag guide</a>.</p>
 </blockquote>
 <h3 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;user profile page with avatar upload&quot;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;search functionality&quot;</span><span class="w"> </span>--scope<span class="w"> </span>mvp
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;payment integration&quot;</span><span class="w"> </span>--include-tests
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;notifications&quot;</span><span class="w"> </span>--format<span class="w"> </span>github<span class="w"> </span>--output<span class="w"> </span>PLAN.md
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"user profile page with avatar upload"</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"search functionality"</span><span class="w"> </span>--scope<span class="w"> </span>mvp
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"payment integration"</span><span class="w"> </span>--include-tests
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"notifications"</span><span class="w"> </span>--format<span class="w"> </span>github<span class="w"> </span>--output<span class="w"> </span>PLAN.md
 </span></code></pre></div>
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
 <table>
@@ -10714,7 +10714,7 @@ Invoke via <code>/craft:plan</code> and describe the sprint/roadmap need, or ask
 <li><strong>Defines acceptance criteria</strong> for completion</li>
 </ol>
 <h3 id="example-mvp-scope">Example: MVP Scope<a class="headerlink" href="#example-mvp-scope" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;user authentication&quot;</span><span class="w"> </span>--scope<span class="w"> </span>mvp
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"user authentication"</span><span class="w"> </span>--scope<span class="w"> </span>mvp
 </span></code></pre></div>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Feature Plan: User Authentication (MVP)
@@ -10767,7 +10767,7 @@ Invoke via <code>/craft:plan</code> and describe the sprint/roadmap need, or ask
 </span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>Effort Level: ⚡ Low-Medium
 </span></code></pre></div>
 <h3 id="example-full-scope">Example: Full Scope<a class="headerlink" href="#example-full-scope" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;user profile management&quot;</span><span class="w"> </span>--scope<span class="w"> </span>full<span class="w"> </span>--include-tests
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"user profile management"</span><span class="w"> </span>--scope<span class="w"> </span>full<span class="w"> </span>--include-tests
 </span></code></pre></div>
 <p><strong>Output:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Feature Plan: User Profile Management (Full)
@@ -10840,11 +10840,11 @@ Invoke via <code>/craft:plan</code> and describe the sprint/roadmap need, or ask
 </span></code></pre></div>
 <h3 id="export-formats">Export Formats<a class="headerlink" href="#export-formats" title="Permanent link">&para;</a></h3>
 <p><strong>GitHub Format:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;search&quot;</span><span class="w"> </span>--format<span class="w"> </span>github<span class="w"> </span>--output<span class="w"> </span>search-plan.md
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"search"</span><span class="w"> </span>--format<span class="w"> </span>github<span class="w"> </span>--output<span class="w"> </span>search-plan.md
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># Creates GitHub issue template with task list</span>
 </span></code></pre></div>
 <p><strong>Jira Format:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;search&quot;</span><span class="w"> </span>--format<span class="w"> </span>jira
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"search"</span><span class="w"> </span>--format<span class="w"> </span>jira
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># Creates epic/story structure for Jira import</span>
 </span></code></pre></div>
 <hr />
@@ -10858,13 +10858,13 @@ directly for the canonical procedure (options, output formats, examples).</p>
 <h2 id="common-workflows">Common Workflows<a class="headerlink" href="#common-workflows" title="Permanent link">&para;</a></h2>
 <h3 id="workflow-1-plan-and-deliver-a-feature">Workflow 1: Plan and Deliver a Feature<a class="headerlink" href="#workflow-1-plan-and-deliver-a-feature" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Step 1: Plan the feature</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;search functionality&quot;</span><span class="w"> </span>--scope<span class="w"> </span>mvp<span class="w"> </span>--include-tests
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"search functionality"</span><span class="w"> </span>--scope<span class="w"> </span>mvp<span class="w"> </span>--include-tests
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Step 2: Create feature branch (dev/git skill — ask naturally)</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># ask &quot;create feature branch feature/search&quot;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># ask "create feature branch feature/search"</span>
 </span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
 </span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Step 3: Assign to sprint (plan-orchestrator skill, Mode 3)</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>/craft:plan<span class="w"> </span><span class="s2">&quot;sprint plan: add search to v0.2&quot;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>/craft:plan<span class="w"> </span><span class="s2">"sprint plan: add search to v0.2"</span>
 </span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
 </span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># Step 4: Work through tasks</span>
 </span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="c1"># (implement, test, review)</span>
@@ -10877,16 +10877,16 @@ directly for the canonical procedure (options, output formats, examples).</p>
 </span></code></pre></div>
 <h3 id="workflow-2-enterprise-scoping-mvp-full-enterprise">Workflow 2: Enterprise Scoping (MVP → Full → Enterprise)<a class="headerlink" href="#workflow-2-enterprise-scoping-mvp-full-enterprise" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Step 1: MVP scope - minimum viable</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;payment integration&quot;</span><span class="w"> </span>--scope<span class="w"> </span>mvp
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"payment integration"</span><span class="w"> </span>--scope<span class="w"> </span>mvp
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Step 2: Full scope - production ready</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;payment integration&quot;</span><span class="w"> </span>--scope<span class="w"> </span>full
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"payment integration"</span><span class="w"> </span>--scope<span class="w"> </span>full
 </span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
 </span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Step 3: Enterprise scope - advanced features</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;payment integration&quot;</span><span class="w"> </span>--scope<span class="w"> </span>enterprise
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"payment integration"</span><span class="w"> </span>--scope<span class="w"> </span>enterprise
 </span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
 </span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># Step 4: Choose appropriate scope based on timeline</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>/craft:plan<span class="w"> </span><span class="s2">&quot;sprint plan: deliver payment (full scope)&quot;</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>/craft:plan<span class="w"> </span><span class="s2">"sprint plan: deliver payment (full scope)"</span>
 </span></code></pre></div>
 <hr />
 <h2 id="integration-with-other-commands">Integration with Other Commands<a class="headerlink" href="#integration-with-other-commands" title="Permanent link">&para;</a></h2>

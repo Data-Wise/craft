@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10719,11 +10719,11 @@
 </ul>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <h3 id="traditional-method-v240-and-earlier">Traditional Method (v2.4.0 and earlier)<a class="headerlink" href="#traditional-method-v240-and-earlier" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:orch<span class="w"> </span><span class="s2">"implement user authentication"</span>
 </span></code></pre></div>
 <h3 id="new-v250-quick-orchestration-with-orch-flag">NEW (v2.5.0): Quick Orchestration with --orch Flag<a class="headerlink" href="#new-v250-quick-orchestration-with-orch-flag" title="Permanent link">&para;</a></h3>
 <p>The <code>--orch</code> flag enables orchestration directly from supported commands:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:do<span class="w"> </span><span class="s2">"implement user authentication"</span><span class="w"> </span>--orch<span class="o">=</span>optimize
 </span></code></pre></div>
 <p><strong>Supported Commands:</strong></p>
 <table>
@@ -10801,20 +10801,20 @@
 </table>
 <h3 id="mode-examples">Mode Examples<a class="headerlink" href="#mode-examples" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Quick orchestration (default mode)</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add validation&quot;</span><span class="w"> </span>--orch
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">"add validation"</span><span class="w"> </span>--orch
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Verbose debugging</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:do<span class="w"> </span><span class="s2">&quot;fix the bug&quot;</span><span class="w"> </span>--orch<span class="o">=</span>debug
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:do<span class="w"> </span><span class="s2">"fix the bug"</span><span class="w"> </span>--orch<span class="o">=</span>debug
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Parallel execution (fastest)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>optimize
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>/craft:do<span class="w"> </span><span class="s2">"implement auth"</span><span class="w"> </span>--orch<span class="o">=</span>optimize
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Pre-release validation</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>/craft:do<span class="w"> </span><span class="s2">&quot;prepare release&quot;</span><span class="w"> </span>--orch<span class="o">=</span>release
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>/craft:do<span class="w"> </span><span class="s2">"prepare release"</span><span class="w"> </span>--orch<span class="o">=</span>release
 </span></code></pre></div>
 <h3 id="preview-mode-dry-run">Preview Mode (Dry-Run)<a class="headerlink" href="#preview-mode-dry-run" title="Permanent link">&para;</a></h3>
 <p>Preview orchestration without execution:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;refactor auth&quot;</span><span class="w"> </span>--orch<span class="o">=</span>release<span class="w"> </span>--dry-run
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:do<span class="w"> </span><span class="s2">"refactor auth"</span><span class="w"> </span>--orch<span class="o">=</span>release<span class="w"> </span>--dry-run
 </span></code></pre></div>
 <p>This shows:</p>
 <ul>
@@ -10835,15 +10835,15 @@
 <h2 id="modes">Modes<a class="headerlink" href="#modes" title="Permanent link">&para;</a></h2>
 <h3 id="default-mode-10s">Default Mode (&lt;10s)<a class="headerlink" href="#default-mode-10s" title="Permanent link">&para;</a></h3>
 <p>Quick orchestration for simple tasks:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add validation&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:orch<span class="w"> </span><span class="s2">"add validation"</span>
 </span></code></pre></div>
 <h3 id="debug-mode-120s">Debug Mode (&lt;120s)<a class="headerlink" href="#debug-mode-120s" title="Permanent link">&para;</a></h3>
 <p>Verbose output with detailed logging:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;fix the bug&quot;</span><span class="w"> </span>debug
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/craft:orch<span class="w"> </span><span class="s2">"fix the bug"</span><span class="w"> </span>debug
 </span></code></pre></div>
 <h3 id="optimize-mode-180s">Optimize Mode (&lt;180s)<a class="headerlink" href="#optimize-mode-180s" title="Permanent link">&para;</a></h3>
 <p>Parallel execution for speed:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>optimize
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/craft:orch<span class="w"> </span><span class="s2">"implement auth"</span><span class="w"> </span>optimize
 </span></code></pre></div>
 <p><strong>Benefits:</strong></p>
 <ul>
@@ -10853,7 +10853,7 @@
 </ul>
 <h3 id="release-mode-300s">Release Mode (&lt;300s)<a class="headerlink" href="#release-mode-300s" title="Permanent link">&para;</a></h3>
 <p>Comprehensive audit for releases:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;prep for v2.0 release&quot;</span><span class="w"> </span>release
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>/craft:orch<span class="w"> </span><span class="s2">"prep for v2.0 release"</span><span class="w"> </span>release
 </span></code></pre></div>
 <p><strong>Includes:</strong></p>
 <ul>
@@ -10864,7 +10864,7 @@
 </ul>
 <h2 id="brainstorm-integration-v240-new">Brainstorm Integration (v2.4.0 NEW)<a class="headerlink" href="#brainstorm-integration-v240-new" title="Permanent link">&para;</a></h2>
 <p>Orchestrate complex features with structured context gathering:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;plan new feature&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orch<span class="w"> </span><span class="s2">"plan new feature"</span>
 </span></code></pre></div>
 <p>Flow:</p>
 <ol>
@@ -10877,15 +10877,15 @@
 </ol>
 <h3 id="custom-brainstorm-context">Custom Brainstorm Context<a class="headerlink" href="#custom-brainstorm-context" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Focused categories for technical features</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;design API&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>/craft:orch<span class="w"> </span><span class="s2">"design API"</span><span class="w"> </span>optimize
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="c1"># → Brainstorm d:8 -C tech,requirements</span>
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1"># User-focused for UX features</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;design dashboard&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>/craft:orch<span class="w"> </span><span class="s2">"design dashboard"</span><span class="w"> </span>optimize
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1"># → Brainstorm d:8 -C users,scope,success</span>
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="c1"># Risk-aware for critical systems</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span><span class="w"> </span>release
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>/craft:orch<span class="w"> </span><span class="s2">"implement auth"</span><span class="w"> </span>release
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="c1"># → Brainstorm d:10 -C req,tech,risk,success</span>
 </span></code></pre></div>
 <h2 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">&para;</a></h2>

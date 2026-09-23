@@ -10255,7 +10255,7 @@
 <p><strong>Level:</strong> Beginner</p>
 <h2 id="problem">Problem<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
 <p>Running <code>mkdocs build</code> or <code>mkdocs serve</code> fails with an error:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ERROR - Config value &#39;theme&#39;: Uninstalled theme &#39;material&#39;.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ERROR - Config value 'theme': Uninstalled theme 'material'.
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Aborted with 1 Configuration Errors!
 </span></code></pre></div>
 <p>or <code>Unable to find 'guide/nonexistent-page.md' in the docs directory.</code></p>
@@ -10271,7 +10271,7 @@
 <h3 id="2-yaml-syntax-error-in-mkdocsyml">2. YAML Syntax Error in <code>mkdocs.yml</code><a class="headerlink" href="#2-yaml-syntax-error-in-mkdocsyml" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> Invalid YAML prevents MkDocs from parsing the config.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import yaml; yaml.safe_load(open(&#39;mkdocs.yml&#39;))&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import yaml; yaml.safe_load(open('mkdocs.yml'))"</span>
 </span></code></pre></div>
 <p>Common mistakes: tabs instead of spaces, missing colon after a key, wrong indentation in nav.</p>
 <h3 id="3-nav-path-points-to-missing-file">3. Nav Path Points to Missing File<a class="headerlink" href="#3-nav-path-points-to-missing-file" title="Permanent link">&para;</a></h3>
@@ -10280,7 +10280,7 @@
 <h3 id="4-duplicate-nav-entries">4. Duplicate Nav Entries<a class="headerlink" href="#4-duplicate-nav-entries" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> The same page appears twice in <code>nav</code>, producing a warning.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;my-page.md&quot;</span><span class="w"> </span>mkdocs.yml<span class="w">    </span><span class="c1"># find duplicates</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">"my-page.md"</span><span class="w"> </span>mkdocs.yml<span class="w">    </span><span class="c1"># find duplicates</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># Remove the extra entry</span>
 </span></code></pre></div>
 <h3 id="5-extension-load-failure">5. Extension Load Failure<a class="headerlink" href="#5-extension-load-failure" title="Permanent link">&para;</a></h3>

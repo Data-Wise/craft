@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10379,7 +10379,7 @@ CI regression discovered post-release, etc.).</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/craft<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>-5<span class="w"> </span>main
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># The dev→main merge commit for the v4.0.0 release PR is the revert target.</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># It will be the merge-commit style PR from T4.4 (NOT squash — dev→main releases use</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># merge-commit per this repo&#39;s own convention, so the individual feature commits are visible).</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># merge-commit per this repo's own convention, so the individual feature commits are visible).</span>
 </span></code></pre></div>
 <h3 id="a2-revert-on-main">A2. Revert on <code>main</code><a class="headerlink" href="#a2-revert-on-main" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># CONFIRM WITH USER FIRST — this is a push to a protected branch.</span>
@@ -10392,13 +10392,13 @@ CI regression discovered post-release, etc.).</p>
 apply) — the revert itself must go through a PR like any other change to <code>main</code>, it does not
 bypass protection just because it's a rollback.</p>
 <h3 id="a3-re-point-homebrew">A3. Re-point Homebrew<a class="headerlink" href="#a3-re-point-homebrew" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># CONFIRM WITH USER FIRST — direct push to homebrew-tap&#39;s main.</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># CONFIRM WITH USER FIRST — direct push to homebrew-tap's main.</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/homebrew-tap
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Edit Formula/craft.rb: url -&gt; the v2.61.2 tag tarball, sha256 -&gt; its real sha256</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">#   (get via: curl -sL https://github.com/Data-Wise/craft/archive/refs/tags/v2.61.2.tar.gz | shasum -a 256)</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>git<span class="w"> </span>add<span class="w"> </span>Formula/craft.rb
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;revert: craft formula back to v2.61.2 (v4.0.0 rollback)&quot;</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"revert: craft formula back to v2.61.2 (v4.0.0 rollback)"</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>brew<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>brew<span class="w"> </span>upgrade<span class="w"> </span>craft<span class="w">   </span><span class="c1"># verify the rollback actually installs</span>
 </span></code></pre></div>
@@ -10406,7 +10406,7 @@ bypass protection just because it's a rollback.</p>
 <p>Do NOT delete the <code>v4.0.0</code> tag or its GitHub release — leave it visible with a note
 ("superseded, see rollback") rather than erasing history. Deleting a published release/tag
 that others may have already pulled creates more confusion than it resolves.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>gh<span class="w"> </span>release<span class="w"> </span>edit<span class="w"> </span>v4.0.0<span class="w"> </span>--repo<span class="w"> </span>Data-Wise/craft<span class="w"> </span>--notes<span class="w"> </span><span class="s2">&quot;SUPERSEDED — rolled back due to &lt;reason&gt;. Use v2.61.2.&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>gh<span class="w"> </span>release<span class="w"> </span>edit<span class="w"> </span>v4.0.0<span class="w"> </span>--repo<span class="w"> </span>Data-Wise/craft<span class="w"> </span>--notes<span class="w"> </span><span class="s2">"SUPERSEDED — rolled back due to &lt;reason&gt;. Use v2.61.2."</span>
 </span></code></pre></div>
 <h3 id="a5-secrets-app-installation">A5. Secrets / App installation<a class="headerlink" href="#a5-secrets-app-installation" title="Permanent link">&para;</a></h3>
 <p>No action needed — <code>APP_ID</code>/<code>APP_PRIVATE_KEY</code> and the GitHub App installation are shared
@@ -10426,7 +10426,7 @@ because this is folio's first-ever release — there's no prior version for user
 instead, so there's nothing a "superseded" note would be pointing them toward.</p>
 <h3 id="b2-revert-originmain">B2. Revert <code>origin/main</code><a class="headerlink" href="#b2-revert-originmain" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># CONFIRM WITH USER FIRST — push to a protected branch (once main-protection is configured</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># per T4.3&#39;s own sub-step).</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># per T4.3's own sub-step).</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/folio<span class="w"> </span>checkout<span class="w"> </span>main
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>git<span class="w"> </span>-C<span class="w"> </span>~/projects/dev-tools/folio<span class="w"> </span>revert<span class="w"> </span>-m<span class="w"> </span><span class="m">1</span><span class="w"> </span>&lt;the-dev-to-main-merge-commit&gt;
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Open a revert PR — same branch-protection discipline as craft Path A2.</span>
@@ -10434,11 +10434,11 @@ instead, so there's nothing a "superseded" note would be pointing them toward.</
 <h3 id="b3-remove-the-homebrew-formula-entry">B3. Remove the Homebrew formula entry<a class="headerlink" href="#b3-remove-the-homebrew-formula-entry" title="Permanent link">&para;</a></h3>
 <p>folio's formula (<code>homebrew-tap/Formula/folio.rb</code>) is CREATED FRESH in T4.3 — there is no prior
 version to revert to. Rollback means removing it entirely, not downgrading it.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># CONFIRM WITH USER FIRST — direct push to homebrew-tap&#39;s main (same automation path as A3).</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># CONFIRM WITH USER FIRST — direct push to homebrew-tap's main (same automation path as A3).</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">cd</span><span class="w"> </span>~/projects/dev-tools/homebrew-tap
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>main<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>git<span class="w"> </span>rm<span class="w"> </span>Formula/folio.rb
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;revert: remove folio formula (v1.0.0 rollback)&quot;</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"revert: remove folio formula (v1.0.0 rollback)"</span>
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
 </span></code></pre></div>
 <h3 id="b4-unpublish-from-the-marketplace">B4. Unpublish from the marketplace<a class="headerlink" href="#b4-unpublish-from-the-marketplace" title="Permanent link">&para;</a></h3>

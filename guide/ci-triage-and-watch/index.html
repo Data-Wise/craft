@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10192,7 +10192,7 @@ into any terminal and get the conclusion when it lands.</p>
 <h2 id="craftcitriage-classify-a-red-check"><code>/craft:ci:triage</code> — classify a red check<a class="headerlink" href="#craftcitriage-classify-a-red-check" title="Permanent link">&para;</a></h2>
 <p>When the cause isn't obvious, triage fetches the failed log, diffs the error
 sites against your PR's changed files, and renders a verdict:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:ci:triage<span class="w">             </span><span class="c1"># triage the current branch&#39;s open PR</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:ci:triage<span class="w">             </span><span class="c1"># triage the current branch's open PR</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:ci:triage<span class="w"> </span><span class="m">156</span><span class="w">         </span><span class="c1"># a specific PR</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>/craft:ci:triage<span class="w"> </span>--json<span class="w">      </span><span class="c1"># structured per-check verdicts + summary</span>
 </span></code></pre></div>

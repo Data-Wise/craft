@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10760,7 +10760,7 @@
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│   └─ MEDIUM: Guard will [CONFIRM]
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│
 </span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├─ Do bulk maintenance on dev?
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│   └─ ask &quot;unprotect for maintenance&quot; (dev/git skill)
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│   └─ ask "unprotect for maintenance" (dev/git skill)
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>├─ Work on feature branch?
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│   └─ No restrictions — guard is inactive
@@ -11001,13 +11001,13 @@ non-interactive session this needs <code>CRAFT_GUARD_ALLOW_DEV_EDIT=1</code> pre
 profile / Claude env) by the user, per issue #281 — see <code>skills/dev/git/SKILL.md</code> Operation 10.</p>
 <h3 id="session-bypass-bulk-operations">Session Bypass (Bulk Operations)<a class="headerlink" href="#session-bypass-bulk-operations" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Enable bypass</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ask<span class="w"> </span><span class="s2">&quot;unprotect for maintenance&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ask<span class="w"> </span><span class="s2">"unprotect for maintenance"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Do your work (all guards disabled)</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># ...</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># Re-enable</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>ask<span class="w"> </span><span class="s2">&quot;protect&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>ask<span class="w"> </span><span class="s2">"protect"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span></code></pre></div>
 <hr />
 <h2 id="verbosity-fade">Verbosity Fade<a class="headerlink" href="#verbosity-fade" title="Permanent link">&para;</a></h2>
@@ -11150,12 +11150,12 @@ profile / Claude env) by the user, per issue #281 — see <code>skills/dev/git/S
 </table>
 <p>Apply both for full coverage:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Local hook (per-machine, automatic on craft installs)</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ask<span class="w"> </span><span class="s2">&quot;protect&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>ask<span class="w"> </span><span class="s2">"protect"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># GitHub-side (per-repo, one-time setup)</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>ask<span class="w"> </span><span class="s2">&quot;protect-baseline&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span><span class="w">               </span><span class="c1"># Current repo</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>ask<span class="w"> </span><span class="s2">&quot;protect-baseline --repo OWNER/REPO&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span><span class="w"> </span><span class="c1"># Any repo</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>ask<span class="w"> </span><span class="s1">&#39;protect-baseline --check &quot;test&quot; --strict&#39;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span><span class="w"> </span><span class="c1"># With status checks</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>ask<span class="w"> </span><span class="s2">"protect-baseline"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span><span class="w">               </span><span class="c1"># Current repo</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>ask<span class="w"> </span><span class="s2">"protect-baseline --repo OWNER/REPO"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span><span class="w"> </span><span class="c1"># Any repo</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>ask<span class="w"> </span><span class="s1">'protect-baseline --check "test" --strict'</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span><span class="w"> </span><span class="c1"># With status checks</span>
 </span></code></pre></div>
 <p><strong>Important:</strong> Asking "unprotect" (dev/git skill) only bypasses the local hook. GitHub-side protection set by <code>protect-baseline</code> is independent and must be removed via <code>protect-baseline --remove</code>.</p>
 <hr />
@@ -11168,13 +11168,13 @@ profile / Claude env) by the user, per issue #281 — see <code>skills/dev/git/S
 <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>→ Guard: MEDIUM [CONFIRM]
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>→ Options:
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  a) Approve the confirm prompt (one-shot)
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  b) ask &quot;create a worktree for feature/&lt;name&gt;&quot; (dev/git skill, recommended)
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  c) ask &quot;unprotect for maintenance&quot; (dev/git skill) (bulk bypass)
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  b) ask "create a worktree for feature/&lt;name&gt;" (dev/git skill, recommended)
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  c) ask "unprotect for maintenance" (dev/git skill) (bulk bypass)
 </span></code></pre></div>
 <h3 id="im-resolving-merge-conflicts-on-dev">"I'm resolving merge conflicts on dev"<a class="headerlink" href="#im-resolving-merge-conflicts-on-dev" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ask<span class="w"> </span><span class="s2">&quot;unprotect for a merge conflict&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ask<span class="w"> </span><span class="s2">"unprotect for a merge conflict"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># Resolve conflicts freely</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>ask<span class="w"> </span><span class="s2">&quot;protect&quot;</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>ask<span class="w"> </span><span class="s2">"protect"</span><span class="w"> </span><span class="o">(</span>dev/git<span class="w"> </span>skill<span class="o">)</span>
 </span></code></pre></div>
 <h3 id="i-need-to-update-documentation-on-dev">"I need to update documentation on dev"<a class="headerlink" href="#i-need-to-update-documentation-on-dev" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>→ Guard: LOW (markdown always allowed)
@@ -11188,9 +11188,9 @@ profile / Claude env) by the user, per issue #281 — see <code>skills/dev/git/S
 <h2 id="config-file-optional">Config File (Optional)<a class="headerlink" href="#config-file-optional" title="Permanent link">&para;</a></h2>
 <p><code>.claude/branch-guard.json</code> — override auto-detection:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;main&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;block-all&quot;</span><span class="p">,</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span><span class="p">,</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;staging&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;smart&quot;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">"main"</span><span class="p">:</span><span class="w"> </span><span class="s2">"block-all"</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">"dev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"smart"</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">"staging"</span><span class="p">:</span><span class="w"> </span><span class="s2">"smart"</span>
 </span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Only listed branches are protected. Unlisted = unrestricted.</p>

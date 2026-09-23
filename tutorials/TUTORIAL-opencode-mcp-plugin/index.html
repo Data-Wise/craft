@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -4047,27 +4047,44 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gotchas" class="md-nav__link">
+    <nav class="md-nav" aria-label="Always Monitor a Delegation (mandatory, not optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opencode-sync-tier-opencode-run-format-json" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Gotchas
+        opencode sync tier — opencode run --format json
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#verifying-it-works" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#opencode-async-in-session-poll-mcp-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verifying it works
+        opencode-async — in-session poll (MCP-only)
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codex-codex-exec-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        codex — codex exec --json
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -10124,27 +10141,44 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gotchas" class="md-nav__link">
+    <nav class="md-nav" aria-label="Always Monitor a Delegation (mandatory, not optional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#opencode-sync-tier-opencode-run-format-json" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Gotchas
+        opencode sync tier — opencode run --format json
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#verifying-it-works" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#opencode-async-in-session-poll-mcp-only" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verifying it works
+        opencode-async — in-session poll (MCP-only)
       
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#codex-codex-exec-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        codex — codex exec --json
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -10190,7 +10224,7 @@ either is installed.</p>
 <tr>
 <td><code>opencode</code></td>
 <td><code>opencode-mcp</code> (npm)</td>
-<td>Synchronous-first — ~80 tools, tiered (<code>opencode_setup</code> → <code>opencode_ask</code>/<code>opencode_run</code> → fine-grained session/message control)</td>
+<td>Sync-first plus durable async jobs (v3.0.0) — 87 tools, tiered (<code>opencode_setup</code> → <code>opencode_ask</code>/<code>opencode_run</code> → fine-grained session/message control); <code>opencode_run</code> returns a durable job ID, resumable with <code>opencode_wait</code>/<code>opencode_job_get</code></td>
 </tr>
 <tr>
 <td><code>opencode-async</code></td>
@@ -10236,9 +10270,9 @@ for the full rationale. Quick version:</p>
 <td>Not verifiable after the fact</td>
 </tr>
 <tr>
-<td>Hard, well-scoped SWE task</td>
+<td>Hard, well-scoped SWE task (deep bug, tricky refactor)</td>
 <td><a href="../TUTORIAL-codex-plugin/"><code>codex</code></a></td>
-<td>Matches the existing <code>codex-rescue</code> trigger</td>
+<td>Same task shape the <code>codex</code> plugin's <code>codex-rescue</code> agent targets — but craft shells to <code>codex exec</code> directly, never through that agent (different plugin, no cross-plugin dispatch)</td>
 </tr>
 <tr>
 <td>One-shot question, need the answer this turn</td>
@@ -10247,82 +10281,78 @@ for the full rationale. Quick version:</p>
 </tr>
 <tr>
 <td>Long task, don't want to block the session</td>
-<td><code>opencode-async</code></td>
-<td>Fire-and-forget, poll later</td>
+<td><code>opencode</code> durable job (<code>opencode_run</code> → <code>opencode_wait</code>/<code>opencode_check</code>), or <code>opencode-async</code> if registered</td>
+<td>Job keeps running past an observation timeout; poll later</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Status vocabularies are different between the two bridges — don't conflate them:</strong>
 <code>opencode-async</code> reports <code>working</code> / <code>input_required</code> / <code>completed</code> / <code>failed</code> / <code>cancelled</code>;
-<code>opencode</code>'s <code>opencode_check</code> reports <code>running</code> / <code>completed</code> / <code>error</code>.</p>
+<code>opencode</code> (v3.0.0) durable jobs report <code>accepted</code> / <code>running</code> / <code>input_required</code> / <code>completed</code> /
+<code>failed</code> / <code>cancelled</code> / <code>unknown</code> — via <code>opencode_check</code> (pass <code>jobId</code>), <code>opencode_job_get</code>, or
+<code>opencode_wait</code>. (Before v3 it was <code>running</code> / <code>completed</code> / <code>error</code>; re-check after upgrades.)</p>
 <h2 id="always-monitor-a-delegation-mandatory-not-optional">Always Monitor a Delegation (mandatory, not optional)<a class="headerlink" href="#always-monitor-a-delegation-mandatory-not-optional" title="Permanent link">&para;</a></h2>
-<p>Never fire a delegated task and silently wait. Use a background <code>Monitor</code> watching for status
-changes, token/cost usage, and errors only — three signals, not raw logs. Copy-paste starting
-points:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># opencode (sync tier) — wrap opencode_ask/opencode_run in a background call,</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># then watch its stdout for the terminal &quot;result&quot; line + any error.</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># (Called via the MCP tool directly in a live session — this is the CLI-probe</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># equivalent for scripting/testing outside a session.)</span>
-</span></code></pre></div>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># opencode-async — poll opencode_sessions for status until terminal:</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># working -&gt; completed | failed | cancelled (input_required needs opencode_respond)</span>
-</span></code></pre></div>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># codex — codex exec (--json) already emits JSONL events; filter for the</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># terminal event and any &quot;token_count&quot;/usage payloads, e.g.:</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>codex<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>review<span class="w"> </span>--json<span class="w"> </span>--uncommitted<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nv">IFS</span><span class="o">=</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>line<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">in</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span>*<span class="s1">&#39;&quot;type&quot;:&quot;turn.completed&quot;&#39;</span>*<span class="p">|</span>*<span class="s1">&#39;&quot;type&quot;:&quot;turn.failed&quot;&#39;</span>*<span class="p">|</span>*<span class="s1">&#39;&quot;type&quot;:&quot;error&quot;&#39;</span>*<span class="p">|</span>*token*<span class="p">|</span>*usage*<span class="w"> </span><span class="o">)</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[codex] </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c1-400<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">;;</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="k">esac</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">done</span>
-</span></code></pre></div>
-<p>Real token-usage numbers aren't always in the CLI's own event stream — <code>codex</code>'s per-turn
-usage can read all-zeros while the real total lives in a <em>child</em> rollout session file under
-<code>~/.codex/sessions/**/rollout-*.jsonl</code> (<code>"type":"token_count"</code>, look for
-<code>parent_thread_id</code> matching the review's own <code>thread_id</code>). Check there if the inline events
-look empty.</p>
-<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
+<p>Never fire a delegated task and silently wait. Every delegation follows the same four steps:</p>
 <ol>
-<li><strong>New tool registrations need a session restart.</strong> <code>claude mcp add</code>
-   writes to <code>~/.claude.json</code> immediately, but a <em>running</em> Claude Code
-   session doesn't pick up the new MCP server until it restarts — the
-   tools won't appear via <code>ToolSearch</code> mid-session even though <code>claude mcp
-   list</code> already shows them connected.</li>
-<li><strong><code>opencode</code> auto-starts an OpenCode SDK server.</strong> First call spawns
-   <code>OpenCode server ... on 127.0.0.1:4096</code> if one isn't already running —
-   expect a few seconds of latency on cold start.</li>
-<li><strong>Always discover providers/models first.</strong> <code>opencode</code>'s own
-   instructions warn against assuming a provider is available — call
-   <code>opencode_setup</code> then <code>opencode_provider_models</code> before passing
-   <code>providerID</code>/<code>modelID</code> to <code>opencode_ask</code>/<code>opencode_run</code>, or you may get
-   empty responses.</li>
-<li><strong><code>opencode-async</code> tasks don't block.</strong> <code>opencode</code> (the tool, not the
-   server) returns a <code>taskId</code> immediately with status <code>"working"</code> — poll
-   <code>opencode_sessions</code> to see completion, and watch for status
-   <code>"input_required"</code>, which needs <code>opencode_respond</code> before the task can
-   finish.</li>
-<li><strong>Scope check before assuming a bridge is available.</strong> Both were
-   originally <code>local</code>-scoped to specific project directories (<code>~/</code>,
-   <code>savant-openai</code> for <code>opencode</code>; <code>cc-config</code>, <code>better-opencode-mcp</code> for
-   <code>opencode-async</code>) before being promoted to <code>user</code> scope — if either
-   stops showing up, check <code>claude mcp list</code> and the project's
-   <code>mcpServers</code> block in <code>~/.claude.json</code> before assuming it's broken.</li>
+<li><strong>Fire it in the background</strong> — hand the command below to the <code>Monitor</code> tool (or run it
+   with <code>run_in_background</code>), never block the session on it.</li>
+<li><strong>Watch 3 signals only</strong> — status change, token/cost usage, error. Nothing else earns a
+   notification.</li>
+<li><strong>One plain-language line per event</strong> — each template <code>echo</code>s a single summary line, never
+   the raw JSON.</li>
+<li><strong>Report cost + findings together at the end</strong> — the full event log is <code>tee</code>d to a file,
+   so the answer and the final token/cost numbers come from the same place.</li>
 </ol>
-<h2 id="verifying-it-works">Verifying it works<a class="headerlink" href="#verifying-it-works" title="Permanent link">&para;</a></h2>
-<p>Both servers were smoke-tested directly over stdio (JSON-RPC
-<code>initialize</code> + <code>tools/list</code>, no live session needed):</p>
-<ul>
-<li><code>opencode</code> — responds with 80 tools + a tiered usage guide in the
-  initialize response's top-level <code>instructions</code> field (a sibling of
-  <code>serverInfo</code>, not nested inside it); auto-starts its SDK server on port
-  4096.</li>
-<li><code>opencode-async</code> — responds with 7 tools (<code>Help</code>, <code>ping</code>,
-  <code>opencode_health</code>, <code>opencode</code>, <code>opencode_sessions</code>, <code>opencode_respond</code>,
-  <code>opencode_cancel</code>).</li>
-</ul>
-<p>If you want to re-run the same check: spawn the server's command, write
-newline-delimited JSON-RPC to stdin (not LSP-style <code>Content-Length</code>
-framing — these two don't use it), and read the response from stdout.</p>
+<p>Copy-paste templates — each <code>echo</code>s only on a real event, so it costs nothing until something
+happens:</p>
+<h3 id="opencode-sync-tier-opencode-run-format-json"><code>opencode</code> sync tier — <code>opencode run --format json</code><a class="headerlink" href="#opencode-sync-tier-opencode-run-format-json" title="Permanent link">&para;</a></h3>
+<p>Uses the <code>opencode</code> CLI directly, so it works even when neither MCP bridge is registered.
+Pick a model from <code>opencode models</code> (format <code>provider/model</code>).</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">LOG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="k">:-</span><span class="p">/tmp</span><span class="si">}</span><span class="s2">/opencode-run.jsonl"</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>opencode<span class="w"> </span>run<span class="w"> </span>--format<span class="w"> </span>json<span class="w"> </span>-m<span class="w"> </span>opencode/big-pickle<span class="w"> </span><span class="s2">"&lt;task&gt;"</span><span class="w"> </span>&lt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$LOG</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">while</span><span class="w"> </span><span class="nv">IFS</span><span class="o">=</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>line<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="s2">"</span><span class="nv">$line</span><span class="s2">"</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="s1">'{"type":"step_finish"'</span>*<span class="o">)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"[opencode] step done: </span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$line</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-c<span class="w"> </span><span class="s1">'{reason: .part.reason, tokens: .part.tokens.total, cost: .part.cost}'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="p">;;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="s1">'{"type":"error"'</span>*<span class="o">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"[opencode] ERROR: </span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s1">'%s'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$line</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.error.data.message // .error.name'</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="p">;;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="k">esac</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">done</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"[opencode] exited"</span>
+</span></code></pre></div>
+<p>End-of-task report (step 4): the answer and the totals, from the same log.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'select(.type=="text") | .part.text'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$LOG</span><span class="s2">"</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>jq<span class="w"> </span>-s<span class="w"> </span><span class="s1">'[.[] | select(.type=="step_finish") | .part] | {tokens: (map(.tokens.total) | add), cost: (map(.cost) | add)}'</span><span class="w"> </span><span class="s2">"</span><span class="nv">$LOG</span><span class="s2">"</span>
+</span></code></pre></div>
+<p>Event shapes (verified 2026-09-23, opencode 1.18.31): top-level <code>type</code> is <code>step_start</code> →
+<code>text</code> → <code>step_finish</code> on success; <code>step_finish.part</code> carries <code>reason</code>, <code>tokens</code>
+(<code>total</code>/<code>input</code>/<code>output</code>/<code>reasoning</code>/<code>cache</code>) and <code>cost</code>. A failure emits a single
+<code>{"type":"error", "error": {"name": …, "data": {"message": …}}}</code> line and exits 1. Note that
+<code>part.type</code> uses hyphens (<code>step-finish</code>) while the top-level <code>type</code> uses underscores
+(<code>step_finish</code>) — match the top level.</p>
+<h3 id="opencode-async-in-session-poll-mcp-only"><code>opencode-async</code> — in-session poll (MCP-only)<a class="headerlink" href="#opencode-async-in-session-poll-mcp-only" title="Permanent link">&para;</a></h3>
+<p><code>opencode-async</code> has no CLI, so there is nothing for a shell <code>Monitor</code> to watch — it is polled
+from inside the session:</p>
+<ol>
+<li>Call <code>opencode</code> → returns a <code>taskId</code> with status <code>working</code>.</li>
+<li>Call <code>opencode_sessions</code> periodically; report only when the status changes.</li>
+<li><code>input_required</code> → answer with <code>opencode_respond</code>, then keep polling.</li>
+<li>Stop at a terminal status: <code>completed</code> / <code>failed</code> / <code>cancelled</code>.</li>
+</ol>
+<p>Not re-verified 2026-09-23: the bridge was not registered on the verifying machine. The status
+vocabulary above is from the 2026-08-08 stdio smoke test.</p>
+<h3 id="codex-codex-exec-json"><code>codex</code> — <code>codex exec --json</code><a class="headerlink" href="#codex-codex-exec-json" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">LOG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="k">:-</span><span class="p">/tmp</span><span class="si">}</span><span class="s2">/codex-exec.jsonl"</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>codex<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--json<span class="w"> </span><span class="s2">"&lt;task&gt;"</span><span class="w"> </span>&lt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$LOG</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nv">IFS</span><span class="o">=</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>line<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="s2">"</span><span class="nv">$line</span><span class="s2">"</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="s1">'{"type":"turn.completed"'</span>*<span class="p">|</span><span class="s1">'{"type":"turn.failed"'</span>*<span class="p">|</span><span class="s1">'{"type":"error"'</span>*<span class="w"> </span><span class="o">)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"[codex] </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$line</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c1-400<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="p">;;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="k">esac</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">done</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"[codex] exited"</span>
+</span></code></pre></div>
+<p>For a review, swap <code>exec "&lt;task&gt;"</code> for <code>exec review --json --uncommitted</code> — and expect a large
+bill (one review ran to 1.01M tokens in the 2026-08-08 dogfood run). `</p>
 
 
 

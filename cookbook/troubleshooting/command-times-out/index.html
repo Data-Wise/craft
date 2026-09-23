@@ -10280,7 +10280,7 @@
 <p><strong>Issue:</strong> A genuinely complex task (large codebase, many files) times out at the 10-second default budget.</p>
 <p><strong>Solution:</strong> Upgrade the mode or use smart routing:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:arch:analyze<span class="w"> </span>optimize<span class="w">         </span><span class="c1"># More time for large codebases</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;analyze architecture&quot;</span><span class="w">     </span><span class="c1"># Auto-selects appropriate mode</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">"analyze architecture"</span><span class="w">     </span><span class="c1"># Auto-selects appropriate mode</span>
 </span></code></pre></div>
 <p><strong>Why:</strong> <code>/craft:do</code> uses the complexity scorer to automatically pick the right mode.</p>
 <h3 id="3-network-issues-for-site-commands">3. Network Issues for Site Commands<a class="headerlink" href="#3-network-issues-for-site-commands" title="Permanent link">&para;</a></h3>

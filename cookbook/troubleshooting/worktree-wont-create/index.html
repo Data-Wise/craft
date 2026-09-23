@@ -10236,16 +10236,16 @@
 <p><strong>Level:</strong> Beginner</p>
 <h2 id="problem">Problem<a class="headerlink" href="#problem" title="Permanent link">&para;</a></h2>
 <p>Running <code>/craft:git:worktree feature/&lt;name&gt;</code> fails instead of creating a new worktree:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>fatal: &#39;feature/docs-revamp&#39; already exists
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>fatal: 'feature/docs-revamp' already exists
 </span></code></pre></div>
 <p>or</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>fatal: &#39;/Users/you/.git-worktrees/craft/feature-docs-revamp&#39; already exists
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>fatal: '/Users/you/.git-worktrees/craft/feature-docs-revamp' already exists
 </span></code></pre></div>
 <h2 id="common-causes-solutions">Common Causes &amp; Solutions<a class="headerlink" href="#common-causes-solutions" title="Permanent link">&para;</a></h2>
 <h3 id="1-branch-already-exists">1. Branch Already Exists<a class="headerlink" href="#1-branch-already-exists" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> A local branch with the same name exists from a previous worktree.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>branch<span class="w"> </span>--list<span class="w"> </span><span class="s1">&#39;feature/*&#39;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>branch<span class="w"> </span>--list<span class="w"> </span><span class="s1">'feature/*'</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/docs-revamp<span class="w">   </span><span class="c1"># safe if already merged</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:git:worktree<span class="w"> </span>feature/docs-revamp
 </span></code></pre></div>
@@ -10269,7 +10269,7 @@
 <h3 id="4-uncommitted-changes">4. Uncommitted Changes<a class="headerlink" href="#4-uncommitted-changes" title="Permanent link">&para;</a></h3>
 <p><strong>Issue:</strong> A dirty working tree blocks the branch operation.</p>
 <p><strong>Solution:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>stash<span class="w"> </span>push<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;stash before worktree&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>git<span class="w"> </span>stash<span class="w"> </span>push<span class="w"> </span>-m<span class="w"> </span><span class="s2">"stash before worktree"</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>/craft:git:worktree<span class="w"> </span>feature/docs-revamp
 </span></code></pre></div>
 <p><strong>Why:</strong> Worktree creation involves checkout operations that conflict with uncommitted changes.</p>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10140,7 +10140,7 @@
 <hr />
 <h2 id="step-1-generate-an-architecture-plan">Step 1: Generate an Architecture Plan<a class="headerlink" href="#step-1-generate-an-architecture-plan" title="Permanent link">&para;</a></h2>
 <p>Describe what you want to build:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:arch:plan &quot;add OAuth2 authentication with Google and GitHub providers&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:arch:plan "add OAuth2 authentication with Google and GitHub providers"
 </span></code></pre></div>
 <p>The command analyzes your existing codebase patterns, then produces a structured plan:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Architecture Plan — OAuth2 Authentication
@@ -10156,8 +10156,8 @@
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  • Store tokens in session (not localStorage)
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>Phase 3: UI
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  • Add &quot;Sign in with Google&quot; button to login page
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  • Add &quot;Sign in with GitHub&quot; button to login page
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>  • Add "Sign in with Google" button to login page
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>  • Add "Sign in with GitHub" button to login page
 </span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
 </span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>Files to create: 4
 </span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>Files to modify: 3
@@ -10166,13 +10166,13 @@
 <hr />
 <h2 id="step-2-refine-the-plan">Step 2: Refine the Plan<a class="headerlink" href="#step-2-refine-the-plan" title="Permanent link">&para;</a></h2>
 <p>Use <code>--refine</code> to pre-process the request through prompt refinement before planning:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:arch:plan --refine &quot;add auth&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:arch:plan --refine "add auth"
 </span></code></pre></div>
 <p>The refiner expands the brief request into a precise specification, then generates the plan. This produces better-scoped output for vague prompts.</p>
 <hr />
 <h2 id="step-3-act-on-the-plan">Step 3: Act on the Plan<a class="headerlink" href="#step-3-act-on-the-plan" title="Permanent link">&para;</a></h2>
 <p>The architecture plan is designed to feed directly into orchestration:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:orch &quot;implement the OAuth2 plan from arch:plan&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:orch "implement the OAuth2 plan from arch:plan"
 </span></code></pre></div>
 <p>Or use it as a reference while implementing manually — the phase breakdown maps cleanly to feature branches.</p>
 <hr />

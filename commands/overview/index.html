@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10748,7 +10748,7 @@
 </span></code></pre></div>
 <p><a href="../check/">Learn more →</a> | <a href="../../cookbook/common/check-code-quality-before-commit/">Cookbook recipe</a> | <a href="../../reference/REFCARD-CHECK/">Quick reference</a></p>
 <h3 id="craftorch-multi-agent-coordination">/craft:orch - Multi-Agent Coordination<a class="headerlink" href="#craftorch-multi-agent-coordination" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;complex task&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orch<span class="w"> </span><span class="s2">"complex task"</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Shows plan → Asks for mode → Confirms → Runs with checkpoints</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Interactive mode selection (default/wave/phase)</span>
@@ -10758,7 +10758,7 @@
 <blockquote>
 <p><strong>Note (2026-07 v4 consolidation):</strong> <code>/craft:git:worktree</code> was folded into the <code>dev/git</code> skill — the command itself no longer exists, so this is no longer a "Show Steps First" slash command. Ask naturally instead.</p>
 </blockquote>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&quot;create a worktree for feature/new-feature&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>"create a worktree for feature/new-feature"
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># Creates worktree → Auto-generates ORCHESTRATE.md + SPEC.md
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># Scope detection and auto-setup
@@ -10785,11 +10785,11 @@
 </span></code></pre></div>
 <p><a href="../../cookbook/common/post-merge-documentation/">Cookbook recipe →</a></p>
 <p><strong>⚡ 5-7 minutes:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;your task&quot;</span><span class="w">     </span><span class="c1"># Multi-step workflow with mode selection</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/craft:orch<span class="w"> </span><span class="s2">"your task"</span><span class="w">     </span><span class="c1"># Multi-step workflow with mode selection</span>
 </span></code></pre></div>
 <p><a href="../../cookbook/common/use-interactive-orchestration/">Cookbook recipe →</a></p>
 <p><strong>⚡ 8-10 minutes:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="s2">&quot;create a worktree for feature/name&quot;</span><span class="w">   </span><span class="c1"># Setup parallel development (dev/git skill)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="s2">"create a worktree for feature/name"</span><span class="w">   </span><span class="c1"># Setup parallel development (dev/git skill)</span>
 </span></code></pre></div>
 <p><a href="../../cookbook/common/setup-parallel-worktrees/">Cookbook recipe →</a></p>
 <hr />

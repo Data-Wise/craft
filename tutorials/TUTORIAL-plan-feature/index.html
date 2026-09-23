@@ -10207,7 +10207,7 @@
 <li>How to export the plan as markdown, Jira, or a GitHub issue</li>
 </ol>
 <h2 id="step-1-describe-the-feature">Step 1: Describe the feature<a class="headerlink" href="#step-1-describe-the-feature" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;user profile page with avatar upload&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"user profile page with avatar upload"</span>
 </span></code></pre></div>
 <p>By default this runs the <code>prompt-refiner</code> skill first to sharpen a vague
 description — accept, edit, or use the original before planning proceeds.
@@ -10222,12 +10222,12 @@ Pass <code>--no-refine</code> to skip that step.</p>
 <li><strong>Acceptance Criteria</strong> — how you'll know it's done</li>
 </ul>
 <h2 id="step-3-narrow-the-scope">Step 3: Narrow the scope<a class="headerlink" href="#step-3-narrow-the-scope" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;search functionality&quot;</span><span class="w"> </span>--scope<span class="w"> </span>mvp
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"search functionality"</span><span class="w"> </span>--scope<span class="w"> </span>mvp
 </span></code></pre></div>
 <p><code>--scope</code> accepts <code>mvp</code>, <code>full</code>, or <code>enterprise</code> — controls how much detail
 and how many edge cases the breakdown covers.</p>
 <h2 id="step-4-export-it">Step 4: Export it<a class="headerlink" href="#step-4-export-it" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">&quot;notifications&quot;</span><span class="w"> </span>--format<span class="w"> </span>github
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:plan:feature<span class="w"> </span><span class="s2">"notifications"</span><span class="w"> </span>--format<span class="w"> </span>github
 </span></code></pre></div>
 <p><code>--format</code> accepts <code>markdown</code> (default), <code>jira</code>, or <code>github</code> — the last one
 produces text ready to paste into a new GitHub issue.</p>

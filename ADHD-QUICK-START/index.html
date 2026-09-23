@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10279,7 +10279,7 @@
 <ul>
 <li><strong>What:</strong> Ultra-fast guide to craft with zero cognitive load - install, verify, and run in under 2 minutes</li>
 <li><strong>Why:</strong> ADHD-optimized workflow with time-boxed steps, clear wins, and smart defaults</li>
-<li><strong>How:</strong> <code>brew install data-wise/tap/craft</code> or <code>claude plugin add github:Data-Wise/craft</code> → <code>/craft:hub</code> → <code>/craft:do "task"</code></li>
+<li><strong>How:</strong> <code>brew install data-wise/tap/craft</code> or <code>claude plugin install craft@data-wise</code> → <code>/craft:hub</code> → <code>/craft:do "task"</code></li>
 <li><strong>Next:</strong> Try the <a href="#next-5-minutes">5-minute exploration</a> or jump to <a href="../commands/docs/">docs automation</a></li>
 </ul>
 </blockquote>
@@ -10291,10 +10291,11 @@
 <p><strong>Install and verify:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Pick ONE install method:</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>brew<span class="w"> </span>tap<span class="w"> </span>data-wise/tap<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>craft<span class="w">  </span><span class="c1"># Homebrew (macOS)</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>claude<span class="w"> </span>plugin<span class="w"> </span>add<span class="w"> </span>github:Data-Wise/craft<span class="w">      </span><span class="c1"># GitHub marketplace</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Then verify:</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>/craft:hub<span class="w">                                    </span><span class="c1"># Verify 48 commands are available</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>claude<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>Data-Wise/claude-plugins<span class="w">  </span><span class="c1"># Data-Wise marketplace</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>claude<span class="w"> </span>plugin<span class="w"> </span>install<span class="w"> </span>craft@data-wise
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># Then verify:</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>/craft:hub<span class="w">                                    </span><span class="c1"># Verify 48 commands are available</span>
 </span></code></pre></div>
 <p><strong>Expected:</strong> You'll see a categorized list of all craft commands.</p>
 <div class="admonition success">
@@ -10307,7 +10308,7 @@
 <p>0:30 → 2:00 | Try essential commands</p>
 </div>
 <p><strong>Try these three essential commands:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add validation to my forms&quot;</span><span class="w">     </span><span class="c1"># AI routes task automatically</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:do<span class="w"> </span><span class="s2">"add validation to my forms"</span><span class="w">     </span><span class="c1"># AI routes task automatically</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:check<span class="w">                                </span><span class="c1"># Pre-flight check before committing</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>/craft:smart-help<span class="w"> </span>testing<span class="w">                         </span><span class="c1"># Get context-aware testing help</span>
 </span></code></pre></div>

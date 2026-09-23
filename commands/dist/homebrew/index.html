@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10213,7 +10213,7 @@
 </blockquote>
 <hr />
 <h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:dist:homebrew<span class="w"> </span><span class="o">[</span>mode<span class="o">]</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:dist:homebrew<span class="w"> </span><span class="o">[</span>formula<span class="p">|</span>cask<span class="p">|</span>workflow<span class="p">|</span>audit<span class="p">|</span>setup<span class="p">|</span>update-resources<span class="p">|</span>deps<span class="o">]</span>
 </span></code></pre></div>
 <hr />
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
@@ -10223,22 +10223,22 @@
 <p>Advisory gates run before pushing the tap formula; the aggregator-sync gate is BLOCKING.
 Set <code>HOMEBREW_GATE_STRICT=1</code> to promote advisory gates to blocking for local release runs.</p>
 <h3 id="step-10b-verify-caveats-freshness-advisory-strict-via-env">Step 10b: Verify caveats freshness (advisory; strict via env)<a class="headerlink" href="#step-10b-verify-caveats-freshness-advisory-strict-via-env" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>scripts/verify_caveats.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FORMULA</span><span class="s2">&quot;</span><span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span><span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PLUGIN_NAME</span><span class="s2">&quot;</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Tap-absent leg: if &quot;$FORMULA&quot; is not locally checked out, warn and continue.</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python3<span class="w"> </span>scripts/verify_caveats.py<span class="w"> </span><span class="s2">"</span><span class="nv">$FORMULA</span><span class="s2">"</span><span class="w"> </span>CHANGELOG.md<span class="w"> </span><span class="s2">"</span><span class="nv">$VERSION</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span><span class="w"> </span>--name<span class="w"> </span><span class="s2">"</span><span class="nv">$PLUGIN_NAME</span><span class="s2">"</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Tap-absent leg: if "$FORMULA" is not locally checked out, warn and continue.</span>
 </span></code></pre></div>
 <h3 id="step-10c-verify-post_install-structure-advisory-strict-via-env">Step 10c: Verify post_install structure (advisory; strict via env)<a class="headerlink" href="#step-10c-verify-post_install-structure-advisory-strict-via-env" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python3<span class="w"> </span>scripts/post_install_check.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FORMULA</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python3<span class="w"> </span>scripts/post_install_check.py<span class="w"> </span><span class="s2">"</span><span class="nv">$FORMULA</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="si">${</span><span class="nv">HOMEBREW_GATE_STRICT</span><span class="p">:+--strict</span><span class="si">}</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Add --sandbox only on a macOS-local release host for higher fidelity.</span>
 </span></code></pre></div>
 <h3 id="step-10d-coworkdesktop-verification-blocking-aggregator-sync">Step 10d: Cowork/Desktop verification (BLOCKING aggregator-sync)<a class="headerlink" href="#step-10d-coworkdesktop-verification-blocking-aggregator-sync" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># BLOCKING (D4): a stale aggregator ships silent wrong-version installs.</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>bash<span class="w"> </span>scripts/aggregator-sync.sh<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;aggregator-sync failed - release blocked&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>bash<span class="w"> </span>scripts/aggregator-sync.sh<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"aggregator-sync failed - release blocked"</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Verify on Cowork/Desktop after publish:&quot;</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  claude plugin marketplace update local-plugins&quot;</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;  claude plugin update NAME@local-plugins&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Verify on Cowork/Desktop after publish:"</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"  claude plugin marketplace update local-plugins"</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"  claude plugin update NAME@local-plugins"</span>
 </span></code></pre></div>
 <p>See the <a href="../../../tutorials/TUTORIAL-homebrew-gates/">Homebrew Gates Tutorial</a> for full usage.</p>
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>

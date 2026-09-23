@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10750,7 +10750,7 @@ is out of scope for this guide: it's an advisory-only naming check for
 <li><code>git worktree add &lt;path&gt; feature/new</code> (creating a worktree for a new feature)</li>
 </ul>
 <p>YELLOW announcements look like:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[no-switch-guard] Switching to branch &#39;dev&#39; (clean tree — proceeding)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[no-switch-guard] Switching to branch 'dev' (clean tree — proceeding)
 </span></code></pre></div>
 <p>The model sees the announcement and can include it in its response. No confirmation is needed.</p>
 <h3 id="red-ask-block">RED — Ask / Block<a class="headerlink" href="#red-ask-block" title="Permanent link">&para;</a></h3>
@@ -10775,16 +10775,16 @@ is out of scope for this guide: it's an advisory-only naming check for
 <p>Both guards read a shared registry before deciding whether to act.</p>
 <p><strong>Default state (created on first install):</strong></p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;guards&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">&quot;branch-guard&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nt">&quot;muted_until&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nt">&quot;mute_window_min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">"guards"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">"branch-guard"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nt">"muted_until"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">      </span><span class="nt">"mute_window_min"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="p">},</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nt">&quot;no-switch-guard&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">      </span><span class="nt">&quot;muted_until&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">      </span><span class="nt">&quot;mute_window_min&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nt">"no-switch-guard"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">      </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">      </span><span class="nt">"muted_until"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">      </span><span class="nt">"mute_window_min"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="p">}</span>
@@ -10824,7 +10824,7 @@ is out of scope for this guide: it's an advisory-only naming check for
 <p><strong>Disabling</strong> is a permanent bypass (until you ask "guard enable <code>&lt;name&gt;</code>"). Use disabling only when you're doing extended work that genuinely doesn't need protection — not as a lazy alternative to muting.</p>
 <h3 id="registry-reads-and-the-jq-quirk">Registry Reads and the jq Quirk<a class="headerlink" href="#registry-reads-and-the-jq-quirk" title="Permanent link">&para;</a></h3>
 <p>Guards read the registry with <code>jq</code>. There is a subtle quirk: the <code>enabled</code> field is read <em>without</em> a <code>// true</code> fallback:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">enabled</span><span class="o">=</span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.guards[&quot;no-switch-guard&quot;].enabled&#39;</span><span class="w"> </span>~/.claude/guards.json<span class="k">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">enabled</span><span class="o">=</span><span class="k">$(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.guards["no-switch-guard"].enabled'</span><span class="w"> </span>~/.claude/guards.json<span class="k">)</span>
 </span></code></pre></div>
 <p>This is intentional. If the field were missing and the fallback were <code>true</code>, a corrupt or partial registry would silently re-enable a guard you intended to disable. Missing fields produce <code>null</code>, which is treated as "registry unreadable — fail open" (see Fail-Open Guarantee below).</p>
 <p>In jq, <code>false // true</code> evaluates to <code>true</code> (because <code>false</code> is falsy in jq's <code>//</code> operator). Do not add a <code>// true</code> fallback to the <code>enabled</code> read — it would make <code>"enabled": false</code> impossible to express.</p>
@@ -10832,7 +10832,7 @@ is out of scope for this guide: it's an advisory-only naming check for
 <h2 id="guard-management-devgit-skill">Guard Management (dev/git skill)<a class="headerlink" href="#guard-management-devgit-skill" title="Permanent link">&para;</a></h2>
 <p>Asking "guard ..." naturally (dev/git skill) is the runtime management interface for the Guard Suite. It has 7 actions.</p>
 <h3 id="list-show-all-guards"><code>list</code> — Show all guards<a class="headerlink" href="#list-show-all-guards" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ask &quot;guard list&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ask "guard list"
 </span></code></pre></div>
 <p>Prints the current state of every registered guard.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Guard Suite status:
@@ -10863,15 +10863,15 @@ is out of scope for this guide: it's an advisory-only naming check for
 </tbody>
 </table>
 <h3 id="status-summary-view"><code>status</code> — Summary view<a class="headerlink" href="#status-summary-view" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ask &quot;guard status&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ask "guard status"
 </span></code></pre></div>
 <p>Prints a one-line summary per guard, plus the active profile if one is set.</p>
 <h3 id="explain-why-a-guard-fired"><code>explain</code> — Why a guard fired<a class="headerlink" href="#explain-why-a-guard-fired" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ask &quot;guard explain no-switch-guard&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ask "guard explain no-switch-guard"
 </span></code></pre></div>
 <p>Prints the harm taxonomy for a guard: which operations are GREEN/YELLOW/RED, and why each tier is classified as it is. Useful when you're unsure why a confirmation appeared.</p>
 <h3 id="test-dry-run-coverage-check"><code>test</code> — Dry-run coverage check<a class="headerlink" href="#test-dry-run-coverage-check" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ask &quot;guard test&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ask "guard test"
 </span></code></pre></div>
 <p>Runs a dry-run sweep against known GREEN/YELLOW/RED operations and reports which are correctly handled. Equivalent to asking "audit guard" (guard-audit skill) but scoped to the guard-suite hooks only.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Guard coverage test:
@@ -10880,48 +10880,48 @@ is out of scope for this guide: it's an advisory-only naming check for
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  RED ops: 6/6 pass (4 ask, 2 block)
 </span></code></pre></div>
 <h3 id="enable-re-enable-a-disabled-guard"><code>enable</code> — Re-enable a disabled guard<a class="headerlink" href="#enable-re-enable-a-disabled-guard" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ask &quot;guard enable no-switch-guard&quot;
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ask &quot;guard enable branch-guard&quot;
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>ask &quot;guard enable all&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>ask "guard enable no-switch-guard"
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>ask "guard enable branch-guard"
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>ask "guard enable all"
 </span></code></pre></div>
 <p>Sets <code>enabled: true</code> and clears <code>muted_until</code> in the registry.</p>
 <h3 id="disable-disable-a-guard-permanent-until-re-enabled"><code>disable</code> — Disable a guard (permanent until re-enabled)<a class="headerlink" href="#disable-disable-a-guard-permanent-until-re-enabled" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ask &quot;guard disable no-switch-guard&quot;
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ask &quot;guard disable branch-guard&quot;
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>ask &quot;guard disable all&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ask "guard disable no-switch-guard"
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ask "guard disable branch-guard"
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>ask "guard disable all"
 </span></code></pre></div>
 <p>Sets <code>enabled: false</code>. The guard is skipped entirely on every subsequent invocation until you run <code>enable</code>.</p>
 <h3 id="profile-apply-a-named-configuration-preset"><code>profile</code> — Apply a named configuration preset<a class="headerlink" href="#profile-apply-a-named-configuration-preset" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ask &quot;guard profile focus&quot;
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>ask &quot;guard profile yolo&quot;
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>ask &quot;guard profile spec&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ask "guard profile focus"
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>ask "guard profile yolo"
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>ask "guard profile spec"
 </span></code></pre></div>
 <p>Profiles are named registry presets. See the Profiles section below.</p>
 <hr />
 <h2 id="profiles">Profiles<a class="headerlink" href="#profiles" title="Permanent link">&para;</a></h2>
 <p>Profiles let you switch between common guard configurations with a single command instead of enabling/disabling/muting individual guards.</p>
 <h3 id="focus-all-guards-on"><code>focus</code> — All guards on<a class="headerlink" href="#focus-all-guards-on" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ask &quot;guard profile focus&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ask "guard profile focus"
 </span></code></pre></div>
 <p>Sets both guards to <code>enabled: true, muted_until: null</code>. Maximum protection. Use when you're in deep implementation work and want every safeguard active.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[guard] Profile &#39;focus&#39; applied: all guards enabled.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>[guard] Profile 'focus' applied: all guards enabled.
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>  🛡️  branch-guard     enabled
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>  🛡️  no-switch-guard  enabled
 </span></code></pre></div>
 <h3 id="yolo-all-guards-muted-for-30-minutes"><code>yolo</code> — All guards muted for 30 minutes<a class="headerlink" href="#yolo-all-guards-muted-for-30-minutes" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ask &quot;guard profile yolo&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ask "guard profile yolo"
 </span></code></pre></div>
 <p>Mutes both guards for 30 minutes. Use for exploratory sessions where you'll be switching branches, creating branches, and discarding changes frequently and know what you're doing.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>[guard] Profile &#39;yolo&#39; applied: all guards muted for 30m.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>[guard] Profile 'yolo' applied: all guards muted for 30m.
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  ⚠️  branch-guard     muted 30m
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  ⚠️  no-switch-guard  muted 30m
 </span></code></pre></div>
 <p>The mute expires automatically — you don't need to remember to re-enable anything.</p>
 <h3 id="spec-branch-guard-on-no-switch-guard-muted"><code>spec</code> — branch-guard on, no-switch-guard muted<a class="headerlink" href="#spec-branch-guard-on-no-switch-guard-muted" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ask &quot;guard profile spec&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ask "guard profile spec"
 </span></code></pre></div>
 <p>Keeps commit/push protection active but silences the branch-switch guard. Use when doing spec-only work on <code>dev</code> where you legitimately need to switch branches to read context but don't want the model asking for approval each time.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>[guard] Profile &#39;spec&#39; applied.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>[guard] Profile 'spec' applied.
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>  🛡️  branch-guard     enabled
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>  ⚠️  no-switch-guard  muted 30m
 </span></code></pre></div>
@@ -10953,11 +10953,11 @@ is out of scope for this guide: it's an advisory-only naming check for
 <p>Both scripts (<code>scripts/branch-guard.sh</code>, <code>scripts/no-switch-guard.sh</code>) gained an additive
 ground-truth dry-run mode (SPEC-branch-protection-consolidation-2026-07-07 §4.6 #3), separate from
 the pre-existing <code>.claude/branch-guard-dryrun</code> marker-file mechanism:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;tool_name&quot;:&quot;Bash&quot;,&quot;tool_input&quot;:{&quot;command&quot;:&quot;git commit -m x&quot;},&quot;cwd&quot;:&quot;&#39;</span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span><span class="s1">&#39;&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'{"tool_name":"Bash","tool_input":{"command":"git commit -m x"},"cwd":"'</span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">"</span><span class="s1">'"}'</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="nv">GUARD_DRY_RUN</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>bash<span class="w"> </span>scripts/branch-guard.sh
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># → BLOCK: ... / ASK: ... / ALLOW: ...</span>
 </span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;tool_input&quot;:{&quot;command&quot;:&quot;git switch main&quot;}}&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'{"tool_input":{"command":"git switch main"}}'</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="nv">GUARD_DRY_RUN</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>bash<span class="w"> </span>scripts/no-switch-guard.sh
 </span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="c1"># → ASK: ... / YELLOW: ... / ALLOW: ...</span>
 </span></code></pre></div>
@@ -11002,7 +11002,7 @@ decision in <code>SPEC-craft-guard-suite-2026-06-19.md</code> §2).</p>
 </table>
 <p>Fail-open means a broken registry degrades to "no protection" rather than "locked out." This is intentional: the Guard Suite is a safety aid, not a security boundary. You can always operate normally even if the guards are misbehaving — then fix the registry afterward.</p>
 <p>To verify the registry is healthy:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ask &quot;guard status&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ask "guard status"
 </span></code></pre></div>
 <p>If status shows guards as active, the registry is readable. If it shows "registry unreadable," check <code>~/.claude/guards.json</code> for syntax errors.</p>
 <hr />

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10699,23 +10699,23 @@
 </blockquote>
 <hr />
 <h2 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/brainstorm<span class="w"> </span><span class="o">[</span>depth:count<span class="o">]</span><span class="w"> </span><span class="o">[</span>focus<span class="o">]</span><span class="w"> </span><span class="o">[</span>action<span class="o">]</span><span class="w"> </span><span class="o">[</span>-C<span class="p">|</span>--categories<span class="w"> </span><span class="s2">&quot;cat1,cat2&quot;</span><span class="o">]</span><span class="w"> </span><span class="s2">&quot;topic&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/brainstorm<span class="w"> </span><span class="o">[</span>depth:count<span class="o">]</span><span class="w"> </span><span class="o">[</span>focus<span class="o">]</span><span class="w"> </span><span class="o">[</span>action<span class="o">]</span><span class="w"> </span><span class="o">[</span>-C<span class="p">|</span>--categories<span class="w"> </span><span class="s2">"cat1,cat2"</span><span class="o">]</span><span class="w"> </span><span class="s2">"topic"</span>
 </span></code></pre></div>
 <p><strong>Quick examples (v2.4.0):</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Minimal</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/brainstorm<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">              </span><span class="c1"># Default everything</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/brainstorm<span class="w"> </span><span class="s2">"auth"</span><span class="w">              </span><span class="c1"># Default everything</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Colon notation for custom question counts</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">          </span><span class="c1"># Deep with exactly 5 questions</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span><span class="s2">&quot;api&quot;</span><span class="w">          </span><span class="c1"># Max with 12 questions</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">&quot;quick&quot;</span><span class="w">         </span><span class="c1"># Quick with 0 questions (straight to brainstorming)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">"auth"</span><span class="w">          </span><span class="c1"># Deep with exactly 5 questions</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span><span class="s2">"api"</span><span class="w">          </span><span class="c1"># Max with 12 questions</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">"quick"</span><span class="w">         </span><span class="c1"># Quick with 0 questions (straight to brainstorming)</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Categories flag to filter question types</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w"> </span>-C<span class="w"> </span>req,tech<span class="w">          </span><span class="c1"># 5 questions from requirements + technical</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;api&quot;</span><span class="w"> </span>--categories<span class="w"> </span>req,usr,tech,exist
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">"auth"</span><span class="w"> </span>-C<span class="w"> </span>req,tech<span class="w">          </span><span class="c1"># 5 questions from requirements + technical</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">"api"</span><span class="w"> </span>--categories<span class="w"> </span>req,usr,tech,exist
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Power user - full control</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">   </span><span class="c1"># 15 questions, feature, spec, filtered categories</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">"auth"</span><span class="w">   </span><span class="c1"># 15 questions, feature, spec, filtered categories</span>
 </span></code></pre></div>
 <hr />
 <h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
@@ -11032,25 +11032,25 @@
 <hr />
 <h2 id="examples-v240">Examples (v2.4.0)<a class="headerlink" href="#examples-v240" title="Permanent link">&para;</a></h2>
 <h3 id="quick-brainstorm">Quick Brainstorm<a class="headerlink" href="#quick-brainstorm" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/brainstorm<span class="w"> </span>q<span class="w"> </span><span class="s2">&quot;notification system&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/brainstorm<span class="w"> </span>q<span class="w"> </span><span class="s2">"notification system"</span>
 </span></code></pre></div>
 <p>Generates 5-7 ideas in under 60 seconds.</p>
 <h3 id="colon-notation-v240">Colon Notation (v2.4.0)<a class="headerlink" href="#colon-notation-v240" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w">              </span><span class="c1"># Deep with exactly 5 questions</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span><span class="s2">&quot;api&quot;</span><span class="w">              </span><span class="c1"># Max with 12 questions</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">&quot;quick&quot;</span><span class="w">             </span><span class="c1"># Quick with 0 questions (straight to brainstorming)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">"auth"</span><span class="w">              </span><span class="c1"># Deep with exactly 5 questions</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/brainstorm<span class="w"> </span>m:12<span class="w"> </span><span class="s2">"api"</span><span class="w">              </span><span class="c1"># Max with 12 questions</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/brainstorm<span class="w"> </span>q:0<span class="w"> </span><span class="s2">"quick"</span><span class="w">             </span><span class="c1"># Quick with 0 questions (straight to brainstorming)</span>
 </span></code></pre></div>
 <h3 id="categories-flag-v240">Categories Flag (v2.4.0)<a class="headerlink" href="#categories-flag-v240" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">&quot;auth&quot;</span><span class="w"> </span>-C<span class="w"> </span>req,tech<span class="w">              </span><span class="c1"># 5 questions from requirements + technical</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">&quot;api&quot;</span><span class="w"> </span>--categories<span class="w"> </span>req,usr,tech,exist
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/brainstorm<span class="w"> </span>d:4<span class="w"> </span><span class="s2">&quot;caching&quot;</span><span class="w"> </span>-C<span class="w"> </span>tech,risk
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/brainstorm<span class="w"> </span>d:5<span class="w"> </span><span class="s2">"auth"</span><span class="w"> </span>-C<span class="w"> </span>req,tech<span class="w">              </span><span class="c1"># 5 questions from requirements + technical</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/brainstorm<span class="w"> </span>m:10<span class="w"> </span>f<span class="w"> </span><span class="s2">"api"</span><span class="w"> </span>--categories<span class="w"> </span>req,usr,tech,exist
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>/brainstorm<span class="w"> </span>d:4<span class="w"> </span><span class="s2">"caching"</span><span class="w"> </span>-C<span class="w"> </span>tech,risk
 </span></code></pre></div>
 <h3 id="unlimited-questions-with-milestones-v240">Unlimited Questions with Milestones (v2.4.0)<a class="headerlink" href="#unlimited-questions-with-milestones-v240" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/brainstorm<span class="w"> </span>d:20<span class="w"> </span><span class="s2">&quot;microservices&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>/brainstorm<span class="w"> </span>d:20<span class="w"> </span><span class="s2">"microservices"</span>
 </span></code></pre></div>
 <p>Flow: 8 questions → milestone → 8 more → milestone → 4 more → proceed</p>
 <h3 id="feature-planning-with-spec">Feature Planning with Spec<a class="headerlink" href="#feature-planning-with-spec" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/brainstorm<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;user authentication&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/brainstorm<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span><span class="s2">"user authentication"</span>
 </span></code></pre></div>
 <p>Runs feature-focused brainstorm and captures as spec:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>╭─ 🧠 BRAINSTORM: User Authentication ─────────────────╮
@@ -11075,12 +11075,12 @@
 </span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>│ Spec: docs/specs/SPEC-user-auth-2026-01-14.md        │
 </span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>│ Status: draft                                        │
 </span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>│                                                      │
-</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>│ Next: /craft:do &quot;implement user authentication&quot;      │
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>│ Next: /craft:do "implement user authentication"      │
 </span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>│       (will use this spec automatically)             │
 </span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>╰──────────────────────────────────────────────────────╯
 </span></code></pre></div>
 <h3 id="deep-architecture-analysis">Deep Architecture Analysis<a class="headerlink" href="#deep-architecture-analysis" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/brainstorm<span class="w"> </span>d<span class="w"> </span>a<span class="w"> </span><span class="s2">&quot;multi-tenant SaaS&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/brainstorm<span class="w"> </span>d<span class="w"> </span>a<span class="w"> </span><span class="s2">"multi-tenant SaaS"</span>
 </span></code></pre></div>
 <p>8 expert questions, detailed architecture output with Mermaid diagrams.</p>
 <h3 id="deep-analysis-orchestration">Deep Analysis + Orchestration<a class="headerlink" href="#deep-analysis-orchestration" title="Permanent link">&para;</a></h3>
@@ -11089,10 +11089,10 @@
 <code>database-architect</code>, etc. — that were never real agents; removed). Use
 <code>deep</code> for the full question set, then <code>--orch</code> for multi-agent
 implementation planning (routes to the real <code>orchestrator-v2</code> agent):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/brainstorm<span class="w"> </span>d<span class="w"> </span>a<span class="w"> </span>s<span class="w"> </span><span class="s2">&quot;event-driven microservices&quot;</span><span class="w"> </span>--orch
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>/brainstorm<span class="w"> </span>d<span class="w"> </span>a<span class="w"> </span>s<span class="w"> </span><span class="s2">"event-driven microservices"</span><span class="w"> </span>--orch
 </span></code></pre></div>
 <h3 id="power-user-v240">Power User (v2.4.0)<a class="headerlink" href="#power-user-v240" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">&quot;payment api&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>/brainstorm<span class="w"> </span>d:15<span class="w"> </span>f<span class="w"> </span>s<span class="w"> </span>-C<span class="w"> </span>req,tech,success<span class="w"> </span><span class="s2">"payment api"</span>
 </span></code></pre></div>
 <p>Deep mode with 15 questions, feature focus, spec capture, filtered categories.</p>
 <hr />
@@ -11189,7 +11189,7 @@ implementation planning (routes to the real <code>orchestrator-v2</code> agent):
 <h2 id="ask-more-feature">"Ask More?" Feature<a class="headerlink" href="#ask-more-feature" title="Permanent link">&para;</a></h2>
 <p>After base questions complete, you get an escape hatch:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>AskUserQuestion:
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  &quot;Need more detail before brainstorming?&quot;
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  "Need more detail before brainstorming?"
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>  ○ No - Start brainstorming (Recommended)
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  ○ Yes - 2 more questions
@@ -11244,7 +11244,7 @@ implementation planning (routes to the real <code>orchestrator-v2</code> agent):
 </ul>
 <p><strong>Integration with <code>/craft:do</code>:</strong></p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># After brainstorm with spec</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;implement user authentication&quot;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>/craft:do<span class="w"> </span><span class="s2">"implement user authentication"</span>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># → Automatically finds and uses SPEC-user-auth-*.md</span>
 </span></code></pre></div>
 <hr />

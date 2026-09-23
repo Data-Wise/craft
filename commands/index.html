@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -11152,10 +11152,10 @@
 <h2 id="smart-commands">Smart Commands<a class="headerlink" href="#smart-commands" title="Permanent link">&para;</a></h2>
 <h3 id="craftdo">/craft:do 🔍<a class="headerlink" href="#craftdo" title="Permanent link">&para;</a></h3>
 <p>Universal command - AI routes to appropriate workflow.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add user authentication&quot;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;optimize database queries&quot;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;prepare for release&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>--dry-run<span class="w">           </span><span class="c1"># Preview routing plan</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/craft:do<span class="w"> </span><span class="s2">"add user authentication"</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:do<span class="w"> </span><span class="s2">"optimize database queries"</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:do<span class="w"> </span><span class="s2">"prepare for release"</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:do<span class="w"> </span><span class="s2">"add auth"</span><span class="w"> </span>--dry-run<span class="w">           </span><span class="c1"># Preview routing plan</span>
 </span></code></pre></div>
 <p><strong>Dry-run:</strong> Preview which commands will be executed and estimated time.</p>
 <h3 id="craftgrill">/craft:grill<a class="headerlink" href="#craftgrill" title="Permanent link">&para;</a></h3>
@@ -11163,14 +11163,14 @@
 counterpart to brainstorm. Codebase-first, recommended answer per question, durable decision
 ledger. See <a href="grill/">command reference</a> and <a href="../tutorials/TUTORIAL-grill/">tutorial</a>.</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:grill<span class="w"> </span>docs/specs/SPEC-auth-2026-06-22.md<span class="w">   </span><span class="c1"># stress-test a spec</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:grill<span class="w"> </span><span class="s2">&quot;add OAuth login&quot;</span><span class="w">                     </span><span class="c1"># skeleton, then grill</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>/craft:grill<span class="w"> </span><span class="s2">"add OAuth login"</span><span class="w">                     </span><span class="c1"># skeleton, then grill</span>
 </span></code></pre></div>
 <h3 id="craftorch">/craft:orch 🔍<a class="headerlink" href="#craftorch" title="Permanent link">&para;</a></h3>
 <p>Multi-agent orchestrator with mode-aware execution.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>optimize<span class="w">    </span><span class="c1"># Fast parallel</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;prep release&quot;</span><span class="w"> </span>release<span class="w"> </span><span class="c1"># Thorough audit</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orch<span class="w"> </span><span class="s2">"add auth"</span><span class="w"> </span>optimize<span class="w">    </span><span class="c1"># Fast parallel</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:orch<span class="w"> </span><span class="s2">"prep release"</span><span class="w"> </span>release<span class="w"> </span><span class="c1"># Thorough audit</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>/craft:orch<span class="w"> </span>status<span class="w">                 </span><span class="c1"># Agent dashboard</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>--dry-run<span class="w">       </span><span class="c1"># Preview orchestration plan</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>/craft:orch<span class="w"> </span><span class="s2">"task"</span><span class="w"> </span>--dry-run<span class="w">       </span><span class="c1"># Preview orchestration plan</span>
 </span></code></pre></div>
 <p><strong>Modes:</strong> optimize (4 agents), release (comprehensive), debug (verbose)
 <strong>Dry-run:</strong> Preview agent allocation, parallelization waves, and execution time.</p>
@@ -11375,7 +11375,7 @@ the <a href="../MIGRATION-v4/">folio plugin</a> in v4.</p>
 </table>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>/craft:docs:update<span class="w">              </span><span class="c1"># Full-cycle doc generation</span>
 </span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>/folio:docs:lint<span class="w"> </span>--fix<span class="w">          </span><span class="c1"># Auto-fix markdown issues</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>/folio:docs:mermaid<span class="w"> </span><span class="s2">&quot;show the release pipeline&quot;</span><span class="w">  </span><span class="c1"># NL diagram</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>/folio:docs:mermaid<span class="w"> </span><span class="s2">"show the release pipeline"</span><span class="w">  </span><span class="c1"># NL diagram</span>
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>/folio:docs:check<span class="w">               </span><span class="c1"># Health check with auto-fix</span>
 </span></code></pre></div>
 <h2 id="git-commands-git">Git Commands (git/)<a class="headerlink" href="#git-commands-git" title="Permanent link">&para;</a></h2>
@@ -11408,7 +11408,7 @@ for a worktree-focused quick reference.</p>
 <h2 id="workflow-commands-workflow">Workflow Commands (workflow/)<a class="headerlink" href="#workflow-commands-workflow" title="Permanent link">&para;</a></h2>
 <h3 id="craftrefine">/craft:refine<a class="headerlink" href="#craftrefine" title="Permanent link">&para;</a></h3>
 <p>Prompt optimizer — improve and refine prompts interactively.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>/craft:refine<span class="w"> </span><span class="s2">&quot;my prompt text&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>/craft:refine<span class="w"> </span><span class="s2">"my prompt text"</span>
 </span></code></pre></div>
 <h2 id="site-documentation-commands-sitedocs">Site Documentation Commands (site/docs/)<a class="headerlink" href="#site-documentation-commands-sitedocs" title="Permanent link">&para;</a></h2>
 <h3 id="craftsitedocsframeworks">/craft:site:docs:frameworks<a class="headerlink" href="#craftsitedocsframeworks" title="Permanent link">&para;</a></h3>
@@ -11513,9 +11513,9 @@ for a worktree-focused quick reference.</p>
 <li><code>orchestrate</code> - Preview orchestration plan</li>
 </ul>
 <p><strong>Example usage:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># ask &quot;clean up merged branches --dry-run&quot; (dev/git skill) — preview branch cleanup</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># ask "clean up merged branches --dry-run" (dev/git skill) — preview branch cleanup</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>/craft:code:lint<span class="w"> </span>release<span class="w"> </span>-n<span class="w">          </span><span class="c1"># Preview comprehensive linting</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># ask &quot;publish to PyPI --dry-run&quot; (dist-extras skill) — preview PyPI publish (CRITICAL)</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># ask "publish to PyPI --dry-run" (dist-extras skill) — preview PyPI publish (CRITICAL)</span>
 </span></code></pre></div>
 <p>See <a href="https://github.com/Data-Wise/craft/blob/dev/DRY-RUN-SUMMARY.md">DRY-RUN-SUMMARY.md</a> for complete details.</p>
 <h2 id="see-also">See Also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>

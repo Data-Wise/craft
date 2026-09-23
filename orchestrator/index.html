@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10663,11 +10663,11 @@ resumable replay. See <a href="../tutorials/orchestrator-modes-compared/">Orches
 </ul>
 <h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Let orchestrator choose mode</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add authentication&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:orch<span class="w"> </span><span class="s2">"add authentication"</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Specify mode explicitly</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;add auth&quot;</span><span class="w"> </span>optimize<span class="w">    </span><span class="c1"># Fast parallel</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;prep release&quot;</span><span class="w"> </span>release<span class="w"> </span><span class="c1"># Thorough</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>/craft:orch<span class="w"> </span><span class="s2">"add auth"</span><span class="w"> </span>optimize<span class="w">    </span><span class="c1"># Fast parallel</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>/craft:orch<span class="w"> </span><span class="s2">"prep release"</span><span class="w"> </span>release<span class="w"> </span><span class="c1"># Thorough</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># Monitor execution</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>/craft:orch<span class="w"> </span>status<span class="w">                 </span><span class="c1"># Agent dashboard</span>
@@ -10679,7 +10679,7 @@ resumable replay. See <a href="../tutorials/orchestrator-modes-compared/">Orches
 <p><strong>Time:</strong> &lt;180s
 <strong>Agents:</strong> 3-4 in parallel
 <strong>Use case:</strong> Feature development, quick iterations</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;implement user profiles&quot;</span><span class="w"> </span>optimize
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/craft:orch<span class="w"> </span><span class="s2">"implement user profiles"</span><span class="w"> </span>optimize
 </span></code></pre></div>
 <p><strong>Workflow:</strong></p>
 <ol>
@@ -10692,7 +10692,7 @@ resumable replay. See <a href="../tutorials/orchestrator-modes-compared/">Orches
 <p><strong>Time:</strong> &lt;300s
 <strong>Agents:</strong> 4+ comprehensive checks
 <strong>Use case:</strong> Production preparation, quality audit</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;prepare for production&quot;</span><span class="w"> </span>release
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/craft:orch<span class="w"> </span><span class="s2">"prepare for production"</span><span class="w"> </span>release
 </span></code></pre></div>
 <p><strong>Workflow:</strong></p>
 <ol>
@@ -10706,7 +10706,7 @@ resumable replay. See <a href="../tutorials/orchestrator-modes-compared/">Orches
 <p><strong>Time:</strong> &lt;120s
 <strong>Agents:</strong> 2-3 with detailed logging
 <strong>Use case:</strong> Troubleshooting, diagnostics</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;why is CI failing&quot;</span><span class="w"> </span>debug
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/craft:orch<span class="w"> </span><span class="s2">"why is CI failing"</span><span class="w"> </span>debug
 </span></code></pre></div>
 <h2 id="agent-coordination">Agent Coordination<a class="headerlink" href="#agent-coordination" title="Permanent link">&para;</a></h2>
 <h3 id="parallel-execution">Parallel Execution<a class="headerlink" href="#parallel-execution" title="Permanent link">&para;</a></h3>
@@ -10725,13 +10725,13 @@ resumable replay. See <a href="../tutorials/orchestrator-modes-compared/">Orches
 <p><strong>Performance gain:</strong> 3× faster</p>
 <h3 id="agent-communication">Agent Communication<a class="headerlink" href="#agent-communication" title="Permanent link">&para;</a></h3>
 <p>Agents can share context and coordinate:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Subagent (description: &quot;Security audit&quot;): &quot;SQL injection vulnerability found&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Subagent (description: "Security audit"): "SQL injection vulnerability found"
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>→ Result written to /tmp/craft-orch/security-audit-result.md
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Subagent (description: &quot;Fix parameterized queries&quot;): &quot;Implementing parameterized queries&quot;
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>Subagent (description: "Fix parameterized queries"): "Implementing parameterized queries"
 </span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>→ Result written to /tmp/craft-orch/fix-queries-result.md
 </span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>Subagent (description: &quot;Add security test cases&quot;): &quot;Adding security test cases&quot;
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>Subagent (description: "Add security test cases"): "Adding security test cases"
 </span></code></pre></div>
 <p>(Subagents use real <code>subagent_type</code> values — <code>general-purpose</code>, <code>Explore</code>,
 <code>Bash</code>, <code>Plan</code> — with a descriptive <code>description</code> field, not named specialist
@@ -10822,14 +10822,14 @@ Delegation Protocol.)</p>
 <li>Previous results</li>
 </ul>
 <p><strong>Example:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Task: &quot;add authentication&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Task: "add authentication"
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Pattern: FEATURE_IMPLEMENTATION + SECURITY
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>Mode: optimize
 </span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
 </span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>Spawned subagents (general-purpose, distinguished by `description`):
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>→ &quot;API design&quot;
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>→ &quot;OAuth2/JWT implementation&quot;
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>→ &quot;Test strategy&quot;
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>→ "API design"
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>→ "OAuth2/JWT implementation"
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>→ "Test strategy"
 </span></code></pre></div>
 <h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
 <p>If an agent fails, orchestrator continues gracefully:</p>
@@ -10838,7 +10838,7 @@ Delegation Protocol.)</p>
 </span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Agent 3: ✅ Success
 </span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>→ Continues with 2 results
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>→ Notes &quot;Agent 2 unavailable&quot;
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>→ Notes "Agent 2 unavailable"
 </span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>→ Still provides actionable output
 </span></code></pre></div>
 <h3 id="resource-management">Resource Management<a class="headerlink" href="#resource-management" title="Permanent link">&para;</a></h3>
@@ -10874,7 +10874,7 @@ Delegation Protocol.)</p>
 <h3 id="monitoring">Monitoring<a class="headerlink" href="#monitoring" title="Permanent link">&para;</a></h3>
 <p>Always check status for long-running tasks:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Start long task</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;comprehensive audit&quot;</span><span class="w"> </span>release
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>/craft:orch<span class="w"> </span><span class="s2">"comprehensive audit"</span><span class="w"> </span>release
 </span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
 </span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Check progress (separate prompt)</span>
 </span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>/craft:orch<span class="w"> </span>status

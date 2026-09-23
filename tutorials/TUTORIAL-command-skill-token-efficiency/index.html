@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10268,8 +10268,8 @@
 <p>Chunk it if your environment has a short tool timeout, but run all of it — not the handful of tests nearest your edit.</p>
 <h2 id="step-6-check-trigger-phrase-collisions">Step 6: Check trigger-phrase collisions<a class="headerlink" href="#step-6-check-trigger-phrase-collisions" title="Permanent link">&para;</a></h2>
 <p>If you wrote or edited a skill description, grep both descriptions for shared quoted strings — a fast manual check before trusting the test suite's authoritative <code>test_skill_trigger_phrases_unique</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;&quot;[^&quot;]*&quot;&#39;</span><span class="w"> </span>skills/your-area/your-skill/SKILL.md
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;&quot;[^&quot;]*&quot;&#39;</span><span class="w"> </span>skills/your-area/sibling-skill/SKILL.md
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">'"[^"]*"'</span><span class="w"> </span>skills/your-area/your-skill/SKILL.md
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">'"[^"]*"'</span><span class="w"> </span>skills/your-area/sibling-skill/SKILL.md
 </span></code></pre></div>
 <p>If both lists share a phrase, one skill's description is probably quoting an example that the other has already claimed as a real trigger — rephrase to paraphrase instead of quoting.</p>
 <hr />

@@ -10424,7 +10424,7 @@
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│ Guard:     smart mode (v2)                                    │
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│ Phase:     implementation (commits ahead: 5)                  │
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│ Tests:     python3 tests/test_craft_plugin.py (1504 passing)  │
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│ Lint:      npx markdownlint-cli2 &quot;**/*.md&quot;                    │
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│ Lint:      npx markdownlint-cli2 "**/*.md"                    │
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>├───────────────────────────────────────────────────────────────┤
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│ TIP: Front-load this context in prompts to reduce wrong-      │
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│ approach friction.                                            │
@@ -10492,7 +10492,7 @@
 <p><strong>Why it matters:</strong> A common mistake is being in the wrong directory, or having the branch diverge from the folder name after a rename. This catches both instantly.</p>
 <p><strong>Pro tip:</strong> Combine steps 2 and 3 as your session kickoff habit:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>/craft:check<span class="w"> </span>--context
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># &quot;check my worktree health&quot;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># "check my worktree health"</span>
 </span></code></pre></div>
 <hr />
 <h2 id="step-4-audit-the-branch-guard">Step 4: Audit the Branch Guard<a class="headerlink" href="#step-4-audit-the-branch-guard" title="Permanent link">&para;</a></h2>
@@ -10517,13 +10517,13 @@
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│   Issue: Guard blocks config files (.json, .yaml) on dev      │
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│   Fix: Add config extensions to allowed list                  │
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│   Config change:                                              │
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>│     &quot;dev_allowed_extensions&quot;: [&quot;.md&quot;, &quot;.json&quot;, &quot;.yaml&quot;]       │
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>│     "dev_allowed_extensions": [".md", ".json", ".yaml"]       │
 </span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>│                                                               │
 </span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>│ Recommendation 2: Allow force-push on feature/*               │
 </span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>│   Issue: Guard blocks force-push after rebase on feature      │
 </span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>│   Fix: Only block force-push on main and dev                  │
 </span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>│   Config change:                                              │
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>│     &quot;force_push_allow&quot;: [&quot;feature/*&quot;, &quot;fix/*&quot;]                │
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>│     "force_push_allow": ["feature/*", "fix/*"]                │
 </span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>└───────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <p><strong>Key principle:</strong> The guard script (<code>branch-guard.sh</code>) is never modified. Only the JSON config file changes. Think of it as the engine vs. the tuning knobs.</p>
@@ -10588,7 +10588,7 @@
 </ul>
 <p><strong>Try it:</strong> You can test it manually by piping a JSON payload on stdin (Claude Code's actual contract — earlier versions of this doc incorrectly described env vars):</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>~/.git-worktrees/&lt;project&gt;/&lt;branch&gt;
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;{&quot;tool_name&quot;:&quot;Write&quot;,&quot;tool_input&quot;:{&quot;file_path&quot;:&quot;/tmp/outside.txt&quot;}}&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'{"tool_name":"Write","tool_input":{"file_path":"/tmp/outside.txt"}}'</span><span class="w"> </span><span class="se">\</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>python3<span class="w"> </span>.claude-plugin/hooks/pretooluse.py<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
 </span></code></pre></div>
 <p>You should see the warning since <code>/tmp/outside.txt</code> is outside the worktree.</p>
@@ -10659,7 +10659,7 @@
 </span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>| docs | Documentation | docs/, README.md |
 </span></code></pre></div>
 <p><strong>Run:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:orch<span class="w"> </span>--swarm<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/craft:orch<span class="w"> </span>--swarm<span class="w"> </span><span class="s2">"implement auth"</span>
 </span></code></pre></div>
 <p><strong>What happens:</strong></p>
 <ol>
@@ -10673,7 +10673,7 @@
 <li>Cleans up swarm worktrees</li>
 </ol>
 <p><strong>Preview without creating worktrees:</strong></p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:orch<span class="w"> </span>--swarm<span class="w"> </span>--dry-run<span class="w"> </span><span class="s2">&quot;implement auth&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>/craft:orch<span class="w"> </span>--swarm<span class="w"> </span>--dry-run<span class="w"> </span><span class="s2">"implement auth"</span>
 </span></code></pre></div>
 <p><strong>When to use swarm vs. normal orchestration:</strong></p>
 <table>

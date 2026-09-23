@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10401,13 +10401,13 @@
 <hr />
 <h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Source in your script</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">source</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/formatting.sh&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">SCRIPT_DIR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">cd</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>dirname<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="si">}</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">source</span><span class="w"> </span><span class="s2">"</span><span class="nv">$SCRIPT_DIR</span><span class="s2">/formatting.sh"</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Draw a box</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>box_header<span class="w"> </span><span class="s2">&quot;MY TITLE&quot;</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>box_row<span class="w"> </span><span class="s2">&quot;Content line&quot;</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>box_row<span class="w"> </span><span class="s2">&quot;Colored&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FMT_GREEN</span><span class="s2">&quot;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>box_header<span class="w"> </span><span class="s2">"MY TITLE"</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>box_row<span class="w"> </span><span class="s2">"Content line"</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>box_row<span class="w"> </span><span class="s2">"Colored"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$FMT_GREEN</span><span class="s2">"</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>box_footer
 </span></code></pre></div>
 <hr />
@@ -10540,32 +10540,32 @@
 <hr />
 <h2 id="common-patterns">Common Patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="report-box">Report Box<a class="headerlink" href="#report-box" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>box_header<span class="w"> </span><span class="s2">&quot;HEALTH CHECK REPORT&quot;</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>box_row<span class="w"> </span><span class="s2">&quot;Tool A: </span><span class="si">${</span><span class="nv">FMT_GREEN</span><span class="si">}</span><span class="s2">OK</span><span class="si">${</span><span class="nv">FMT_NC</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>box_row<span class="w"> </span><span class="s2">&quot;Tool B: </span><span class="si">${</span><span class="nv">FMT_RED</span><span class="si">}</span><span class="s2">FAIL</span><span class="si">${</span><span class="nv">FMT_NC</span><span class="si">}</span><span class="s2">&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>box_header<span class="w"> </span><span class="s2">"HEALTH CHECK REPORT"</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>box_row<span class="w"> </span><span class="s2">"Tool A: </span><span class="si">${</span><span class="nv">FMT_GREEN</span><span class="si">}</span><span class="s2">OK</span><span class="si">${</span><span class="nv">FMT_NC</span><span class="si">}</span><span class="s2">"</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>box_row<span class="w"> </span><span class="s2">"Tool B: </span><span class="si">${</span><span class="nv">FMT_RED</span><span class="si">}</span><span class="s2">FAIL</span><span class="si">${</span><span class="nv">FMT_NC</span><span class="si">}</span><span class="s2">"</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>box_separator
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>box_row<span class="w"> </span><span class="s2">&quot;1 issue found&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FMT_YELLOW</span><span class="s2">&quot;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>box_row<span class="w"> </span><span class="s2">"1 issue found"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$FMT_YELLOW</span><span class="s2">"</span>
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>box_footer
 </span></code></pre></div>
 <h3 id="consent-prompt">Consent Prompt<a class="headerlink" href="#consent-prompt" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>box_single<span class="w"> </span><span class="s2">&quot;INSTALLATION REQUIRED&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FMT_BOLD</span><span class="s2">&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>box_single<span class="w"> </span><span class="s2">"INSTALLATION REQUIRED"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$FMT_BOLD</span><span class="s2">"</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>box_empty_row
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>box_row<span class="w"> </span><span class="s2">&quot; Tool: ffmpeg&quot;</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>box_row<span class="w"> </span><span class="s2">&quot; Size: ~50MB&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>box_row<span class="w"> </span><span class="s2">" Tool: ffmpeg"</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>box_row<span class="w"> </span><span class="s2">" Size: ~50MB"</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>box_empty_row
 </span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>box_footer
 </span></code></pre></div>
 <h3 id="redirect-to-stderr">Redirect to stderr<a class="headerlink" href="#redirect-to-stderr" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="o">{</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>box_single<span class="w"> </span><span class="s2">&quot;Warning&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FMT_YELLOW</span><span class="s2">&quot;</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>box_row<span class="w"> </span><span class="s2">&quot;Something happened&quot;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>box_single<span class="w"> </span><span class="s2">"Warning"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$FMT_YELLOW</span><span class="s2">"</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>box_row<span class="w"> </span><span class="s2">"Something happened"</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span>box_footer
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="o">}</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
 </span></code></pre></div>
 <h3 id="custom-width">Custom Width<a class="headerlink" href="#custom-width" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>fmt_set_width<span class="w"> </span><span class="m">80</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>box_header<span class="w"> </span><span class="s2">&quot;Wide Box&quot;</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>box_row<span class="w"> </span><span class="s2">&quot;Content in 80-char box&quot;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>box_header<span class="w"> </span><span class="s2">"Wide Box"</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>box_row<span class="w"> </span><span class="s2">"Content in 80-char box"</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>box_footer<span class="w">  </span><span class="c1"># Resets to 63</span>
 </span></code></pre></div>
 <hr />

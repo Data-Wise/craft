@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -10907,9 +10907,9 @@
 <h2 id="enhancement-1-smart-routing-with-agents">🚀 Enhancement 1: Smart Routing with Agents<a class="headerlink" href="#enhancement-1-smart-routing-with-agents" title="Permanent link">&para;</a></h2>
 <h3 id="when-to-use">When to Use<a class="headerlink" href="#when-to-use" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Complex tasks → Let agents handle it</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add user authentication with OAuth&quot;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:do<span class="w"> </span><span class="s2">&quot;refactor database layer for performance&quot;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:do<span class="w"> </span><span class="s2">&quot;fix memory leak in API server&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/craft:do<span class="w"> </span><span class="s2">"add user authentication with OAuth"</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/craft:do<span class="w"> </span><span class="s2">"refactor database layer for performance"</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/craft:do<span class="w"> </span><span class="s2">"fix memory leak in API server"</span>
 </span></code></pre></div>
 <h3 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h3>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Your Task → Complexity Analysis → Route Decision
@@ -10951,18 +10951,18 @@
 </table>
 <h3 id="command-format">Command Format<a class="headerlink" href="#command-format" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># See routing plan without executing</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;your task&quot;</span><span class="w"> </span>--dry-run
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/craft:do<span class="w"> </span><span class="s2">"your task"</span><span class="w"> </span>--dry-run
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Execute with agent delegation</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:do<span class="w"> </span><span class="s2">&quot;your task&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>/craft:do<span class="w"> </span><span class="s2">"your task"</span>
 </span></code></pre></div>
 <hr />
 <h2 id="enhancement-2-resilient-orchestration">🔄 Enhancement 2: Resilient Orchestration<a class="headerlink" href="#enhancement-2-resilient-orchestration" title="Permanent link">&para;</a></h2>
 <h3 id="when-to-use_1">When to Use<a class="headerlink" href="#when-to-use_1" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Multi-step workflows with dependencies</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;prepare release&quot;</span><span class="w"> </span>release
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;implement auth system&quot;</span><span class="w"> </span>default
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;refactor codebase&quot;</span><span class="w"> </span>optimize
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/craft:orch<span class="w"> </span><span class="s2">"prepare release"</span><span class="w"> </span>release
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>/craft:orch<span class="w"> </span><span class="s2">"implement auth system"</span><span class="w"> </span>default
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>/craft:orch<span class="w"> </span><span class="s2">"refactor codebase"</span><span class="w"> </span>optimize
 </span></code></pre></div>
 <h3 id="how-it-works-before-vs-after">How It Works (Before vs After)<a class="headerlink" href="#how-it-works-before-vs-after" title="Permanent link">&para;</a></h3>
 <p><strong>Before (Brittle):</strong></p>
@@ -11064,11 +11064,11 @@
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>        │
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        ├─ Simple command? → Run directly (/craft:code:lint)
 </span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        │
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        ├─ Complex task? → /craft:do &quot;task description&quot;
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        ├─ Complex task? → /craft:do "task description"
 </span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        │                   ↓
 </span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        │                   Auto-routes to agent or orchestrator
 </span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        │
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        ├─ Multi-step workflow? → /craft:orch &quot;workflow&quot; mode
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        ├─ Multi-step workflow? → /craft:orch "workflow" mode
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        │                          ↓
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        │                          Handles dependencies &amp; failures
 </span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        │
@@ -11084,21 +11084,21 @@
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="c1"># ... read output ...</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>/craft:code:test-gen
 </span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1"># ... review tests ...</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>ask<span class="w"> </span><span class="s2">&quot;create feature branch feature/my-feature&quot;</span><span class="w">  </span><span class="c1"># dev/git skill</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>ask<span class="w"> </span><span class="s2">"create feature branch feature/my-feature"</span><span class="w">  </span><span class="c1"># dev/git skill</span>
 </span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># ... switch branch ...</span>
 </span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
 </span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1"># New Way (Automated)</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add user profile feature&quot;</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>/craft:do<span class="w"> </span><span class="s2">"add user profile feature"</span>
 </span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="c1"># ✓ Agent handles architecture, tests, branch creation</span>
 </span></code></pre></div>
 <h3 id="scenario-2-release-preparation">Scenario 2: Release Preparation<a class="headerlink" href="#scenario-2-release-preparation" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Old Way (Stops on First Failure)</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;prepare release&quot;</span><span class="w"> </span>release
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>/craft:orch<span class="w"> </span><span class="s2">"prepare release"</span><span class="w"> </span>release
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1"># → Security scan fails</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># → ❌ Everything stops</span>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
 </span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># New Way (Continues with Fallback)</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;prepare release&quot;</span><span class="w"> </span>release
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>/craft:orch<span class="w"> </span><span class="s2">"prepare release"</span><span class="w"> </span>release
 </span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1"># → Security scan fails (user skips)</span>
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="c1"># → ✓ Tests continue</span>
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1"># → ✓ Build continues</span>
@@ -11120,10 +11120,10 @@
 <h2 id="troubleshooting">🔧 Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <h3 id="agent-not-delegating">Agent Not Delegating<a class="headerlink" href="#agent-not-delegating" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Check task complexity</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;your task&quot;</span><span class="w"> </span>--dry-run
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>/craft:do<span class="w"> </span><span class="s2">"your task"</span><span class="w"> </span>--dry-run
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># If too simple, be more specific:</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>/craft:do<span class="w"> </span><span class="s2">&quot;design and implement OAuth2 authentication with JWT&quot;</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>/craft:do<span class="w"> </span><span class="s2">"design and implement OAuth2 authentication with JWT"</span>
 </span></code></pre></div>
 <h3 id="orchestration-stuck">Orchestration Stuck<a class="headerlink" href="#orchestration-stuck" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Check agent status</span>
@@ -11146,12 +11146,12 @@
 <hr />
 <h2 id="cheat-sheet-commands">📝 Cheat Sheet Commands<a class="headerlink" href="#cheat-sheet-commands" title="Permanent link">&para;</a></h2>
 <h3 id="smart-routing">Smart Routing<a class="headerlink" href="#smart-routing" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;task description&quot;</span><span class="w">              </span><span class="c1"># Auto-route</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>/craft:do<span class="w"> </span><span class="s2">&quot;task description&quot;</span><span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview plan</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>/craft:do<span class="w"> </span><span class="s2">"task description"</span><span class="w">              </span><span class="c1"># Auto-route</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>/craft:do<span class="w"> </span><span class="s2">"task description"</span><span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># Preview plan</span>
 </span></code></pre></div>
 <h3 id="orchestration">Orchestration<a class="headerlink" href="#orchestration" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>default<span class="w">    </span><span class="c1"># Quick mode</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;task&quot;</span><span class="w"> </span>release<span class="w">    </span><span class="c1"># Thorough mode</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>/craft:orch<span class="w"> </span><span class="s2">"task"</span><span class="w"> </span>default<span class="w">    </span><span class="c1"># Quick mode</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>/craft:orch<span class="w"> </span><span class="s2">"task"</span><span class="w"> </span>release<span class="w">    </span><span class="c1"># Thorough mode</span>
 </span></code></pre></div>
 <h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>/craft:check<span class="w">                    </span><span class="c1"># Default checks</span>
@@ -11161,7 +11161,7 @@
 <hr />
 <h2 id="quick-wins-try-these-first">🎯 Quick Wins (Try These First)<a class="headerlink" href="#quick-wins-try-these-first" title="Permanent link">&para;</a></h2>
 <h3 id="1-test-smart-routing-2-minutes">1. Test Smart Routing (2 minutes)<a class="headerlink" href="#1-test-smart-routing-2-minutes" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>/craft:do<span class="w"> </span><span class="s2">&quot;add a health check endpoint to the API&quot;</span><span class="w"> </span>--dry-run
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>/craft:do<span class="w"> </span><span class="s2">"add a health check endpoint to the API"</span><span class="w"> </span>--dry-run
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="c1"># Watch it analyze complexity and suggest agent</span>
 </span></code></pre></div>
 <h3 id="2-add-custom-validator-5-minutes">2. Add Custom Validator (5 minutes)<a class="headerlink" href="#2-add-custom-validator-5-minutes" title="Permanent link">&para;</a></h3>
@@ -11170,7 +11170,7 @@
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># See it auto-discovered!</span>
 </span></code></pre></div>
 <h3 id="3-test-resilient-orchestration-10-minutes">3. Test Resilient Orchestration (10 minutes)<a class="headerlink" href="#3-test-resilient-orchestration-10-minutes" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/craft:orch<span class="w"> </span><span class="s2">&quot;analyze codebase&quot;</span><span class="w"> </span>default
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>/craft:orch<span class="w"> </span><span class="s2">"analyze codebase"</span><span class="w"> </span>default
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="c1"># Skip one of the agent prompts</span>
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="c1"># Watch it continue with other agents</span>
 </span></code></pre></div>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -3819,17 +3819,6 @@
     <span class="md-ellipsis">
       
         Always Monitor a Delegation (mandatory, not optional)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gotchas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gotchas
       
     </span>
   </a>
@@ -10115,17 +10104,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#gotchas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Gotchas
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -10171,33 +10149,21 @@ for the full rationale — short version: Codex for hard, well-scoped SWE tasks 
 tricky refactors); OpenCode for one-shot questions or long background tasks.</p>
 <h2 id="always-monitor-a-delegation-mandatory-not-optional">Always Monitor a Delegation (mandatory, not optional)<a class="headerlink" href="#always-monitor-a-delegation-mandatory-not-optional" title="Permanent link">&para;</a></h2>
 <p>Never fire <code>codex exec</code>/<code>codex review</code> and silently wait. <code>--json</code> emits JSONL events —
-filter for the terminal event + token usage only, not raw logs:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>codex<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>review<span class="w"> </span>--json<span class="w"> </span>--uncommitted<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nv">IFS</span><span class="o">=</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>line<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span><span class="w"> </span><span class="k">in</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>*<span class="s1">&#39;&quot;type&quot;:&quot;turn.completed&quot;&#39;</span>*<span class="p">|</span>*<span class="s1">&#39;&quot;type&quot;:&quot;turn.failed&quot;&#39;</span>*<span class="p">|</span>*<span class="s1">&#39;&quot;type&quot;:&quot;error&quot;&#39;</span>*<span class="p">|</span>*token*<span class="p">|</span>*usage*<span class="w"> </span><span class="o">)</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;[codex] </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$line</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c1-400<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">;;</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="k">esac</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">done</span>
+hand this to the <code>Monitor</code> tool so it reports the terminal event + token usage only, not raw
+logs. The four-step procedure and the templates for all three tools live in
+<a href="../TUTORIAL-opencode-mcp-plugin/#always-monitor-a-delegation-mandatory-not-optional"><code>TUTORIAL-opencode-mcp-plugin.md</code></a>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">LOG</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="k">:-</span><span class="p">/tmp</span><span class="si">}</span><span class="s2">/codex-exec.jsonl"</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>codex<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>--json<span class="w"> </span><span class="s2">"&lt;task&gt;"</span><span class="w"> </span>&lt;/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span><span class="s2">"</span><span class="nv">$LOG</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nv">IFS</span><span class="o">=</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>line<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="s2">"</span><span class="nv">$line</span><span class="s2">"</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="s1">'{"type":"turn.completed"'</span>*<span class="p">|</span><span class="s1">'{"type":"turn.failed"'</span>*<span class="p">|</span><span class="s1">'{"type":"error"'</span>*<span class="w"> </span><span class="o">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"[codex] </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$line</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c1-400<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="p">;;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="k">esac</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">done</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"[codex] exited"</span>
 </span></code></pre></div>
-<p>If the inline <code>usage</code> numbers read all-zeros, the real total is in a <em>child</em> rollout file
-under <code>~/.codex/sessions/**/rollout-*.jsonl</code> — find the one whose <code>parent_thread_id</code> matches
-the run's own <code>thread_id</code> and grep for <code>"type":"token_count"</code>.</p>
-<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>One broker per cwd, not global.</strong> Each project directory that uses
-   Codex gets its own <code>app-server-broker.mjs</code> process with its own Unix
-   socket (<code>/var/folders/.../cxc-*/broker.sock</code>). Don't expect one broker to
-   serve multiple projects.</li>
-<li><strong>Brokers linger after use.</strong> They show up in <code>ps aux</code> as
-   <code>node .../app-server-broker.mjs serve --cwd &lt;path&gt;</code> and don't
-   auto-exit when idle — check for stray ones with
-   <code>ps aux | grep app-server-broker</code> if you're auditing background
-   processes.</li>
-<li><strong>Invoke it by intent, not by name.</strong> Say "get a second opinion from
-   Codex" or "this is stuck, hand it off" rather than trying to call the
-   agent directly — the <code>codex-rescue</code> agent is meant to trigger
-   proactively when Claude Code is stuck.</li>
-</ol>
+<p>Match the start of the line only: <code>item.completed</code> events can carry a nested
+<code>"type":"error"</code> for mere warnings, which a looser match reports as failures. Close stdin
+(`</p>
 
 
 
