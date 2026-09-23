@@ -153,7 +153,7 @@ PreToolUse hook reads JSON stdin
 │  - Reads .claude/branch-guard.json│
 │  - Falls back to auto-detect     │
 │  - main → block-all              │
-│  - dev  → block-new-code         │
+│  - dev  → smart (3-tier risk)    │
 │  - feature/* → allow all         │
 └──────────────────────────────────┘
     ↓
@@ -162,10 +162,10 @@ exit 0 (allow) or exit 2 (block)
 
 **Protection levels:**
 
-| Level | Blocks | Allows |
+| Level | Blocks / confirms | Allows |
 |-------|--------|--------|
 | `block-all` | All file writes, edits, git commits | Read-only operations |
-| `block-new-code` | New `.py`, `.sh`, `.js`, `.ts` files | Edits to existing files, docs, specs |
+| `smart` (alias `block-new-code`) | Destructive git ops, force push, critical files (`[CONFIRM]`); `rm -rf .git` (hard block) | Edits to existing files, docs, specs; new code files (noted once per session) |
 
 **Bypass:** ask "unprotect" (dev/git skill) creates a marker file; ask "protect" removes it.
 

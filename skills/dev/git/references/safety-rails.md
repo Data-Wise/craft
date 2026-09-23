@@ -681,8 +681,8 @@ The branch guard hook implements the same progressive trust philosophy automatic
 
 | Risk Level | Behavior | Examples |
 |------------|----------|----------|
-| **LOW** | Note on first encounter, then silent | Edit existing file, write markdown |
-| **MEDIUM** | Teaching box + confirm prompt | New code file, force push, destructive commands |
+| **LOW** | Note on first encounter, then silent | Edit existing file, write markdown, new code file |
+| **MEDIUM** | Teaching box + confirm prompt | Force push, destructive commands, critical files |
 | **HIGH** | Hard block (never allowed) | Repository deletion |
 
 ### Fade-to-Brief Learning

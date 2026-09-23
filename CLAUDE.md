@@ -32,7 +32,7 @@ feature/* (worktrees) ← All implementation work
 | Branch | Code Files | .md Files | Git Operations |
 |--------|-----------|-----------|----------------|
 | `main` | BLOCKED | BLOCKED | Commit/push BLOCKED |
-| `dev` | New: BLOCKED, Existing: allowed | ALLOWED | Commit/push allowed |
+| `dev` | New: noted once (allowed), Existing: allowed | ALLOWED | Commit/push allowed |
 | `feature/*` | ALLOWED | ALLOWED | All allowed |
 
 Override local hook: ask "unprotect dev" / "bypass branch guard" (`dev/git` skill, Operation 10 — session-scoped, auto-expires).

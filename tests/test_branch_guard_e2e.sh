@@ -169,6 +169,33 @@ run_test() {
     fi
 }
 
+# The new-code tier is a once-per-session note, not a prompt (cc-config f29ca7e,
+# 2026-07-28). Assert the real run allows (exit 0) AND that --classify shows the
+# new-code rule actually fired, so detection coverage survives the tier change:
+# an undetected write classifies as "no rule matched" and fails here.
+# Usage: run_note_test "test name" json_string cwd [classify_pattern]
+run_note_test() {
+    local name="$1"
+    local json="$2"
+    local cwd="$3"
+    local pattern="${4:-^ALLOW: (New \.[A-Za-z0-9]+ file on|Shell redirection creates new)}"
+
+    TOTAL=$((TOTAL + 1))
+
+    local actual_exit=0 out
+    echo "$json" | (cd "$cwd" && bash "$HOOK_SCRIPT") >/dev/null 2>&1 || actual_exit=$?
+    out=$(echo "$json" | (cd "$cwd" && GUARD_DRY_RUN=1 bash "$HOOK_SCRIPT") 2>&1)
+
+    if [[ "$actual_exit" -eq 0 ]] && echo "$out" | grep -qE "$pattern"; then
+        PASS=$((PASS + 1))
+        echo -e "  ${T_GREEN}PASS${T_NC}  $name  ${T_BOLD}(exit=0, noted)${T_NC}"
+    else
+        FAIL=$((FAIL + 1))
+        FAILED_NAMES+=("$name")
+        echo -e "  ${T_RED}FAIL${T_NC}  $name  ${T_BOLD}(exit=$actual_exit, classify: $out)${T_NC}"
+    fi
+}
+
 run_test_with_stderr() {
     local name="$1" expected_exit="$2" json="$3" cwd="$4" expected_pattern="$5"
 
@@ -260,12 +287,11 @@ echo -e "${T_BLUE}--- Group 1: Full Workflow (dev -> worktree -> dev) ---${T_NC}
 
 REPO_WF=$(init_repo)
 
-# Step 1: On dev, new code is blocked
+# Step 1: On dev, new code is noted (allowed; cc-config f29ca7e)
 switch_branch "$REPO_WF" "dev"
 
-run_test \
-    "e2e_workflow_step1_dev_blocks_new_code" \
-    2 \
+run_note_test \
+    "e2e_workflow_step1_dev_notes_new_code" \
     "$(json_write "$REPO_WF/src/feature.py" "$REPO_WF")" \
     "$REPO_WF"
 
@@ -278,12 +304,11 @@ run_test \
     "$(json_write "$REPO_WF/src/feature.py" "$REPO_WF")" \
     "$REPO_WF"
 
-# Step 3: Switch back to dev, blocked again
+# Step 3: Switch back to dev, noted again
 switch_branch "$REPO_WF" "dev"
 
-run_test \
-    "e2e_workflow_step3_back_to_dev_blocked_again" \
-    2 \
+run_note_test \
+    "e2e_workflow_step3_back_to_dev_noted_again" \
     "$(json_write "$REPO_WF/src/feature.py" "$REPO_WF")" \
     "$REPO_WF"
 
@@ -303,7 +328,7 @@ MARKER_FILE="$REPO_BP/.claude/allow-dev-edit"
 run_test \
     "e2e_bypass_step1_blocked_without_marker" \
     2 \
-    "$(json_write "$REPO_BP/src/new.py" "$REPO_BP")" \
+    "$(json_bash "git clean -fd" "$REPO_BP")" \
     "$REPO_BP"
 
 # Step 2: Create marker with JSON content -> allowed
@@ -315,7 +340,7 @@ EOF
 run_test \
     "e2e_bypass_step2_allowed_with_marker" \
     0 \
-    "$(json_write "$REPO_BP/src/new.py" "$REPO_BP")" \
+    "$(json_bash "git clean -fd" "$REPO_BP")" \
     "$REPO_BP"
 
 # Step 3: Verify marker has valid JSON content
@@ -338,7 +363,7 @@ rm -f "$MARKER_FILE"
 run_test \
     "e2e_bypass_step4_blocked_after_removal" \
     2 \
-    "$(json_write "$REPO_BP/src/new.py" "$REPO_BP")" \
+    "$(json_bash "git clean -fd" "$REPO_BP")" \
     "$REPO_BP"
 
 echo ""
@@ -362,9 +387,8 @@ run_test \
     "$REPO_NC"
 
 switch_branch "$REPO_NC" "dev"
-run_test \
-    "e2e_config_no_config_dev_blocks_new" \
-    2 \
+run_note_test \
+    "e2e_config_no_config_dev_notes_new" \
     "$(json_write "$REPO_NC/src/new.py" "$REPO_NC")" \
     "$REPO_NC"
 
@@ -442,14 +466,14 @@ run_test_with_stderr \
     "$REPO_MSG" \
     "main"
 
-# Dev block message includes options/suggestions
+# Dev confirm message includes safe alternatives (git clean still prompts)
 switch_branch "$REPO_MSG" "dev"
 run_test_with_stderr \
-    "e2e_errmsg_dev_includes_options" \
+    "e2e_errmsg_dev_confirm_includes_alternatives" \
     2 \
-    "$(json_write "$REPO_MSG/src/new.py" "$REPO_MSG")" \
+    "$(json_bash "git clean -fd" "$REPO_MSG")" \
     "$REPO_MSG" \
-    "worktree|unprotect|Options"
+    "Safe alternatives"
 
 echo ""
 
@@ -485,9 +509,8 @@ run_test \
     "$(json_edit "$REPO_CT/src/app.py" "$REPO_CT")" \
     "$REPO_CT"
 
-run_test \
-    "e2e_cross_tool_write_new_blocked_on_dev" \
-    2 \
+run_note_test \
+    "e2e_cross_tool_write_new_noted_on_dev" \
     "$(json_write "$REPO_CT/src/brand_new.py" "$REPO_CT")" \
     "$REPO_CT"
 
@@ -617,10 +640,9 @@ run_test \
     "$(json_write "$REPO_RW/CLAUDE.md" "$REPO_RW")" \
     "$REPO_RW"
 
-# Scenario 2: New utils/foo.py on dev (blocked — new code file)
-run_test \
+# Scenario 2: New utils/foo.py on dev (noted — new code file)
+run_note_test \
     "e2e_realworld_new_utils_py_on_dev" \
-    2 \
     "$(json_write "$REPO_RW/utils/foo.py" "$REPO_RW")" \
     "$REPO_RW"
 
