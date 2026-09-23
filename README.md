@@ -8,14 +8,14 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-4.6.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.6.1-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 > **Docs/publishing commands moved to [`folio`](https://github.com/Data-Wise/folio)** — see
 > [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
 >
-> **v4.6.0 — prose-staleness checks, hardened same day** 🚀
+> **v4.6.1 — docs accuracy pass + pinned MCP server** 🚀
 > **48 commands** | **41 skills** | **2 agents**
-> New release-date consistency and count-prose checks in `docs-staleness-check.sh` Phase 7, closing a blind spot where stale counts read GREEN for multiple releases — then hardened the same day after a high-effort review found 9 defects (2 HIGH) in the initial ship. Also: Teaching Mode feature removed. See [NEWS.md](docs/NEWS.md).
+> Three docs pages that 404'd now build, install instructions use a command that exists, 15 command reference pages are rebuilt from source (no more fake `[mode]` argument), this README is rewritten for v4, and the bundled `mcp-mermaid` server is pinned. See [NEWS.md](docs/NEWS.md).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -347,7 +347,7 @@ folio.
 
 ## Version
 
-- **Version:** 4.6.0
+- **Version:** 4.6.1
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 

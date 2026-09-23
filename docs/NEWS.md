@@ -4,6 +4,28 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.6.1 — docs accuracy pass + pinned MCP server
+
+**Released:** 2026-09-23 · **Type:** Patch
+
+### Highlights
+
+- **Three docs pages that 404'd now build** — an unanchored `exclude_docs` pattern had silently
+  dropped `/craft:orch:drive` and `/craft:orch:workflow` (and a stale exclude hid
+  `VALIDATOR-BEST-PRACTICES`), with a new test so a nav page can't be excluded again.
+- **Install instructions that actually work** — the "recommended" `claude plugin add github:…`
+  command never existed; every quick-start now uses the marketplace install.
+- **Command reference pages rebuilt from source** — 15 pages showed a fake `[mode]` argument;
+  a new generator fills them from each command's real arguments and examples.
+- **README rewritten for v4** — accurate 48 commands / 41 skills / 2 agents, and its Version
+  footer can no longer drift.
+- **`mcp-mermaid` pinned to 0.4.1** — no more silent upgrades of the bundled MCP server.
+- **Delegation docs** — verified Monitor templates for Codex and OpenCode.
+
+See [CHANGELOG](CHANGELOG.md#461-2026-09-23) for the full list.
+
+---
+
 ## v4.6.0 — prose-staleness checks, hardened same day
 
 **Released:** 2026-08-15 · **Type:** Minor

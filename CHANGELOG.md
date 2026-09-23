@@ -13,6 +13,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.6.1] - 2026-09-23
+
+### Fixed
+
+- **Three docs-site pages 404'd** ([#341](https://github.com/Data-Wise/craft/pull/341)) —
+  `mkdocs.yml`'s `exclude_docs` uses gitignore semantics, so the unanchored `orch/` pattern also
+  excluded `docs/commands/orch/`: `/craft:orch:drive` and `/craft:orch:workflow` were in the nav
+  but never built. Anchored to `/orch/`. `VALIDATOR-BEST-PRACTICES.md` was excluded as "moved to
+  archive/" (no archive copy exists) after being re-added to the nav; exclude dropped. New
+  `test_nav_pages_not_excluded_by_exclude_docs` catches the class — the existing nav test only
+  checked that the nav *mentions* a page.
+- **The recommended install command didn't exist** ([#341](https://github.com/Data-Wise/craft/pull/341)) —
+  `claude plugin add github:Data-Wise/craft` is not a Claude CLI subcommand. README,
+  QUICK-START, ADHD-QUICK-START, getting-started, and homebrew-installation now use
+  `claude plugin marketplace add Data-Wise/claude-plugins` + `claude plugin install craft@data-wise`.
+- **15 command reference pages showed a fake `[mode]` argument** ([#342](https://github.com/Data-Wise/craft/pull/342))
+  and hid the real ones. New `scripts/gen-command-stub-docs.py` regenerates stub pages from each
+  command's frontmatter `arguments:` / own usage examples (`--check` fails on drift);
+  `docs/commands/ci/fix.md`'s title corrected from the non-existent `/craft:code:ci-fix`.
+- **README described craft v1/v2** ([#343](https://github.com/Data-Wise/craft/pull/343)) —
+  "Commands (110 total)", "Skills (17)", "Agents (7)", `/craft:help`, and folio-owned docs
+  commands. Commands/Skills/Agents/Workflows rebuilt from source (48 / 41 / 2).
+- **README's `## Version` footer drifted** ([#343](https://github.com/Data-Wise/craft/pull/343)) —
+  read 4.2.0 through four releases because `bump-version.sh` only rewrote and verified the
+  badge. It now rewrites and `--verify`-checks the footer too.
+- **`mcp-mermaid` was an unpinned `npx -y` server** ([#345](https://github.com/Data-Wise/craft/pull/345))
+  — it ran whatever release was newest on each start. Pinned to `0.4.1`; new
+  `test_mcp_npx_servers_are_pinned` fails for any unpinned npx server in `.mcp.json`.
+- **`verify-surfaces.sh` false-positived on Homebrew's Cellar revision suffix**
+  ([#337](https://github.com/Data-Wise/craft/pull/337)) — `4.6.0_1` vs `4.6.0` compared as a
+  drifted surface. Also: stale "Latest" headline prose in README, `docs/index.md`, and
+  `mkdocs.yml`.
+
+### Documentation
+
+- **Codex/OpenCode delegation** ([#344](https://github.com/Data-Wise/craft/pull/344)) — verified
+  `Monitor` templates for `opencode run --format json` and `codex exec --json` (filters replayed
+  against live event logs; codex filter anchored so warnings nested in `item.completed` aren't
+  reported as failures), `opencode-mcp` v3.0.0 facts (87 tools, durable jobs, new status
+  vocabulary), and a recovery note for a retired codex model.
+- `dev/git` skill Operations 3, 6, 7 now fetch before computing ahead/behind.
+
+### Dependencies
+
+- `@types/node` bumps (#338, #339, #340).
+
+---
+
 ## [4.6.0] - 2026-08-15
 
 ### Added
