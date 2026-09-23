@@ -22,6 +22,48 @@ _CRAFT_LIB="$(dirname "$_SCRIPT_REAL")/../lib"
 #   (empty)         — No protection (feature/*)
 
 # ---------------------------------------------------------------------------
+# 0. Shared `git <global-flags>` prefix
+# ---------------------------------------------------------------------------
+# Matches `git ` plus any run of GLOBAL options that may legally precede the
+# subcommand, so a gate keyed on the subcommand can't be walked past by
+# inserting one. Two token shapes:
+#   `-c k=v` / `-C <path>` — flag AND its value are separate tokens
+#   `-P`, `--no-pager`, `--git-dir=x` — single self-contained token
+# The two-token alternative is listed first and POSIX ERE leftmost-longest
+# picks it over the one-token read of the same `-c` (same property #32/#36
+# relied on for `&&` vs bare `&`) — verified against BSD/macOS `grep -E`.
+#
+# Before this existed each gate inlined `(-C <path>)?`, tolerating exactly one
+# global flag. `git -c a=b commit` and `git --no-pager push` therefore failed
+# the match and fell through to default allow on a protected branch — bypass
+# #5 of the #32 review, fixed there only in the push-exemption path. Every
+# gate below MUST use this variable; a new inline `git[[:space:]]+` prefix
+# reintroduces the hole. See issue #41 and
+# docs/specs/SPEC-guard-hardening-2026-08-08.md.
+# A global option's VALUE may itself contain spaces when quoted
+# (`-c user.name="Test User"`, `-c core.editor='vim -f'`) — this matches the
+# raw command string, not shell-tokenized argv, so a value read as plain
+# `[^[:space:]]+` stops at the first space, the run breaks, and the
+# subcommand escapes the gate.
+_BG_GIT_VAL='([^[:space:]]*("[^"]*"|'"'"'[^'"'"']*'"'"')[^[:space:]]*|[^[:space:]]+)'
+# Global options whose value is a SEPARATE token. git accepts both
+# `--git-dir=<path>` and `--git-dir <path>`; only the equals form is
+# self-contained, so the space form needs listing here or it walks past.
+#
+# Found in cc-config#74 (ported from no-switch-guard.sh's GITPFX fix in #72,
+# same construction, same gap): this list was still incomplete
+# (--attr-source, --list-cmds missing — checked against `man git`'s GLOBAL
+# OPTIONS) AND the generic single-token branch (`-[^[:space:]]+`) couldn't
+# span a quoted `=`-joined value containing a space
+# (`--git-dir="/path with space"`) — either gap fell through to default
+# ALLOW on a protected branch, confirmed live against `git branch -D` and
+# `git push --force` on `main` before this fix. Closing both: the flag list,
+# and generalizing the single-token branch to `=`-joined quoted values so
+# future undocumented-here two-token flags in `=`-form don't need listing.
+_BG_GIT_TWO='(-[cC]|--git-dir|--work-tree|--namespace|--exec-path|--super-prefix|--config-env|--attr-source|--list-cmds)'
+_BG_GIT="git[[:space:]]+((${_BG_GIT_TWO}[[:space:]]+${_BG_GIT_VAL}|-[^[:space:]=]+(=${_BG_GIT_VAL})?)[[:space:]]+)*"
+
+# ---------------------------------------------------------------------------
 # 1. Read stdin (JSON blob)
 # ---------------------------------------------------------------------------
 INPUT="$(cat)"
@@ -64,9 +106,71 @@ FILE_PATH="$(_json_get '.tool_input.file_path' "$INPUT")"
 if [[ -z "$FILE_PATH" ]]; then
   FILE_PATH="$(_json_get '.tool_input.filePath' "$INPUT")"
 fi
+# NotebookEdit uses a different schema (notebook_path, not file_path/filePath)
+# — GRILL-pretooluse-cross-repo-write-path-2026-08-03.md finding 1: widening
+# the settings.json matcher alone (without this) makes the hook silently
+# allow every NotebookEdit write on a protected branch. Aliasing into
+# FILE_PATH lets every existing FILE_PATH-keyed check (git-context
+# resolution, outside-repo allow, per-tool dispatch below) cover it for
+# free instead of duplicating that logic for a second variable.
+if [[ -z "$FILE_PATH" && "$TOOL_NAME" == "NotebookEdit" ]]; then
+  FILE_PATH="$(_json_get '.tool_input.notebook_path' "$INPUT")"
+fi
 
 # Extract command from tool_input (for Bash tool)
 COMMAND="$(_json_get '.tool_input.command' "$INPUT")"
+
+# _bg_blank_quoted: return $COMMAND with the CONTENTS of quoted segments
+# replaced by spaces, so that clause separators (;, &&, |) appearing INSIDE a
+# quoted argument are not mistaken for real shell separators.
+#
+# Why this exists (2026-09-04): the force-delete gate below anchors its match to
+# `(^|;|&&|&|\|\|)`, but that anchor was tested against the raw command, so a
+# separator sitting inside quoted DATA satisfied it. `jq --arg c "x && git
+# branch -D y"` therefore confirmed as though a force-delete were being run,
+# and so did a heredoc writing documentation that quoted the command. Both were
+# observed blocking real work.
+#
+# Length and offsets are preserved (each blanked character becomes one space)
+# so nothing is silently joined: `a"&&"b` stays three tokens wide, never `ab`.
+#
+# SAFETY: this is applied ONLY to the force-delete gate, never to the
+# `rm -rf .git` gate. That check deliberately matches anywhere in the command
+# with no separator anchor, so blanking quotes there would newly permit
+# `bash -c "rm -rf .git"`, which is caught today. The force-delete gate has no
+# such exposure: because it is separator-anchored, `bash -c "git branch -D x"`,
+# `eval "..."` and `sh -c '...'` already fall through to allow (verified by
+# probe, 2026-09-04). Blanking quotes therefore removes false positives without
+# widening what escapes.
+#
+# FAIL-SAFE: on unbalanced quotes the awk program exits non-zero and the raw
+# command is returned unchanged, so an unparseable command is still judged by
+# the stricter original text.
+_bg_blank_quoted() {
+  local _bgq_out
+  _bgq_out="$(printf '%s' "$1" | awk -v SQ="$(printf '\047')" '
+    {
+      n = length($0); out = ""; q = ""
+      for (i = 1; i <= n; i++) {
+        c = substr($0, i, 1)
+        if (q == "") {
+          if (c == "\"" || c == SQ) { q = c; out = out " " }
+          else { out = out c }
+        } else {
+          # Backslash escape inside double quotes consumes the next character.
+          if (c == "\\" && q == "\"" && i < n) { out = out "  "; i++ }
+          else if (c == q) { q = ""; out = out " " }
+          else { out = out " " }
+        }
+      }
+      if (q != "") { exit 3 }
+      print out
+    }')" || { printf '%s' "$1"; return 0; }
+  printf '%s' "$_bgq_out"
+}
+
+# Quote-blanked view of the command, used only by the force-delete gates.
+COMMAND_UNQ="$(_bg_blank_quoted "$COMMAND")"
 
 # --- Registry: check if this guard is enabled/muted -----------------------
 # SAFETY: catastrophic ops (rm -rf .git, git branch -D) are NEVER muteable —
@@ -75,7 +179,7 @@ _GUARD_REG="${HOME}/.claude/guards.json"
 if command -v jq &>/dev/null && [[ -f "$_GUARD_REG" ]]; then
   _bg_catastrophic=0
   if echo "$COMMAND" | grep -qE 'rm[[:space:]]+-[rfRF]*[[:space:]]*((-[rfRF]+[[:space:]]+)*)\.git([[:space:]]|/|$)' \
-     || echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
+     || echo "$COMMAND_UNQ" | grep -qE '(^|;|&&|&|\|\|)[[:space:]]*'"${_BG_GIT}"'branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
     _bg_catastrophic=1
   fi
   if [[ "$_bg_catastrophic" -eq 0 ]]; then
@@ -121,6 +225,14 @@ PROJECT_ROOT="$(cd "$GIT_CTX_DIR" 2>/dev/null && git rev-parse --show-toplevel 2
   # Not a git repo — allow everything
   exit 0
 }
+
+# Preserve the session's own resolved root before any later cross-repo
+# retargeting (8d0 below) can overwrite $PROJECT_ROOT with the TARGET's
+# root. Needed as the correct comparand for the git-common-dir worktree
+# check in 8d0 — comparing against the by-then-clobbered $PROJECT_ROOT
+# would self-compare the target to itself and always read "same repo"
+# (GRILL-pretooluse-cross-repo-write-path-2026-08-03.md finding 2).
+_BG_SESSION_ROOT="$PROJECT_ROOT"
 
 BRANCH="$(cd "$GIT_CTX_DIR" 2>/dev/null && git branch --show-current 2>/dev/null)" || {
   # Detached HEAD or other edge case — allow
@@ -582,7 +694,20 @@ _bg_push_refspec_safe() {
   # unconditionally is what makes those forms safe to parse, rather than
   # trying to pattern-match "looks like a URL" (which a hostile-shaped but
   # legitimate remote name could still evade).
-  local seen_remote=false saw_explicit_ref=false in_delete=false
+  # Pre-scan (issue #44 finding 1): does --delete appear ANYWHERE in this
+  # clause? Flags are not positional in git's argument parser — `git push
+  # origin main --delete` deletes `main` exactly like `git push origin
+  # --delete main` — so a bare ref token that appears BEFORE a trailing
+  # --delete must still be treated as a delete target. Tracking this by
+  # loop position (the previous approach) missed exactly that ordering.
+  local global_delete=false
+  local k=$i
+  while [[ $k -lt $n ]]; do
+    [[ "${_tokens[$k]}" == "--delete" ]] && { global_delete=true; break; }
+    k=$((k+1))
+  done
+
+  local seen_remote=false saw_explicit_ref=false
   while [[ $i -lt $n ]]; do
     local tok="${_tokens[$i]}"
     if [[ "$seen_remote" == false && "$tok" != -* ]]; then
@@ -591,8 +716,6 @@ _bg_push_refspec_safe() {
       continue
     fi
     if [[ "$tok" == "--delete" ]]; then
-      in_delete=true
-      saw_explicit_ref=true
       i=$((i+1))
       continue
     fi
@@ -605,16 +728,31 @@ _bg_push_refspec_safe() {
       i=$((i+1))
       continue
     fi
-    if [[ "$in_delete" == true ]]; then
-      local ref="${tok#refs/heads/}"
-      [[ "$ref" == "$protected" ]] && { echo "UNSAFE"; return; }
-    fi
+    # Every remaining token is classified explicitly below — an
+    # unrecognized shape defaults to UNSAFE (issue #44 finding 2: a bare
+    # ref used to fall through every case unclassified when it co-occurred
+    # with an explicit `src:dst` refspec elsewhere in the same push,
+    # silently skipping a real destination check).
     case "$tok" in
       *:*)
         saw_explicit_ref=true
         local dst="${tok#*:}"
         dst="${dst#refs/heads/}"
+        dst="${dst#heads/}"
         [[ -z "$dst" || "$dst" == "$protected" ]] && { echo "UNSAFE"; return; }
+        ;;
+      *)
+        if [[ "$global_delete" == true ]]; then
+          saw_explicit_ref=true
+          local ref="${tok#refs/heads/}"
+          ref="${ref#heads/}"
+          [[ "$ref" == "$protected" ]] && { echo "UNSAFE"; return; }
+        else
+          # Bare ref with no --delete in effect: its actual destination
+          # depends on remote.*.push / push.default and is never provably
+          # safe to infer here — stays UNSAFE by the same design as #6.
+          echo "UNSAFE"; return
+        fi
         ;;
     esac
     i=$((i+1))
@@ -660,7 +798,7 @@ _bg_command_push_only_safe() {
     if printf '%s' "$_clause" | grep -qE '^cd[[:space:]]+[^[:space:]]+[[:space:]]*$'; then
       continue
     fi
-    if printf '%s' "$_clause" | grep -qE '^git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push([[:space:]]|$)'; then
+    if printf '%s' "$_clause" | grep -qE "^${_BG_GIT}"'push([[:space:]]|$)'; then
       push_count=$((push_count + 1))
       push_clause="$_clause"
       continue
@@ -694,6 +832,24 @@ _dev_edit_preauthorized() {
   fi
 }
 
+# Resolve `git rev-parse --git-common-dir` from a given directory, normalized
+# to an absolute path. Git sometimes prints a CWD-relative path (e.g. `.git`)
+# rather than absolute — a documented quirk that would otherwise produce a
+# spurious mismatch when comparing two `-C`/`cd` invocations run from
+# different base directories (GRILL-pretooluse-cross-repo-write-path-
+# 2026-08-03.md finding 3). Prints nothing on any failure — callers MUST
+# guard on non-empty before treating two results as comparable (finding 4:
+# two empty strings must never read as "same repo").
+_bg_resolve_common_dir() {
+  local _dir="$1" _out
+  _out="$(cd "$_dir" 2>/dev/null && git rev-parse --git-common-dir 2>/dev/null)" || return
+  [[ -z "$_out" ]] && return
+  if [[ "$_out" != /* ]]; then
+    _out="$(cd "$_dir" 2>/dev/null && cd "$_out" 2>/dev/null && pwd -P)" || return
+  fi
+  printf '%s' "$_out"
+}
+
 # ---------------------------------------------------------------------------
 # 8d0. Bash cross-context target resolution (leading cd / -C) — 2026-07-14
 # ---------------------------------------------------------------------------
@@ -717,6 +873,7 @@ _dev_edit_preauthorized() {
 # Custom per-repo `.claude/branch-guard.json` in the OTHER repo is not consulted
 # here (auto-detect protection only) — a documented limitation, not a silent gap.
 IS_CROSS_REPO_TARGET=false
+IS_SAME_LOGICAL_REPO=false
 if [[ ( "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ) && -n "$COMMAND" ]]; then
   _BG_TARGET_DIR=""
 
@@ -724,7 +881,7 @@ if [[ ( "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ) && -n "$COMMAND" ]]; 
   # awk gsub emits a REAL newline on BSD & GNU (BSD sed's `\n` does not).
   # Single `|` also splits so a piped `grep -C N` can't be misread as `git -C`.
   _bg_eff="$CWD"
-  _bg_norm="$(printf '%s' "$COMMAND" | awk '{gsub(/&&|[;|]/,"\n"); print}')"
+  _bg_norm="$(printf '%s' "$COMMAND" | awk '{gsub(/&&|&|[;|]/,"\n"); print}')"
   while IFS= read -r _bg_clause; do
     _bg_clause="${_bg_clause#"${_bg_clause%%[![:space:]]*}"}"  # trim leading ws
     if printf '%s' "$_bg_clause" | grep -qE '^cd[[:space:]]+[^[:space:]]+'; then
@@ -753,6 +910,21 @@ EOF
       _BG_TARGET_BRANCH="$(cd "$_BG_TARGET_DIR" 2>/dev/null && git branch --show-current 2>/dev/null || true)"
       if [[ -n "$_BG_TARGET_BRANCH" && ( "$_BG_TARGET_ROOT" != "$PROJECT_ROOT" || "$_BG_TARGET_BRANCH" != "$BRANCH" ) ]]; then
         [[ "$_BG_TARGET_ROOT" != "$PROJECT_ROOT" ]] && IS_CROSS_REPO_TARGET=true
+
+        # Distinguish "different worktree of the SAME logical repo" from "a
+        # genuinely different repo" — used ONLY to reword the confirm
+        # message below (Branch 5: confirm-vs-block severity is unchanged,
+        # deliberately, per the 2026-07-14 "confirm, never hard-block"
+        # decision). Compares against $_BG_SESSION_ROOT, never the
+        # about-to-be-clobbered $PROJECT_ROOT (finding 2).
+        if [[ "$_BG_TARGET_ROOT" != "$_BG_SESSION_ROOT" ]]; then
+          _BG_TARGET_COMMONDIR="$(_bg_resolve_common_dir "$_BG_TARGET_DIR")" || true
+          _BG_SESSION_COMMONDIR="$(_bg_resolve_common_dir "$_BG_SESSION_ROOT")" || true
+          if [[ -n "$_BG_TARGET_COMMONDIR" && -n "$_BG_SESSION_COMMONDIR" \
+                && "$_BG_TARGET_COMMONDIR" == "$_BG_SESSION_COMMONDIR" ]]; then
+            IS_SAME_LOGICAL_REPO=true
+          fi
+        fi
 
         BRANCH="$_BG_TARGET_BRANCH"
         PROJECT_ROOT="$_BG_TARGET_ROOT"
@@ -791,7 +963,7 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
   fi
 
   # git branch -D — MEDIUM risk everywhere (deletes unmerged branches)
-  if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
+  if echo "$COMMAND_UNQ" | grep -qE '(^|;|&&|&|\|\|)[[:space:]]*'"${_BG_GIT}"'branch[[:space:]]+(-D|--delete[[:space:]]+--force|--force[[:space:]]+--delete)'; then
     # User-preconfigured escape hatch (issue #168): auto-mode's hard_deny classifier
     # refuses to let the agent create the allow-once/allow-dev-edit marker _confirm()
     # needs, deadlocking even explicit user authorization. This env var lets the user
@@ -908,9 +1080,10 @@ if [[ "$TOOL_NAME" == "Bash" || "$TOOL_NAME" == "bash" ]]; then
 
     _confirm "branch_delete" \
       "git branch -D (force delete)" \
-      "Force-deletes branch even if not merged — commits may be lost" \
-      "git branch -d (safe delete — only if merged)" \
-      "git log <branch> to check for unmerged work"
+      "Force-deletes branch even if not merged — but see the squash-merge note below first" \
+      "If squash-merged: \"git branch -d\" CANNOT succeed here even when safe (its ancestry check always fails for a squash merge) — verify with: gh pr view <N> --json headRefOid,mergeCommit + git merge-base --is-ancestor <mergeCommit> ${INTEGRATION_BRANCH:-dev} (docs/branch-guard.md)" \
+      "If not merged: git log <branch> to check for unmerged work" \
+      "Either way this is recoverable: a merged PR's commits stay reachable at refs/pull/<N>/head regardless of local/remote branch state"
   fi
 fi
 
@@ -930,7 +1103,7 @@ fi
 # ---------------------------------------------------------------------------
 if [[ "$PROTECTION" == "block-all" ]]; then
   case "$TOOL_NAME" in
-    Edit|edit)
+    Edit|edit|NotebookEdit|notebookedit)
       block "$(_box \
         "${_R}${_B}BRANCH PROTECTION${_N}" \
         "---" \
@@ -958,7 +1131,7 @@ if [[ "$PROTECTION" == "block-all" ]]; then
 
     Bash|bash)
       # Check for destructive git commands
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?(commit|push)'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|&|\|\|)[[:space:]]*'"${_BG_GIT}"'(commit|push)'; then
         # A `git push` whose refspec provably doesn't touch $BRANCH (e.g.
         # `--delete feature/x`, `feature/x:feature/y`) isn't a protected-branch
         # write no matter which repo/branch it resolves against — skip the
@@ -981,9 +1154,15 @@ if [[ "$PROTECTION" == "block-all" ]]; then
           # would also disrupt legitimate cross-repo work (explicit
           # decision: BRAINSTORM-branch-guard-target-resolution-2026-07-14,
           # "I do not want hard gate to disrupt").
+          _bg_target_desc="a different repository (${PROJECT_NAME})"
+          _bg_target_reason="another repository's protected ${BRANCH} branch — the session's own branch is not a valid gate for that repo's state"
+          if [[ "$IS_SAME_LOGICAL_REPO" == true ]]; then
+            _bg_target_desc="a different worktree of this same repository (${PROJECT_NAME})"
+            _bg_target_reason="this repo's protected ${BRANCH} branch from a different worktree — the originating session's own branch is not a valid gate for another worktree's state"
+          fi
           _confirm "cross_repo_protected_push" \
-            "git commit/push on ${BRANCH} in a different repository (${PROJECT_NAME})" \
-            "This command targets another repository's protected ${BRANCH} branch — the session's own branch is not a valid gate for that repo's state" \
+            "git commit/push on ${BRANCH} in ${_bg_target_desc}" \
+            "This command targets ${_bg_target_reason}" \
             "Run this from a session/worktree already cd'd into ${PROJECT_ROOT}" \
             "Split into a separate Bash call scoped to that repo"
         elif [[ "$_bg_push_gate_needed" == true ]]; then
@@ -999,7 +1178,7 @@ if [[ "$PROTECTION" == "block-all" ]]; then
           )"
         fi
       fi
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?reset[[:space:]]+--hard'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|&|\|\|)[[:space:]]*'"${_BG_GIT}"'reset[[:space:]]+--hard'; then
         _confirm "reset_hard_main" \
           "git reset --hard on ${BRANCH} (protected branch)" \
           "Resets working tree and index to specified commit — discards all uncommitted changes" \
@@ -1031,7 +1210,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
   NONCODE_EXTENSIONS="txt csv tsv log lock example sample css html htm png jpg jpeg gif svg webp ico bmp pdf woff woff2 ttf eot otf mp3 mp4 mov wav zip gz tar tgz"
 
   case "$TOOL_NAME" in
-    Edit|edit)
+    Edit|edit|NotebookEdit|notebookedit)
       # Critical file check — MEDIUM risk (sensitive config/secrets)
       EDIT_BASENAME="$(basename "$FILE_PATH")"
       case "$EDIT_BASENAME" in
@@ -1064,7 +1243,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "Edit guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "This file self-approves a bypass of branch-guard's own protection — never editable silently" \
             "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)" \
-            "Non-interactive: user pre-sets CRAFT_GUARD_ALLOW_DEV_EDIT=1 out-of-band (issue #281)"
+            "Non-interactive: CRAFT_GUARD_ALLOW_DEV_EDIT=1 must be in Claude Code's OWN process env (pre-launch, or settings.json's env block) -- a tool-shell 'export' cannot reach this hook (issue #56, #281)"
           ;;
       esac
       # Editing existing files is always allowed on dev (LOW)
@@ -1104,7 +1283,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
             "Write guard-bypass marker on ${BRANCH}: $(basename "$FILE_PATH")" \
             "Creating this file self-approves a bypass of branch-guard's own protection — must be a deliberate, confirmed action, never a silent allow" \
             "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)" \
-            "Non-interactive: user pre-sets CRAFT_GUARD_ALLOW_DEV_EDIT=1 out-of-band (issue #281)"
+            "Non-interactive: CRAFT_GUARD_ALLOW_DEV_EDIT=1 must be in Claude Code's OWN process env (pre-launch, or settings.json's env block) -- a tool-shell 'export' cannot reach this hook (issue #56, #281)"
           ;;
       esac
 
@@ -1154,13 +1333,12 @@ if [[ "$PROTECTION" == "smart" ]]; then
       done
 
       if [[ "$IS_CODE" == true ]]; then
-        # MEDIUM risk — new code file on protected branch
-        _confirm "write_new_code" \
-          "Write new .${EXT} file: ${FILE_PATH}" \
-          "New code files on ${BRANCH} should go in a feature branch" \
-          "Ask Claude to create a worktree (dev/git skill): feature/<name>" \
-          "Edit an existing file instead (fixups allowed)" \
-          "ask \"unprotect for bulk maintenance\" (dev/git skill)"
+        # LOW risk (relaxed 2026-07-28 — was MEDIUM/_confirm, asked every
+        # time with no way to quiet down): new code file on protected
+        # branch is a style-convention nudge, not data-loss prevention.
+        # Note once per session, then allow silently.
+        _low_note "write_new_code" \
+          "New .${EXT} file on ${BRANCH}: ${FILE_PATH} — style convention is feature branches for new code (allowed)"
       fi
 
       # Known-safe non-code extension (NONCODE_EXTENSIONS) — allow
@@ -1168,8 +1346,21 @@ if [[ "$PROTECTION" == "smart" ]]; then
       ;;
 
     Bash|bash)
-      # Force push — MEDIUM risk
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?push[[:space:]].*(--force|--force-with-lease|-f)([[:space:]]|$)'; then
+      # Force push — MEDIUM risk. Matches both flag forms (--force,
+      # --force-with-lease, -f) and the `+<refspec>` prefix form, which sets
+      # the same force semantics with none of those tokens (issue #45
+      # finding B — `git push origin +feature/x:${BRANCH}` was undetected).
+      #
+      # The middle `.*` is bounded to `[^;&|]*` — NOT left as a bare `.*` —
+      # so it cannot span past this push clause into a later one. A bare
+      # `.*` let a trailing token in an UNRELATED later clause (e.g. `git
+      # push origin dev && grep -c --force file.txt`) satisfy the flag
+      # alternative and false-positive this gate; this was a PRE-EXISTING
+      # bug in the `--force`/`-f` flag form (confirmed live against dev
+      # HEAD before this fix, not introduced by the `+refspec` addition
+      # below) — fixed here rather than left as an unfixed sibling, per
+      # `/code-review 46`'s finding on the `+refspec`/`--delete` additions.
+      if echo "$COMMAND" | grep -qE '(^|;|&&|&|\|\|)[[:space:]]*'"${_BG_GIT}"'push[[:space:]][^;&|]*((--force|--force-with-lease|-f)([[:space:]]|$)|[[:space:]]\+[^[:space:]]+)'; then
         _confirm "force_push" \
           "git push --force on ${BRANCH}" \
           "Force push overwrites remote history for all collaborators" \
@@ -1178,8 +1369,22 @@ if [[ "$PROTECTION" == "smart" ]]; then
           "Ask Claude to create a worktree (dev/git skill) to isolate changes"
       fi
 
+      # git push --delete / bare `:<ref>` — MEDIUM risk (deletes a remote
+      # branch directly; the catastrophic `git branch -D` check above only
+      # sees LOCAL branch deletion, not this). Issue #45 finding A — smart
+      # mode had no gate at all for `git push origin --delete ${BRANCH}`.
+      # Bounded to `[^;&|]*` (see force_push comment above) so a trailing
+      # `:token` in a later, unrelated clause can't false-positive this gate.
+      if echo "$COMMAND" | grep -qE '(^|;|&&|&|\|\|)[[:space:]]*'"${_BG_GIT}"'push[[:space:]][^;&|]*(--delete([[:space:]]|$)|[[:space:]]:[^[:space:]]+([[:space:]]|$))'; then
+        _confirm "push_delete" \
+          "git push --delete on ${BRANCH}" \
+          "Deletes a remote branch directly — cannot be undone from here" \
+          "Confirm the target ref before deleting a remote branch" \
+          "Delete via the GitHub UI/gh CLI instead, where it's reversible from reflog for longer"
+      fi
+
       # git reset --hard — MEDIUM risk (discards uncommitted changes)
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?reset[[:space:]]+--hard'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|&|\|\|)[[:space:]]*'"${_BG_GIT}"'reset[[:space:]]+--hard'; then
         _confirm "reset_hard" \
           "git reset --hard on ${BRANCH}" \
           "Discards all uncommitted changes — cannot be undone" \
@@ -1189,7 +1394,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # git clean -f (remove untracked files) — MEDIUM risk
-      if echo "$COMMAND" | grep -qE '(^|;|&&|\|\|)[[:space:]]*git[[:space:]]+(-C[[:space:]]+[^[:space:]]+[[:space:]]+)?clean[[:space:]]+(-[fdxFDX]+|--force)'; then
+      if echo "$COMMAND" | grep -qE '(^|;|&&|&|\|\|)[[:space:]]*'"${_BG_GIT}"'clean[[:space:]]+(-[fdxFDX]+|--force)'; then
         _confirm "clean_force" \
           "git clean -f (remove untracked files) on ${BRANCH}" \
           "Permanently removes untracked files — cannot be undone" \
@@ -1291,14 +1496,20 @@ if [[ "$PROTECTION" == "smart" ]]; then
       fi
 
       # Pattern 3: cp <src> <dst>  e.g. "cp template.py new.py"
-      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE 'cp[[:space:]]'; then
-        BASH_TARGET="$(echo "$COMMAND" | grep -oE 'cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}' || true)"
+      # Anchored to a standalone `cp` token (start-of-string or preceded by
+      # whitespace) — the prior unanchored `cp[[:space:]]` matched the
+      # substring inside any word ending in "cp" (mcp, scp, gcp, ...), so
+      # `claude mcp list ... 2>&1 | grep ...` and `claude mcp remove archex`
+      # both false-positived as file-creation targeting "2>"/"archex"
+      # (confirmed live 2026-07-28).
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE '(^|[[:space:]])cp[[:space:]]'; then
+        BASH_TARGET="$(echo "$COMMAND" | grep -oE '(^|[[:space:]])cp[[:space:]]+[^[:space:]]+[[:space:]]+([^|;&[:space:]]+)' | head -1 | awk '{print $NF}' || true)"
       fi
 
       # Pattern 4: touch <file>  e.g. "touch .claude/allow-once"
       # (extensionless targets like guard-bypass markers use touch, not
       # redirection — patterns 1-3 alone never see them)
-      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE '(^|;|&&|\|\|)[[:space:]]*touch[[:space:]]'; then
+      if [[ "$HAS_HEREDOC" == false ]] && [[ -z "$BASH_TARGET" ]] && echo "$COMMAND_SCAN" | grep -qE '(^|;|&&|&|\|\|)[[:space:]]*touch[[:space:]]'; then
         BASH_TARGET="$(echo "$COMMAND" | grep -oE 'touch[[:space:]]+[^|;&[:space:]]+' | tail -1 | sed 's/^touch[[:space:]]*//' || true)"
       fi
 
@@ -1325,7 +1536,7 @@ if [[ "$PROTECTION" == "smart" ]]; then
                 "Bash creates guard-bypass marker on ${BRANCH}: ${BASH_BASENAME}" \
                 "Creating this file via shell self-approves a bypass of branch-guard's own protection" \
                 "ask \"unprotect\" — the sanctioned way to request this bypass (dev/git skill)" \
-                "Non-interactive: user pre-sets CRAFT_GUARD_ALLOW_DEV_EDIT=1 out-of-band (issue #281)"
+                "Non-interactive: CRAFT_GUARD_ALLOW_DEV_EDIT=1 must be in Claude Code's OWN process env (pre-launch, or settings.json's env block) -- a tool-shell 'export' cannot reach this hook (issue #56, #281)"
               ;;
           esac
 
@@ -1378,11 +1589,11 @@ if [[ "$PROTECTION" == "smart" ]]; then
 
             if [[ -n "$BASH_TARGET" ]] && [[ "$BASH_IS_CODE" == true ]]; then
               if [[ ! -f "$BASH_ACTUAL" ]] && [[ ! -f "${PROJECT_ROOT}/${BASH_TARGET}" ]]; then
-                _confirm "bash_write_through" \
-                  "Bash creates new .${BASH_EXT} file: ${BASH_TARGET}" \
-                  "Shell redirection creates a new code file on ${BRANCH}" \
-                  "Use the Write tool instead (tracked by guard)" \
-                  "Ask Claude to create a worktree (dev/git skill) to isolate changes"
+                # Relaxed 2026-07-28 (see write_new_code above) — same
+                # style-convention tier, not data-loss prevention. Note
+                # once per session, then allow silently.
+                _low_note "bash_write_through" \
+                  "Shell redirection creates new .${BASH_EXT} file on ${BRANCH}: ${BASH_TARGET} (allowed)"
               fi
             fi
           fi

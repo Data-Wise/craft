@@ -11,6 +11,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **branch-guard: a new code file on `dev`/`draft` is now a once-per-session note, not a `[CONFIRM]`.**
+  `scripts/branch-guard.sh` is synced to the installed hook maintained in cc-config
+  (`hooks/branch-guard.sh`), which relaxed the new-code tier on 2026-07-28. Feature branches for new
+  code are a style convention, not data-loss protection, so asking every time was not worth the
+  interruption. This applies to both `Write` and Bash write-through (redirect, `tee`, `cp`).
+  Destructive git operations, force pushes, critical files and guard-bypass markers still prompt,
+  and `rm -rf .git` is still a hard block. Anyone who installs the hook with
+  `install-branch-guard.sh` gets the same behavior.
+- The sync also brings in cc-config's later guard fixes: #53, a quote-aware separator anchor for
+  the force-delete gate; #57, corrected remediation text; #75, the `_BG_GIT` completeness fix;
+  issue #44, `--delete` in any position is now caught by push-refspec parsing. All four numbers
+  refer to `Data-Wise/cc-config`.
+
+### Fixed
+
+- **`tests/test_branch_guard_dogfood.py` no longer fails 19 tests on `dev`.** The tests expected
+  the old every-time confirm. The test suites were reworked instead of loosened:
+  - New-code tests assert exit 0, and use `GUARD_DRY_RUN=1` to check that the new-code rule
+    actually fired.
+  - Bypass-marker, one-shot, verbosity, session-counter and dry-run tests now run through
+    `git clean -fd`, which still prompts.
+
 ---
 
 ## [4.6.1] - 2026-09-23

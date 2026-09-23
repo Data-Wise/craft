@@ -195,7 +195,7 @@ Re-enable or configure craft's local `branch-guard.sh` hook (the layer that bloc
 
 - `smart` — matches the craft default table (main blocked, dev allows existing-file edits, feature/* allows all).
 - `block-all` — paranoid; nothing flows through `main` or `dev` without explicit unprotect.
-- `block-new-code` — allows .md and config edits, blocks new code files on `dev`.
+- `block-new-code` — legacy alias for `smart` (new code files on `dev` are noted once per session, not blocked).
 
 **Steps (bare invocation, no bypass active):**
 

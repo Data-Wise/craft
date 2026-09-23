@@ -199,6 +199,33 @@ run_test() {
     fi
 }
 
+# The new-code tier is a once-per-session note, not a prompt (cc-config f29ca7e,
+# 2026-07-28). Assert the real run allows (exit 0) AND that --classify shows the
+# new-code rule actually fired, so detection coverage survives the tier change:
+# an undetected write classifies as "no rule matched" and fails here.
+# Usage: run_note_test "test name" json_string cwd [classify_pattern]
+run_note_test() {
+    local name="$1"
+    local json="$2"
+    local cwd="$3"
+    local pattern="${4:-^ALLOW: (New \.[A-Za-z0-9]+ file on|Shell redirection creates new)}"
+
+    TOTAL=$((TOTAL + 1))
+
+    local actual_exit=0 out
+    echo "$json" | (cd "$cwd" && bash "$HOOK_SCRIPT") >/dev/null 2>&1 || actual_exit=$?
+    out=$(echo "$json" | (cd "$cwd" && GUARD_DRY_RUN=1 bash "$HOOK_SCRIPT") 2>&1)
+
+    if [[ "$actual_exit" -eq 0 ]] && echo "$out" | grep -qE "$pattern"; then
+        PASS=$((PASS + 1))
+        echo -e "  ${T_GREEN}PASS${T_NC}  $name  ${T_BOLD}(exit=0, noted)${T_NC}"
+    else
+        FAIL=$((FAIL + 1))
+        FAILED_NAMES+=("$name")
+        echo -e "  ${T_RED}FAIL${T_NC}  $name  ${T_BOLD}(exit=$actual_exit, classify: $out)${T_NC}"
+    fi
+}
+
 # Run the hook and also capture stderr for content checking
 # Usage: run_test_with_stderr "test name" expected_exit json_string cwd expected_stderr_pattern
 run_test_with_stderr() {
@@ -325,9 +352,8 @@ run_test \
     "$REPO_DEV"
 
 # Test 3: Write new .py on dev (file doesn't exist) -> BLOCK
-run_test \
+run_note_test \
     "test_write_new_py_on_dev" \
-    2 \
     "$(json_write "$REPO_DEV/src/new_module.py" "$REPO_DEV")" \
     "$REPO_DEV"
 
@@ -421,9 +447,8 @@ run_test \
     "$REPO_DRAFT"
 
 # Write NEW code file on draft -> BLOCK, mirrors dev Test 3
-run_test \
+run_note_test \
     "test_write_new_py_on_draft" \
-    2 \
     "$(json_write "$REPO_DRAFT/src/new_module.py" "$REPO_DRAFT")" \
     "$REPO_DRAFT"
 
@@ -504,7 +529,7 @@ echo '{"reason":"test","timestamp":"2026-02-06T00:00:00Z"}' > "$REPO_BYPASS/.cla
 run_test \
     "test_bypass_marker_active" \
     0 \
-    "$(json_write "$REPO_BYPASS/src/new_code.py" "$REPO_BYPASS")" \
+    "$(json_bash "git clean -fd" "$REPO_BYPASS")" \
     "$REPO_BYPASS"
 
 # Clean up bypass marker and verify block resumes
@@ -513,7 +538,7 @@ rm -f "$REPO_BYPASS/.claude/allow-dev-edit"
 run_test \
     "test_bypass_marker_removed_blocks_again" \
     2 \
-    "$(json_write "$REPO_BYPASS/src/new_code.py" "$REPO_BYPASS")" \
+    "$(json_bash "git clean -fd" "$REPO_BYPASS")" \
     "$REPO_BYPASS"
 
 echo ""
@@ -631,9 +656,8 @@ cat > "$REPO_TEACH/.claude/branch-guard.json" <<'JSONEOF'
 JSONEOF
 
 # New .py on draft -> BLOCK
-run_test \
-    "test_custom_draft_new_code_blocked" \
-    2 \
+run_note_test \
+    "test_custom_draft_new_code_noted" \
     "$(json_write "$REPO_TEACH/src/new_module.py" "$REPO_TEACH")" \
     "$REPO_TEACH"
 
@@ -710,30 +734,26 @@ REPO_EXT=$(init_repo)
 switch_branch "$REPO_EXT" "dev"
 
 # New .sh on dev -> BLOCK
-run_test \
+run_note_test \
     "test_write_new_sh_on_dev" \
-    2 \
     "$(json_write "$REPO_EXT/scripts/deploy.sh" "$REPO_EXT")" \
     "$REPO_EXT"
 
 # New .js on dev -> BLOCK
-run_test \
+run_note_test \
     "test_write_new_js_on_dev" \
-    2 \
     "$(json_write "$REPO_EXT/src/index.js" "$REPO_EXT")" \
     "$REPO_EXT"
 
 # New .yml on dev -> BLOCK (config-as-code)
-run_test \
+run_note_test \
     "test_write_new_yml_on_dev" \
-    2 \
     "$(json_write "$REPO_EXT/config/app.yml" "$REPO_EXT")" \
     "$REPO_EXT"
 
 # New .json on dev -> BLOCK
-run_test \
+run_note_test \
     "test_write_new_json_on_dev" \
-    2 \
     "$(json_write "$REPO_EXT/package.json" "$REPO_EXT")" \
     "$REPO_EXT"
 
@@ -852,9 +872,8 @@ run_test \
     "$REPO_DOT"
 
 # Write new .R file on dev -> BLOCK (R is in code extensions)
-run_test \
+run_note_test \
     "test_write_new_r_file_on_dev" \
-    2 \
     "$(json_write "$REPO_DOT/analysis.R" "$REPO_DOT")" \
     "$REPO_DOT"
 
@@ -1064,30 +1083,26 @@ REPO_WT=$(init_repo)
 switch_branch "$REPO_WT" "dev"
 
 # echo > new.py -> BLOCK
-run_test \
+run_note_test \
     "test_bash_redirect_new_py" \
-    2 \
     "$(json_bash "echo 'print(1)' > new_file.py" "$REPO_WT")" \
     "$REPO_WT"
 
 # cat > new.sh -> BLOCK
-run_test \
+run_note_test \
     "test_bash_redirect_new_sh" \
-    2 \
     "$(json_bash "cat > script.sh" "$REPO_WT")" \
     "$REPO_WT"
 
 # tee new.py -> BLOCK
-run_test \
+run_note_test \
     "test_bash_tee_new_py" \
-    2 \
     "$(json_bash "echo x | tee new.py" "$REPO_WT")" \
     "$REPO_WT"
 
 # cp to new.py -> BLOCK
-run_test \
+run_note_test \
     "test_bash_cp_new_py" \
-    2 \
     "$(json_bash "cp template.py brand_new.py" "$REPO_WT")" \
     "$REPO_WT"
 
@@ -1172,9 +1187,8 @@ run_test \
 # A real write-through target MUST still be caught even when the same
 # command also contains a 2>&1 that would otherwise zero-match — the fix
 # must not weaken detection, only stop the crash.
-run_test \
-    "test_bash_stderr_redirect_plus_real_writethrough_still_blocked" \
-    2 \
+run_note_test \
+    "test_bash_stderr_redirect_plus_real_writethrough_still_detected" \
     "$(json_bash "echo x > new_file.py 2>&1" "$REPO_SR")" \
     "$REPO_SR"
 
@@ -1255,9 +1269,8 @@ run_test \
 
 # Regression must not weaken real detection: a genuine touch of a new code
 # file OUTSIDE any heredoc must still be caught.
-run_test \
-    "test_bash_touch_real_writethrough_still_blocked" \
-    2 \
+run_note_test \
+    "test_bash_touch_real_writethrough_still_detected" \
     "$(json_bash "touch new_file.py" "$REPO_HP")" \
     "$REPO_HP"
 
@@ -1272,11 +1285,11 @@ echo -e "${T_BLUE}--- One-Shot Marker + Session Counter ---${T_NC}"
 REPO_ONCE=$(init_repo)
 switch_branch "$REPO_ONCE" "dev"
 
-# Without one-shot marker -> BLOCK (new code on dev)
+# Without one-shot marker -> BLOCK (git clean on dev)
 run_test \
     "test_oneshot_without_marker_blocked" \
     2 \
-    "$(json_write "$REPO_ONCE/src/app.py" "$REPO_ONCE")" \
+    "$(json_bash "git clean -fd" "$REPO_ONCE")" \
     "$REPO_ONCE"
 
 # Create one-shot marker -> ALLOW
@@ -1286,14 +1299,14 @@ touch "$REPO_ONCE/.claude/allow-once"
 run_test \
     "test_oneshot_with_marker_allowed" \
     0 \
-    "$(json_write "$REPO_ONCE/src/app.py" "$REPO_ONCE")" \
+    "$(json_bash "git clean -fd" "$REPO_ONCE")" \
     "$REPO_ONCE"
 
-# Marker consumed -> BLOCK again
+# Marker consumed -> prompt again
 run_test \
     "test_oneshot_marker_consumed" \
     2 \
-    "$(json_write "$REPO_ONCE/src/app.py" "$REPO_ONCE")" \
+    "$(json_bash "git clean -fd" "$REPO_ONCE")" \
     "$REPO_ONCE"
 
 # Verify marker file is gone
@@ -1331,7 +1344,7 @@ switch_branch "$REPO_VERB" "dev"
 run_test_with_stderr \
     "test_verbosity_full_first_encounter" \
     2 \
-    "$(json_write "$REPO_VERB/src/new1.py" "$REPO_VERB")" \
+    "$(json_bash "git clean -fd" "$REPO_VERB")" \
     "$REPO_VERB" \
     "Safe alternatives\|Why risky\|risky"
 
@@ -1339,7 +1352,7 @@ run_test_with_stderr \
 run_test_with_stderr \
     "test_verbosity_brief_second_encounter" \
     2 \
-    "$(json_write "$REPO_VERB/src/new2.py" "$REPO_VERB")" \
+    "$(json_bash "git clean -fd" "$REPO_VERB")" \
     "$REPO_VERB" \
     "BRANCH GUARD\|CONFIRM"
 
@@ -1348,13 +1361,13 @@ run_test_with_stderr \
 run_test \
     "test_verbosity_third_encounter" \
     2 \
-    "$(json_write "$REPO_VERB/src/new3.py" "$REPO_VERB")" \
+    "$(json_bash "git clean -fd" "$REPO_VERB")" \
     "$REPO_VERB"
 
 run_test_with_stderr \
     "test_verbosity_minimal_fourth_encounter" \
     2 \
-    "$(json_write "$REPO_VERB/src/new4.py" "$REPO_VERB")" \
+    "$(json_bash "git clean -fd" "$REPO_VERB")" \
     "$REPO_VERB" \
     "CONFIRM.*Allow"
 
@@ -1376,7 +1389,7 @@ touch "$REPO_TTL/.claude/allow-once"
 run_test \
     "test_oneshot_fresh_marker_allowed" \
     0 \
-    "$(json_write "$REPO_TTL/src/fresh.py" "$REPO_TTL")" \
+    "$(json_bash "git clean -fd" "$REPO_TTL")" \
     "$REPO_TTL"
 
 # Expired marker (6 minutes old) -> BLOCK
@@ -1393,7 +1406,7 @@ os.utime(path, (t, t))
 run_test \
     "test_oneshot_expired_marker_blocked" \
     2 \
-    "$(json_write "$REPO_TTL/src/expired.py" "$REPO_TTL")" \
+    "$(json_bash "git clean -fd" "$REPO_TTL")" \
     "$REPO_TTL"
 
 # Verify expired marker was cleaned up
@@ -1469,7 +1482,7 @@ rm -f "$REPO_TOCTOU/.claude/guard-session-counts"
 run_test \
     "test_session_counter_missing_file_no_error" \
     2 \
-    "$(json_write "$REPO_TOCTOU/src/new.py" "$REPO_TOCTOU")" \
+    "$(json_bash "git clean -fd" "$REPO_TOCTOU")" \
     "$REPO_TOCTOU"
 
 # Session counter with empty file — should not error
@@ -1479,7 +1492,7 @@ mkdir -p "$REPO_TOCTOU/.claude"
 run_test \
     "test_session_counter_empty_file_no_error" \
     2 \
-    "$(json_write "$REPO_TOCTOU/src/new2.py" "$REPO_TOCTOU")" \
+    "$(json_bash "git clean -fd" "$REPO_TOCTOU")" \
     "$REPO_TOCTOU"
 
 # ============================================================================
@@ -1530,7 +1543,7 @@ run_test_with_stderr \
     2 \
     "$(json_bash "git branch -D feature/not-merged" "$REPO_UNM20")" \
     "$REPO_UNM20" \
-    "commits may be lost"
+    "Force-deletes branch even if not merged"
 
 # Strong check (gh pr view + merge-base --is-ancestor): mock `gh` in PATH so
 # the test never hits the network. Verifies the PR-backed evidence path
@@ -1614,7 +1627,7 @@ run_test_with_stderr \
     2 \
     "$(json_bash "git branch -D feature/sq-merged-2 feature/not-merged-2" "$REPO_MIX20")" \
     "$REPO_MIX20" \
-    "commits may be lost"
+    "Force-deletes branch even if not merged"
 
 echo ""
 
@@ -1659,8 +1672,8 @@ run_classify_test \
 switch_branch "$REPO_CLASSIFY" "dev"
 
 run_classify_test \
-    "test_classify_new_code_on_dev_is_ASK" \
-    "^ASK:" \
+    "test_classify_new_code_on_dev_is_ALLOW_note" \
+    "^ALLOW: New \\.py file on dev" \
     "$(json_write "$REPO_CLASSIFY/newfile.py" "$REPO_CLASSIFY")" \
     "$REPO_CLASSIFY"
 
@@ -1865,35 +1878,31 @@ run_test \
 # between and erase it from the scan, letting a genuine write-through on dev
 # go completely undetected — confirmed live as a false negative before this
 # test was added (2026-07-16).
-run_test \
+run_note_test \
     "test_bash_cross_quote_apostrophes_dont_eat_real_redirect" \
-    2 \
     "$(json_bash_multiline "echo \"it's ready\" > brand_new_cross_quote.py && echo \"don't tell\"" "$REPO_QS")" \
     "$REPO_QS"
 
 # A real redirect immediately after a single-quoted grep pattern must still
 # be caught — proves COMMAND_SCAN stripping doesn't eat an UNQUOTED '>'
 # elsewhere in the same command.
-run_test \
-    "test_bash_quoted_pattern_plus_real_redirect_still_blocked" \
-    2 \
+run_note_test \
+    "test_bash_quoted_pattern_plus_real_redirect_still_detected" \
     "$(json_bash "grep 'pattern' file.py > brand_new_output.py" "$REPO_QS")" \
     "$REPO_QS"
 
 # A real redirect to a quoted target (spaces in the filename) must still be
 # caught with the CORRECT target extracted — proves extraction against the
 # ORIGINAL command (not the quote-stripped scan copy) still works.
-run_test \
-    "test_bash_redirect_quoted_target_with_space_still_blocked" \
-    2 \
+run_note_test \
+    "test_bash_redirect_quoted_target_with_space_still_detected" \
     "$(json_bash "cat > 'new file.py'" "$REPO_QS")" \
     "$REPO_QS"
 
 # cp to a genuinely new code file INSIDE the repo must still be caught —
 # proves path-scoping only excludes out-of-repo targets, not in-repo ones.
-run_test \
-    "test_bash_cp_inside_repo_still_blocked" \
-    2 \
+run_note_test \
+    "test_bash_cp_inside_repo_still_detected" \
     "$(json_bash "cp template.py brand_new_inside.py" "$REPO_QS")" \
     "$REPO_QS"
 
@@ -1979,26 +1988,28 @@ run_test_with_stderr \
 # would still pass even if the hint WERE mistakenly added to write_new_code)
 # rather than actually exercising the code path it's meant to guard.
 REPO_MSG_NEWCODE=$(init_repo); switch_branch "$REPO_MSG_NEWCODE" "dev"
-NEW_CODE_STDERR=$(echo "$(json_write "$REPO_MSG_NEWCODE/src/unrelated_new.py" "$REPO_MSG_NEWCODE")" | (cd "$REPO_MSG_NEWCODE" && bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || true
+# Unrelated MEDIUM-risk confirm: git clean (new code on dev is only a note since
+# cc-config f29ca7e, so it no longer renders a full [CONFIRM] to check).
+NEW_CODE_STDERR=$(echo "$(json_bash "git clean -fd" "$REPO_MSG_NEWCODE")" | (cd "$REPO_MSG_NEWCODE" && bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || true
 
 TOTAL=$((TOTAL + 1))
-if echo "$NEW_CODE_STDERR" | grep -qi "New code files"; then
+if echo "$NEW_CODE_STDERR" | grep -qi "git clean"; then
     PASS=$((PASS + 1))
-    echo -e "  ${T_GREEN}PASS${T_NC}  test_write_new_code_message_does_not_mention_env_var  ${T_BOLD}(exit=2, pattern matched)${T_NC}"
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_unrelated_confirm_message_does_not_mention_env_var  ${T_BOLD}(exit=2, pattern matched)${T_NC}"
 else
     FAIL=$((FAIL + 1))
-    FAILED_NAMES+=("test_write_new_code_message_does_not_mention_env_var")
-    echo -e "  ${T_RED}FAIL${T_NC}  test_write_new_code_message_does_not_mention_env_var  ${T_BOLD}(1st-encounter stderr missing 'New code files')${T_NC}"
+    FAILED_NAMES+=("test_unrelated_confirm_message_does_not_mention_env_var")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_unrelated_confirm_message_does_not_mention_env_var  ${T_BOLD}(1st-encounter stderr missing 'git clean')${T_NC}"
 fi
 
 TOTAL=$((TOTAL + 1))
 if ! echo "$NEW_CODE_STDERR" | grep -q "CRAFT_GUARD_ALLOW_DEV_EDIT"; then
     PASS=$((PASS + 1))
-    echo -e "  ${T_GREEN}PASS${T_NC}  test_write_new_code_message_excludes_env_var_hint"
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_unrelated_confirm_message_excludes_env_var_hint"
 else
     FAIL=$((FAIL + 1))
-    FAILED_NAMES+=("test_write_new_code_message_excludes_env_var_hint")
-    echo -e "  ${T_RED}FAIL${T_NC}  test_write_new_code_message_excludes_env_var_hint  ${T_BOLD}(env var hint leaked into unrelated confirm)${T_NC}"
+    FAILED_NAMES+=("test_unrelated_confirm_message_excludes_env_var_hint")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_unrelated_confirm_message_excludes_env_var_hint  ${T_BOLD}(env var hint leaked into unrelated confirm)${T_NC}"
 fi
 
 # With the env var set: all three call sites exit 0 without a [CONFIRM].
@@ -2074,11 +2085,11 @@ run_bash_test_with_env \
     "$REPO_DEV_EDIT"
 
 # The env var must NOT globalize to unrelated MEDIUM-risk gates (e.g. a
-# regular new code file) — it is scoped to the guard-bypass marker only.
+# git clean) — it is scoped to the guard-bypass marker only.
 run_bash_test_with_env \
     "test_env_var_does_not_globalize_to_unrelated_medium_risk" \
     2 \
-    "touch src/unrelated_new_file.py" \
+    "git clean -fd" \
     "$REPO_DEV_EDIT"
 
 echo ""

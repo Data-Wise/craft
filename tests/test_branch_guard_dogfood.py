@@ -10,6 +10,7 @@ Run with: python3 tests/test_branch_guard_dogfood.py
 """
 
 import json
+import re
 import os
 import subprocess
 import tempfile
@@ -40,6 +41,33 @@ def _run_hook(json_payload: dict, timeout: int = 10) -> subprocess.CompletedProc
         text=True,
         timeout=timeout,
     )
+
+
+def _classify(json_payload: dict, timeout: int = 10) -> str:
+    """Run the hook in GUARD_DRY_RUN=1 mode and return the tier line it prints.
+
+    Since cc-config f29ca7e (2026-07-28) a new code file on dev is a
+    once-per-session note that exits 0, so the exit code alone no longer shows
+    the new-code rule fired. Classify mode prints "ALLOW: New .py file on dev"
+    only when it did.
+    """
+    return subprocess.run(
+        ["bash", HOOK_PATH],
+        input=json.dumps(json_payload),
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+        env=dict(os.environ, GUARD_DRY_RUN="1"),
+    ).stdout
+
+
+# A still-[CONFIRM] action on dev, for tests of the prompt machinery itself
+# (message format, bypass marker, dry-run marker, timing).
+def _git_clean_payload() -> dict:
+    return {"tool_name": "Bash", "tool_input": {"command": "git clean -fd"}, "cwd": CRAFT_ROOT}
+
+
+NEW_CODE_NOTE = re.compile(r"^ALLOW: New \.\w+ file on", re.MULTILINE)
 
 
 def _get_current_branch() -> str:
@@ -183,28 +211,28 @@ class TestCraftRepoDogfood(unittest.TestCase):
         self.assertEqual(result.returncode, 0, "New .md on dev should be allowed")
 
     @unittest.skipUnless(_get_current_branch() == "dev", "Not on dev branch")
-    def test_dev_write_new_py_blocked(self):
-        """Writing a new .py file on dev is blocked."""
-        result = _run_hook(self._payload(
+    def test_dev_write_new_py_noted(self):
+        """Writing a new .py file on dev is noted, not blocked (cc-config f29ca7e)."""
+        payload = self._payload(
             "Write",
             file_path=os.path.join(self.cwd, "utils", "brand_new_module.py"),
             content="# new\n",
-        ))
-        self.assertEqual(result.returncode, 2, "New .py on dev should be blocked")
-        self.assertTrue(
-            "BRANCH GUARD" in result.stderr or "[CONFIRM]" in result.stderr,
-            f"Expected guard output, got: {result.stderr!r}",
         )
+        result = _run_hook(payload)
+        self.assertEqual(result.returncode, 0, "New .py on dev is a note, not a block")
+        self.assertIn("ALLOW: New .py file on dev", _classify(payload))
 
     @unittest.skipUnless(_get_current_branch() == "dev", "Not on dev branch")
-    def test_dev_write_new_sh_blocked(self):
-        """Writing a new .sh file on dev is blocked."""
-        result = _run_hook(self._payload(
+    def test_dev_write_new_sh_noted(self):
+        """Writing a new .sh file on dev is noted, not blocked (cc-config f29ca7e)."""
+        payload = self._payload(
             "Write",
             file_path=os.path.join(self.cwd, "scripts", "brand_new_script.sh"),
             content="#!/bin/bash\n",
-        ))
-        self.assertEqual(result.returncode, 2, "New .sh on dev should be blocked")
+        )
+        result = _run_hook(payload)
+        self.assertEqual(result.returncode, 0, "New .sh on dev is a note, not a block")
+        self.assertIn("ALLOW: New .sh file on dev", _classify(payload))
 
     @unittest.skipUnless(_get_current_branch() == "dev", "Not on dev branch")
     def test_dev_write_existing_py_allowed(self):
@@ -453,63 +481,75 @@ class TestExtensionClassification(unittest.TestCase):
 
     def _write_new_file(self, filename: str) -> subprocess.CompletedProcess:
         """Attempt to write a new file that doesn't exist."""
+        return _run_hook(self._new_file_payload(filename))
+
+    def _new_file_payload(self, filename: str) -> dict:
         path = os.path.join(self.cwd, "tmp_test_dir", filename)
-        payload = {
+        return {
             "tool_name": "Write",
             "tool_input": {"file_path": path, "content": "test"},
             "cwd": self.cwd,
         }
-        return _run_hook(payload)
 
-    # Code extensions → blocked
-    def test_new_py_blocked(self):
-        self.assertEqual(self._write_new_file("new.py").returncode, 2)
+    def _assert_code(self, filename: str):
+        """Code extension: allowed, but the new-code note fires."""
+        self.assertEqual(self._write_new_file(filename).returncode, 0)
+        self.assertRegex(_classify(self._new_file_payload(filename)), NEW_CODE_NOTE)
 
-    def test_new_sh_blocked(self):
-        self.assertEqual(self._write_new_file("new.sh").returncode, 2)
+    def _assert_noncode(self, filename: str):
+        """Non-code extension: allowed, and the new-code note does not fire."""
+        self.assertEqual(self._write_new_file(filename).returncode, 0)
+        self.assertNotRegex(_classify(self._new_file_payload(filename)), NEW_CODE_NOTE)
 
-    def test_new_js_blocked(self):
-        self.assertEqual(self._write_new_file("new.js").returncode, 2)
+    # Code extensions → noted (allowed, new-code rule fires)
+    def test_new_py_noted(self):
+        self._assert_code("new.py")
 
-    def test_new_ts_blocked(self):
-        self.assertEqual(self._write_new_file("new.ts").returncode, 2)
+    def test_new_sh_noted(self):
+        self._assert_code("new.sh")
 
-    def test_new_json_blocked(self):
-        self.assertEqual(self._write_new_file("new.json").returncode, 2)
+    def test_new_js_noted(self):
+        self._assert_code("new.js")
 
-    def test_new_yml_blocked(self):
-        self.assertEqual(self._write_new_file("new.yml").returncode, 2)
+    def test_new_ts_noted(self):
+        self._assert_code("new.ts")
 
-    def test_new_yaml_blocked(self):
-        self.assertEqual(self._write_new_file("new.yaml").returncode, 2)
+    def test_new_json_noted(self):
+        self._assert_code("new.json")
 
-    def test_new_toml_blocked(self):
-        self.assertEqual(self._write_new_file("new.toml").returncode, 2)
+    def test_new_yml_noted(self):
+        self._assert_code("new.yml")
 
-    def test_new_r_blocked(self):
-        self.assertEqual(self._write_new_file("new.R").returncode, 2)
+    def test_new_yaml_noted(self):
+        self._assert_code("new.yaml")
 
-    def test_new_zsh_blocked(self):
-        self.assertEqual(self._write_new_file("new.zsh").returncode, 2)
+    def test_new_toml_noted(self):
+        self._assert_code("new.toml")
 
-    # Non-code extensions → allowed
+    def test_new_r_noted(self):
+        self._assert_code("new.R")
+
+    def test_new_zsh_noted(self):
+        self._assert_code("new.zsh")
+
+    # Non-code extensions → allowed, no new-code note
     def test_new_md_allowed(self):
-        self.assertEqual(self._write_new_file("new.md").returncode, 0)
+        self._assert_noncode("new.md")
 
     def test_new_txt_allowed(self):
-        self.assertEqual(self._write_new_file("new.txt").returncode, 0)
+        self._assert_noncode("new.txt")
 
     def test_new_css_allowed(self):
-        self.assertEqual(self._write_new_file("new.css").returncode, 0)
+        self._assert_noncode("new.css")
 
     def test_new_html_allowed(self):
-        self.assertEqual(self._write_new_file("new.html").returncode, 0)
+        self._assert_noncode("new.html")
 
     def test_extensionless_allowed(self):
-        self.assertEqual(self._write_new_file("Makefile").returncode, 0)
+        self._assert_noncode("Makefile")
 
     def test_dotfile_allowed(self):
-        self.assertEqual(self._write_new_file(".gitignore").returncode, 0)
+        self._assert_noncode(".gitignore")
 
 
 # ============================================================================
@@ -531,18 +571,13 @@ class TestErrorFormatting(unittest.TestCase):
             os.remove(session_file)
 
     def _trigger_block(self) -> str:
-        """Trigger a block and return the stderr message."""
-        payload = {
-            "tool_name": "Write",
-            "tool_input": {
-                "file_path": os.path.join(self.cwd, "utils", "evil.py"),
-                "content": "# bad\n",
-            },
-            "cwd": self.cwd,
-        }
-        result = _run_hook(payload)
-        # Smart mode v2: blocks with teaching box + [CONFIRM]
-        self.assertNotEqual(result.returncode, 0, "New .py on dev should be blocked")
+        """Trigger a [CONFIRM] and return the stderr message.
+
+        git clean, not a new .py: new code on dev is only a note since
+        cc-config f29ca7e, so it no longer renders the teaching box.
+        """
+        result = _run_hook(_git_clean_payload())
+        self.assertNotEqual(result.returncode, 0, "git clean on dev should prompt")
         return result.stderr
 
     def test_error_has_box_drawing(self):
@@ -565,19 +600,15 @@ class TestErrorFormatting(unittest.TestCase):
         msg = self._trigger_block()
         self.assertIn("smart", msg.lower(), "Error should show protection level")
 
-    def test_error_shows_file_path(self):
-        """Error shows the file path that was blocked."""
+    def test_error_shows_action(self):
+        """Error shows the action that was gated."""
         msg = self._trigger_block()
-        self.assertIn("evil.py", msg, "Error should show the blocked file")
+        self.assertIn("git clean", msg, "Error should show the gated action")
 
     def test_error_shows_remediation(self):
         """Error suggests how to fix the issue."""
         msg = self._trigger_block()
-        # Should mention worktree or unprotect as options
-        self.assertTrue(
-            "worktree" in msg.lower() or "unprotect" in msg.lower(),
-            "Error should suggest remediation",
-        )
+        self.assertIn("safe alternatives", msg.lower(), "Error should suggest remediation")
 
 
 # ============================================================================
@@ -610,14 +641,7 @@ class TestPerformance(unittest.TestCase):
         if branch not in ("dev", "main", "master"):
             self.skipTest("Need protected branch for block timing")
 
-        payload = {
-            "tool_name": "Write",
-            "tool_input": {
-                "file_path": os.path.join(CRAFT_ROOT, "tmp_perf", "new.py"),
-                "content": "x",
-            },
-            "cwd": CRAFT_ROOT,
-        }
+        payload = _git_clean_payload()
         times = []
         for _ in range(5):
             start = time.perf_counter()
@@ -655,14 +679,7 @@ class TestBypassDogfood(unittest.TestCase):
 
     def test_bypass_allows_then_block_restores(self):
         """Create marker -> allowed, remove marker -> blocked again."""
-        payload = {
-            "tool_name": "Write",
-            "tool_input": {
-                "file_path": os.path.join(CRAFT_ROOT, "utils", "nonexistent.py"),
-                "content": "x",
-            },
-            "cwd": CRAFT_ROOT,
-        }
+        payload = _git_clean_payload()
 
         # Ensure marker does NOT exist
         if os.path.isfile(self.marker):
@@ -716,14 +733,7 @@ class TestDryRunDogfood(unittest.TestCase):
             os.makedirs(os.path.dirname(self.dryrun_marker), exist_ok=True)
             Path(self.dryrun_marker).touch()
 
-            payload = {
-                "tool_name": "Write",
-                "tool_input": {
-                    "file_path": os.path.join(CRAFT_ROOT, "utils", "nonexistent.py"),
-                    "content": "x",
-                },
-                "cwd": CRAFT_ROOT,
-            }
+            payload = _git_clean_payload()
             result = _run_hook(payload)
             self.assertEqual(result.returncode, 0, "Dry-run should allow (exit 0)")
             self.assertIn("[DRY-RUN]", result.stderr, "Should log dry-run message")

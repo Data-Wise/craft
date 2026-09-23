@@ -481,7 +481,7 @@ Guides (reference docs inside the skill, not commands):
 
 Branch Protection (v2.16.0):
   main   = block all (code + docs + commits)
-  dev    = block new code files, allow edits + docs
+  dev    = smart: confirm destructive ops, note new code files
   feat/* = unrestricted
 ────────────────────────────────────────────────────────────────────────
 ```
