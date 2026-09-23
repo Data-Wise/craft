@@ -15,7 +15,9 @@ exclude_docs: |
   plans/
   archive/
   brainstorm/
-  orch/
+  # Anchored: an unanchored `orch/` also excluded docs/commands/orch/, 404ing
+  # the /craft:orch:drive and /craft:orch:workflow pages the nav links to.
+  /orch/
   dev/
   # Internal working proposals (not yet through spec review)
   internal/PROPOSAL-*.md
@@ -23,8 +25,6 @@ exclude_docs: |
   internal/HOOKS-TOKEN-AUDIT-*.md
   internal/TUTORIAL-rtk-cli-token-proxy.md
   internal/TUTORIAL-orchestration-and-skill-eval-loop.md
-  # Stale standalone docs (moved to archive/)
-  VALIDATOR-BEST-PRACTICES.md
 
 theme:
   name: material

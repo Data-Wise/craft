@@ -26,8 +26,9 @@ Craft works in both Claude Code CLI and Claude Desktop app. No MCP server depend
 ### Option 1: Marketplace (Recommended)
 
 ```bash
-# Install from the Claude Code plugin marketplace
-claude plugin add github:Data-Wise/craft
+# Install from the Data-Wise marketplace, inside Claude Code
+claude plugin marketplace add Data-Wise/claude-plugins
+claude plugin install craft@data-wise
 ```
 
 Works on **all platforms** (macOS, Linux, Windows). No additional tools required.
