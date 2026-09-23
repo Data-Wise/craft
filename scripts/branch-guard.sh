@@ -580,6 +580,15 @@ _confirm() {
   _session_increment "$action_type"
 
   msg=""
+  # Most call sites already name the branch in action_desc ("git clean -f ...
+  # on ${BRANCH}"); only append it for the ones that don't, so the brief and
+  # minimal lines never read "... on dev on dev." FILE_PATH is stripped before
+  # matching: it is user-controlled, and a path like ".../notes on dev/x.pem"
+  # must not suppress the branch on a prompt that doesn't otherwise name it.
+  local on_branch=" on ${BRANCH}" fixed_desc="$action_desc"
+  [[ -n "${FILE_PATH:-}" ]] && fixed_desc="${fixed_desc//"$FILE_PATH"/}"
+  [[ "$fixed_desc" == *" on ${BRANCH}"* ]] && on_branch=""
+
   case "$verbosity" in
     full)
       # Full teaching box
@@ -619,14 +628,14 @@ _confirm() {
         "${_D}Branch:${_N}  ${BRANCH} (smart mode)" \
       )"
       msg+=$'\n'
-      msg+="[CONFIRM] ${action_desc} on ${BRANCH}."$'\n'
+      msg+="[CONFIRM] ${action_desc}${on_branch}."$'\n'
       msg+="Action:  ${action_desc}"$'\n'
       msg+="Risk:    ${risk_reason}"$'\n'
       msg+="Branch:  ${BRANCH} (smart mode)"
       ;;
     minimal)
       # One-liner
-      msg="[CONFIRM] ${action_desc} on ${BRANCH}. Allow?"
+      msg="[CONFIRM] ${action_desc}${on_branch}. Allow?"
       ;;
   esac
 

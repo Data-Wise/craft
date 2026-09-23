@@ -25,6 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   the force-delete gate; #57, corrected remediation text; #75, the `_BG_GIT` completeness fix;
   issue #44, `--delete` in any position is now caught by push-refspec parsing. All four numbers
   refer to `Data-Wise/cc-config`.
+- **branch-guard: brief/minimal `[CONFIRM]` lines no longer name the branch twice** ("… on dev on
+  dev. Allow?"). Re-synced from cc-config #83, which appends the branch only when the action text
+  doesn't already name it; the file path is removed before that check. New test:
+  `test_verbosity_minimal_names_branch_once`.
 
 ### Fixed
 
