@@ -54,7 +54,7 @@ Naming: **kebab-case, verb-first**
 
 | Pattern | Examples |
 |---------|----------|
-| `<verb>-<noun>.sh` | `validate-counts.sh`, `sync-version.sh` |
+| `<verb>-<noun>.sh` | `validate-counts.sh`, `bump-version.sh` |
 | `<verb>-<noun>-<detail>.sh` | `docs-lint-emoji.sh` |
 | `<noun>-<role>.sh` | `dependency-manager.sh`, `consent-prompt.sh` |
 
