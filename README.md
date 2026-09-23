@@ -346,7 +346,7 @@ folio.
 
 ## Version
 
-- **Version:** 4.2.0
+- **Version:** 4.6.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 
