@@ -2,7 +2,7 @@
   "mcpServers": {
     "mcp-mermaid": {
       "command": "npx",
-      "args": ["-y", "mcp-mermaid"]
+      "args": ["-y", "mcp-mermaid@0.4.1"]
     }
   }
 }
