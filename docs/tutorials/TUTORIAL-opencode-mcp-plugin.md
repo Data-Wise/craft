@@ -8,7 +8,7 @@ either is installed.
 
 | Name | Package | Style |
 |------|---------|-------|
-| `opencode` | `opencode-mcp` (npm) | Synchronous-first — ~80 tools, tiered (`opencode_setup` → `opencode_ask`/`opencode_run` → fine-grained session/message control) |
+| `opencode` | `opencode-mcp` (npm) | Sync-first plus durable async jobs (v3.0.0) — 87 tools, tiered (`opencode_setup` → `opencode_ask`/`opencode_run` → fine-grained session/message control); `opencode_run` returns a durable job ID, resumable with `opencode_wait`/`opencode_job_get` |
 | `opencode-async` | local build, `~/tools/better-opencode-mcp` | Fire-and-forget — 7 tools (`opencode`, `opencode_sessions`, `opencode_respond`, `opencode_cancel`, `opencode_health`, `ping`, `Help`), built for long-running background tasks |
 
 They are not duplicates: `opencode` covers everything from a one-shot
@@ -41,11 +41,13 @@ for the full rationale. Quick version:
 | Security / architecture / can't verify the result | Don't delegate | Not verifiable after the fact |
 | Hard, well-scoped SWE task (deep bug, tricky refactor) | [`codex`](TUTORIAL-codex-plugin.md) | Same task shape the `codex` plugin's `codex-rescue` agent targets — but craft shells to `codex exec` directly, never through that agent (different plugin, no cross-plugin dispatch) |
 | One-shot question, need the answer this turn | `opencode` (`opencode_ask`/`opencode_run`) | Sync tier, blocks until done |
-| Long task, don't want to block the session | `opencode-async` | Fire-and-forget, poll later |
+| Long task, don't want to block the session | `opencode` durable job (`opencode_run` → `opencode_wait`/`opencode_check`), or `opencode-async` if registered | Job keeps running past an observation timeout; poll later |
 
 **Status vocabularies are different between the two bridges — don't conflate them:**
 `opencode-async` reports `working` / `input_required` / `completed` / `failed` / `cancelled`;
-`opencode`'s `opencode_check` reports `running` / `completed` / `error`.
+`opencode` (v3.0.0) durable jobs report `accepted` / `running` / `input_required` / `completed` /
+`failed` / `cancelled` / `unknown` — via `opencode_check` (pass `jobId`), `opencode_job_get`, or
+`opencode_wait`. (Before v3 it was `running` / `completed` / `error`; re-check after upgrades.)
 
 ## Always Monitor a Delegation (mandatory, not optional)
 
@@ -176,7 +178,7 @@ a ChatGPT account", the configured `model` was retired server-side — pick a cu
 Both servers were smoke-tested directly over stdio (JSON-RPC
 `initialize` + `tools/list`, no live session needed):
 
-- `opencode` — responds with 80 tools + a tiered usage guide in the
+- `opencode` — responds with 87 tools (v3.0.0, re-checked 2026-09-23; 80 in August) + a tiered usage guide in the
   initialize response's top-level `instructions` field (a sibling of
   `serverInfo`, not nested inside it); auto-starts its SDK server on port
   4096.
