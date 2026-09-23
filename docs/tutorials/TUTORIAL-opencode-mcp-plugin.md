@@ -32,7 +32,7 @@ Drop it (or use `-s project`) to scope a bridge to one repo instead — see
 
 ## When to Use Which (routing table)
 
-See [`SPEC-codex-opencode-delegation-2026-08-08.md`](../specs/SPEC-codex-opencode-delegation-2026-08-08.md)
+See [`SPEC-codex-opencode-delegation-2026-08-08.md`](../specs/_archive/SPEC-codex-opencode-delegation-2026-08-08.md)
 for the full rationale. Quick version:
 
 | Situation | Use | Why |

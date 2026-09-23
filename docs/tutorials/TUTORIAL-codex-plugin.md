@@ -22,7 +22,7 @@ directory the first time it's used in that directory.
 
 See the routing table in
 [`TUTORIAL-opencode-mcp-plugin.md`](TUTORIAL-opencode-mcp-plugin.md#when-to-use-which-routing-table)
-and [`SPEC-codex-opencode-delegation-2026-08-08.md`](../specs/SPEC-codex-opencode-delegation-2026-08-08.md)
+and [`SPEC-codex-opencode-delegation-2026-08-08.md`](../specs/_archive/SPEC-codex-opencode-delegation-2026-08-08.md)
 for the full rationale — short version: Codex for hard, well-scoped SWE tasks (deep bugs,
 tricky refactors); OpenCode for one-shot questions or long background tasks.
 
