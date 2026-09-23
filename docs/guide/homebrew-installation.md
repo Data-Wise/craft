@@ -359,7 +359,8 @@ For details on building and releasing desktop apps, see the [Desktop Release Gui
 The **recommended** installation method for new users and cross-platform setups is the Claude Code marketplace:
 
 ```bash
-claude plugin add github:Data-Wise/craft
+claude plugin marketplace add Data-Wise/claude-plugins
+claude plugin install craft@data-wise
 ```
 
 **Advantages over Homebrew:**

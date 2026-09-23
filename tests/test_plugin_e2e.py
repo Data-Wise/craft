@@ -444,6 +444,51 @@ class TestDocsSiteAlignment:
             "orch/drive.md not referenced in mkdocs.yml nav"
         )
 
+    def test_nav_pages_not_excluded_by_exclude_docs(self):
+        """No nav page may be matched by an exclude_docs pattern.
+
+        Being *in* the nav is not enough: an unanchored `orch/` pattern also matched
+        docs/commands/orch/, so drive.md/workflow.md were nav-listed but never built,
+        and 404'd on the live site while test_drive_command_in_nav passed.
+        Gitignore semantics (what mkdocs uses): a pattern with no slash except a
+        trailing one matches that name at any depth; a leading slash anchors it.
+        """
+        import fnmatch
+
+        text = (PLUGIN_DIR / "mkdocs.yml").read_text(encoding="utf-8")
+        block = re.search(r"^exclude_docs:\s*\|\n((?:[ \t]+.*\n|\n)+)", text, re.MULTILINE)
+        assert block, "mkdocs.yml has no exclude_docs block"
+        patterns = [
+            ln.strip() for ln in block.group(1).splitlines()
+            if ln.strip() and not ln.strip().startswith("#")
+        ]
+        nav = text[text.index("\nnav:"):]
+        nav_pages = re.findall(r":\s*([\w./-]+\.md)\s*$", nav, re.MULTILINE)
+        assert nav_pages, "no .md pages found in nav"
+
+        def matches(path: str, pat: str) -> bool:
+            is_dir = pat.endswith("/")
+            core = pat.strip("/")
+            anchored = pat.startswith("/") or "/" in core
+            parts = path.split("/")
+            if anchored:
+                prefixes = ["/".join(parts[:i]) for i in range(1, len(parts) + 1)]
+                cands = prefixes[:-1] if is_dir else prefixes
+                return any(fnmatch.fnmatch(c, core) for c in cands)
+            names = parts[:-1] if is_dir else parts
+            return any(fnmatch.fnmatch(n, core) for n in names)
+
+        def excluded(path: str) -> bool:
+            state = False
+            for pat in patterns:  # later patterns win; `!` re-includes
+                neg = pat.startswith("!")
+                if matches(path, pat[1:] if neg else pat):
+                    state = not neg
+            return state
+
+        hits = [p for p in nav_pages if excluded(p)]
+        assert not hits, f"nav pages excluded by exclude_docs (would 404): {hits}"
+
 
 # ============================================================================
 # 8. Script Syntax Validation

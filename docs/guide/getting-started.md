@@ -19,7 +19,8 @@ Complete guide to using the craft plugin for Claude Code.
 ### Method 1: Marketplace (Recommended)
 
 ```bash
-claude plugin add github:Data-Wise/craft
+claude plugin marketplace add Data-Wise/claude-plugins
+claude plugin install craft@data-wise
 ```
 
 Works on all platforms with a single command. See [Marketplace Distribution Guide](marketplace-distribution.md) for details.
