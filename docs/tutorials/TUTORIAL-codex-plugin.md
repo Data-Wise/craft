@@ -29,16 +29,24 @@ tricky refactors); OpenCode for one-shot questions or long background tasks.
 ## Always Monitor a Delegation (mandatory, not optional)
 
 Never fire `codex exec`/`codex review` and silently wait. `--json` emits JSONL events —
-filter for the terminal event + token usage only, not raw logs:
+hand this to the `Monitor` tool so it reports the terminal event + token usage only, not raw
+logs. The four-step procedure and the templates for all three tools live in
+[`TUTORIAL-opencode-mcp-plugin.md`](TUTORIAL-opencode-mcp-plugin.md#always-monitor-a-delegation-mandatory-not-optional).
 
 ```bash
-codex exec review --json --uncommitted 2>&1 | while IFS= read -r line; do
+LOG="${TMPDIR:-/tmp}/codex-exec.jsonl"
+codex exec --json "<task>" </dev/null 2>&1 | tee "$LOG" | while IFS= read -r line; do
   case "$line" in
-    *'"type":"turn.completed"'*|*'"type":"turn.failed"'*|*'"type":"error"'*|*token*|*usage* )
+    '{"type":"turn.completed"'*|'{"type":"turn.failed"'*|'{"type":"error"'* )
       echo "[codex] $(echo "$line" | cut -c1-400)" ;;
   esac
 done
+echo "[codex] exited"
 ```
+
+Match the start of the line only: `item.completed` events can carry a nested
+`"type":"error"` for mere warnings, which a looser match reports as failures. Close stdin
+(`</dev/null`) or `codex exec` may wait on it under a background runner.
 
 If the inline `usage` numbers read all-zeros, the real total is in a *child* rollout file
 under `~/.codex/sessions/**/rollout-*.jsonl` — find the one whose `parent_thread_id` matches

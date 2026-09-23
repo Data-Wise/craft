@@ -82,6 +82,8 @@ Create, switch, and delete branches safely.
 
 `git status` with extra context: current branch, ahead/behind, worktree-aware path, teaching-mode hints if a `_teaching/` directory exists, and a guard-status line (protection level, session-confirm count, one-shot-pending state, or `BYPASSED (reason: ...)` — sourced from Operation 8's config/auto-detect, not re-derived here).
 
+**Fetch first:** run `git fetch <remote> --quiet` before computing ahead/behind — the divergence count reads the local `<remote>/<branch>` ref, which is only as current as the last fetch. Skipping this can silently report a stale sync state (e.g. "0 ahead, 0 behind" when the remote has actually moved) with no indication anything is wrong.
+
 **Modes:** `--verbose` (full `git status` after the summary), `--compact` (one-line summary only).
 
 Use this as the cheap default when the user's prompt is ambiguous.
@@ -165,16 +167,19 @@ Pull and push with conflict-handling guidance.
 
 **Steps:**
 
-1. Detect divergence: ahead/behind counts against upstream.
-2. Fast-forward pull if behind only.
-3. If both ahead and behind: prompt for `rebase` vs `merge` (default rebase for feature branches, merge for `dev`/`main`).
-4. Push after pull; report any non-fast-forward rejections instead of force-pushing.
+1. `git fetch <remote> --quiet` to refresh remote-tracking refs — divergence in step 2 is only accurate against a freshly-fetched ref, never a cached one.
+2. Detect divergence: ahead/behind counts against upstream.
+3. Fast-forward pull if behind only.
+4. If both ahead and behind: prompt for `rebase` vs `merge` (default rebase for feature branches, merge for `dev`/`main`).
+5. Push after pull; report any non-fast-forward rejections instead of force-pushing.
 
 **Never** force-push to protected branches (`main`, `dev`). For feature branches, prefer `--force-with-lease` over `--force`.
 
 ### 7. Git Activity Recap
 
 Lightweight summary: today's commits, this week's commits, branch ahead/behind, unpushed work, open PRs (`gh pr list --author @me`).
+
+**Fetch first:** run `git fetch <remote> --quiet` before computing ahead/behind and unpushed-commit counts, same reason as Operations 3 and 6 — a stale local `<remote>/<branch>` ref reports a stale sync state with no staleness signal.
 
 **Modes:** `default` | `detailed` | `summary`. Complements (does not replace) the broader `recap` operation in `adhd-workflow` — that one reads `.STATUS`; this one reads git history.
 

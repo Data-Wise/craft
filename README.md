@@ -8,14 +8,14 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-4.6.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.6.1-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 > **Docs/publishing commands moved to [`folio`](https://github.com/Data-Wise/folio)** — see
 > [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
 >
-> **v4.6.0 — prose-staleness checks, hardened same day** 🚀
+> **v4.6.1 — docs accuracy pass + pinned MCP server** 🚀
 > **48 commands** | **41 skills** | **2 agents**
-> New release-date consistency and count-prose checks in `docs-staleness-check.sh` Phase 7, closing a blind spot where stale counts read GREEN for multiple releases — then hardened the same day after a high-effort review found 9 defects (2 HIGH) in the initial ship. Also: Teaching Mode feature removed. See [NEWS.md](docs/NEWS.md).
+> Three docs pages that 404'd now build, install instructions use a command that exists, 15 command reference pages are rebuilt from source (no more fake `[mode]` argument), this README is rewritten for v4, and the bundled `mcp-mermaid` server is pinned. See [NEWS.md](docs/NEWS.md).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -26,8 +26,9 @@ Craft works in both Claude Code CLI and Claude Desktop app. No MCP server depend
 ### Option 1: Marketplace (Recommended)
 
 ```bash
-# Install from the Claude Code plugin marketplace
-claude plugin add github:Data-Wise/craft
+# Install from the Data-Wise marketplace, inside Claude Code
+claude plugin marketplace add Data-Wise/claude-plugins
+claude plugin install craft@data-wise
 ```
 
 Works on **all platforms** (macOS, Linux, Windows). No additional tools required.
@@ -196,271 +197,157 @@ Commands support execution modes for different use cases:
 /craft:arch:analyze optimize    # Performance analysis
 ```
 
-## Commands (110 total)
+## Commands (48)
 
-### Workflow Commands (12)
+Every command is `/craft:<name>`. Four root commands (`brainstorm`, `check`, `next`, `refine`) are
+thin shims: the command still works, and its logic lives in the skill named in its
+`replaced-by:` frontmatter.
 
-| Command                                | Description                                                                                   |
-| -------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `/brainstorm [depth] [focus] [action]` | Enhanced brainstorming with smart detection, design modes, time budgets, and agent delegation |
-| `/next`                                | Get next task recommendation                                                                  |
-| `/done [message]`                      | Mark current task as complete                                                                 |
-| `/refine <spec-file>`                  | Refine and improve existing spec documents                                                    |
+### Workflow & discovery (14)
 
-**Brainstorming Modes:**
+| Command | What it does |
+|---|---|
+| `/craft:do <task>` | Universal entry point — scores the task and routes to the right commands |
+| `/craft:plan <topic>` | Universal planning entry — routes to brainstorm, grill, plan-orchestrator, or feature planning |
+| `/craft:brainstorm` | Brainstorming with design modes, time budgets, and spec capture (shim → `brainstorm` skill) |
+| `/craft:grill` | Adversarially interrogate a plan or spec, one question at a time |
+| `/craft:check` | Pre-flight readiness check before commit / PR / release (shim → `preflight-check` skill) |
+| `/craft:test` | Unified test runner with category filtering and modes |
+| `/craft:orch` | Orchestrator mode — subagent delegation, monitoring, mode-aware execution |
+| `/craft:finish` | Session completion and context capture (renamed from `/craft:done` in v4.2.0) |
+| `/craft:restore` | Restore git + `.STATUS` context when returning to a project |
+| `/craft:next` | Decision support — what to work on next (shim → `adhd-workflow` skill) |
+| `/craft:brief` | 3-line action block: next step / watch out for / connects to |
+| `/craft:refine` | Prompt optimizer (shim → `prompt-refiner` skill) |
+| `/craft:hub` · `/craft:smart-help` | Browse all commands · context-aware command suggestions |
 
-```bash
-/brainstorm q feat        # Quick feature brainstorm
-/brainstorm d arch        # Deep architecture analysis
-/brainstorm max ux save   # Max depth UX design with spec capture
-```
+### Code (13)
 
-### Smart Commands (4) - ENHANCED
+| Command | What it does |
+|---|---|
+| `/craft:code:lint` | Style and quality checks, with modes |
+| `/craft:code:debug` | Guided bug diagnosis |
+| `/craft:code:refactor` | Refactoring guidance |
+| `/craft:code:test-gen` | Generate tests |
+| `/craft:code:demo` | Code demonstration |
+| `/craft:code:deps-check` · `/craft:code:deps-audit` | Dependency health · security audit for known vulnerabilities |
+| `/craft:code:docs-check` | Documentation and website pre-flight check |
+| `/craft:code:release` | Release workflow (delegates to the `release` skill for plugins) |
+| `/craft:code:release-watch` | Track Claude Code + Desktop releases for plugin-relevant changes |
+| `/craft:code:command-audit` | Validate command frontmatter and report a health score |
+| `/craft:code:skill-standards` | Audit `SKILL.md` files against Anthropic's authoring standards |
+| `/craft:code:fewer-prompts` | Install a curated read-only Bash allowlist |
 
-| Command                            | Description                                                                                      |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `/craft:do <task>`                 | Universal command - routes to appropriate workflow                                               |
-| `/craft:orch <task> [mode]` | **ENHANCED v2.1** Launch orchestrator with mode-aware execution, context tracking, timeline view |
-| `/craft:check`                     | Pre-flight checks (commit/pr/release)                                                            |
-| `/craft:help`                      | Context-aware help and suggestions                                                               |
+### CI (8)
 
-#### Orchestrator Modes
+| Command | What it does |
+|---|---|
+| `/craft:ci:detect` · `/craft:ci:generate` · `/craft:ci:validate` | Detect project/CI needs · generate a GitHub Actions workflow · validate an existing one |
+| `/craft:ci:local` | Run CI checks locally before pushing |
+| `/craft:ci:status` | Cross-repo CI status dashboard |
+| `/craft:ci:watch` | Poll a run to completion, then route: merge if green, triage if red |
+| `/craft:ci:triage` | Classify a failing check as diff-caused vs pre-existing/infra |
+| `/craft:ci:fix` | Fix CI failures |
 
-```bash
-/craft:orch "add auth" optimize    # Fast parallel (4 agents)
-/craft:orch "prep release" release # Thorough audit
-/craft:orch status                 # Agent dashboard
-/craft:orch timeline               # Execution timeline
-/craft:orch budget                 # Context tracking
-/craft:orch continue               # Resume session
-```
+### Architecture & planning (5)
 
-### Code Commands (13)
+| Command | What it does |
+|---|---|
+| `/craft:arch:analyze` · `/craft:arch:review` | Analyze architecture (with modes) · review it |
+| `/craft:arch:plan` · `/craft:arch:diagram` | Plan architecture · generate diagrams |
+| `/craft:plan:feature` | Feature planning, with test and doc plans on by default (`--no-tests` / `--no-docs`) |
 
-| Command                         | Description              | Modes |
-| ------------------------------- | ------------------------ | ----- |
-| `/craft:code:debug`             | Systematic debugging     | ----- |
-| `/craft:code:demo`              | Create demonstrations    | ----- |
-| `/craft:code:docs-check`        | Pre-flight doc check     | ----- |
-| `/craft:code:refactor`          | Refactoring guidance     | ----- |
-| `/craft:code:release`           | Release workflow         | ----- |
-| `/craft:code:test-gen`          | Generate test files      | ----- |
-| `/craft:code:lint`              | Code style checks        | ✓    |
-| `/craft:test --coverage`          | Coverage report          | ✓    |
-| `/craft:code:deps-check`        | Dependency health        | ----- |
-| `/craft:code:deps-audit`        | Security scan            | ----- |
-| `/craft:ci:local`          | CI checks locally        | ----- |
-| `/craft:ci:fix`            | Fix CI failures          | ----- |
-| `/craft:code:skill-standards`   | Audit skill quality      | ----- |
+### Orchestration (2)
 
-### Test Commands (2)
+| Command | What it does |
+|---|---|
+| `/craft:orch:drive` | Drive an approved SPEC to completion via the `/goal` loop, with a real verify gate |
+| `/craft:orch:workflow` | Run a coded, fixed-control-flow workflow with schema-gated agents |
 
-| Command                  | Description                | Modes |
-| ------------------------ | -------------------------- | ----- |
-| `/craft:test`            | Unified test runner        | ✓    |
-| `/craft:code:test-gen`   | Generate test suites (renamed from `/craft:test:gen` in v4) | ----- |
-| `/craft:test:template`   | removed in v4 consolidation, no replacement | ----- |
+### Docs, site & distribution (6)
 
-### Architecture Commands (4)
+| Command | What it does |
+|---|---|
+| `/craft:docs:update` · `/craft:docs:changelog` | Smart doc updates · CHANGELOG from commits |
+| `/craft:site:deploy` | Deploy the docs site to GitHub Pages |
+| `/craft:dist:homebrew` · `/craft:dist:surfaces` | Homebrew automation · read-only multi-surface release registry |
+| `/craft:git:issue-check <N>` | Check whether an open issue's premise still holds before fixing it |
 
-| Command               | Description           | Modes |
-| --------------------- | --------------------- | ----- |
-| `/craft:arch:analyze` | Architecture analysis | ✓    |
-| `/craft:arch:plan`    | Design architecture   | ----- |
-| `/craft:arch:review`  | Review changes        | ----- |
-| `/craft:arch:diagram` | Generate diagrams     | ----- |
+The rest of the docs-authoring surface (`docs:sync`, `docs:mermaid`, `docs:tutorial`, `docs:site`,
+…) moved to the separate **[folio](https://github.com/Data-Wise/folio)** plugin in v4.0.0 as
+`/folio:docs:*`. Git workflow operations (branches, worktrees, sync, protection) are the
+**`dev/git` skill** — ask in plain language ("create a worktree for X"); only
+`/craft:git:issue-check` remains a command.
 
-### Planning Commands (1)
+## Skills (41)
 
-| Command               | Description              |
-| --------------------- | ------------------------ |
-| `/craft:plan:feature` | Plan features with tasks |
+Skills trigger from plain-language requests; no slash command needed.
 
-Sprint planning and roadmap generation moved into the `plan-orchestrator`
-skill (Modes 3–4) — invoke `/craft:plan` and describe the need.
+| Area | Skills |
+|---|---|
+| Workflow | `brainstorm`, `brainstorm-insights`, `grill`, `prompt-refiner`, `adhd-workflow`, `background-task-manager` |
+| Orchestration | `task-analyzer`, `plan-orchestrator`, `drive-engine`, `workflow-engine`, `session-state`, `repo-triage`, `orchestrator-resilience` |
+| Code & quality | `audit-router`, `plugin-audit`, `command-skill-token-efficiency`, `sync-features`, `preflight-check`, `guard-audit`, `hooks`, `insights-apply` |
+| Design & architecture | `system-architect`, `backend-designer`, `frontend-designer`, `devops-helper`, `project-planner` |
+| Testing | `test-generator`, `test-strategist` |
+| Git & release | `git-workflow` (`dev/git`), `release`, `changelog-automation` |
+| Distribution | `distribution-strategist`, `dist-extras`, `homebrew-formula-expert`, `homebrew-multi-formula`, `homebrew-setup-wizard`, `homebrew-workflow-expert` |
+| Docs | `architecture-decision-records`, `claude-md-lifecycle` |
+| CI & modes | `project-detector`, `mode-controller` |
 
-### Documentation Commands (13) - CONSOLIDATED in v1.11.0
+## Agents (2)
 
-#### Super Commands (3) - Smart defaults, do everything useful
+| Agent | Purpose |
+|---|---|
+| `orchestrator-v2` | Multi-step orchestration with subagent monitoring and mode-aware execution — what `/craft:do` delegates to for complex tasks |
+| `workflow-orchestrator` | Background agent delegation, task parallelization, and result synthesis |
 
-| Command              | Description                                                                 |
-| -------------------- | --------------------------------------------------------------------------- |
-| `/craft:docs:update` | **Smart-Full**: Detect → Generate all needed → Check → Changelog            |
-| `/craft:docs:sync`   | **Detection**: Classify changes, report stale docs, recommend actions       |
-| `/craft:docs:check`  | **Validation**: Links + stale + nav + auto-fix (Version C: full-by-default) |
-
-```bash
-# Just run it - figures out what's needed
-/craft:docs:update                    # Smart detection → full execution
-/craft:docs:update "sessions"         # Feature-specific full cycle
-/craft:docs:sync                      # Quick: "3 stale, guide recommended"
-/craft:docs:check                     # Full check cycle, auto-fixes issues
-/craft:docs:check --report-only       # CI-safe mode (no modifications)
-
-# ADHD-friendly website enhancement (NEW v1.15.0)
-/craft:docs:website                   # Full enhancement (all 3 phases)
-/craft:docs:website --analyze         # Show ADHD score only
-/craft:docs:website --phase 1         # Quick wins: TL;DR, mermaid fixes, time estimates
-/craft:docs:website --phase 2         # Structure: Visual workflows, navigation
-/craft:docs:website --phase 3         # Polish: Mobile responsive, interactions
-/craft:docs:website --dry-run         # Preview changes without writing
-```
-
-#### Specialized Commands (9)
-
-| Command                  | Description                                                                       |
-| ------------------------ | --------------------------------------------------------------------------------- |
-| `/craft:docs:api`        | OpenAPI/Swagger documentation                                                     |
-| `/craft:docs:changelog`  | Auto-update CHANGELOG                                                             |
-| `/craft:docs:site`       | Website-focused updates with optional deploy                                      |
-| `/craft:docs:website`    | **NEW v1.15.0** ADHD-friendly website enhancement (scoring, TL;DR, mermaid fixes) |
-| `/craft:docs:mermaid`    | Mermaid diagram templates (6 types)                                               |
-| `/craft:docs:nav-update` | Update mkdocs.yml navigation                                                      |
-| `/craft:docs:prompt`     | Generate reusable maintenance prompts                                             |
-| `/craft:docs:demo`       | Terminal recorder for GIF demos (asciinema/VHS)                                   |
-| `/craft:docs:guide`      | **NEW** Feature guide + demo + refcard generator                                  |
-
-#### Internal (1)
-
-| Command                 | Description                                 |
-| ----------------------- | ------------------------------------------- |
-| `/craft:docs:claude-md` | Update CLAUDE.md (called by other commands) |
-
-### Site Commands (12) - ENHANCED in v1.9.0
-
-| Command                   | Description                                                              |
-| ------------------------- | ------------------------------------------------------------------------ |
-| `/craft:site:update`      | Update site content from code changes                                    |
-| `/craft:site:status`      | Dashboard and health check                                               |
-| `/craft:site:build`       | Build site                                                               |
-| `/craft:site:deploy`      | Deploy to GitHub Pages                                                   |
-
-### Git (0 commands, 4 guides) — folded into the `dev/git` skill
-
-Branch management, git status, cleanup, worktree, protect, protect-baseline,
-unprotect, and guard management were all folded into the `dev/git` skill
-(2026-07 v4 consolidation) — there are no remaining `/craft:git:*` slash
-commands. Ask naturally ("create feature branch x", "show git status",
-"clean up merged branches", "protect this branch", "apply baseline
-protection") or see
-[`skills/dev/git/SKILL.md`](https://github.com/Data-Wise/craft/blob/dev/skills/dev/git/SKILL.md).
-
-**Git Guides:** refcard
-
-### CI Commands (3)
-
-| Command              | Description                                                       |
-| -------------------- | ----------------------------------------------------------------- |
-| `/craft:ci:detect`   | Smart detection of project type, build tools, and CI requirements |
-| `/craft:ci:generate` | Generate GitHub Actions workflow from detection                   |
-| `/craft:ci:validate` | Validate existing CI workflow against project configuration       |
-
-### Distribution Commands (1)
-
-| Command                    | Description                       |
-| -------------------------- | --------------------------------- |
-| `/craft:dist:homebrew`     | Generate/update Homebrew formula or cask  |
-| curl-based install scripts | Moved to the `dist-extras` skill (v4 consolidation) — ask "generate an install script" |
-
-### Discovery
-
-| Command      | Description           |
-| ------------ | --------------------- |
-| `/craft:hub` | Command discovery hub |
-
-## Skills (17)
-
-| Skill                           | Category      | Triggers                                     |
-| ------------------------------- | ------------- | -------------------------------------------- |
-| `backend-designer`              | Design        | API, database, auth                          |
-| `frontend-designer`             | Design        | UI/UX, components                            |
-| `devops-helper`                 | Design        | CI/CD, deployment                            |
-| `test-strategist`               | Testing       | Test strategy                                |
-| `cli-test-strategist`           | Testing       | CLI testing                                  |
-| `system-architect`              | Architecture  | System design                                |
-| `project-planner`               | Planning      | Feature planning                             |
-| `mode-controller`               | Modes         | Mode behavior                                |
-| `task-analyzer`                 | Orchestration | Task routing                                 |
-| `changelog-automation`          | Documentation | Changelog patterns                           |
-| `architecture-decision-records` | Documentation | ADR generation                               |
-| `openapi-spec-generation`       | Documentation | OpenAPI specs                                |
-| `mermaid-linter`                | Documentation | Mermaid diagram validation                   |
-| `project-detector`              | CI            | **NEW v1.10.0** Smart project type detection |
-| `distribution-strategist`       | Distribution  | Release channels                             |
-| `homebrew-formula-expert`       | Distribution  | Homebrew formulas                            |
-| `worktree-expert`               | Git           | Git worktree workflows                       |
-
-## Agents (7)
-
-| Agent               | Purpose                                                            |
-| ------------------- | ------------------------------------------------------------------ |
-| `orchestrator`      | Smart delegation to skills                                         |
-| `orchestrator-v2`   | **ENHANCED** Mode-aware execution, context tracking, timeline view |
-| `docs-architect`    | Long-form technical documentation                                  |
-| `tutorial-engineer` | Step-by-step tutorials                                             |
-| `api-documenter`    | OpenAPI/Swagger documentation                                      |
-| `reference-builder` | Technical reference guides                                         |
-| `mermaid-expert`    | Mermaid diagram generation                                         |
+The documentation agents (`docs-architect`, `api-documenter`, `tutorial-engineer`, …) ship with
+folio.
 
 ## Workflows
 
-### Daily Development
-
-```
-/craft:check → /craft:test unit
-```
-
-### Release Preparation
-
-```
-/craft:check --for release
-# OR
-/craft:code:deps-audit → /craft:test release → /craft:code:release
-```
-
-### Feature Development
-
-```
-/craft:do "add feature name"
-# Routes to: arch:plan → code:test-gen → git:branch
-```
-
-### Documentation Workflow (v1.11.0 - Consolidated)
+### Daily development
 
 ```bash
-# THE ONE COMMAND - detects what's needed, does it all
-/craft:docs:update                    # Smart detection → full execution
-
-# Feature-specific documentation
-/craft:docs:update "auth"             # Full cycle for auth feature
-
-# Check documentation health
-/craft:docs:check                     # Full: links + stale + nav + auto-fix
-/craft:docs:check --report-only       # CI mode (no changes)
-
-# Quick status check
-/craft:docs:sync                      # "3 stale, guide recommended (score: 7)"
-
-# Deploy website
-/craft:docs:site --deploy
+/craft:do "add input validation to the signup form"   # routed to the right commands
+/craft:code:lint && /craft:test                        # quick quality pass
+/craft:finish                                          # capture session context
 ```
 
-### Site Workflow
+### Returning to a project
 
+```bash
+/craft:restore        # where did I leave off? (git + .STATUS)
+/craft:next           # what to work on next
 ```
-# Update content from code changes
-/craft:site:update
 
-# Check site health
-/craft:site:status
+### Planning a feature
 
-# Build and deploy
-/craft:site:build → /craft:site:deploy
+```bash
+/craft:plan "redesign the auth flow"   # picks brainstorm / grill / feature plan
+/craft:grill                            # stress-test the resulting spec
+```
+
+### Release preparation
+
+```bash
+/craft:check --for release   # pre-flight
+/craft:test release          # full suite
+/craft:code:release          # release workflow
+```
+
+### Documentation & site
+
+```bash
+/craft:docs:update           # detect and apply doc updates
+/craft:docs:changelog        # CHANGELOG from commits
+/craft:site:deploy           # publish to GitHub Pages
 ```
 
 ## Version
 
-- **Version:** 4.2.0
+- **Version:** 4.6.1
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 

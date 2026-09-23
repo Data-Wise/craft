@@ -7,7 +7,7 @@
 >
 > - **What:** Ultra-fast guide to craft with zero cognitive load - install, verify, and run in under 2 minutes
 > - **Why:** ADHD-optimized workflow with time-boxed steps, clear wins, and smart defaults
-> - **How:** `brew install data-wise/tap/craft` or `claude plugin add github:Data-Wise/craft` → `/craft:hub` → `/craft:do "task"`
+> - **How:** `brew install data-wise/tap/craft` or `claude plugin install craft@data-wise` → `/craft:hub` → `/craft:do "task"`
 > - **Next:** Try the [5-minute exploration](#next-5-minutes) or jump to [docs automation](commands/docs.md)
 
 ## ⏱️ First 30 Seconds
@@ -20,7 +20,8 @@
 ```bash
 # Pick ONE install method:
 brew tap data-wise/tap && brew install craft  # Homebrew (macOS)
-claude plugin add github:Data-Wise/craft      # GitHub marketplace
+claude plugin marketplace add Data-Wise/claude-plugins  # Data-Wise marketplace
+claude plugin install craft@data-wise
 
 # Then verify:
 /craft:hub                                    # Verify 48 commands are available

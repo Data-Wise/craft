@@ -6,7 +6,7 @@
 
 > `/craft:finish` — renamed from `/craft:done` (ADR-006, v4.2.0, breaking) · `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (9 commands) · `/craft:restore` — combined git+`.STATUS` recap
 
-**Current Version:** v4.6.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
+**Current Version:** v4.6.1 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
@@ -36,6 +36,12 @@ feature/* (worktrees) ← All implementation work
 | `feature/*` | ALLOWED | ALLOWED | All allowed |
 
 Override local hook: ask "unprotect dev" / "bypass branch guard" (`dev/git` skill, Operation 10 — session-scoped, auto-expires).
+
+**GitHub-side:** `main` is protected (PR only). Since 2026-09-23 `dev` has a deletion-only ruleset
+(`protect-dev-from-deletion`, id 23890849 — no push/PR/review rules, so commits to `dev` are still
+policed only by the local hook) and the repo auto-deletes merged head branches. The ruleset is
+load-bearing: release PRs use `dev` as head, and auto-delete removes an unprotected head branch on
+merge, so dropping it would delete `dev` at the next `dev→main` release.
 
 ## Quick Commands
 

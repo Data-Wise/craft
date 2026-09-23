@@ -1,6 +1,6 @@
 # Codex/OpenCode Delegation Routing — Spec
 
-**Generated:** 2026-08-08 · **Status:** draft — reviewed
+**Generated:** 2026-08-08 · **Status:** IMPLEMENTED 2026-09-23 (docs pass) — reviewed
 **Sources:** [`BRAINSTORM-codex-opencode-delegation-2026-08-08.md`](BRAINSTORM-codex-opencode-delegation-2026-08-08.md) ·
 [`GRILL-codex-opencode-delegation-2026-08-08.md`](GRILL-codex-opencode-delegation-2026-08-08.md) (5 branches locked)
 
@@ -114,14 +114,24 @@ the `--refine`/brainstorm redesign already removed once — "one delegation mech
 
 ## Acceptance Criteria
 
-- [ ] Routing table + monitor-every-delegation step live in both tutorials (or one shared
+- [x] Routing table + monitor-every-delegation step live in both tutorials (or one shared
       location both link to)
-- [ ] A ready-to-copy `Monitor` template exists for all 3 tools
-- [ ] Two-vocabulary note present and correct (guards against reintroducing finding F2)
+- [x] A ready-to-copy `Monitor` template exists for all 3 tools
+- [x] Two-vocabulary note present and correct (guards against reintroducing finding F2)
 - [ ] `arch:review`'s eventual `--delegate` flag defaults OFF (D7), enforced by a test once
       built (D8) — the brainstorm-research escalation (use case 2) has no flag to default,
       it's a skill-internal choice already gated by the skill's own interactive flow
-- [ ] `markdownlint` + `mkdocs build --strict` clean
+- [x] `markdownlint` + `mkdocs build --strict` clean
+
+**Implementation note (2026-09-23):** templates live in
+[`TUTORIAL-opencode-mcp-plugin.md`](../tutorials/TUTORIAL-opencode-mcp-plugin.md#always-monitor-a-delegation-mandatory-not-optional),
+linked from `TUTORIAL-codex-plugin.md`. Verified by replaying each template's filter, extracted
+from the doc, against live-captured event logs: `opencode run --format json` success + failure
+(opencode 1.18.31) and `codex exec --json` failure + success (codex-cli 0.156.1, success after
+switching the retired `gpt-6-astra` default to `gpt-6-luna`). **Not re-verified:**
+`opencode-async` (bridge not registered on the verifying machine) — labeled as such in
+the tutorial. The `arch:review --delegate` AC stays open: it applies once that flag is built,
+which is out of scope here.
 
 ## Test Plan
 

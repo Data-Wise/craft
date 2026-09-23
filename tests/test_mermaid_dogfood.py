@@ -137,6 +137,26 @@ class TestInfrastructure:
         config = json.loads(mcp_json.read_text())
         assert "mcp-mermaid" in config.get("mcpServers", {}), "mcp-mermaid not in .mcp.json"
 
+    def test_mcp_npx_servers_are_pinned(self):
+        """Every npx-launched server in .mcp.json pins an exact version.
+
+        An unpinned `npx -y pkg` (or `pkg@latest`) runs the newest release on every
+        start, so a server can change under the plugin with no craft release —
+        the way opencode-mcp v3 arrived unannounced on 2026-09-23.
+        """
+        import json
+        import re
+        config = json.loads((PLUGIN_DIR / ".mcp.json").read_text())
+        for name, server in config.get("mcpServers", {}).items():
+            if server.get("command") not in ("npx", "bunx"):
+                continue
+            spec = next(a for a in server.get("args", []) if not a.startswith("-"))
+            m = re.fullmatch(r"(@?[^@]+)@(.+)", spec)
+            assert m, f"{name}: npx package {spec!r} is unpinned — use {spec}@<version>"
+            assert re.fullmatch(r"\d+\.\d+\.\d+(?:[-+][\w.]+)?", m.group(2)), (
+                f"{name}: {spec!r} is not pinned to an exact version"
+            )
+
     def test_mermaid_init_js_exists(self):
         """docs/javascripts/mermaid-init.js exists (if referenced in mkdocs.yml)."""
         js_path = DOCS_DIR / "javascripts" / "mermaid-init.js"

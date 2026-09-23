@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.6.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.6.1-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -221,14 +221,11 @@ Reference documentation for all 48 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.6.0 — prose-staleness checks, hardened same day"
-    New release-date consistency and count-prose checks in `docs-staleness-check.sh` Phase 7,
-    closing a blind spot where stale counts read GREEN for multiple releases — then hardened the
-    same day after a high-effort review found 9 defects (2 HIGH) in the initial ship. The
-    release-date check was redesigned from a single git-tag authority to cross-file consistency
-    and promoted to `error` once a clean live-repo run confirmed it. Also: Teaching Mode feature
-    removed (dead since the v4 command-prune split craft's teaching surface to `scholar`).
-    See the [full changelog](CHANGELOG.md) for all releases, or visit the [News](NEWS.md) page for release highlights.
+!!! info "Latest: v4.6.1 — docs accuracy pass + pinned MCP server"
+    Three docs pages that 404'd now build (an unanchored `exclude_docs` pattern had dropped
+    them), every quick-start uses an install command that exists, 15 command reference pages
+    are rebuilt from each command's real arguments, the README is rewritten for v4, and the
+    bundled `mcp-mermaid` MCP server is pinned to 0.4.1. See [NEWS](NEWS.md).
 
 ## Links
 

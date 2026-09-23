@@ -1,5 +1,5 @@
 site_name: Craft Plugin
-site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.0 hardens the docs-staleness prose checks (release-date + count-prose, promoted to error). See NEWS.md for release-by-release highlights."
+site_description: "Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights."
 site_url: https://data-wise.github.io/craft/
 
 repo_name: Data-Wise/craft
@@ -15,7 +15,9 @@ exclude_docs: |
   plans/
   archive/
   brainstorm/
-  orch/
+  # Anchored: an unanchored `orch/` also excluded docs/commands/orch/, 404ing
+  # the /craft:orch:drive and /craft:orch:workflow pages the nav links to.
+  /orch/
   dev/
   # Internal working proposals (not yet through spec review)
   internal/PROPOSAL-*.md
@@ -23,8 +25,6 @@ exclude_docs: |
   internal/HOOKS-TOKEN-AUDIT-*.md
   internal/TUTORIAL-rtk-cli-token-proxy.md
   internal/TUTORIAL-orchestration-and-skill-eval-loop.md
-  # Stale standalone docs (moved to archive/)
-  VALIDATOR-BEST-PRACTICES.md
 
 theme:
   name: material

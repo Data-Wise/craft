@@ -155,6 +155,11 @@ if [ "$VERIFY_ONLY" = true ]; then
     if [ -f "README.md" ] && ! grep -q "version-${CURRENT_VERSION}" README.md; then
         echo -e "  ${RED}✗${NC} README.md badge missing ${CURRENT_VERSION}"; ERRORS=$((ERRORS + 1))
     fi
+    # "## Version" footer — drifted 4.2.0 → 4.6.0 unnoticed when only the badge was checked
+    if [ -f "README.md" ] && grep -q '^- \*\*Version:\*\* ' README.md \
+        && ! grep -q "^- \*\*Version:\*\* ${CURRENT_VERSION}\$" README.md; then
+        echo -e "  ${RED}✗${NC} README.md Version footer missing ${CURRENT_VERSION}"; ERRORS=$((ERRORS + 1))
+    fi
     if [ -f "mkdocs.yml" ] && ! grep -q "v${CURRENT_VERSION}" mkdocs.yml; then
         echo -e "  ${RED}✗${NC} mkdocs.yml missing v${CURRENT_VERSION}"; ERRORS=$((ERRORS + 1))
     fi
@@ -297,6 +302,10 @@ if [ -f "README.md" ]; then
         CHANGED=false
         if [ "$COUNTS_ONLY" = false ] && grep -q "version-[0-9]" README.md; then
             sedi "s|version-[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|version-${TARGET_VERSION}|g" README.md
+            CHANGED=true
+        fi
+        if [ "$COUNTS_ONLY" = false ] && grep -q '^- \*\*Version:\*\* ' README.md; then
+            sedi "s|^- \*\*Version:\*\* [0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*|- **Version:** ${TARGET_VERSION}|" README.md
             CHANGED=true
         fi
         if grep -q '\*\*[0-9]* commands\*\*' README.md; then
