@@ -37,6 +37,12 @@ feature/* (worktrees) ← All implementation work
 
 Override local hook: ask "unprotect dev" / "bypass branch guard" (`dev/git` skill, Operation 10 — session-scoped, auto-expires).
 
+**GitHub-side:** `main` is protected (PR only). Since 2026-09-23 `dev` has a deletion-only ruleset
+(`protect-dev-from-deletion`, id 23890849 — no push/PR/review rules, so commits to `dev` are still
+policed only by the local hook) and the repo auto-deletes merged head branches. The ruleset is
+load-bearing: release PRs use `dev` as head, and auto-delete removes an unprotected head branch on
+merge, so dropping it would delete `dev` at the next `dev→main` release.
+
 ## Quick Commands
 
 | Task | Command |
