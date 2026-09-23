@@ -138,7 +138,11 @@ Failure path verified 2026-09-23 (codex-cli 0.156.1): an unsupported model emits
 both. The patterns are anchored to the start of the line on purpose: `item.completed` events can
 carry a nested `"type":"error"` for mere warnings (hook-timeout clamping, missing model
 metadata), which an unanchored `*"type":"error"*` match would report as failures. `turn.completed`
-carries the turn's `usage`. The success path is from the 2026-08-08 run and was not re-verified.
+carries the turn's `usage` — success path verified 2026-09-23 (`gpt-6-luna`: one
+`turn.completed` line with `input_tokens`/`cached_input_tokens`/`output_tokens`/
+`reasoning_output_tokens`). If every model is rejected with "not supported when using Codex with
+a ChatGPT account", the configured `model` was retired server-side — pick a current slug from
+`~/.codex/models_cache.json` (`visibility: "list"`) and set it in `~/.codex/config.toml`.
 
 ## Gotchas
 

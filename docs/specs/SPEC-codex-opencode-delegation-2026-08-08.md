@@ -127,9 +127,9 @@ the `--refine`/brainstorm redesign already removed once — "one delegation mech
 [`TUTORIAL-opencode-mcp-plugin.md`](../tutorials/TUTORIAL-opencode-mcp-plugin.md#always-monitor-a-delegation-mandatory-not-optional),
 linked from `TUTORIAL-codex-plugin.md`. Verified by replaying each template's filter, extracted
 from the doc, against live-captured event logs: `opencode run --format json` success + failure
-(opencode 1.18.31) and a `codex exec --json` failure (codex-cli 0.156.1). **Not re-verified:**
-the codex success path (every model tried was rejected on the verifying account) and
-`opencode-async` (bridge not registered on the verifying machine) — both are labeled as such in
+(opencode 1.18.31) and `codex exec --json` failure + success (codex-cli 0.156.1, success after
+switching the retired `gpt-6-astra` default to `gpt-6-luna`). **Not re-verified:**
+`opencode-async` (bridge not registered on the verifying machine) — labeled as such in
 the tutorial. The `arch:review --delegate` AC stays open: it applies once that flag is built,
 which is out of scope here.
 
