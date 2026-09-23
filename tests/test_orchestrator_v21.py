@@ -226,17 +226,21 @@ def test_readme_orchestrator_v2():
     assert not missing, f"Missing: {', '.join(missing)}"
 
 
-def test_readme_7_agents():
-    """Test that README shows 7 agents."""
+def test_readme_agent_count_matches_agents_dir():
+    """README's "Agents (N)" heading matches the agents actually shipped in agents/.
+
+    Previously hardcoded "Agents (7)", which kept the README's v2-era agent table
+    locked in place after the v4.0.0 folio split left craft with 2 agents.
+    """
     readme_path = PLUGIN_DIR / "README.md"
     assert readme_path.exists(), "File not found"
 
-    content = readme_path.read_text()
-
-    if "Agents (7)" not in content:
-        count_match = re.search(r"Agents \((\d+)\)", content)
-        actual = count_match.group(1) if count_match else "unknown"
-        assert False, f"Expected 7 agents, found {actual}"
+    count_match = re.search(r"^## Agents \((\d+)\)", readme_path.read_text(), re.MULTILINE)
+    assert count_match, "README has no '## Agents (N)' heading"
+    expected = len(list((PLUGIN_DIR / "agents").glob("*.md")))
+    assert int(count_match.group(1)) == expected, (
+        f"README says Agents ({count_match.group(1)}), agents/ has {expected}"
+    )
 
 
 # ─── ROADMAP Tests ───────────────────────────────────────────────────────────

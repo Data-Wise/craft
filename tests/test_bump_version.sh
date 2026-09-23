@@ -190,6 +190,10 @@ CMD
 **1 commands** · **1 skills** · **1 agents**
 
 1 commands, 1 agents, 1 skills
+
+## Version
+
+- **Version:** 1.0.0
 RMD
 
     # Create mock docs/index.md
@@ -392,6 +396,7 @@ run_integration_tests() {
 
     test_full_bump_updates_all_files
     test_verify_catches_drift
+    test_verify_catches_stale_readme_footer
     test_counts_only_mode
     test_refcard_box_interior_updated
     test_index_info_box_updated
@@ -437,6 +442,13 @@ test_full_bump_updates_all_files() {
     fi
 
     ((TOTAL_TESTS++))
+    if grep -q '^- \*\*Version:\*\* 2.0.0$' "$SANDBOX/README.md"; then
+        pass "README.md Version footer updated to 2.0.0"
+    else
+        fail "README.md Version footer updated to 2.0.0" "Footer still: $(grep 'Version:\*\*' "$SANDBOX/README.md")"
+    fi
+
+    ((TOTAL_TESTS++))
     if grep -q "version: 2.0.0" "$SANDBOX/.STATUS"; then
         pass ".STATUS version updated to 2.0.0"
     else
@@ -468,6 +480,23 @@ with open('$SANDBOX/.claude-plugin/plugin.json', 'w') as f:
     local stripped
     stripped=$(strip_ansi "$output")
     assert_contains "$stripped" "DRIFT DETECTED" "Output shows DRIFT DETECTED"
+
+    destroy_sandbox
+}
+
+test_verify_catches_stale_readme_footer() {
+    log_test "VERIFY" "catches a stale README Version footer"
+    create_sandbox
+
+    # Badge correct, footer stale — the exact 4.2.0-vs-4.6.0 drift that went unnoticed
+    python3 -c "import sys; p=sys.argv[1]; s=open(p).read(); open(p,'w').write(s.replace('- **Version:** 1.0.0', '- **Version:** 0.9.0'))" "$SANDBOX/README.md"
+
+    local exit_code=0
+    local output
+    output=$(cd "$SANDBOX" && bash "$SANDBOX/scripts/bump-version.sh" --verify 2>&1) || exit_code=$?
+
+    assert_equals "1" "$exit_code" "Verify exits 1 on stale footer"
+    assert_contains "$(strip_ansi "$output")" "Version footer missing 1.0.0" "Output names the stale footer"
 
     destroy_sandbox
 }
