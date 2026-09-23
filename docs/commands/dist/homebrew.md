@@ -7,7 +7,7 @@
 ## Synopsis
 
 ```bash
-/craft:dist:homebrew [mode]
+/craft:dist:homebrew [formula|cask|workflow|audit|setup|update-resources|deps]
 ```
 
 ---
