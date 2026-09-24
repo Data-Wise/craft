@@ -1371,6 +1371,22 @@ run_test_with_stderr \
     "$REPO_VERB" \
     "CONFIRM.*Allow"
 
+# 5th encounter (still minimal): the branch must be named exactly once. The
+# action text already ends "on dev", and _confirm used to append it again
+# ("... on dev on dev. Allow?") — cc-config #83.
+VERB_MIN=$(echo "$(json_bash "git clean -fd" "$REPO_VERB")" | (cd "$REPO_VERB" && bash "$HOOK_SCRIPT") 2>&1 >/dev/null) || true
+TOTAL=$((TOTAL + 1))
+if echo "$VERB_MIN" | grep -q "on dev on dev"; then
+    FAIL=$((FAIL + 1)); FAILED_NAMES+=("test_verbosity_minimal_names_branch_once")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_verbosity_minimal_names_branch_once  ${T_BOLD}(branch named twice)${T_NC}"
+elif echo "$VERB_MIN" | grep -qF "(remove untracked files) on dev. Allow?"; then
+    PASS=$((PASS + 1))
+    echo -e "  ${T_GREEN}PASS${T_NC}  test_verbosity_minimal_names_branch_once  ${T_BOLD}(branch once)${T_NC}"
+else
+    FAIL=$((FAIL + 1)); FAILED_NAMES+=("test_verbosity_minimal_names_branch_once")
+    echo -e "  ${T_RED}FAIL${T_NC}  test_verbosity_minimal_names_branch_once  ${T_BOLD}(minimal line missing)${T_NC}"
+fi
+
 echo ""
 
 # --------------------------------------------------------------------------
