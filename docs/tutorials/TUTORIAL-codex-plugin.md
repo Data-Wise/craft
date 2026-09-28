@@ -1,7 +1,9 @@
-# Codex Plugin Cheat Sheet
+# Codex Delegation Plugin for Claude
 
-Run `claude plugin install codex@openai-codex`, then ask Claude to "hand this
-to Codex" or "get a second implementation pass" when you're stuck.
+This page covers the Claude Code plugin `codex@openai-codex`, which hands work
+from Claude Code to Codex. For Craft's restore, finish, and do skills inside
+Codex, see [Craft OpenAI Skills](../guide/craft-openai.md). They are separate
+plugins with different installation paths.
 
 ## What it does
 

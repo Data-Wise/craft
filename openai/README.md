@@ -1,6 +1,9 @@
 # Craft OpenAI package
 
-This directory contains a portable skills-first package for Codex and ChatGPT. The package is intentionally separate from Craft's Claude plugin runtime.
+This directory contains a portable skills-first package for Codex and ChatGPT.
+The package is intentionally separate from Craft's Claude plugin runtime. See
+the [Craft OpenAI guide](../docs/guide/craft-openai.md) for the website overview
+and setup steps.
 
 ## Imported workflows
 

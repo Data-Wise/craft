@@ -62,6 +62,9 @@ claude plugin marketplace add Data-Wise/claude-plugins
 claude plugin install craft@data-wise
 ```
 
+**Using Codex?** Craft also has a [local OpenAI skills pilot](guide/craft-openai.md)
+for restoring project context, finishing a session, and routing project work.
+
 **Developing craft itself?** Clone the repo and symlink it in instead:
 
 ```bash
