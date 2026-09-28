@@ -19,6 +19,8 @@
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
+Codex and ChatGPT users can review the separate skills-first pilot in [openai/README.md](openai/README.md). It does not install or modify the Claude plugin.
+
 ## Installation
 
 Craft works in both Claude Code CLI and Claude Desktop app. No MCP server dependencies required.

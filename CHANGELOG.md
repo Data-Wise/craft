@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Added `openai/craft-openai`, a skills-first Codex package for `craft-restore`,
+  `craft-finish`, and `craft-do`; local installation is documented in
+  `openai/README.md`.
 - **branch-guard: a new code file on `dev`/`draft` is now a once-per-session note, not a `[CONFIRM]`.**
   `scripts/branch-guard.sh` is synced to the installed hook maintained in cc-config
   (`hooks/branch-guard.sh`), which relaxed the new-code tier on 2026-07-28. Feature branches for new
