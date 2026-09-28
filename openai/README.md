@@ -14,7 +14,16 @@ Skills are the user-facing workflows. The Craft command files remain the Claude 
 
 ## Local test marketplace
 
-`.agents/plugins/marketplace.json` exposes craft-openai for local installation. Add this `openai/` directory as the local marketplace root, then install and enable the plugin from Codex. After changing the package, refresh the marketplace and restart Codex before testing in a new chat.
+`.agents/plugins/marketplace.json` exposes `craft-openai` for local
+installation. From this directory, run:
+
+```sh
+codex plugin marketplace add "$PWD"
+codex plugin add craft-openai@craft-openai-local
+```
+
+After changing the package, reinstall it and restart Codex before testing in a
+new chat.
 
 ## Limitations
 
