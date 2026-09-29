@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.7.0 adds Craft OpenAI workflow skills and raises release-gate test coverage above 90%. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -4104,7 +4104,35 @@
   <span class="md-ellipsis">
     
   
-    Codex Plugin
+    Codex Delegation Plugin for Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../craft-openai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Craft OpenAI Skills for Codex
   
 
     
@@ -10719,13 +10747,13 @@
 <td><strong>LOW</strong></td>
 <td>Note on first encounter, then silent</td>
 <td>Automatic — action proceeds</td>
-<td>Edit existing file, write markdown</td>
+<td>Edit existing file, write markdown, new code file</td>
 </tr>
 <tr>
 <td><strong>MEDIUM</strong></td>
 <td>Teaching box + <code>[CONFIRM]</code> prompt</td>
 <td>Approve once → one-shot marker</td>
-<td>New code file, force push, destructive commands</td>
+<td>Force push, destructive commands, critical files</td>
 </tr>
 <tr>
 <td><strong>HIGH</strong></td>
@@ -10779,10 +10807,10 @@
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>      ├─ Markdown file? → LOW (always allowed)
 </span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>      ├─ Test file? → LOW (always allowed)
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>      ├─ Existing file? → LOW (allowed)
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>      ├─ New code file? → MEDIUM (confirm)
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>      ├─ New code file? → LOW (note once, allow)
 </span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>      ├─ Force push? → MEDIUM (confirm)
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>      ├─ Destructive git? (reset --hard, checkout --, clean -f) → MEDIUM
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>      ├─ Bash write-through? (redirect/tee/cp creating new code) → MEDIUM
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>      ├─ Bash write-through? (redirect/tee/cp creating new code) → LOW
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>      └─ Everything else → allow
 </span></code></pre></div>
 <hr />
@@ -10796,59 +10824,61 @@
 <li>Writing extension-less files (<code>.STATUS</code>, <code>Makefile</code>, <code>Dockerfile</code>)</li>
 <li>Writing files in <code>tests/</code> directory</li>
 <li>Overwriting an existing file</li>
+<li>Writing a new code file (<code>.py</code>, <code>.sh</code>, <code>.js</code>, <code>.ts</code>, <code>.json</code>, <code>.yml</code>, etc.)</li>
+<li>Bash write-through creating a new code file (redirect, tee, cp)</li>
 </ul>
+<p>New code files were MEDIUM (a <code>[CONFIRM]</code> every time) until 2026-07-28. Feature branches for new
+code are a style convention, not data-loss protection, so the prompt was not worth its
+interruption cost. The guard still tells you once per session:</p>
 <p><strong>What you see (first time only):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[guard] Editing existing file on dev (allowed)
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[guard] New .py file on dev: utils/helper.py — style convention is feature branches for new code (allowed)
 </span></code></pre></div>
 <p>After the first encounter of each type, the guard is completely silent.</p>
 <h3 id="medium-risk-teaching-confirm">MEDIUM Risk — Teaching + Confirm<a class="headerlink" href="#medium-risk-teaching-confirm" title="Permanent link">&para;</a></h3>
 <p>The guard shows a teaching box explaining the risk, suggests alternatives, and presents a <code>[CONFIRM]</code> prompt. The verbosity of the teaching box decreases over the session (fade-to-brief).</p>
 <p><strong>What triggers MEDIUM:</strong></p>
 <ul>
-<li>Writing a new code file (<code>.py</code>, <code>.sh</code>, <code>.js</code>, <code>.ts</code>, <code>.json</code>, <code>.yml</code>, etc.)</li>
 <li>Force pushing (<code>git push --force</code>, <code>--force-with-lease</code>)</li>
 <li>Destructive git commands (<code>git reset --hard</code>, <code>git checkout --</code>, <code>git restore</code>, <code>git clean -f</code>)</li>
 <li>Editing/writing critical files (<code>.env</code>, <code>.pem</code>, <code>.key</code>, <code>.secret</code>, <code>branch-guard.json</code>)</li>
 <li>Force-deleting branches (<code>git branch -D</code>)</li>
-<li>Bash write-through creating new code files (redirect, tee, cp)</li>
 </ul>
 <p><strong>What you see (1st encounter — full teaching):</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>╔═════════════════════════════════════════════════════════════╗
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>║ BRANCH GUARD — Medium Risk                                  ║
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>╠═════════════════════════════════════════════════════════════╣
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>║                                                             ║
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>║ Action:  Write new .py file: utils/helper.py                ║
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>║ Action:  git clean -f (remove untracked files) on dev       ║
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>║                                                             ║
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>║ Why risky:                                                  ║
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>║   New code files on dev should go in a feature branch       ║
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>║   Permanently removes untracked files — cannot be undone    ║
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>║                                                             ║
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>║ Safe alternatives:                                          ║
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>║   → ask "create a worktree for feature/&lt;name&gt;" (dev/git)    ║
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>║   → Edit an existing file instead (fixups allowed)          ║
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>║   → ask "unprotect for bulk maintenance" (dev/git skill)    ║
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>║                                                             ║
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>╚═════════════════════════════════════════════════════════════╝
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>[CONFIRM] New code files on dev should go in a feature branch
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>Action:    Write new .py file: utils/helper.py
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>Risk:      New code files on dev should go in a feature branch
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>Suggest:   ask "create a worktree for feature/&lt;name&gt;" (dev/git skill)
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>Suggest:   Edit an existing file instead (fixups allowed)
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>Suggest:   ask "unprotect for bulk maintenance" (dev/git skill)
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>Branch:    dev (smart mode)
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>Verbosity: full (1st encounter)
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>║   → git clean -n (dry run — see what would be removed)      ║
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>║   → git stash -u (stash including untracked files)          ║
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>║                                                             ║
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>╚═════════════════════════════════════════════════════════════╝
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>[CONFIRM] Permanently removes untracked files — cannot be undone
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>Action:    git clean -f (remove untracked files) on dev
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>Risk:      Permanently removes untracked files — cannot be undone
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>Suggest:   git clean -n (dry run — see what would be removed)
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>Suggest:   git stash -u (stash including untracked files)
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>Branch:    dev (smart mode)
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>Verbosity: full (1st encounter)
 </span></code></pre></div>
 <p><strong>2nd-3rd encounter — brief:</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>╔═════════════════════════════════════════════════════════════╗
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>║ BRANCH GUARD                                                ║
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>╠═════════════════════════════════════════════════════════════╣
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>║ Action:  Write new .py file: utils/other.py                 ║
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>║ Risk:    New code files on dev should go in feature branch   ║
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>║ Action:  git clean -f (remove untracked files) on dev       ║
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>║ Risk:    Permanently removes untracked files — cannot be undone
 </span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>║ Branch:  dev (smart mode)                                   ║
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>╚═════════════════════════════════════════════════════════════╝
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>[CONFIRM] Write new .py file: utils/other.py on dev.
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>[CONFIRM] git clean -f (remove untracked files) on dev.
 </span></code></pre></div>
 <p><strong>4th+ encounter — minimal:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[CONFIRM] Write new .py file: utils/third.py on dev. Allow?
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[CONFIRM] git clean -f (remove untracked files) on dev. Allow?
 </span></code></pre></div>
 <h3 id="high-risk-hard-block">HIGH Risk — Hard Block<a class="headerlink" href="#high-risk-hard-block" title="Permanent link">&para;</a></h3>
 <p>The guard blocks the action completely. No <code>[CONFIRM]</code> prompt is offered — the action cannot be approved through the guard.</p>
@@ -10900,7 +10930,7 @@
 </table>
 <p>The session counter automatically resets after <strong>8 hours</strong> of inactivity (the file's mtime is checked).</p>
 <h3 id="how-action-types-are-tracked">How Action Types Are Tracked<a class="headerlink" href="#how-action-types-are-tracked" title="Permanent link">&para;</a></h3>
-<p>Each action type has its own counter. For example, <code>write_new_code</code> and <code>force_push</code> are tracked independently — getting brief on new code files doesn't affect force push verbosity.</p>
+<p>Each action type has its own counter. For example, <code>clean_force</code> and <code>force_push</code> are tracked independently — getting brief on <code>git clean</code> doesn't affect force push verbosity. LOW-tier types use the same counter to print their note only once.</p>
 <p>Action types tracked:</p>
 <table>
 <thead>
@@ -10944,7 +10974,7 @@
 </tr>
 <tr>
 <td><code>write_new_code</code></td>
-<td>Write new code files</td>
+<td>Write new code files (LOW — note once)</td>
 </tr>
 <tr>
 <td><code>write_env</code></td>
@@ -10980,7 +11010,7 @@
 </tr>
 <tr>
 <td><code>bash_write_through</code></td>
-<td>Bash redirect/tee/cp creating new code</td>
+<td>Bash redirect/tee/cp creating new code (LOW — note once)</td>
 </tr>
 <tr>
 <td><code>branch_delete</code></td>
@@ -11033,7 +11063,7 @@ user first (issue #281 — see <code>skills/dev/git/SKILL.md</code> Operation 10
 </table>
 <hr />
 <h2 id="bash-write-through-detection">Bash Write-Through Detection<a class="headerlink" href="#bash-write-through-detection" title="Permanent link">&para;</a></h2>
-<p>The guard detects when Bash commands create new code files through shell redirection, even though the <code>Write</code> tool isn't used directly.</p>
+<p>The guard detects when Bash commands create new code files through shell redirection, even though the <code>Write</code> tool isn't used directly. A detected write-through gets the same LOW-tier note as a new code file written with <code>Write</code>: noted once per session, then allowed.</p>
 <h3 id="detected-patterns">Detected Patterns<a class="headerlink" href="#detected-patterns" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -11215,7 +11245,7 @@ user first (issue #281 — see <code>skills/dev/git/SKILL.md</code> Operation 10
 <p>The following extensions are classified as "code files" for new-file detection:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>py sh js ts jsx tsx json yml yaml toml cfg ini r R zsh
 </span></code></pre></div>
-<p>Files with other extensions (<code>.txt</code>, <code>.csv</code>, <code>.html</code>, etc.) are allowed without confirmation.</p>
+<p>A new file with one of these extensions gets the once-per-session new-code note (it is allowed either way). Files with other extensions (<code>.txt</code>, <code>.csv</code>, <code>.html</code>, etc.) are allowed without a note.</p>
 <hr />
 <h2 id="session-files">Session Files<a class="headerlink" href="#session-files" title="Permanent link">&para;</a></h2>
 <table>

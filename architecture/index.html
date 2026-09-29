@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.7.0 adds Craft OpenAI workflow skills and raises release-gate test coverage above 90%. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -3722,7 +3722,35 @@
   <span class="md-ellipsis">
     
   
-    Codex Plugin
+    Codex Delegation Plugin for Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide/craft-openai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Craft OpenAI Skills for Codex
   
 
     
@@ -10535,7 +10563,7 @@ a backing agent definition.)</p>
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>│  - Reads .claude/branch-guard.json│
 </span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>│  - Falls back to auto-detect     │
 </span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>│  - main → block-all              │
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>│  - dev  → block-new-code         │
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>│  - dev  → smart (3-tier risk)    │
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>│  - feature/* → allow all         │
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>└──────────────────────────────────┘
 </span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    ↓
@@ -10546,7 +10574,7 @@ a backing agent definition.)</p>
 <thead>
 <tr>
 <th>Level</th>
-<th>Blocks</th>
+<th>Blocks / confirms</th>
 <th>Allows</th>
 </tr>
 </thead>
@@ -10557,9 +10585,9 @@ a backing agent definition.)</p>
 <td>Read-only operations</td>
 </tr>
 <tr>
-<td><code>block-new-code</code></td>
-<td>New <code>.py</code>, <code>.sh</code>, <code>.js</code>, <code>.ts</code> files</td>
-<td>Edits to existing files, docs, specs</td>
+<td><code>smart</code> (alias <code>block-new-code</code>)</td>
+<td>Destructive git ops, force push, critical files (<code>[CONFIRM]</code>); <code>rm -rf .git</code> (hard block)</td>
+<td>Edits to existing files, docs, specs; new code files (noted once per session)</td>
 </tr>
 </tbody>
 </table>

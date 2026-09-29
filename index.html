@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.6.1 fixes three 404ing docs pages, the install instructions, and 15 command reference pages, and pins the bundled mcp-mermaid server. See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.7.0 adds Craft OpenAI workflow skills and raises release-gate test coverage above 90%. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -3860,7 +3860,35 @@
   <span class="md-ellipsis">
     
   
-    Codex Plugin
+    Codex Delegation Plugin for Claude
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="guide/craft-openai/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Craft OpenAI Skills for Codex
   
 
     
@@ -10219,7 +10247,7 @@
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
-<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.6.1-brightgreen.svg" /></a></p>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.7.0-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -10288,6 +10316,8 @@
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>claude<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>Data-Wise/claude-plugins
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>claude<span class="w"> </span>plugin<span class="w"> </span>install<span class="w"> </span>craft@data-wise
 </span></code></pre></div>
+<p><strong>Using Codex?</strong> Craft also has a <a href="guide/craft-openai/">local OpenAI skills pilot</a>
+for restoring project context, finishing a session, and routing project work.</p>
 <p><strong>Developing craft itself?</strong> Clone the repo and symlink it in instead:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Data-Wise/craft.git<span class="w"> </span>~/projects/dev-tools/craft
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ln<span class="w"> </span>-s<span class="w"> </span>~/projects/dev-tools/craft<span class="w"> </span>~/.claude/plugins/craft
@@ -10480,7 +10510,7 @@
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v4.6.1 — docs accuracy pass + pinned MCP server</p>
+<p class="admonition-title">Latest: v4.7.0 — docs accuracy pass + pinned MCP server</p>
 <p>Three docs pages that 404'd now build (an unanchored <code>exclude_docs</code> pattern had dropped
 them), every quick-start uses an install command that exists, 15 command reference pages
 are rebuilt from each command's real arguments, the README is rewritten for v4, and the
