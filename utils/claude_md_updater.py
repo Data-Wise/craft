@@ -225,7 +225,7 @@ class CLAUDEMDUpdater:
             # Extract command from table row
             if in_table and "|" in line and "/craft:" in line:
                 # Extract command name from | /craft:xxx | desc |
-                match = re.search(r'/craft:([^\s|]+)', line)
+                match = re.search(r'/craft:([^\s|`]+)', line)
                 if match:
                     # Convert /craft:docs:update → docs/update.md
                     cmd_name = match.group(1).replace(":", "/") + ".md"
@@ -353,19 +353,19 @@ class CLAUDEMDUpdater:
         if change.type == ChangeType.VERSION_MISMATCH:
             # Replace version
             pattern = r'(\*\*Current Version:\*\* v)[0-9.]+'
-            replacement = f'\\1{change.after}'
+            replacement = f'\\g<1>{change.after.removeprefix("v")}'
             return re.sub(pattern, replacement, content)
 
         elif change.type == ChangeType.TEST_COUNT:
             # Replace test count
             pattern = r'(\*\*Tests:\*\* )\d+'
-            replacement = f'\\1{change.after}'
+            replacement = f'\\g<1>{change.after}'
             return re.sub(pattern, replacement, content)
 
         elif change.type == ChangeType.DOCS_PERCENT:
             # Replace docs percentage
             pattern = r'(\*\*Documentation Status:\*\* )\d+%'
-            replacement = f'\\1{change.after}'
+            replacement = f'\\g<1>{change.after}'
             return re.sub(pattern, replacement, content)
 
         elif change.type == ChangeType.REMOVED_COMMAND:

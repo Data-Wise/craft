@@ -194,12 +194,22 @@ def extract_first_paragraph(content: str) -> Optional[str]:
     # Skip headings and find first paragraph
     lines = content_without_frontmatter.split('\n')
     paragraph = []
+    in_code_block = False
 
     for line in lines:
         line = line.strip()
 
+        if line.startswith('```'):
+            in_code_block = not in_code_block
+            if paragraph:
+                break
+            continue
+
+        if in_code_block:
+            continue
+
         # Skip empty lines, headings, and code blocks
-        if not line or line.startswith('#') or line.startswith('```'):
+        if not line or line.startswith('#'):
             if paragraph:
                 break
             continue
