@@ -34,6 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Fixed CLAUDE.md updater replacement handling for versions and command names, and prevented
+  allowlist reset from claiming pre-existing user permissions. Expanded release-gate coverage
+  from 83.36% to 90.12% (2,535 passed; 51 skipped; 1 xfailed; 1 xpassed).
 - **`tests/test_branch_guard_dogfood.py` no longer fails 19 tests on `dev`.** The tests expected
   the old every-time confirm. The test suites were reworked instead of loosened:
   - New-code tests assert exit 0, and use `GUARD_DRY_RUN=1` to check that the new-code rule

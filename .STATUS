@@ -1072,3 +1072,9 @@ Spec: docs/specs/SPEC-insights-improvements-v2.33-2026-02-27.md
 - #237 plugin-audit-skill confirmed MERGED (2026-07-02 doc said HELD - now stale).
 - Handoff: docs/specs/NEXT-SESSION-2026-07-03.md
 - Next: A1 (project-planner collision) -> A2 (/plan dispatcher) -> finish A3.
+
+## Session Recap — 2026-09-29 — v4.7.0 Release Coverage Gate
+- Raised Craft full-suite coverage from 83.36% to 90.12%; 2,535 passed, 51 skipped,
+  1 xfailed, 1 xpassed. Added regression coverage and fixed CLAUDE.md updater and
+  allowlist ownership defects.
+- Next: merge the coverage PR into dev, then resume the v4.7.0 release preflight.
