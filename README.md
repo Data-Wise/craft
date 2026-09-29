@@ -8,14 +8,14 @@
 
 **main:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Deploy Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 **dev:** [![Craft CI](https://github.com/Data-Wise/craft/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/ci.yml) [![Documentation Quality](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs-quality.yml)
-[![Version](https://img.shields.io/badge/version-4.6.1-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.7.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 > **Docs/publishing commands moved to [`folio`](https://github.com/Data-Wise/folio)** — see
 > [MIGRATION-v4.md](docs/MIGRATION-v4.md) for the old-command → new-location table.
 >
-> **v4.6.1 — docs accuracy pass + pinned MCP server** 🚀
+> **v4.7.0 — Craft OpenAI workflow skills + branch-guard updates** 🚀
 > **48 commands** | **41 skills** | **2 agents**
-> Three docs pages that 404'd now build, install instructions use a command that exists, 15 command reference pages are rebuilt from source (no more fake `[mode]` argument), this README is rewritten for v4, and the bundled `mcp-mermaid` server is pinned. See [NEWS.md](docs/NEWS.md).
+> Adds skills-first Codex workflows for restoring context, doing project work, and finishing sessions; synchronizes branch-guard improvements; and raises release-gate test coverage above 90%. See [NEWS.md](docs/NEWS.md).
 
 A comprehensive production-ready toolkit for Claude Code featuring smart orchestration, ADHD-friendly workflows, multi-agent coordination, and complete documentation coverage.
 
@@ -352,7 +352,7 @@ folio.
 
 ## Version
 
-- **Version:** 4.6.1
+- **Version:** 4.7.0
 - **Author:** DT (Data-Wise)
 - **License:** MIT
 

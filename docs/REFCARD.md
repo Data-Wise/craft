@@ -4,11 +4,11 @@
 ┌─────────────────────────────────────────────────────────────┐
 │  CRAFT PLUGIN QUICK REFERENCE                               │
 ├─────────────────────────────────────────────────────────────┤
-│  Version: 4.6.1 (released 2026-09-23)                       │
+│  Version: 4.7.0 (released 2026-09-23)                       │
 │  Commands: 48 | Agents: 2 | Skills: 41                      │
 │  Tests: python3 -m pytest tests/                            │
 │  Docs: https://data-wise.github.io/craft/                   │
-│  v4.6.1: docs accuracy pass + pinned MCP server             │
+│  v4.7.0: docs accuracy pass + pinned MCP server             │
 └─────────────────────────────────────────────────────────────┘
 ```
 

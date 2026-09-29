@@ -4,6 +4,23 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.7.0 — Craft OpenAI workflow skills + branch-guard updates
+
+**Released:** 2026-09-29 · **Type:** Minor
+
+### Highlights
+
+- **Skills-first Codex workflows** — `craft-restore`, `craft-do`, and `craft-finish` are available
+  through the `craft-openai` package, with local installation and usage documented on the site.
+- **Branch-guard improvements** — synced command behavior and remediation details with cc-config,
+  including clearer confirmations and safer force-delete/push-refspec detection.
+- **Release reliability** — expanded regression coverage above the 90% release threshold and fixed
+  CLAUDE.md updater replacement handling and allowlist reset ownership.
+
+See [CHANGELOG](CHANGELOG.md) for the full list.
+
+---
+
 ## v4.6.1 — docs accuracy pass + pinned MCP server
 
 **Released:** 2026-09-23 · **Type:** Patch

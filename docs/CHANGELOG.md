@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.7.0] - 2026-09-29
+
 ### Changed
 
 - Added `openai/craft-openai`, a skills-first Codex package for `craft-restore`,
