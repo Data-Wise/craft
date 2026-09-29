@@ -12,8 +12,8 @@ Smart mode replaces the binary block/allow system with a **3-tier risk classific
 
 | Risk | Behavior | Recovery | Examples |
 |------|----------|----------|----------|
-| **LOW** | Note on first encounter, then silent | Automatic — action proceeds | Edit existing file, write markdown |
-| **MEDIUM** | Teaching box + `[CONFIRM]` prompt | Approve once → one-shot marker | New code file, force push, destructive commands |
+| **LOW** | Note on first encounter, then silent | Automatic — action proceeds | Edit existing file, write markdown, new code file |
+| **MEDIUM** | Teaching box + `[CONFIRM]` prompt | Approve once → one-shot marker | Force push, destructive commands, critical files |
 | **HIGH** | Hard block (never allowed) | Remove hook temporarily | `rm -rf .git` (repository deletion) |
 
 ---
@@ -45,10 +45,10 @@ Tool call arrives (Edit, Write, or Bash)
       ├─ Markdown file? → LOW (always allowed)
       ├─ Test file? → LOW (always allowed)
       ├─ Existing file? → LOW (allowed)
-      ├─ New code file? → MEDIUM (confirm)
+      ├─ New code file? → LOW (note once, allow)
       ├─ Force push? → MEDIUM (confirm)
       ├─ Destructive git? (reset --hard, checkout --, clean -f) → MEDIUM
-      ├─ Bash write-through? (redirect/tee/cp creating new code) → MEDIUM
+      ├─ Bash write-through? (redirect/tee/cp creating new code) → LOW
       └─ Everything else → allow
 ```
 
@@ -67,11 +67,18 @@ The guard prints a brief note on the **first encounter** of each action type, th
 - Writing extension-less files (`.STATUS`, `Makefile`, `Dockerfile`)
 - Writing files in `tests/` directory
 - Overwriting an existing file
+- Writing a new code file (`.py`, `.sh`, `.js`, `.ts`, `.json`, `.yml`, etc.)
+- Bash write-through creating a new code file (redirect, tee, cp)
+
+New code files were MEDIUM (a `[CONFIRM]` every time) until 2026-07-28. Feature branches for new
+code are a style convention, not data-loss protection, so the prompt was not worth its
+interruption cost. The guard still tells you once per session:
 
 **What you see (first time only):**
 
 ```text
 [guard] Editing existing file on dev (allowed)
+[guard] New .py file on dev: utils/helper.py — style convention is feature branches for new code (allowed)
 ```
 
 After the first encounter of each type, the guard is completely silent.
@@ -82,12 +89,10 @@ The guard shows a teaching box explaining the risk, suggests alternatives, and p
 
 **What triggers MEDIUM:**
 
-- Writing a new code file (`.py`, `.sh`, `.js`, `.ts`, `.json`, `.yml`, etc.)
 - Force pushing (`git push --force`, `--force-with-lease`)
 - Destructive git commands (`git reset --hard`, `git checkout --`, `git restore`, `git clean -f`)
 - Editing/writing critical files (`.env`, `.pem`, `.key`, `.secret`, `branch-guard.json`)
 - Force-deleting branches (`git branch -D`)
-- Bash write-through creating new code files (redirect, tee, cp)
 
 **What you see (1st encounter — full teaching):**
 
@@ -96,23 +101,21 @@ The guard shows a teaching box explaining the risk, suggests alternatives, and p
 ║ BRANCH GUARD — Medium Risk                                  ║
 ╠═════════════════════════════════════════════════════════════╣
 ║                                                             ║
-║ Action:  Write new .py file: utils/helper.py                ║
+║ Action:  git clean -f (remove untracked files) on dev       ║
 ║                                                             ║
 ║ Why risky:                                                  ║
-║   New code files on dev should go in a feature branch       ║
+║   Permanently removes untracked files — cannot be undone    ║
 ║                                                             ║
 ║ Safe alternatives:                                          ║
-║   → ask "create a worktree for feature/<name>" (dev/git)    ║
-║   → Edit an existing file instead (fixups allowed)          ║
-║   → ask "unprotect for bulk maintenance" (dev/git skill)    ║
+║   → git clean -n (dry run — see what would be removed)      ║
+║   → git stash -u (stash including untracked files)          ║
 ║                                                             ║
 ╚═════════════════════════════════════════════════════════════╝
-[CONFIRM] New code files on dev should go in a feature branch
-Action:    Write new .py file: utils/helper.py
-Risk:      New code files on dev should go in a feature branch
-Suggest:   ask "create a worktree for feature/<name>" (dev/git skill)
-Suggest:   Edit an existing file instead (fixups allowed)
-Suggest:   ask "unprotect for bulk maintenance" (dev/git skill)
+[CONFIRM] Permanently removes untracked files — cannot be undone
+Action:    git clean -f (remove untracked files) on dev
+Risk:      Permanently removes untracked files — cannot be undone
+Suggest:   git clean -n (dry run — see what would be removed)
+Suggest:   git stash -u (stash including untracked files)
 Branch:    dev (smart mode)
 Verbosity: full (1st encounter)
 ```
@@ -123,17 +126,17 @@ Verbosity: full (1st encounter)
 ╔═════════════════════════════════════════════════════════════╗
 ║ BRANCH GUARD                                                ║
 ╠═════════════════════════════════════════════════════════════╣
-║ Action:  Write new .py file: utils/other.py                 ║
-║ Risk:    New code files on dev should go in feature branch   ║
+║ Action:  git clean -f (remove untracked files) on dev       ║
+║ Risk:    Permanently removes untracked files — cannot be undone
 ║ Branch:  dev (smart mode)                                   ║
 ╚═════════════════════════════════════════════════════════════╝
-[CONFIRM] Write new .py file: utils/other.py on dev.
+[CONFIRM] git clean -f (remove untracked files) on dev.
 ```
 
 **4th+ encounter — minimal:**
 
 ```text
-[CONFIRM] Write new .py file: utils/third.py on dev. Allow?
+[CONFIRM] git clean -f (remove untracked files) on dev. Allow?
 ```
 
 ### HIGH Risk — Hard Block
@@ -176,7 +179,7 @@ The session counter automatically resets after **8 hours** of inactivity (the fi
 
 ### How Action Types Are Tracked
 
-Each action type has its own counter. For example, `write_new_code` and `force_push` are tracked independently — getting brief on new code files doesn't affect force push verbosity.
+Each action type has its own counter. For example, `clean_force` and `force_push` are tracked independently — getting brief on `git clean` doesn't affect force push verbosity. LOW-tier types use the same counter to print their note only once.
 
 Action types tracked:
 
@@ -190,7 +193,7 @@ Action types tracked:
 | `write_extensionless` | Write extension-less files |
 | `write_test` | Write test files |
 | `write_existing` | Overwrite existing files |
-| `write_new_code` | Write new code files |
+| `write_new_code` | Write new code files (LOW — note once) |
 | `write_env` | Write `.env` files |
 | `write_secret` | Write secret/key files |
 | `write_guard_config` | Write `branch-guard.json` |
@@ -199,7 +202,7 @@ Action types tracked:
 | `checkout_discard` | `git checkout --` |
 | `restore_discard` | `git restore` (not `--staged`) |
 | `clean_force` | `git clean -f` |
-| `bash_write_through` | Bash redirect/tee/cp creating new code |
+| `bash_write_through` | Bash redirect/tee/cp creating new code (LOW — note once) |
 | `branch_delete` | `git branch -D` |
 
 ---
@@ -235,7 +238,7 @@ user first (issue #281 — see `skills/dev/git/SKILL.md` Operation 10).
 
 ## Bash Write-Through Detection
 
-The guard detects when Bash commands create new code files through shell redirection, even though the `Write` tool isn't used directly.
+The guard detects when Bash commands create new code files through shell redirection, even though the `Write` tool isn't used directly. A detected write-through gets the same LOW-tier note as a new code file written with `Write`: noted once per session, then allowed.
 
 ### Detected Patterns
 
@@ -333,7 +336,7 @@ The following extensions are classified as "code files" for new-file detection:
 py sh js ts jsx tsx json yml yaml toml cfg ini r R zsh
 ```
 
-Files with other extensions (`.txt`, `.csv`, `.html`, etc.) are allowed without confirmation.
+A new file with one of these extensions gets the once-per-session new-code note (it is allowed either way). Files with other extensions (`.txt`, `.csv`, `.html`, etc.) are allowed without a note.
 
 ---
 

@@ -268,4 +268,4 @@ benchmark).
 
 ## Next
 
-- **Now spec'd.** See `docs/specs/SPEC-codex-opencode-delegation-2026-08-08.md`.
+- **Now spec'd.** See `docs/specs/_archive/SPEC-codex-opencode-delegation-2026-08-08.md`.

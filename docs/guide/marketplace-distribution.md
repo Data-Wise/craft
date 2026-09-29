@@ -21,6 +21,10 @@ The Claude Code Marketplace is the recommended distribution channel for plugins.
 
 Marketplace distribution is integrated into the Craft release pipeline — version bumps, validation, and publishing happen automatically during `/release`.
 
+This guide covers Craft's **Claude Code** marketplace. Craft's local Codex
+skills use a separate plugin manifest and CLI workflow; see
+[Craft OpenAI Skills for Codex](craft-openai.md).
+
 ---
 
 ## Quick Start

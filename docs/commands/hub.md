@@ -171,7 +171,7 @@ Display template:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  CRAFT - Full Stack Developer Toolkit v4.6.1                          │
+│  CRAFT - Full Stack Developer Toolkit v4.7.0                          │
 │  [PROJECT_NAME] ([PROJECT_TYPE]) on [GIT_BRANCH]                       │
 │  {stats['total']} commands | {skill_count} skills | {agent_count} agents | {test_count} tests passing │
 ├─────────────────────────────────────────────────────────────────────────┤
@@ -481,7 +481,7 @@ Guides (reference docs inside the skill, not commands):
 
 Branch Protection (v2.16.0):
   main   = block all (code + docs + commits)
-  dev    = block new code files, allow edits + docs
+  dev    = smart: confirm destructive ops, note new code files
   feat/* = unrestricted
 ────────────────────────────────────────────────────────────────────────
 ```

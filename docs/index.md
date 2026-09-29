@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.6.1-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.7.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -61,6 +61,9 @@ brew install data-wise/tap/craft
 claude plugin marketplace add Data-Wise/claude-plugins
 claude plugin install craft@data-wise
 ```
+
+**Using Codex?** Craft also has a [local OpenAI skills pilot](guide/craft-openai.md)
+for restoring project context, finishing a session, and routing project work.
 
 **Developing craft itself?** Clone the repo and symlink it in instead:
 
@@ -221,7 +224,7 @@ Reference documentation for all 48 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.6.1 — docs accuracy pass + pinned MCP server"
+!!! info "Latest: v4.7.0 — docs accuracy pass + pinned MCP server"
     Three docs pages that 404'd now build (an unanchored `exclude_docs` pattern had dropped
     them), every quick-start uses an install command that exists, 15 command reference pages
     are rebuilt from each command's real arguments, the README is rewritten for v4, and the

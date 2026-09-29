@@ -6,7 +6,7 @@
 
 > `/craft:finish` — renamed from `/craft:done` (ADR-006, v4.2.0, breaking) · `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (9 commands) · `/craft:restore` — combined git+`.STATUS` recap
 
-**Current Version:** v4.6.1 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
+**Current Version:** v4.7.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
@@ -32,7 +32,7 @@ feature/* (worktrees) ← All implementation work
 | Branch | Code Files | .md Files | Git Operations |
 |--------|-----------|-----------|----------------|
 | `main` | BLOCKED | BLOCKED | Commit/push BLOCKED |
-| `dev` | New: BLOCKED, Existing: allowed | ALLOWED | Commit/push allowed |
+| `dev` | New: noted once (allowed), Existing: allowed | ALLOWED | Commit/push allowed |
 | `feature/*` | ALLOWED | ALLOWED | All allowed |
 
 Override local hook: ask "unprotect dev" / "bypass branch guard" (`dev/git` skill, Operation 10 — session-scoped, auto-expires).

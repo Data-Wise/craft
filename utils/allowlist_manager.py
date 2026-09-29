@@ -83,7 +83,9 @@ def add_entries(settings: dict, entries: list) -> tuple:
     existing_allow = _get_allow(settings)
     existing_craft = _get_craft_list(settings)
 
-    new_entries = [e for e in entries if e not in existing_craft]
+    # Only claim entries this command actually adds. Existing permission entries
+    # may be user-managed and must survive --reset.
+    new_entries = [e for e in entries if e not in existing_craft and e not in existing_allow]
 
     merged_allow = existing_allow + [e for e in new_entries if e not in existing_allow]
     merged_craft = existing_craft + new_entries

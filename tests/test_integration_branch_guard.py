@@ -51,6 +51,30 @@ def _run_hook(json_payload: dict, timeout: int = 10) -> subprocess.CompletedProc
     )
 
 
+def _classify(json_payload: dict, timeout: int = 10) -> str:
+    """Run the hook in GUARD_DRY_RUN=1 mode and return the tier line it prints.
+
+    Since cc-config f29ca7e (2026-07-28) a new code file on dev/draft is a
+    once-per-session note that exits 0, so the exit code alone no longer shows
+    the new-code rule fired. Classify mode prints "ALLOW: New .py file on dev"
+    only when it did; an undetected write prints "ALLOW: no rule matched".
+    """
+    env = dict(os.environ, GUARD_DRY_RUN="1")
+    return subprocess.run(
+        ["bash", HOOK_PATH],
+        input=json.dumps(json_payload),
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+        env=env,
+    ).stdout
+
+
+def _make_git_clean_json(cwd: str) -> dict:
+    """Build a Bash tool JSON payload for `git clean -fd` (still a [CONFIRM] on dev)."""
+    return {"tool_name": "Bash", "tool_input": {"command": "git clean -fd"}, "cwd": cwd}
+
+
 def _init_repo(path: str, branches: list[str] | None = None) -> None:
     """Initialize a git repo at path with main branch and optional extras.
 
@@ -125,15 +149,15 @@ class TestBranchGuardFullWorkflow(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.repo, ignore_errors=True)
 
-    def test_dev_new_code_blocked_then_worktree_allowed(self):
-        """New .py on dev is blocked; same file on feature branch is allowed."""
+    def test_dev_new_code_noted_then_feature_branch_silent(self):
+        """New .py on dev is noted (allowed); the same file on a feature branch is not noted."""
         payload = _make_write_json("src/feature.py", self.repo)
 
-        # On dev: should be blocked
+        # On dev: allowed, but the new-code rule fires (once-per-session note)
         _checkout(self.repo, "dev")
         result = _run_hook(payload)
-        self.assertEqual(result.returncode, 2, "New .py should be blocked on dev")
-        self.assertIn("BRANCH GUARD", result.stderr)
+        self.assertEqual(result.returncode, 0, "New .py on dev is a note, not a block")
+        self.assertIn("ALLOW: New .py file on dev", _classify(payload))
 
         # Create a feature branch and switch to it
         subprocess.run(
@@ -141,9 +165,10 @@ class TestBranchGuardFullWorkflow(unittest.TestCase):
             capture_output=True, check=True,
         )
 
-        # On feature branch: should be allowed
+        # On feature branch: allowed and the new-code rule does not fire
         result = _run_hook(payload)
         self.assertEqual(result.returncode, 0, "New .py should be allowed on feature branch")
+        self.assertNotIn("New .py file", _classify(payload))
 
 
 @unittest.skipUnless(os.path.isfile(HOOK_PATH), f"Hook not found: {HOOK_PATH}")
@@ -160,7 +185,7 @@ class TestBranchGuardBypassFlow(unittest.TestCase):
 
     def test_bypass_enables_and_disables(self):
         """Bypass marker toggles protection on and off."""
-        payload = _make_write_json("lib/new_module.py", self.repo)
+        payload = _make_git_clean_json(self.repo)  # still a [CONFIRM] on dev
         marker = os.path.join(self.repo, ".claude", "allow-dev-edit")
 
         # Step 1: blocked by default
@@ -233,7 +258,7 @@ class TestBranchGuardAutoDetect(unittest.TestCase):
         return repo
 
     def test_repo_with_dev_protects_both(self):
-        """Repo with dev branch: main=block-all, dev=block-new-code."""
+        """Repo with dev branch: main=block-all, dev=smart (new code noted, destructive ops prompt)."""
         repo = self._make_repo(branches=["dev"])
 
         # On main: Edit is blocked (block-all)
@@ -242,11 +267,15 @@ class TestBranchGuardAutoDetect(unittest.TestCase):
         result = _run_hook(edit_payload)
         self.assertEqual(result.returncode, 2, "Edit on main should be blocked (block-all)")
 
-        # On dev: Write new .py is blocked (block-new-code)
+        # On dev: smart protection is active — git clean still prompts, and a
+        # new .py is noted (allowed) rather than blocked (cc-config f29ca7e)
         _checkout(repo, "dev")
+        result = _run_hook(_make_git_clean_json(repo))
+        self.assertEqual(result.returncode, 2, "git clean on dev should prompt (smart protection)")
         write_payload = _make_write_json("app/server.py", repo)
         result = _run_hook(write_payload)
-        self.assertEqual(result.returncode, 2, "New .py on dev should be blocked (block-new-code)")
+        self.assertEqual(result.returncode, 0, "New .py on dev is a note, not a block")
+        self.assertIn("ALLOW: New .py file on dev", _classify(write_payload))
 
     def test_repo_with_draft_protects_both(self):
         """Research repo with draft (no dev): main=block-all, draft=block-new-code.
@@ -263,11 +292,15 @@ class TestBranchGuardAutoDetect(unittest.TestCase):
         result = _run_hook(edit_payload)
         self.assertEqual(result.returncode, 2, "Edit on main should be blocked (block-all)")
 
-        # On draft: Write new .py is blocked (block-new-code)
+        # On draft: smart protection is active — git clean still prompts, and a
+        # new .py is noted (allowed) rather than blocked (cc-config f29ca7e)
         _checkout(repo, "draft")
+        result = _run_hook(_make_git_clean_json(repo))
+        self.assertEqual(result.returncode, 2, "git clean on draft should prompt (smart protection)")
         write_payload = _make_write_json("app/server.py", repo)
         result = _run_hook(write_payload)
-        self.assertEqual(result.returncode, 2, "New .py on draft should be blocked (block-new-code)")
+        self.assertEqual(result.returncode, 0, "New .py on draft is a note, not a block")
+        self.assertIn("ALLOW: New .py file on draft", _classify(write_payload))
 
     def test_repo_without_dev_only_protects_main(self):
         """Repo without dev branch: main=block-all, other branches unprotected."""

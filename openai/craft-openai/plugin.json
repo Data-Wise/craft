@@ -1,0 +1,6 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "craft-openai",
+  "version": "0.1.0",
+  "description": "Portable Craft workflows for restoring context, completing sessions, and routing implementation work."
+}
