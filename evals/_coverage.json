@@ -44,6 +44,105 @@
       "date": "2026-10-03"
     },
     {
+      "case": "trigger-cmd-brainstorm",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-check",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-command-audit",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-dist-surfaces",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-do",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-finish",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-grill",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-hub",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-next",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-refine",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-cmd-skill-standards",
+      "skill": null,
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
       "case": "trigger-code",
       "skill": "sync-features",
       "delta": null,
