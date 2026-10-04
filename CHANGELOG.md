@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.8.0] - 2026-10-04
+
 ### Fixed
 
 - `utils/claude_md_sync.py`: a rename note such as "renamed from `/craft:done`" is no longer reported as a
