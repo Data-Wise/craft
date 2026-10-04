@@ -28,7 +28,7 @@ def display_category_view(category: str):
 
     if info['count'] == 0:
         print(f"❌ Category '{category}' not found or has no commands.")
-        print(f"💡 Try: /craft:hub to see all categories")
+        print("💡 Try: /craft:hub to see all categories")
         return
 
     # Build display
@@ -60,7 +60,7 @@ def display_category_view(category: str):
     for subcat, commands in sorted(info['subcategories'].items()):
         if subcat != 'general' or len(info['subcategories']) > 1:
             subcat_display = subcat.upper() if subcat != 'general' else "GENERAL"
-            print(f"│".ljust(66) + "│")
+            print("│".ljust(66) + "│")
             print(f"│ 🔹 {subcat_display} ({len(commands)} commands)".ljust(66) + "│")
 
         for cmd in sorted(commands, key=lambda x: x['name']):

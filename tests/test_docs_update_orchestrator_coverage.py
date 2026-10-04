@@ -1,7 +1,6 @@
 """Behavior-focused tests for the documentation update orchestrator."""
 
 import sys
-from pathlib import Path
 from types import ModuleType, SimpleNamespace
 from unittest.mock import Mock
 

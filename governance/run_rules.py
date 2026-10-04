@@ -17,11 +17,17 @@ applies severity + waivers, and reports. Two modes:
 Stdlib + PyYAML. Paths in RULES.yaml are relative to this file's directory.
   python3 run_rules.py [--target DIR] [--index FILE] [--marketplace FILE] [--json] [--selftest]
 """
-import os, sys, json, subprocess, datetime, argparse
+import os
+import sys
+import json
+import subprocess
+import datetime
+import argparse
 try:
     import yaml
 except ImportError:
-    sys.stderr.write("PyYAML required: pip install pyyaml\n"); sys.exit(2)
+    sys.stderr.write("PyYAML required: pip install pyyaml\n")
+    sys.exit(2)
 import soak  # sibling module: soak-then-flip promotion ledger
 
 GOV = os.path.dirname(os.path.abspath(__file__))
@@ -87,7 +93,8 @@ def audit(rules_doc, target, index, as_json, marketplace=None):
         results.append({"id": r["id"], "severity": sev, "state": state, "kind": kind, "output": out, "waiver": bool(waiver)})
 
     if as_json:
-        print(json.dumps({"results": results, "red": red}, indent=2)); return 1 if red else 0
+        print(json.dumps({"results": results, "red": red}, indent=2))
+        return 1 if red else 0
     print("GOVERNANCE AUDIT  scope=%s  posture=%s" % (rules_doc.get("scope"), rules_doc.get("posture")))
     for x in results:
         tag = {"PASS": "ok  ", "FAIL": "FAIL", "WAIVED": "waiv", "ERROR": "ERR ", "EXTERNAL": "ext ", "MANUAL": "man "}.get(x["state"], "?")
@@ -130,9 +137,11 @@ def selftest(rules_doc):
         # 4) waiver hygiene
         for w in r.get("waivers") or []:
             if not w.get("owner") or not w.get("expires"):
-                print("  [FAIL] %-22s waiver missing owner/expires" % rid); bad_meta += 1
+                print("  [FAIL] %-22s waiver missing owner/expires" % rid)
+                bad_meta += 1
             elif str(w["expires"]) < today:
-                print("  [FAIL] %-22s waiver EXPIRED (%s)" % (rid, w["expires"])); bad_meta += 1
+                print("  [FAIL] %-22s waiver EXPIRED (%s)" % (rid, w["expires"]))
+                bad_meta += 1
     print("  ---> %d meta-failure(s)" % bad_meta)
     return 1 if bad_meta else 0
 

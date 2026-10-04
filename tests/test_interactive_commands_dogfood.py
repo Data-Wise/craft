@@ -1,5 +1,4 @@
 # tests/test_interactive_commands_dogfood.py
-from pathlib import Path
 import pytest
 from test_plugin_e2e import PLUGIN_DIR, _find_all_commands
 

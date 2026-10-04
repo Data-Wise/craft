@@ -9,7 +9,6 @@ Version: 1.0.0 (v2.15.0)
 Author: Craft Plugin
 """
 
-import os
 import re
 import subprocess
 from dataclasses import dataclass, field

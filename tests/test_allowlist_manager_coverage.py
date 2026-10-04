@@ -2,7 +2,6 @@
 
 import json
 import sys
-from pathlib import Path
 
 from utils import allowlist_manager as manager
 

@@ -1,4 +1,7 @@
-import subprocess, json, os, pathlib, tempfile
+import subprocess
+import json
+import os
+import pathlib
 
 HOOK = pathlib.Path(__file__).resolve().parent.parent / "hooks/session-facet.sh"
 
@@ -45,12 +48,12 @@ def test_exits_zero_without_jq_or_git(tmp_path, monkeypatch):
     assert r.returncode == 0
 
 # --- Task B.2 installer test (appended) ---
-import shutil
 
 INSTALLER = pathlib.Path(__file__).resolve().parent.parent / "scripts/install-session-facet.sh"
 
 def test_installer_registers_sessionend_idempotently(tmp_path):
-    home = tmp_path; (home / ".claude/hooks").mkdir(parents=True)
+    home = tmp_path
+    (home / ".claude/hooks").mkdir(parents=True)
     (home / ".claude/settings.json").write_text('{"hooks":{}}')
     env = {**os.environ, "HOME": str(home)}
     for _ in range(2):  # run twice — must stay idempotent

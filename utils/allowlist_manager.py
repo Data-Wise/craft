@@ -146,7 +146,7 @@ def main():
         removed, new_settings = reset_entries(settings)
         save_settings(path, new_settings)
         print(f"Removed {removed} craft-managed entries from {path}.")
-        print(f"craft_allowlist cleared. Your own entries are untouched.")
+        print("craft_allowlist cleared. Your own entries are untouched.")
         return
 
     if args.dry_run:
@@ -159,7 +159,7 @@ def main():
         print(f"Added {added} entries to {path}.")
     else:
         print(f"Already up to date — no new entries added to {path}.")
-    print(f"Run with --reset to undo.")
+    print("Run with --reset to undo.")
 
 
 if __name__ == "__main__":

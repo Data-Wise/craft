@@ -19,8 +19,7 @@ sys.path.insert(0, str(plugin_dir))
 # Import discovery engine
 from commands._discovery import (
     get_command_detail,
-    generate_command_tutorial,
-    get_command_stats
+    generate_command_tutorial
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.hub]

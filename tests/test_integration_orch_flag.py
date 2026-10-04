@@ -4,7 +4,7 @@ Integration tests for --orch flag across commands
 """
 
 import pytest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 
 pytestmark = [pytest.mark.integration, pytest.mark.orchestrator]
 

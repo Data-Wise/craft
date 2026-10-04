@@ -292,7 +292,7 @@ def process_file(filepath: str, apply_fixes: bool = False) -> tuple[list[Fix], l
         if content != original and apply_fixes:
             new_block_lines = content.split("\n")
             # Replace lines between fence markers
-            lines[block_start + 1:block_end] = [l + "\n" for l in new_block_lines]
+            lines[block_start + 1:block_end] = [ln + "\n" for ln in new_block_lines]
             modified = True
 
     if modified and apply_fixes:

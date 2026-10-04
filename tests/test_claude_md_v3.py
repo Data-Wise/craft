@@ -29,9 +29,7 @@ from utils.claude_md_sync import (
     Issue,
     Severity,
     MetricChange,
-    FixResult,
     sync_claude_md,
-    ANTI_PATTERNS,
     DEFAULT_BUDGET,
 )
 from utils.claude_md_optimizer import (
@@ -39,11 +37,6 @@ from utils.claude_md_optimizer import (
     SectionInfo,
     OptimizationAction,
     OptimizeResult,
-    analyze_claude_md,
-    optimize_claude_md,
-    P0_SECTIONS,
-    P1_SECTIONS,
-    P2_SECTION_NAMES,
     POINTER_PREFIX,
 )
 
@@ -248,7 +241,7 @@ class TestCLAUDEMDSync(unittest.TestCase):
         original_content = claude_md.read_text()
 
         syncer = CLAUDEMDSync(claude_md, budget=500)
-        result = syncer.sync(fix=True, dry_run=True, scope="warnings")
+        syncer.sync(fix=True, dry_run=True, scope="warnings")
 
         # File should remain unchanged
         self.assertEqual(claude_md.read_text(), original_content)

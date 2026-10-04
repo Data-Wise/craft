@@ -15,15 +15,16 @@ import sys
 import tempfile
 import shutil
 from pathlib import Path
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 import pytest
+import yaml
 
 # Add parent directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from utils.docs_detector import DocsDetector, DetectionResult
-from utils.help_file_validator import HelpFileValidator, IssueType, HelpIssue
+from utils.help_file_validator import HelpFileValidator, IssueType
 
 pytestmark = [pytest.mark.integration, pytest.mark.docs]
 
@@ -183,7 +184,7 @@ class TestDocsDetectorErrorHandling(unittest.TestCase):
         # Should handle large files without memory issues
         import time
         start_time = time.time()
-        results = detector.detect_all("v2.6.0")
+        detector.detect_all("v2.6.0")
         elapsed = time.time() - start_time
 
         # Should complete in reasonable time (< 5 seconds for 1MB)

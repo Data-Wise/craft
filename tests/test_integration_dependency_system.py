@@ -17,7 +17,6 @@ Run with: python tests/test_integration_dependency_system.py
 import unittest
 import subprocess
 import tempfile
-import os
 from pathlib import Path
 
 import pytest

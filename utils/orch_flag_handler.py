@@ -6,7 +6,6 @@ Provides unified logic for --orch flag across all commands.
 """
 
 from typing import Optional, Tuple, Dict, Any, Union
-import sys
 
 
 VALID_MODES = ["default", "debug", "optimize", "release"]
@@ -173,7 +172,7 @@ def spawn_orchestrator(task: str, mode: str, extra_args: str = "") -> bool:
             # Use regular command routing
     """
     try:
-        print(f"\n🚀 Spawning orchestrator...")
+        print("\n🚀 Spawning orchestrator...")
         print(f"   Task: {task}")
         print(f"   Mode: {mode}")
         if extra_args:
@@ -203,16 +202,16 @@ def handle_orchestrator_failure(task: str, error: str) -> None:
         task: Task that failed to orchestrate
         error: Error message from spawn attempt
     """
-    print(f"\n⚠️  Orchestrator Spawn Failed")
+    print("\n⚠️  Orchestrator Spawn Failed")
     print(f"{'=' * 60}")
     print(f"\n📋 Task: {task}")
     print(f"❌ Error: {error}")
-    print(f"\n💡 Suggestions:")
-    print(f"   1. Try explicit commands instead of orchestration")
-    print(f"   2. Check that orchestrator agent is available")
-    print(f"   3. Verify you have sufficient context/resources")
-    print(f"   4. Use --dry-run to preview without spawning")
-    print(f"\n🔄 Falling back to command routing...")
+    print("\n💡 Suggestions:")
+    print("   1. Try explicit commands instead of orchestration")
+    print("   2. Check that orchestrator agent is available")
+    print("   3. Verify you have sufficient context/resources")
+    print("   4. Use --dry-run to preview without spawning")
+    print("\n🔄 Falling back to command routing...")
     print(f"{'=' * 60}\n")
 
 
@@ -266,7 +265,7 @@ if __name__ == "__main__":
             print(f"   ❌ Error: {e}")
 
     # Test error handling
-    print(f"\n🧪 Testing Error Handling")
+    print("\n🧪 Testing Error Handling")
     print("=" * 60)
     try:
         handle_orch_flag("test", True, "invalid")
@@ -274,12 +273,12 @@ if __name__ == "__main__":
         print(f"✓ Caught expected error: {e}")
 
     # Test failure handler
-    print(f"\n🧪 Testing Failure Handler")
+    print("\n🧪 Testing Failure Handler")
     print("=" * 60)
     handle_orchestrator_failure("test task", "Orchestrator not available")
 
     # Test mode recommendations
-    print(f"\n🧪 Testing Mode Recommendations")
+    print("\n🧪 Testing Mode Recommendations")
     print("=" * 60)
     for score in [2, 5, 9]:
         mode = recommend_orchestration_mode(score)

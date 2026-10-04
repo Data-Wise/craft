@@ -16,7 +16,7 @@ Routing decisions:
 """
 
 import re
-from typing import List, Dict
+from typing import Dict
 
 
 def calculate_complexity_score(task: str) -> int:
@@ -372,7 +372,7 @@ if __name__ == "__main__":
         print(f"Score: {result['score']}/10")
         print(f"Routing: {result['routing']}")
         if result["factors"]:
-            print(f"Factors:")
+            print("Factors:")
             for factor in result["factors"]:
                 print(f"  - {factor}")
         else:

@@ -18,7 +18,6 @@ Run with: python3 tests/test_integration_claude_md_v3.py
 """
 
 import json
-import os
 import shutil
 import subprocess
 import sys
@@ -31,10 +30,9 @@ import pytest
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from utils.claude_md_sync import CLAUDEMDSync, SyncResult
+from utils.claude_md_sync import CLAUDEMDSync
 from utils.claude_md_optimizer import (
     CLAUDEMDOptimizer,
-    OptimizeResult,
     POINTER_PREFIX,
 )
 
@@ -257,7 +255,7 @@ class TestSyncPipelineIntegration(unittest.TestCase):
 
         # Act: run optimizer
         optimizer = CLAUDEMDOptimizer(claude_md, budget=50)
-        opt_result = optimizer.optimize()
+        optimizer.optimize()
 
         # Assert: VERSION-HISTORY.md created with moved content
         vh_path = self.path / "docs" / "VERSION-HISTORY.md"

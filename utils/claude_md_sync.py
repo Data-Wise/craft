@@ -19,7 +19,6 @@ Author: Craft Plugin
 """
 
 import json
-import os
 import re
 import shutil
 import sys
@@ -1379,7 +1378,7 @@ class ReferenceFileGenerator:
                 unique_agents.append(a)
 
         lines = [
-            f"# Craft Agents\n",
+            "# Craft Agents\n",
             f"{len(unique_agents)} agents in `agents/` directory.\n",
             "| Agent | Model | Use For |",
             "|-------|-------|---------|",
@@ -1473,13 +1472,13 @@ class ReferenceFileGenerator:
             "## Directory Layout\n",
             "```text",
             "craft/",
-            f"├── .claude-plugin/     # Plugin manifest, hooks, validators",
+            "├── .claude-plugin/     # Plugin manifest, hooks, validators",
             f"├── commands/           # {cmd_count} commands",
             f"├── skills/             # {skill_count} skills",
             f"├── agents/             # {agent_count} agents",
-            f"├── scripts/            # Utility scripts",
-            f"├── utils/              # Python utilities",
-            f"├── tests/              # Test suite",
+            "├── scripts/            # Utility scripts",
+            "├── utils/              # Python utilities",
+            "├── tests/              # Test suite",
             "├── docs/",
             f"│   ├── specs/          # {spec_count} specs",
             "│   ├── guide/          # User guides",

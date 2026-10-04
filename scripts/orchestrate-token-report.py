@@ -40,7 +40,8 @@ def load_marker(path):
     with open(path) as f:
         return json.load(f)
 
-import glob, os
+import glob
+import os
 
 def per_agent(transcript_dir, start_ts, end_ts):
     result = {}
@@ -59,7 +60,9 @@ def aggregate(usages):
             "cost_weighted": sum(cost_weighted(u) for u in usages),
             "cache_hit_ratio": ratio}
 
-import argparse, math, sys
+import argparse
+import math
+import sys
 
 def build_report(marker_path, home):
     m = load_marker(marker_path)

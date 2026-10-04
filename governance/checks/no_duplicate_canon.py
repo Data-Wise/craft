@@ -2,7 +2,8 @@
 """R01 checker: exit 1 if any skill name appears in more than one canon.
 Usage: no_duplicate_canon.py [<canon_skills_dir> ...]
 Defaults to the savant + scholar skill dirs when no args are given."""
-import os, sys
+import os
+import sys
 
 DEFAULT_CANONS = [
     os.path.expanduser("~/projects/dev-tools/savant/src/plugin-api/skills"),

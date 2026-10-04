@@ -360,7 +360,7 @@ class _DSLReader:
     def parallel_stage(self):
         self._expect("parallel")
         self._expect("(")
-        operator, val = self._next()[1], None  # operator name (map/flatMap)
+        operator, _val = self._next()[1], None  # operator name (map/flatMap)
         self._expect("(")
         path = self._string()
         self._expect(",")

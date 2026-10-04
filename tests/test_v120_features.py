@@ -9,7 +9,6 @@ Validates the new features added in v1.2.0:
 Run with: python tests/test_v120_features.py
 """
 
-import re
 from pathlib import Path
 
 import pytest

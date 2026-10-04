@@ -55,7 +55,6 @@ class TestLinkcheckIgnoreIntegration(unittest.TestCase):
 
         # Expected behavior
         critical_count = len(broken_links)
-        expected_count = 0
 
         self.assertEqual(critical_count, 0)
         # Exit code should be 0

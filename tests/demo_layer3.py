@@ -32,7 +32,7 @@ def display_command_detail(command_name: str):
 
     if not command:
         print(f"❌ Command '{command_name}' not found.")
-        print(f"💡 Try: /craft:hub to browse all commands")
+        print("💡 Try: /craft:hub to browse all commands")
         return
 
     # Generate and display tutorial

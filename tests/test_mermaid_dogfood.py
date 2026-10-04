@@ -9,11 +9,9 @@ Run with: python3 -m pytest tests/test_mermaid_dogfood.py -v
 """
 
 import importlib.util
-import subprocess
 from pathlib import Path
 
 import pytest
-import yaml
 
 pytestmark = [pytest.mark.e2e, pytest.mark.dogfood]
 
