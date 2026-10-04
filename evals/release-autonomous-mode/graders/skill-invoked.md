@@ -5,4 +5,4 @@ tool: Skill
 input_match: '"skill"\s*:\s*"(?:[\w-]+:)?release"'
 ---
 
-The release skill must be invoked.
+The release skill is expected to fire (unscored indicator).

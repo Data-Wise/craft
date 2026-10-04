@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "case": "modes-lookup",
+      "skill": "mode-controller",
+      "delta": 1,
+      "runs": 1,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "preflight-check-thresholds",
+      "skill": "preflight-check",
+      "delta": 1,
+      "runs": 2,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "release-autonomous-mode",
+      "skill": "release",
+      "delta": 1,
+      "runs": 1,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    }
+  ]
+}
