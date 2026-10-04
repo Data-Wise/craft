@@ -60,6 +60,6 @@ def test_append_decision_escapes_pipes_and_newlines():
         p = os.path.join(d, "GRILL-x-2026-06-22.md")
         open(p, "w", encoding="utf-8").write("# x\n")
         append_decision(p, "G1", "Syntax", "use a | b\nform")
-        row = [l for l in open(p, encoding="utf-8").read().splitlines() if l.startswith("| G1")][0]
+        row = [ln for ln in open(p, encoding="utf-8").read().splitlines() if ln.startswith("| G1")][0]
         assert r"use a \| b form" in row                  # pipe escaped, newline flattened
         assert row.count("|") - row.count(r"\|") == 4     # 4 UNescaped delimiters -> table intact

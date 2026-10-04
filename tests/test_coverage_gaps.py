@@ -14,12 +14,8 @@ Tests focus on:
 """
 
 import pytest
-import sys
-import os
 from pathlib import Path
-from unittest.mock import patch, mock_open, MagicMock
-import tempfile
-import shutil
+from unittest.mock import patch
 
 pytestmark = [pytest.mark.unit, pytest.mark.structure]
 
@@ -55,7 +51,6 @@ class TestLinkcheckIgnoreParserCoverageGaps:
         Scenario: File exists but can't be read
         """
         from utils.linkcheck_ignore_parser import parse_linkcheck_ignore
-        from pathlib import Path
 
         ignore_file = tmp_path / ".linkcheck-ignore"
         ignore_file.write_text("### Category\nFile: test.md")
@@ -168,7 +163,7 @@ Target: README.md
         Coverage: Lines 238-274, 278 (main() function and __main__ block)
         Scenario: Running module directly
         """
-        from utils.linkcheck_ignore_parser import main, parse_linkcheck_ignore
+        from utils.linkcheck_ignore_parser import main
 
         # Create .linkcheck-ignore file in temp directory
         ignore_file = tmp_path / ".linkcheck-ignore"
@@ -237,7 +232,7 @@ Target: ../brainstorm/*.md
             # Expected to fail on invalid UTF-8
             pass
 
-        captured = capsys.readouterr()
+        capsys.readouterr()
         # Should handle error gracefully
 
 

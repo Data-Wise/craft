@@ -932,7 +932,7 @@ def generate_command_tutorial(command: dict) -> str:
     # Navigation footer
     category = command['category']
     sections.append(f"│ 🔙 Back to {category.upper()}: /craft:hub {category}".ljust(67) + "│")
-    sections.append(f"│ 🏠 Back to Hub: /craft:hub".ljust(67) + "│")
+    sections.append("│ 🏠 Back to Hub: /craft:hub".ljust(67) + "│")
     sections.append(f"└{'─' * 65}┘")
 
     return "\n".join(sections)
@@ -944,7 +944,6 @@ if __name__ == '__main__':
 
     Regenerates cache and prints statistics.
     """
-    import sys
 
     print("Discovering commands and skills...")
     commands = discover_commands()
@@ -977,7 +976,7 @@ if __name__ == '__main__':
 
     # Print stats
     stats = get_command_stats()
-    print(f"\nStatistics:")
+    print("\nStatistics:")
     print(f"  Commands total: {stats['total']}")
     print(f"  Skills total: {len(skills)}")
     print(f"  With modes: {stats['with_modes']}")

@@ -1,5 +1,7 @@
 # tests/test_skill_standards_validator.py
-import subprocess, sys, os, pathlib
+import subprocess
+import os
+import pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 VALIDATOR = ROOT / ".claude-plugin/skills/validation/skill-standards-check.md"
 

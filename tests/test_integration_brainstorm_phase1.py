@@ -10,7 +10,7 @@ End-to-end tests validating:
 """
 
 import pytest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import patch
 import sys
 import os
 
@@ -45,7 +45,6 @@ args:
 
     def test_colon_notation_parses_correctly(self):
         """Test that colon notation is properly parsed in context."""
-        from commands._discovery import parse_yaml_frontmatter
 
         test_cases = [
             ("d:5", ("deep", 5)),
@@ -195,11 +194,10 @@ version: 2.4.0
             parts = invalid.split(":")
             assert len(parts) == 2
 
-            depth_str = parts[0]
             count_str = parts[1]
 
             try:
-                count = int(count_str)
+                int(count_str)
                 assert False, f"Should have raised ValueError for {invalid}"
             except ValueError:
                 pass

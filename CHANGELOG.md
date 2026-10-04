@@ -33,6 +33,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 11 command-routing trigger evals (`evals/trigger-cmd-*`, 33/33 runs pass) and a clearer `trigger-hooks`
   prompt (the generic one was ambiguous with the built-in `update-config` skill; 10/10 after the fix).
 
+### Changed
+
+- `ruff check .` is clean under a pinned rule set (`ruff.toml`: `E4`, `E7`, `E9`, `F`; `tests/` and `scripts/` ignore `E402`
+  for their `sys.path` bootstrap). Fixed 296 findings across 88 files: unused imports and variables, semicolon-joined
+  statements, f-strings without placeholders, ambiguous `l` names. Two were real bugs: `import yaml` was missing in
+  `test_docs_utilities_error_handling.py` (a `NameError` would have masked the real failure) and a bare `except:` in
+  `claude_md_template_populator.py` (now `except Exception:`, so Ctrl-C is no longer swallowed).
+
 ## [4.7.0] - 2026-09-29
 
 ### Changed

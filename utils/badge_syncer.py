@@ -20,8 +20,7 @@ import subprocess
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import List, Dict, Optional, Tuple
-from urllib.parse import quote
+from typing import List, Dict, Optional
 
 from badge_detector import BadgeDetector, Badge, BadgeType
 
@@ -524,7 +523,7 @@ class BadgeSyncer:
                 if mismatch.current:
                     print(f"     Current: {mismatch.current.raw_markdown[:80]}...")
                 else:
-                    print(f"     Current: (missing)")
+                    print("     Current: (missing)")
 
                 print(f"     Expected: {mismatch.expected.raw_markdown[:80]}...")
 

@@ -141,7 +141,7 @@ class TestYAMLFrontmatter:
         assert "for" in arg_names, "check missing 'for' argument"
 
     def test_docs_update_has_post_merge_flag(self):
-        fm = _extract_frontmatter(_read_file(COMMAND_FILES["docs_update"]))
+        _extract_frontmatter(_read_file(COMMAND_FILES["docs_update"]))
         content = _read_file(COMMAND_FILES["docs_update"])
         assert "--post-merge" in content, "docs:update missing --post-merge flag"
 

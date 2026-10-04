@@ -13,7 +13,6 @@ Run with: python3 -m pytest tests/test_plugin_e2e.py -v
 """
 
 import json
-import os
 import re
 from pathlib import Path
 from typing import Any
@@ -519,7 +518,7 @@ class TestScriptSyntax:
                 failures.append(
                     f"{script.relative_to(PLUGIN_DIR)}: {result.stderr.strip()}"
                 )
-        assert not failures, f"Scripts with syntax errors:\n" + "\n".join(failures)
+        assert not failures, "Scripts with syntax errors:\n" + "\n".join(failures)
 
     def test_all_scripts_have_shebang(self, all_scripts):
         """Every .sh file starts with a shebang line."""

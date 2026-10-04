@@ -242,7 +242,7 @@ def fetch_releases(count, since=None, cache=None, refresh=False, no_cache=False)
         if stale and not no_cache:
             print("Warning: Live fetch failed, using stale cache.", file=sys.stderr)
             return _filter_and_sort(stale, count, since)
-        print(f"Error: Failed to fetch releases.", file=sys.stderr)
+        print("Error: Failed to fetch releases.", file=sys.stderr)
         print(f"Details: {result.stderr.strip()}", file=sys.stderr)
         sys.exit(1)
 
@@ -832,12 +832,12 @@ def generate_patch(safe_items, craft_state):
 
     # Find the last model pattern line and add after it
     last_pattern = MODEL_PATTERNS[-2] if len(MODEL_PATTERNS) > 1 else MODEL_PATTERNS[-1]
-    patch_lines.append(f"@@ MODEL_PATTERNS additions @@")
+    patch_lines.append("@@ MODEL_PATTERNS additions @@")
     patch_lines.append(f'     r"{last_pattern}",')
     for model in sorted(new_models):
         escaped = model.replace(".", r"\.")
         patch_lines.append(f'+    r"{escaped}",')
-    patch_lines.append(f'     # Future-proofing: catch claude-{{family}}-{{version}} patterns')
+    patch_lines.append('     # Future-proofing: catch claude-{family}-{version} patterns')
 
     patch_content = "\n".join(patch_lines) + "\n"
 

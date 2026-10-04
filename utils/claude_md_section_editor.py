@@ -45,7 +45,6 @@ class SectionParser:
         """
         sections = []
         current_section = None
-        current_start = 0
 
         for i, line in enumerate(self.lines):
             # Detect headers

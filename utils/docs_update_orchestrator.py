@@ -25,11 +25,10 @@ Detection Categories:
 """
 
 import sys
-import json
 import re
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
-from dataclasses import dataclass, asdict
+from typing import Dict, List, Set, Tuple
+from dataclasses import dataclass
 from enum import Enum
 import subprocess
 import argparse
@@ -79,7 +78,7 @@ class DocsUpdateOrchestrator:
             from help_file_validator import HelpFileValidator
 
             detector = DocsDetector(str(self.project_root))
-            validator = HelpFileValidator(str(self.project_root))
+            HelpFileValidator(str(self.project_root))
 
             # Run comprehensive detection
             all_results = detector.detect_all(self.current_version)
@@ -97,7 +96,7 @@ class DocsUpdateOrchestrator:
 
             # Add badge detection
             try:
-                from badge_detector import BadgeDetector
+                from badge_detector import BadgeDetector  # noqa: F401 (availability probe)
                 from badge_syncer import BadgeSyncer
 
                 syncer = BadgeSyncer(self.project_root)
@@ -562,7 +561,7 @@ class DocsUpdateOrchestrator:
             set().union(*(set(u.files_affected) for u in applied_updates))
         )
 
-        summary = f"""
+        summary = """
 ╭─────────────────────────────────────────────────────────────╮
 │ ✅ DOCUMENTATION UPDATE COMPLETE (Interactive Mode)         │
 ├─────────────────────────────────────────────────────────────┤

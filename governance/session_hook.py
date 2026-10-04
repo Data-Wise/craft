@@ -24,7 +24,10 @@ Test/override env vars (so dogfood tests stay hermetic):
   GOVERNANCE_INDEX       default <skills>/SKILLS-INDEX.md
   GOVERNANCE_CACHE       default ~/.claude/.cache/governance-session.json
 """
-import os, sys, json, subprocess
+import os
+import sys
+import json
+import subprocess
 import soak  # sibling module: feeds the soak-then-flip ledger
 
 HERE = os.path.dirname(os.path.abspath(__file__))

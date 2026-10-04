@@ -1,5 +1,4 @@
 # tests/test_interactive_commands_e2e.py
-from pathlib import Path
 import pytest
 from test_plugin_e2e import PLUGIN_DIR  # reuse existing helper module
 

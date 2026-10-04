@@ -16,10 +16,7 @@ the /craft:hub command. It tests:
 """
 
 import json
-import os
-import shutil
 import time
-import yaml
 from pathlib import Path
 from typing import Optional, Dict, List, Any
 
@@ -288,7 +285,7 @@ def test_performance_first_run():
         cache_path.unlink()
 
     start = time.time()
-    commands = stub_discover_commands(plugin_dir)
+    stub_discover_commands(plugin_dir)
     duration = (time.time() - start) * 1000
 
     target_ms = 200

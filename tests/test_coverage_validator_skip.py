@@ -4,7 +4,6 @@ Regression: with pytest missing, the validator printed "SKIP: pytest not install
 exited 0 in every mode, so `CRAFT_MODE=release` (the blocking tier) passed unmeasured.
 It also probed `command -v pytest` while running `python3 -m pytest`.
 """
-import os
 import re
 import stat
 import subprocess

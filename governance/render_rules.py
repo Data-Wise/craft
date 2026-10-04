@@ -17,11 +17,14 @@ Edit RULES.yaml, re-run --apply; never hand-edit between the markers.
 
 Stdlib + PyYAML.
 """
-import os, sys, argparse
+import os
+import sys
+import argparse
 try:
     import yaml
 except ImportError:
-    sys.stderr.write("PyYAML required: pip install pyyaml\n"); sys.exit(2)
+    sys.stderr.write("PyYAML required: pip install pyyaml\n")
+    sys.exit(2)
 
 GOV = os.path.dirname(os.path.abspath(__file__))
 BEGIN = "<!-- RULES:BEGIN (generated from governance/RULES.yaml — do not edit by hand) -->"
@@ -62,7 +65,8 @@ def apply_to(path, block, init):
     spliced = splice(text, block)
     if spliced is None:
         if not init:
-            print("  no markers in %s (use --init to append a fresh block)" % path); return False
+            print("  no markers in %s (use --init to append a fresh block)" % path)
+            return False
         sep = "" if text.endswith("\n\n") or text == "" else ("\n" if text.endswith("\n") else "\n\n")
         spliced = text + sep + block + "\n"
     open(path, "w", encoding="utf-8").write(spliced)
@@ -73,10 +77,12 @@ def apply_to(path, block, init):
 def check(path, block):
     path = os.path.expanduser(path)
     if not os.path.exists(path):
-        print("  MISSING %s" % path); return False
+        print("  MISSING %s" % path)
+        return False
     text = open(path, encoding="utf-8").read()
     if BEGIN not in text or END not in text:
-        print("  NO-MARKERS %s" % path); return False
+        print("  NO-MARKERS %s" % path)
+        return False
     cur = text[text.index(BEGIN):text.index(END) + len(END)]
     ok = cur.strip() == block.strip()
     print("  %s %s" % ("OK     " if ok else "DRIFT  ", path))
@@ -92,7 +98,8 @@ def main():
     block = render_block()
     if a.check is not None:
         if not a.check:
-            sys.stderr.write("--check needs at least one FILE to compare against\n"); return 2
+            sys.stderr.write("--check needs at least one FILE to compare against\n")
+            return 2
         ok = all(check(p, block) for p in a.check)
         return 0 if ok else 1
     if a.init is not None:

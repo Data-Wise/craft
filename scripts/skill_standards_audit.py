@@ -2,7 +2,11 @@
 Mirrors scripts/command-audit.sh: scan -> checks -> score -> exit 0/1/2.
 Reuses commands/_discovery.py:parse_yaml_frontmatter.
 """
-import os, sys, re, json, argparse, datetime
+import sys
+import re
+import json
+import argparse
+import datetime
 from pathlib import Path
 from collections import namedtuple
 
@@ -128,7 +132,7 @@ def _normalize_frontmatter(text: str) -> str:
     """Lowercase and reorder frontmatter keys in SKILL.md; skip complex blocks."""
     lines = text.splitlines(keepends=True)
     # find first and second '---' delimiters
-    delim_idx = [i for i, l in enumerate(lines) if l.strip() == "---"]
+    delim_idx = [i for i, ln in enumerate(lines) if ln.strip() == "---"]
     if len(delim_idx) < 2:
         return text
     start, end = delim_idx[0], delim_idx[1]
@@ -172,13 +176,13 @@ def _normalize_frontmatter(text: str) -> str:
     ordered = []
     seen = set()
     for key in CANONICAL_ORDER:
-        for k, l in kv_pairs:
+        for k, ln in kv_pairs:
             if k == key and k not in seen:
-                ordered.append(l)
+                ordered.append(ln)
                 seen.add(k)
-    for k, l in kv_pairs:
+    for k, ln in kv_pairs:
         if k not in seen:
-            ordered.append(l)
+            ordered.append(ln)
             if k:
                 seen.add(k)
     new_fm = "".join(ordered)
@@ -237,7 +241,8 @@ def apply_safe_fixes(root: Path, findings) -> list:
 
 def refresh_standards() -> int:
     if not STANDARDS_DOC.exists():
-        print(f"missing {STANDARDS_DOC}"); return 2
+        print(f"missing {STANDARDS_DOC}")
+        return 2
     today = datetime.date.today().isoformat()
     text = STANDARDS_DOC.read_text(encoding="utf-8")
     new_block = (f"<!-- PROVENANCE\nsynced: {today}\n"

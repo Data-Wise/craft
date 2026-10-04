@@ -22,7 +22,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).parent.parent / "utils"))
 
 from badge_syncer import BadgeSyncer, BadgeSeverity
-from badge_detector import BadgeDetector, BadgeType
+from badge_detector import BadgeType
 
 pytestmark = [pytest.mark.integration, pytest.mark.badge]
 
@@ -137,7 +137,7 @@ class TestBadgeSyncerIntegration(unittest.TestCase):
         readme.write_text("# Test Plugin\n\nNo badges yet.\n")
 
         syncer = BadgeSyncer(self.test_dir)
-        mismatches = syncer.sync_badges(auto_confirm=True, calculate_coverage=False)
+        syncer.sync_badges(auto_confirm=True, calculate_coverage=False)
 
         # Verify badge was added
         updated_content = readme.read_text()
@@ -400,7 +400,7 @@ class TestBadgeSyncerRealWorld(unittest.TestCase):
         readme.write_text("# Test Node CLI\n")
 
         syncer = BadgeSyncer(self.test_dir)
-        mismatches = syncer.sync_badges(auto_confirm=True, calculate_coverage=False)
+        syncer.sync_badges(auto_confirm=True, calculate_coverage=False)
 
         # Should add version badge
         updated = readme.read_text()
@@ -425,7 +425,7 @@ class TestBadgeSyncerRealWorld(unittest.TestCase):
 
             # Should not crash, just report warning
             # (In practice, prints warning and continues)
-            mismatches = syncer.sync_badges(auto_confirm=True, calculate_coverage=False)
+            syncer.sync_badges(auto_confirm=True, calculate_coverage=False)
 
             # Cleanup: restore permissions
             readme.chmod(0o644)
@@ -474,7 +474,7 @@ class TestBadgeSyncerRealWorld(unittest.TestCase):
         readme.write_text("# MCP Server\n")
 
         syncer = BadgeSyncer(self.test_dir)
-        mismatches = syncer.sync_badges(auto_confirm=True, calculate_coverage=False)
+        syncer.sync_badges(auto_confirm=True, calculate_coverage=False)
 
         # Should add version badge
         updated = readme.read_text()

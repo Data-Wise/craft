@@ -1,7 +1,9 @@
-import importlib.util, pathlib
+import importlib.util
+import pathlib
 spec = importlib.util.spec_from_file_location(
     "otr", pathlib.Path(__file__).parent.parent / "scripts" / "orchestrate-token-report.py")
-otr = importlib.util.module_from_spec(spec); spec.loader.exec_module(otr)
+otr = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(otr)
 
 def test_cost_weighted_applies_per_type_weights():
     usage = {"input_tokens": 100, "output_tokens": 10,
@@ -53,7 +55,8 @@ def test_diff_reports_pct_reduction():
     assert d["pct_reduction"] == 20.0
 
 def test_report_is_read_only(tmp_path, monkeypatch):
-    fake_home = tmp_path / "home"; (fake_home / ".claude").mkdir(parents=True)
+    fake_home = tmp_path / "home"
+    (fake_home / ".claude").mkdir(parents=True)
     before = set((fake_home / ".claude").rglob("*"))
     m = tmp_path / "run.json"
     m.write_text('{"run_id":"x","cwd":"/c","start_ts":null,"end_ts":null,"engine":"fanout"}')

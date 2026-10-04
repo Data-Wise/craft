@@ -10,7 +10,7 @@ Author: Craft Plugin
 
 import json
 from pathlib import Path
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Any
 from datetime import datetime
 
 
@@ -103,7 +103,7 @@ class TemplatePopulator:
             # Basic YAML parsing (would use pyyaml in production)
             content = quarto_yml.read_text()
             if "title:" in content:
-                title_line = [l for l in content.split("\n") if "title:" in l][0]
+                title_line = [ln for ln in content.split("\n") if "title:" in ln][0]
                 variables["course_name"] = title_line.split("title:")[1].strip().strip('"')
 
         # Read course.yml
@@ -113,7 +113,7 @@ class TemplatePopulator:
             # Extract basic fields
             for field in ["course_code", "semester", "instructor"]:
                 if f"{field}:" in content:
-                    line = [l for l in content.split("\n") if f"{field}:" in l][0]
+                    line = [ln for ln in content.split("\n") if f"{field}:" in ln][0]
                     variables[field] = line.split(":")[1].strip().strip('"')
 
         # Scan directories
@@ -190,13 +190,13 @@ class TemplatePopulator:
         if status_file.exists():
             content = status_file.read_text()
             if "status:" in content:
-                status_line = [l for l in content.split("\n") if "status:" in l][0]
+                status_line = [ln for ln in content.split("\n") if "status:" in ln][0]
                 variables["status"] = status_line.split(":")[1].strip()
             if "progress:" in content:
-                prog_line = [l for l in content.split("\n") if "progress:" in l][0]
+                prog_line = [ln for ln in content.split("\n") if "progress:" in ln][0]
                 variables["progress"] = prog_line.split(":")[1].strip()
             if "next:" in content:
-                next_line = [l for l in content.split("\n") if "next:" in l][0]
+                next_line = [ln for ln in content.split("\n") if "next:" in ln][0]
                 variables["next_task"] = next_line.split(":", 1)[1].strip()
 
         # URLs
@@ -304,7 +304,6 @@ class TemplatePopulator:
         # Generate tree (first 5 only)
         lines = []
         for i, subdir in enumerate(subdirs[:5]):
-            prefix = "│   " if i < len(subdirs[:5]) - 1 else "    "
             lines.append(f"│   ├── {subdir.name}/")
 
         if len(subdirs) > 5:
@@ -447,7 +446,7 @@ class TemplatePopulator:
             )
             if result.returncode == 0:
                 return result.stdout.strip()
-        except:
+        except Exception:
             pass
         return ""
 

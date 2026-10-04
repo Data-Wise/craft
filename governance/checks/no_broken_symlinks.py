@@ -11,7 +11,8 @@ from the walk: dead links inside archived/hidden trees are expected, not
 violations (R08 only cares about *load-bearing* links).
 
 Usage: no_broken_symlinks.py <dir>"""
-import os, sys
+import os
+import sys
 
 def find_broken(d):
     """Return [(relpath, target), ...] for every broken symlink under d."""
@@ -33,10 +34,12 @@ def find_broken(d):
 
 def main():
     if len(sys.argv) < 2:
-        print("usage: no_broken_symlinks.py <dir>"); return 2
+        print("usage: no_broken_symlinks.py <dir>")
+        return 2
     d = os.path.expanduser(sys.argv[1])
     if not os.path.isdir(d):
-        print("skip: %s is not a directory" % d); return 0
+        print("skip: %s is not a directory" % d)
+        return 0
     broken = find_broken(d)
     for n, t in broken:
         print("  broken: %s -> %s" % (n, t))

@@ -267,7 +267,7 @@ No tests.
 
         # Run audit
         auditor = CLAUDEMDAuditor(claude_md)
-        issues = auditor.audit()
+        auditor.audit()
 
         # Run fix
         fixer = CLAUDEMDFixer(claude_md)
@@ -299,7 +299,7 @@ No tests.
 
         # Run fix in dry-run mode
         fixer = CLAUDEMDFixer(claude_md)
-        results = fixer.fix_all(scope="all", dry_run=True)
+        fixer.fix_all(scope="all", dry_run=True)
 
         # Verify file unchanged
         self.assertEqual(claude_md.read_text(), original)
@@ -325,7 +325,7 @@ No tests.
 
         # Run fix
         fixer = CLAUDEMDFixer(claude_md)
-        results = fixer.fix_all(scope="all", dry_run=False)
+        fixer.fix_all(scope="all", dry_run=False)
 
         # Verify backup created
         backup_path = self.path / ".CLAUDE.md.backup"

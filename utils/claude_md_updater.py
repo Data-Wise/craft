@@ -12,7 +12,7 @@ Author: Craft Plugin
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Dict, Optional, Tuple
+from typing import List, Optional, Tuple
 from enum import Enum
 
 
@@ -500,7 +500,7 @@ def update_claude_md(
         return plan, f"DRY RUN MODE\n\n{preview}\n\nRun without --dry-run to apply changes."
 
     # Apply changes
-    updated_content = updater.apply_changes(plan, dry_run=False)
+    updater.apply_changes(plan, dry_run=False)
 
     # Generate summary
     summary = updater.generate_summary(plan, applied=True)

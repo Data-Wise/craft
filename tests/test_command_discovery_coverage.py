@@ -1,8 +1,6 @@
 """Focused coverage for command and skill discovery helpers."""
 
 import json
-import os
-from pathlib import Path
 
 from commands import _discovery as discovery
 

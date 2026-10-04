@@ -32,7 +32,7 @@ def _check_hub_display():
     # Step 0: Load command data
     print("Step 0: Loading command data from discovery engine...")
     stats = get_command_stats()
-    commands = load_cached_commands()
+    load_cached_commands()
 
     print(f"  ✓ Loaded {stats['total']} commands")
     print(f"  ✓ Found {len(stats['categories'])} categories")
@@ -128,7 +128,7 @@ def _check_hub_display():
         # commands/git/ is now empty; floor dropped from 7 to 0.
         (f"GIT category: {stats['categories'].get('git', 0)}", stats['categories'].get('git', 0) >= 0),
         (f"SITE category: {stats['categories'].get('site', 0)}", stats['categories'].get('site', 0) >= 1),
-        (f"All categories present", len(stats['categories']) >= 9)
+        ("All categories present", len(stats['categories']) >= 9)
     ]
 
     all_pass = True

@@ -5,11 +5,9 @@ E2E tests for markdownlint list spacing feature.
 Tests full workflow including linting, auto-fix, and pre-commit hook integration.
 """
 
-import json
 import os
 import subprocess
 import tempfile
-import shutil
 from pathlib import Path
 import pytest
 
@@ -80,7 +78,7 @@ class TestFullLintingWorkflow:
             # Verify all files are fixed
             for filename in ["file1.md", "file2.md", "file3.md"]:
                 filepath = tmppath / filename
-                content = filepath.read_text()
+                filepath.read_text()
 
                 result = subprocess.run(
                     [
@@ -301,7 +299,6 @@ class TestBaselineReport:
 
         # Note: May still have MD040 violations (code fence language tags)
         # But should not have MD030/MD004 violations
-        output = result.stdout + result.stderr
         # We'll check it doesn't crash - actual violations may exist
         assert result.returncode in [0, 1], (
             "Linter should run (pass or fail, not crash)"

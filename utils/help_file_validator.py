@@ -14,10 +14,9 @@ Validates 8 issue types:
 """
 
 import re
-import os
 import yaml
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Set
+from typing import Dict, List, Optional
 from dataclasses import dataclass, field
 from enum import Enum
 
