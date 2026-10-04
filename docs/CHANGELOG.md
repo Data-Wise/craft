@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `utils/claude_md_sync.py`: a rename note such as "renamed from `/craft:done`" is no longer reported as a
   stale command, so `--fix` (run automatically by `/finish` Step 1.10) can no longer delete that line.
   Also corrected the `--check-only` flag in `done.md` Step 1.7 (`--dry-run` is the report-only mode).
+- `check:test-coverage` validator: in `release` mode a missing pytest/pytest-cov (or R/npm tooling) now FAILS instead of
+  skipping with exit 0, so the blocking tier can no longer pass with coverage unmeasured; the probe now checks that
+  `python3` can import `pytest` and `pytest_cov` (it used to look for a `pytest` binary). `check:lint` passes
+  `--output-format=full`, since ruff 0.16 rejects `text`. `coverage.json` is gitignored.
+- `test_validator_is_advisory_never_exits_one` pins `CRAFT_MODE=default`: the release-tier coverage validator exports
+  `CRAFT_MODE=release` to the suite it runs, which made this test fail.
 
 ### Added
 

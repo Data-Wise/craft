@@ -65,17 +65,17 @@ if [ "$PROJECT_TYPE" == "python" ]; then
 
         case "$MODE" in
             debug)
-                ruff check . --output-format=text || true
+                ruff check . --output-format=full || true
                 exit 0
                 ;;
             optimize)
                 ruff check . --fix
                 ;;
             release)
-                ruff check . --output-format=text
+                ruff check . --output-format=full
                 ;;
             *)
-                ruff check . --output-format=text
+                ruff check . --output-format=full
                 ;;
         esac
 

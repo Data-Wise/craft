@@ -99,12 +99,24 @@ case "$MODE" in
         ;;
 esac
 
+# A skip means coverage was NOT measured. That is acceptable in advisory modes, but the
+# release tier is a blocking gate and must not pass unmeasured.
+skip_or_fail() {
+    if [ "$MODE" = "release" ]; then
+        echo "❌ FAIL: $1 - coverage not measured (release mode requires it)"
+        exit 1
+    fi
+    echo "⚠️  SKIP: $1"
+    exit 0
+}
+
 # Run coverage based on project type
 case "$PROJECT_TYPE" in
     python)
-        if ! command -v pytest &> /dev/null; then
-            echo "⚠️  SKIP: pytest not installed"
-            exit 0
+        # Probe the interpreter that will actually run the tests (a `pytest` binary on
+        # PATH says nothing about python3), and pytest-cov, which --cov requires.
+        if ! python3 -c "import pytest, pytest_cov" &> /dev/null; then
+            skip_or_fail "pytest and pytest-cov not importable by python3"
         fi
 
         python3 -m pytest --cov=. --cov-report=json --cov-report=term tests/ || {
@@ -117,8 +129,7 @@ case "$PROJECT_TYPE" in
 
     node)
         if ! npm run test:coverage &> /dev/null; then
-            echo "⚠️  SKIP: No test:coverage script"
-            exit 0
+            skip_or_fail "No test:coverage script"
         fi
 
         npm test -- --coverage --coverageReporters=json
@@ -127,8 +138,7 @@ case "$PROJECT_TYPE" in
 
     r)
         if ! command -v R &> /dev/null; then
-            echo "⚠️  SKIP: R not installed"
-            exit 0
+            skip_or_fail "R not installed"
         fi
 
         R -e 'covr::package_coverage()' > coverage.Rout 2>&1
