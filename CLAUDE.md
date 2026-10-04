@@ -64,6 +64,7 @@ merge, so dropping it would delete `dev` at the next `dev→main` release.
 | Release pipeline | `/release` or `/release -n` |
 | Brainstorm | `/craft:brainstorm` |
 | Orchestrate | `/craft:orch` |
+| Plugin evals (costs money) | `./scripts/run-evals.sh --dry-run`, `--single-arm --case 'trigger-*'` — see `docs/guide/eval-harness.md` |
 
 ## Execution Modes
 

@@ -4,10 +4,12 @@ Plan: [`plan.md`](plan.md). Branch `feature/plugin-eval-spike`. Sizes: XS/S/M (n
 Every task: run the wrapper (once it exists) with `--runs 1` to confirm each new case passes with-plugin; a case that also passes the baseline is marked `non-discriminating` in the ledger.
 
 ## Phase 0 — Decisions (human)
+
 - [x] D1: Approve plan, tiers and cost model; answer plan.md Open Questions 1-4.
   - Acceptance: budget, results location, packaging stance and spec-first decision recorded in plan.md (done: defaults applied 2026-10-03).
 
 ## Phase 1 — Harness foundation
+
 - [x] T0 (XS, read-only, from GRILL B4): check validators and packaging against a top-level `evals/` dir.
   - Acceptance: finding recorded in plan.md for `test_plugin_dogfood.py`, `validate-counts.sh`, `marketplace.json`, formula generator; validators run with the 3 spike cases present.
   - Verify: `./scripts/validate-counts.sh` and the dogfood tests, results quoted.
@@ -31,9 +33,11 @@ Every task: run the wrapper (once it exists) with `--runs 1` to confirm each new
   - Files: `evals/README.md`.
 
 ### Checkpoint 1 — foundation
+
 - [x] `python3 -m pytest tests/` green (report counts); wrapper dry-run OK; 3 spike cases discriminate; human review.
 
 ## Phases 2-4 — SUPERSEDED by the trigger-eval redesign (see plan.md "Redesign")
+
 - [x] R1: 38 body-recall cases authored, run (13 recorded, all delta 0), root-caused, archived to `tasks/archive-body-recall-cases/`.
 - [x] R2: `--single-arm` added to the wrapper (24/24 wrapper tests); structural test accepts `trigger-*` cases (9/9).
 - [x] R3: 11 trigger cases (one per loader-visible skill), single run: 11/11 pass, $1.41; negative control scores 0.
@@ -41,9 +45,12 @@ Every task: run the wrapper (once it exists) with `--runs 1` to confirm each new
 - [ ] R5 (future): rerun at `--runs 3` for stability; trigger cases are single-run so far.
 
 ## Phase 5 — Documentation + release prep
+
 - [ ] T20 (S, scope: trigger evals + the 3 body cases): `docs/guide/eval-harness.md` + `mkdocs.yml` nav; `mkdocs build` clean.
 - [ ] T21 (S): CLAUDE.md Quick Commands row; `/craft:test` docs mention; run `/folio:docs:lint` and `./scripts/validate-counts.sh`.
 - [ ] T22 (S): CHANGELOG (root + `docs/CHANGELOG.md` mirror, diff both), `.STATUS`, memory note on eval gotchas (publishing default, `[Skill]`-only, strict graders).
 - [ ] T23 (S): pre-PR gate: full `python3 -m pytest tests/` in the worktree with counts; E2E transcript of one live wrapper run quoted in the PR body (per `e2e-before-pr`).
+
 ### Checkpoint 5
+
 - [ ] All acceptance criteria met; human review before any push or PR.

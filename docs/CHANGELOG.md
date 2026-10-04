@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Plugin eval harness** — `scripts/run-evals.sh` wraps `claude plugin eval` with safe defaults
+  (`--no-publish`, a `--max-cost-usd` cap, a private output dir, `--single-arm` for trigger evals,
+  `--record` to `evals/_coverage.json`). 11 trigger evals (one per `Skill`-tool-visible skill)
+  plus 3 body cases under `evals/`; structural test `tests/test_eval_suite_structure.py` and wrapper
+  test `tests/test_run_evals_wrapper.sh`. Guide: `docs/guide/eval-harness.md`.
+
 ## [4.7.0] - 2026-09-29
 
 ### Changed
