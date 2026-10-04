@@ -57,3 +57,6 @@ governance/STATE.json
 
 # claude plugin eval results (never committed)
 evals/results/
+
+# written by the check:test-coverage validator
+coverage.json
