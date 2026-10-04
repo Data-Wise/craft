@@ -36,6 +36,9 @@ check_has "full = 3 runs" "--runs 3" "$OUT"
 check_has "case filter passed" "--case modes-" "$OUT"
 check_has "--trust adds --trust-plugin" "--trust-plugin" "$OUT"
 check_has "custom cost cap" "--max-cost-usd 2.5" "$OUT"
+OUT1=$("$WRAPPER" --dry-run --single-arm)
+check_has "--single-arm adds --ablation none" "--ablation none" "$OUT1"
+check_lacks "no --ablation by default" "--ablation" "$("$WRAPPER" --dry-run)"
 check_has "--no-publish still present with every flag" "--no-publish" "$OUT"
 
 echo "validation"

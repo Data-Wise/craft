@@ -20,6 +20,17 @@ that one specific skill fired. The `tool_used: Skill` grader is an unscored indi
 reported 0 calls on passing cases. A case that passes but ties the baseline (delta 0) proves
 nothing and does **not** count as coverage.
 
+## Trigger evals (preferred for skills)
+
+`evals/trigger-<skill>/`: a natural user request plus a `type: tool_used` grader whose `input_match` accepts the skill
+id or a related command id. Run with `--single-arm` (no baseline arm), because `tool_used` graders are only scored
+then. Only the 11 top-level skills (`skills/<name>/SKILL.md`) are exposed to the `Skill` tool; the 30 nested skills are
+read by commands via file paths, so body-recall cases for them cannot pass with `[Skill]` only (see `tasks/plan.md`).
+
+```bash
+./scripts/run-evals.sh --single-arm --case 'trigger-*' --record
+```
+
 ## Layout
 
 ```text

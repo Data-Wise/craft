@@ -68,7 +68,11 @@ def check_case(case):
             problems.append(f"{case.name}/{g.name}: type must be one of {sorted(GRADER_TYPES)}")
         else:
             types.append(gfm["type"])
-    if "llm" not in types:
+    if case.name.startswith("trigger-"):
+        # Trigger evals run single-arm (--single-arm), where tool_used graders are scored.
+        if "tool_used" not in types:
+            problems.append(f"{case.name}: trigger case needs a type: tool_used grader")
+    elif "llm" not in types:
         problems.append(f"{case.name}: needs at least one scored type: llm grader")
     return problems
 
@@ -128,6 +132,13 @@ def test_good_case_has_no_problems(tmp_path):
 def test_planted_read_tool_is_caught(tmp_path):
     c = _case(tmp_path, "bad", GOOD_PROMPT.replace("[Skill]", "[Read, Skill]"), {"criteria.md": GOOD_GRADER})
     assert any("allowed_tools" in p for p in check_case(c))
+
+
+def test_trigger_case_with_tool_used_only_is_ok_and_llm_only_is_caught(tmp_path):
+    tool = "---\ntype: tool_used\nweight: 1\ntool: Skill\n---\n\nx\n"
+    assert check_case(_case(tmp_path, "trigger-ok", GOOD_PROMPT, {"fired.md": tool})) == []
+    bad = _case(tmp_path, "trigger-bad", GOOD_PROMPT, {"criteria.md": GOOD_GRADER})
+    assert any("tool_used" in p for p in check_case(bad))
 
 
 def test_planted_missing_llm_grader_is_caught(tmp_path):

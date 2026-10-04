@@ -33,36 +33,15 @@ Every task: run the wrapper (once it exists) with `--runs 1` to confirm each new
 ### Checkpoint 1 — foundation
 - [x] `python3 -m pytest tests/` green (report counts); wrapper dry-run OK; 3 spike cases discriminate; human review.
 
-## Phase 2 — Tier 1 (blast-radius skills)
-- [ ] T6 (M): cases for guard-audit, hooks, dev/git.
-- [ ] T7 (S): cases for ci, insights-apply.
-  - Acceptance (both): each case's prompt needs a skill-only fact; grader checks that fact; no case can cause side effects (tools are `[Skill]` only).
-  - Verify: wrapper `--case <name> --runs 1`; ledger shrinks.
-### Checkpoint 2
-- [ ] Tier 1 at `--runs 3`, pass rate ≥ 2/3 per case; cost recorded in plan.md against the estimate.
-
-## Phase 3 — Tier 2 (orchestration + workflow)
-- [ ] T8 (M): drive-engine, plan-orchestrator, repo-triage.
-- [ ] T9 (M): session-state, task-analyzer, workflow-engine.
-- [ ] T10 (M): adhd-workflow, brainstorm, brainstorm-insights.
-- [ ] T11 (M): grill, prompt-refiner, task-management.
-- [ ] T12 (S): orchestrator-resilience, planning.
-### Checkpoint 3
-- [ ] Structural test + ledger green; smoke run over tiers 1-2 within budget.
-
-## Phase 4 — Tier 3 (remaining)
-- [ ] T13 (M): architecture, code, audit-router.
-- [ ] T14 (M): command-skill-token-efficiency, plugin-audit, backend-designer.
-- [ ] T15 (M): devops-helper, frontend-designer, dist-extras.
-- [ ] T16 (M): distribution-strategist, homebrew-formula-expert, homebrew-multi-formula.
-- [ ] T17 (M): homebrew-setup-wizard, homebrew-workflow-expert, architecture-decision-records.
-- [ ] T18 (M): changelog-automation, claude-md, test-generator.
-- [ ] T19 (XS): test-strategist.
-### Checkpoint 4
-- [ ] Ledger empty (41/41 skills have a case); full smoke run recorded (cost, pass rate, non-discriminating list).
+## Phases 2-4 — SUPERSEDED by the trigger-eval redesign (see plan.md "Redesign")
+- [x] R1: 38 body-recall cases authored, run (13 recorded, all delta 0), root-caused, archived to `tasks/archive-body-recall-cases/`.
+- [x] R2: `--single-arm` added to the wrapper (24/24 wrapper tests); structural test accepts `trigger-*` cases (9/9).
+- [x] R3: 11 trigger cases (one per loader-visible skill), single run: 11/11 pass, $1.41; negative control scores 0.
+- [ ] R4 (future): command-routing evals for the 30 nested skills, reached only via the 48 commands.
+- [ ] R5 (future): rerun at `--runs 3` for stability; trigger cases are single-run so far.
 
 ## Phase 5 — Documentation + release prep
-- [ ] T20 (S): `docs/guide/eval-harness.md` + `mkdocs.yml` nav; `mkdocs build` clean.
+- [ ] T20 (S, scope: trigger evals + the 3 body cases): `docs/guide/eval-harness.md` + `mkdocs.yml` nav; `mkdocs build` clean.
 - [ ] T21 (S): CLAUDE.md Quick Commands row; `/craft:test` docs mention; run `/folio:docs:lint` and `./scripts/validate-counts.sh`.
 - [ ] T22 (S): CHANGELOG (root + `docs/CHANGELOG.md` mirror, diff both), `.STATUS`, memory note on eval gotchas (publishing default, `[Skill]`-only, strict graders).
 - [ ] T23 (S): pre-PR gate: full `python3 -m pytest tests/` in the worktree with counts; E2E transcript of one live wrapper run quoted in the PR body (per `e2e-before-pr`).

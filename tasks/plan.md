@@ -96,3 +96,27 @@ count/doc validators green, `.STATUS` update, memory note on the eval gotchas.
   Excluding it would need a cross-repo tap change and has no marketplace mechanism. T5 becomes "document that evals/ ships".
 - Not checked: full `tests/` suite and the bash CI suites (only the two files above).
 - Note: plain `uv run` fails on this repo's `pyproject.toml` (no `project.name`); use `--no-project`.
+
+## Finding: skill-body cases cannot pass with [Skill]-only tools (2026-10-03, Phase 2)
+- 38 agent-authored cases (facts quoted from SKILL.md bodies) were authored; first 13 recorded runs: every new case
+  scored 0 in BOTH arms (delta 0). Spend: $3.79 on batches a-c, plus ~$0.44 on two diagnostics.
+- Trace (`--keep-temp`): with no cue, the with-plugin agent used Grep/Glob/Read on its sandbox cwd (denied) and never
+  called `Skill`. With a "use the Skill tool" cue, `Skill craft:grill` resolved to the `/craft:grill` COMMAND shim
+  (commands/grill.md), which only points at `${CLAUDE_PLUGIN_ROOT}/skills/workflow/grill/SKILL.md`; the body was unreachable.
+- Why the 3 spike cases passed: their facts appear in text reachable without the body (descriptions/commands), not the SKILL.md body.
+- Consequence: B1 holds, but per-skill *body recall* is the wrong thing to eval. Candidate redesign: trigger evals
+  ("given this user request, does the right craft skill/command fire?") with `tool_used` graders, which is what the tool is built for.
+- Open: batches d..w were stopped before running (no spend). 38 case dirs are uncommitted; coverage ledger holds 10 honest delta-0 records.
+
+## Redesign (2026-10-03, user chose option 1)
+- Only 11 of 41 skills (`skills/<name>/SKILL.md`) are exposed to the `Skill` tool; the 30 nested ones are files that
+  commands read by path. Verified: `ls skills/*/SKILL.md` = 11, `find skills -mindepth 3 -name SKILL.md` = 30, and this
+  session's skill listing shows exactly the 11 `craft:*` ids. (Inference about the loader, consistent with all traces.)
+- New design: **trigger evals** = a natural user request + a scored `tool_used: Skill` grader whose `input_match` accepts the
+  skill id or a related command id. Run single-arm (`--single-arm` = `--ablation none`), since with ablation `tool_used`
+  is an unscored indicator. Cost ~$0.13 per case.
+- Result: 11 trigger cases, 11/11 pass, $1.41, 1 run each. Negative control (capital-of-France prompt vs the release
+  grader) scores 0, so the grader can fail.
+- Kept: 3 body cases whose facts are reachable (modes-lookup, preflight-check-thresholds, release-autonomous-mode).
+- Coverage ledger rule is now: body cases need delta >= 1; trigger cases need score 1.
+- Known limits: single run each; a regex accepting a skill OR a command measures "something relevant fired", not which one.

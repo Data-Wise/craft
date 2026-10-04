@@ -13,7 +13,8 @@
 #   ./scripts/run-evals.sh --dry-run             # print the command, run nothing
 #
 # Options: --tier smoke|full  --runs N  --case GLOB  --max-cost USD (default 5)
-#          --output-dir DIR   --record  --trust  --dry-run
+#          --output-dir DIR   --record  --trust  --dry-run  --single-arm
+#   --single-arm passes --ablation none: no baseline arm, so tool_used graders are SCORED (trigger evals).
 #   --trust passes --trust-plugin (skips the eval's first-run trust prompt; your call).
 #
 # Exit codes: 0 = ok, 1 = eval reported a failure, 2 = usage error / claude missing
@@ -29,6 +30,7 @@ CASE_GLOB=""
 MAX_COST="5"
 OUTPUT_DIR=""
 RECORD=0
+SINGLE=0
 TRUST=0
 DRY_RUN=0
 
@@ -43,6 +45,7 @@ while [ $# -gt 0 ]; do
     --max-cost) MAX_COST="${2:-}"; shift 2 ;;
     --output-dir) OUTPUT_DIR="${2:-}"; shift 2 ;;
     --record) RECORD=1; shift ;;
+    --single-arm) SINGLE=1; shift ;;
     --trust) TRUST=1; shift ;;
     --dry-run) DRY_RUN=1; shift ;;
     -h|--help) usage; exit 0 ;;
@@ -58,7 +61,15 @@ esac
 case "$RUNS" in ''|*[!0-9]*|0) die "--runs must be a positive integer" ;; esac
 case "$MAX_COST" in ''|*[!0-9.]*|.|*.*.*) die "--max-cost must be a number" ;; esac
 
-[ -n "$OUTPUT_DIR" ] || OUTPUT_DIR="${TMPDIR:-/tmp}/craft-evals-$(date +%Y%m%d-%H%M%S)"
+# Default output dir: a private mktemp -d (mode 700), not a predictable path that
+# another local user could pre-create or symlink. Dry-run only prints a placeholder.
+if [ -z "$OUTPUT_DIR" ]; then
+  if [ "$DRY_RUN" -eq 1 ]; then
+    OUTPUT_DIR="${TMPDIR:-/tmp}/craft-evals-XXXXXX"
+  else
+    OUTPUT_DIR="$(mktemp -d "${TMPDIR:-/tmp}/craft-evals-XXXXXX")" || die "mktemp failed"
+  fi
+fi
 case "$OUTPUT_DIR" in
   "$PROJECT_ROOT"|"$PROJECT_ROOT"/*) die "--output-dir must be outside the repo (results are never committed)" ;;
 esac
@@ -69,6 +80,7 @@ CMD=(claude plugin eval "$PROJECT_ROOT" --no-publish
      --json "$OUTPUT_DIR/result.json" --report "$OUTPUT_DIR/report.html")
 [ -z "$CASE_GLOB" ] || CMD+=(--case "$CASE_GLOB")
 [ "$TRUST" -eq 0 ] || CMD+=(--trust-plugin)
+[ "$SINGLE" -eq 0 ] || CMD+=(--ablation none)
 
 if [ "$DRY_RUN" -eq 1 ]; then
   printf '%q ' "${CMD[@]}"; echo
@@ -106,6 +118,7 @@ for c in d.get("cases", []):
         "case": c["name"],
         "skill": entry.get("skill"),
         "delta": a.get("delta"),
+        "score": a.get("score"),
         "runs": len(c.get("arms", {}).get("with", [])),
         "claudeVersion": d.get("claudeVersion"),
         "date": today,
