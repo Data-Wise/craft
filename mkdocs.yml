@@ -144,6 +144,7 @@ nav:
       - Worktree Advanced Patterns: guide/worktree-advanced-patterns.md
       - Multi-Repo Workflow: guide/multi-repo-workflow.md
       - Branch Guard Smart Mode: guide/branch-guard-smart-mode.md
+      - Plugin Eval Harness: guide/eval-harness.md
       - Branch Guard Setup Tutorial: tutorials/TUTORIAL-branch-guard-setup.md
       - Protect a New Repo Tutorial: tutorials/TUTORIAL-protect-new-repo.md
       - Guard Suite: guide/guard-suite.md

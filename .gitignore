@@ -54,3 +54,6 @@ governance/STATE.json
 
 # Codex CLI local config (per-repo MCP server pointer, machine-local)
 .codex/
+
+# claude plugin eval results (never committed)
+evals/results/

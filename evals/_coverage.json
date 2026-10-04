@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "case": "modes-lookup",
+      "skill": "mode-controller",
+      "delta": 1,
+      "runs": 1,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "preflight-check-thresholds",
+      "skill": "preflight-check",
+      "delta": 1,
+      "runs": 2,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "release-autonomous-mode",
+      "skill": "release",
+      "delta": 1,
+      "runs": 1,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-architecture",
+      "skill": "system-architect",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-ci",
+      "skill": "project-detector",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-code",
+      "skill": "sync-features",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-guard-audit",
+      "skill": "guard-audit",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-hooks",
+      "skill": "hooks",
+      "delta": null,
+      "score": 0.6666666666666666,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-insights-apply",
+      "skill": "insights-apply",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-modes",
+      "skill": "mode-controller",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-orchestrator-resilience",
+      "skill": "orchestrator-resilience",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-planning",
+      "skill": "project-planner",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-preflight-before-pr",
+      "skill": "preflight-check",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    },
+    {
+      "case": "trigger-release",
+      "skill": "release",
+      "delta": null,
+      "score": 1,
+      "runs": 3,
+      "claudeVersion": "2.1.289",
+      "date": "2026-10-03"
+    }
+  ]
+}
