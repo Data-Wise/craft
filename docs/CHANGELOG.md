@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `utils/claude_md_sync.py`: a rename note such as "renamed from `/craft:done`" is no longer reported as a
+  stale command, so `--fix` (run automatically by `/finish` Step 1.10) can no longer delete that line.
+  Also corrected the `--check-only` flag in `done.md` Step 1.7 (`--dry-run` is the report-only mode).
+
 ### Added
 
 - **Plugin eval harness** — `scripts/run-evals.sh` wraps `claude plugin eval` with safe defaults

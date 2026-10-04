@@ -1113,12 +1113,24 @@ class CLAUDEMDSync:
                 return match.group(1)
         return None
 
+    # A rename/history note ("renamed from `/craft:old`") names a command that is
+    # deliberately gone; it must not count as a live reference to a deleted command.
+    _HISTORY_NOTE = re.compile(
+        r"(?:renamed from|formerly|previously|replaces|supersedes)\s+`?(/craft:[a-z0-9:-]+)"
+    )
+
     def _extract_documented_commands(self) -> set:
-        """Extract command paths referenced in CLAUDE.md."""
-        commands: set = set()
+        """Extract command paths referenced in CLAUDE.md.
+
+        Mentions inside a history note (see ``_HISTORY_NOTE``) are ignored, unless the
+        same command is also referenced elsewhere as a live instruction.
+        """
         pattern = r"/craft:[a-z0-9:-]+"
+        historical_spans = {m.span(1) for m in self._HISTORY_NOTE.finditer(self.content)}
+        commands: set = set()
         for match in re.finditer(pattern, self.content):
-            commands.add(match.group(0))
+            if match.span() not in historical_spans:
+                commands.add(match.group(0))
         return commands
 
     def _scan_commands_directory(self) -> set:
