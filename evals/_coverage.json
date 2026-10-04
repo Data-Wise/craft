@@ -30,7 +30,7 @@
       "skill": "system-architect",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -39,7 +39,7 @@
       "skill": "project-detector",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -48,7 +48,7 @@
       "skill": "sync-features",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -57,7 +57,7 @@
       "skill": "guard-audit",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -65,8 +65,8 @@
       "case": "trigger-hooks",
       "skill": "hooks",
       "delta": null,
-      "score": 1,
-      "runs": 1,
+      "score": 0.6666666666666666,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -75,7 +75,7 @@
       "skill": "insights-apply",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -84,7 +84,7 @@
       "skill": "mode-controller",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -93,7 +93,7 @@
       "skill": "orchestrator-resilience",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -102,7 +102,7 @@
       "skill": "project-planner",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -111,7 +111,7 @@
       "skill": "preflight-check",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     },
@@ -120,7 +120,7 @@
       "skill": "release",
       "delta": null,
       "score": 1,
-      "runs": 1,
+      "runs": 3,
       "claudeVersion": "2.1.289",
       "date": "2026-10-03"
     }
