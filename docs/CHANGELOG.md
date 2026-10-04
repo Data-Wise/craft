@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `--record` to `evals/_coverage.json`). 11 trigger evals (one per `Skill`-tool-visible skill)
   plus 3 body cases under `evals/`; structural test `tests/test_eval_suite_structure.py` and wrapper
   test `tests/test_run_evals_wrapper.sh`. Guide: `docs/guide/eval-harness.md`.
+- 11 command-routing trigger evals (`evals/trigger-cmd-*`, 33/33 runs pass) and a clearer `trigger-hooks`
+  prompt (the generic one was ambiguous with the built-in `update-config` skill; 10/10 after the fix).
 
 ## [4.7.0] - 2026-09-29
 
