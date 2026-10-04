@@ -6,7 +6,7 @@
 
 > `/craft:finish` — renamed from `/craft:done` (ADR-006, v4.2.0, breaking) · `orchestrate:drive` — spec-driven autonomous /goal loop · `prompt-refiner` skill + `--refine` flag (9 commands) · `/craft:restore` — combined git+`.STATUS` recap
 
-**Current Version:** v4.7.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
+**Current Version:** v4.8.0 | **Tests:** full suite via `python3 -m pytest tests/` · tiers via `/craft:test <unit|e2e|dogfood>`
 
 > For project details, see `plugin.json` description and `scripts/validate-counts.sh`
 
@@ -64,6 +64,7 @@ merge, so dropping it would delete `dev` at the next `dev→main` release.
 | Release pipeline | `/release` or `/release -n` |
 | Brainstorm | `/craft:brainstorm` |
 | Orchestrate | `/craft:orch` |
+| Plugin evals (costs money) | `./scripts/run-evals.sh --dry-run`, `--single-arm --case 'trigger-*'` — see `docs/guide/eval-harness.md` |
 
 ## Execution Modes
 

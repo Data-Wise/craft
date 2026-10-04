@@ -6,9 +6,7 @@ Adds project root AND tests/ directory to sys.path so test files can:
 """
 
 import os
-import shutil
 import sys
-import tempfile
 from pathlib import Path
 
 import pytest

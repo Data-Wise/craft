@@ -304,7 +304,8 @@ class TestSessionHook:
     mtime-cached. Hermetic — temp skills dirs + temp cache, never live ~/.claude."""
 
     def test_dead_symlink_emits_red_additionalcontext(self, tmp_path: Path):
-        skills = tmp_path / "skills"; skills.mkdir()
+        skills = tmp_path / "skills"
+        skills.mkdir()
         (skills / "dead").symlink_to("/nonexistent/target")
         r = _run_hook({"GOVERNANCE_SKILLS_DIR": str(skills),
                        "GOVERNANCE_CACHE": str(tmp_path / "cache.json")})
@@ -313,7 +314,8 @@ class TestSessionHook:
         assert "red" in ctx and "R08-no-dead-links" in ctx
 
     def test_clean_skills_is_silent(self, tmp_path: Path):
-        skills = tmp_path / "skills"; skills.mkdir()
+        skills = tmp_path / "skills"
+        skills.mkdir()
         (skills / "ok.txt").write_text("ok", encoding="utf-8")
         r = _run_hook({"GOVERNANCE_SKILLS_DIR": str(skills),
                        "GOVERNANCE_CACHE": str(tmp_path / "c.json")})
@@ -325,7 +327,8 @@ class TestSessionHook:
         assert r.returncode == 0 and r.stdout.strip() == ""
 
     def test_mtime_cache_written_and_reused(self, tmp_path: Path):
-        skills = tmp_path / "skills"; skills.mkdir()
+        skills = tmp_path / "skills"
+        skills.mkdir()
         (skills / "dead").symlink_to("/nonexistent")
         cache = tmp_path / "cache.json"
         r1 = _run_hook({"GOVERNANCE_SKILLS_DIR": str(skills), "GOVERNANCE_CACHE": str(cache)})
@@ -530,7 +533,8 @@ class TestDriftedCopyChecker:
     def test_no_canon_is_vacuous_not_a_pass(self, tmp_path: Path):
         """With a consumer present but no canon, the check is vacuous — it must say
         so out loud (a clean exit that isn't mistaken for enforcement)."""
-        consumer = tmp_path / "consumer"; consumer.mkdir()
+        consumer = tmp_path / "consumer"
+        consumer.mkdir()
         r = _run(DRIFT_CHK, str(consumer), str(tmp_path / "nocanon"))
         assert r.returncode == 0 and "vacuous" in r.stdout
 

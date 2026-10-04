@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """post_install gate: structural always; sandbox execution opt-in (macOS-local)."""
-import re, sys, argparse, os, tempfile, subprocess
+import re
+import sys
+import argparse
+import os
+import tempfile
+import subprocess
 from verify_caveats import GateReport
 
 def _extract_def_body(text, def_name):
@@ -57,12 +62,16 @@ def check_post_install(formula_path, sandbox=False):
 
 def main(argv=None):
     p = argparse.ArgumentParser()
-    p.add_argument("formula"); p.add_argument("--sandbox", action="store_true")
+    p.add_argument("formula")
+    p.add_argument("--sandbox", action="store_true")
     p.add_argument("--strict", action="store_true")
     a = p.parse_args(argv)
     rep = check_post_install(a.formula, a.sandbox)
-    for f in rep.findings: print(f"⚠️  {f}")
-    if rep.ok: print("✅ post_install structurally sound"); return 0
+    for f in rep.findings:
+        print(f"⚠️  {f}")
+    if rep.ok:
+        print("✅ post_install structurally sound")
+        return 0
     return 1 if a.strict else 0
 
 if __name__ == "__main__":

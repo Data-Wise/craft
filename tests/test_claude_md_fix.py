@@ -23,8 +23,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 pytestmark = [pytest.mark.unit, pytest.mark.claude_md]
 
-from utils.claude_md_fixer import CLAUDEMDFixer, FixResult
-from utils.claude_md_auditor import CLAUDEMDAuditor, Issue, Severity
+from utils.claude_md_fixer import CLAUDEMDFixer
+from utils.claude_md_auditor import Issue, Severity
 
 
 class TestVersionFix(unittest.TestCase):

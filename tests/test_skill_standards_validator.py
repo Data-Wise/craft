@@ -1,5 +1,7 @@
 # tests/test_skill_standards_validator.py
-import subprocess, sys, os, pathlib
+import subprocess
+import os
+import pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 VALIDATOR = ROOT / ".claude-plugin/skills/validation/skill-standards-check.md"
 
@@ -24,7 +26,9 @@ def test_validator_is_advisory_never_exits_one(tmp_path):
     (bad / "SKILL.md").write_text("# no frontmatter at all\n")
     script = tmp_path / "run.sh"
     script.write_text(_impl_block(VALIDATOR.read_text()))
-    env = {**os.environ, "SKILL_STANDARDS_ROOT": str(tmp_path / "skills")}
+    # Pin the advisory tier: an ambient CRAFT_MODE=release (exported by the release-tier
+    # test-coverage validator to the suite it runs) would make this validator blocking.
+    env = {**os.environ, "SKILL_STANDARDS_ROOT": str(tmp_path / "skills"), "CRAFT_MODE": "default"}
     r = subprocess.run(["bash", str(script)], capture_output=True, text=True, env=env)
     assert r.returncode == 0, f"advisory validator must exit 0, got {r.returncode}: {r.stderr}"
     assert "skill" in (r.stdout + r.stderr).lower()

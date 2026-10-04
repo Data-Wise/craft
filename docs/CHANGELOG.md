@@ -9,6 +9,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.8.0] - 2026-10-04
+
+### Fixed
+
+- `utils/claude_md_sync.py`: a rename note such as "renamed from `/craft:done`" is no longer reported as a
+  stale command, so `--fix` (run automatically by `/finish` Step 1.10) can no longer delete that line.
+  Also corrected the `--check-only` flag in `done.md` Step 1.7 (`--dry-run` is the report-only mode).
+- `check:test-coverage` validator: in `release` mode a missing pytest/pytest-cov (or R/npm tooling) now FAILS instead of
+  skipping with exit 0, so the blocking tier can no longer pass with coverage unmeasured; the probe now checks that
+  `python3` can import `pytest` and `pytest_cov` (it used to look for a `pytest` binary). `check:lint` passes
+  `--output-format=full`, since ruff 0.16 rejects `text`. `coverage.json` is gitignored.
+- `test_validator_is_advisory_never_exits_one` pins `CRAFT_MODE=default`: the release-tier coverage validator exports
+  `CRAFT_MODE=release` to the suite it runs, which made this test fail.
+
+### Added
+
+- **Plugin eval harness** — `scripts/run-evals.sh` wraps `claude plugin eval` with safe defaults
+  (`--no-publish`, a `--max-cost-usd` cap, a private output dir, `--single-arm` for trigger evals,
+  `--record` to `evals/_coverage.json`). 11 trigger evals (one per `Skill`-tool-visible skill)
+  plus 3 body cases under `evals/`; structural test `tests/test_eval_suite_structure.py` and wrapper
+  test `tests/test_run_evals_wrapper.sh`. Guide: `docs/guide/eval-harness.md`.
+- 11 command-routing trigger evals (`evals/trigger-cmd-*`, 33/33 runs pass) and a clearer `trigger-hooks`
+  prompt (the generic one was ambiguous with the built-in `update-config` skill; 10/10 after the fix).
+
+### Changed
+
+- `ruff check .` is clean under a pinned rule set (`ruff.toml`: `E4`, `E7`, `E9`, `F`; `tests/` and `scripts/` ignore `E402`
+  for their `sys.path` bootstrap). Fixed 296 findings across 88 files: unused imports and variables, semicolon-joined
+  statements, f-strings without placeholders, ambiguous `l` names. Two were real bugs: `import yaml` was missing in
+  `test_docs_utilities_error_handling.py` (a `NameError` would have masked the real failure) and a bare `except:` in
+  `claude_md_template_populator.py` (now `except Exception:`, so Ctrl-C is no longer swallowed).
+
 ## [4.7.0] - 2026-09-29
 
 ### Changed

@@ -106,13 +106,13 @@ class TestComplexityScoring:
         task1 = "lint, test, build"
         result1 = explain_score(task1)
         assert any("Multi-step" in factor for factor in result1['factors']), \
-            f"Should detect multi-step in comma-separated task"
+            "Should detect multi-step in comma-separated task"
 
         # Task with 'and'
         task2 = "run tests and check coverage"
         result2 = explain_score(task2)
         assert any("Multi-step" in factor for factor in result2['factors']), \
-            f"Should detect multi-step in 'and' conjunction"
+            "Should detect multi-step in 'and' conjunction"
 
     def test_cross_category_factor_detection(self):
         """Tasks spanning multiple categories should get +2."""
@@ -121,7 +121,7 @@ class TestComplexityScoring:
 
         # Should detect both 'code' and 'test' categories
         assert any("Cross-category" in factor for factor in result['factors']), \
-            f"Should detect cross-category task (code + test)"
+            "Should detect cross-category task (code + test)"
 
     def test_planning_factor_detection(self):
         """Tasks requiring planning should get +2."""
@@ -129,7 +129,7 @@ class TestComplexityScoring:
         result = explain_score(task)
 
         assert any("planning" in factor.lower() for factor in result['factors']), \
-            f"Should detect planning requirement in design task"
+            "Should detect planning requirement in design task"
 
     def test_research_factor_detection(self):
         """Tasks requiring research should get +2."""
@@ -137,7 +137,7 @@ class TestComplexityScoring:
         result = explain_score(task)
 
         assert any("research" in factor.lower() for factor in result['factors']), \
-            f"Should detect research requirement in investigate task"
+            "Should detect research requirement in investigate task"
 
     def test_multi_file_factor_detection(self):
         """Tasks affecting multiple files should get +2."""
@@ -145,7 +145,7 @@ class TestComplexityScoring:
         result = explain_score(task)
 
         assert any("Multi-file" in factor for factor in result['factors']), \
-            f"Should detect multi-file impact in 'entire module' task"
+            "Should detect multi-file impact in 'entire module' task"
 
     def test_explain_score_output(self):
         """explain_score() should return detailed breakdown."""

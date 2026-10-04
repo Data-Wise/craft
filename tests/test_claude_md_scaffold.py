@@ -384,7 +384,7 @@ class TestScaffoldWorkflow(unittest.TestCase):
         self.assertIn("v1.0.0", result)
 
         # Step 5: Check for unpopulated variables
-        unpopulated = get_unpopulated_variables(result)
+        get_unpopulated_variables(result)
         # Some variables expected to remain unpopulated (optional fields)
         self.assertGreater(len(result), 100)  # Should have substantial content
 

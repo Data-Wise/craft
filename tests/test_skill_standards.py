@@ -1,5 +1,6 @@
 """Tests for skill_standards_audit.py scanner."""
-import os, sys, re
+import sys
+import re
 from pathlib import Path
 CRAFT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(CRAFT / "scripts"))
@@ -70,19 +71,22 @@ def test_score_formula_matches_command_audit():
 
 def test_main_exit_2_on_error(tmp_path, capsys):
     # a skill missing name => error => exit 2
-    d = tmp_path / "skills" / "bad"; d.mkdir(parents=True)
+    d = tmp_path / "skills" / "bad"
+    d.mkdir(parents=True)
     (d / "SKILL.md").write_text("---\ndescription: x\n---\n# b\n")
     rc = ssa.main(["--root", str(tmp_path / "skills"), "--json"])
     assert rc == 2
     assert "frontmatter" in capsys.readouterr().out
 
 def test_main_exit_0_when_clean(tmp_path):
-    d = tmp_path / "skills" / "good"; d.mkdir(parents=True)
+    d = tmp_path / "skills" / "good"
+    d.mkdir(parents=True)
     (d / "SKILL.md").write_text("---\nname: good\ndescription: A clean skill.\n---\n# Good\n")
     assert ssa.main(["--root", str(tmp_path / "skills"), "--json"]) == 0
 
 def test_fix_strips_version_tags_only(tmp_path):
-    d = tmp_path / "skills" / "demo" / "references"; d.mkdir(parents=True)
+    d = tmp_path / "skills" / "demo" / "references"
+    d.mkdir(parents=True)
     (d.parent / "SKILL.md").write_text("---\nname: demo\ndescription: A skill.\n---\n# Demo\n")
     ref = d / "r.md"
     ref.write_text("## Step 1 (NEW in v2.49.0)\nYou are an assistant.\n")
@@ -92,7 +96,8 @@ def test_fix_strips_version_tags_only(tmp_path):
     assert "You are an assistant." in txt          # prose NOT auto-rewritten
 
 def test_fix_inserts_toc_stub_in_oversized_reference(tmp_path):
-    d = tmp_path / "skills" / "demo"; (d / "references").mkdir(parents=True)
+    d = tmp_path / "skills" / "demo"
+    (d / "references").mkdir(parents=True)
     (d / "SKILL.md").write_text("---\nname: demo\ndescription: A skill.\n---\n# Demo\n")
     ref = d / "references" / "big.md"
     # 350 lines, no TOC, starts with an H1
@@ -110,7 +115,8 @@ def test_fix_inserts_toc_stub_in_oversized_reference(tmp_path):
 
 
 def test_fix_normalizes_frontmatter_order_and_casing(tmp_path):
-    d = tmp_path / "skills" / "demo"; d.mkdir(parents=True)
+    d = tmp_path / "skills" / "demo"
+    d.mkdir(parents=True)
     # description before name, miscased key "Description:"
     (d / "SKILL.md").write_text(
         "---\nDescription: A skill about things.\nname: demo\n---\n# Demo\n"
@@ -119,7 +125,7 @@ def test_fix_normalizes_frontmatter_order_and_casing(tmp_path):
     txt = (d / "SKILL.md").read_text()
     lines = txt.splitlines()
     fm_lines = lines[lines.index("---") + 1: lines.index("---", 1)]
-    keys = [l.split(":")[0] for l in fm_lines if ":" in l]
+    keys = [ln.split(":")[0] for ln in fm_lines if ":" in ln]
     assert keys[0] == "name", f"name should come first, got {keys}"
     assert keys[1] == "description", f"description should come second, got {keys}"
     # key lowercased
@@ -128,7 +134,8 @@ def test_fix_normalizes_frontmatter_order_and_casing(tmp_path):
 
 
 def test_fix_preserves_description_value(tmp_path):
-    d = tmp_path / "skills" / "demo"; d.mkdir(parents=True)
+    d = tmp_path / "skills" / "demo"
+    d.mkdir(parents=True)
     desc_value = "A skill about things."
     (d / "SKILL.md").write_text(
         f"---\nDescription: {desc_value}\nname: demo\n---\n# Demo\n"
@@ -139,7 +146,8 @@ def test_fix_preserves_description_value(tmp_path):
 
 
 def test_fix_skips_block_scalar_frontmatter(tmp_path):
-    d = tmp_path / "skills" / "demo"; d.mkdir(parents=True)
+    d = tmp_path / "skills" / "demo"
+    d.mkdir(parents=True)
     original = "---\nname: demo\ndescription: |\n  A multiline\n  description here.\n---\n# Demo\n"
     (d / "SKILL.md").write_text(original)
     ssa.apply_safe_fixes(tmp_path / "skills", ssa.audit_all(tmp_path / "skills"))
@@ -148,7 +156,8 @@ def test_fix_skips_block_scalar_frontmatter(tmp_path):
 
 def test_fix_skips_frontmatter_with_comments_or_blanks(tmp_path):
     """Frontmatter with a comment line or blank line must be left byte-identical."""
-    d = tmp_path / "skills" / "demo"; d.mkdir(parents=True)
+    d = tmp_path / "skills" / "demo"
+    d.mkdir(parents=True)
     # has a comment and a blank line inside the frontmatter block
     original = "---\n# This is a comment\nname: demo\n\ndescription: A skill.\n---\n# Demo\n"
     (d / "SKILL.md").write_text(original)
@@ -158,7 +167,8 @@ def test_fix_skips_frontmatter_with_comments_or_blanks(tmp_path):
 
 def test_fix_skips_duplicate_frontmatter_keys(tmp_path):
     """Frontmatter with duplicate keys must be left byte-identical (no lines dropped)."""
-    d = tmp_path / "skills" / "demo"; d.mkdir(parents=True)
+    d = tmp_path / "skills" / "demo"
+    d.mkdir(parents=True)
     original = "---\nname: demo\nname: duplicate\ndescription: A skill.\n---\n# Demo\n"
     (d / "SKILL.md").write_text(original)
     ssa.apply_safe_fixes(tmp_path / "skills", ssa.audit_all(tmp_path / "skills"))
@@ -167,7 +177,8 @@ def test_fix_skips_duplicate_frontmatter_keys(tmp_path):
 
 def test_fix_toc_not_inserted_in_leading_code_fence(tmp_path):
     """TOC stub must not land inside a code fence; it goes above the fence instead."""
-    d = tmp_path / "skills" / "demo"; (d / "references").mkdir(parents=True)
+    d = tmp_path / "skills" / "demo"
+    (d / "references").mkdir(parents=True)
     (d / "SKILL.md").write_text("---\nname: demo\ndescription: A skill.\n---\n# Demo\n")
     ref = d / "references" / "big.md"
     # File starts with a code fence (before any H1), then has an H1 later
@@ -185,10 +196,10 @@ def test_fix_toc_not_inserted_in_leading_code_fence(tmp_path):
     txt = ref.read_text()
     lines = txt.splitlines()
     # TOC heading must exist
-    toc_lines = [i for i, l in enumerate(lines) if re.match(r"(?i)^#{1,3}\s+table of contents", l)]
+    toc_lines = [i for i, ln in enumerate(lines) if re.match(r"(?i)^#{1,3}\s+table of contents", ln)]
     assert toc_lines, "TOC stub not found after fix"
     # First fence line index
-    fence_lines = [i for i, l in enumerate(lines) if l.strip().startswith("```")]
+    fence_lines = [i for i, ln in enumerate(lines) if ln.strip().startswith("```")]
     assert fence_lines, "No fence found"
     first_fence = fence_lines[0]
     toc_pos = toc_lines[0]

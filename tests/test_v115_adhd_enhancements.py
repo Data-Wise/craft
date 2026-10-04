@@ -17,13 +17,10 @@ Tests:
 Run with: python tests/test_v115_adhd_enhancements.py
 """
 
-import json
-import os
 import re
 from pathlib import Path
 
 import pytest
-from typing import List, Optional, Tuple
 
 pytestmark = [pytest.mark.integration, pytest.mark.orchestrator]
 
@@ -265,7 +262,6 @@ def test_homepage_card_layout():
     assert '<div class="grid cards" markdown>' in content, "Card grid markup not found"
 
     # Count card sections
-    card_sections = len(re.findall(r'<div class="grid cards" markdown>', content))
 
     # Check for expected sections
     expected_sections = [

@@ -17,7 +17,9 @@ selftest can hand this checker a fixture DIR). An absent path prints a visible
 can't find its input must never masquerade as a green pass.
 
 Usage: no_private_in_public_marketplace.py <marketplace.json | dir>"""
-import json, os, sys
+import json
+import os
+import sys
 
 # Repos whose plugins carry PII and may live only on a PRIVATE marketplace.
 # Hardcoded for CI portability (no network repo-visibility lookup). Compared

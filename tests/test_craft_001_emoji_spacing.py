@@ -10,7 +10,6 @@ Run with: pytest tests/test_craft_001_emoji_spacing.py -v
 
 import os
 import subprocess
-import tempfile
 import shutil
 from pathlib import Path
 

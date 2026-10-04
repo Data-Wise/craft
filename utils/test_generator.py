@@ -18,7 +18,6 @@ Usage:
         print(f"Would write: {filename}")
 """
 
-import glob as globmod
 import json
 import re
 import subprocess
@@ -658,7 +657,6 @@ def _read_pytest_markers(project_path: Path) -> List[str]:
     markers: List[str] = []
 
     # Look for [tool.pytest.ini_options] markers
-    marker_pattern = re.compile(r'^\s+"([a-z_]+):', re.MULTILINE)
     in_markers = False
     for line in content.splitlines():
         stripped = line.strip()

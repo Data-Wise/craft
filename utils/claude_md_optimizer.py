@@ -19,7 +19,6 @@ Author: Craft Plugin
 """
 
 import json
-import os
 import re
 import shutil
 import sys
@@ -29,9 +28,9 @@ from typing import Dict, List, Optional, Tuple
 
 # Import project detector - handle both module and script usage
 try:
-    from .claude_md_detector import CLAUDEMDDetector
+    from .claude_md_detector import CLAUDEMDDetector  # noqa: F401 (availability probe)
 except ImportError:
-    from claude_md_detector import CLAUDEMDDetector
+    pass
 
 
 # ---------------------------------------------------------------------------
@@ -338,7 +337,6 @@ class CLAUDEMDOptimizer:
         pointers_added: List[str] = []
 
         # Working copy of content
-        working_content = self.content
         working_lines = list(self.lines)
 
         # --- Step 1: Remove P2 sections ---

@@ -1,7 +1,6 @@
 import json
 import runpy
 import sys
-from pathlib import Path
 
 from utils.claude_md_optimizer import (
     CLAUDEMDOptimizer, analyze_claude_md, optimize_claude_md,

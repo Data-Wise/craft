@@ -90,7 +90,6 @@ def cmd_report_live(surfaces: list[dict], as_json: bool = False) -> None:
 
     Reads the registry to get gate values; cross-references via _LEG_TO_SURFACE alias map.
     """
-    registry_by_name = {s["name"]: s for s in surfaces}
 
     # Read verify JSON from stdin.
     raw = sys.stdin.read().strip()

@@ -69,7 +69,7 @@ def main():
     # Check if the file is inside the worktree
     if not file_path.startswith(toplevel + os.sep) and file_path != toplevel:
         print(
-            f"⚠️  WARNING: Writing outside worktree",
+            "⚠️  WARNING: Writing outside worktree",
             file=sys.stderr
         )
         print(

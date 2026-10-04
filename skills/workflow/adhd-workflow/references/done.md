@@ -158,11 +158,11 @@ doc_warnings=$(run_all_detectors)
 Run the sync pipeline to detect and fix stale counts in CLAUDE.md:
 
 ```bash
-# Run staleness check (detect + report only)
-PYTHONPATH=. python3 utils/claude_md_sync.py --check-only 2>/dev/null
+# Run staleness check (detect + report only; --dry-run writes nothing)
+PYTHONPATH=. python3 utils/claude_md_sync.py --dry-run 2>/dev/null
 
-# If stale counts found, auto-fix
-PYTHONPATH=. python3 utils/claude_md_sync.py 2>/dev/null
+# If stale counts found, auto-fix (a bare run only reports; --fix applies)
+PYTHONPATH=. python3 utils/claude_md_sync.py --fix 2>/dev/null
 ```
 
 **What gets checked:**

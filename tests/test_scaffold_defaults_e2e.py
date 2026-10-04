@@ -1,5 +1,4 @@
 # tests/test_scaffold_defaults_e2e.py
-from pathlib import Path
 import pytest
 from test_plugin_e2e import PLUGIN_DIR
 
@@ -22,10 +21,14 @@ def test_scaffold_flag_scope():
     for cmd in PLUGIN_DIR.glob("commands/**/*.md"):
         rel = str(cmd.relative_to(PLUGIN_DIR))
         t = cmd.read_text(encoding="utf-8")
-        if "- name: no-tests" in t: no_tests.add(rel)
-        if "- name: no-docs" in t: no_docs.add(rel)
-        if "- name: tests" in t: opt_tests.add(rel)
-        if "- name: docs" in t: opt_docs.add(rel)
+        if "- name: no-tests" in t:
+            no_tests.add(rel)
+        if "- name: no-docs" in t:
+            no_docs.add(rel)
+        if "- name: tests" in t:
+            opt_tests.add(rel)
+        if "- name: docs" in t:
+            opt_docs.add(rel)
     assert no_tests == DEFAULT_ON, f"no-tests scope drift: {no_tests ^ DEFAULT_ON}"
     assert no_docs == DEFAULT_ON, f"no-docs scope drift: {no_docs ^ DEFAULT_ON}"
     assert opt_tests == OPT_IN, f"opt-in tests scope drift: {opt_tests ^ OPT_IN}"

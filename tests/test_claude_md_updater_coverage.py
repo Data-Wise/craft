@@ -1,9 +1,7 @@
 """Focused coverage for the CLAUDE.md updater's detection and apply paths."""
 
-from pathlib import Path
 from types import SimpleNamespace
 
-import pytest
 
 from utils.claude_md_updater import (
     CLAUDEMDUpdater,

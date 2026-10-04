@@ -10,10 +10,8 @@ Run with: python3 tests/test_release_skill_dogfood.py
 """
 
 import os
-import re
 import subprocess
 import unittest
-from pathlib import Path
 
 import pytest
 

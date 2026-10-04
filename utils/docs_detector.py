@@ -15,10 +15,9 @@ Detects 9 types of documentation issues:
 """
 
 import re
-import os
 import yaml
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Set
+from typing import Dict, List, Optional
 from dataclasses import dataclass, field
 from collections import defaultdict
 
@@ -311,7 +310,6 @@ class DocsDetector:
 
             # Check if file contains code blocks
             in_code_block = False
-            code_block_start = 0
 
             for i, line in enumerate(content.split('\n'), 1):
                 if line.startswith('```'):
@@ -321,7 +319,6 @@ class DocsDetector:
                     else:
                         # Start of code block
                         in_code_block = True
-                        code_block_start = i
 
                 if in_code_block:
                     for pattern, reason in stale_patterns:
@@ -651,7 +648,6 @@ class DocsDetector:
 def main():
     """CLI interface for docs detector"""
     import sys
-    import json
 
     project_root = sys.argv[1] if len(sys.argv) > 1 else "."
     current_version = sys.argv[2] if len(sys.argv) > 2 else None

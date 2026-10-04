@@ -9,7 +9,6 @@ Run with: python tests/test_craft_plugin.py
 
 import hashlib
 import json
-import os
 import re
 import subprocess
 import sys

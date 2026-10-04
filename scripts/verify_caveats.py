@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Caveats-staleness gate for Homebrew formulae (Checks 1-3; Check 4 brew audit
 lives in the shell wrapper). D8: single entry point, no Check 5."""
-import re, sys, argparse
+import re
+import sys
+import argparse
 from dataclasses import dataclass, field
 
 @dataclass
@@ -16,7 +18,6 @@ def _extract_def_body(text, def_name):
         return None
     start = m.end()
     depth = 1
-    pos = start
     lines = text[start:].split("\n")
     collected = []
     for line in lines:
@@ -78,14 +79,18 @@ def verify_caveats(formula_path, changelog_path, version, strict=False, formula_
 
 def main(argv=None):
     p = argparse.ArgumentParser()
-    p.add_argument("formula"); p.add_argument("changelog"); p.add_argument("version")
-    p.add_argument("--strict", action="store_true"); p.add_argument("--name")
+    p.add_argument("formula")
+    p.add_argument("changelog")
+    p.add_argument("version")
+    p.add_argument("--strict", action="store_true")
+    p.add_argument("--name")
     a = p.parse_args(argv)
     rep = verify_caveats(a.formula, a.changelog, a.version, a.strict, a.name)
     for f in rep.findings:
         print(f"⚠️  {f}")
     if rep.ok:
-        print("✅ caveats current"); return 0
+        print("✅ caveats current")
+        return 0
     return 1 if a.strict else 0   # advisory unless --strict
 
 if __name__ == "__main__":

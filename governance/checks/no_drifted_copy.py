@@ -21,7 +21,8 @@ repos the check is vacuous — say so out loud, never a silent pass.
 
 Usage: no_drifted_copy.py <consumer_dir_or_fixture_root> [<canon_dir> ...]
 """
-import os, sys
+import os
+import sys
 
 DEFAULT_CANONS = [
     os.path.expanduser("~/projects/dev-tools/savant/src/plugin-api/skills"),
