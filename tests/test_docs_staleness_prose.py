@@ -39,7 +39,7 @@ FIXTURES = Path(__file__).resolve().parent / "fixtures" / "prose-staleness"
 # from the live repo, so a future count change cannot silently invalidate a
 # planted defect (e.g. an "8 agents" defect stops being a defect the day craft
 # actually ships 8 agents).
-FIXTURE_VERSION = "4.5.0"
+FIXTURE_VERSION = "4.5.0"  # version-sync: ignore (frozen on purpose)
 FIXTURE_TAG_DATE = "2026-08-07"
 FIXTURE_COUNTS = {"CMDS": "48", "SKILLS": "41", "AGENTS": "2"}
 

@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `version-sync.sh` no longer flags frozen fixture constants: a source-constant line
+  carrying `# version-sync: ignore` is skipped (applied to the `FIXTURE_VERSION` in
+  `tests/test_docs_staleness_prose.py`); unmarked stale constants are still flagged.
+
 ## [4.8.1] - 2026-10-30
 
 ### Fixed
