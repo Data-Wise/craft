@@ -459,6 +459,33 @@ assert_true "group8_emitted_all_fixture_branches" \
     "$( [[ "$(echo "$ALL8" | grep -c .)" -ge 9 ]] && echo 1 || echo 0)"
 
 # ============================================================================
+# Group: is_squash_merged under pipefail with a large `git cherry` output (#375)
+# `echo "$big" | grep -q` is killed by SIGPIPE once grep -q matches early, so
+# the pipeline fails under pipefail and a branch with unmerged commits reads SAFE.
+# ============================================================================
+
+echo ""
+echo -e "${T_BLUE}--- Group: is_squash_merged pipefail (#375) ---${T_NC}"
+
+# Defined outside $(...): bash 3.2 mis-parses `case` patterns inside command substitution.
+sq375_run() {
+    set -o pipefail
+    source "$GIT_UTILS"
+    git() {
+        case "$1" in
+            rev-parse) return 0 ;;
+            cherry) awk 'BEGIN{for(i=0;i<20000;i++) printf "+ %040d\n", i}' ;;
+            diff) echo "differs" ;;
+            *) return 0 ;;
+        esac
+    }
+    local i
+    for i in 1 2 3 4 5 6 7 8 9 10; do is_squash_merged dev feature/x; done | sort -u | tr '\n' ' '
+}
+SQ375=$(sq375_run)
+run_test "is_squash_merged_large_unmerged_never_safe" "NOT_MERGED " "$SQ375"
+
+# ============================================================================
 # Summary
 # ============================================================================
 

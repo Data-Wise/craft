@@ -34,7 +34,9 @@ is_squash_merged() {
   git rev-parse "$base" "$branch" &>/dev/null || { echo "UNKNOWN"; return; }
   local cherry_out
   cherry_out=$(git cherry "$base" "$branch" 2>/dev/null) || { echo "UNKNOWN"; return; }
-  if ! echo "$cherry_out" | grep -q '^+'; then
+  # Pure-bash match, no pipe: `echo | grep -q` takes SIGPIPE once grep matches early,
+  # which under pipefail flips a large unmerged result to a false SAFE (#375).
+  if [[ "$cherry_out" != "+"* && "$cherry_out" != *$'\n+'* ]]; then
     echo "SAFE"
     return
   fi

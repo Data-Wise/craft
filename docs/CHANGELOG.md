@@ -40,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `merge_candidates` passes every collector field through; it previously rebuilt
   each item from four named fields and silently dropped any later evidence.
+- `is_squash_merged` no longer returns a false SAFE for a large unmerged branch under
+  `pipefail`: the `echo | grep -q` pipe took SIGPIPE on early match (#375).
 
 ## [4.8.1] - 2026-10-30
 
