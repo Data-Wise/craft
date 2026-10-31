@@ -129,7 +129,7 @@ SCOPED_DIFF=$(echo "$LINE1" | jq -r '.scoped_diff_result')
 run_test "branch_cleanup_scoped_diff_clean" "clean" "$SCOPED_DIFF"
 
 KEYS=$(echo "$LINE1" | jq -S -c 'keys')
-run_test "branch_cleanup_output_shape" '["ancestor_result","branch","merge_evidence","pr_head_match","pr_merge_in_base","pr_open","pr_state","scoped_diff_result"]' "$KEYS"
+run_test "branch_cleanup_output_shape" '["ancestor_result","branch","merge_evidence","owner_hint","pr_head_match","pr_merge_in_base","pr_open","pr_state","scoped_diff_result","upstream_status","worktree_status"]' "$KEYS"
 
 # ============================================================================
 # Group 2: branch_cleanup_dry_run — active/unmerged branch NOT flagged
@@ -221,6 +221,9 @@ cat > "${SHIM_DIR}/git" <<SHIM
 if [[ -n "\${GIT_SHIM_ANCESTOR_RC:-}" && "\$1" == "merge-base" && "\$2" == "--is-ancestor" ]]; then
   exit "\$GIT_SHIM_ANCESTOR_RC"
 fi
+# Fail only the upstream query (branch enumeration also uses for-each-ref).
+if [[ -n "\${GIT_SHIM_UPSTREAM_FAIL:-}" && "\$1" == "for-each-ref" && "\$*" == *"upstream"* ]]; then exit 1; fi
+if [[ -n "\${GIT_SHIM_WORKTREE_FAIL:-}" && "\$1" == "worktree" && "\$2" == "list" ]]; then exit 1; fi
 exec "${REAL_GIT}" "\$@"
 SHIM
 chmod +x "${SHIM_DIR}/gh" "${SHIM_DIR}/git"
@@ -364,6 +367,76 @@ SPY_CALLS=$(wc -l < "$SPY_LOG" | tr -d ' ')
 run_test "spy_no_mutating_git_calls"         "0" "$SPY_HITS"
 # Guard: the spy must actually have seen git run, or a silent pass proves nothing.
 assert_true "spy_observed_git_calls"         "$( [[ "$SPY_CALLS" -gt 0 ]] && echo 1 || echo 0)"
+
+# ============================================================================
+# Group 8: upstream_status / worktree_status / owner_hint (decisions 8, 15)
+# ============================================================================
+
+echo ""
+echo -e "${T_BLUE}--- Group 8: upstream, worktree and owner evidence ---${T_NC}"
+
+REPO8=$(make_repo)
+BARE8=$(make_tmpdir)
+git -C "$BARE8" init --bare -q
+git -C "$REPO8" remote add origin "$BARE8"
+git -C "$REPO8" push -q origin main dev
+
+mkbranch8() { # <name>: new branch off dev with one commit, back on dev
+    git -C "$REPO8" checkout -q -b "$1" dev
+    add_commit "$REPO8" "work on $1" "${1//\//_}.txt"
+    git -C "$REPO8" checkout -q dev
+}
+push8() { git -C "$REPO8" push -q -u origin "$1" 2>/dev/null; }
+
+mkbranch8 feature/nopush
+mkbranch8 feature/pushed;  push8 feature/pushed
+mkbranch8 feature/ahead;   push8 feature/ahead
+git -C "$REPO8" checkout -q feature/ahead
+add_commit "$REPO8" "unpushed follow-up" "ahead_extra.txt"
+git -C "$REPO8" checkout -q dev
+mkbranch8 feature/gone;    push8 feature/gone
+git -C "$REPO8" push -q origin --delete feature/gone 2>/dev/null
+git -C "$REPO8" fetch -q --prune origin
+
+# Worktrees: one live, one whose directory was deleted (a stale record).
+WT8_LIVE=$(make_tmpdir); rmdir "$WT8_LIVE"
+git -C "$REPO8" worktree add -q "$WT8_LIVE" -b feature/wt-live dev
+WT8_STALE=$(make_tmpdir); rmdir "$WT8_STALE"
+git -C "$REPO8" worktree add -q "$WT8_STALE" -b feature/wt-stale dev
+rm -rf "$WT8_STALE"
+
+# owner_hint branches
+for b in codex/x dependabot/y bot/w; do git -C "$REPO8" branch "$b" dev; done
+
+field8() { # <branch> <field> [ENV=VAL ...]
+    local br="$1" fld="$2"; shift 2
+    branch_json "$REPO8" "$br" GH_SHIM_FAIL=1 "$@" | jq -r --arg f "$fld" '.[$f]'
+}
+
+run_test "upstream_none_when_not_pushed"      "none"    "$(field8 feature/nopush upstream_status)"
+run_test "upstream_present_when_pushed"       "present" "$(field8 feature/pushed upstream_status)"
+run_test "upstream_ahead_when_unpushed_tip"   "ahead"   "$(field8 feature/ahead upstream_status)"
+run_test "upstream_none_when_remote_gone"     "none"    "$(field8 feature/gone upstream_status)"
+run_test "upstream_unknown_when_query_fails"  "unknown" "$(field8 feature/pushed upstream_status GIT_SHIM_UPSTREAM_FAIL=1)"
+
+run_test "worktree_live_when_checked_out"     "live"    "$(field8 feature/wt-live worktree_status)"
+run_test "worktree_none_when_not_checked_out" "none"    "$(field8 feature/nopush worktree_status)"
+run_test "worktree_none_when_dir_deleted"     "none"    "$(field8 feature/wt-stale worktree_status)"
+run_test "worktree_unknown_when_list_fails"   "unknown" "$(field8 feature/wt-live worktree_status GIT_SHIM_WORKTREE_FAIL=1)"
+
+run_test "owner_tool_codex_prefix"            "tool"    "$(field8 codex/x owner_hint)"
+run_test "owner_tool_dependabot_prefix"       "tool"    "$(field8 dependabot/y owner_hint)"
+run_test "owner_none_for_feature_prefix"      "none"    "$(field8 feature/nopush owner_hint)"
+run_test "owner_custom_prefix_list_hit"       "tool"    "$(field8 bot/w owner_hint CRAFT_TRIAGE_TOOL_PREFIXES='bot/')"
+run_test "owner_custom_prefix_list_replaces_default" "none" "$(field8 codex/x owner_hint CRAFT_TRIAGE_TOOL_PREFIXES='bot/')"
+
+# Decision 8: no field is ever an empty string, on any branch, in any state.
+ALL8=$( (cd "$REPO8" && env PATH="${SHIM_DIR}:${PATH}" GH_SHIM_FAIL=1 bash -c \
+    'source "$0"; branch_cleanup_dry_run dev' "$GIT_UTILS") )
+EMPTY8=$(echo "$ALL8" | jq -c 'select([.[]] | any(. == "" or . == null))' | wc -l | tr -d ' ')
+run_test "no_empty_or_null_fields_any_branch" "0" "$EMPTY8"
+assert_true "group8_emitted_all_fixture_branches" \
+    "$( [[ "$(echo "$ALL8" | grep -c .)" -ge 9 ]] && echo 1 || echo 0)"
 
 # ============================================================================
 # Summary

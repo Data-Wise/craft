@@ -152,6 +152,38 @@ BUCKET_OUT=$(printf '%s\n' \
 UNCLEAR_BUCKET=$(echo "$BUCKET_OUT" | jq -c 'select(.status == "unclear") | .bucket' | tr -d '"')
 run_test "unclear_is_grill_ready" "grill-ready" "$UNCLEAR_BUCKET"
 
+# ============================================================================
+# Group 6: merge_candidates preserves every collector field (GRILL decision 10)
+# The join used to rebuild each object from four named fields, silently dropping
+# anything the collector added later.
+# ============================================================================
+
+echo ""
+echo -e "${T_BLUE}--- Group 6: merge_candidates preserves new evidence fields ---${T_NC}"
+
+NEW_FIELDS='"pr_open":"no","pr_head_match":"match","pr_merge_in_base":"yes","upstream_status":"ahead","worktree_status":"live","owner_hint":"tool"'
+BF6=$(make_tmpfile)
+WF6=$(make_tmpfile)
+cat > "$BF6" <<EOF
+{"branch":"feature/coupled","merge_evidence":"not-merged","ancestor_result":"not-ancestor","pr_state":"merged","scoped_diff_result":"has-diff",${NEW_FIELDS}}
+{"branch":"feature/solo","merge_evidence":"not-merged","ancestor_result":"not-ancestor","pr_state":"merged","scoped_diff_result":"has-diff",${NEW_FIELDS}}
+EOF
+cat > "$WF6" <<'EOF'
+{"path":"/wt/coupled","branch":"feature/coupled","is_merged_evidence":"not-merged","lock_status":"unlocked"}
+EOF
+OUT6=$(merge_candidates "$BF6" "$WF6")
+for key in pr_open pr_head_match pr_merge_in_base upstream_status worktree_status owner_hint; do
+    EXPECTED=$(echo "{${NEW_FIELDS}}" | jq -r --arg k "$key" '.[$k]')
+    GOT_C=$(echo "$OUT6" | jq -r --arg k "$key" 'select(.branch == "feature/coupled") | .[$k]')
+    GOT_S=$(echo "$OUT6" | jq -r --arg k "$key" 'select(.branch == "feature/solo") | .[$k]')
+    run_test "join_keeps_${key}_coupled" "$EXPECTED" "$GOT_C"
+    run_test "join_keeps_${key}_solo"    "$EXPECTED" "$GOT_S"
+done
+# The worktree fields must still be merged onto the coupled item, and the type kept.
+run_test "join_coupled_type_and_path" "branch+worktree|/wt/coupled" \
+    "$(echo "$OUT6" | jq -r 'select(.branch == "feature/coupled") | [.type, .path] | join("|")')"
+run_test "join_solo_type" "branch" "$(echo "$OUT6" | jq -r 'select(.branch == "feature/solo") | .type')"
+
 VALID_BUCKET=$(echo "$BUCKET_OUT" | jq -c 'select(.status == "valid") | .bucket' | tr -d '"')
 run_test "valid_is_plan_ready" "plan-ready" "$VALID_BUCKET"
 

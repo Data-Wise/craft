@@ -10,6 +10,9 @@
 # is also checked out in a worktree renders as ONE candidate item, never
 # two independent opt-outs. Emits JSONL to stdout:
 #   {"type": "branch+worktree"|"branch"|"worktree", "branch": ..., ...}
+# Every field the branch collector emits passes through unchanged (the join adds
+# `type`, and for a coupled pair the worktree's `path` and `lock_status`), so
+# evidence added to the collector never needs a matching edit here.
 # `type: "worktree"` is the rare fallback for a worktree whose branch never
 # appeared in the branch stream (e.g. the base/protected branch).
 merge_candidates() {
@@ -27,14 +30,10 @@ merge_candidates() {
     | ($worktrees[0] // []) as $wts
     | (($wts | map(select(.branch == $b.branch)) | first)) as $match
     | if $match then
-        {type: "branch+worktree", branch: $b.branch,
-         merge_evidence: $b.merge_evidence, ancestor_result: $b.ancestor_result,
-         pr_state: $b.pr_state, scoped_diff_result: $b.scoped_diff_result,
-         path: $match.path, lock_status: $match.lock_status}
+        {type: "branch+worktree"} + $b
+          + {path: $match.path, lock_status: $match.lock_status}
       else
-        {type: "branch", branch: $b.branch,
-         merge_evidence: $b.merge_evidence, ancestor_result: $b.ancestor_result,
-         pr_state: $b.pr_state, scoped_diff_result: $b.scoped_diff_result}
+        {type: "branch"} + $b
       end
   ' "$branch_file"
 

@@ -104,6 +104,61 @@ _ancestry_state() {
   esac
 }
 
+# _upstream_status <branch>
+# "none"    — no upstream configured, or the upstream branch is gone (deleted).
+# "ahead"   — an upstream exists but the local tip is not on it (unpushed commits).
+# "present" — an upstream exists and already holds the local tip.
+# "unknown" — the query failed. "none" and "ahead" both mean the tip's only copy
+# is local; "present" is the only state that means a remote has it.
+_upstream_status() {
+  local info up track
+  info=$(git for-each-ref --format='%(upstream)|%(upstream:track)' "refs/heads/${1}" 2>/dev/null) \
+    || { echo "unknown"; return; }
+  [[ -n "$info" ]] || { echo "unknown"; return; }
+  up="${info%%|*}"
+  track="${info#*|}"
+  if [[ -z "$up" || "$track" == *gone* ]]; then
+    echo "none"
+  elif [[ "$track" == *ahead* ]]; then
+    echo "ahead"
+  else
+    echo "present"
+  fi
+}
+
+# _worktree_status <branch>
+# "live" if the branch is checked out in a worktree whose directory still
+# exists; "none" otherwise (a record whose directory was deleted is stale, not
+# live); "unknown" if the worktree list cannot be read. Directory existence is
+# tested directly rather than via the `prunable` annotation, which older git
+# versions do not emit.
+_worktree_status() {
+  local listing line wpath="" status="none"
+  listing=$(git worktree list --porcelain 2>/dev/null) || { echo "unknown"; return; }
+  while IFS= read -r line; do
+    case "$line" in
+      "worktree "*) wpath="${line#worktree }" ;;
+      "branch refs/heads/"*)
+        if [[ "${line#branch refs/heads/}" == "$1" && -d "$wpath" ]]; then status="live"; fi
+        ;;
+    esac
+  done <<<"$listing"
+  echo "$status"
+}
+
+# _owner_hint <branch>
+# "tool" when the branch name starts with a prefix in CRAFT_TRIAGE_TOOL_PREFIXES
+# (space-separated; default "codex/ dependabot/"; set but empty disables the
+# hint), else "none". Advisory only: unlisted tool prefixes read "none".
+_owner_hint() {
+  local prefix
+  [[ -n "${1:-}" ]] || { echo "unknown"; return; }
+  for prefix in ${CRAFT_TRIAGE_TOOL_PREFIXES-codex/ dependabot/}; do
+    if [[ "$1" == "$prefix"* ]]; then echo "tool"; return; fi
+  done
+  echo "none"
+}
+
 # Largest PR list requested per branch. A result this long may be truncated, so
 # it is reported as "unknown" rather than trusted.
 _PR_LOOKUP_LIMIT=100
@@ -181,6 +236,11 @@ _pr_evidence() {
 #    PR / lookup failed or may be truncated),
 #    "pr_merge_in_base": "yes"|"no"|"na"|"unknown" (for a head match, the PR's merge
 #    commit is reachable from base; "na" without a head match),
+#    "upstream_status": "none"|"ahead"|"present"|"unknown" (see _upstream_status;
+#    "ahead" = upstream exists but the tip is unpushed),
+#    "worktree_status": "live"|"none"|"unknown" (checked out in a worktree whose
+#    directory exists),
+#    "owner_hint": "tool"|"none"|"unknown" (branch-name prefix list, advisory),
 #    "scoped_diff_result": "clean"|"has-diff"|"unknown"
 #    ("unknown" when `git diff` itself fails — e.g. a broken ref — never
 #    treated as equivalent to a clean diff)}
@@ -221,11 +281,18 @@ branch_cleanup_dry_run() {
       scoped_diff_result="unknown"
     fi
 
+    local upstream_status worktree_status owner_hint
+    upstream_status=$(_upstream_status "$branch")
+    worktree_status=$(_worktree_status "$branch")
+    owner_hint=$(_owner_hint "$branch")
+
     jq -cn --arg branch "$branch" --arg me "$merge_evidence" --arg ar "$ancestor_result" \
       --arg ps "$pr_state" --arg po "$pr_open" --arg phm "$pr_head_match" \
-      --arg pmb "$pr_merge_in_base" --arg sd "$scoped_diff_result" \
+      --arg pmb "$pr_merge_in_base" --arg us "$upstream_status" \
+      --arg ws "$worktree_status" --arg oh "$owner_hint" --arg sd "$scoped_diff_result" \
       '{branch: $branch, merge_evidence: $me, ancestor_result: $ar, pr_state: $ps,
         pr_open: $po, pr_head_match: $phm, pr_merge_in_base: $pmb,
+        upstream_status: $us, worktree_status: $ws, owner_hint: $oh,
         scoped_diff_result: $sd}'
   done
 }
