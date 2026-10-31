@@ -4,6 +4,42 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.8.1 — restore guidance and dependency checks
+
+**Released:** 2026-10-31 · **Type:** Patch
+
+### Highlights
+
+- **Better restore guidance** — `/craft:restore` prioritizes issues and suggestions by impact,
+  evidence, ownership, holds, and dependencies, and suggests repository/task session titles
+  (renaming only on an explicit request). The Codex `craft-restore` skill resolves the selected
+  checkout and separates cached refs from stale handoffs, staying read-only.
+- **Dependency checks restored** — the retained dependency-helper checks work again after the demo
+  command moved to Folio, with an explicit trusted `CRAFT_DEMO_SPEC` and an isolated test fixture.
+- **Craft OpenAI 0.1.1** — packaged with the restore improvements, plus the reviewed markdownlint update.
+
+See [CHANGELOG](CHANGELOG.md) for the full list.
+
+---
+
+## v4.8.0 — plugin eval harness
+
+**Released:** 2026-10-04 · **Type:** Minor
+
+### Highlights
+
+- **Plugin eval harness** — `scripts/run-evals.sh` wraps `claude plugin eval` with safe defaults
+  (no publish, a cost cap, a private output directory), with 11 skill trigger evals, 11
+  command-routing evals, and 3 body cases. See the [eval harness guide](guide/eval-harness.md).
+- **Lint baseline** — `ruff check .` is clean under a pinned rule set; 296 findings fixed across
+  88 files, including two real bugs (a missing `import yaml` and a bare `except:`).
+- **Safer release gates** — in release mode a missing pytest or coverage tool now fails the
+  coverage validator instead of skipping, and a rename note is no longer reported as a stale command.
+
+See [CHANGELOG](CHANGELOG.md) for the full list.
+
+---
+
 ## v4.7.0 — Craft OpenAI workflow skills + branch-guard updates
 
 **Released:** 2026-09-29 · **Type:** Minor
