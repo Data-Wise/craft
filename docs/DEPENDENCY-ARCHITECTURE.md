@@ -761,5 +761,5 @@ flowchart TB
 ---
 
 **Last Updated**: 2026-02-19
-**Version**: 4.8.0
+**Version**: 4.8.1
 **Status**: Production Ready

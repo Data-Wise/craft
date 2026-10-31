@@ -30,6 +30,29 @@ GIF generation using either asciinema or VHS workflows.
 - Tool repair functionality
 - Session-based caching for performance
 
+## Retained Craft scripts after the Folio split
+
+The demo command belongs to Folio. Craft retains the helper scripts; point
+`CRAFT_DEMO_SPEC` at an explicitly selected, trusted demo command containing a
+nonempty `dependencies` frontmatter mapping. Paths with spaces are supported.
+The scripts do not search neighboring repositories or install another plugin.
+Specifications can contain health/install commands, so review imported specs
+before using them. Without an override, the legacy command path is used; a
+missing or invalid spec fails rather than reporting an empty successful check.
+
+```bash
+CRAFT_DEMO_SPEC=/absolute/path/to/folio/commands/docs/demo.md \
+  bash scripts/dependency-manager.sh display_status_json asciinema
+
+# Test the retained helper interface with a deterministic, test-only spec:
+bash tests/test_dependency_management.sh
+```
+
+The dependency workflow and shell/Python tests use the test-only fixture.
+The fixture under `tests/fixtures/dependency-spec.md` exercises an available
+shell and a deliberately missing tool. It is not production demo requirements.
+Moving or retiring the remaining helper subsystem is a separate decision.
+
 ## Quick Start
 
 ```bash
