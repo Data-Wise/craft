@@ -1,10 +1,11 @@
 ## v4.8.1 shipped — 2026-10-31
 
 Release PR #372 merged to main at `30e5e7929` with green CI. Tag `v4.8.1` and the
-GitHub release were published 2026-10-31. The Aggregator Sync, Homebrew Release
-and Craft MCP Release workflows triggered by the release succeeded; the tag's
-Craft CI run was still in progress when this was written. Not yet verified:
-`brew install` and `brew audit` for the published formula.
+GitHub release were published 2026-10-31. The Aggregator Sync, Homebrew Release,
+Craft MCP Release and tag Craft CI runs all succeeded. Published formula verified:
+tarball sha256 matches, `brew install` gives craft 4.8.1_3. `brew audit --strict`
+reports one style finding (line 188: use `post_install_steps` instead of
+`post_install`); the formula is generated, so fix it in the tap generator.
 Open: #374 v1 is built on `feature/branch-triage-verdicts` (not on dev);
 #375 (pipefail false-SAFE in `is_squash_merged`) is filed, not fixed.
 
