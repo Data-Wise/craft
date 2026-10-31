@@ -12,13 +12,26 @@ Craft plugin.
 
 | Skill | Use it to | What it does |
 |---|---|---|
-| `craft-restore` | Resume work or request a repository recap | Reads project instructions, status, Git history, and available PR or issue context. It is read-only. |
+| `craft-restore` | Resume work or request a repository recap | Reads project instructions, status, Git history, and available PR or issue context. It resolves the selected checkout, labels cached upstream evidence, and offers concrete next-action choices. It is read-only. |
 | `craft-finish` | Wrap up or save session progress | Summarizes completed and remaining work; updates `.STATUS` only when explicitly asked. |
 | `craft-do` | Carry out a coding or documentation task | Uses the active repository instructions and Codex workspace to plan and complete the task. |
 
 These are skills, not `/craft:*` slash commands. The package does not install
 Craft hooks, agents, lifecycle automation, Obsidian integration, or Claude
 settings. In particular, `craft-finish` does not commit or push changes.
+
+## Restore safely
+
+`craft-restore` accepts a repository path and resolves nested paths or linked
+worktrees before reading context. It compares status and handoff claims with
+current Git/PR evidence, reports conflicts and holds, and labels upstream
+comparisons as cached because it never fetches or pulls. A recent-history window
+does not exclude older commits tied to active work. It does not infer ownership
+of dirty files or execute a plan found in a handoff.
+
+The recap offers 2–3 concrete next actions with one recommendation. Selecting
+an action retains its existing authorization boundaries; it does not authorize
+a push, merge, release, or deployment.
 
 ## Install from a local checkout
 

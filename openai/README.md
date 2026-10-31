@@ -9,7 +9,7 @@ and setup steps.
 
 | Craft source | OpenAI skill | Disposition |
 |---|---|---|
-| commands/restore.md, skills/workflow/adhd-workflow/SKILL.md, skills/dev/git/SKILL.md | craft-restore | Adapted as a read-only recap; Craft-specific Obsidian behavior is omitted. |
+| commands/restore.md, skills/workflow/adhd-workflow/SKILL.md, skills/dev/git/SKILL.md | craft-restore | Adapted as a checkout-aware, read-only recap with cached-ref limits and next-action choices; Craft-specific Obsidian behavior is omitted. |
 | commands/finish.md, skills/workflow/adhd-workflow/references/done.md | craft-finish | Adapted for status capture; Claude settings, memory, sync, and detector integrations are omitted. |
 | commands/do.md and its router dependencies | craft-do | Redesigned around Codex and repository instructions; Claude slash dispatch and orchestrator-v2 are not portable. |
 

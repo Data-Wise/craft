@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Make the Codex `craft-restore` skill resolve the selected checkout, distinguish
+  cached refs and stale handoffs, and offer concrete next-action choices while
+  preserving its read-only scope.
+
 ## [4.8.0] - 2026-10-04
 
 ### Fixed
