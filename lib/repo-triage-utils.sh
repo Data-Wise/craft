@@ -51,23 +51,28 @@ merge_candidates() {
 # Reads merge_candidates()-shaped JSONL on stdin and adds a `verdict` and a
 # one-line `evidence` string to every item (all input fields pass through).
 # Report only: a verdict is advice for the user; nothing here deletes anything.
-# Rules and precedence are GRILL-branch-triage-verdicts decisions 1, 6, 7, 8, 14, 15:
+# Rules and precedence are GRILL-branch-triage-verdicts decisions 1, 6, 7, 8, 14, 15,
+# 16 and 17. Each fact is evaluated three-valued (true / false / unknown), so an
+# unknown evidence field only matters when the outcome depends on it:
 #
-#   UNKNOWN            any of the 9 evidence fields is "unknown", absent, empty or
-#                      outside its enum (a worktree-only item has none of them).
-#                      Never defaults to delete.
-#   KEEP               a live worktree, or an open PR.
-#   DELETE-SAFE        the tip is an ancestor of base; OR a merged PR's head equals
-#                      the tip AND its merge commit is in base AND the content is
-#                      still present (merge_evidence merged/squash-merged, or
-#                      remote_copy is yes). PR evidence alone is not enough: a
-#                      reverted PR has it too.
+#   UNKNOWN            a field is absent, empty or outside its enum (a worktree-only
+#                      item has none of them); or a field the outcome depends on is
+#                      "unknown" (a lookup failed). Never defaults to delete.
+#   KEEP               a live worktree, or an open PR. These positive facts win even
+#                      when unrelated fields are unknown.
+#   DELETE-SAFE        needs a free worktree (worktree_status none) and no open PR, and
+#                      either the tip is an ancestor of base (an unavailable open-PR
+#                      check does not block this path: nothing unmerged is at stake),
+#                      OR a merged PR's head equals the tip AND its merge commit is in
+#                      base AND the content is still present (merge_evidence
+#                      merged/squash-merged, or remote_copy yes), with every PR field
+#                      known. PR evidence alone is not enough: a reverted PR has it too.
 #   BACKUP-THEN-DECIDE not landed, upstream_status is none or ahead, AND no
 #                      remote-tracking ref holds the tip (remote_copy is no), so
 #                      the tip's only copy is local. A remote copy under another
 #                      name, or without a configured upstream, is not a backup case.
 #   KEEP               everything else: tool-owned and not verified landed, or
-#                      unmerged with a remote copy.
+#                      unmerged with a remote copy. owner_hint never forces UNKNOWN.
 verdict_candidates() {
   jq -c '
     def spec: {
@@ -81,42 +86,71 @@ verdict_candidates() {
       owner_hint:       ["tool", "none", "unknown"],
       remote_copy:      ["yes", "no", "unknown"]
     };
+    # Three-valued helpers: true, false, or null (unknown).
+    def t3($v; $yes; $no):
+      if ($yes | index($v)) != null then true
+      elif ($no | index($v)) != null then false
+      else null end;
+    def and3($a; $b):
+      if $a == false or $b == false then false
+      elif $a == null or $b == null then null
+      else true end;
+    def or3($a; $b):
+      if $a == true or $b == true then true
+      elif $a == null or $b == null then null
+      else false end;
     . as $o
     | (spec | to_entries) as $fields
     | [ $fields[] | . as $e
         | select(($o[$e.key] | type) != "string" or ($e.value | index($o[$e.key])) == null)
         | $e.key ] as $bad
     | [ $fields[] | select($o[.key] == "unknown") | .key ] as $unknown
+    | t3($o.ancestor_result; ["ancestor"]; ["not-ancestor"]) as $anc
+    | t3($o.worktree_status; ["none"]; ["live"]) as $free
+    | t3($o.pr_open; ["no"]; ["yes"]) as $nopr
+    | and3(and3(t3($o.pr_head_match; ["match"]; ["mismatch", "none"]);
+                t3($o.pr_merge_in_base; ["yes"]; ["no", "na"]));
+           or3(t3($o.merge_evidence; ["squash-merged", "merged"]; ["not-merged"]);
+               t3($o.remote_copy; ["yes"]; ["no"]))) as $pr_proven
+    | and3($anc; $free) as $del_anc
+    | and3($pr_proven; and3($free; $nopr)) as $del_pr
+    | or3($del_anc; $del_pr) as $del
+    | and3(t3($o.upstream_status; ["none", "ahead"]; ["present"]);
+           t3($o.remote_copy; ["no"]; ["yes"])) as $local_only
+    | ("lookup failed: " + ($unknown | join(", "))) as $failed
     | $o + (
         if $bad | length > 0 then
           { verdict: "UNKNOWN",
             evidence: (if $o.type == "worktree"
                        then "worktree-only item: no branch evidence"
                        else "absent or invalid evidence: " + ($bad | join(", ")) end) }
-        elif $unknown | length > 0 then
-          { verdict: "UNKNOWN", evidence: ("lookup failed: " + ($unknown | join(", "))) }
         elif $o.worktree_status == "live" then
           { verdict: "KEEP", evidence: "live worktree" }
         elif $o.pr_open == "yes" then
           { verdict: "KEEP", evidence: "open PR" }
-        elif $o.ancestor_result == "ancestor" then
-          { verdict: "DELETE-SAFE", evidence: "tip is an ancestor of base" }
-        elif $o.pr_head_match == "match" and $o.pr_merge_in_base == "yes"
-             and ($o.merge_evidence | IN("squash-merged", "merged")) then
-          { verdict: "DELETE-SAFE",
-            evidence: ("merged PR head equals tip, merge commit in base, content present (" + $o.merge_evidence + ")") }
-        elif $o.pr_head_match == "match" and $o.pr_merge_in_base == "yes"
-             and $o.remote_copy == "yes" then
-          { verdict: "DELETE-SAFE",
-            evidence: "merged PR head equals tip, merge commit in base, a remote holds the tip (as of last fetch)" }
-        elif ($o.upstream_status == "none" or $o.upstream_status == "ahead")
-             and $o.remote_copy == "no" then
+        elif $del == true then
+          (if $del_anc == true then
+             { verdict: "DELETE-SAFE",
+               evidence: ("tip is an ancestor of base"
+                          + (if $o.pr_open == "unknown" then " (open-PR check unavailable)" else "" end)) }
+           elif ($o.merge_evidence | IN("squash-merged", "merged")) then
+             { verdict: "DELETE-SAFE",
+               evidence: ("merged PR head equals tip, merge commit in base, content present (" + $o.merge_evidence + ")") }
+           else
+             { verdict: "DELETE-SAFE",
+               evidence: "merged PR head equals tip, merge commit in base, a remote holds the tip (as of last fetch)" }
+           end)
+        elif $del == null then
+          { verdict: "UNKNOWN", evidence: $failed }
+        elif $local_only == true then
           { verdict: "BACKUP-THEN-DECIDE",
             evidence: ((if $o.upstream_status == "ahead"
                         then "unpushed commits: the tip exists only locally"
                         else "no remote copy: the tip exists only locally" end)
                        + (if $o.pr_head_match == "match"
                           then "; merged PR found but content not proven in base" else "" end)) }
+        elif $local_only == null then
+          { verdict: "UNKNOWN", evidence: $failed }
         elif $o.owner_hint == "tool" then
           { verdict: "KEEP", evidence: "tool-owned branch, not verified landed" }
         elif $o.upstream_status == "present" then

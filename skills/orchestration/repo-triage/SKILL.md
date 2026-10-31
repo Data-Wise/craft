@@ -64,7 +64,7 @@ ancestry, upstream, worktree and owner fields (`pr_open`, `pr_head_match`,
 enum list is in its header comment in `lib/git-utils.sh`). Apply the same
 skip-and-continue discipline as Step 1 to any per-item collection error: a
 failed lookup (e.g. `gh pr list`) reads `unknown` in the affected fields — never
-`none`/`no` — and that branch's verdict becomes `UNKNOWN`; it is not dropped.
+`none`/`no` — and that branch's verdict becomes `UNKNOWN` when the outcome depends on the failed field; it is not dropped.
 
 ### Step 3 — Merge + confirm UX
 
@@ -89,7 +89,7 @@ header comment, from `docs/specs/GRILL-branch-triage-verdicts-2026-10-31.md`):
 | `DELETE-SAFE` | Landed: the tip is an ancestor of base, or a merged PR's head equals the tip, its merge commit is in base, and the content is still present. PR evidence alone is not enough (a reverted PR has it too). |
 | `BACKUP-THEN-DECIDE` | Not landed and the tip exists only locally: `upstream_status` is none or ahead AND no remote-tracking ref holds the tip (`remote_copy` no, as of the last fetch). |
 | `KEEP` | A live worktree, an open PR, a tool-owned branch not verified landed, or unmerged but pushed. |
-| `UNKNOWN` | Any lookup failed or a field is absent or invalid. Never offers a delete. |
+| `UNKNOWN` | A field is absent or invalid, or a lookup the outcome depends on failed (e.g. `gh` down on a branch that might be landed). A lookup that does not affect the outcome does not force it: an ancestor branch stays `DELETE-SAFE`, a live worktree stays `KEEP`. Never offers a delete. |
 
 **Revalidate before presenting.** Evidence can change between the scan and the
 action (a worktree appears, a PR opens, a tip moves). Re-run Step 2 and the

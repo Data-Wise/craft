@@ -237,13 +237,15 @@ ANC='"ancestor_result":"ancestor","merge_evidence":"merged"'
 OV_LIVE="{${ANC},\"worktree_status\":\"live\"}"
 OV_OPEN="{${ANC},\"pr_open\":\"yes\"}"
 OV_NOUP="{${ANC},\"upstream_status\":\"none\"}"
-OV_PRUNK="{${ANC},\"pr_head_match\":\"unknown\"}"
+OV_WUNK="{${ANC},\"worktree_status\":\"unknown\"}"
 run_test "live_worktree_beats_delete_safe"     "KEEP"               "$(v "$OV_LIVE")"
 run_test "open_pr_beats_delete_safe"           "KEEP"               "$(v "$OV_OPEN")"
 run_test "delete_safe_beats_backup"            "DELETE-SAFE"        "$(v "$OV_NOUP")"
 run_test "backup_beats_tool_keep"              "BACKUP-THEN-DECIDE" "$(v '{"upstream_status":"none","remote_copy":"no","owner_hint":"tool"}')"
-run_test "unknown_beats_keep_live"             "UNKNOWN"            "$(v '{"worktree_status":"live","pr_open":"unknown"}')"
-run_test "unknown_beats_delete_safe"           "UNKNOWN"            "$(v "$OV_PRUNK")"
+# decision 17: a positive protective fact (live worktree) wins over an unrelated unknown,
+# and an unknown that the delete decision depends on (worktree_status) beats DELETE-SAFE.
+run_test "live_worktree_beats_unrelated_unknown" "KEEP"             "$(v '{"worktree_status":"live","pr_open":"unknown"}')"
+run_test "unknown_beats_delete_safe"           "UNKNOWN"            "$(v "$OV_WUNK")"
 run_test "open_pr_beats_backup"                "KEEP"               "$(v '{"pr_open":"yes","upstream_status":"none","remote_copy":"no"}')"
 
 # --- the two KEEP flavors are told apart by evidence ---
@@ -261,11 +263,34 @@ run_test "ahead_but_remote_copy_elsewhere_is_keep" "KEEP" "$(v '{"upstream_statu
 
 # --- decision 8: unknown, absent, empty and off-enum evidence => UNKNOWN, never a delete ---
 for key in merge_evidence ancestor_result pr_open pr_head_match pr_merge_in_base upstream_status worktree_status owner_hint remote_copy; do
-    run_test "unknown_${key}_is_unknown"  "UNKNOWN" "$(verdict_of ". + {\"$key\":\"unknown\"}")"
     run_test "absent_${key}_is_unknown"   "UNKNOWN" "$(verdict_of "del(.$key)")"
     run_test "empty_${key}_is_unknown"    "UNKNOWN" "$(verdict_of ". + {\"$key\":\"\"}")"
     run_test "offenum_${key}_is_unknown"  "UNKNOWN" "$(verdict_of ". + {\"$key\":\"bogus\"}")"
 done
+# --- decision 17: UNKNOWN only when an unknown field affects the decision ---
+GH_DOWN='"pr_open":"unknown","pr_head_match":"unknown","pr_merge_in_base":"unknown"'
+OFF_ANC="{${ANC},${GH_DOWN}}"
+OFF_UNPUSHED="{${GH_DOWN},\"upstream_status\":\"none\",\"remote_copy\":\"no\"}"
+OFF_PUSHED="{${GH_DOWN}}"
+OFF_LIVE="{${GH_DOWN},\"worktree_status\":\"live\"}"
+run_test "gh_down_ancestor_branch_still_delete_safe"   "DELETE-SAFE"        "$(v "$OFF_ANC")"
+run_test "gh_down_ancestor_evidence_notes_pr_check"    "1" \
+    "$(echo "$BASE_EV" | jq -c ". + $OFF_ANC" | verdict_candidates | jq -r '.evidence' | grep -c 'open-PR check unavailable')"
+run_test "gh_down_unpushed_unmerged_is_backup"         "BACKUP-THEN-DECIDE" "$(v "$OFF_UNPUSHED")"
+run_test "gh_down_pushed_unmerged_stays_unknown"       "UNKNOWN"            "$(v "$OFF_PUSHED")"
+run_test "gh_down_live_worktree_is_keep"               "KEEP"               "$(v "$OFF_LIVE")"
+# Fields the delete/backup decision depends on still force UNKNOWN.
+run_test "ancestor_unknown_is_unknown"                 "UNKNOWN"            "$(v '{"ancestor_result":"unknown"}')"
+run_test "upstream_unknown_unlanded_is_unknown"        "UNKNOWN"            "$(v '{"upstream_status":"unknown","remote_copy":"no"}')"
+run_test "remote_copy_unknown_unpushed_is_unknown"     "UNKNOWN"            "$(v '{"upstream_status":"none","remote_copy":"unknown"}')"
+run_test "pr_path_unknown_merge_in_base_is_unknown"    "UNKNOWN"            "$(v '{"pr_head_match":"match","pr_merge_in_base":"unknown"}')"
+run_test "pr_path_unknown_pr_open_is_unknown"          "UNKNOWN" \
+    "$(v '{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"squash-merged","pr_open":"unknown"}')"
+# Fields that do not affect the outcome must not force UNKNOWN.
+run_test "owner_hint_unknown_is_keep"                  "KEEP"               "$(v '{"owner_hint":"unknown"}')"
+run_test "unrelated_pr_fields_unknown_is_keep"         "KEEP"               "$(v '{"pr_open":"unknown","merge_evidence":"unknown"}')"
+run_test "unknown_evidence_lists_failed_fields" "lookup failed: ancestor_result" \
+    "$(echo "$BASE_EV" | jq -c '. + {"ancestor_result":"unknown"}' | verdict_candidates | jq -r '.evidence')"
 # A DELETE-SAFE-looking branch with one field missing must not be DELETE-SAFE.
 run_test "ancestor_with_absent_pr_open_is_unknown" "UNKNOWN" "$(verdict_of ". + {${ANC}} | del(.pr_open)")"
 # Worktree-only items carry no branch evidence.
@@ -300,19 +325,23 @@ INV=$(all_combos \
   | jq -rs '
     def fields: ["merge_evidence","ancestor_result","pr_open","pr_head_match","pr_merge_in_base","upstream_status","worktree_status","owner_hint","remote_copy"];
     def any_unknown: . as $o | any(fields[]; $o[.] == "unknown");
-    def landed: .ancestor_result == "ancestor"
-        or (.pr_head_match == "match" and .pr_merge_in_base == "yes"
-            and ((.merge_evidence | IN("squash-merged","merged")) or .remote_copy == "yes"));
+    # Restated delete rule (decisions 7, 14, 17): the worktree is definitely free, no open PR,
+    # and either the tip is an ancestor or the PR path is fully known and proven.
+    def deletable: .worktree_status == "none" and .pr_open != "yes"
+        and ( .ancestor_result == "ancestor"
+              or ( .pr_head_match == "match" and .pr_merge_in_base == "yes" and .pr_open == "no"
+                   and ((.merge_evidence | IN("squash-merged","merged")) or .remote_copy == "yes") ) );
     { total: length,
-      delete_safe_without_proof: [ .[] | select(.verdict == "DELETE-SAFE")
-          | select((any_unknown) or (.worktree_status != "none") or (.pr_open != "no") or ((landed) | not)) ] | length,
-      unknown_not_flagged:       [ .[] | select(any_unknown and .verdict != "UNKNOWN") ] | length,
+      delete_safe_without_proof: [ .[] | select(.verdict == "DELETE-SAFE") | select((deletable) | not) ] | length,
+      missed_delete_safe:        [ .[] | select(deletable and .verdict != "DELETE-SAFE") ] | length,
+      unknown_without_reason:    [ .[] | select(.verdict == "UNKNOWN" and (any_unknown | not)) ] | length,
       live_or_open_deleted:      [ .[] | select((.worktree_status == "live" or .pr_open == "yes") and .verdict == "DELETE-SAFE") ] | length,
       bad_verdict:               [ .[] | select(.verdict | IN("DELETE-SAFE","BACKUP-THEN-DECIDE","KEEP","UNKNOWN") | not) ] | length,
       empty_evidence:            [ .[] | select((.evidence | type) != "string" or (.evidence | length) == 0) ] | length,
-      backup_with_remote_copy:   [ .[] | select(.verdict == "BACKUP-THEN-DECIDE" and .remote_copy != "no") ] | length
-    } | [.total, .delete_safe_without_proof, .unknown_not_flagged, .live_or_open_deleted, .bad_verdict, .empty_evidence, .backup_with_remote_copy] | join("|")')
-run_test "invariants_total_combos_and_zero_violations" "${EXPECTED_COMBOS}|0|0|0|0|0|0" "$INV"
+      backup_bad:                [ .[] | select(.verdict == "BACKUP-THEN-DECIDE"
+                                      and ((.upstream_status | IN("none","ahead") | not) or .remote_copy != "no")) ] | length
+    } | [.total, .delete_safe_without_proof, .missed_delete_safe, .unknown_without_reason, .live_or_open_deleted, .bad_verdict, .empty_evidence, .backup_bad] | join("|")')
+run_test "invariants_total_combos_and_zero_violations" "${EXPECTED_COMBOS}|0|0|0|0|0|0|0" "$INV"
 
 # ============================================================================
 # Group 8: verdict_command_blocks — one block per verdict class (decision 6, issue
@@ -332,7 +361,7 @@ ITEMS8=$( {
     mk_item "feature/c" '{"upstream_status":"none","remote_copy":"no"}'
     mk_item "feature/d" '{"upstream_status":"ahead","remote_copy":"no"}'
     mk_item "feature/e" '{"worktree_status":"live"}'
-    mk_item "feature/f" '{"pr_open":"unknown"}'
+    mk_item "feature/f" '{"ancestor_result":"unknown"}'
     mk_item "feature/g" '{}'
 } | verdict_candidates )
 BLOCKS8=$(echo "$ITEMS8" | verdict_command_blocks)

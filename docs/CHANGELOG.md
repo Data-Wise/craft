@@ -31,6 +31,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ancestor_result` reads `unknown` when `git merge-base --is-ancestor` fails with
   anything other than "not an ancestor"; the PR lookup covers open and merged PRs,
   ignores fork PRs, and reports `unknown` (never "none") on failure or truncation.
+- The `UNKNOWN` verdict applies only when an unknown evidence field affects the outcome, so
+  a `gh` outage no longer turns every branch into `UNKNOWN`: an ancestor branch is still
+  `DELETE-SAFE` (the evidence notes that the open-PR check was unavailable) and a live
+  worktree is still `KEEP`, while an unmerged, pushed branch stays `UNKNOWN`.
 
 ### Fixed
 
