@@ -5,7 +5,7 @@ Integration Tests: Dependency Management System
 Tests the full dependency workflow from command invocation to tool installation.
 
 Components tested:
-- commands/docs/demo.md (dependency declarations)
+- tests/fixtures/dependency-spec.md (isolated dependency declarations)
 - scripts/dependency-manager.sh (detection & installation)
 - scripts/tool-detector.sh (tool detection)
 - scripts/health-check.sh (validation)
@@ -14,6 +14,8 @@ Components tested:
 Run with: python tests/test_integration_dependency_system.py
 """
 
+import json
+import os
 import unittest
 import subprocess
 import tempfile
@@ -32,24 +34,18 @@ class TestDependencySystemIntegration(unittest.TestCase):
         """Set up test environment."""
         cls.plugin_dir = Path(__file__).parent.parent
         cls.scripts_dir = cls.plugin_dir / "scripts"
-        cls.demo_command = cls.plugin_dir / "commands" / "docs" / "demo.md"
+        cls.demo_command = cls.plugin_dir / "tests" / "fixtures" / "dependency-spec.md"
+        cls.dependency_env = {**os.environ, "CRAFT_DEMO_SPEC": str(cls.demo_command)}
 
     def test_01_full_check_workflow(self):
         """Test: /craft:docs:demo --check shows dependency status."""
-        if not self.demo_command.exists():
-            self.skipTest(
-                "commands/docs/demo.md moved to the `folio` plugin in the folio split "
-                "(Phase 3, 2026-07-12) — scripts/dependency-manager.sh hardcodes that file "
-                "as its dependency source and has no craft-owned equivalent to fall back to. "
-                "Open question: this whole subsystem (dependency-manager.sh, tool-detector.sh, "
-                "health-check.sh, installers/*.sh) may belong in folio now, not craft — flagged, "
-                "not decided here. See ORCHESTRATE-folio-split.md / tasks/todo.md T3.5."
-            )
+        self.assertTrue(self.demo_command.is_file(), "Dependency test fixture is required")
         # Arrange: Run dependency check
         result = subprocess.run(
             [str(self.scripts_dir / "dependency-manager.sh"), "display_status_json", "asciinema"],
             capture_output=True,
             text=True,
+            env=self.dependency_env,
             cwd=self.plugin_dir
         )
 
@@ -58,6 +54,62 @@ class TestDependencySystemIntegration(unittest.TestCase):
         self.assertIn('"status":', result.stdout, "Should output JSON")
         self.assertIn('"method":', result.stdout, "Should include method")
         self.assertIn('"tools":', result.stdout, "Should include tools list")
+        report = json.loads(result.stdout)
+        self.assertEqual(report["status"], "ok")
+        self.assertEqual([tool["name"] for tool in report["tools"]], ["bash"])
+
+    def test_explicit_spec_missing_tool(self):
+        """Method filtering must report a missing required tool as issues."""
+        result = subprocess.run(
+            [str(self.scripts_dir / "dependency-manager.sh"), "display_status_json", "vhs"],
+            capture_output=True, text=True, env=self.dependency_env, cwd=self.plugin_dir,
+        )
+        self.assertEqual(result.returncode, 1)
+        report = json.loads(result.stdout)
+        self.assertEqual(report["status"], "issues")
+        self.assertEqual(len(report["tools"]), 1)
+        self.assertEqual(report["tools"][0]["name"], "craft-dependency-missing-test-tool")
+        self.assertFalse(report["tools"][0]["installed"])
+
+    def test_explicit_spec_path_with_spaces(self):
+        """An explicit trusted spec path works outside the caller's directory."""
+        with tempfile.TemporaryDirectory(prefix="craft spec ") as directory:
+            spec = Path(directory) / "demo spec.md"
+            spec.write_text(self.demo_command.read_text())
+            result = subprocess.run(
+                [str(self.scripts_dir / "dependency-manager.sh"), "parse_frontmatter"],
+                capture_output=True, text=True,
+                env={**os.environ, "CRAFT_DEMO_SPEC": str(spec)}, cwd=directory,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(set(json.loads(result.stdout)), {"bash", "craft-dependency-missing-test-tool"})
+
+    def test_missing_spec_does_not_report_success(self):
+        """An absent selected spec must not become a successful empty report."""
+        with tempfile.TemporaryDirectory() as directory:
+            spec = Path(directory) / "missing.md"
+            result = subprocess.run(
+                [str(self.scripts_dir / "dependency-manager.sh"), "display_status_json", "asciinema"],
+                capture_output=True, text=True,
+                env={**os.environ, "CRAFT_DEMO_SPEC": str(spec)}, cwd=directory,
+            )
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(result.stdout, "")
+        self.assertIn("set CRAFT_DEMO_SPEC", result.stderr)
+
+    def test_empty_or_malformed_spec_does_not_report_success(self):
+        """Invalid declarations must not silently produce an empty green report."""
+        for content in ["---\ndependencies: {}\n---\n", "---\ndependencies: [\n---\n"]:
+            with self.subTest(content=content), tempfile.TemporaryDirectory() as directory:
+                spec = Path(directory) / "demo.md"
+                spec.write_text(content)
+                result = subprocess.run(
+                    [str(self.scripts_dir / "dependency-manager.sh"), "display_status_json", "asciinema"],
+                    capture_output=True, text=True,
+                    env={**os.environ, "CRAFT_DEMO_SPEC": str(spec)}, cwd=directory,
+                )
+                self.assertEqual(result.returncode, 1)
+                self.assertEqual(result.stdout, "")
 
     def test_02_health_check_integration(self):
         """Test: Health check validates installed tools."""
@@ -129,6 +181,7 @@ class TestDependencySystemIntegration(unittest.TestCase):
             [str(self.scripts_dir / "dependency-manager.sh"), "display_status_json", "asciinema"],
             capture_output=True,
             text=True,
+            env=self.dependency_env,
             cwd=self.plugin_dir
         )
 
@@ -136,6 +189,7 @@ class TestDependencySystemIntegration(unittest.TestCase):
             [str(self.scripts_dir / "dependency-manager.sh"), "display_status_json", "asciinema"],
             capture_output=True,
             text=True,
+            env=self.dependency_env,
             cwd=self.plugin_dir
         )
 

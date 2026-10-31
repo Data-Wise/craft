@@ -20,7 +20,7 @@ and next action. Rank safety/data-loss risks and active-work blockers first,
 then correctness/CI/documentation gaps, then optional improvements. Respect
 project holds and dependencies; do not invent urgency, issues, or ownership.
 Separate observed issues from suggestions and mark unverified claims. Collapse
-duplicates and show only the top 3–5 actionable items, noting deferred items
+duplicates and show up to five supported actionable items, noting deferred items
 when relevant. If none are supported, say so instead of filling the table.
 Order the next-action choices by this triage and recommend the first actionable
 item; restoring context does not authorize filing issues or executing fixes.
@@ -39,8 +39,11 @@ to implement renaming support is not a request to rename the current chat.
 Use the user's exact title when supplied; otherwise use the suggested title.
 With authorization, use the app's `set_thread_title` for the current chat,
 omitting `threadId`; do not target another chat. Claim success only after a
-successful tool result. If unavailable or unsuccessful, leave the title alone
-and provide the suggested title for manual use. Do not edit app metadata or
+successful tool result. If unavailable, preserve the title and provide the
+suggestion for manual use.
+If the call fails or its outcome is uncertain, report the rename as unconfirmed
+and provide the suggestion; do not claim the original title is unchanged.
+Do not edit app metadata or
 repository files to rename a chat. If the caller already handled the suggestion
 or rename, do not repeat it. Renaming does not authorize repository changes.
 

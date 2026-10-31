@@ -63,7 +63,7 @@ the package instructions are in `openai/README.md` in the repository.
 
 ## Restore issue triage
 
-Restore ranks the top 3–5 supported issues and suggestions with evidence,
+Restore ranks up to five supported issues and suggestions with evidence,
 impact, owner (or unknown), and a next action. Safety risks and active blockers
 come first, followed by correctness, CI, or documentation gaps and optional
 improvements. Holds and dependencies constrain the recommendation. Suggestions
@@ -82,6 +82,7 @@ Existing titles stay unchanged unless you explicitly request a rename or accept
 the specific suggestion. For example: “Restore without sync; rename this chat
 to Codex Config: Restore improvements.” Your exact title takes precedence.
 Only the current chat is renamed, using the app capability when available. If
-it is unavailable or fails, restore supplies the title for manual use and
-reports the limitation. Requesting this feature does not rename your chat.
+it is unavailable, restore preserves the title and supplies a manual suggestion.
+A failed or uncertain call is reported as unconfirmed, without claiming that
+the original title is unchanged. Requesting this feature does not rename your chat.
 Repository inspection and synchronization permissions remain unchanged.

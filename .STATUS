@@ -1,3 +1,26 @@
+## Restore and dependency delivery review — 2026-10-30
+
+User authorized review/fixes, feature push, and a PR to origin/dev; no merge,
+release, or active plugin refresh. This checkpoint supersedes the earlier six
+baseline dependency failures below: all 111 shell checks now pass without skips.
+
+The retained helper accepts an explicit trusted CRAFT_DEMO_SPEC after the demo
+command moved to Folio. Tests/CI use a separate fixture with available/missing
+required tools; missing, empty, or malformed inputs fail instead of producing
+an empty green report. The full-workflow Python test no longer skips for an
+absent Folio checkout. No Folio command was recreated or neighboring repo scanned.
+Review also bounded restore triage and corrected uncertain rename-result claims.
+
+Validation: full pytest 2560 passed, 51 skipped, 1 xfailed, 1 xpassed, 149 subtests;
+13 focused dependency tests; 111/111 dependency shell checks; 857-file Markdown
+lint; count validation; Bash syntax; ShellCheck error checks; changed Python
+Ruff check; actionlint; skill metadata; and docs build passed. Full pytest took
+295.92 seconds. No actual chat rename was tested or claimed. Source changes
+remain separate from installed caches. Next: push codex/restore-context-contract
+and open its reviewed PR to dev. Preserve dev and unrelated primary AGENTS edits.
+
+Earlier checkpoints below are historical, including the superseded blocker.
+
 status: Active
 version: 4.8.0
 progress: 100
