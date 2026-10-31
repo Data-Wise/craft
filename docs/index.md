@@ -5,7 +5,7 @@
 [![Docs](https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/docs.yml)
 [![Homebrew Release](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml)
 [![Validate Dependencies](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev)](https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml)
-[![Version](https://img.shields.io/badge/version-4.8.0-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
+[![Version](https://img.shields.io/badge/version-4.8.1-brightgreen.svg)](https://github.com/Data-Wise/craft/releases)
 
 | Branch | CI | Docs |
 |--------|----|----- |
@@ -224,11 +224,11 @@ Reference documentation for all 48 Craft commands:
 | **Site**           | 1      | Deploy to GitHub Pages (site build/status/check moved to `folio` in v4.0.0)                                     |
 | **Total**          | **48** | **Complete development workflow coverage**                                                                      |
 
-!!! info "Latest: v4.8.0 — docs accuracy pass + pinned MCP server"
-    Three docs pages that 404'd now build (an unanchored `exclude_docs` pattern had dropped
-    them), every quick-start uses an install command that exists, 15 command reference pages
-    are rebuilt from each command's real arguments, the README is rewritten for v4, and the
-    bundled `mcp-mermaid` MCP server is pinned to 0.4.1. See [NEWS](NEWS.md).
+!!! info "Latest: v4.8.1 — restore guidance and dependency checks"
+    Craft OpenAI 0.1.1 restores the selected checkout with evidence-based triage,
+    next-action choices, and optional explicitly requested session naming.
+    Retained dependency checks use a selected trusted specification and isolated
+    test fixtures after the demo command moved to Folio. See the [changelog](CHANGELOG.md).
 
 ## Links
 

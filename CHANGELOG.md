@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.8.1] - 2026-10-30
+
 ### Fixed
 
 - Restore retained dependency-helper checks after the demo command moved to
@@ -18,6 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   and test with an isolated fixture instead of requiring another plugin.
 
 ### Changed
+
+- Package Craft OpenAI 0.1.1 with the restore improvements; update the
+  markdownlint development dependency from the already reviewed dev branch.
 
 - Allow fewer restore triage items and report uncertain rename outcomes without
   assuming the original title stayed unchanged.

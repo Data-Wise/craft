@@ -5,7 +5,7 @@ Skills. It is a skills-first local pilot, installed separately from the Claude
 Craft plugin.
 
 !!! info "Local pilot"
-    Version 0.1.0 is not listed in a public Codex marketplace. Use a Craft
+    Version 0.1.1 is not listed in a public Codex marketplace. Use a Craft
     checkout that contains `openai/craft-openai/`.
 
 ## Included skills
