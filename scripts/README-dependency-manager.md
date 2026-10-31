@@ -47,7 +47,7 @@ This directory contains the dependency management system for Craft's demo genera
 - `clear_cache(tool_name)` - Invalidate single tool
 - `cleanup_cache()` - Remove entire cache directory
 
-### 3. dependency-manager.sh (476 lines)
+### 3. dependency-manager.sh
 
 **Purpose:** Orchestrator that integrates detection and caching
 
@@ -55,7 +55,11 @@ This directory contains the dependency management system for Craft's demo genera
 
 #### parse_frontmatter()
 
-Extract dependencies from `commands/docs/demo.md` frontmatter.
+Extract a nonempty dependency mapping from the trusted command selected by
+`CRAFT_DEMO_SPEC`. The default remains `commands/docs/demo.md` for compatible
+callers; the command moved to Folio, so Craft-only checkouts must explicitly
+select a spec. Missing/invalid specs fail; tests use an isolated fixture rather
+than depending on an installed Folio checkout.
 
 **Output:** JSON with tool specifications
 

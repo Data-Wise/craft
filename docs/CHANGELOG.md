@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Restore retained dependency-helper checks after the demo command moved to
+  Folio: allow an explicit trusted `CRAFT_DEMO_SPEC`, reject invalid/empty specs,
+  and test with an isolated fixture instead of requiring another plugin.
+
+### Changed
+
+- Allow fewer restore triage items and report uncertain rename outcomes without
+  assuming the original title stayed unchanged.
+
+- Suggest repository/task session titles during restore; rename only on an
+  explicit request using the current-chat app capability. Preserve titles by default.
+
+- Prioritize supported restore issues and suggestions by impact, evidence,
+  ownership, holds, and dependencies before recommending next actions.
+
+- Make the Codex `craft-restore` skill resolve the selected checkout, distinguish
+  cached refs and stale handoffs, and offer concrete next-action choices while
+  preserving its read-only scope.
+
 ## [4.8.0] - 2026-10-04
 
 ### Fixed

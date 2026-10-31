@@ -29,8 +29,8 @@ CYAN="$FMT_CYAN"
 BOLD="$FMT_BOLD"
 NC="$FMT_NC"
 
-# Demo.md location
-DEMO_MD="$SCRIPT_DIR/../commands/docs/demo.md"
+# Explicit override supports Folio-owned specs without scanning other plugins.
+DEMO_MD="${CRAFT_DEMO_SPEC:-$SCRIPT_DIR/../commands/docs/demo.md}"
 
 # Debug mode
 DEBUG=${DEBUG:-0}
@@ -53,7 +53,7 @@ debug_log() {
 #
 parse_frontmatter() {
     if [ ! -f "$DEMO_MD" ]; then
-        echo "ERROR: demo.md not found at $DEMO_MD" >&2
+        echo "ERROR: dependency spec not found at $DEMO_MD; set CRAFT_DEMO_SPEC to a trusted demo command file (the command moved to Folio)" >&2
         return 1
     fi
 
@@ -78,7 +78,11 @@ try:
             frontmatter = yaml.safe_load(frontmatter_yaml)
 
             # Extract dependencies section
-            dependencies = frontmatter.get('dependencies', {})
+            if not isinstance(frontmatter, dict):
+                raise ValueError('frontmatter must be a mapping')
+            dependencies = frontmatter.get('dependencies')
+            if not isinstance(dependencies, dict) or not dependencies:
+                raise ValueError('dependencies must be a nonempty mapping')
 
             # Output as JSON
             print(json.dumps(dependencies, indent=2))

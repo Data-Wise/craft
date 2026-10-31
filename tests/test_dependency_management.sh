@@ -18,6 +18,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
+# Tests own their input; do not depend on a separately installed Folio command.
+export CRAFT_DEMO_SPEC="$PROJECT_ROOT/tests/fixtures/dependency-spec.md"
+
 # Color output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
