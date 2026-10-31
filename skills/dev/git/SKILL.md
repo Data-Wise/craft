@@ -107,10 +107,12 @@ Remove merged feature branches that no longer have work in progress.
 **`--dry-run` / structured collection mode:** `branch_cleanup_dry_run [base]` (in `lib/git-utils.sh`) performs the same two-pass detection above but only *collects* — it never runs `git branch -D`. It emits one JSON object per line (JSONL), one per candidate branch:
 
 ```jsonc
-{"branch": "feature/foo", "merge_evidence": "squash-merged", "ancestor_result": "ancestor", "pr_state": "merged", "scoped_diff_result": "clean"}
+{"branch": "feature/foo", "merge_evidence": "squash-merged", "ancestor_result": "ancestor", "pr_state": "merged", "pr_open": "no", "pr_head_match": "match", "pr_merge_in_base": "yes", "upstream_status": "present", "remote_copy": "yes", "worktree_status": "none", "owner_hint": "none", "scoped_diff_result": "clean"}
 ```
 
-`branch` is the join key consumers use to pair a branch candidate with its Operation 5 worktree candidate (see below). `pr_state` is best-effort — `"unknown"` when `gh` is unavailable or no merged PR is found; absence of PR evidence never blocks a candidate that already has `merge_evidence`/`ancestor_result` support.
+`branch` is the join key consumers use to pair a branch candidate with its Operation 5 worktree candidate (see below). `pr_state` is best-effort — `"unknown"` when `gh` is unavailable or no merged PR is found; absence of PR evidence never blocks a candidate that already has `merge_evidence`/`ancestor_result` support in this operation's own interactive flow.
+
+The remaining fields are typed evidence for `repo-triage`'s verdict layer (no field is ever an empty string; a failed lookup reads `"unknown"`, never `"none"`/`"no"`): `pr_open`, `pr_head_match`, `pr_merge_in_base`, `upstream_status`, `remote_copy`, `worktree_status`, `owner_hint`. The full value list is the header comment of `branch_cleanup_dry_run` in `lib/git-utils.sh`. The collector emits evidence only; `repo-triage` turns it into a report-only verdict (`DELETE-SAFE`, `BACKUP-THEN-DECIDE`, `KEEP`, `UNKNOWN`) with stricter deletion eligibility than this operation's own rule — see `skills/orchestration/repo-triage/SKILL.md`.
 
 ### 5. Worktree Management
 
