@@ -120,6 +120,100 @@ verdict_candidates() {
         end)'
 }
 
+# verdict_command_blocks
+# Reads verdict_candidates() JSONL on stdin and prints one block per verdict
+# class (DELETE-SAFE, BACKUP-THEN-DECIDE, KEEP, UNKNOWN; empty classes are
+# omitted): a header with the count, one line per branch with its evidence, and,
+# for the two actionable classes only, the commands for the user to run.
+#   DELETE-SAFE        git branch -d (ancestor) or -D (squash-merged: git cannot
+#                      see it as merged, so -d would refuse)
+#   BACKUP-THEN-DECIDE git push [-u] origin <branch>
+# KEEP and UNKNOWN never get a command. No remote branch is ever deleted.
+# Branch names go through jq's @sh, so quotes, spaces and `$(...)` stay one literal word.
+# This only prints text; running anything stays with the user's confirm.
+verdict_command_blocks() {
+  jq -rs '
+    def order: ["DELETE-SAFE", "BACKUP-THEN-DECIDE", "KEEP", "UNKNOWN"];
+    def title: {
+      "DELETE-SAFE": "landed; safe to delete locally",
+      "BACKUP-THEN-DECIDE": "the tip exists only locally; back up before deciding",
+      "KEEP": "leave alone",
+      "UNKNOWN": "no command is offered; fix the failed lookup and re-run"
+    };
+    def cmd:
+      if .verdict == "DELETE-SAFE" then
+        (if .ancestor_result == "ancestor"
+         then "git branch -d " + (.branch | @sh)
+         else "git branch -D " + (.branch | @sh) end)
+      elif .verdict == "BACKUP-THEN-DECIDE" then
+        (if .upstream_status == "ahead"
+         then "git push origin " + (.branch | @sh)
+         else "git push -u origin " + (.branch | @sh) end)
+      else empty end;
+    . as $all
+    | [ order[] as $v
+        | ($all | map(select(.verdict == $v)) | sort_by(.branch)) as $items
+        | select($items | length > 0)
+        | ( ["## \($v) (\($items | length)) — \(title[$v])"]
+            + [ $items[] | "  \(.branch)    \(.evidence)" ]
+            + ( if $v == "DELETE-SAFE" then
+                  [ "# run yourself (local branches only; remote deletes are never printed):" ]
+                  + (if any($items[]; .ancestor_result != "ancestor")
+                     then [ "# -D is for squash-merged branches: git cannot see them as merged, so -d would refuse" ]
+                     else [] end)
+                  + [ $items[] | cmd ]
+                elif $v == "BACKUP-THEN-DECIDE" then
+                  [ "# back up first, then decide:" ] + [ $items[] | cmd ]
+                else [] end )
+          ) | join("\n") ]
+    | join("\n\n")
+    | select(length > 0)'
+}
+
+# revalidate_verdicts <old_verdicts_jsonl> <new_verdicts_jsonl>
+# Evidence can change between the scan and the action (GRILL decision 12): a
+# worktree appears, a PR opens, a tip moves. Compares a first scan's
+# verdict_candidates() output with a fresh re-scan's, per branch, and emits the
+# fresh items with any difference downgraded to UNKNOWN, so a stale verdict is
+# never acted on:
+#   changed evidence field      -> UNKNOWN, "changed since scan: <fields>"
+#   branch only in the re-scan  -> UNKNOWN, "appeared after scan"
+#   branch only in the 1st scan -> UNKNOWN, "no longer present"
+# An unchanged branch keeps its verdict. A missing or empty first scan means
+# nothing is carried over on trust: every re-scanned branch reads UNKNOWN.
+revalidate_verdicts() {
+  local old_file="$1"
+  local new_file="$2"
+  local empty_tmp
+  empty_tmp=$(mktemp)
+  trap 'rm -f "$empty_tmp"' RETURN
+
+  [[ -f "$old_file" ]] || old_file="$empty_tmp"
+  [[ -f "$new_file" ]] || new_file="$empty_tmp"
+
+  jq -c --slurpfile old <(jq -c -s '.' "$old_file" 2>/dev/null || echo '[]') '
+    def fields: ["merge_evidence", "ancestor_result", "pr_open", "pr_head_match",
+                 "pr_merge_in_base", "upstream_status", "worktree_status", "owner_hint"];
+    . as $n
+    | (($old[0] // []) | map(select(.branch == $n.branch)) | first) as $o
+    | if $o == null then
+        $n + {verdict: "UNKNOWN", evidence: "appeared after scan"}
+      else
+        ([fields[] | select($o[.] != $n[.])]) as $diff
+        | if ($diff | length) > 0
+          then $n + {verdict: "UNKNOWN", evidence: ("changed since scan: " + ($diff | join(", ")))}
+          else $n end
+      end
+  ' "$new_file"
+
+  jq -c --slurpfile new <(jq -c -s '.' "$new_file" 2>/dev/null || echo '[]') '
+    . as $o
+    | if (($new[0] // []) | map(select(.branch == $o.branch)) | length) == 0
+      then {type: $o.type, branch: $o.branch, verdict: "UNKNOWN", evidence: "no longer present"}
+      else empty end
+  ' "$old_file"
+}
+
 # bucket_candidates
 # Reads classify_issue()-shaped JSON objects (one per line: {status,
 # evidence, reasoning, ...}) from stdin, tags each with a `bucket` field,

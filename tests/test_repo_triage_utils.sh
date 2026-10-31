@@ -300,6 +300,110 @@ INV=$(jq -cn '
 run_test "invariants_total_combos_and_zero_violations" "20736|0|0|0|0|0" "$INV"
 
 # ============================================================================
+# Group 8: verdict_command_blocks — one block per verdict class (decision 6, issue
+# increment 4). Report only: only DELETE-SAFE gets a delete command, only
+# BACKUP-THEN-DECIDE gets a push, and nothing ever deletes a remote branch.
+# ============================================================================
+
+echo ""
+echo -e "${T_BLUE}--- Group 8: verdict_command_blocks ---${T_NC}"
+
+mk_item() { # <branch> <overrides-json> -> one evidence JSON line
+    echo "$BASE_EV" | jq -c --arg b "$1" --argjson ov "$2" '. + {branch: $b} + $ov'
+}
+ITEMS8=$( {
+    mk_item "feature/a" '{"ancestor_result":"ancestor","merge_evidence":"merged"}'
+    mk_item "feature/b" '{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"squash-merged"}'
+    mk_item "feature/c" '{"upstream_status":"none"}'
+    mk_item "feature/d" '{"upstream_status":"ahead"}'
+    mk_item "feature/e" '{"worktree_status":"live"}'
+    mk_item "feature/f" '{"pr_open":"unknown"}'
+    mk_item "feature/g" '{}'
+} | verdict_candidates )
+BLOCKS8=$(echo "$ITEMS8" | verdict_command_blocks)
+
+CMDS8=$(echo "$BLOCKS8" | grep '^git ' | tr '\n' '|')
+run_test "blocks_emit_exactly_the_expected_commands" \
+    "git branch -d 'feature/a'|git branch -D 'feature/b'|git push -u origin 'feature/c'|git push origin 'feature/d'|" "$CMDS8"
+for hdr in "DELETE-SAFE (2)" "BACKUP-THEN-DECIDE (2)" "KEEP (2)" "UNKNOWN (1)"; do
+    run_test "blocks_header_${hdr%% *}" "1" "$(echo "$BLOCKS8" | grep -cF "$hdr" | tr -d ' ')"
+done
+# KEEP and UNKNOWN branches are listed with evidence but never get a command.
+run_test "keep_and_unknown_get_no_command" "0" \
+    "$(echo "$BLOCKS8" | grep '^git ' | grep -cE "feature/(e|f|g)" | tr -d ' ')"
+run_test "unknown_block_says_no_command_offered" "1" \
+    "$(echo "$BLOCKS8" | grep -c 'no command is offered' | tr -d ' ')"
+run_test "listing_cites_evidence" "1" \
+    "$(echo "$BLOCKS8" | grep 'feature/e' | grep -c 'live worktree' | tr -d ' ')"
+run_test "no_remote_delete_ever" "0" "$(echo "$BLOCKS8" | grep -cE -- '--delete|push [^ ]+ :' | tr -d ' ')"
+run_test "empty_input_prints_nothing" "" "$(printf '' | verdict_command_blocks)"
+run_test "all_keep_input_has_no_git_lines" "0" \
+    "$( { mk_item feature/x '{}'; mk_item feature/y '{"worktree_status":"live"}'; } | verdict_candidates | verdict_command_blocks | grep -c '^git ' | tr -d ' ')"
+
+# Shell-safety: branch names with quotes, spaces and command substitution stay one
+# literal word. Round-trip each quoted token through eval printf to prove it.
+for name in "feat/it's x" 'feat/$(echo PWNED)' 'feat/`id`' 'feat/a;b'; do
+    LINE=$( { mk_item "$name" '{"ancestor_result":"ancestor","merge_evidence":"merged"}'; } | verdict_candidates | verdict_command_blocks | grep '^git branch -d ')
+    TOKEN=${LINE#git branch -d }
+    run_test "quoting_roundtrip_${name//[^a-z]/_}" "$name" "$(eval "printf '%s' $TOKEN")"
+done
+
+# Exhaustive: delete commands appear exactly once per DELETE-SAFE item, never otherwise.
+ALLV=$(mktemp "${TMPDIR:-/tmp}/rt-all.XXXXXX"); CLEANUP_FILES+=("$ALLV")
+jq -cn '
+    def vals: {merge_evidence:["merged","squash-merged","not-merged","unknown"],
+               ancestor_result:["ancestor","not-ancestor","unknown"],
+               pr_open:["yes","no","unknown"], pr_head_match:["match","mismatch","none","unknown"],
+               pr_merge_in_base:["yes","no","na","unknown"], upstream_status:["none","ahead","present","unknown"],
+               worktree_status:["live","none","unknown"], owner_hint:["tool","none","unknown"]};
+    [vals | to_entries[] | .key as $k | .value | map({($k): .})]
+    | reduce .[] as $set ([{}]; [ .[] as $acc | $set[] | $acc + . ])
+    | to_entries[] | .key as $i | .value + {type:"branch", branch:("b" + ($i | tostring))}' \
+  | verdict_candidates > "$ALLV"
+DEL_ITEMS=$(jq -c 'select(.verdict == "DELETE-SAFE")' "$ALLV" | wc -l | tr -d ' ')
+DEL_CMDS=$(verdict_command_blocks < "$ALLV" | grep -cE '^git branch -[dD] ' | tr -d ' ')
+run_test "delete_commands_equal_delete_safe_items" "$DEL_ITEMS" "$DEL_CMDS"
+assert_true "exhaustive_set_has_delete_safe_items" "$( [[ "$DEL_ITEMS" -gt 0 ]] && echo 1 || echo 0)"
+run_test "exhaustive_never_remote_delete" "0" "$(verdict_command_blocks < "$ALLV" | grep -cE -- '--delete|push [^ ]+ :' | tr -d ' ')"
+
+# ============================================================================
+# Group 9: revalidate_verdicts — evidence can change between scan and action
+# (decision 12). Any change downgrades the branch to UNKNOWN; nothing is carried
+# over on trust.
+# ============================================================================
+
+echo ""
+echo -e "${T_BLUE}--- Group 9: revalidate_verdicts ---${T_NC}"
+
+OLD9=$(make_tmpfile); NEW9=$(make_tmpfile)
+{ mk_item "feature/same"    '{"ancestor_result":"ancestor","merge_evidence":"merged"}'
+  mk_item "feature/changed" '{"ancestor_result":"ancestor","merge_evidence":"merged"}'
+  mk_item "feature/gone"    '{"ancestor_result":"ancestor","merge_evidence":"merged"}'
+} | verdict_candidates > "$OLD9"
+{ mk_item "feature/same"    '{"ancestor_result":"ancestor","merge_evidence":"merged"}'
+  mk_item "feature/changed" '{"ancestor_result":"ancestor","merge_evidence":"merged","worktree_status":"live"}'
+  mk_item "feature/new"     '{"ancestor_result":"ancestor","merge_evidence":"merged"}'
+} | verdict_candidates > "$NEW9"
+OUT9=$(revalidate_verdicts "$OLD9" "$NEW9")
+r9() { echo "$OUT9" | jq -r --arg b "$1" 'select(.branch == $b) | .verdict'; }
+e9() { echo "$OUT9" | jq -r --arg b "$1" 'select(.branch == $b) | .evidence'; }
+run_test "reval_unchanged_keeps_verdict"        "DELETE-SAFE" "$(r9 feature/same)"
+run_test "reval_changed_field_downgrades"       "UNKNOWN"     "$(r9 feature/changed)"
+run_test "reval_changed_evidence_names_field"   "changed since scan: worktree_status" "$(e9 feature/changed)"
+run_test "reval_vanished_branch_is_unknown"     "UNKNOWN"     "$(r9 feature/gone)"
+run_test "reval_vanished_evidence"              "no longer present" "$(e9 feature/gone)"
+run_test "reval_new_branch_is_unknown"          "UNKNOWN"     "$(r9 feature/new)"
+run_test "reval_new_branch_evidence"            "appeared after scan" "$(e9 feature/new)"
+# Planted control: a branch that was DELETE-SAFE and whose upstream changed must not stay so.
+{ mk_item "feature/up" '{"ancestor_result":"ancestor","merge_evidence":"merged","upstream_status":"present"}'; } | verdict_candidates > "$OLD9"
+{ mk_item "feature/up" '{"ancestor_result":"ancestor","merge_evidence":"merged","upstream_status":"ahead"}'; } | verdict_candidates > "$NEW9"
+run_test "reval_planted_control_upstream_change" "UNKNOWN" "$(revalidate_verdicts "$OLD9" "$NEW9" | jq -r '.verdict')"
+# Nothing to compare against: never carry a verdict over on trust.
+run_test "reval_missing_old_file_all_unknown"   "UNKNOWN" \
+    "$(revalidate_verdicts /nonexistent/old.jsonl "$NEW9" | jq -r '.verdict')"
+run_test "reval_empty_both_prints_nothing"      "" "$(revalidate_verdicts /nonexistent/a /nonexistent/b)"
+
+# ============================================================================
 # Summary
 # ============================================================================
 
