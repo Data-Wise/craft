@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Suggest repository/task session titles during restore; rename only on an
+  explicit request using the current-chat app capability. Preserve titles by default.
+
 - Prioritize supported restore issues and suggestions by impact, evidence,
   ownership, holds, and dependencies before recommending next actions.
 

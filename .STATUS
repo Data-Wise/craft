@@ -7,6 +7,11 @@ last_session: 2026-10-30
 
 ## Local Codex restore improvement — 2026-10-30
 
+- Added optional session naming: suggest repository/task title, preserve titles
+  by default, and rename only the current chat on an explicit request. No chat
+  was renamed while implementing this feature; installed caches are unchanged.
+Naming-update metadata, configured lint and docs-build checks passed. Codex
+reran 7 shell suites/7 Python tests; Tome reran 189 tests. No live rename test.
 - User follow-up: add evidence-based issue/suggestion triage with impact,
   owner, dependency/hold constraints, and a prioritized next-action menu.
 

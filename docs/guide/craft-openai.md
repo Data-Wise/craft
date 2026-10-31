@@ -69,3 +69,19 @@ come first, followed by correctness, CI, or documentation gaps and optional
 improvements. Holds and dependencies constrain the recommendation. Suggestions
 are labeled separately from observed issues; restoring context does not file
 issues or start fixes. The next-action menu follows these priorities.
+
+## Optional session naming
+
+Restore suggests `<repository>: <current task>`, such as
+`codex-config: Refine restore`. Aim for 4–8 words and about 60 characters, using
+the verified repository and active task. Omit dates, branch names, and outcome
+claims unless needed to distinguish work; avoid sensitive details. An unclear
+task should not be guessed.
+
+Existing titles stay unchanged unless you explicitly request a rename or accept
+the specific suggestion. For example: “Restore without sync; rename this chat
+to Codex Config: Restore improvements.” Your exact title takes precedence.
+Only the current chat is renamed, using the app capability when available. If
+it is unavailable or fails, restore supplies the title for manual use and
+reports the limitation. Requesting this feature does not rename your chat.
+Repository inspection and synchronization permissions remain unchanged.
