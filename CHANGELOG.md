@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Prioritize supported restore issues and suggestions by impact, evidence,
+  ownership, holds, and dependencies before recommending next actions.
+
 - Make the Codex `craft-restore` skill resolve the selected checkout, distinguish
   cached refs and stale handoffs, and offer concrete next-action choices while
   preserving its read-only scope.

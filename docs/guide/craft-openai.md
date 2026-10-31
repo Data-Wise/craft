@@ -12,7 +12,7 @@ Craft plugin.
 
 | Skill | Use it to | What it does |
 |---|---|---|
-| `craft-restore` | Resume work or request a repository recap | Reads project instructions, status, Git history, and available PR or issue context. It resolves the selected checkout, labels cached upstream evidence, and offers concrete next-action choices. It is read-only. |
+| `craft-restore` | Resume work or request a repository recap | Reads project instructions, status, Git history, and available PR or issue context. It resolves the selected checkout, labels cached upstream evidence, and prioritizes issues and suggestions before next-action choices. It is read-only. |
 | `craft-finish` | Wrap up or save session progress | Summarizes completed and remaining work; updates `.STATUS` only when explicitly asked. |
 | `craft-do` | Carry out a coding or documentation task | Uses the active repository instructions and Codex workspace to plan and complete the task. |
 
@@ -60,3 +60,12 @@ the package instructions are in `openai/README.md` in the repository.
   purpose and installation path.
 - [Marketplace Distribution](marketplace-distribution.md) covers Craft's
   Claude Code marketplace release process.
+
+## Restore issue triage
+
+Restore ranks the top 3–5 supported issues and suggestions with evidence,
+impact, owner (or unknown), and a next action. Safety risks and active blockers
+come first, followed by correctness, CI, or documentation gaps and optional
+improvements. Holds and dependencies constrain the recommendation. Suggestions
+are labeled separately from observed issues; restoring context does not file
+issues or start fixes. The next-action menu follows these priorities.

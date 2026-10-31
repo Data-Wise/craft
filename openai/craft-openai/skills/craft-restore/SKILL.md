@@ -13,6 +13,17 @@ This operation is read-only.
 5. Compare status/handoff claims with current branch, commit, and PR evidence. Report conflicts and holds without rewriting files or automatically resuming a stale next action. Distinguish local, pushed, merged, deployed, and inspected work; a green check alone does not establish publication.
 6. Offer 2–3 concrete next actions grounded in that state, with one recommendation and a short reason. Use a native question menu when available, otherwise a numbered list. Honor a caller's response/menu requirements without duplicating the menu. A selected action retains applicable authorization boundaries; restore itself does not execute the plan.
 
+Triage verified issues, blockers, and suggestions before proposing next actions.
+Use a compact priority table with evidence/link, impact, owner (or unknown),
+and next action. Rank safety/data-loss risks and active-work blockers first,
+then correctness/CI/documentation gaps, then optional improvements. Respect
+project holds and dependencies; do not invent urgency, issues, or ownership.
+Separate observed issues from suggestions and mark unverified claims. Collapse
+duplicates and show only the top 3–5 actionable items, noting deferred items
+when relevant. If none are supported, say so instead of filling the table.
+Order the next-action choices by this triage and recommend the first actionable
+item; restoring context does not authorize filing issues or executing fixes.
+
 Pass through the caller's resolved target, scope, holds, and sync refusal. This
 read-only workflow never fetches or pulls, even when another restore route has
 sync consent. Do not edit files, stage changes, commit, push, install tools, or

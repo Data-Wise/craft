@@ -7,6 +7,9 @@ last_session: 2026-10-30
 
 ## Local Codex restore improvement — 2026-10-30
 
+- User follow-up: add evidence-based issue/suggestion triage with impact,
+  owner, dependency/hold constraints, and a prioritized next-action menu.
+
 - Improved openai/craft-openai/skills/craft-restore/SKILL.md: selected/nested
   checkout resolution, cached upstream limits, referenced closed PR checks,
   stale-handoff conflicts, unknown dirty-file ownership, and concrete choices.
