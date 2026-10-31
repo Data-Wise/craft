@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.8.0 adds Craft OpenAI workflow skills and raises release-gate test coverage above 90%. See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.8.1 improves Codex restore context, triage, and optional session naming, and repairs retained dependency checks. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -29,10 +29,10 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -10275,7 +10275,7 @@
 <a href="https://github.com/Data-Wise/craft/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/Data-Wise/craft/actions/workflows/docs.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml"><img alt="Homebrew Release" src="https://github.com/Data-Wise/craft/actions/workflows/homebrew-release.yml/badge.svg?branch=dev" /></a>
 <a href="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml"><img alt="Validate Dependencies" src="https://github.com/Data-Wise/craft/actions/workflows/validate-dependencies.yml/badge.svg?branch=dev" /></a>
-<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.8.0-brightgreen.svg" /></a></p>
+<a href="https://github.com/Data-Wise/craft/releases"><img alt="Version" src="https://img.shields.io/badge/version-4.8.1-brightgreen.svg" /></a></p>
 <table>
 <thead>
 <tr>
@@ -10538,11 +10538,11 @@ for restoring project context, finishing a session, and routing project work.</p
 </tbody>
 </table>
 <div class="admonition info">
-<p class="admonition-title">Latest: v4.8.0 — docs accuracy pass + pinned MCP server</p>
-<p>Three docs pages that 404'd now build (an unanchored <code>exclude_docs</code> pattern had dropped
-them), every quick-start uses an install command that exists, 15 command reference pages
-are rebuilt from each command's real arguments, the README is rewritten for v4, and the
-bundled <code>mcp-mermaid</code> MCP server is pinned to 0.4.1. See <a href="NEWS/">NEWS</a>.</p>
+<p class="admonition-title">Latest: v4.8.1 — restore guidance and dependency checks</p>
+<p>Craft OpenAI 0.1.1 restores the selected checkout with evidence-based triage,
+next-action choices, and optional explicitly requested session naming.
+Retained dependency checks use a selected trusted specification and isolated
+test fixtures after the demo command moved to Folio. See the <a href="CHANGELOG/">changelog</a>.</p>
 </div>
 <h2 id="links">Links<a class="headerlink" href="#links" title="Permanent link">&para;</a></h2>
 <ul>
@@ -10606,10 +10606,10 @@ bundled <code>mcp-mermaid</code> MCP server is pinned to 0.4.1. See <a href="NEW
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="javascripts/mermaid-init.js"></script>
       

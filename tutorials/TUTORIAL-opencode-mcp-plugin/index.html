@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.8.0 adds Craft OpenAI workflow skills and raises release-gate test coverage above 90%. See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.8.1 improves Codex restore context, triage, and optional session naming, and repairs retained dependency checks. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -4141,6 +4141,28 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying it works
+      
+    </span>
+  </a>
   
 </li>
       
@@ -10238,6 +10260,28 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#gotchas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying it works
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -10408,7 +10452,66 @@ vocabulary above is from the 2026-08-08 stdio smoke test.</p>
 </span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"[codex] exited"</span>
 </span></code></pre></div>
 <p>For a review, swap <code>exec "&lt;task&gt;"</code> for <code>exec review --json --uncommitted</code> — and expect a large
-bill (one review ran to 1.01M tokens in the 2026-08-08 dogfood run). `</p>
+bill (one review ran to 1.01M tokens in the 2026-08-08 dogfood run). <code>&lt;/dev/null</code> matters:
+<code>codex exec</code> otherwise prints <code>Reading additional input from stdin...</code> and can wait on an open
+stdin under a background runner.</p>
+<p>Real token-usage numbers aren't always in the CLI's own event stream — <code>codex</code>'s per-turn
+usage can read all-zeros while the real total lives in a <em>child</em> rollout session file under
+<code>~/.codex/sessions/**/rollout-*.jsonl</code> (<code>"type":"token_count"</code>, look for
+<code>parent_thread_id</code> matching the run's own <code>thread_id</code>). Check there if the inline events
+look empty.</p>
+<p>Failure path verified 2026-09-23 (codex-cli 0.156.1): an unsupported model emits
+<code>{"type":"error",…}</code> lines then <code>{"type":"turn.failed",…}</code>, and exits 1 — the filter catches
+both. The patterns are anchored to the start of the line on purpose: <code>item.completed</code> events can
+carry a nested <code>"type":"error"</code> for mere warnings (hook-timeout clamping, missing model
+metadata), which an unanchored <code>*"type":"error"*</code> match would report as failures. <code>turn.completed</code>
+carries the turn's <code>usage</code> — success path verified 2026-09-23 (<code>gpt-6-luna</code>: one
+<code>turn.completed</code> line with <code>input_tokens</code>/<code>cached_input_tokens</code>/<code>output_tokens</code>/
+<code>reasoning_output_tokens</code>). If every model is rejected with "not supported when using Codex with
+a ChatGPT account", the configured <code>model</code> was retired server-side — pick a current slug from
+<code>~/.codex/models_cache.json</code> (<code>visibility: "list"</code>) and set it in <code>~/.codex/config.toml</code>.</p>
+<h2 id="gotchas">Gotchas<a class="headerlink" href="#gotchas" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>New tool registrations need a session restart.</strong> <code>claude mcp add</code>
+   writes to <code>~/.claude.json</code> immediately, but a <em>running</em> Claude Code
+   session doesn't pick up the new MCP server until it restarts — the
+   tools won't appear via <code>ToolSearch</code> mid-session even though <code>claude mcp
+   list</code> already shows them connected.</li>
+<li><strong><code>opencode</code> auto-starts an OpenCode SDK server.</strong> First call spawns
+   <code>OpenCode server ... on 127.0.0.1:4096</code> if one isn't already running —
+   expect a few seconds of latency on cold start.</li>
+<li><strong>Always discover providers/models first.</strong> <code>opencode</code>'s own
+   instructions warn against assuming a provider is available — call
+   <code>opencode_setup</code> then <code>opencode_provider_models</code> before passing
+   <code>providerID</code>/<code>modelID</code> to <code>opencode_ask</code>/<code>opencode_run</code>, or you may get
+   empty responses.</li>
+<li><strong><code>opencode-async</code> tasks don't block.</strong> <code>opencode</code> (the tool, not the
+   server) returns a <code>taskId</code> immediately with status <code>"working"</code> — poll
+   <code>opencode_sessions</code> to see completion, and watch for status
+   <code>"input_required"</code>, which needs <code>opencode_respond</code> before the task can
+   finish.</li>
+<li><strong>Scope check before assuming a bridge is available.</strong> Both were
+   originally <code>local</code>-scoped to specific project directories (<code>~/</code>,
+   <code>savant-openai</code> for <code>opencode</code>; <code>cc-config</code>, <code>better-opencode-mcp</code> for
+   <code>opencode-async</code>) before being promoted to <code>user</code> scope — if either
+   stops showing up, check <code>claude mcp list</code> and the project's
+   <code>mcpServers</code> block in <code>~/.claude.json</code> before assuming it's broken.</li>
+</ol>
+<h2 id="verifying-it-works">Verifying it works<a class="headerlink" href="#verifying-it-works" title="Permanent link">&para;</a></h2>
+<p>Both servers were smoke-tested directly over stdio (JSON-RPC
+<code>initialize</code> + <code>tools/list</code>, no live session needed):</p>
+<ul>
+<li><code>opencode</code> — responds with 87 tools (v3.0.0, re-checked 2026-09-23; 80 in August) + a tiered usage guide in the
+  initialize response's top-level <code>instructions</code> field (a sibling of
+  <code>serverInfo</code>, not nested inside it); auto-starts its SDK server on port
+  4096.</li>
+<li><code>opencode-async</code> — responds with 7 tools (<code>Help</code>, <code>ping</code>,
+  <code>opencode_health</code>, <code>opencode</code>, <code>opencode_sessions</code>, <code>opencode_respond</code>,
+  <code>opencode_cancel</code>).</li>
+</ul>
+<p>If you want to re-run the same check: spawn the server's command, write
+newline-delimited JSON-RPC to stdin (not LSP-style <code>Content-Length</code>
+framing — these two don't use it), and read the response from stdout.</p>
 
 
 
@@ -10464,10 +10567,10 @@ bill (one review ran to 1.01M tokens in the 2026-08-08 dogfood run). `</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../../javascripts/mermaid-init.js"></script>
       

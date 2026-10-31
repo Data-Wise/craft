@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.8.0 adds Craft OpenAI workflow skills and raises release-gate test coverage above 90%. See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.8.1 improves Codex restore context, triage, and optional session naming, and repairs retained dependency checks. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
     
     
       
@@ -31,10 +31,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -3849,6 +3849,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#restore-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restore safely
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-from-a-local-checkout" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3864,6 +3875,28 @@
     <span class="md-ellipsis">
       
         Related integrations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restore-issue-triage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restore issue triage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-session-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional session naming
       
     </span>
   </a>
@@ -10117,6 +10150,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#restore-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restore safely
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-from-a-local-checkout" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10132,6 +10176,28 @@
     <span class="md-ellipsis">
       
         Related integrations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restore-issue-triage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restore issue triage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-session-naming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional session naming
       
     </span>
   </a>
@@ -10169,7 +10235,7 @@ Skills. It is a skills-first local pilot, installed separately from the Claude
 Craft plugin.</p>
 <div class="admonition info">
 <p class="admonition-title">Local pilot</p>
-<p>Version 0.1.0 is not listed in a public Codex marketplace. Use a Craft
+<p>Version 0.1.1 is not listed in a public Codex marketplace. Use a Craft
 checkout that contains <code>openai/craft-openai/</code>.</p>
 </div>
 <h2 id="included-skills">Included skills<a class="headerlink" href="#included-skills" title="Permanent link">&para;</a></h2>
@@ -10185,7 +10251,7 @@ checkout that contains <code>openai/craft-openai/</code>.</p>
 <tr>
 <td><code>craft-restore</code></td>
 <td>Resume work or request a repository recap</td>
-<td>Reads project instructions, status, Git history, and available PR or issue context. It is read-only.</td>
+<td>Reads project instructions, status, Git history, and available PR or issue context. It resolves the selected checkout, labels cached upstream evidence, and prioritizes issues and suggestions before next-action choices. It is read-only.</td>
 </tr>
 <tr>
 <td><code>craft-finish</code></td>
@@ -10202,6 +10268,16 @@ checkout that contains <code>openai/craft-openai/</code>.</p>
 <p>These are skills, not <code>/craft:*</code> slash commands. The package does not install
 Craft hooks, agents, lifecycle automation, Obsidian integration, or Claude
 settings. In particular, <code>craft-finish</code> does not commit or push changes.</p>
+<h2 id="restore-safely">Restore safely<a class="headerlink" href="#restore-safely" title="Permanent link">&para;</a></h2>
+<p><code>craft-restore</code> accepts a repository path and resolves nested paths or linked
+worktrees before reading context. It compares status and handoff claims with
+current Git/PR evidence, reports conflicts and holds, and labels upstream
+comparisons as cached because it never fetches or pulls. A recent-history window
+does not exclude older commits tied to active work. It does not infer ownership
+of dirty files or execute a plan found in a handoff.</p>
+<p>The recap offers 2–3 concrete next actions with one recommendation. Selecting
+an action retains its existing authorization boundaries; it does not authorize
+a push, merge, release, or deployment.</p>
 <h2 id="install-from-a-local-checkout">Install from a local checkout<a class="headerlink" href="#install-from-a-local-checkout" title="Permanent link">&para;</a></h2>
 <p>Use the <code>openai/</code> directory as the local marketplace root:</p>
 <div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/craft/openai
@@ -10222,6 +10298,27 @@ the package instructions are in <code>openai/README.md</code> in the repository.
 <li><a href="../marketplace-distribution/">Marketplace Distribution</a> covers Craft's
   Claude Code marketplace release process.</li>
 </ul>
+<h2 id="restore-issue-triage">Restore issue triage<a class="headerlink" href="#restore-issue-triage" title="Permanent link">&para;</a></h2>
+<p>Restore ranks up to five supported issues and suggestions with evidence,
+impact, owner (or unknown), and a next action. Safety risks and active blockers
+come first, followed by correctness, CI, or documentation gaps and optional
+improvements. Holds and dependencies constrain the recommendation. Suggestions
+are labeled separately from observed issues; restoring context does not file
+issues or start fixes. The next-action menu follows these priorities.</p>
+<h2 id="optional-session-naming">Optional session naming<a class="headerlink" href="#optional-session-naming" title="Permanent link">&para;</a></h2>
+<p>Restore suggests <code>&lt;repository&gt;: &lt;current task&gt;</code>, such as
+<code>codex-config: Refine restore</code>. Aim for 4–8 words and about 60 characters, using
+the verified repository and active task. Omit dates, branch names, and outcome
+claims unless needed to distinguish work; avoid sensitive details. An unclear
+task should not be guessed.</p>
+<p>Existing titles stay unchanged unless you explicitly request a rename or accept
+the specific suggestion. For example: “Restore without sync; rename this chat
+to Codex Config: Restore improvements.” Your exact title takes precedence.
+Only the current chat is renamed, using the app capability when available. If
+it is unavailable, restore preserves the title and supplies a manual suggestion.
+A failed or uncertain call is reported as unconfirmed, without claiming that
+the original title is unchanged. Requesting this feature does not rename your chat.
+Repository inspection and synchronization permissions remain unchanged.</p>
 
 
 
@@ -10277,10 +10374,10 @@ the package instructions are in <code>openai/README.md</code> in the repository.
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
         <script src="../../javascripts/mermaid-init.js"></script>
       
