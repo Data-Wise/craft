@@ -6,8 +6,13 @@ Craft MCP Release and tag Craft CI runs all succeeded. Published formula verifie
 tarball sha256 matches, `brew install` gives craft 4.8.1_3. `brew audit --strict`
 reports one style finding (line 188: use `post_install_steps` instead of
 `post_install`); the formula is generated, so fix it in the tap generator.
-Open: #374 v1 is built on `feature/branch-triage-verdicts` (not on dev);
-#375 (pipefail false-SAFE in `is_squash_merged`) is filed, not fixed.
+Open (no PRs yet; both branches pushed):
+- `feature/branch-triage-verdicts` — #374 v1 plus the #375 pipefail fix (`ccac4dd29`).
+- `feature/version-sync-ignore-marker` — `# version-sync: ignore` marker, fixes the
+  `FIXTURE_VERSION` false positive (`206fdaa23`).
+- Filed: #376 (`post_install_steps` migration, tap generator + `post_install_check.py`),
+  #377 (6 bash suites failing on dev; the dependency-suite cause needs a re-check
+  because #371 already added `CRAFT_DEMO_SPEC`).
 
 ## v4.8.1 release preparation — 2026-10-30
 
