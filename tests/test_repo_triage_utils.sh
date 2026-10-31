@@ -161,7 +161,7 @@ run_test "unclear_is_grill_ready" "grill-ready" "$UNCLEAR_BUCKET"
 echo ""
 echo -e "${T_BLUE}--- Group 6: merge_candidates preserves new evidence fields ---${T_NC}"
 
-NEW_FIELDS='"pr_open":"no","pr_head_match":"match","pr_merge_in_base":"yes","upstream_status":"ahead","worktree_status":"live","owner_hint":"tool"'
+NEW_FIELDS='"pr_open":"no","pr_head_match":"match","pr_merge_in_base":"yes","upstream_status":"ahead","worktree_status":"live","owner_hint":"tool","remote_copy":"yes"'
 BF6=$(make_tmpfile)
 WF6=$(make_tmpfile)
 cat > "$BF6" <<EOF
@@ -172,7 +172,7 @@ cat > "$WF6" <<'EOF'
 {"path":"/wt/coupled","branch":"feature/coupled","is_merged_evidence":"not-merged","lock_status":"unlocked"}
 EOF
 OUT6=$(merge_candidates "$BF6" "$WF6")
-for key in pr_open pr_head_match pr_merge_in_base upstream_status worktree_status owner_hint; do
+for key in pr_open pr_head_match pr_merge_in_base upstream_status worktree_status owner_hint remote_copy; do
     EXPECTED=$(echo "{${NEW_FIELDS}}" | jq -r --arg k "$key" '.[$k]')
     GOT_C=$(echo "$OUT6" | jq -r --arg k "$key" 'select(.branch == "feature/coupled") | .[$k]')
     GOT_S=$(echo "$OUT6" | jq -r --arg k "$key" 'select(.branch == "feature/solo") | .[$k]')
@@ -199,7 +199,7 @@ run_test "moot_falls_back_to_defer" "defer" "$MOOT_BUCKET"
 echo ""
 echo -e "${T_BLUE}--- Group 7: verdict_candidates ---${T_NC}"
 
-BASE_EV='{"type":"branch","branch":"feature/t","merge_evidence":"not-merged","ancestor_result":"not-ancestor","pr_state":"unknown","pr_open":"no","pr_head_match":"none","pr_merge_in_base":"na","upstream_status":"present","worktree_status":"none","owner_hint":"none","scoped_diff_result":"has-diff"}'
+BASE_EV='{"type":"branch","branch":"feature/t","merge_evidence":"not-merged","ancestor_result":"not-ancestor","pr_state":"unknown","pr_open":"no","pr_head_match":"none","pr_merge_in_base":"na","upstream_status":"present","remote_copy":"yes","worktree_status":"none","owner_hint":"none","scoped_diff_result":"has-diff"}'
 
 verdict_of() { # <jq filter producing the object under test> -> "VERDICT"
     echo "$BASE_EV" | jq -c "$1" | verdict_candidates | jq -r '.verdict'
@@ -209,7 +209,7 @@ v() { verdict_of ". + $1"; }   # v '{"k":"v"}' -> verdict with those overrides
 # --- one happy path per verdict ---
 run_test "base_unmerged_pushed_is_keep"        "KEEP"               "$(verdict_of '.')"
 run_test "ancestor_is_delete_safe"             "DELETE-SAFE"        "$(v '{"ancestor_result":"ancestor","merge_evidence":"merged"}')"
-run_test "no_upstream_unmerged_is_backup"      "BACKUP-THEN-DECIDE" "$(v '{"upstream_status":"none"}')"
+run_test "no_upstream_unmerged_is_backup"      "BACKUP-THEN-DECIDE" "$(v '{"upstream_status":"none","remote_copy":"no"}')"
 run_test "live_worktree_is_keep"               "KEEP"               "$(v '{"worktree_status":"live"}')"
 
 # Merged PR whose head equals the tip, merge commit in base, content proven.
@@ -217,18 +217,18 @@ PR_OK='{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"squas
 run_test "merged_pr_with_content_proof_delete_safe" "DELETE-SAFE"   "$(v "$PR_OK")"
 
 # --- decision 7: a reverted PR (PR evidence but content not in base) is never DELETE-SAFE ---
-REVERTED='{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"not-merged","upstream_status":"none"}'
+REVERTED='{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"not-merged","upstream_status":"none","remote_copy":"no"}'
 run_test "reverted_pr_no_remote_is_backup"     "BACKUP-THEN-DECIDE" "$(v "$REVERTED")"
-run_test "reverted_pr_ahead_is_backup"         "BACKUP-THEN-DECIDE" "$(v '{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"not-merged","upstream_status":"ahead"}')"
+run_test "reverted_pr_ahead_is_backup"         "BACKUP-THEN-DECIDE" "$(v '{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"not-merged","upstream_status":"ahead","remote_copy":"no"}')"
 # ... unless a durable remote ref holds the tip (decision 7's second proof).
-run_test "reverted_pr_remote_holds_tip_delete_safe" "DELETE-SAFE"   "$(v '{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"not-merged","upstream_status":"present"}')"
+run_test "reverted_pr_remote_holds_tip_delete_safe" "DELETE-SAFE"   "$(v '{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"not-merged","upstream_status":"none","remote_copy":"yes"}')"
 # PR merged into a non-base branch: the merge commit is not in base.
-run_test "pr_merged_elsewhere_not_delete_safe" "BACKUP-THEN-DECIDE" "$(v '{"pr_head_match":"match","pr_merge_in_base":"no","merge_evidence":"squash-merged","upstream_status":"none"}')"
-run_test "pr_head_mismatch_not_delete_safe"    "BACKUP-THEN-DECIDE" "$(v '{"pr_head_match":"mismatch","merge_evidence":"squash-merged","upstream_status":"none"}')"
+run_test "pr_merged_elsewhere_not_delete_safe" "BACKUP-THEN-DECIDE" "$(v '{"pr_head_match":"match","pr_merge_in_base":"no","merge_evidence":"squash-merged","upstream_status":"none","remote_copy":"no"}')"
+run_test "pr_head_mismatch_not_delete_safe"    "BACKUP-THEN-DECIDE" "$(v '{"pr_head_match":"mismatch","merge_evidence":"squash-merged","upstream_status":"none","remote_copy":"no"}')"
 # Planted control: a branch one commit off base has no PR and is not an ancestor.
-run_test "one_commit_off_branch_not_delete_safe" "BACKUP-THEN-DECIDE" "$(v '{"upstream_status":"none","merge_evidence":"not-merged","pr_head_match":"none"}')"
+run_test "one_commit_off_branch_not_delete_safe" "BACKUP-THEN-DECIDE" "$(v '{"upstream_status":"none","remote_copy":"no","merge_evidence":"not-merged","pr_head_match":"none"}')"
 # Squash evidence alone (no PR) is not enough under decision 2.
-run_test "squash_evidence_without_pr_not_delete_safe" "BACKUP-THEN-DECIDE" "$(v '{"merge_evidence":"squash-merged","upstream_status":"none"}')"
+run_test "squash_evidence_without_pr_not_delete_safe" "BACKUP-THEN-DECIDE" "$(v '{"merge_evidence":"squash-merged","upstream_status":"none","remote_copy":"no"}')"
 
 # --- precedence pairs (decision 14: UNKNOWN > KEEP > DELETE-SAFE > BACKUP > KEEP) ---
 ANC='"ancestor_result":"ancestor","merge_evidence":"merged"'
@@ -241,10 +241,10 @@ OV_PRUNK="{${ANC},\"pr_head_match\":\"unknown\"}"
 run_test "live_worktree_beats_delete_safe"     "KEEP"               "$(v "$OV_LIVE")"
 run_test "open_pr_beats_delete_safe"           "KEEP"               "$(v "$OV_OPEN")"
 run_test "delete_safe_beats_backup"            "DELETE-SAFE"        "$(v "$OV_NOUP")"
-run_test "backup_beats_tool_keep"              "BACKUP-THEN-DECIDE" "$(v '{"upstream_status":"none","owner_hint":"tool"}')"
+run_test "backup_beats_tool_keep"              "BACKUP-THEN-DECIDE" "$(v '{"upstream_status":"none","remote_copy":"no","owner_hint":"tool"}')"
 run_test "unknown_beats_keep_live"             "UNKNOWN"            "$(v '{"worktree_status":"live","pr_open":"unknown"}')"
 run_test "unknown_beats_delete_safe"           "UNKNOWN"            "$(v "$OV_PRUNK")"
-run_test "open_pr_beats_backup"                "KEEP"               "$(v '{"pr_open":"yes","upstream_status":"none"}')"
+run_test "open_pr_beats_backup"                "KEEP"               "$(v '{"pr_open":"yes","upstream_status":"none","remote_copy":"no"}')"
 
 # --- the two KEEP flavors are told apart by evidence ---
 run_test "tool_keep_evidence" "tool-owned" \
@@ -252,8 +252,15 @@ run_test "tool_keep_evidence" "tool-owned" \
 run_test "pushed_keep_evidence" "unmerged, pushed" \
     "$(echo "$BASE_EV" | verdict_candidates | jq -r '.evidence')"
 
+# remote_copy (decision 16): a remote-tracking ref holds the tip although no upstream
+# is configured (the gh-pages case found by the live run) => not a backup candidate.
+run_test "remote_copy_without_upstream_is_keep" "KEEP" "$(v '{"upstream_status":"none","remote_copy":"yes"}')"
+run_test "remote_copy_keep_evidence_says_last_fetch" "1" \
+    "$(echo "$BASE_EV" | jq -c '. + {"upstream_status":"none","remote_copy":"yes"}' | verdict_candidates | jq -r '.evidence' | grep -c 'as of last fetch')"
+run_test "ahead_but_remote_copy_elsewhere_is_keep" "KEEP" "$(v '{"upstream_status":"ahead","remote_copy":"yes"}')"
+
 # --- decision 8: unknown, absent, empty and off-enum evidence => UNKNOWN, never a delete ---
-for key in merge_evidence ancestor_result pr_open pr_head_match pr_merge_in_base upstream_status worktree_status owner_hint; do
+for key in merge_evidence ancestor_result pr_open pr_head_match pr_merge_in_base upstream_status worktree_status owner_hint remote_copy; do
     run_test "unknown_${key}_is_unknown"  "UNKNOWN" "$(verdict_of ". + {\"$key\":\"unknown\"}")"
     run_test "absent_${key}_is_unknown"   "UNKNOWN" "$(verdict_of "del(.$key)")"
     run_test "empty_${key}_is_unknown"    "UNKNOWN" "$(verdict_of ". + {\"$key\":\"\"}")"
@@ -270,34 +277,42 @@ SHAPE=$(echo "$BASE_EV" | verdict_candidates | jq -c '[.branch, .type, .pr_open,
 run_test "output_keeps_input_fields_and_adds_evidence" '["feature/t","branch","no","string",true]' "$SHAPE"
 
 # --- exhaustive safety invariants over every valid evidence combination ---
-INV=$(jq -cn '
-    def vals: {merge_evidence:["merged","squash-merged","not-merged","unknown"],
-               ancestor_result:["ancestor","not-ancestor","unknown"],
-               pr_open:["yes","no","unknown"],
-               pr_head_match:["match","mismatch","none","unknown"],
-               pr_merge_in_base:["yes","no","na","unknown"],
-               upstream_status:["none","ahead","present","unknown"],
-               worktree_status:["live","none","unknown"],
-               owner_hint:["tool","none","unknown"]};
-    [vals | to_entries[] | .key as $k | .value | map({($k): .})]
-    | reduce .[] as $set ([{}]; [ .[] as $acc | $set[] | $acc + . ])
-    | .[] | . + {type:"branch", branch:"b"}' \
+# all_combos: one JSON object per valid combination of the evidence enums (the
+# cartesian product), shared by the verdict and command-block invariant tests.
+all_combos() {
+    jq -cn '
+        def vals: {merge_evidence:["merged","squash-merged","not-merged","unknown"],
+                   ancestor_result:["ancestor","not-ancestor","unknown"],
+                   pr_open:["yes","no","unknown"],
+                   pr_head_match:["match","mismatch","none","unknown"],
+                   pr_merge_in_base:["yes","no","na","unknown"],
+                   upstream_status:["none","ahead","present","unknown"],
+                   worktree_status:["live","none","unknown"],
+                   owner_hint:["tool","none","unknown"],
+                   remote_copy:["yes","no","unknown"]};
+        [vals | to_entries[] | .key as $k | .value | map({($k): .})]
+        | reduce .[] as $set ([{}]; [ .[] as $acc | $set[] | $acc + . ])
+        | to_entries[] | .key as $i | .value + {type:"branch", branch:("b" + ($i | tostring))}'
+}
+EXPECTED_COMBOS=$(( 4 * 3 * 3 * 4 * 4 * 4 * 3 * 3 * 3 ))   # product of the enum sizes in all_combos
+INV=$(all_combos \
   | verdict_candidates \
   | jq -rs '
-    def fields: ["merge_evidence","ancestor_result","pr_open","pr_head_match","pr_merge_in_base","upstream_status","worktree_status","owner_hint"];
+    def fields: ["merge_evidence","ancestor_result","pr_open","pr_head_match","pr_merge_in_base","upstream_status","worktree_status","owner_hint","remote_copy"];
     def any_unknown: . as $o | any(fields[]; $o[.] == "unknown");
     def landed: .ancestor_result == "ancestor"
         or (.pr_head_match == "match" and .pr_merge_in_base == "yes"
-            and ((.merge_evidence | IN("squash-merged","merged")) or .upstream_status == "present"));
+            and ((.merge_evidence | IN("squash-merged","merged")) or .remote_copy == "yes"));
     { total: length,
       delete_safe_without_proof: [ .[] | select(.verdict == "DELETE-SAFE")
           | select((any_unknown) or (.worktree_status != "none") or (.pr_open != "no") or ((landed) | not)) ] | length,
       unknown_not_flagged:       [ .[] | select(any_unknown and .verdict != "UNKNOWN") ] | length,
       live_or_open_deleted:      [ .[] | select((.worktree_status == "live" or .pr_open == "yes") and .verdict == "DELETE-SAFE") ] | length,
       bad_verdict:               [ .[] | select(.verdict | IN("DELETE-SAFE","BACKUP-THEN-DECIDE","KEEP","UNKNOWN") | not) ] | length,
-      empty_evidence:            [ .[] | select((.evidence | type) != "string" or (.evidence | length) == 0) ] | length
-    } | [.total, .delete_safe_without_proof, .unknown_not_flagged, .live_or_open_deleted, .bad_verdict, .empty_evidence] | join("|")')
-run_test "invariants_total_combos_and_zero_violations" "20736|0|0|0|0|0" "$INV"
+      empty_evidence:            [ .[] | select((.evidence | type) != "string" or (.evidence | length) == 0) ] | length,
+      backup_with_remote_copy:   [ .[] | select(.verdict == "BACKUP-THEN-DECIDE" and .remote_copy != "no") ] | length
+    } | [.total, .delete_safe_without_proof, .unknown_not_flagged, .live_or_open_deleted, .bad_verdict, .empty_evidence, .backup_with_remote_copy] | join("|")')
+run_test "invariants_total_combos_and_zero_violations" "${EXPECTED_COMBOS}|0|0|0|0|0|0" "$INV"
 
 # ============================================================================
 # Group 8: verdict_command_blocks — one block per verdict class (decision 6, issue
@@ -314,8 +329,8 @@ mk_item() { # <branch> <overrides-json> -> one evidence JSON line
 ITEMS8=$( {
     mk_item "feature/a" '{"ancestor_result":"ancestor","merge_evidence":"merged"}'
     mk_item "feature/b" '{"pr_head_match":"match","pr_merge_in_base":"yes","merge_evidence":"squash-merged"}'
-    mk_item "feature/c" '{"upstream_status":"none"}'
-    mk_item "feature/d" '{"upstream_status":"ahead"}'
+    mk_item "feature/c" '{"upstream_status":"none","remote_copy":"no"}'
+    mk_item "feature/d" '{"upstream_status":"ahead","remote_copy":"no"}'
     mk_item "feature/e" '{"worktree_status":"live"}'
     mk_item "feature/f" '{"pr_open":"unknown"}'
     mk_item "feature/g" '{}'
@@ -350,15 +365,7 @@ done
 
 # Exhaustive: delete commands appear exactly once per DELETE-SAFE item, never otherwise.
 ALLV=$(mktemp "${TMPDIR:-/tmp}/rt-all.XXXXXX"); CLEANUP_FILES+=("$ALLV")
-jq -cn '
-    def vals: {merge_evidence:["merged","squash-merged","not-merged","unknown"],
-               ancestor_result:["ancestor","not-ancestor","unknown"],
-               pr_open:["yes","no","unknown"], pr_head_match:["match","mismatch","none","unknown"],
-               pr_merge_in_base:["yes","no","na","unknown"], upstream_status:["none","ahead","present","unknown"],
-               worktree_status:["live","none","unknown"], owner_hint:["tool","none","unknown"]};
-    [vals | to_entries[] | .key as $k | .value | map({($k): .})]
-    | reduce .[] as $set ([{}]; [ .[] as $acc | $set[] | $acc + . ])
-    | to_entries[] | .key as $i | .value + {type:"branch", branch:("b" + ($i | tostring))}' \
+all_combos \
   | verdict_candidates > "$ALLV"
 DEL_ITEMS=$(jq -c 'select(.verdict == "DELETE-SAFE")' "$ALLV" | wc -l | tr -d ' ')
 DEL_CMDS=$(verdict_command_blocks < "$ALLV" | grep -cE '^git branch -[dD] ' | tr -d ' ')
@@ -398,6 +405,11 @@ run_test "reval_new_branch_evidence"            "appeared after scan" "$(e9 feat
 { mk_item "feature/up" '{"ancestor_result":"ancestor","merge_evidence":"merged","upstream_status":"present"}'; } | verdict_candidates > "$OLD9"
 { mk_item "feature/up" '{"ancestor_result":"ancestor","merge_evidence":"merged","upstream_status":"ahead"}'; } | verdict_candidates > "$NEW9"
 run_test "reval_planted_control_upstream_change" "UNKNOWN" "$(revalidate_verdicts "$OLD9" "$NEW9" | jq -r '.verdict')"
+# A remote copy that disappears between scans (remote_copy yes -> no) must not carry over.
+{ mk_item "feature/rc" '{"ancestor_result":"ancestor","merge_evidence":"merged","remote_copy":"yes"}'; } | verdict_candidates > "$OLD9"
+{ mk_item "feature/rc" '{"ancestor_result":"ancestor","merge_evidence":"merged","remote_copy":"no"}'; } | verdict_candidates > "$NEW9"
+run_test "reval_remote_copy_change_downgrades" "changed since scan: remote_copy" \
+    "$(revalidate_verdicts "$OLD9" "$NEW9" | jq -r '.evidence')"
 # Nothing to compare against: never carry a verdict over on trust.
 run_test "reval_missing_old_file_all_unknown"   "UNKNOWN" \
     "$(revalidate_verdicts /nonexistent/old.jsonl "$NEW9" | jq -r '.verdict')"

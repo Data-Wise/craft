@@ -53,19 +53,21 @@ merge_candidates() {
 # Report only: a verdict is advice for the user; nothing here deletes anything.
 # Rules and precedence are GRILL-branch-triage-verdicts decisions 1, 6, 7, 8, 14, 15:
 #
-#   UNKNOWN            any of the 8 evidence fields is "unknown", absent, empty or
+#   UNKNOWN            any of the 9 evidence fields is "unknown", absent, empty or
 #                      outside its enum (a worktree-only item has none of them).
 #                      Never defaults to delete.
 #   KEEP               a live worktree, or an open PR.
 #   DELETE-SAFE        the tip is an ancestor of base; OR a merged PR's head equals
 #                      the tip AND its merge commit is in base AND the content is
-#                      still present (merge_evidence merged/squash-merged, or a
-#                      remote holds the tip). PR evidence alone is not enough: a
+#                      still present (merge_evidence merged/squash-merged, or
+#                      remote_copy is yes). PR evidence alone is not enough: a
 #                      reverted PR has it too.
-#   BACKUP-THEN-DECIDE not landed and upstream_status is none or ahead, so the
-#                      tip's only copy is local.
+#   BACKUP-THEN-DECIDE not landed, upstream_status is none or ahead, AND no
+#                      remote-tracking ref holds the tip (remote_copy is no), so
+#                      the tip's only copy is local. A remote copy under another
+#                      name, or without a configured upstream, is not a backup case.
 #   KEEP               everything else: tool-owned and not verified landed, or
-#                      unmerged but pushed.
+#                      unmerged with a remote copy.
 verdict_candidates() {
   jq -c '
     def spec: {
@@ -76,7 +78,8 @@ verdict_candidates() {
       pr_merge_in_base: ["yes", "no", "na", "unknown"],
       upstream_status:  ["none", "ahead", "present", "unknown"],
       worktree_status:  ["live", "none", "unknown"],
-      owner_hint:       ["tool", "none", "unknown"]
+      owner_hint:       ["tool", "none", "unknown"],
+      remote_copy:      ["yes", "no", "unknown"]
     };
     . as $o
     | (spec | to_entries) as $fields
@@ -103,10 +106,11 @@ verdict_candidates() {
           { verdict: "DELETE-SAFE",
             evidence: ("merged PR head equals tip, merge commit in base, content present (" + $o.merge_evidence + ")") }
         elif $o.pr_head_match == "match" and $o.pr_merge_in_base == "yes"
-             and $o.upstream_status == "present" then
+             and $o.remote_copy == "yes" then
           { verdict: "DELETE-SAFE",
-            evidence: "merged PR head equals tip, merge commit in base, a remote holds the tip" }
-        elif $o.upstream_status == "none" or $o.upstream_status == "ahead" then
+            evidence: "merged PR head equals tip, merge commit in base, a remote holds the tip (as of last fetch)" }
+        elif ($o.upstream_status == "none" or $o.upstream_status == "ahead")
+             and $o.remote_copy == "no" then
           { verdict: "BACKUP-THEN-DECIDE",
             evidence: ((if $o.upstream_status == "ahead"
                         then "unpushed commits: the tip exists only locally"
@@ -115,8 +119,10 @@ verdict_candidates() {
                           then "; merged PR found but content not proven in base" else "" end)) }
         elif $o.owner_hint == "tool" then
           { verdict: "KEEP", evidence: "tool-owned branch, not verified landed" }
-        else
+        elif $o.upstream_status == "present" then
           { verdict: "KEEP", evidence: "unmerged, pushed" }
+        else
+          { verdict: "KEEP", evidence: "unmerged; a remote-tracking ref holds the tip (as of last fetch)" }
         end)'
 }
 
@@ -193,7 +199,8 @@ revalidate_verdicts() {
 
   jq -c --slurpfile old <(jq -c -s '.' "$old_file" 2>/dev/null || echo '[]') '
     def fields: ["merge_evidence", "ancestor_result", "pr_open", "pr_head_match",
-                 "pr_merge_in_base", "upstream_status", "worktree_status", "owner_hint"];
+                 "pr_merge_in_base", "upstream_status", "worktree_status", "owner_hint",
+                 "remote_copy"];
     . as $n
     | (($old[0] // []) | map(select(.branch == $n.branch)) | first) as $o
     | if $o == null then

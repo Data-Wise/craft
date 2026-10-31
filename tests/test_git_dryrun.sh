@@ -129,7 +129,7 @@ SCOPED_DIFF=$(echo "$LINE1" | jq -r '.scoped_diff_result')
 run_test "branch_cleanup_scoped_diff_clean" "clean" "$SCOPED_DIFF"
 
 KEYS=$(echo "$LINE1" | jq -S -c 'keys')
-run_test "branch_cleanup_output_shape" '["ancestor_result","branch","merge_evidence","owner_hint","pr_head_match","pr_merge_in_base","pr_open","pr_state","scoped_diff_result","upstream_status","worktree_status"]' "$KEYS"
+run_test "branch_cleanup_output_shape" '["ancestor_result","branch","merge_evidence","owner_hint","pr_head_match","pr_merge_in_base","pr_open","pr_state","remote_copy","scoped_diff_result","upstream_status","worktree_status"]' "$KEYS"
 
 # ============================================================================
 # Group 2: branch_cleanup_dry_run — active/unmerged branch NOT flagged
@@ -224,6 +224,7 @@ fi
 # Fail only the upstream query (branch enumeration also uses for-each-ref).
 if [[ -n "\${GIT_SHIM_UPSTREAM_FAIL:-}" && "\$1" == "for-each-ref" && "\$*" == *"upstream"* ]]; then exit 1; fi
 if [[ -n "\${GIT_SHIM_WORKTREE_FAIL:-}" && "\$1" == "worktree" && "\$2" == "list" ]]; then exit 1; fi
+if [[ -n "\${GIT_SHIM_REMOTE_FAIL:-}" && "\$1" == "for-each-ref" && "\$*" == *"--contains"* ]]; then exit 1; fi
 exec "${REAL_GIT}" "\$@"
 SHIM
 chmod +x "${SHIM_DIR}/gh" "${SHIM_DIR}/git"
@@ -398,6 +399,15 @@ mkbranch8 feature/gone;    push8 feature/gone
 git -C "$REPO8" push -q origin --delete feature/gone 2>/dev/null
 git -C "$REPO8" fetch -q --prune origin
 
+# remote_copy fixtures (decision 16): a same-named remote branch with no upstream
+# configured (the gh-pages case), and a tip held under a different remote name while
+# the configured upstream is something else (the codex/release-4-8-1 case).
+mkbranch8 feature/samename; git -C "$REPO8" push -q origin feature/samename 2>/dev/null
+mkbranch8 feature/othername
+git -C "$REPO8" branch -q --set-upstream-to=origin/dev feature/othername
+git -C "$REPO8" push -q origin feature/othername:refs/heads/mirror/othername 2>/dev/null
+git -C "$REPO8" fetch -q origin
+
 # Worktrees: one live, one whose directory was deleted (a stale record).
 WT8_LIVE=$(make_tmpdir); rmdir "$WT8_LIVE"
 git -C "$REPO8" worktree add -q "$WT8_LIVE" -b feature/wt-live dev
@@ -418,6 +428,16 @@ run_test "upstream_present_when_pushed"       "present" "$(field8 feature/pushed
 run_test "upstream_ahead_when_unpushed_tip"   "ahead"   "$(field8 feature/ahead upstream_status)"
 run_test "upstream_none_when_remote_gone"     "none"    "$(field8 feature/gone upstream_status)"
 run_test "upstream_unknown_when_query_fails"  "unknown" "$(field8 feature/pushed upstream_status GIT_SHIM_UPSTREAM_FAIL=1)"
+
+run_test "remote_copy_no_when_not_pushed"        "no"      "$(field8 feature/nopush remote_copy)"
+run_test "remote_copy_yes_when_pushed"           "yes"     "$(field8 feature/pushed remote_copy)"
+run_test "remote_copy_no_when_tip_unpushed"      "no"      "$(field8 feature/ahead remote_copy)"
+run_test "remote_copy_no_when_remote_gone"       "no"      "$(field8 feature/gone remote_copy)"
+run_test "remote_copy_yes_without_upstream"      "yes"     "$(field8 feature/samename remote_copy)"
+run_test "samename_upstream_still_none"          "none"    "$(field8 feature/samename upstream_status)"
+run_test "remote_copy_yes_under_other_name"      "yes"     "$(field8 feature/othername remote_copy)"
+run_test "othername_upstream_reads_ahead"        "ahead"   "$(field8 feature/othername upstream_status)"
+run_test "remote_copy_unknown_when_query_fails"  "unknown" "$(field8 feature/pushed remote_copy GIT_SHIM_REMOTE_FAIL=1)"
 
 run_test "worktree_live_when_checked_out"     "live"    "$(field8 feature/wt-live worktree_status)"
 run_test "worktree_none_when_not_checked_out" "none"    "$(field8 feature/nopush worktree_status)"

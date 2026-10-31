@@ -126,6 +126,20 @@ _upstream_status() {
   fi
 }
 
+# _remote_copy <tip-sha>
+# "yes" if any remote-tracking ref contains the tip (so a copy exists on a
+# remote, under any branch name, whether or not an upstream is configured);
+# "no" if none does; "unknown" if the tip is empty or the query fails. Remote-
+# tracking refs are only as fresh as the last fetch: a branch deleted on the
+# remote since then still reads "yes".
+_remote_copy() {
+  [[ -n "${1:-}" ]] || { echo "unknown"; return; }
+  local refs
+  refs=$(git for-each-ref --format='%(refname)' --contains "$1" refs/remotes 2>/dev/null) \
+    || { echo "unknown"; return; }
+  if [[ -n "$refs" ]]; then echo "yes"; else echo "no"; fi
+}
+
 # _worktree_status <branch>
 # "live" if the branch is checked out in a worktree whose directory still
 # exists; "none" otherwise (a record whose directory was deleted is stale, not
@@ -238,6 +252,8 @@ _pr_evidence() {
 #    commit is reachable from base; "na" without a head match),
 #    "upstream_status": "none"|"ahead"|"present"|"unknown" (see _upstream_status;
 #    "ahead" = upstream exists but the tip is unpushed),
+#    "remote_copy": "yes"|"no"|"unknown" (some remote-tracking ref contains the tip,
+#    under any name; as of the last fetch),
 #    "worktree_status": "live"|"none"|"unknown" (checked out in a worktree whose
 #    directory exists),
 #    "owner_hint": "tool"|"none"|"unknown" (branch-name prefix list, advisory),
@@ -281,7 +297,8 @@ branch_cleanup_dry_run() {
       scoped_diff_result="unknown"
     fi
 
-    local upstream_status worktree_status owner_hint
+    local upstream_status worktree_status owner_hint remote_copy
+    remote_copy=$(_remote_copy "$tip")
     upstream_status=$(_upstream_status "$branch")
     worktree_status=$(_worktree_status "$branch")
     owner_hint=$(_owner_hint "$branch")
@@ -289,10 +306,11 @@ branch_cleanup_dry_run() {
     jq -cn --arg branch "$branch" --arg me "$merge_evidence" --arg ar "$ancestor_result" \
       --arg ps "$pr_state" --arg po "$pr_open" --arg phm "$pr_head_match" \
       --arg pmb "$pr_merge_in_base" --arg us "$upstream_status" \
-      --arg ws "$worktree_status" --arg oh "$owner_hint" --arg sd "$scoped_diff_result" \
+      --arg ws "$worktree_status" --arg oh "$owner_hint" --arg rc "$remote_copy" \
+      --arg sd "$scoped_diff_result" \
       '{branch: $branch, merge_evidence: $me, ancestor_result: $ar, pr_state: $ps,
         pr_open: $po, pr_head_match: $phm, pr_merge_in_base: $pmb,
-        upstream_status: $us, worktree_status: $ws, owner_hint: $oh,
+        upstream_status: $us, remote_copy: $rc, worktree_status: $ws, owner_hint: $oh,
         scoped_diff_result: $sd}'
   done
 }

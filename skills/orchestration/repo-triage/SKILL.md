@@ -60,7 +60,7 @@ branch_cleanup_dry_run dev > /tmp/repo-triage-branches.jsonl    # SECOND
 Both are collection-only (no `git worktree remove`, no `git branch -D`).
 `branch_cleanup_dry_run` emits evidence only — merge evidence plus typed PR,
 ancestry, upstream, worktree and owner fields (`pr_open`, `pr_head_match`,
-`pr_merge_in_base`, `upstream_status`, `worktree_status`, `owner_hint`; the full
+`pr_merge_in_base`, `upstream_status`, `remote_copy`, `worktree_status`, `owner_hint`; the full
 enum list is in its header comment in `lib/git-utils.sh`). Apply the same
 skip-and-continue discipline as Step 1 to any per-item collection error: a
 failed lookup (e.g. `gh pr list`) reads `unknown` in the affected fields — never
@@ -87,7 +87,7 @@ header comment, from `docs/specs/GRILL-branch-triage-verdicts-2026-10-31.md`):
 | Verdict | Meaning |
 |---|---|
 | `DELETE-SAFE` | Landed: the tip is an ancestor of base, or a merged PR's head equals the tip, its merge commit is in base, and the content is still present. PR evidence alone is not enough (a reverted PR has it too). |
-| `BACKUP-THEN-DECIDE` | Not landed and the tip exists only locally (`upstream_status` none or ahead). |
+| `BACKUP-THEN-DECIDE` | Not landed and the tip exists only locally: `upstream_status` is none or ahead AND no remote-tracking ref holds the tip (`remote_copy` no, as of the last fetch). |
 | `KEEP` | A live worktree, an open PR, a tool-owned branch not verified landed, or unmerged but pushed. |
 | `UNKNOWN` | Any lookup failed or a field is absent or invalid. Never offers a delete. |
 
