@@ -44,6 +44,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   each item from four named fields and silently dropped any later evidence.
 - `is_squash_merged` no longer returns a false SAFE for a large unmerged branch under
   `pipefail`: the `echo | grep -q` pipe took SIGPIPE on early match (#375).
+- `version-sync.sh` no longer flags frozen fixture constants: a source-constant line
+  carrying `# version-sync: ignore` is skipped (applied to the `FIXTURE_VERSION` in
+  `tests/test_docs_staleness_prose.py`); unmarked stale constants are still flagged.
 
 ## [4.8.2] - 2026-10-31
 
