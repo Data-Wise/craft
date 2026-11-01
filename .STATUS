@@ -5,10 +5,19 @@ PR #378 merged to main at `d66a19a`; tag `v4.8.2` and the GitHub release are pub
 (Latest). Craft CI, MCP CI, Documentation Quality and Deploy Documentation were green on
 main; the Homebrew Release, Craft MCP Release and Aggregator Sync workflows succeeded.
 Verified: tap formula at 4.8.2 with a matching tarball sha256, live site `version-4.8.2`,
-`post-release-sweep.sh` clean. `verify-surfaces.sh` reports BLOCKED only on local stale
-state (local tap clone 4.8.0, brew-installed and Code-registered 4.8.1); run `brew update`,
-`brew upgrade craft` and `claude plugin update craft@local-plugins` to clear it. Not
-shipped: the three open feature branches below.
+`post-release-sweep.sh` clean. `verify-surfaces.sh` is ALIGNED at 4.8.2 after
+`brew upgrade craft` and `claude plugin update craft@data-wise` (this machine's craft
+marketplace is `data-wise`, not `local-plugins`; the default surfaces check also reads the
+stale `~/projects/dev-tools/homebrew-tap` checkout at 4.8.0, so use `SURFACES_TAP_FORMULA`).
+
+Merged to dev after the release (unreleased; squash-merged, branches deleted):
+- #379 — #374 v1 branch triage verdicts plus the #375 pipefail fix.
+- #380 — `# version-sync: ignore` marker, clears the `FIXTURE_VERSION` false positive.
+- #381 — 8 bash suites no longer leak temp dirs, plus `tests/test_tmpdir_cleanup.sh`.
+Open: #374 (later phases), #375 (fixed on dev; closes with the release), #376
+(`post_install_steps` migration, tap generator + `post_install_check.py`), #377 (6 bash
+suites failing on dev; `test_dependency_management` is environmental: system `python3`
+lacks PyYAML, 111/111 with `uv run --no-project --with pyyaml`).
 
 ## v4.8.1 shipped — 2026-10-31
 
@@ -18,15 +27,6 @@ Craft MCP Release and tag Craft CI runs all succeeded. Published formula verifie
 tarball sha256 matches, `brew install` gives craft 4.8.1_3. `brew audit --strict`
 reports one style finding (line 188: use `post_install_steps` instead of
 `post_install`); the formula is generated, so fix it in the tap generator.
-Open (no PRs yet; all three branches pushed):
-- `feature/branch-triage-verdicts` — #374 v1 plus the #375 pipefail fix (`ccac4dd29`).
-- `feature/version-sync-ignore-marker` — `# version-sync: ignore` marker, fixes the
-  `FIXTURE_VERSION` false positive (`206fdaa23`).
-- `feature/test-tmpdir-cleanup` — 8 bash suites no longer leak temp dirs, plus
-  `tests/test_tmpdir_cleanup.sh` (`d1a167d93`).
-- Filed: #376 (`post_install_steps` migration, tap generator + `post_install_check.py`),
-  #377 (6 bash suites failing on dev; `test_dependency_management` is environmental:
-  system `python3` lacks PyYAML, 111/111 with `uv run --no-project --with pyyaml`).
 
 ## v4.8.1 release preparation — 2026-10-30
 
