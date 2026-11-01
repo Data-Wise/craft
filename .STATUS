@@ -14,7 +14,11 @@ Merged to dev after the release (unreleased; squash-merged, branches deleted):
 - #379 — #374 v1 branch triage verdicts plus the #375 pipefail fix.
 - #380 — `# version-sync: ignore` marker, clears the `FIXTURE_VERSION` false positive.
 - #381 — 8 bash suites no longer leak temp dirs, plus `tests/test_tmpdir_cleanup.sh`.
-Open: #374 (later phases), #375 (fixed on dev; closes with the release), #376
+In flight (pushed, no PR yet): `feature/fix-stale-tests` (`c7c5bd225`) repairs 4 of the 6
+#377 suites (stale assertions retargeted, mutation-tested; homebrew suite flake fixed;
+`pre-release-check.sh` numbering now `/10`). 43 more `echo | grep -q` pipes remain in other
+test files (same SIGPIPE hazard as #375). #375 is closed (fixed on dev).
+Open: #374 (later phases), #376
 (`post_install_steps` migration, tap generator + `post_install_check.py`), #377 (6 bash
 suites failing on dev; `test_dependency_management` is environmental: system `python3`
 lacks PyYAML, 111/111 with `uv run --no-project --with pyyaml`).
