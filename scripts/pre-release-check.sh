@@ -58,7 +58,7 @@ ERRORS=0
 # --------------------------------------------------------------------------
 # Check 1: plugin.json version matches target
 # --------------------------------------------------------------------------
-echo -e "${CYAN}[1/9] Plugin version consistency${NC}"
+echo -e "${CYAN}[1/10] Plugin version consistency${NC}"
 
 PLUGIN_JSON=".claude-plugin/plugin.json"
 if [ ! -f "$PLUGIN_JSON" ]; then
@@ -79,7 +79,7 @@ fi
 # Check 2: Actual counts match plugin.json description
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[2/9] Command/skill/agent counts${NC}"
+echo -e "${CYAN}[2/10] Command/skill/agent counts${NC}"
 
 # Count actual files (same logic as validate-counts.sh)
 CMD_COUNT=$(find commands -name "*.md" ! -name "index.md" ! -name "README.md" 2>/dev/null | wc -l | tr -d ' ')
@@ -117,7 +117,7 @@ fi
 # Check 3: CLAUDE.md version references
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[3/9] CLAUDE.md version references${NC}"
+echo -e "${CYAN}[3/10] CLAUDE.md version references${NC}"
 
 if [ -f "CLAUDE.md" ]; then
     # Check "Current Version" line
@@ -136,7 +136,7 @@ fi
 # Check 4: README.md and docs/index.md version references
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[4/9] README.md and docs/index.md version references${NC}"
+echo -e "${CYAN}[4/10] README.md and docs/index.md version references${NC}"
 
 STALE_FILES=""
 
@@ -177,7 +177,7 @@ fi
 # Check 5: marketplace.json version consistency
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[5/9] Marketplace version consistency${NC}"
+echo -e "${CYAN}[5/10] Marketplace version consistency${NC}"
 
 MARKETPLACE_JSON=".claude-plugin/marketplace.json"
 if [ -f "$MARKETPLACE_JSON" ]; then
@@ -207,7 +207,7 @@ fi
 # Check 6: Uncommitted changes
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[6/9] Working tree status${NC}"
+echo -e "${CYAN}[6/10] Working tree status${NC}"
 
 if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
     echo -e "${YELLOW}  ! Uncommitted changes detected${NC}"
@@ -223,7 +223,7 @@ fi
 # Check 7: Badge URL branch validation
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[7/9] Badge URL branch validation${NC}"
+echo -e "${CYAN}[7/10] Badge URL branch validation${NC}"
 
 BADGE_ERRORS=0
 for file in README.md docs/index.md; do
@@ -251,7 +251,7 @@ fi
 # Check 8: Homebrew formula desc consistency
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[8/9] Homebrew formula desc consistency${NC}"
+echo -e "${CYAN}[8/10] Homebrew formula desc consistency${NC}"
 
 FORMULA_PATH=""
 for candidate in \
@@ -280,7 +280,7 @@ fi
 # Check 9: Docs staleness (warn-only, does not block release)
 # --------------------------------------------------------------------------
 echo ""
-echo -e "${CYAN}[9/9] Documentation staleness check${NC}"
+echo -e "${CYAN}[9/10] Documentation staleness check${NC}"
 
 if [ -x "$SCRIPT_DIR/docs-staleness-check.sh" ]; then
     STALENESS_OUTPUT=$("$SCRIPT_DIR/docs-staleness-check.sh" --json 2>/dev/null) || true

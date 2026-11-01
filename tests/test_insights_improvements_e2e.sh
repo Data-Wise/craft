@@ -413,8 +413,8 @@ else
     assert_fail "check_has_context_flag" "Missing --context in check.md"
 fi
 
-# Test: orchestrate.md has --swarm flag
-if grep -q "\-\-swarm" "$CRAFT_ROOT/commands/orchestrate.md"; then
+# Test: orch.md has --swarm flag
+if grep -q "\-\-swarm" "$CRAFT_ROOT/commands/orch.md"; then
     assert_pass "orchestrate_has_swarm_flag"
 else
     assert_fail "orchestrate_has_swarm_flag" "Missing --swarm in orchestrate.md"
@@ -514,7 +514,7 @@ CMD_ERRORS=0
 CMD_COUNT=0
 for cmd_file in "$CRAFT_ROOT/commands/check.md" "$CRAFT_ROOT/commands/do.md" \
     "$CRAFT_ROOT/commands/smart-help.md" \
-    "$CRAFT_ROOT/commands/orchestrate.md"; do
+    "$CRAFT_ROOT/commands/orch.md"; do
     CMD_COUNT=$((CMD_COUNT + 1))
     if ! head -1 "$cmd_file" | grep -q "^---$"; then
         CMD_ERRORS=$((CMD_ERRORS + 1))

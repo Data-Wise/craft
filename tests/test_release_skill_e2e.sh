@@ -422,7 +422,8 @@ else
 fi
 
 # Test: Skill documents semver rules
-if grep -q "patch.*fix.*chore\|fix.*chore.*patch" "$SKILL_FILE" 2>/dev/null || grep -q "patch.*x\.y\.Z" "$SKILL_FILE"; then
+# The rule's detail lives in references/pipeline-steps.md; SKILL.md only summarizes.
+if grep -q "patch.*fix.*chore\|fix.*chore.*patch" "$SKILL_FILE" "$REFS_DIR/pipeline-steps.md" 2>/dev/null || grep -q "patch.*x\.y\.Z" "$SKILL_FILE" "$REFS_DIR/pipeline-steps.md" 2>/dev/null; then
     assert_pass "skill_documents_semver_rules"
 else
     assert_fail "skill_documents_semver_rules" "Should document semver decision rules"
