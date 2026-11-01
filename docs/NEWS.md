@@ -4,6 +4,19 @@ Release announcements and notable changes for the Craft plugin.
 
 ---
 
+## v4.8.2 — MCP SDK patch
+
+**Released:** 2026-10-31 · **Type:** Patch
+
+### Highlights
+
+- **MCP SDK 1.32.2** — the bundled `@modelcontextprotocol/sdk` moves from 1.32.1 to
+  1.32.2 (build, smoke and validate checks green).
+- **Shorter `AGENTS.md`** — now a working contract; the detail lives in the Codex
+  reference outside the repo.
+
+---
+
 ## v4.8.1 — restore guidance and dependency checks
 
 **Released:** 2026-10-31 · **Type:** Patch
