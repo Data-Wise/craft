@@ -22,8 +22,8 @@ Open: #374 (later phases), #376 (`post_install_steps` migration, tap generator +
 `post_install_check.py`), #377 (2 suites left, both environmental: `test_dependency_management`
 needs PyYAML, 111/111 with `uv run --no-project --with pyyaml`; `test_branch_guard_interactive`
 needs the hook registered in settings).
-Leftover: worktree `~/.git-worktrees/craft/feature-fix-stale-tests` (branch merged and deleted
-on origin).
+No craft feature worktrees or feature branches remain (local or origin); the only other
+worktree is `codex/release-4-8-1` under `~/projects/dev-tools/_worktrees/`.
 
 ## v4.8.1 shipped — 2026-10-31
 
