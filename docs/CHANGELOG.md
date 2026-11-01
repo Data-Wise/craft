@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Eight bash test suites no longer leak temp directories. `make_tmpdir` ran in a
+  `$(...)` subshell, so its cleanup registration never reached the `EXIT` trap; each run
+  now creates one unique root in the parent shell and removes it on exit. Guarded by
+  `tests/test_tmpdir_cleanup.sh`, which runs each suite with an isolated `TMPDIR`.
+
 ## [4.8.1] - 2026-10-30
 
 ### Fixed

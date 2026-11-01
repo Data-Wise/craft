@@ -64,9 +64,14 @@ fi
 # Helpers
 # ============================================================================
 
+# One unique root per run, created in the parent shell: make_tmpdir runs in a
+# $(...) subshell, so appending to CLEANUP_DIRS there never reaches the EXIT trap.
+RUN_TMP=$(mktemp -d "${TMPDIR:-/tmp}/release-skill-e2e-run.XXXXXX")
+CLEANUP_DIRS+=("$RUN_TMP")
+
 make_tmpdir() {
     local dir
-    dir=$(mktemp -d "${TMPDIR:-/tmp}/release-skill-e2e.XXXXXX")
+    dir=$(mktemp -d "${RUN_TMP}/d.XXXXXX")
     CLEANUP_DIRS+=("$dir")
     echo "$dir"
 }
