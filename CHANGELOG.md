@@ -51,6 +51,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `$(...)` subshell, so its cleanup registration never reached the `EXIT` trap; each run
   now creates one unique root in the parent shell and removes it on exit. Guarded by
   `tests/test_tmpdir_cleanup.sh`, which runs each suite with an isolated `TMPDIR`.
+- Four stale bash suites pass again (#377): assertions now follow relocated content
+  (`references/homebrew.md`, `references/pipeline-steps.md`), the renamed `orch.md`, the
+  7-subcommand table and the GitHub App setup docs. The homebrew suite no longer flakes:
+  its `echo | grep -q` checks took SIGPIPE on an early match under `pipefail` (the #375
+  pattern) and now use here-strings.
+- `scripts/pre-release-check.sh` numbers its checks `[1/10]` to `[10/10]`; nine of them
+  said `/9`.
 
 ## [4.8.2] - 2026-10-31
 

@@ -92,38 +92,39 @@ echo -e "${T_BLUE}--- Group 1: Subcommand Consolidation (8 → 6) ---${T_NC}"
 
 CONTENT=$(cat "$HOMEBREW_CMD")
 
-# Test: Exactly 6 subcommands in the first table (## Subcommands section)
+# Test: Exactly 7 subcommands in the first table (## Subcommands section).
+# 6 after the 8 -> 6 consolidation, plus `deps` added later; update on the next change.
 # Extract only the first table after "## Subcommands" header
 SUBCMD_COUNT=$(sed -n '/^## Subcommands/,/^## /p' "$HOMEBREW_CMD" | grep -c '| `[a-z-]*` |')
-if [[ "$SUBCMD_COUNT" -eq 6 ]]; then
-    assert_pass "exactly_6_subcommands"
+if [[ "$SUBCMD_COUNT" -eq 7 ]]; then
+    assert_pass "exactly_7_subcommands"
 else
-    assert_fail "exactly_6_subcommands" "Expected 6, found $SUBCMD_COUNT"
+    assert_fail "exactly_7_subcommands" "Expected 7, found $SUBCMD_COUNT"
 fi
 
 # Test: validate renamed to audit
-if echo "$CONTENT" | grep -q '| `audit`'; then
+if grep -q '| `audit`' <<<"$CONTENT"; then
     assert_pass "validate_renamed_to_audit"
 else
     assert_fail "validate_renamed_to_audit" "audit subcommand not in table"
 fi
 
 # Test: No validate subcommand remains
-if ! echo "$CONTENT" | grep -q '| `validate`'; then
+if ! grep -q '| `validate`' <<<"$CONTENT"; then
     assert_pass "no_validate_subcommand"
 else
     assert_fail "no_validate_subcommand" "validate still in subcommand table"
 fi
 
 # Test: No token subcommand remains
-if ! echo "$CONTENT" | grep -q '| `token`'; then
+if ! grep -q '| `token`' <<<"$CONTENT"; then
     assert_pass "no_token_subcommand"
 else
     assert_fail "no_token_subcommand" "token still in subcommand table"
 fi
 
 # Test: No release-batch subcommand remains
-if ! echo "$CONTENT" | grep -q '| `release-batch`'; then
+if ! grep -q '| `release-batch`' <<<"$CONTENT"; then
     assert_pass "no_release_batch_subcommand"
 else
     assert_fail "no_release_batch_subcommand" "release-batch still in subcommand table"
@@ -134,7 +135,7 @@ EXPECTED_SUBS=("formula" "workflow" "audit" "setup" "update-resources" "deps")
 ALL_PRESENT=true
 MISSING=""
 for sub in "${EXPECTED_SUBS[@]}"; do
-    if ! echo "$CONTENT" | grep -q "| \`$sub\`"; then
+    if ! grep -q "| \`$sub\`" <<<"$CONTENT"; then
         ALL_PRESENT=false
         MISSING="$MISSING $sub"
     fi
@@ -161,35 +162,37 @@ echo ""
 echo -e "${T_BLUE}--- Group 2: Audit Subcommand ---${T_NC}"
 
 # Test: Audit section header exists
-if echo "$CONTENT" | grep -q "## /craft:dist:homebrew audit"; then
+if grep -q "## /craft:dist:homebrew audit" <<<"$CONTENT"; then
     assert_pass "audit_section_exists"
 else
     assert_fail "audit_section_exists" "No audit section header"
 fi
 
 # Test: --build flag documented
-if echo "$CONTENT" | grep -q "\-\-build"; then
+if grep -q "\-\-build" <<<"$CONTENT"; then
     assert_pass "build_flag_documented"
 else
     assert_fail "build_flag_documented" "--build flag not documented"
 fi
 
 # Test: --build explains brew install --build-from-source
-if echo "$CONTENT" | grep -q "build-from-source"; then
+if grep -q "build-from-source" <<<"$CONTENT"; then
     assert_pass "build_from_source_explained"
 else
     assert_fail "build_from_source_explained" "build-from-source not mentioned"
 fi
 
 # Test: Auto-fix patterns section exists
-if echo "$CONTENT" | grep -q "Auto-Fix Patterns"; then
+if grep -q "Auto-Fix Patterns" <<<"$CONTENT"; then
     assert_pass "auto_fix_patterns_exist"
 else
     assert_fail "auto_fix_patterns_exist" "Auto-Fix Patterns section missing"
 fi
 
-# Test: No stale 'validate' references in tips/integration
-STALE_COUNT=$(echo "$CONTENT" | grep -c "validate" || true)
+# Test: No stale 'validate' subcommand references (the subcommand was renamed to `audit`).
+# Match the subcommand forms only: the bare word "validate" is ordinary prose
+# (e.g. "validates <= 80 chars").
+STALE_COUNT=$(grep -cE '/craft:dist:homebrew validate|\| `validate`' "$HOMEBREW_CMD" || true)
 if [[ "$STALE_COUNT" -eq 0 ]]; then
     assert_pass "no_stale_validate_refs"
 else
@@ -205,7 +208,7 @@ echo ""
 echo -e "${T_BLUE}--- Group 3: Token Folded into Setup ---${T_NC}"
 
 # Test: No standalone token section
-if ! echo "$CONTENT" | grep -q "## /craft:dist:homebrew token"; then
+if ! grep -q "## /craft:dist:homebrew token" <<<"$CONTENT"; then
     assert_pass "no_standalone_token_section"
 else
     assert_fail "no_standalone_token_section" "Standalone token section still exists"
@@ -213,24 +216,25 @@ fi
 
 # Test: Setup step 4 mentions token
 SETUP_SECTION=$(echo "$CONTENT" | sed -n '/## \/craft:dist:homebrew setup/,/## \/craft:dist:homebrew/p')
-if echo "$SETUP_SECTION" | grep -qi "token"; then
+if grep -qi "token" <<<"$SETUP_SECTION"; then
     assert_pass "setup_step4_has_token"
 else
     assert_fail "setup_step4_has_token" "Setup wizard doesn't mention token"
 fi
 
 # Test: Setup mentions Fine-Grained PAT
-if echo "$SETUP_SECTION" | grep -qi "fine-grained\|PAT"; then
+if grep -qi "fine-grained\|PAT" <<<"$SETUP_SECTION"; then
     assert_pass "setup_mentions_pat"
 else
     assert_fail "setup_mentions_pat" "Setup doesn't mention Fine-Grained PAT"
 fi
 
-# Test: Setup mentions HOMEBREW_TAP_GITHUB_TOKEN
-if echo "$SETUP_SECTION" | grep -q "HOMEBREW_TAP_GITHUB_TOKEN"; then
-    assert_pass "setup_mentions_token_name"
+# Test: Setup documents the GitHub App credentials (the workflow mints an App token;
+# the expiring HOMEBREW_TAP_GITHUB_TOKEN PAT was replaced).
+if grep -q "APP_ID" <<<"$SETUP_SECTION" && grep -q "APP_PRIVATE_KEY" <<<"$SETUP_SECTION"; then
+    assert_pass "setup_mentions_app_credentials"
 else
-    assert_fail "setup_mentions_token_name" "Setup doesn't mention HOMEBREW_TAP_GITHUB_TOKEN"
+    assert_fail "setup_mentions_app_credentials" "Setup doesn't mention APP_ID / APP_PRIVATE_KEY"
 fi
 
 echo ""
@@ -242,35 +246,35 @@ echo ""
 echo -e "${T_BLUE}--- Group 4: Deps Subcommand ---${T_NC}"
 
 # Test: deps section exists
-if echo "$CONTENT" | grep -q "## /craft:dist:homebrew deps"; then
+if grep -q "## /craft:dist:homebrew deps" <<<"$CONTENT"; then
     assert_pass "deps_section_exists"
 else
     assert_fail "deps_section_exists" "No deps section header"
 fi
 
 # Test: Inter-formula dependency graph documented
-if echo "$CONTENT" | grep -qi "inter-formula"; then
+if grep -qi "inter-formula" <<<"$CONTENT"; then
     assert_pass "inter_formula_graph_documented"
 else
     assert_fail "inter_formula_graph_documented" "No inter-formula dependency graph"
 fi
 
 # Test: System dependencies matrix documented
-if echo "$CONTENT" | grep -qi "system dep"; then
+if grep -qi "system dep" <<<"$CONTENT"; then
     assert_pass "system_deps_matrix_documented"
 else
     assert_fail "system_deps_matrix_documented" "No system dependencies matrix"
 fi
 
 # Test: --system flag documented
-if echo "$CONTENT" | grep -q "\-\-system"; then
+if grep -q "\-\-system" <<<"$CONTENT"; then
     assert_pass "system_flag_documented"
 else
     assert_fail "system_flag_documented" "--system flag not documented"
 fi
 
 # Test: --dot flag for Graphviz
-if echo "$CONTENT" | grep -q "\-\-dot"; then
+if grep -q "\-\-dot" <<<"$CONTENT"; then
     assert_pass "dot_flag_documented"
 else
     assert_fail "dot_flag_documented" "--dot flag not documented"
@@ -296,28 +300,28 @@ if [[ -f "$WORKFLOW_YML" ]]; then
 
     # Test: Uses env indirection (no direct ${{ github.event_name }} in run blocks)
     # Check that EVENT_NAME is defined in env
-    if echo "$WF_CONTENT" | grep -q 'EVENT_NAME:'; then
+    if grep -q 'EVENT_NAME:' <<<"$WF_CONTENT"; then
         assert_pass "workflow_env_indirection"
     else
         assert_fail "workflow_env_indirection" "No EVENT_NAME env var for script injection prevention"
     fi
 
     # Test: Uses sha256sum (not shasum)
-    if echo "$WF_CONTENT" | grep -q "sha256sum"; then
+    if grep -q "sha256sum" <<<"$WF_CONTENT"; then
         assert_pass "workflow_sha256sum"
     else
         assert_fail "workflow_sha256sum" "Still using shasum instead of sha256sum"
     fi
 
     # Test: Has retry on curl
-    if echo "$WF_CONTENT" | grep -q "\-\-retry"; then
+    if grep -q "\-\-retry" <<<"$WF_CONTENT"; then
         assert_pass "workflow_curl_retry"
     else
         assert_fail "workflow_curl_retry" "No --retry on curl command"
     fi
 
     # Test: Has SHA validation guard
-    if echo "$WF_CONTENT" | grep -q '${#SHA256}'; then
+    if grep -q '${#SHA256}' <<<"$WF_CONTENT"; then
         assert_pass "workflow_sha_guard"
     else
         assert_fail "workflow_sha_guard" "No SHA256 length validation guard"
@@ -325,13 +329,13 @@ if [[ -f "$WORKFLOW_YML" ]]; then
 fi
 
 # Test: Workflow template in homebrew.md also hardened
-if echo "$CONTENT" | grep -q "sha256sum"; then
+if grep -q "sha256sum" <<<"$CONTENT"; then
     assert_pass "template_uses_sha256sum"
 else
     assert_fail "template_uses_sha256sum" "Template in homebrew.md still uses shasum"
 fi
 
-if echo "$CONTENT" | grep -q "env indirection\|script injection"; then
+if grep -q "env indirection\|script injection" <<<"$CONTENT"; then
     assert_pass "template_documents_security"
 else
     assert_fail "template_documents_security" "Template doesn't document security features"
@@ -402,7 +406,7 @@ echo -e "${T_BLUE}--- Group 7: Release Skill Step 10 ---${T_NC}"
 SKILL_CONTENT=$(cat "$RELEASE_SKILL")
 
 # Test: Step 10 exists
-if echo "$SKILL_CONTENT" | grep -q "Step 10"; then
+if grep -q "Step 10" <<<"$SKILL_CONTENT"; then
     assert_pass "step_10_exists"
 else
     assert_fail "step_10_exists" "Step 10 not found in SKILL.md"
@@ -410,59 +414,63 @@ fi
 
 # Test: basename $PWD is not the primary formula name lookup
 # It can exist as a fallback (3rd priority), but config should come first
-CONFIG_LINE=$(echo "$SKILL_CONTENT" | grep -n ".craft/homebrew.json" | head -1 | cut -d: -f1)
-BASENAME_LINE=$(echo "$SKILL_CONTENT" | grep -n 'basename' | head -1 | cut -d: -f1)
-if [[ -n "$CONFIG_LINE" && -n "$BASENAME_LINE" ]] && [[ "$CONFIG_LINE" -lt "$BASENAME_LINE" ]]; then
+# Compare character offsets, not line numbers: both appear on one line of SKILL.md.
+CONFIG_PREFIX="${SKILL_CONTENT%%.craft/homebrew.json*}"
+BASENAME_PREFIX="${SKILL_CONTENT%%basename*}"
+if [[ "$CONFIG_PREFIX" != "$SKILL_CONTENT" && "$BASENAME_PREFIX" != "$SKILL_CONTENT" ]] \
+    && [[ ${#CONFIG_PREFIX} -lt ${#BASENAME_PREFIX} ]]; then
     assert_pass "config_before_basename"
 else
     assert_fail "config_before_basename" "Config lookup should appear before basename fallback"
 fi
 
 # Test: Uses .craft/homebrew.json lookup
-if echo "$SKILL_CONTENT" | grep -q ".craft/homebrew.json"; then
+if grep -q ".craft/homebrew.json" <<<"$SKILL_CONTENT"; then
     assert_pass "uses_homebrew_json_config"
 else
     assert_fail "uses_homebrew_json_config" "Doesn't reference .craft/homebrew.json"
 fi
 
 # Test: Has git remote fallback
-if echo "$SKILL_CONTENT" | grep -q "git remote"; then
+if grep -q "git remote" <<<"$SKILL_CONTENT"; then
     assert_pass "has_git_remote_fallback"
 else
     assert_fail "has_git_remote_fallback" "No git remote fallback in lookup chain"
 fi
 
 # Test: Has basename fallback (3rd priority)
-if echo "$SKILL_CONTENT" | grep -q "basename.*fallback\|Basename fallback"; then
+if grep -q "basename.*fallback\|Basename fallback" <<<"$SKILL_CONTENT"; then
     assert_pass "has_basename_fallback"
 else
     assert_fail "has_basename_fallback" "No basename fallback documented"
 fi
 
 # Test: Uses shasum -a 256 (macOS-portable, not sha256sum which is Linux-only)
-STEP10=$(echo "$SKILL_CONTENT" | sed -n '/Step 10/,/Step 11/p')
-if echo "$STEP10" | grep -q "shasum -a 256"; then
+# Step 10's command detail lives in references/homebrew.md (SKILL.md only summarizes it).
+RELEASE_REFS="$CRAFT_ROOT/skills/release/references/homebrew.md"
+STEP10=$(cat "$RELEASE_REFS")
+if grep -q "shasum -a 256" <<<"$STEP10"; then
     assert_pass "step10_uses_shasum"
 else
     assert_fail "step10_uses_shasum" "Step 10 should use shasum -a 256 (macOS-portable)"
 fi
 
 # Test: Has ruby -c syntax check
-if echo "$STEP10" | grep -q "ruby -c"; then
+if grep -q "ruby -c" <<<"$STEP10"; then
     assert_pass "step10_has_ruby_syntax_check"
 else
     assert_fail "step10_has_ruby_syntax_check" "No ruby -c syntax check after sed update"
 fi
 
 # Test: Has SHA validation guard
-if echo "$STEP10" | grep -q '${#SHA256}'; then
+if grep -q '${#SHA256}' <<<"$STEP10"; then
     assert_pass "step10_has_sha_guard"
 else
     assert_fail "step10_has_sha_guard" "No SHA256 validation guard in Step 10"
 fi
 
 # Test: Has curl retry
-if echo "$STEP10" | grep -q "\-\-retry"; then
+if grep -q "\-\-retry" <<<"$STEP10"; then
     assert_pass "step10_has_curl_retry"
 else
     assert_fail "step10_has_curl_retry" "No --retry on curl in Step 10"
