@@ -13,8 +13,8 @@ Open (no PRs yet; all three branches pushed):
 - `feature/test-tmpdir-cleanup` — 8 bash suites no longer leak temp dirs, plus
   `tests/test_tmpdir_cleanup.sh` (`d1a167d93`).
 - Filed: #376 (`post_install_steps` migration, tap generator + `post_install_check.py`),
-  #377 (6 bash suites failing on dev; the dependency-suite cause needs a re-check
-  because #371 already added `CRAFT_DEMO_SPEC`).
+  #377 (6 bash suites failing on dev; `test_dependency_management` is environmental:
+  system `python3` lacks PyYAML, 111/111 with `uv run --no-project --with pyyaml`).
 
 ## v4.8.1 release preparation — 2026-10-30
 
