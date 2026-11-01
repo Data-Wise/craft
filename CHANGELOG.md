@@ -18,6 +18,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   now creates one unique root in the parent shell and removes it on exit. Guarded by
   `tests/test_tmpdir_cleanup.sh`, which runs each suite with an isolated `TMPDIR`.
 
+## [4.8.2] - 2026-10-31
+
+### Changed
+
+- Update the bundled MCP SDK (`@modelcontextprotocol/sdk`) from 1.32.1 to 1.32.2 in
+  `mcp/` (patch bump, #369).
+- Condense `AGENTS.md` to a short working contract; the detail moved to the Codex
+  reference outside the repo.
+
 ## [4.8.1] - 2026-10-30
 
 ### Fixed
