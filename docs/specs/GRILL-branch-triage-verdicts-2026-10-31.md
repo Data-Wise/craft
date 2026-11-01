@@ -1,0 +1,54 @@
+# GRILL: Branch Triage Verdicts
+
+**Date:** 2026-10-31 · **Target:** GitHub issue #374 (Data-Wise/craft)
+
+## Codebase-First Sweep
+
+- `scoped_diff_result` is not scoped: it runs a full `git diff base..branch` (`lib/git-utils.sh:138`), identical to `is_squash_merged`'s fallback, so it adds no evidence. Increment 0's question is answered: no per-commit content-presence check exists.
+- `pr_state` (`lib/git-utils.sh:133`) discards `gh` errors, so lookup failure and "no PR" both yield `unknown`; it matches by branch name only, with no head-SHA check.
+- The empty-operand bug is not in the repo: `is_squash_merged` already returns UNKNOWN for bad refs (`lib/git-utils.sh:34`). It was in the issue author's own script.
+- No verdict layer exists. Collectors emit evidence only; `merge_candidates` (`lib/repo-triage-utils.sh`) is a pure jq join; `repo_triage_classify.py` handles issues only.
+
+
+## Decision Ledger
+
+| # | Branch | Decision |
+|---|---|---|
+| 1 | Where verdict derivation lives | Pure jq verdict function in lib/repo-triage-utils.sh over evidence-only collectors (branch_cleanup_dry_run gains evidence fields, never a verdict). Rules unit-test on hand-written JSONL; a missing or empty evidence field maps to UNKNOWN. Rejected: verdict inside the bash collector (needs a git fixture per verdict) and a Python module (second language for a jq-sized transform). |
+| 2 | DELETE-SAFE evidence | Requires a merged PR whose headRefOid equals the branch tip AND whose mergeCommit is an ancestor of the triage base (git merge-base --is-ancestor). Missing/unfetched merge commit, empty operand, or failed gh lookup => UNKNOWN, never a delete command. Tip-is-ancestor-of-base remains an alternate DELETE-SAFE path. Rejected: head==tip alone (stacked PRs merged into an unmerged feature branch would read safe) and baseRefName check alone (misses reverts/rewrites). |
+| 3 | LAND-CANDIDATE scope | Defer Increment 3 (content_absent, conflict_files, behind_base, LAND-CANDIDATE) to a follow-up: it is the only heuristic verdict (content comparison is a lower bound; benefit is asserted, not measured). v1 = Increments 1, 2, 4: pr_head_match + mergeCommit check, upstream/worktree/owner_hint, verdicts DELETE-SAFE/BACKUP-THEN-DECIDE/KEEP/UNKNOWN, per-verdict command blocks. Unmerged-with-upstream branches stay plain not-merged evidence meanwhile. Rejected: shipping all verdicts at once; patch-id-only variant (misses rebased/edited landed commits). |
+| 4 | owner_hint source and role | Configurable branch-prefix list (default codex/, dependabot/); advisory evidence field. KEEP-for-tool-owned applies only when DELETE-SAFE evidence is absent, so a fully verified merged codex/* branch (e.g. codex/release-4-8-1, PR #373) stays cleanable. Rejected: last-commit author (all sessions commit as Stat-Wise, so it cannot distinguish tools) and always-KEEP prefixes (merged tool branches would never be offered). Known gap: an unlisted tool prefix is unprotected. |
+| 5 | v1 done-gate | Two parts, both required: (1) the issue's 6 red-first cases in the shell/jq tests (multi-commit squash, unmerged+unpushed, live worktree, failed gh lookup, empty operand, planted one-commit-off control); (2) a read-only live run on this repo's real branches against hand-written verdicts recorded beforehand, transcript quoted in the PR body (e2e-before-pr). New JSONL fields are additive, so merge_candidates and tests/test_git_dryrun.sh keep working. Rejected: fixtures only (passes can still misjudge real branches) and live only (no regression protection). |
+| 6 | Verdict for unmerged branch with upstream, not tool-owned | KEEP with evidence `unmerged, pushed` (added post-plan; closes the gap left by deferring LAND-CANDIDATE in Decision 3). It only withholds a delete; no new verdict class. Verdict precedence for Phase 3: UNKNOWN > KEEP (live worktree or open PR) > DELETE-SAFE > BACKUP-THEN-DECIDE > KEEP (tool-owned unverified, or unmerged pushed). |
+
+## Open Questions
+
+- Default `owner_hint` prefix list beyond `codex/` and `dependabot/`: unlisted tool prefixes stay unprotected (Decision 4).
+- `pr_state` today cannot distinguish a failed `gh` call from no PR; Decision 2 requires the new lookup to surface failure as `UNKNOWN`. Whether to change the existing `pr_state` field or add a new one is an implementation choice (additive is the safe default).
+- LAND-CANDIDATE (Decision 3) needs its own grill before the follow-up: lower-bound content comparison and an unmeasured benefit.
+- Issue #374 body says its code claims were unverified; the sweep above corrects them (no empty-operand bug in the repo; `scoped_diff_result` is not scoped). Worth a comment on the issue.
+
+## Test Plan
+
+Red first, in the existing shell suites (`tests/test_git_dryrun.sh`, `tests/test_repo_triage_utils.sh`): the 6 cases in Decision 5. jq verdict function tested on hand-written JSONL (missing/empty field gives UNKNOWN). Live read-only run on this repo with pre-recorded hand verdicts.
+
+## Documentation
+
+`skills/orchestration/repo-triage/SKILL.md` (verdict table, command blocks per verdict), `skills/dev/git/SKILL.md` Operation 4, CHANGELOG, `docs/CHANGELOG.md` mirror. Update the JSONL contract comment in `lib/git-utils.sh`.
+
+## Amendment (post-Codex adversarial review, 2026-10-31)
+
+Triggered by a read-only Codex review (verdict: block v1 as specified). Three findings were verified against the code before amending (join drops fields, `merge-base` exit codes, merged-only `.[0]` PR lookup); the rest are Codex's claims, not re-verified, and are marked below. Original decisions 1-6 are left unedited per grill convention (append, never rewrite); where 7-14 conflict, 7-14 supersede.
+
+| # | Branch | Decision |
+|---|---|---|
+| 7 | DELETE-SAFE vs reverted PR (supersedes the PR path in Decision 2) | A PR proves "merged at some point", not "content still in base" (Codex #1, unverified). **DELETE-SAFE via PR now requires head==tip AND mergeCommit in base AND proof the tip content is still present** (reuse `is_squash_merged` SAFE, or the tip is contained in a durable ref). PR evidence without content proof, including a reverted PR or an advanced base, falls to BACKUP-THEN-DECIDE with evidence `merged PR, content not proven in base`. Tip-is-ancestor-of-base stays a DELETE-SAFE path on its own. Known cost: a squash-merged branch whose files base later changed reads BACKUP, not DELETE-SAFE (safe false negative). |
+| 8 | Typed evidence states (supersedes the empty-means-UNKNOWN wording in Decision 1) | Empty is a valid negative fact (Codex #3, a flaw in Decision 1's wording). Collectors emit explicit enums, never empty strings: `upstream_status: none\|present\|unknown`, `owner_hint: tool\|none\|unknown`, `worktree_status: live\|none\|unknown`, `pr_head_match: match\|mismatch\|unknown`. The verdict function maps only `unknown` or a field absent from the object to UNKNOWN. An absent key is a bug and yields UNKNOWN. |
+| 9 | Ancestry exit codes (verified, `lib/git-utils.sh:124-128`) | `merge-base --is-ancestor` exit 0 = ancestor, 1 = not-ancestor, anything else = unknown. Applies to the tip check and the mergeCommit check. Today any non-zero reads `not-ancestor`. |
+| 10 | Join preserves fields (verified, `lib/repo-triage-utils.sh:30-37`) | `merge_candidates` currently rebuilds objects from 4 named fields and would drop every new field. Build the output as `$b + {type, branch, ...worktree fields}` so new fields pass through; add a test that each new field survives the join. Phase 2 gains this task before the verdict phase. |
+| 11 | PR lookup (verified, `lib/git-utils.sh:133`) | Replace the merged-only `.[0]` lookup: query open and merged PRs for the head with explicit pagination, repo-qualified head identity, and `gh` failure surfaced as `unknown`. Check for any open PR first (KEEP), then pick the merged PR whose `headRefOid` equals the tip exactly. Fork heads (different head repository) never count as a match. |
+| 12 | Scan/act race (Codex #6, unverified) | Verdicts are evidence-at-scan-time. Before printing or running any per-verdict command block, revalidate tip OID, open PRs, upstream and live or dirty worktrees; any change downgrades to UNKNOWN. |
+| 13 | Test matrix (extends Decision 5; Codex #7, #8, #9, unverified) | Table-driven verdict matrix covering every precedence pair, plus collector fixtures for: reverted PR, open+merged PR collision, matching PR past page one, fork head, missing merge object, rewritten base, and field survival through the join. Test suites get guarded setup helpers that fail fast and assert fixture refs and JSON are valid. The "nothing mutates" check uses a PATH-injected git spy that records and rejects mutating invocations, not a string grep. |
+| 14 | Precedence unchanged | The Decision 6 order stands, with DELETE-SAFE now also gated by Decision 7's content proof. |
+
+Not covered by the review: PR merged into a non-base branch (handled by Decision 2's mergeCommit-in-base check), force-pushed base (covered only as a Decision 13 fixture), and macOS BSD vs GNU differences (follow the repo's existing portability rules during implementation).
