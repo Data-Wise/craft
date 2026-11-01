@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.8.1 improves Codex restore context, triage, and optional session naming, and repairs retained dependency checks. See NEWS.md for release-by-release highlights.">
+        <meta name="description" content="Full-stack developer toolkit - 48 commands, 2 agents, 41 skills for code, git, site, docs, testing, architecture, CI, distribution, and planning with ADHD-friendly interfaces. v4.8.2 updates the bundled MCP SDK to 1.32.2 and condenses the Codex AGENTS.md contract; v4.8.1 improved Codex restore context, triage, and optional session naming, and repaired retained dependency checks. See NEWS.md for release-by-release highlights.">
       
       
       
@@ -8253,6 +8253,90 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v482-mcp-sdk-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.8.2 — MCP SDK patch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.8.2 — MCP SDK patch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v481-restore-guidance-and-dependency-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.8.1 — restore guidance and dependency checks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.8.1 — restore guidance and dependency checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v480-plugin-eval-harness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.8.0 — plugin eval harness
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.8.0 — plugin eval harness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v470-craft-openai-workflow-skills-branch-guard-updates" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8265,7 +8349,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights" class="md-nav__link">
+  <a href="#highlights_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8293,7 +8377,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_1" class="md-nav__link">
+  <a href="#highlights_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8321,7 +8405,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_2" class="md-nav__link">
+  <a href="#highlights_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8349,7 +8433,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_3" class="md-nav__link">
+  <a href="#highlights_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8377,7 +8461,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_4" class="md-nav__link">
+  <a href="#highlights_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8405,7 +8489,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_5" class="md-nav__link">
+  <a href="#highlights_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8433,7 +8517,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_6" class="md-nav__link">
+  <a href="#highlights_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8472,7 +8556,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_7" class="md-nav__link">
+  <a href="#highlights_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8500,7 +8584,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_8" class="md-nav__link">
+  <a href="#highlights_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8528,7 +8612,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_9" class="md-nav__link">
+  <a href="#highlights_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8556,7 +8640,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_10" class="md-nav__link">
+  <a href="#highlights_13" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8584,7 +8668,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_11" class="md-nav__link">
+  <a href="#highlights_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8623,7 +8707,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_12" class="md-nav__link">
+  <a href="#highlights_15" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -8651,7 +8735,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_13" class="md-nav__link">
+  <a href="#highlights_16" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10496,6 +10580,90 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v482-mcp-sdk-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.8.2 — MCP SDK patch
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.8.2 — MCP SDK patch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v481-restore-guidance-and-dependency-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.8.1 — restore guidance and dependency checks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.8.1 — restore guidance and dependency checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v480-plugin-eval-harness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.8.0 — plugin eval harness
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.8.0 — plugin eval harness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#highlights_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highlights
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v470-craft-openai-workflow-skills-branch-guard-updates" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10508,7 +10676,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights" class="md-nav__link">
+  <a href="#highlights_3" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10536,7 +10704,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_1" class="md-nav__link">
+  <a href="#highlights_4" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10564,7 +10732,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_2" class="md-nav__link">
+  <a href="#highlights_5" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10592,7 +10760,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_3" class="md-nav__link">
+  <a href="#highlights_6" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10620,7 +10788,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_4" class="md-nav__link">
+  <a href="#highlights_7" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10648,7 +10816,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_5" class="md-nav__link">
+  <a href="#highlights_8" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10676,7 +10844,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_6" class="md-nav__link">
+  <a href="#highlights_9" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10715,7 +10883,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_7" class="md-nav__link">
+  <a href="#highlights_10" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10743,7 +10911,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_8" class="md-nav__link">
+  <a href="#highlights_11" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10771,7 +10939,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_9" class="md-nav__link">
+  <a href="#highlights_12" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10799,7 +10967,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_10" class="md-nav__link">
+  <a href="#highlights_13" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10827,7 +10995,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_11" class="md-nav__link">
+  <a href="#highlights_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10866,7 +11034,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_12" class="md-nav__link">
+  <a href="#highlights_15" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10894,7 +11062,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#highlights_13" class="md-nav__link">
+  <a href="#highlights_16" class="md-nav__link">
     <span class="md-ellipsis">
       
         Highlights
@@ -10948,9 +11116,47 @@
 <h1 id="news">News<a class="headerlink" href="#news" title="Permanent link">&para;</a></h1>
 <p>Release announcements and notable changes for the Craft plugin.</p>
 <hr />
+<h2 id="v482-mcp-sdk-patch">v4.8.2 — MCP SDK patch<a class="headerlink" href="#v482-mcp-sdk-patch" title="Permanent link">&para;</a></h2>
+<p><strong>Released:</strong> 2026-10-31 · <strong>Type:</strong> Patch</p>
+<h3 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>MCP SDK 1.32.2</strong> — the bundled <code>@modelcontextprotocol/sdk</code> moves from 1.32.1 to
+  1.32.2 (build, smoke and validate checks green).</li>
+<li><strong>Shorter <code>AGENTS.md</code></strong> — now a working contract; the detail lives in the Codex
+  reference outside the repo.</li>
+</ul>
+<hr />
+<h2 id="v481-restore-guidance-and-dependency-checks">v4.8.1 — restore guidance and dependency checks<a class="headerlink" href="#v481-restore-guidance-and-dependency-checks" title="Permanent link">&para;</a></h2>
+<p><strong>Released:</strong> 2026-10-31 · <strong>Type:</strong> Patch</p>
+<h3 id="highlights_1">Highlights<a class="headerlink" href="#highlights_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Better restore guidance</strong> — <code>/craft:restore</code> prioritizes issues and suggestions by impact,
+  evidence, ownership, holds, and dependencies, and suggests repository/task session titles
+  (renaming only on an explicit request). The Codex <code>craft-restore</code> skill resolves the selected
+  checkout and separates cached refs from stale handoffs, staying read-only.</li>
+<li><strong>Dependency checks restored</strong> — the retained dependency-helper checks work again after the demo
+  command moved to Folio, with an explicit trusted <code>CRAFT_DEMO_SPEC</code> and an isolated test fixture.</li>
+<li><strong>Craft OpenAI 0.1.1</strong> — packaged with the restore improvements, plus the reviewed markdownlint update.</li>
+</ul>
+<p>See <a href="../CHANGELOG/">CHANGELOG</a> for the full list.</p>
+<hr />
+<h2 id="v480-plugin-eval-harness">v4.8.0 — plugin eval harness<a class="headerlink" href="#v480-plugin-eval-harness" title="Permanent link">&para;</a></h2>
+<p><strong>Released:</strong> 2026-10-04 · <strong>Type:</strong> Minor</p>
+<h3 id="highlights_2">Highlights<a class="headerlink" href="#highlights_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Plugin eval harness</strong> — <code>scripts/run-evals.sh</code> wraps <code>claude plugin eval</code> with safe defaults
+  (no publish, a cost cap, a private output directory), with 11 skill trigger evals, 11
+  command-routing evals, and 3 body cases. See the <a href="../guide/eval-harness/">eval harness guide</a>.</li>
+<li><strong>Lint baseline</strong> — <code>ruff check .</code> is clean under a pinned rule set; 296 findings fixed across
+  88 files, including two real bugs (a missing <code>import yaml</code> and a bare <code>except:</code>).</li>
+<li><strong>Safer release gates</strong> — in release mode a missing pytest or coverage tool now fails the
+  coverage validator instead of skipping, and a rename note is no longer reported as a stale command.</li>
+</ul>
+<p>See <a href="../CHANGELOG/">CHANGELOG</a> for the full list.</p>
+<hr />
 <h2 id="v470-craft-openai-workflow-skills-branch-guard-updates">v4.7.0 — Craft OpenAI workflow skills + branch-guard updates<a class="headerlink" href="#v470-craft-openai-workflow-skills-branch-guard-updates" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-09-29 · <strong>Type:</strong> Minor</p>
-<h3 id="highlights">Highlights<a class="headerlink" href="#highlights" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_3">Highlights<a class="headerlink" href="#highlights_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Skills-first Codex workflows</strong> — <code>craft-restore</code>, <code>craft-do</code>, and <code>craft-finish</code> are available
   through the <code>craft-openai</code> package, with local installation and usage documented on the site.</li>
@@ -10963,7 +11169,7 @@
 <hr />
 <h2 id="v461-docs-accuracy-pass-pinned-mcp-server">v4.6.1 — docs accuracy pass + pinned MCP server<a class="headerlink" href="#v461-docs-accuracy-pass-pinned-mcp-server" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-09-23 · <strong>Type:</strong> Patch</p>
-<h3 id="highlights_1">Highlights<a class="headerlink" href="#highlights_1" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_4">Highlights<a class="headerlink" href="#highlights_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Three docs pages that 404'd now build</strong> — an unanchored <code>exclude_docs</code> pattern had silently
   dropped <code>/craft:orch:drive</code> and <code>/craft:orch:workflow</code> (and a stale exclude hid
@@ -10981,7 +11187,7 @@
 <hr />
 <h2 id="v460-prose-staleness-checks-hardened-same-day">v4.6.0 — prose-staleness checks, hardened same day<a class="headerlink" href="#v460-prose-staleness-checks-hardened-same-day" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-08-15 · <strong>Type:</strong> Minor</p>
-<h3 id="highlights_2">Highlights<a class="headerlink" href="#highlights_2" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_5">Highlights<a class="headerlink" href="#highlights_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Two new prose-staleness checks in <code>docs-staleness-check.sh</code> Phase 7</strong>
   (<a href="https://github.com/Data-Wise/craft/pull/334">#334</a>) — a release-date consistency check and a
@@ -10999,7 +11205,7 @@
 <hr />
 <h2 id="v450-repo-triage-skill-ecosystem-tool-tutorials">v4.5.0 — repo-triage skill + ecosystem-tool tutorials<a class="headerlink" href="#v450-repo-triage-skill-ecosystem-tool-tutorials" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-08-07 · <strong>Type:</strong> Minor</p>
-<h3 id="highlights_3">Highlights<a class="headerlink" href="#highlights_3" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_6">Highlights<a class="headerlink" href="#highlights_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>New <code>repo-triage</code> skill</strong> (<a href="https://github.com/Data-Wise/craft/pull/328">#328</a>) — batch-grounds
   open GitHub issues and stale worktrees/branches against current repo state, offers confirmed
@@ -11016,7 +11222,7 @@
 <hr />
 <h2 id="v442-preflight-check-skill-identity-fix-python-314-pin">v4.4.2 — preflight-check skill identity fix + Python 3.14 pin<a class="headerlink" href="#v442-preflight-check-skill-identity-fix-python-314-pin" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-07-27 · <strong>Type:</strong> Patch</p>
-<h3 id="highlights_4">Highlights<a class="headerlink" href="#highlights_4" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_7">Highlights<a class="headerlink" href="#highlights_7" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>preflight-check</code> skill made reachable by its declared identity</strong> (<a href="https://github.com/Data-Wise/craft/issues/316">#316</a>) —
   its skill directory didn't match its declared <code>name: preflight-check</code>, so directory-based skill
@@ -11033,7 +11239,7 @@
 <hr />
 <h2 id="v441-branch-guard-21-fix-docs-drift-patches">v4.4.1 — branch-guard 2&gt;&amp;1 fix + docs-drift patches<a class="headerlink" href="#v441-branch-guard-21-fix-docs-drift-patches" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-07-26 · <strong>Type:</strong> Patch</p>
-<h3 id="highlights_5">Highlights<a class="headerlink" href="#highlights_5" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_8">Highlights<a class="headerlink" href="#highlights_8" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>branch-guard.sh</code>'s <code>2&gt;&amp;1</code>/<code>1&gt;&amp;2</code> false-positive fixed in the repo's canonical copy</strong> — a
   command like <code>git commit -m "...(7 -&gt; 9)" 2&gt;&amp;1</code> was being misdetected as file creation. The fix
@@ -11050,7 +11256,7 @@
 <hr />
 <h2 id="v440-smart-help-refine-exhaustive-default-policy-table">v4.4.0 — smart-help --refine + exhaustive Default Policy table<a class="headerlink" href="#v440-smart-help-refine-exhaustive-default-policy-table" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-07-26 · <strong>Type:</strong> Minor · <strong>PR:</strong> <a href="https://github.com/Data-Wise/craft/pull/313">#313</a></p>
-<h3 id="highlights_6">Highlights<a class="headerlink" href="#highlights_6" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_9">Highlights<a class="headerlink" href="#highlights_9" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>smart-help</code> declares <code>--refine</code></strong> (D7) — opt-in, default-OFF, closing the last dangling item
   on #268's prompt-refiner umbrella (originally from <code>SPEC-interactive-commands-2026-06-25.md</code>
@@ -11068,7 +11274,7 @@ the reasoning.</p>
 <hr />
 <h2 id="v430-guard-bypass-escape-hatch-reference-scope-guard">v4.3.0 — Guard-Bypass Escape Hatch + Reference-Scope Guard<a class="headerlink" href="#v430-guard-bypass-escape-hatch-reference-scope-guard" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-07-25 · <strong>Type:</strong> Minor · <strong>PRs:</strong> <a href="https://github.com/Data-Wise/craft/pull/305">#305</a>, <a href="https://github.com/Data-Wise/craft/pull/306">#306</a></p>
-<h3 id="highlights_7">Highlights<a class="headerlink" href="#highlights_7" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_10">Highlights<a class="headerlink" href="#highlights_10" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>CRAFT_GUARD_ALLOW_DEV_EDIT</code></strong> (#281) — closes a self-referential deadlock: creating the
   <code>.claude/allow-once</code>/<code>allow-dev-edit</code> branch-guard bypass marker was itself gated by the guard it
@@ -11085,7 +11291,7 @@ the reasoning.</p>
 <p><strong>BREAKING:</strong> <code>/craft:done</code> renamed to <code>/craft:finish</code> (<a href="../adr/ADR-006-done-renamed-to-finish/">ADR-006</a>)
 — matches the existing zsh <code>finish</code> alias, no back-compat shim. Command count unchanged (48; a
 rename, not an addition).</p>
-<h3 id="highlights_8">Highlights<a class="headerlink" href="#highlights_8" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_11">Highlights<a class="headerlink" href="#highlights_11" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:finish</code></strong> replaces <code>/craft:done</code> everywhere — the old slash entry point no longer resolves.</li>
 <li><strong><code>/craft:restore</code> docs corrected</strong> — its spec/report status fixed from <code>DRAFT</code> to <code>SHIPPED</code> (it had
@@ -11100,7 +11306,7 @@ rename, not an addition).</p>
 <hr />
 <h2 id="v410-craftrestore-craftrefine-confirm-flow-fix">v4.1.0 — /craft:restore + /craft:refine Confirm-Flow Fix<a class="headerlink" href="#v410-craftrestore-craftrefine-confirm-flow-fix" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-07-17 · <strong>Type:</strong> Minor · <strong>PR:</strong> <a href="https://github.com/Data-Wise/craft/pull/295">#295</a></p>
-<h3 id="highlights_9">Highlights<a class="headerlink" href="#highlights_9" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_12">Highlights<a class="headerlink" href="#highlights_12" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>/craft:restore</code></strong> (NEW) — combines git-activity recap (<code>dev/git</code> skill) with <code>.STATUS</code>-based
   session recap (<code>adhd-workflow</code> skill) into one read-only "restore my context" entry point.
@@ -11116,7 +11322,7 @@ rename, not an addition).</p>
 <hr />
 <h2 id="v400-folio-split">v4.0.0 — Folio Split<a class="headerlink" href="#v400-folio-split" title="Permanent link">&para;</a></h2>
 <p><strong>Released:</strong> 2026-07-16 · <strong>Type:</strong> Major (breaking) · <strong>PR:</strong> <a href="https://github.com/Data-Wise/craft/pull/294">#294</a></p>
-<h3 id="highlights_10">Highlights<a class="headerlink" href="#highlights_10" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_13">Highlights<a class="headerlink" href="#highlights_13" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>BREAKING: docs/publishing surface extracted</strong> to the new standalone <a href="https://github.com/Data-Wise/folio"><code>folio</code></a>
   plugin — 24 commands, 6 agents, 6 skills moved out. See
@@ -11136,7 +11342,7 @@ rename, not an addition).</p>
 <p>The branch-guard and no-switch-guard systems are now unified under a single
 skill-driven operations layer. Four stale shims were thinned and 62 new tests
 added.</p>
-<h3 id="highlights_11">Highlights<a class="headerlink" href="#highlights_11" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_14">Highlights<a class="headerlink" href="#highlights_14" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>--classify</code> / <code>GUARD_DRY_RUN=1</code></strong> — ground-truth output for both guard
   hooks, useful for testing and debugging guard rules without side effects.</li>
@@ -11160,7 +11366,7 @@ added.</p>
 <p>Cuts the always-loaded orchestration path by moving procedure out of
 commands/agents and into skills that load conditionally. Introduces the
 <code>command-skill-token-efficiency</code> skill for future authoring.</p>
-<h3 id="highlights_12">Highlights<a class="headerlink" href="#highlights_12" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_15">Highlights<a class="headerlink" href="#highlights_15" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Orchestration token reduction</strong> — <code>/refine</code> 631→42 lines, <code>/brainstorm</code> split
   with 4→2 decision points, <code>orchestrator-v2.md</code> 1473→1212 lines.</li>
@@ -11177,7 +11383,7 @@ commands/agents and into skills that load conditionally. Introduces the
 <p><strong>Released:</strong> 2026-07-05 · <strong>Type:</strong> Minor</p>
 <p>Major namespace cleanup: root-level promotions, <code>orchestrate</code> → <code>orch</code> rename,
 <code>ci:</code> consolidation, and dead commands removed.</p>
-<h3 id="highlights_13">Highlights<a class="headerlink" href="#highlights_13" title="Permanent link">&para;</a></h3>
+<h3 id="highlights_16">Highlights<a class="headerlink" href="#highlights_16" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Root promotions</strong> — <code>/craft:next</code>, <code>/craft:done</code>, <code>/craft:refine</code>,
   <code>/craft:brief</code>, <code>/craft:brainstorm</code> promoted from <code>workflow:</code>.</li>
