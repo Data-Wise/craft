@@ -45,6 +45,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `version-sync.sh` no longer flags frozen fixture constants: a source-constant line
   carrying `# version-sync: ignore` is skipped (applied to the `FIXTURE_VERSION` in
   `tests/test_docs_staleness_prose.py`); unmarked stale constants are still flagged.
+- Eight bash test suites no longer leak temp directories. `make_tmpdir` ran in a
+  `$(...)` subshell, so its cleanup registration never reached the `EXIT` trap; each run
+  now creates one unique root in the parent shell and removes it on exit. Guarded by
+  `tests/test_tmpdir_cleanup.sh`, which runs each suite with an isolated `TMPDIR`.
 
 ## [4.8.2] - 2026-10-31
 
