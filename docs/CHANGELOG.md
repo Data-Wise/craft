@@ -43,6 +43,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `is_squash_merged` no longer returns a false SAFE for a large unmerged branch under
   `pipefail`: the `echo | grep -q` pipe took SIGPIPE on early match (#375).
 
+## [4.8.2] - 2026-10-31
+
+### Changed
+
+- Update the bundled MCP SDK (`@modelcontextprotocol/sdk`) from 1.32.1 to 1.32.2 in
+  `mcp/` (patch bump, #369).
+- Condense `AGENTS.md` to a short working contract; the detail moved to the Codex
+  reference outside the repo.
+
 ## [4.8.1] - 2026-10-30
 
 ### Fixed
