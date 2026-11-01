@@ -58,37 +58,68 @@ branch_cleanup_dry_run dev > /tmp/repo-triage-branches.jsonl    # SECOND
 ```
 
 Both are collection-only (no `git worktree remove`, no `git branch -D`).
-Apply the same skip-and-continue discipline as Step 1 to any per-item
-collection error (e.g. a branch whose `gh pr list` lookup fails — that
-candidate still gets `pr_state: "unknown"`, it is not dropped).
+`branch_cleanup_dry_run` emits evidence only — merge evidence plus typed PR,
+ancestry, upstream, worktree and owner fields (`pr_open`, `pr_head_match`,
+`pr_merge_in_base`, `upstream_status`, `remote_copy`, `worktree_status`, `owner_hint`; the full
+enum list is in its header comment in `lib/git-utils.sh`). Apply the same
+skip-and-continue discipline as Step 1 to any per-item collection error: a
+failed lookup (e.g. `gh pr list`) reads `unknown` in the affected fields — never
+`none`/`no` — and that branch's verdict becomes `UNKNOWN` when the outcome depends on the failed field; it is not dropped.
 
 ### Step 3 — Merge + confirm UX
 
 ```bash
 source lib/repo-triage-utils.sh
-merge_candidates /tmp/repo-triage-branches.jsonl /tmp/repo-triage-worktrees.jsonl
+merge_candidates /tmp/repo-triage-branches.jsonl /tmp/repo-triage-worktrees.jsonl \
+  | verdict_candidates > /tmp/repo-triage-verdicts.jsonl
 ```
 
 Joins Step 2's two streams on `branch` (the required join key both
 `lib/git-utils.sh` functions emit) so a branch that is also checked out in a
 worktree renders as **one** candidate — never two independent opt-outs.
 Unmatched branches (`type: "branch"`) and unmatched worktrees
-(`type: "worktree"`) pass through unchanged. `merge_candidates()` itself does
-**not** filter by evidence strength — it is a pure join, and its own test
-suite asserts a `not-merged`/`unknown`-evidence branch passes through
-unchanged (so a caller can still surface it, e.g. in Step 4's defer bucket).
+(`type: "worktree"`) pass through unchanged, and every collector field passes
+through the join. `merge_candidates()` itself does **not** filter by evidence
+strength — it is a pure join. `verdict_candidates()` then adds a report-only
+`verdict` and `evidence` string to each item (rules and precedence are in its
+header comment, from `docs/specs/GRILL-branch-triage-verdicts-2026-10-31.md`):
 
-**Before building the deletion candidate list**, restate `dev/git` Operation
-4's own rule here: never offer a branch/worktree item for deletion whose
-`merge_evidence` is `not-merged` or `unknown` — exclude those from the
-Step 3 confirm entirely (route them to Step 4's bucketing instead, same as
-an unresolved issue). Only `merge_evidence: "merged"` or `"squash-merged"`
-items are eligible for the batch-confirm below.
+| Verdict | Meaning |
+|---|---|
+| `DELETE-SAFE` | Landed: the tip is an ancestor of base, or a merged PR's head equals the tip, its merge commit is in base, and the content is still present. PR evidence alone is not enough (a reverted PR has it too). |
+| `BACKUP-THEN-DECIDE` | Not landed and the tip exists only locally: `upstream_status` is none or ahead AND no remote-tracking ref holds the tip (`remote_copy` no, as of the last fetch). |
+| `KEEP` | A live worktree, an open PR, a tool-owned branch not verified landed, or unmerged but pushed. |
+| `UNKNOWN` | A field is absent or invalid, or a lookup the outcome depends on failed (e.g. `gh` down on a branch that might be landed). A lookup that does not affect the outcome does not force it: an ancestor branch stays `DELETE-SAFE`, a live worktree stays `KEEP`. Never offers a delete. |
 
-**Confirm UX** — group the *eligible* merged candidates by source (issues / branches /
-worktrees), sort each group by evidence strength (a squash-merge with both
-`ancestor_result: "ancestor"` AND `scoped_diff_result: "clean"` ranks above
-one with only `ancestor_result`), and present via `AskUserQuestion`:
+**Revalidate before presenting.** Evidence can change between the scan and the
+action (a worktree appears, a PR opens, a tip moves). Re-run Step 2 and the
+pipeline above into a second file, then compare:
+
+```bash
+revalidate_verdicts /tmp/repo-triage-verdicts.jsonl /tmp/repo-triage-verdicts-rescan.jsonl \
+  > /tmp/repo-triage-verdicts-final.jsonl
+```
+
+Any branch whose evidence changed, appeared, or vanished reads `UNKNOWN`.
+Present and act only on the revalidated output.
+
+**Before building the deletion candidate list**, only `verdict: "DELETE-SAFE"`
+items are eligible for the batch-confirm below. This is stricter than
+`dev/git` Operation 4's `merge_evidence` rule: a squash-merged branch with no
+PR evidence is no longer offered for deletion. `BACKUP-THEN-DECIDE`, `KEEP` and
+`UNKNOWN` items are never offered for deletion; list them in the report, and
+route unresolved issues to Step 4's bucketing as before.
+
+Print the per-verdict report (one block per class, commands only for
+`DELETE-SAFE` and `BACKUP-THEN-DECIDE`, remote deletes never printed):
+
+```bash
+verdict_command_blocks < /tmp/repo-triage-verdicts-final.jsonl
+```
+
+**Confirm UX** — group the *eligible* `DELETE-SAFE` candidates by source (issues / branches /
+worktrees), sort each group by evidence strength (an `ancestor_result: "ancestor"`
+item ranks above a PR-evidence one), and present via `AskUserQuestion`:
 
 - Max 4 options per call (harness limit — same pattern as
   `skills/code/SKILL.md` Step 4). If more than 4 candidates exist, present
@@ -96,9 +127,9 @@ one with only `ancestor_result`), and present via `AskUserQuestion`:
   calls for the remainder — never truncate silently.
 - Each option's description cites the evidence: issue items show
   `classify_issue()`'s `reasoning` string; branch/worktree items show the
-  structured fields from Step 2 (`merge_evidence`, `ancestor_result`,
-  `pr_state`, `scoped_diff_result`) under a one-line-summary-plus-detail
-  template.
+  verdict's `evidence` string plus the structured fields from Step 2
+  (`merge_evidence`, `ancestor_result`, `pr_head_match`, `pr_merge_in_base`)
+  under a one-line-summary-plus-detail template.
 - On confirm, execute the approved deletion/closure directly — Operation
   4/5's own interactive confirms are bypassed (already collected via
   `--dry-run` mode in Step 2), so there is exactly one confirm gate per
@@ -145,6 +176,10 @@ top-4-plus-remainder pattern from Step 3):
   same run (verified by `tests/test_repo_triage_utils.sh`'s and
   `tests/test_git_dryrun.sh`'s "never mutates" checks on the underlying
   helper functions).
+- Never prints or runs a command that deletes a remote branch, and never
+  offers a delete command for a `BACKUP-THEN-DECIDE`, `KEEP` or `UNKNOWN`
+  branch (asserted over every valid evidence combination in
+  `tests/test_repo_triage_utils.sh`).
 - Never re-implements `classify_issue()`, `is_squash_merged()`, or the
   Operation 4/5 detection logic — it only calls them and merges/buckets
   their output.
@@ -163,6 +198,8 @@ list.
 
 - `utils/repo_triage_classify.py` — issue-triage runner (Step 1).
 - `lib/git-utils.sh` — `worktree_clean_dry_run()`, `branch_cleanup_dry_run()` (Step 2).
-- `lib/repo-triage-utils.sh` — `merge_candidates()`, `bucket_candidates()` (Steps 3–4).
+- `lib/repo-triage-utils.sh` — `merge_candidates()`, `verdict_candidates()`,
+  `revalidate_verdicts()`, `verdict_command_blocks()` (Step 3), `bucket_candidates()` (Step 4).
+- `docs/specs/GRILL-branch-triage-verdicts-2026-10-31.md` — the locked decisions behind the verdict rules.
 - `tests/test_repo_triage_classify_unit.py`, `tests/test_git_dryrun.sh`,
   `tests/test_repo_triage_utils.sh` — unit coverage per phase.

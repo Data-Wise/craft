@@ -158,6 +158,10 @@ check_source_constants() {
         # Skip the SOT file itself
         [[ "$file" == "$SOT_FILE" ]] && continue
 
+        # Frozen fixture constants opt out with a `# version-sync: ignore` comment
+        # on the same line (pure-bash match; no pipe, so no SIGPIPE under pipefail).
+        [[ "$match" == *"version-sync: ignore"* ]] && continue
+
         [[ -z "$version" ]] && continue
         CHECKED=$((CHECKED + 1))
 

@@ -72,6 +72,24 @@ check "verbose mode completes on no-match candidate" 0 $?
 ( cd "$EMPTYDIR" && bash "$VERSION_SYNC" --quiet >/dev/null 2>&1 )
 check "no-source-of-truth path completes" 0 $?
 
+# 4. Ignore marker (#377 follow-up): a frozen fixture constant carrying
+#    `# version-sync: ignore` must not be flagged, and an unmarked sibling
+#    constant must still be flagged (positive control, so the marker is not a
+#    blanket pass).
+MARKDIR="$(mktemp -d)"
+CTRLDIR="$(mktemp -d)"
+trap 'rm -rf "$WORKDIR" "$EMPTYDIR" "$MARKDIR" "$CTRLDIR"' EXIT
+make_trigger_project "$MARKDIR"
+make_trigger_project "$CTRLDIR"
+printf 'FIXTURE_VERSION = "9.9.9"  # version-sync: ignore\n' > "$MARKDIR/fixture.py"
+printf 'FIXTURE_VERSION = "9.9.9"\n' > "$CTRLDIR/fixture.py"
+
+( cd "$MARKDIR" && bash "$VERSION_SYNC" --quiet >/dev/null 2>&1 )
+check "marked frozen constant is not flagged" 0 $?
+
+( cd "$CTRLDIR" && bash "$VERSION_SYNC" --quiet >/dev/null 2>&1 )
+check "unmarked stale constant is still flagged (positive control)" 1 $?
+
 echo ""
 echo "Results: $PASS passed, $FAIL failed"
 [[ "$FAIL" -eq 0 ]]
