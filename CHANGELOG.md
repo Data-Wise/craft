@@ -11,8 +11,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `repo-triage` branch verdicts (#374): `verdict_candidates` derives a report-only
+  `DELETE-SAFE`, `BACKUP-THEN-DECIDE`, `KEEP` or `UNKNOWN` verdict, with an evidence
+  string, for every branch. `verdict_command_blocks` prints one block per class
+  (delete commands only for `DELETE-SAFE`, push commands only for
+  `BACKUP-THEN-DECIDE`, no remote deletes), and `revalidate_verdicts` downgrades any
+  branch whose evidence changed between a scan and a re-scan to `UNKNOWN`.
+- `branch_cleanup_dry_run` emits typed evidence: `pr_open`, `pr_head_match`,
+  `pr_merge_in_base`, `upstream_status`, `remote_copy`, `worktree_status` and
+  `owner_hint`. Tool-branch prefixes come from `CRAFT_TRIAGE_TOOL_PREFIXES`
+  (default `codex/ dependabot/`).
+
+### Changed
+
+- `repo-triage` offers only `DELETE-SAFE` branches for deletion. This is stricter
+  than before: a squash-merged branch with no merged-PR evidence is no longer
+  offered. A merged PR alone is not enough either; its merge commit must be in
+  base and the content still present, so a reverted PR is not offered.
+- `ancestor_result` reads `unknown` when `git merge-base --is-ancestor` fails with
+  anything other than "not an ancestor"; the PR lookup covers open and merged PRs,
+  ignores fork PRs, and reports `unknown` (never "none") on failure or truncation.
+- The `UNKNOWN` verdict applies only when an unknown evidence field affects the outcome, so
+  a `gh` outage no longer turns every branch into `UNKNOWN`: an ancestor branch is still
+  `DELETE-SAFE` (the evidence notes that the open-PR check was unavailable) and a live
+  worktree is still `KEEP`, while an unmerged, pushed branch stays `UNKNOWN`.
+
 ### Fixed
 
+- `merge_candidates` passes every collector field through; it previously rebuilt
+  each item from four named fields and silently dropped any later evidence.
+- `is_squash_merged` no longer returns a false SAFE for a large unmerged branch under
+  `pipefail`: the `echo | grep -q` pipe took SIGPIPE on early match (#375).
 - `version-sync.sh` no longer flags frozen fixture constants: a source-constant line
   carrying `# version-sync: ignore` is skipped (applied to the `FIXTURE_VERSION` in
   `tests/test_docs_staleness_prose.py`); unmarked stale constants are still flagged.
