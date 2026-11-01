@@ -1,3 +1,15 @@
+## v4.8.2 shipped — 2026-10-31
+
+Patch release: MCP SDK 1.32.1 to 1.32.2 (#369) and the condensed `AGENTS.md`. Release
+PR #378 merged to main at `d66a19a`; tag `v4.8.2` and the GitHub release are published
+(Latest). Craft CI, MCP CI, Documentation Quality and Deploy Documentation were green on
+main; the Homebrew Release, Craft MCP Release and Aggregator Sync workflows succeeded.
+Verified: tap formula at 4.8.2 with a matching tarball sha256, live site `version-4.8.2`,
+`post-release-sweep.sh` clean. `verify-surfaces.sh` reports BLOCKED only on local stale
+state (local tap clone 4.8.0, brew-installed and Code-registered 4.8.1); run `brew update`,
+`brew upgrade craft` and `claude plugin update craft@local-plugins` to clear it. Not
+shipped: the three open feature branches below.
+
 ## v4.8.1 shipped — 2026-10-31
 
 Release PR #372 merged to main at `30e5e7929` with green CI. Tag `v4.8.1` and the
